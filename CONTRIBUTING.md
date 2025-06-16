@@ -21,6 +21,12 @@ Thank you for your interest in contributing! Your help is appreciated. Please fo
 3. **Describe your changes** clearly in the pull request description.
 4. Link to any related issues.
 
+## Need help or have ideas?
+
+- Check the open issues first.
+  - If your problem is there, add a comment or up-vote.
+  - If not there, create a new issue. Be as descriptive as possible.
+
 ## Reporting Issues
 
 If you find a bug or have a feature request, please [open an issue](https://github.com/Chris-Wolfgang/ETL-Abstractions/issues) with a clear description.
