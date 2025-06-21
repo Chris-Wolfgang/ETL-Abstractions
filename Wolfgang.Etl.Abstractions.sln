@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolfgang.Etl.Abstractions", "src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj", "{C4987BAD-4513-955F-B3C1-7563D0C1A7A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8220BC33-6632-4D4C-9A50-B7978141A4E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolfgang.Etl.Abstractions.Tests.Unit", "tests\Wolfgang.Etl.Abstractions.Tests.Unit\Wolfgang.Etl.Abstractions.Tests.Unit.csproj", "{B8558C7F-934B-3DC1-AAED-D668CF964C8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{207971F1-432C-4AB4-9DC4-16A9E5ACF812}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1-BasicETL", "examples\Net8.0\Example1-BasicETL\Example1-BasicETL.csproj", "{F1BA1AF5-9A71-421B-963C-E277610FBD40}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net80", "Net80", "{3C48157B-5E90-489E-9444-E01F51D59F86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net48", "Net48", "{336D72A1-8E5E-49DE-83D9-DF6BE458BA24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1-BasicETL", "examples\Net4.8\Example1-BasicETL\Example1-BasicETL.csproj", "{B715D0C5-3F1A-485C-92D1-FFB87A801AC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4987BAD-4513-955F-B3C1-7563D0C1A7A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4987BAD-4513-955F-B3C1-7563D0C1A7A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4987BAD-4513-955F-B3C1-7563D0C1A7A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4987BAD-4513-955F-B3C1-7563D0C1A7A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8558C7F-934B-3DC1-AAED-D668CF964C8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8558C7F-934B-3DC1-AAED-D668CF964C8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8558C7F-934B-3DC1-AAED-D668CF964C8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8558C7F-934B-3DC1-AAED-D668CF964C8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1BA1AF5-9A71-421B-963C-E277610FBD40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1BA1AF5-9A71-421B-963C-E277610FBD40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1BA1AF5-9A71-421B-963C-E277610FBD40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1BA1AF5-9A71-421B-963C-E277610FBD40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B715D0C5-3F1A-485C-92D1-FFB87A801AC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B715D0C5-3F1A-485C-92D1-FFB87A801AC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B715D0C5-3F1A-485C-92D1-FFB87A801AC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B715D0C5-3F1A-485C-92D1-FFB87A801AC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C4987BAD-4513-955F-B3C1-7563D0C1A7A3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{B8558C7F-934B-3DC1-AAED-D668CF964C8E} = {8220BC33-6632-4D4C-9A50-B7978141A4E3}
+		{F1BA1AF5-9A71-421B-963C-E277610FBD40} = {3C48157B-5E90-489E-9444-E01F51D59F86}
+		{3C48157B-5E90-489E-9444-E01F51D59F86} = {207971F1-432C-4AB4-9DC4-16A9E5ACF812}
+		{336D72A1-8E5E-49DE-83D9-DF6BE458BA24} = {207971F1-432C-4AB4-9DC4-16A9E5ACF812}
+		{B715D0C5-3F1A-485C-92D1-FFB87A801AC3} = {336D72A1-8E5E-49DE-83D9-DF6BE458BA24}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F673635D-58CE-48A5-9AE4-31F4484BED9E}
+	EndGlobalSection
+EndGlobal
