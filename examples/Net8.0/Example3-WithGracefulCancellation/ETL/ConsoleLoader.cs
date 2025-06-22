@@ -1,5 +1,4 @@
-﻿using Example3_ExtractorWithGracefulCancellation;
-using Wolfgang.Etl.Abstractions;
+﻿using Wolfgang.Etl.Abstractions;
 
 namespace Example3_WithGracefulCancellation.ETL
 {

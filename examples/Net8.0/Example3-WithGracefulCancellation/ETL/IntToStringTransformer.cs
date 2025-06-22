@@ -1,6 +1,6 @@
 ﻿using Wolfgang.Etl.Abstractions;
 
-namespace Example3_ExtractorWithGracefulCancellation.ETL
+namespace Example3_WithGracefulCancellation.ETL
 {
     internal class IntToStringTransformer : ITransformAsync<int, string>
     {

@@ -1,7 +1,6 @@
-﻿using Example3_ExtractorWithGracefulCancellation.ETL;
-using Example3_WithGracefulCancellation.ETL;
+﻿using Example3_WithGracefulCancellation.ETL;
 
-namespace Example3_ExtractorWithGracefulCancellation
+namespace Example3_WithGracefulCancellation
 {
     internal class Program
     {
