@@ -17,7 +17,7 @@ namespace Example1_BasicETL.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Yield(); // Simulate asynchronous operation
+                await Task.Delay(100); // Simulate asynchronous operation
             }
 
             Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
