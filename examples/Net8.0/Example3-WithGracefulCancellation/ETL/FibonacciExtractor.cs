@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions;
 
-namespace Example3_ExtractorWithGracefulCancellation.ETL
+namespace Example3_WithGracefulCancellation.ETL
 {
     internal class FibonacciExtractor : IExtractWithCancellationAsync<int>
     {

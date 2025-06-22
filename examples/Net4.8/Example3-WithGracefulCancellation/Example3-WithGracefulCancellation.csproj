@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ETL\ConsoleLoader.cs" />
-    <Compile Include="ETL\FibanocciExtractor.cs" />
+    <Compile Include="ETL\FibonacciExtractor.cs" />
     <Compile Include="ETL\IntToStringTransformer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
