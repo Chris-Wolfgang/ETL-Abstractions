@@ -14,5 +14,20 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit
 
             await loader.LoadAsync(transformer.TransformAsync(extractor.ExtractAsync()));
         }
+
+
+
+        [Fact]
+        public async Task Ensure_interfaces_with_CancellationToken_work_with_specified_dotnet_versions()
+        {
+
+            var extractor = new FibonacciWithCancellationExtractor();
+            var transformer = new IntToStringWithCancellationTransformer();
+            var loader = new ConsoleWithCancellationLoader();
+
+            var token = new CancellationTokenSource().Token;
+
+            await loader.LoadAsync(transformer.TransformAsync(extractor.ExtractAsync(token), token), token);
+        }
     }
 }

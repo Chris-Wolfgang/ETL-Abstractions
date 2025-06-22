@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
+﻿namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
 {
     internal class IntToStringTransformer : ITransformAsync<int, string>
     {
