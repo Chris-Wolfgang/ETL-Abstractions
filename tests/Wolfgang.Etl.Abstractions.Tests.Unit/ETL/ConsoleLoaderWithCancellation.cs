@@ -1,6 +1,6 @@
 ﻿namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
 {
-    internal class ConsoleWithCancellationLoader : ILoadWithCancellationAsync<string>
+    internal class ConsoleLoaderWithCancellation : ILoadWithCancellationAsync<string>
     {
         public async Task LoadAsync(IAsyncEnumerable<string> items, CancellationToken token)
         {

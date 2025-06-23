@@ -2,7 +2,7 @@
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
 {
-    internal class IntToStringWithCancellationTransformer : ITransformWithCancellationAsync<int, string>
+    internal class IntToStringTransformerWithCancellation : ITransformWithCancellationAsync<int, string>
     {
         public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)
         {
