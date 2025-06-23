@@ -24,10 +24,11 @@ namespace Example3_WithGracefulCancellation
 
             // Set a cancellation token to cancel the extraction after 1 second
             var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
+            var token = cts.Token;
 
-            var sourceItems = extractor.ExtractAsync(cts.Token);
-            var transformedItems = transformer.TransformAsync(sourceItems);
-            await loader.LoadAsync(transformedItems);
+            var sourceItems = extractor.ExtractAsync(token);
+            var transformedItems = transformer.TransformAsync(sourceItems, token);
+            await loader.LoadAsync(transformedItems, token);
 
             Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
         }
