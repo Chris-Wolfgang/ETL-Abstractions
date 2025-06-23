@@ -2,9 +2,9 @@
 {
     internal class IntToStringTransformer : ITransformAsync<int, string>
     {
-        public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> source)
+        public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items)
         {
-            await foreach (var item in source)
+            await foreach (var item in items)
             {
                 yield return item.ToString();
             }

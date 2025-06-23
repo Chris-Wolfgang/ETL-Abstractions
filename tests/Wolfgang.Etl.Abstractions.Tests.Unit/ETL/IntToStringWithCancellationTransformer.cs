@@ -4,9 +4,9 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
 {
     internal class IntToStringWithCancellationTransformer : ITransformWithCancellationAsync<int, string>
     {
-        public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> source, [EnumeratorCancellation] CancellationToken token)
+        public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)
         {
-            await foreach (var item in source.WithCancellation(token))
+            await foreach (var item in items.WithCancellation(token))
             {
                 yield return item.ToString();
             }

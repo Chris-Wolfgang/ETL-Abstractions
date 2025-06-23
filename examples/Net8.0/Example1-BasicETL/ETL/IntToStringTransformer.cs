@@ -4,11 +4,11 @@ namespace Example1_BasicETL.ETL
 {
     internal class IntToStringTransformer : ITransformAsync<int, string>
     {
-        public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> source)
+        public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items)
         {
             Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
             
-            await foreach (var item in source)
+            await foreach (var item in items)
             {
                 Console.WriteLine($"Transforming integer {item} to string.");
                 await Task.Delay(50); // Simulate some delay for transformation
