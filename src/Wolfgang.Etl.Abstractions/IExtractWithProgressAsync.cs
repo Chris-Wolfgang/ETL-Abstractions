@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Wolfgang.Etl.Abstractions
+{
+    /// <summary>
+    /// Defines an asynchronous extractor interface for extracting data of type T. 
+    /// A class implementing this interface is intended to be the first step in an
+    /// ETL (Extract, Transform, Load) process. 
+    /// </summary>
+    /// <typeparam name="TSource">Represents a single item from the source of the ETL</typeparam>
+    /// <typeparam name="TProgress">The value of the updated progress</typeparam>
+    /// <remarks>
+    /// The extractor is responsible for pulling data from a source, which could be a
+    /// database, file, API, web service or any other data source.  It is also responsible for
+    /// handling any exceptions that may occur during the extraction process, including
+    /// but not limited to network issues, data format errors, or source unavailability.
+    /// The extractor should be resilient and capable of retrying operations in case of
+    /// transient failures. The extracted data is returned as an asynchronous stream of
+    /// type T, allowing for efficient processing by the transformer and loader components
+    /// of the ETL pipeline. Ideally, the extractor should NOT do any transformation of the
+    /// data; its sole responsibility is to pull data from the source and provide it in its
+    /// raw form to the next step in the ETL process. However, occasionally, some minimal
+    /// transformation may be necessary to ensure the data is in a suitable format for further
+    /// processing. For example, if the data is being extracted from a CSV file the same
+    /// library that parses the CSV file may also bind the data to a specific type T. In this case
+    /// the pragmatic approach is to allow the extractor to perform this minimal transformation
+    /// </remarks>
+    public interface IExtractWithProgressAsync<out TSource, out TProgress>
+    {
+        /// <summary>
+        /// Asynchronously extracts data of type T from a source.
+        /// </summary>
+        /// <param name="progress">A provider for progress updates.</param>
+        /// <returns>IAsyncEnumerable&lt;T&gt;</returns>
+        /// The result may be an empty sequence if no data is available or if the extraction fails.
+        IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress);
+    }
+}
