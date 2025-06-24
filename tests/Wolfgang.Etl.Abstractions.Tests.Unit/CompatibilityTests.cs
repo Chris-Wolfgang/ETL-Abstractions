@@ -52,6 +52,24 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit
 
 
 
+        [Fact]
+        public async Task Ensure_interfaces_with_Progress_and_CancellationToken_work_with_specified_dotnet_versions()
+        {
+            var extractor = new FibonacciExtractorWithProgressAndCancellation();
+            var transformer = new IntToStringTransformerWithProgressAndCancellation();
+            var loader = new ConsoleLoaderWithProgressAndCancellation();
+
+            var extractorProgress = new Progress<EtlProgress>(p => Console.WriteLine($"Progress: {p.CurrentCount} items processed."));
+            var transformerProgress = new Progress<EtlProgress>(p => Console.WriteLine($"Progress: {p.CurrentCount} items transformed."));
+            var loaderProgress = new Progress<EtlProgress>(p => Console.WriteLine($"Progress: {p.CurrentCount} items loaded."));
+
+            var token = new CancellationTokenSource().Token;
+
+            var items = extractor.ExtractAsync(extractorProgress, token);
+            var transformedItems = transformer.TransformAsync(items, transformerProgress, token);
+            await loader.LoadAsync(transformedItems, loaderProgress,token);
+        }
+
 
     }
 }
