@@ -1,5 +1,4 @@
 ﻿using Example4a_WithExtractorProgress.ETL;
-using Example4c_WithLoaderProgress.ETL;
 
 namespace Example4a_WithExtractorProgress
 {

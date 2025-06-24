@@ -1,7 +1,6 @@
-﻿using Example4a_WithExtractorProgress;
-using Wolfgang.Etl.Abstractions;
+﻿using Wolfgang.Etl.Abstractions;
 
-namespace Example4c_WithLoaderProgress.ETL
+namespace Example4a_WithExtractorProgress.ETL
 {
     internal class IntToStringTransformer 
         : ITransformAsync<int, string>, ITransformWithProgressAsync<int, string, EtlProgress>

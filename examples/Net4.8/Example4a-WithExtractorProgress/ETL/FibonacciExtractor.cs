@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Example4a_WithExtractorProgress;
 using Wolfgang.Etl.Abstractions;
 
-namespace Example4c_WithLoaderProgress.ETL
+namespace Example4a_WithExtractorProgress.ETL
 {
     internal class FibonacciExtractor : IExtractAsync<int>, IExtractWithProgressAsync<int, EtlProgress>
     {
