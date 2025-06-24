@@ -22,7 +22,22 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
                 _progressInterval = value;
             }
         }
-        
+
+
+        public async IAsyncEnumerable<int> ExtractAsync()
+        {
+            var current = 1;
+            var previous = 0;
+            for (var x = 0; x < 10; ++x)
+            {
+                yield return current;
+                var temp = current;
+                current += previous;
+                previous = temp;
+                await Task.Yield(); // Simulate asynchronous operation
+            }
+        }
+
 
 
         public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)
@@ -47,7 +62,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
+                await Task.Yield(); // Simulate some delay for loading
             }
 
             progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count

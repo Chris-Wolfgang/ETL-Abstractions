@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Wolfgang.Etl.Abstractions
@@ -27,12 +28,15 @@ namespace Wolfgang.Etl.Abstractions
     /// the pragmatic approach is to allow the loader to perform this minimal transformation.
     /// </remarks>
     public interface ILoadAsync<in TDestination>
+        where TDestination : notnull
+
     {
         /// <summary>
         /// Loads the data asynchronously.
         /// </summary>
         /// <param name="items">The items data to load.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
+        /// <exception cref="ArgumentNullException">The value of items is null</exception>
         Task LoadAsync(IAsyncEnumerable<TDestination> items);
     }
 }

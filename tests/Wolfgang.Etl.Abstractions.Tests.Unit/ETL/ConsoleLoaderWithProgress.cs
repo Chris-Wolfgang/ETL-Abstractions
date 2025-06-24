@@ -26,6 +26,16 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
 
 
 
+        public async Task LoadAsync(IAsyncEnumerable<string> items)
+        {
+            await foreach (var item in items)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+
+
         public async Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress)
         {
             var count = 0;
@@ -42,7 +52,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
             await foreach (var item in items)
             {
                 Console.WriteLine($"Loading item: {item}\n");
-                await Task.Delay(50); // Simulate some delay for loading
+                await Task.Yield(); // Simulate some delay for loading
                 count = Interlocked.Increment(ref count);
 
             }

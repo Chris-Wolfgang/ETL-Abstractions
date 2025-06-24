@@ -24,6 +24,15 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
         }
 
 
+        public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items)
+        {
+            await foreach (var item in items)
+            {
+                yield return item.ToString();
+            }
+        }
+
+
 
         public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items, IProgress<EtlProgress> progress)
         {
@@ -40,7 +49,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.ETL
             await foreach (var item in items)
             {
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50); // Simulate some delay for transformation
+                await Task.Yield(); // Simulate some delay for loading
                 yield return item.ToString();
                 count = Interlocked.Increment(ref count);
 

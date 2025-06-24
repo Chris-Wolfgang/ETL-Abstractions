@@ -25,6 +25,8 @@ namespace Wolfgang.Etl.Abstractions
     /// the pragmatic approach is to allow the extractor to perform this minimal transformation
     /// </remarks>
     public interface IExtractAsync<out TSource>
+        where TSource : notnull
+
     {
         /// <summary>
         /// Asynchronously extracts data of type T from a source.

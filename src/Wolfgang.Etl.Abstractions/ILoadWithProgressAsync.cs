@@ -28,7 +28,9 @@ namespace Wolfgang.Etl.Abstractions
     /// may handle the conversion of objects of type T to strings (rows). In this case,
     /// the pragmatic approach is to allow the loader to perform this minimal transformation.
     /// </remarks>
-    public interface ILoadWithProgressAsync<in TDestination, out TProgress>
+    public interface ILoadWithProgressAsync<in TDestination, out TProgress> :
+        ILoadAsync<TDestination>
+        where TDestination : notnull where TProgress : notnull
     {
         /// <summary>
         /// Loads the data asynchronously.
@@ -36,6 +38,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <param name="items">The items data to load.</param>
         /// <param name="progress">A provider for progress updates.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> pro);
+        /// <exception cref="ArgumentNullException">The value of items or progress is null</exception>
+        Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress);
     }
 }

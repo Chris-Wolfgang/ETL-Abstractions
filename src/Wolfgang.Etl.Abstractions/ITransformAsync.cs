@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -21,12 +22,15 @@ namespace Wolfgang.Etl.Abstractions
     /// serializing an object of type T to a string of JSON to before passing it to the loader to.
     /// </remarks>
     public interface ITransformAsync<in TSource, out TDestination>
+        where TSource : notnull where TDestination : notnull
+
     {
         /// <summary>
         /// Asynchronously transforms data of type TSource to TDestination.
         /// </summary>
         /// <param name="items">Asynchronous list of TSource </param>
         /// <returns>Asynchronous&lt;T&gt;</returns>
+        /// <exception cref="ArgumentNullException">The value of items is null</exception>
         IAsyncEnumerable<TDestination>TransformAsync(IAsyncEnumerable<TSource> items);
     }
 }

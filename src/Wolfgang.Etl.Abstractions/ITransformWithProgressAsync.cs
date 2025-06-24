@@ -21,7 +21,9 @@ namespace Wolfgang.Etl.Abstractions
     /// deserializing a string of JSON from web service call and binding it to a specific type T or
     /// serializing an object of type T to a string of JSON to before passing it to the loader to.
     /// </remarks>
-    public interface ITransformWithProgressAsync<in TSource, out TDestination, out TProgress>
+    public interface ITransformWithProgressAsync<in TSource, out TDestination, out TProgress> :
+        ITransformAsync<TSource, TDestination>
+        where TSource : notnull where TDestination : notnull where TProgress : notnull
     {
         /// <summary>
         /// Asynchronously transforms data of type TSource to TDestination.
@@ -29,6 +31,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <param name="items">Asynchronous list of TSource </param>
         /// <param name="progress">A provider for progress updates.</param>
         /// <returns>Asynchronous&lt;T&gt;</returns>
+        /// <exception cref="ArgumentNullException">The value of items or progress is null</exception>
         IAsyncEnumerable<TDestination>TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress);
     }
 }

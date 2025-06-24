@@ -20,14 +20,20 @@ namespace Wolfgang.Etl.Abstractions
     /// deserializing a string of JSON from web service call and binding it to a specific type T or
     /// serializing an object of type T to a string of JSON to before passing it to the loader to.
     /// </remarks>
-    public interface ITransformWithCancellationAsync<in TSource, out TDestination>
+    public interface ITransformWithCancellationAsync<in TSource, out TDestination> :
+        ITransformAsync<TSource, TDestination>
+        where TSource : notnull where TDestination : notnull
     {
         /// <summary>
         /// Asynchronously transforms data of type TSource to TDestination.
         /// </summary>
         /// <param name="items">Asynchronous list of TSource </param>
-        /// <param name="token">CancellationToken</param>
+        /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
         /// <returns>Asynchronous&lt;T&gt;</returns>
+        /// <remarks>
+        /// The extractor should be able to handle cancellation requests gracefully.
+        /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
+        /// </remarks>
         IAsyncEnumerable<TDestination>TransformAsync(IAsyncEnumerable<TSource> items, CancellationToken token);
     }
 }

@@ -25,14 +25,21 @@ namespace Wolfgang.Etl.Abstractions
     /// library that parses the CSV file may also bind the data to a specific type T. In this case
     /// the pragmatic approach is to allow the extractor to perform this minimal transformation
     /// </remarks>
-    public interface IExtractWithCancellationAsync<out TSource>
+    public interface IExtractWithCancellationAsync<out TSource> :
+        IExtractAsync<TSource> 
+        where TSource : notnull
     {
         /// <summary>
         /// Asynchronously extracts data of type T from a source.
         /// </summary>
-        /// <param name="token">CancellationToken</param>
-        /// <returns>IAsyncEnumerable&lt;T&gt;</returns>
-        /// The result may be an empty sequence if no data is available or if the extraction fails.
+        /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
+        /// <returns>
+        /// IAsyncEnumerable&lt;T&gt; - The result may be an empty sequence if no data is available or if the extraction fails.
+        /// </returns>
+        /// <remarks>
+        /// The extractor should be able to handle cancellation requests gracefully.
+        /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
+        /// </remarks>
         IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token);
     }
 }

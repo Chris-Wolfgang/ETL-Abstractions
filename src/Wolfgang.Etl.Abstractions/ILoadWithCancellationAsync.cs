@@ -27,14 +27,20 @@ namespace Wolfgang.Etl.Abstractions
     /// may handle the conversion of objects of type T to strings (rows). In this case,
     /// the pragmatic approach is to allow the loader to perform this minimal transformation.
     /// </remarks>
-    public interface ILoadWithCancellationAsync<in TDestination>
+    public interface ILoadWithCancellationAsync<in TDestination> :
+        ILoadAsync<TDestination>
+        where TDestination : notnull
     {
         /// <summary>
         /// Loads the data asynchronously.
         /// </summary>
         /// <param name="items">The items data to load.</param>
-        /// <param name="token">CancellationToken</param>
+        /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
+        /// <remarks>
+        /// The extractor should be able to handle cancellation requests gracefully.
+        /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
+        /// </remarks>
         Task LoadAsync(IAsyncEnumerable<TDestination> items, CancellationToken token);
     }
 }

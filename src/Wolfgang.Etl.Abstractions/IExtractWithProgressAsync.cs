@@ -26,14 +26,17 @@ namespace Wolfgang.Etl.Abstractions
     /// library that parses the CSV file may also bind the data to a specific type T. In this case
     /// the pragmatic approach is to allow the extractor to perform this minimal transformation
     /// </remarks>
-    public interface IExtractWithProgressAsync<out TSource, out TProgress>
+    public interface IExtractWithProgressAsync<out TSource, out TProgress> :
+        IExtractAsync<TSource>
+        where TSource : notnull
     {
         /// <summary>
         /// Asynchronously extracts data of type T from a source.
         /// </summary>
         /// <param name="progress">A provider for progress updates.</param>
-        /// <returns>IAsyncEnumerable&lt;T&gt;</returns>
-        /// The result may be an empty sequence if no data is available or if the extraction fails.
+        /// <returns>IAsyncEnumerable&lt;T&gt; The result may be an empty sequence if no data is available or if the extraction fails.
+        /// </returns> 
+        /// <exception cref="ArgumentNullException">The value of progress is null</exception>
         IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress);
     }
 }
