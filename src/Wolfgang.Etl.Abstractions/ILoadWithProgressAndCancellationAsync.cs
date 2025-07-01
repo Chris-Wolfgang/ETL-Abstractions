@@ -37,7 +37,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <summary>
         /// Loads the data asynchronously.
         /// </summary>
-        /// <param name="items">The items data to load.</param>
+        /// <param name="items">The items to be loaded to the destination.</param>
         /// <param name="progress">A provider for progress updates.</param>
         /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
