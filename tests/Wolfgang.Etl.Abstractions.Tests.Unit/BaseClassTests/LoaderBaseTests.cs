@@ -1,6 +1,6 @@
 ﻿using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
-namespace Wolfgang.Etl.Abstractions.Tests.Unit
+namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 {
     public class LoaderBaseTests
     {

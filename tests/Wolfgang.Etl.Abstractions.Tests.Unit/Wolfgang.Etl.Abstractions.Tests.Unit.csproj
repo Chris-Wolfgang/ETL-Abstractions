@@ -2,8 +2,9 @@
 
   <PropertyGroup>
 	  <TargetFrameworks>
-		  net462;net472;net48;
+		  net462;net472;net48;net481;
 		  netstandard2.0;netstandard2.1;
+		  net50;net6.0;net7.0;
 		  net8.0;net9.0
 	  </TargetFrameworks>
 	  <Version>0.1.0</Version>
@@ -15,6 +16,12 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ETL\**" />
+    <EmbeddedResource Remove="ETL\**" />
+    <None Remove="ETL\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4">
