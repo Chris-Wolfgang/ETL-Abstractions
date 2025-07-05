@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -37,6 +38,9 @@ namespace Wolfgang.Etl.Abstractions
         /// <returns>IAsyncEnumerable&lt;T&gt; The result may be an empty sequence if no data is available or if the extraction fails.
         /// </returns> 
         /// <exception cref="ArgumentNullException">The value of progress is null</exception>
-        IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress);
+        IAsyncEnumerable<TSource> ExtractAsync
+            (
+                [NotNull] IProgress<TProgress> progress
+            );
     }
 }

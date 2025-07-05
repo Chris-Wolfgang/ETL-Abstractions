@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -41,6 +42,10 @@ namespace Wolfgang.Etl.Abstractions
         /// The extractor should be able to handle cancellation requests gracefully.
         /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
         /// </remarks>
-        Task LoadAsync(IAsyncEnumerable<TDestination> items, CancellationToken token);
+        Task LoadAsync
+            (
+                [NotNull] IAsyncEnumerable<TDestination> items, 
+                CancellationToken token
+            );
     }
 }

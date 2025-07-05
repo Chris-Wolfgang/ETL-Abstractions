@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -37,6 +38,9 @@ namespace Wolfgang.Etl.Abstractions
         /// <param name="items">The items to be loaded to the destination.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException">The value of items is null</exception>
-        Task LoadAsync(IAsyncEnumerable<TDestination> items);
+        Task LoadAsync
+            (
+                [NotNull] IAsyncEnumerable<TDestination> items
+            );
     }
 }

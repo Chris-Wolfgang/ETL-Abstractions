@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -46,6 +47,11 @@ namespace Wolfgang.Etl.Abstractions
         /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
         /// </remarks>
         /// <exception cref="ArgumentNullException">The value of items or progress is null</exception>
-        Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress, CancellationToken token);
+        Task LoadAsync
+            (
+                [NotNull] IAsyncEnumerable<TDestination> items, 
+                [NotNull] IProgress<TProgress> progress, 
+                CancellationToken token
+            );
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -39,6 +40,10 @@ namespace Wolfgang.Etl.Abstractions
         /// <param name="progress">A provider for progress updates.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException">The value of items or progress is null</exception>
-        Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress);
+        Task LoadAsync
+            (
+                [NotNull] IAsyncEnumerable<TDestination> items, 
+                [NotNull] IProgress<TProgress> progress
+            );
     }
 }
