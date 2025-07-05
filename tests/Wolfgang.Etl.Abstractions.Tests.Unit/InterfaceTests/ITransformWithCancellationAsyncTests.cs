@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
 {
@@ -20,7 +21,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
         }
 
 
-        public class IntToStringTransformer 
+        [ExcludeFromCodeCoverage]
+        internal class IntToStringTransformer 
             : ITransformWithCancellationAsync<int, string>
         {
             public IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items)

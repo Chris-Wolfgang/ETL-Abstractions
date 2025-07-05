@@ -1,4 +1,6 @@
-﻿namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
 {
     // ReSharper disable once InconsistentNaming
     public class IExtractAsyncTests
@@ -17,6 +19,7 @@
         }
 
 
+        [ExcludeFromCodeCoverage]
         internal class FibonacciExtractor : IExtractAsync<int>
         {
             public async IAsyncEnumerable<int> ExtractAsync()

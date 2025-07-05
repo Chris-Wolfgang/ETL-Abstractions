@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
@@ -25,6 +26,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
 
 
 
+        [ExcludeFromCodeCoverage]
         internal class FibonacciExtractor
             : IExtractWithProgressAndCancellationAsync<int, EtlProgress>
         {

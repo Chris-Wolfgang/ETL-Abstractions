@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
 {
@@ -17,9 +18,10 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
 
             Assert.Equal(expected, actual);
         }
-        
 
 
+
+        [ExcludeFromCodeCoverage]
         internal class FibonacciExtractor : IExtractWithCancellationAsync<int>
         {
             public async IAsyncEnumerable<int> ExtractAsync([EnumeratorCancellation] CancellationToken token)

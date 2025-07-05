@@ -1,4 +1,6 @@
-﻿namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
 {
     // ReSharper disable once InconsistentNaming
     public class ILoadAsyncTest
@@ -23,7 +25,8 @@
 
 
 
-        public class ConsoleLoader : ILoadAsync<string>
+        [ExcludeFromCodeCoverage]
+        internal class ConsoleLoader : ILoadAsync<string>
         {
             public async Task LoadAsync(IAsyncEnumerable<string> items)
             {

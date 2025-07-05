@@ -1,4 +1,5 @@
-﻿using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
 {
@@ -21,7 +22,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
         }
 
 
-        
+
+        [ExcludeFromCodeCoverage]
         internal class FibonacciWithProgressExtractor : IExtractWithProgressAsync<int, EtlProgress>
         {
             public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)

@@ -1,4 +1,5 @@
-﻿using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
 {
@@ -29,7 +30,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.InterfaceTests
 
 
 
-        public class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, EtlProgress>
+        [ExcludeFromCodeCoverage]
+        internal class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, EtlProgress>
         {
             public Task LoadAsync(IAsyncEnumerable<string> items)
             {
