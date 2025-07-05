@@ -199,7 +199,7 @@ namespace Wolfgang.Etl.Abstractions
         {
             if (progress == null)
             {
-                throw new ArgumentNullException(nameof(progress));
+                throw new ArgumentNullException(nameof(progress), "Progress cannot be null.");
             }
 
             using var timer = new Timer
@@ -233,7 +233,7 @@ namespace Wolfgang.Etl.Abstractions
         {
             if (progress == null)
             {
-                throw new ArgumentNullException(nameof(progress));
+                throw new ArgumentNullException(nameof(progress), "Progress cannot be null.");
             }
 
             using var timer = new Timer
@@ -241,9 +241,10 @@ namespace Wolfgang.Etl.Abstractions
                 _ => progress.Report(CreateProgressReport()),
                 null,
                 TimeSpan.Zero,
+                
                 TimeSpan.FromMilliseconds(ReportingInterval)
             );
-
+            
             
             return ExtractWorkerAsync(token);
         }

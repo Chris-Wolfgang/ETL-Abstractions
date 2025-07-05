@@ -138,7 +138,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <exception cref="ArgumentNullException">Argument items is null</exception>
         public Task LoadAsync
         (
-            [NotNull] IAsyncEnumerable<TDestination> items
+            IAsyncEnumerable<TDestination> items
         )
         {
             if (items == null)
@@ -163,7 +163,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <exception cref="ArgumentNullException">Argument items is null</exception>
         public Task LoadAsync
         (
-            [NotNull] IAsyncEnumerable<TDestination> items, 
+            IAsyncEnumerable<TDestination> items, 
             CancellationToken token
         )
         {
@@ -189,8 +189,8 @@ namespace Wolfgang.Etl.Abstractions
         /// <exception cref="ArgumentNullException">Argument progress is null</exception>
         public Task LoadAsync
         (
-            [NotNull] IAsyncEnumerable<TDestination> items,
-            [NotNull] IProgress<TProgress> progress
+            IAsyncEnumerable<TDestination> items,
+            IProgress<TProgress> progress
         )
         {
             if (items == null)
@@ -234,6 +234,11 @@ namespace Wolfgang.Etl.Abstractions
             CancellationToken token
         )
         {
+            if (items == null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
             if (progress == null)
             {
                 throw new ArgumentNullException(nameof(progress));
@@ -264,7 +269,11 @@ namespace Wolfgang.Etl.Abstractions
         /// </remarks>
         /// <returns>Task</returns>
         /// <exception cref="ArgumentNullException">Argument items is null</exception>
-        protected abstract Task LoadWorkerAsync(IAsyncEnumerable<TDestination>items, CancellationToken token);
+        protected abstract Task LoadWorkerAsync
+        (
+            IAsyncEnumerable<TDestination>items, 
+            CancellationToken token
+        );
 
 
 

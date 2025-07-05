@@ -135,7 +135,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </returns>
         public IAsyncEnumerable<TDestination> TransformAsync
         (
-            [NotNull] IAsyncEnumerable<TSource> items
+            IAsyncEnumerable<TSource> items
         )
         {
             if (items == null)
@@ -160,7 +160,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </remarks>
         public IAsyncEnumerable<TDestination> TransformAsync
         (
-            [NotNull] IAsyncEnumerable<TSource> items, 
+            IAsyncEnumerable<TSource> items, 
             CancellationToken token
         )
         {
@@ -183,8 +183,8 @@ namespace Wolfgang.Etl.Abstractions
         /// <exception cref="ArgumentNullException">The value of progress is null</exception>
         public IAsyncEnumerable<TDestination> TransformAsync
         (
-            [NotNull] IAsyncEnumerable<TSource> items,
-            [NotNull] IProgress<TProgress> progress
+            IAsyncEnumerable<TSource> items,
+            IProgress<TProgress> progress
         )
         {
             if (items == null)
@@ -231,6 +231,11 @@ namespace Wolfgang.Etl.Abstractions
             CancellationToken token
         )
         {
+            if (items == null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
             if (progress == null)
             {
                 throw new ArgumentNullException(nameof(progress));
