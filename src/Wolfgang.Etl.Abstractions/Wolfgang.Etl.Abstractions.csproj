@@ -6,10 +6,32 @@
 		  netstandard2.0;netstandard2.1;
 		  net8.0;net9.0
 	  </TargetFrameworks>
-
 	  <LangVersion>latest</LangVersion>
-   <Version>0.1.0</Version>
+   <Version>1.0.0-rc1</Version>
+   <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+   <Title>$(AssemblyName)</Title>
+   <Authors>Chris Wolfgang</Authors>
+   <Description>Contains interfaces and base classes used to build ETL applications</Description>
+   <Copyright>2025</Copyright>
+   <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
+   <PackageReadmeFile>README.md</PackageReadmeFile>
+   <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>
+   <AssemblyVersion>1.0.0</AssemblyVersion>
+   <PackageLicenseExpression>MIT</PackageLicenseExpression>
+   <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+   <PackageIcon>ETL.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\ETL.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
