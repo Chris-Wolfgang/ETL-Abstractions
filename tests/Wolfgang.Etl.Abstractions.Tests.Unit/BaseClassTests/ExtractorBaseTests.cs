@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 using Xunit.Abstractions;
-using OperationCanceledException = System.OperationCanceledException;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 {
