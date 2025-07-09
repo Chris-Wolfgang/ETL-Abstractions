@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using JetBrains.Annotations;
+
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -48,7 +48,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <exception cref="ArgumentNullException">The value of progress is null</exception>
         IAsyncEnumerable<TSource> ExtractAsync
             (
-                [NotNull] IProgress<TProgress> progress, 
+                IProgress<TProgress> progress, 
                 CancellationToken token
             );
     }

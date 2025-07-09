@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
+
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -44,7 +44,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </remarks>
         Task LoadAsync
             (
-                [NotNull] IAsyncEnumerable<TDestination> items, 
+                IAsyncEnumerable<TDestination> items, 
                 CancellationToken token
             );
     }

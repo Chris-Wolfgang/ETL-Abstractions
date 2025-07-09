@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
+
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -40,7 +40,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <exception cref="ArgumentNullException">The value of items is null</exception>
         Task LoadAsync
             (
-                [NotNull] IAsyncEnumerable<TDestination> items
+                IAsyncEnumerable<TDestination> items
             );
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
+
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -34,7 +34,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <exception cref="ArgumentNullException">The value of items is null</exception>
         IAsyncEnumerable<TDestination>TransformAsync
             (
-                [NotNull] IAsyncEnumerable<TSource> items
+                IAsyncEnumerable<TSource> items
             );
     }
 }

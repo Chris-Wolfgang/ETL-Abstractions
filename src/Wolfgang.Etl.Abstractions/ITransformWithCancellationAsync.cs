@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using JetBrains.Annotations;
+
 
 namespace Wolfgang.Etl.Abstractions
 {
@@ -37,7 +37,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </remarks>
         IAsyncEnumerable<TDestination>TransformAsync
             (
-                [NotNull] IAsyncEnumerable<TSource> items, 
+                IAsyncEnumerable<TSource> items, 
                 CancellationToken token
             );
     }

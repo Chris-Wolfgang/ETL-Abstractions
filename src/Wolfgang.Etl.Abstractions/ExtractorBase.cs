@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
-using JetBrains.Annotations;
+
 
 
 namespace Wolfgang.Etl.Abstractions
@@ -42,7 +42,7 @@ namespace Wolfgang.Etl.Abstractions
         /// It is the responsibility of the derived class to keep this value up to date as the
         /// base class will have no way of knowing the correct value
         /// </remarks>
-        [UsedImplicitly]
+
         [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
         public int CurrentItemCount
         {
@@ -85,7 +85,7 @@ namespace Wolfgang.Etl.Abstractions
         ///     }
         /// </code>
         /// </example>
-        [UsedImplicitly]
+
         [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 1.")]
         public int MaximumItemCount
         {
@@ -136,7 +136,7 @@ namespace Wolfgang.Etl.Abstractions
         ///     }
         /// </code>
         /// </example>
-        [UsedImplicitly]
+
         [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
         public int SkipItemCount
         {
