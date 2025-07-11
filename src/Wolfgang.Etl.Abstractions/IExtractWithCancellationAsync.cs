@@ -30,7 +30,7 @@ namespace Wolfgang.Etl.Abstractions
         where TSource : notnull
     {
         /// <summary>
-        /// Asynchronously extracts data of type T from a source.
+        /// Asynchronously extracts data of type TSource from a source.
         /// </summary>
         /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
         /// <returns>

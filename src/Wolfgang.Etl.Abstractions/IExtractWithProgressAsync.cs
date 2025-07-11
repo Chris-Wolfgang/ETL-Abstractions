@@ -32,7 +32,7 @@ namespace Wolfgang.Etl.Abstractions
         where TSource : notnull
     {
         /// <summary>
-        /// Asynchronously extracts data of type T from a source.
+        /// Asynchronously extracts data of type TSource from a source.
         /// </summary>
         /// <param name="progress">A provider for progress updates.</param>
         /// <returns>IAsyncEnumerable&lt;T&gt; The result may be an empty sequence if no data is available or if the extraction fails.

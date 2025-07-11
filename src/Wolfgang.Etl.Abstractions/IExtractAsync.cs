@@ -29,7 +29,7 @@ namespace Wolfgang.Etl.Abstractions
 
     {
         /// <summary>
-        /// Asynchronously extracts data of type T from a source.
+        /// Asynchronously extracts data of type TSource from a source.
         /// </summary>
         /// <returns>IAsyncEnumerable&lt;T&gt;</returns>
         /// The result may be an empty sequence if no data is available or if the extraction fails.
