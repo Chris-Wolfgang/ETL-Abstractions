@@ -7,7 +7,7 @@
 		  net8.0;net9.0
 	  </TargetFrameworks>
 	  <LangVersion>latest</LangVersion>
-   <Version>1.0.0-rc1</Version>
+   <Version>1.0.0-rc2</Version>
    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
    <Title>$(AssemblyName)</Title>
    <Authors>Chris Wolfgang</Authors>
@@ -24,6 +24,10 @@
 
   <ItemGroup>
     <None Include="..\..\ETL.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
