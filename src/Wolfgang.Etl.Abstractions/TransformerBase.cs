@@ -82,9 +82,9 @@ namespace Wolfgang.Etl.Abstractions
             get => _maximumItemCount;
             set
             {
-                if (value < 1)
+                if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 0.");
                 }
                 _maximumItemCount = value;
             }

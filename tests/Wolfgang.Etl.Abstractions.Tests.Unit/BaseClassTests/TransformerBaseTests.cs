@@ -316,7 +316,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
             var sut = new IntToStringTransformerFromTransformerBase();
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.MaximumItemCount = 0);
+            Assert.Throws<ArgumentOutOfRangeException>(() => sut.MaximumItemCount = -1);
         }
 
 

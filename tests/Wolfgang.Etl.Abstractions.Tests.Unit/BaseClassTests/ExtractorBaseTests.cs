@@ -230,11 +230,11 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
 
         [Fact]
-        public void MaximumItemCount_when_assigned_a_value_less_than_1_throws_ArgumentOutOfRangeException()
+        public void MaximumItemCount_when_assigned_a_value_less_than_0_throws_ArgumentOutOfRangeException()
         {
 
             var sut = new FibonacciExtractorFromExtractorBase();
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.MaximumItemCount =0);
+            Assert.Throws<ArgumentOutOfRangeException>(() => sut.MaximumItemCount = -1);
         }
 
 
@@ -244,7 +244,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
             var sut = new FibonacciExtractorFromExtractorBase()
             {
-                MaximumItemCount = 10
+                MaximumItemCount = 10L
             };
             Assert.Equal(10, sut.MaximumItemCount);
         }
@@ -265,15 +265,10 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
             var sut = new FibonacciExtractorFromExtractorBase()
             {
-                SkipItemCount = 10
+                SkipItemCount = 10L
             };
             Assert.Equal(10, sut.SkipItemCount);
         }
-
-
-
-
-
     }
 
 

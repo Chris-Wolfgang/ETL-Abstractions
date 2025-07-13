@@ -92,9 +92,9 @@ namespace Wolfgang.Etl.Abstractions
             get => _maximumItemCount;
             set
             {
-                if (value < 1)
+                if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 0.");
                 }
                 _maximumItemCount = value;
             }
@@ -160,7 +160,7 @@ namespace Wolfgang.Etl.Abstractions
         /// IAsyncEnumerable&lt;T&gt;
         /// The result may be an empty sequence if no data is available or if the extraction fails.
         /// </returns>
-        public virtual IAsyncEnumerable<TSource> ExtractAsync()
+        public IAsyncEnumerable<TSource> ExtractAsync()
         {
             return ExtractWorkerAsync(CancellationToken.None);
         }
@@ -179,7 +179,7 @@ namespace Wolfgang.Etl.Abstractions
         /// The extractor should be able to handle cancellation requests gracefully.
         /// If the caller doesn't plan on cancelling the extraction, CancellationToken.None should be passed in.
         /// </remarks>
-        public virtual IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token)
+        public IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token)
         {
             return ExtractWorkerAsync(token);
         }
@@ -195,7 +195,7 @@ namespace Wolfgang.Etl.Abstractions
         /// The result may be an empty sequence if no data is available or if the extraction fails.
         /// </returns>
         /// <exception cref="ArgumentNullException">The value of progress is null</exception>
-        public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress)
+        public IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress)
         {
             if (progress == null)
             {
@@ -229,7 +229,7 @@ namespace Wolfgang.Etl.Abstractions
         /// If the caller doesn't plan on cancelling the extraction, CancellationToken.None should be passed in.
         /// </remarks>
         /// <exception cref="ArgumentNullException">The value of progress is null</exception>
-        public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress, CancellationToken token)
+        public IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress, CancellationToken token)
         {
             if (progress == null)
             {
