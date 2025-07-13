@@ -133,7 +133,7 @@ namespace Wolfgang.Etl.Abstractions
         /// IAsyncEnumerable&lt;T&gt;
         /// The result may be an empty sequence if no data is available or if the transformation fails.
         /// </returns>
-        public IAsyncEnumerable<TDestination> TransformAsync
+        public virtual IAsyncEnumerable<TDestination> TransformAsync
         (
             IAsyncEnumerable<TSource> items
         )
@@ -158,7 +158,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </returns>
         /// <remarks>
         /// </remarks>
-        public IAsyncEnumerable<TDestination> TransformAsync
+        public virtual IAsyncEnumerable<TDestination> TransformAsync
         (
             IAsyncEnumerable<TSource> items, 
             CancellationToken token
@@ -181,7 +181,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <returns>IAsyncEnumerable&lt;T&gt; The result may be an empty sequence if no data is available or if the transformation fails.
         /// </returns> 
         /// <exception cref="ArgumentNullException">The value of progress is null</exception>
-        public IAsyncEnumerable<TDestination> TransformAsync
+        public virtual IAsyncEnumerable<TDestination> TransformAsync
         (
             IAsyncEnumerable<TSource> items,
             IProgress<TProgress> progress
@@ -224,7 +224,7 @@ namespace Wolfgang.Etl.Abstractions
         /// If the caller doesn't plan on cancelling the transformation, they can pass CancellationToken.None.
         /// </remarks>
         /// <exception cref="ArgumentNullException">The value of progress is null</exception>
-        public IAsyncEnumerable<TDestination> TransformAsync
+        public virtual IAsyncEnumerable<TDestination> TransformAsync
         (
             IAsyncEnumerable<TSource> items, 
             IProgress<TProgress> progress, 

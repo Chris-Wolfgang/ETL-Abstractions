@@ -136,7 +136,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </remarks>
         /// <returns>Task</returns>
         /// <exception cref="ArgumentNullException">Argument items is null</exception>
-        public Task LoadAsync
+        public virtual Task LoadAsync
         (
             IAsyncEnumerable<TDestination> items
         )
@@ -161,7 +161,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </remarks>
         /// <returns>Task</returns>
         /// <exception cref="ArgumentNullException">Argument items is null</exception>
-        public Task LoadAsync
+        public virtual Task LoadAsync
         (
             IAsyncEnumerable<TDestination> items, 
             CancellationToken token
@@ -187,7 +187,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <returns>Task</returns>
         /// <exception cref="ArgumentNullException">Argument items is null</exception>
         /// <exception cref="ArgumentNullException">Argument progress is null</exception>
-        public Task LoadAsync
+        public virtual Task LoadAsync
         (
             IAsyncEnumerable<TDestination> items,
             IProgress<TProgress> progress
@@ -227,7 +227,7 @@ namespace Wolfgang.Etl.Abstractions
         /// <returns>Task</returns>
         /// <exception cref="ArgumentNullException">Argument items is null</exception>
         /// <exception cref="ArgumentNullException">Argument progress is null</exception>
-        public Task LoadAsync
+        public virtual Task LoadAsync
         (
             IAsyncEnumerable<TDestination> items,
             IProgress<TProgress> progress, 
