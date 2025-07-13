@@ -13,9 +13,9 @@ namespace Wolfgang.Etl.Abstractions
     {
 
         private int _reportingInterval = 1_000;
-        private int _maximumItemCount = int.MaxValue;
-        private int _skipItemCount;
-        private int _currentItemCount;
+        private long _maximumItemCount = long.MaxValue;
+        private long _skipItemCount;
+        private long _currentItemCount;
 
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace Wolfgang.Etl.Abstractions
         /// base class will have no way of knowing the correct value
         /// </remarks>
 
-        [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
-        public int CurrentItemCount
+        [Range(0, long.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
+        public long CurrentItemCount
         {
             get => _currentItemCount;
             protected set
@@ -80,7 +80,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </code>
         /// </example>
 
-        public int MaximumItemCount
+        public long MaximumItemCount
         {
             get => _maximumItemCount;
             set
@@ -112,7 +112,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </code>
         /// </example>
 
-        public int SkipItemCount
+        public long SkipItemCount
         {
             get => _skipItemCount;
             set

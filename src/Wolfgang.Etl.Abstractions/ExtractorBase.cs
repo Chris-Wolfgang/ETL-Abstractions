@@ -12,9 +12,9 @@ namespace Wolfgang.Etl.Abstractions
     {
 
         private int _reportingInterval = 1_000;
-        private int _maximumItemCount = int.MaxValue;
-        private int _skipItemCount;
-        private int _currentItemCount;
+        private long _maximumItemCount = long.MaxValue;
+        private long _skipItemCount;
+        private long _currentItemCount;
 
 
         /// <summary>
@@ -43,8 +43,8 @@ namespace Wolfgang.Etl.Abstractions
         /// base class will have no way of knowing the correct value
         /// </remarks>
 
-        [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
-        public int CurrentItemCount
+        [Range(0, long.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
+        public long CurrentItemCount
         {
             get => _currentItemCount;
             protected set
@@ -66,7 +66,7 @@ namespace Wolfgang.Etl.Abstractions
         /// This is useful for partially extracting data from a source, especially when the source is large
         /// or infinite or during development.
         /// </remarks>
-        /// <exception cref="ArgumentException">The specified value is less than 1</exception>
+        /// <exception cref="ArgumentException">The specified value is less than 0</exception>
         /// <example>
         /// <code>
         ///     var count = 0;
@@ -86,8 +86,8 @@ namespace Wolfgang.Etl.Abstractions
         /// </code>
         /// </example>
 
-        [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 1.")]
-        public int MaximumItemCount
+        [Range(0, long.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
+        public long MaximumItemCount
         {
             get => _maximumItemCount;
             set
@@ -137,8 +137,8 @@ namespace Wolfgang.Etl.Abstractions
         /// </code>
         /// </example>
 
-        [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
-        public int SkipItemCount
+        [Range(0, long.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
+        public long SkipItemCount
         {
             get => _skipItemCount;
             set
@@ -160,7 +160,7 @@ namespace Wolfgang.Etl.Abstractions
         /// IAsyncEnumerable&lt;T&gt;
         /// The result may be an empty sequence if no data is available or if the extraction fails.
         /// </returns>
-        public IAsyncEnumerable<TSource> ExtractAsync()
+        public virtual IAsyncEnumerable<TSource> ExtractAsync()
         {
             return ExtractWorkerAsync(CancellationToken.None);
         }
@@ -179,7 +179,7 @@ namespace Wolfgang.Etl.Abstractions
         /// The extractor should be able to handle cancellation requests gracefully.
         /// If the caller doesn't plan on cancelling the extraction, CancellationToken.None should be passed in.
         /// </remarks>
-        public IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token)
+        public virtual IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token)
         {
             return ExtractWorkerAsync(token);
         }
@@ -195,7 +195,7 @@ namespace Wolfgang.Etl.Abstractions
         /// The result may be an empty sequence if no data is available or if the extraction fails.
         /// </returns>
         /// <exception cref="ArgumentNullException">The value of progress is null</exception>
-        public IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress)
+        public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress)
         {
             if (progress == null)
             {
@@ -229,7 +229,7 @@ namespace Wolfgang.Etl.Abstractions
         /// If the caller doesn't plan on cancelling the extraction, CancellationToken.None should be passed in.
         /// </remarks>
         /// <exception cref="ArgumentNullException">The value of progress is null</exception>
-        public IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress, CancellationToken token)
+        public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress, CancellationToken token)
         {
             if (progress == null)
             {
