@@ -28,4 +28,4 @@ This will intern trigger the `TransformAsync` method of the `Transformer` class,
 and yield the transformed results. The process of transformation will also trigger the `ExtractAsync` method of the `Extractor` class,
 which will retrieve the necessary data from the source.
 
-For more information check out the documentation
+For more information check out the [documentation](https://github.com/Chris-Wolfgang/ETL-Abstractions/wiki)
