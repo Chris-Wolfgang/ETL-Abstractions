@@ -12,9 +12,10 @@ namespace Wolfgang.Etl.Abstractions
     {
 
         private int _reportingInterval = 1_000;
-        private long _maximumItemCount = long.MaxValue;
-        private long _skipItemCount;
-        private long _currentItemCount;
+        private int _maximumItemCount = int.MaxValue;
+        private int _skipItemCount;
+        private int _currentItemCount;
+        private int _currentSkippedItemCount;
 
 
         /// <summary>
@@ -43,8 +44,8 @@ namespace Wolfgang.Etl.Abstractions
         /// base class will have no way of knowing the correct value
         /// </remarks>
 
-        [Range(0, long.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
-        public long CurrentItemCount
+        [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
+        public int CurrentItemCount
         {
             get => _currentItemCount;
             protected set
@@ -59,6 +60,23 @@ namespace Wolfgang.Etl.Abstractions
 
 
 
+        /// <summary>
+        /// Gets the current number of records skipped
+        /// </summary>
+        public int CurrentSkippedItemCount
+        {
+            get => _currentSkippedItemCount;
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "value cannot be less than 0.");
+                }
+            }
+        }
+
+
+        
         /// <summary>
         /// The maximum number of items to transform. Once the transformer has reached this limit,
         /// it should stop transforming and signal the end of the sequence.
@@ -77,7 +95,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </code>
         /// </example>
 
-        public long MaximumItemCount
+        public int MaximumItemCount
         {
             get => _maximumItemCount;
             set
@@ -110,7 +128,7 @@ namespace Wolfgang.Etl.Abstractions
         /// </code>
         /// </example>
 
-        public long SkipItemCount
+        public int SkipItemCount
         {
             get => _skipItemCount;
             set
@@ -264,5 +282,34 @@ namespace Wolfgang.Etl.Abstractions
 
 
         protected abstract TProgress CreateProgressReport();
+
+
+
+        /// <summary>
+        /// Increments the CurrentItemCount in a thread safe manner.
+        /// </summary>
+        /// <remarks>
+        /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
+        /// thread safe. This method ensures that CurrentItemCount is incremented safely 
+        /// </remarks>
+        protected void IncrementCurrentItemCount()
+        {
+            Interlocked.Increment(ref _currentItemCount);
+        }
+
+
+
+        /// <summary>
+        /// Increments the CurrentItemCount in a thread safe manner.
+        /// </summary>
+        /// <remarks>
+        /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
+        /// thread safe. This method ensures that CurrentItemCount is incremented safely 
+        /// </remarks>
+        protected void IncrementCurrentSkippedItemCount()
+        {
+            Interlocked.Increment(ref _currentSkippedItemCount);
+        }
+
     }
 }

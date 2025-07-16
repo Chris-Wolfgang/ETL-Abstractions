@@ -12,9 +12,10 @@ namespace Wolfgang.Etl.Abstractions
     {
 
         private int _reportingInterval = 1_000;
-        private long _maximumItemCount = long.MaxValue;
-        private long _skipItemCount;
-        private long _currentItemCount;
+        private int _maximumItemCount = int.MaxValue;
+        private int _skippedItemCount;
+        private int _currentItemCount;
+        private int _currentSkippedItemCount;
 
 
         /// <summary>
@@ -43,8 +44,8 @@ namespace Wolfgang.Etl.Abstractions
         /// base class will have no way of knowing the correct value
         /// </remarks>
 
-        [Range(0, long.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
-        public long CurrentItemCount
+        [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
+        public int CurrentItemCount
         {
             get => _currentItemCount;
             protected set
@@ -56,6 +57,24 @@ namespace Wolfgang.Etl.Abstractions
                 _currentItemCount = value;
             }
         }
+
+
+
+        /// <summary>
+        /// Gets the current number of records skipped
+        /// </summary>
+        public int CurrentSkippedItemCount
+        {
+            get => _currentSkippedItemCount;
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "value cannot be less than 0.");
+                }
+            }
+        }
+
 
 
         /// <summary>
@@ -86,8 +105,8 @@ namespace Wolfgang.Etl.Abstractions
         /// </code>
         /// </example>
 
-        [Range(0, long.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
-        public long MaximumItemCount
+        [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
+        public int MaximumItemCount
         {
             get => _maximumItemCount;
             set
@@ -137,17 +156,17 @@ namespace Wolfgang.Etl.Abstractions
         /// </code>
         /// </example>
 
-        [Range(0, long.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
-        public long SkipItemCount
+        [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
+        public int SkipItemCount
         {
-            get => _skipItemCount;
+            get => _skippedItemCount;
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value), "Skip item count cannot be less than 0.");
                 }
-                _skipItemCount = value;
+                _skippedItemCount = value;
             }
         }
 
@@ -270,5 +289,33 @@ namespace Wolfgang.Etl.Abstractions
         /// </summary>
         /// <returns>Progress of type TProgress</returns>
         protected abstract TProgress CreateProgressReport();
+
+
+
+        /// <summary>
+        /// Increments the CurrentItemCount in a thread safe manner.
+        /// </summary>
+        /// <remarks>
+        /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
+        /// thread safe. This method ensures that CurrentItemCount is incremented safely 
+        /// </remarks>
+        protected void IncrementCurrentItemCount()
+        {
+            Interlocked.Increment(ref _currentItemCount);
+        }
+
+
+
+        /// <summary>
+        /// Increments the CurrentItemCount in a thread safe manner.
+        /// </summary>
+        /// <remarks>
+        /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
+        /// thread safe. This method ensures that CurrentItemCount is incremented safely 
+        /// </remarks>
+        protected void IncrementCurrentSkippedItemCount()
+        {
+            Interlocked.Increment(ref _currentSkippedItemCount);
+        }
     }
 }

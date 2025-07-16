@@ -2,7 +2,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 internal record EtlProgress
 {
-    public EtlProgress(long currentCount)
+    public EtlProgress(int currentCount)
     {
         if (currentCount < 0)
         {
@@ -12,7 +12,8 @@ internal record EtlProgress
         CurrentCount = currentCount;
     }
 
-    //public long CurrentCount { get; } = CurrentCount;
-    public long CurrentCount { get; }
+
+
+    public int CurrentCount { get; }
 
 }

@@ -244,7 +244,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
             var sut = new FibonacciExtractorFromExtractorBase()
             {
-                MaximumItemCount = 10L
+                MaximumItemCount = 10
             };
             Assert.Equal(10, sut.MaximumItemCount);
         }
@@ -265,7 +265,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
             var sut = new FibonacciExtractorFromExtractorBase()
             {
-                SkipItemCount = 10L
+                SkipItemCount = 10
             };
             Assert.Equal(10, sut.SkipItemCount);
         }
