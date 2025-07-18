@@ -8,8 +8,8 @@ on:
   push:
     branches:
       - main
-    tags:
-      - 'v*'  # e.g., v1.0.0
+    #tags:
+      #- 'v*'  # e.g., v1.0.0
 
 jobs:
   build-and-publish:
@@ -49,9 +49,8 @@ jobs:
         shell: pwsh
         run: |
           mkdir ./nupkg
-          $version = if ("${{ github.ref_type }}" -eq "tag") { "${{ github.ref_name }}".TrimStart("v") } else { "0.0.0-preview" }
           Get-ChildItem -Path "src" -Recurse -Filter *.csproj | Where-Object { $_.Name -notlike "*Tests.csproj" } | ForEach-Object {
-            dotnet pack $_.FullName --configuration Release --no-build --output ./nupkg /p:PackageVersion=$version
+            dotnet pack $_.FullName --configuration Release --no-build --output ./nupkg
           }
 
       - name: Push packages to NuGet
