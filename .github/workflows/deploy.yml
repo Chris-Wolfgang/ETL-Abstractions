@@ -22,14 +22,24 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore
+      - name: Restore dependencies for src projects
+        run: |
+          for proj in $(find src -name '*.csproj'); do
+            dotnet restore "$proj"
+          done
 
-      - name: Build the project
-        run: dotnet build --configuration Release --no-restore
+      - name: Build src projects
+        run: |
+          for proj in $(find src -name '*.csproj'); do
+            dotnet build "$proj" --configuration Release --no-restore
+          done
 
-      - name: Pack the project
-        run: dotnet pack --configuration Release --no-build --output ./nupkg
-
+      - name: Pack src projects
+        run: |
+          mkdir -p ./nupkg
+          for proj in $(find src -name '*.csproj'); do
+            dotnet pack "$proj" --configuration Release --no-build --output ./nupkg
+          done      
+          
       - name: Push the package to NuGet
         run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
