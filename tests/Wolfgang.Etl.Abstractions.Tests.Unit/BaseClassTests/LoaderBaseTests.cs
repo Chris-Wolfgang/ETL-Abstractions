@@ -414,6 +414,5 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             CurrentItemCount = value;
         }
-
     }
 }
