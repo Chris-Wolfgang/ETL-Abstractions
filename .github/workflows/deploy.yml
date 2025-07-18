@@ -1,4 +1,4 @@
-name: Publish .NET package to NuGet
+name: Build and Publish .NET Package
 
 permissions:
   contents: read
@@ -8,11 +8,11 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/**'
+    tags:
+      - 'v*'  # e.g., v1.0.0
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: windows-latest
 
     steps:
@@ -24,14 +24,14 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Restore dependencies for src projects
+      - name: Restore dependencies
         shell: pwsh
         run: |
           Get-ChildItem -Path "src" -Recurse -Filter *.csproj | ForEach-Object {
             dotnet restore $_.FullName
           }
 
-      - name: Build src projects
+      - name: Build projects
         shell: pwsh
         run: |
           Get-ChildItem -Path "src" -Recurse -Filter *.csproj | ForEach-Object {
@@ -41,21 +41,23 @@ jobs:
       - name: Run unit tests
         shell: pwsh
         run: |
-          Get-ChildItem -Path "src" -Recurse -Filter *Tests.csproj | ForEach-Object {
+          Get-ChildItem -Path "src" -Recurse -Filter *Tests.Unit.csproj | ForEach-Object {
             dotnet test $_.FullName --configuration Release --no-build --verbosity normal
           }
 
-      - name: Pack src projects
+      - name: Pack projects
         shell: pwsh
         run: |
           mkdir ./nupkg
+          $version = if ("${{ github.ref_type }}" -eq "tag") { "${{ github.ref_name }}".TrimStart("v") } else { "0.0.0-preview" }
           Get-ChildItem -Path "src" -Recurse -Filter *.csproj | Where-Object { $_.Name -notlike "*Tests.csproj" } | ForEach-Object {
-            dotnet pack $_.FullName --configuration Release --no-build --output ./nupkg
+            dotnet pack $_.FullName --configuration Release --no-build --output ./nupkg /p:PackageVersion=$version
           }
 
-      - name: Push the package to NuGet
+      - name: Push packages to NuGet
+        if: startsWith(github.ref, 'refs/tags/v')
         shell: pwsh
         run: |
           Get-ChildItem -Path "./nupkg" -Filter *.nupkg | ForEach-Object {
             dotnet nuget push $_.FullName --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-    }
+          }
