@@ -54,7 +54,6 @@ jobs:
           }
 
       - name: Push packages to NuGet
-        if: startsWith(github.ref, 'refs/tags/v')
         shell: pwsh
         run: |
           Get-ChildItem -Path "./nupkg" -Filter *.nupkg | ForEach-Object {
