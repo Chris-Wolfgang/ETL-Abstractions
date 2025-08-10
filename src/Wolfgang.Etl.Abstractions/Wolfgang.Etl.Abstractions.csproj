@@ -12,7 +12,7 @@
    <Title>$(AssemblyName)</Title>
    <Authors>Chris Wolfgang</Authors>
    <Description>Contains interfaces and base classes used to build ETL applications</Description>
-   <Copyright>2025</Copyright>
+	<Copyright>Copyright {copyright year} {author}</Copyright>
    <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
    <PackageReadmeFile>README.md</PackageReadmeFile>
    <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>
