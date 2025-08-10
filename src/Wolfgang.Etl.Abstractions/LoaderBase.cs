@@ -77,8 +77,7 @@ namespace Wolfgang.Etl.Abstractions
             }
         }
 
-
-
+        
 
         /// <summary>
         /// The maximum number of items to load. Once the loader has reached this limit,
