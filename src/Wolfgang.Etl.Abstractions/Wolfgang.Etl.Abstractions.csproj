@@ -2,28 +2,36 @@
 
   <PropertyGroup>
 	  <TargetFrameworks>
-		  net462;net472;net48;net481;
-		  netstandard2.0;netstandard2.1;
-		  net8.0;net9.0
+net462;net472;net48;net481;
+netstandard2.0;netstandard2.1;
+net8.0;net9.0
 	  </TargetFrameworks>
 	  <LangVersion>latest</LangVersion>
-   <Version>0.5.0</Version>
+   <Version>0.6.0</Version>
    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
    <Title>$(AssemblyName)</Title>
    <Authors>Chris Wolfgang</Authors>
    <Description>Contains interfaces and base classes used to build ETL applications</Description>
-   <Copyright>2025</Copyright>
-   <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
+	<Copyright>Copyright {copyright year} {author}</Copyright>
+     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
    <PackageReadmeFile>README.md</PackageReadmeFile>
    <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>
    <AssemblyVersion>1.0.0</AssemblyVersion>
    <PackageLicenseExpression>MIT</PackageLicenseExpression>
    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-   <PackageIcon>ETL.png</PackageIcon>
+   <PackageIcon>ETL-Abstractions.png</PackageIcon>
+   <ApplicationIcon>ETL-Abstractions.ico</ApplicationIcon>
+   <GenerateDocumentationFile>True</GenerateDocumentationFile>
+   <SignAssembly>False</SignAssembly>
+   <PackageTags>ETL;Extract-Transform-Load;</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\ETL.png">
+    <Content Include="ETL-Abstractions.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\ETL-Abstractions.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

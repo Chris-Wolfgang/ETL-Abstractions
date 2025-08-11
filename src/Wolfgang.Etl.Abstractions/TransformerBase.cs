@@ -273,6 +273,16 @@ namespace Wolfgang.Etl.Abstractions
 
 
 
+        /// <summary>
+        /// The worker method that performs the actual transformation.
+        /// </summary>
+        /// <param name="items">
+        /// IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed
+        /// </param>
+        /// <param name="token">
+        /// A CancellationToken to observe while waiting for the task to complete.
+        /// </param>
+        /// <returns></returns>
         protected abstract IAsyncEnumerable<TDestination> TransformWorkerAsync
         (
             IAsyncEnumerable<TSource>items,  
@@ -281,6 +291,12 @@ namespace Wolfgang.Etl.Abstractions
 
 
 
+        /// <summary>
+        /// Creates a progress report object of type TProgress.
+        /// </summary>
+        /// <returns>
+        /// TProgress - A new instance of the progress report object.
+        /// </returns>
         protected abstract TProgress CreateProgressReport();
 
 
