@@ -92,6 +92,8 @@ jobs:
             --collect:"XPlat Code Coverage" `
             --results-directory "./TestResults" `
             --logger "console;verbosity=normal"
+                      
+          Write-Host "Test execution completed with exit code: $LASTEXITCODE"
 
       - name: Install ReportGenerator
         if: runner.os == 'Windows'
