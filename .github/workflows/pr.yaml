@@ -86,12 +86,12 @@ jobs:
         if: runner.os == 'Windows'
         shell: bash
         run: |
-          echo "Running tests on Windows for all frameworks with coverage collection..."
-          dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
-            --no-build \
-            --configuration Release \
-            --collect:"XPlat Code Coverage" \
-            --results-directory "./TestResults" \
+          Write-Host "Running tests on Windows for all frameworks with coverage collection..."
+          dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj `
+            --no-build `
+            --configuration Release `
+            --collect:"XPlat Code Coverage" `
+            --results-directory "./TestResults" `
             --logger "console;verbosity=normal"
 
       - name: Install ReportGenerator
