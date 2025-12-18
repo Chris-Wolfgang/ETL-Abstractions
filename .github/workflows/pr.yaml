@@ -84,7 +84,6 @@ jobs:
 
       - name: Run Tests and Collect Coverage - Windows Only
         if: runner.os == 'Windows'
-        shell: bash
         run: |
           Write-Host "Running tests on Windows for all frameworks with coverage collection..."
           dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj `
@@ -105,34 +104,41 @@ jobs:
 
       - name: Check Coverage Thresholds - Windows Only
         if: runner.os == 'Windows'
-        shell: bash
+        shell: pwsh
         run: |
-          if [ ! -f CoverageReport/Summary.txt ]; then
-            echo "CoverageReport/Summary.txt not found! Coverage report was not generated."
+          if (-not (Test-Path "CoverageReport/Summary.txt")) {
+            Write-Host "CoverageReport/Summary.txt not found! Coverage report was not generated."
             exit 1
-          fi
+          }
 
-          failed_projects=""
-          while read -r line; do
-            module=$(echo "$line" | awk '{print $1}')
-            percent=$(echo "$line" | awk '{print $NF}' | tr -d '%' | xargs)
-            echo "Checking module: '$module', percent: '$percent'"
-            if [[ "$percent" =~ ^[0-9]+$ ]]; then
-              if [ "$percent" -lt 80 ]; then
-                echo "FAIL: $module is below 80% ($percent%)"
-                failed_projects="$failed_projects $module ($percent%)"
-              else
-                echo "PASS: $module meets coverage ($percent%)"
-              fi
-            else
-              echo "WARNING: extracted percent value '$percent' is not a number!"
-            fi
-          done < <(grep -E '^[^ ].*[0-9]+%$' CoverageReport/Summary.txt | grep -v '^Summary')
+          $failedProjects = @()
+          $content = Get-Content "CoverageReport/Summary.txt"
+          
+          foreach ($line in $content) {
+            if ($line -match '^[^ ].*[0-9]+%$' -and $line -notmatch '^Summary') {
+              $parts = $line -split '\s+'
+              $module = $parts[0]
+              $percent = $parts[-1] -replace '%',''
+              
+              Write-Host "Checking module: '$module', percent: '$percent%'"
+              
+              if ($percent -match '^\d+$') {
+                if ([int]$percent -lt 80) {
+                  Write-Host "FAIL: $module is below 80% ($percent%)"
+                  $failedProjects += "$module ($percent%)"
+                } else {
+                  Write-Host "PASS: $module meets coverage ($percent%)"
+                }
+              } else {
+                Write-Host "WARNING: extracted percent value '$percent' is not a number!"
+              }
+            }
+          }
 
-          if [ -n "$failed_projects" ]; then
-            echo "The following projects are below 80% line coverage:$failed_projects"
+          if ($failedProjects.Count -gt 0) {
+            Write-Host "The following projects are below 80% line coverage: $($failedProjects -join ', ')"
             exit 1
-          fi
+          }
 
       - name: Upload coverage results and reports
         if: runner.os == 'Windows' && always()
