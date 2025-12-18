@@ -37,7 +37,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build Solution (Release) - Linux/macOS (exclude .NET Framework projects)
+      - name: Build projects individually - Linux/macOS (exclude .NET Framework)
         if: runner.os != 'Windows'
         shell: bash
         run: |
@@ -48,13 +48,16 @@ jobs:
               --no-restore \
               --configuration Release \
               --framework "$fw"
-          done  
+          done
           
-          # Build test project for non-Framework targets
-          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
-            --no-restore \
-            --configuration Release \
-            "-p:TargetFrameworks=netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0"
+          # Build test project for each non-Framework target individually
+          for fw in netcoreapp3.1 net5.0 net6.0 net7.0 net8.0 net9.0 net10.0; do
+            echo "Building Tests for $fw"
+            dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
+              --no-restore \
+              --configuration Release \
+              --framework "$fw"
+          done
           
           # Build Net8.0 examples
           for proj in examples/Net8.0/*/*.csproj; do
