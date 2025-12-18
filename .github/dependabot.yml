@@ -28,6 +28,15 @@ updates:
       - "dotnet"
 
   - package-ecosystem: "nuget"
+    directory: "/benchmarks"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "dotnet"
+
+  - package-ecosystem: "nuget"
     directory: "/examples"
     schedule:
       interval: "weekly"
