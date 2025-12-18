@@ -74,7 +74,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2D19706F-4199-46BD-B047-C4ED3AEDD90A}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\create-labels.yaml = .github\workflows\create-labels.yaml
-		.github\workflows\deploy.yml = .github\workflows\deploy.yml
 		.github\workflows\docfx.yaml = .github\workflows\docfx.yaml
 		.github\workflows\pr.yaml = .github\workflows\pr.yaml
 		.github\workflows\release.yaml = .github\workflows\release.yaml
