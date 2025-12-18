@@ -34,9 +34,31 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build Solution (Release) - Linux/macOS (exclude .NET Framework examples)
+      - name: Build Solution (Release) - Linux/macOS (exclude .NET Framework projects)
         if: runner.os != 'Windows'
-        run: dotnet build --no-restore --configuration Release /p:TargetFrameworks=\"netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0\"
+        shell: bash
+        run: |
+          # Build main library project
+          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework netcoreapp3.1
+          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net5.0
+          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net6.0
+          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net7.0
+          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net8.0
+          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net9.0
+          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework netstandard2.0
+          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework netstandard2.1
+          
+          # Build test projects
+          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework netcoreapp3.1
+          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net5.0
+          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net6.0
+          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net7.0
+          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net8.0
+          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net9.0
+          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net10.0
+          
+          # Build Net8.0 examples
+          find examples/Net8.0 -name '*.csproj' -exec dotnet build {} --no-restore --configuration Release \;
 
       - name: Build Solution (Release) - Windows (all target frameworks)
         if: runner.os == 'Windows'
