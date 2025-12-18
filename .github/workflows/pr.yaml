@@ -71,66 +71,40 @@ jobs:
         if: runner.os == 'Windows'
         run: dotnet build --no-restore --configuration Release
 
-      - name: Run Tests and Collect Coverage (Release)
-        continue-on-error: true
+      - name: Run Tests - Linux/macOS (no coverage)
+        if: runner.os != 'Windows'
         shell: bash
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            # Test all frameworks on Windows
-            echo "Running tests on Windows for all frameworks..."
-            dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
-              --no-build \
-              --configuration Release \
-              --collect:"XPlat Code Coverage" \
-              --results-directory "./TestResults" \
-              --verbosity detailed
-          else
-            # Test .NET 8.0 on Linux/macOS
-            echo "Running tests on $RUNNER_OS for .NET 8.0..."
-            dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
-              --configuration Release \
-              --framework net8.0 \
-              --no-restore \
-              --collect:"XPlat Code Coverage" \
-              --results-directory "./TestResults" \
-              --verbosity detailed
-          fi
-          
-          echo "Test execution completed with exit code: $?"
+          echo "Running tests on $RUNNER_OS for .NET 8.0 (no coverage collection)..."
+          dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
+            --configuration Release \
+            --framework net8.0 \
+            --no-restore \
+            --logger "console;verbosity=normal"
 
-      - name: Check for TestResults directory
-        if: always()
+      - name: Run Tests and Collect Coverage - Windows Only
+        if: runner.os == 'Windows'
         shell: bash
         run: |
-          echo "=== Checking for TestResults directory ==="
-          pwd
-          ls -la
-          if [ -d "./TestResults" ]; then
-            echo "TestResults directory found!"
-            echo "Contents:"
-            find ./TestResults -type f
-          else
-            echo "ERROR: TestResults directory does not exist!"
-          fi
+          echo "Running tests on Windows for all frameworks with coverage collection..."
+          dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
+            --no-build \
+            --configuration Release \
+            --collect:"XPlat Code Coverage" \
+            --results-directory "./TestResults" \
+            --logger "console;verbosity=normal"
 
       - name: Install ReportGenerator
-        if: always()
+        if: runner.os == 'Windows'
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
-      - name: Generate Coverage Reports (HTML, TextSummary, GitHub Markdown, CSV)
-        if: always()
-        continue-on-error: true
-        shell: bash
+      - name: Generate Coverage Reports - Windows Only
+        if: runner.os == 'Windows'
         run: |
-          echo "Attempting to generate coverage reports..."
-          if [ -d "./TestResults" ]; then
-            echo "TestResults exists, looking for coverage files..."
-            find ./TestResults -name "*.cobertura.xml" -o -name "coverage.*.xml"
-          fi
-          reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:"CoverageReport" -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary" || echo "ReportGenerator failed with exit code $?"
+          reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:"CoverageReport" -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary"
 
-      - name: Check Coverage Thresholds
-        if: success()
+      - name: Check Coverage Thresholds - Windows Only
+        if: runner.os == 'Windows'
         shell: bash
         run: |
           if [ ! -f CoverageReport/Summary.txt ]; then
@@ -161,10 +135,10 @@ jobs:
           fi
 
       - name: Upload coverage results and reports
-        if: always()
+        if: runner.os == 'Windows' && always()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-results-and-report-${{ matrix.os }}
+          name: coverage-results-and-report-windows
           path: |
             TestResults/
             CoverageReport/
@@ -172,12 +146,12 @@ jobs:
       - name: Install DevSkim CLI
         run: dotnet tool install --global Microsoft.CST.DevSkim.CLI
 
-      - name: Run DevSkim Security Scan (Save output)
+      - name: Run DevSkim Security Scan
         shell: bash
         run: |
           devskim analyze --source-code . --file-format text -E --ignore-rule-ids DS176209 --ignore-globs "**/api/**,**/CoverageReport/**,**/TestResults/**" > devskim-results.txt 2>&1 || true
 
-      - name: Show DevSkim Results in Summary
+      - name: Show DevSkim Results
         if: always()
         shell: bash
         run: |
@@ -185,7 +159,6 @@ jobs:
             echo "### DevSkim Security Issues Found"
             cat devskim-results.txt
             
-            # Check if any issues were found (exit code check from previous step is suppressed)
             if grep -q "found" devskim-results.txt; then
               echo "Security issues detected! Review the report above."
               exit 1
@@ -196,7 +169,7 @@ jobs:
             echo "DevSkim results file not found."
           fi
 
-      - name: Upload DevSkim Results as Artifact
+      - name: Upload DevSkim Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
