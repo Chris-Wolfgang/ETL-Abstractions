@@ -45,7 +45,7 @@ jobs:
           dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj \
             --no-restore \
             --configuration Release \
-            /p:TargetFrameworks="netstandard2.0;netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0"
+            -p:TargetFrameworks=netstandard2.0%3Bnetstandard2.1%3Bnetcoreapp3.1%3Bnet5.0%3Bnet6.0%3Bnet7.0%3Bnet8.0%3Bnet9.0
           
           # Build test project for non-Framework targets
           dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
