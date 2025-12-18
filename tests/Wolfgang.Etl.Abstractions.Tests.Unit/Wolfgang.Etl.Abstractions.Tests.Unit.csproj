@@ -15,7 +15,7 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-	  <Copyright>Copyright {copyright year} {author}</Copyright>
+	  <Copyright>Copyright 2025 Chris Wolfgang</Copyright>
 
   </PropertyGroup>
 
