@@ -40,7 +40,7 @@ jobs:
         run: |
           find ./tests -type f -name '*Test*.csproj' | while read proj; do
             echo "Running tests for $proj"
-            dotnet test "$proj" --no-build --configuration Release
+            dotnet test "$proj" --no-build --configuration Release --logger "trx" --results-directory "./TestResults"
           done
 
       - name: Upload test results
@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.os }}
-          path: '**/TestResults*.trx'
+          path: 'TestResults/**/*.trx'
 
   publish:
     name: Pack and Publish NuGet
