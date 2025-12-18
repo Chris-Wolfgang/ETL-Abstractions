@@ -36,3 +36,31 @@ jobs:
             } catch (error) {
               // Ignore if label already exists
             }
+      - name: Create "dependencies" label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            try {
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: "dependencies",
+                color: "0366d6"
+              });
+            } catch (error) {
+              // Ignore if label already exists
+            }
+      - name: Create "dotnet" label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            try {
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: "dotnet",
+                color: "512bd4"
+              });
+            } catch (error) {
+              // Ignore if label already exists
+            }
