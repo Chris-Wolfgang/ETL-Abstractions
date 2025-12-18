@@ -58,7 +58,12 @@ jobs:
                 color: "0366d6"
               });
             } catch (error) {
-              // Ignore if label already exists
+              if (error.status === 422 && error.response?.data?.errors?.[0]?.code === 'already_exists') {
+                console.log('Label "dependencies" already exists, skipping creation');
+              } else {
+                console.error('Failed to create label "dependencies":', error.message);
+                throw error;
+              }
             }
       - name: Create "dotnet" label
         uses: actions/github-script@v6
@@ -72,5 +77,10 @@ jobs:
                 color: "512bd4"
               });
             } catch (error) {
-              // Ignore if label already exists
+              if (error.status === 422 && error.response?.data?.errors?.[0]?.code === 'already_exists') {
+                console.log('Label "dotnet" already exists, skipping creation');
+              } else {
+                console.error('Failed to create label "dotnet":', error.message);
+                throw error;
+              }
             }
