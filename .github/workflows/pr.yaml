@@ -71,7 +71,7 @@ jobs:
         if: runner.os == 'Windows'
         run: dotnet build --no-restore --configuration Release
 
-      - name: Run Tests and Collect Coverage for Each Test Project (Release)
+      - name: Run Tests and Collect Coverage  (Release)
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
