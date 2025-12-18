@@ -15,8 +15,11 @@ on:
 jobs:
   build-and-test:
     # Specifies the OS to run this workflow on. You can specify more than one. For a complete and current list, review the [documentation] (https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/choose-the-runner-for-a-job)
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     if: github.repository != 'Chris-Wolfgang/repo-template' # Only run in child repos otherwise this will fail because the template does not have any projects
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,6 +39,7 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Run Tests and Collect Coverage for Each Test Project (Release)
+        shell: bash
         run: |
           find ./tests -type f -name '*Test*.csproj' | while read proj; do
             echo "Testing $proj"
@@ -50,6 +54,7 @@ jobs:
           reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:"CoverageReport" -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary"
 
       - name: Check Coverage Thresholds
+        shell: bash
         run: |
           if [ ! -f CoverageReport/Summary.txt ]; then
             echo "CoverageReport/Summary.txt not found! Coverage report was not generated."
@@ -82,7 +87,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-results-and-report
+          name: coverage-results-and-report-${{ matrix.os }}
           path: |
             TestResults/
             CoverageReport/
@@ -95,14 +100,14 @@ jobs:
 
       - name: Show DevSkim Results in Summary
         if: failure()
+        shell: bash
         run: |
           echo "### DevSkim Security Issues Found"
           cat devskim-results.txt
-        shell: bash
 
       - name: Upload DevSkim Results as Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: devskim-results
+          name: devskim-results-${{ matrix.os }}
           path: devskim-results.txt
