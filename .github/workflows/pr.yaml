@@ -28,6 +28,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
+            5.0.x
+            6.0.x
+            7.0.x
             8.0.x
             9.0.x
 
@@ -38,27 +41,25 @@ jobs:
         if: runner.os != 'Windows'
         shell: bash
         run: |
-          # Build main library project
-          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework netcoreapp3.1
-          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net5.0
-          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net6.0
-          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net7.0
-          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net8.0
-          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework net9.0
-          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework netstandard2.0
-          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-restore --configuration Release --framework netstandard2.1
+          # Build main library for non-Framework targets
+          dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj \
+            --no-restore \
+            --configuration Release \
+            /p:TargetFrameworks="netstandard2.0;netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0"
           
-          # Build test projects
-          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework netcoreapp3.1
-          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net5.0
-          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net6.0
-          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net7.0
-          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net8.0
-          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net9.0
-          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj --no-restore --configuration Release --framework net10.0
+          # Build test project for non-Framework targets
+          dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
+            --no-restore \
+            --configuration Release \
+            /p:TargetFrameworks="netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0"
           
           # Build Net8.0 examples
-          find examples/Net8.0 -name '*.csproj' -exec dotnet build {} --no-restore --configuration Release \;
+          for proj in examples/Net8.0/*/*.csproj; do
+            if [ -f "$proj" ]; then
+              echo "Building $proj"
+              dotnet build "$proj" --no-restore --configuration Release
+            fi
+          done
 
       - name: Build Solution (Release) - Windows (all target frameworks)
         if: runner.os == 'Windows'
@@ -67,14 +68,22 @@ jobs:
       - name: Run Tests and Collect Coverage for Each Test Project (Release)
         shell: bash
         run: |
-          find ./tests -type f -name '*Test*.csproj' | while read proj; do
-            echo "Testing $proj"
-            if [ "$RUNNER_OS" == "Windows" ]; then
-              dotnet test "$proj" --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory "./TestResults"
-            else
-              dotnet test "$proj" --no-build --configuration Release --framework net8.0 --collect:"XPlat Code Coverage" --results-directory "./TestResults"
-            fi
-          done
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            # Test all frameworks on Windows
+            dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
+              --no-build \
+              --configuration Release \
+              --collect:"XPlat Code Coverage" \
+              --results-directory "./TestResults"
+          else
+            # Test only .NET 8.0 on Linux/macOS (representative framework)
+            dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
+              --no-build \
+              --configuration Release \
+              --framework net8.0 \
+              --collect:"XPlat Code Coverage" \
+              --results-directory "./TestResults"
+          fi
 
       - name: Install ReportGenerator
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
