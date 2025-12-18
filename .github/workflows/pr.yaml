@@ -76,6 +76,7 @@ jobs:
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
             # Test all frameworks on Windows
+            echo "Running tests on Windows for all frameworks..."
             dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
               --no-build \
               --configuration Release \
