@@ -34,8 +34,12 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build Solution (Release)
-        # Specify any additional build options
+      - name: Build Solution (Release) - Linux/macOS (exclude .NET Framework examples)
+        if: runner.os != 'Windows'
+        run: dotnet build --no-restore --configuration Release /p:TargetFrameworks=\"netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0\"
+
+      - name: Build Solution (Release) - Windows (all target frameworks)
+        if: runner.os == 'Windows'
         run: dotnet build --no-restore --configuration Release
 
       - name: Run Tests and Collect Coverage for Each Test Project (Release)
@@ -43,7 +47,11 @@ jobs:
         run: |
           find ./tests -type f -name '*Test*.csproj' | while read proj; do
             echo "Testing $proj"
-            dotnet test "$proj" --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory "./TestResults"
+            if [ "$RUNNER_OS" == "Windows" ]; then
+              dotnet test "$proj" --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory "./TestResults"
+            else
+              dotnet test "$proj" --no-build --configuration Release --framework net8.0 --collect:"XPlat Code Coverage" --results-directory "./TestResults"
+            fi
           done
 
       - name: Install ReportGenerator
@@ -102,7 +110,7 @@ jobs:
         if: failure()
         shell: bash
         run: |
-          echo "### DevSkim Security Issues Found"
+          echo "###DevSkim Security Issues Found"
           cat devskim-results.txt
 
       - name: Upload DevSkim Results as Artifact
