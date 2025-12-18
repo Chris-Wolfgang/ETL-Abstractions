@@ -1,5 +1,5 @@
-# This workflow runs all branches when a pull request is created. 
-# If security settings have been properly configured, any branch that fails this workflow will be blocked from being merged into main and possibly other common branches link develop depending your specific settings
+﻿# This workflow runs on pull requests to validate code quality, run tests, and perform security scans
+# before merging into main or other protected branches
 
 name: PR Checks
 
@@ -9,17 +9,16 @@ permissions:
 on:
   pull_request:
     branches:
-      # List any other branches here that you want this workflow to run on
       - main
 
 jobs:
   build-and-test:
-    # Specifies the OS to run this workflow on. You can specify more than one. For a complete and current list, review the [documentation] (https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/choose-the-runner-for-a-job)
     runs-on: ${{ matrix.os }}
     if: github.repository != 'Chris-Wolfgang/repo-template' # Only run in child repos otherwise this will fail because the template does not have any projects
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,11 +36,12 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build projects individually - Linux/macOS (exclude .NET Framework)
+      # Linux/macOS: Build non-.NET Framework targets only
+      - name: Build projects - Linux/macOS
         if: runner.os != 'Windows'
         shell: bash
         run: |
-          # Build main library for each non-Framework target individually
+          # Build main library (excluding .NET Framework)
           for fw in netstandard2.0 netstandard2.1 netcoreapp3.1 net5.0 net6.0 net7.0 net8.0 net9.0; do
             echo "Building Wolfgang.Etl.Abstractions for $fw"
             dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj \
@@ -50,45 +50,42 @@ jobs:
               --framework "$fw"
           done
           
-          # Build test project for each non-Framework target individually
+          # Build test project (excluding .NET Framework)
           for fw in netcoreapp3.1 net5.0 net6.0 net7.0 net8.0 net9.0 net10.0; do
-            echo "Building Tests for $fw"
+            echo "Building tests for $fw"
             dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
               --no-restore \
               --configuration Release \
               --framework "$fw"
           done
           
-          # Build Net8.0 examples
+          # Build .NET 8.0 examples
           for proj in examples/Net8.0/*/*.csproj; do
-            if [ -f "$proj" ]; then
-              echo "Building $proj"
-              dotnet build "$proj" --no-restore --configuration Release
-            fi
+            [ -f "$proj" ] && dotnet build "$proj" --no-restore --configuration Release
           done
 
-      - name: Build Solution (Release) - Windows (all target frameworks)
+      # Windows: Build all target frameworks including .NET Framework
+      - name: Build solution - Windows
         if: runner.os == 'Windows'
         run: dotnet build --no-restore --configuration Release
 
-      - name: Run Tests - Linux/macOS (no coverage)
+      # Linux/macOS: Run tests without coverage (faster)
+      - name: Run tests - Linux/macOS
         if: runner.os != 'Windows'
         shell: bash
         run: |
-          echo "Running tests on $RUNNER_OS for .NET 8.0 (no coverage collection)..."
           dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
             --configuration Release \
             --framework net8.0 \
             --no-restore \
             --logger "console;verbosity=normal"
 
-      - name: Run Tests and Collect Coverage - Windows Only
+      # Windows: Run tests with coverage collection
+      - name: Run tests with coverage - Windows
         if: runner.os == 'Windows'
         continue-on-error: true
-        id: test_windows
         run: |
-          Write-Host "Running tests on Windows for all frameworks with coverage collection..."
-          $testResult = dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj `
+          dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj `
             --no-build `
             --configuration Release `
             --collect:"XPlat Code Coverage" `
@@ -96,115 +93,105 @@ jobs:
             --logger "console;verbosity=normal" `
             --logger "trx;LogFileName=testresults.trx"
           
-          $exitCode = $LASTEXITCODE
-          Write-Host "Test execution completed with exit code: $exitCode"
-          
-          # Check if tests actually failed by looking at the test results
+          # Verify tests passed by checking TRX file
           if (Test-Path "./TestResults/*.trx") {
             $trxContent = Get-Content "./TestResults/*.trx" -Raw
             if ($trxContent -match 'outcome="Failed"') {
-              Write-Host "Tests failed - failing the workflow"
+              Write-Error "Tests failed"
               exit 1
-            } else {
-              Write-Host "Tests passed - continuing despite exit code $exitCode"
-              exit 0
             }
-          } else {
-            Write-Host "Could not find test results file, assuming tests passed if no crash occurred"
-            exit 0
           }
 
+      # Coverage reporting (Windows only)
       - name: Install ReportGenerator
         if: runner.os == 'Windows' && always()
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
-      - name: Generate Coverage Reports - Windows Only
+      - name: Generate coverage report
         if: runner.os == 'Windows' && always()
         continue-on-error: true
         run: |
-          Write-Host "Attempting to generate coverage reports..."
-          reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:"CoverageReport" -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary"
-          
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "WARNING: ReportGenerator failed with exit code: $LASTEXITCODE"
-            Write-Host "This may be due to missing coverage files, but tests passed successfully"
-          }
+          reportgenerator `
+            -reports:"TestResults/**/coverage.cobertura.xml" `
+            -targetdir:"CoverageReport" `
+            -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary"
 
-      - name: Check Coverage Thresholds - Windows Only
+      - name: Check coverage thresholds
         if: runner.os == 'Windows' && hashFiles('CoverageReport/Summary.txt') != ''
         shell: pwsh
         run: |
           if (-not (Test-Path "CoverageReport/Summary.txt")) {
-            Write-Host "CoverageReport/Summary.txt not found! Coverage report was not generated."
-            Write-Host "This is a warning - tests passed but coverage collection may have failed."
+            Write-Warning "Coverage report not generated - skipping threshold check"
             exit 0
           }
 
           $failedProjects = @()
-          $content = Get-Content "CoverageReport/Summary.txt"
+          $threshold = 80
           
-          foreach ($line in $content) {
-            if ($line -match '^[^ ].*[0-9]+%$' -and $line -notmatch '^Summary') {
-              $parts = $line -split '\s+'
+          Get-Content "CoverageReport/Summary.txt" | ForEach-Object {
+            if ($_ -match '^[^ ].*[0-9]+%$' -and $_ -notmatch '^Summary') {
+              $parts = $_ -split '\s+'
               $module = $parts[0]
-              $percent = $parts[-1] -replace '%',''
+              $percent = [int]($parts[-1] -replace '%','')
               
-              Write-Host "Checking module: '$module', percent: '$percent%'"
+              Write-Host "Module '$module': $percent%"
               
-              if ($percent -match '^\d+$') {
-                if ([int]$percent -lt 80) {
-                  Write-Host "FAIL: $module is below 80% ($percent%)"
-                  $failedProjects += "$module ($percent%)"
-                } else {
-                  Write-Host "PASS: $module meets coverage ($percent%)"
-                }
+              if ($percent -lt $threshold) {
+                Write-Host "  ❌ Below threshold ($threshold%)" -ForegroundColor Red
+                $failedProjects += "$module ($percent%)"
               } else {
-                Write-Host "WARNING: extracted percent value '$percent' is not a number!"
+                Write-Host "  ✅ Meets threshold" -ForegroundColor Green
               }
             }
           }
 
           if ($failedProjects.Count -gt 0) {
-            Write-Host "The following projects are below 80% line coverage: $($failedProjects -join ', ')"
+            Write-Error "Projects below $threshold% coverage: $($failedProjects -join ', ')"
             exit 1
           }
 
-      - name: Upload coverage results and reports
+      - name: Upload coverage artifacts
         if: runner.os == 'Windows' && always()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-results-and-report-windows
+          name: coverage-results-and-report
           path: |
             TestResults/
             CoverageReport/
 
+      # Security scanning (all platforms)
       - name: Install DevSkim CLI
         run: dotnet tool install --global Microsoft.CST.DevSkim.CLI
 
-      - name: Run DevSkim Security Scan
+      - name: Run security scan
         shell: bash
         run: |
-          devskim analyze --source-code . --file-format text -E --ignore-rule-ids DS176209 --ignore-globs "**/api/**,**/CoverageReport/**,**/TestResults/**" > devskim-results.txt 2>&1 || true
+          devskim analyze \
+            --source-code . \
+            --file-format text \
+            -E \
+            --ignore-rule-ids DS176209 \
+            --ignore-globs "**/api/**,**/CoverageReport/**,**/TestResults/**" \
+            > devskim-results.txt 2>&1 || true
 
-      - name: Show DevSkim Results
+      - name: Check security scan results
         if: always()
         shell: bash
         run: |
           if [ -f devskim-results.txt ]; then
-            echo "### DevSkim Security Issues Found"
             cat devskim-results.txt
             
-            if grep -q "found" devskim-results.txt; then
-              echo "Security issues detected! Review the report above."
+            if grep -qi "found" devskim-results.txt; then
+              echo "❌ Security issues detected!"
               exit 1
             else
-              echo "No security issues found."
+              echo "✅ No security issues found"
             fi
           else
-            echo "DevSkim results file not found."
+            echo "⚠️ DevSkim results file not found"
           fi
 
-      - name: Upload DevSkim Results
+      - name: Upload security scan results
         if: always()
         uses: actions/upload-artifact@v4
         with:
