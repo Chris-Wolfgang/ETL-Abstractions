@@ -379,10 +379,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
                 await foreach (var item in items.WithCancellation(token))
                 {
                     await Task.Delay(_delay, token); // Simulate some delay in processing
-                    if (token.IsCancellationRequested)
-                    {
-                        throw new OperationCanceledException(token);
-                    }
+                    token.ThrowIfCancellationRequested();
                     yield return item.ToString();
                     ++CurrentItemCount;
                 }
