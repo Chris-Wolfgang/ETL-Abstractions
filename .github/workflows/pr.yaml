@@ -71,7 +71,7 @@ jobs:
         if: runner.os == 'Windows'
         run: dotnet build --no-restore --configuration Release
 
-      - name: Run Tests and Collect Coverage  (Release)
+      - name: Run Tests and Collect Coverage (Release)
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
@@ -82,11 +82,11 @@ jobs:
               --collect:"XPlat Code Coverage" \
               --results-directory "./TestResults"
           else
-            # Test only .NET 8.0 on Linux/macOS (representative framework)
+            # Test .NET 8.0 on Linux/macOS - rebuild is needed due to framework-by-framework build
             dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
-              --no-build \
               --configuration Release \
               --framework net8.0 \
+              --no-restore \
               --collect:"XPlat Code Coverage" \
               --results-directory "./TestResults"
           fi
