@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Provides a basic implementation for data loaders the write data of type TDestination to a target destination.
+/// Provides a basic implementation for data loaders that write data of type TDestination to a target destination.
 /// Library authors can use this base class to create custom loaders by inheriting from it and implementing
 /// LoadWorkerAsync and CreateProgressReport methods.
 /// </summary>
