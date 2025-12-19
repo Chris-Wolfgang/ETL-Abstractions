@@ -9,12 +9,12 @@
 		  net8.0;net9.0
 	  </TargetFrameworks>
 	  <LangVersion>latest</LangVersion>
-   <Version>0.6.0</Version>
+   <Version>0.7.0</Version>
    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
    <Title>$(AssemblyName)</Title>
    <Authors>Chris Wolfgang</Authors>
    <Description>Contains interfaces and base classes used to build ETL applications</Description>
-	<Copyright>Copyright {copyright year} {author}</Copyright>
+	<Copyright>Copyright 2025 Chris Wolfgang</Copyright>
      <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
    <PackageReadmeFile>README.md</PackageReadmeFile>
    <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>

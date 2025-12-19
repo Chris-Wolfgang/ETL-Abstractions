@@ -37,7 +37,8 @@
 						'$(TargetFramework)' == 'net481' OR 
 						'$(TargetFramework)' == 'netcoreapp3.1' OR 
 						'$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.8">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" allowedVersions="[2.8.2]">
+	    <Version>[2.8.2]</Version>
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -49,8 +50,8 @@
 						'$(TargetFramework)' == 'net8.0' OR 
 						'$(TargetFramework)' == 'net9.0' OR 
 						'$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" allowedVersions="[2.8.2]">
-	    <Version>[2.8.2]</Version>
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" allowedVersions="[3.0.1]">
+	    <Version>[3.0.1]</Version>
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -65,14 +66,14 @@
 						'$(TargetFramework)' == 'netcoreapp3.1' OR 
 						'$(TargetFramework)' == 'net5.0'">
 	  <!-- Use System.Linq.Async for older frameworks -->
-    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    <PackageReference Include="System.Linq.Async" Version="7.0.0" />
   </ItemGroup>
 
   <!-- .NET 6.0 and .NET 7.0 -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR 
 						'$(TargetFramework)' == 'net7.0'">
     <!-- Use System.Linq.Async for .NET 6.0 and 7.0 (System.Linq.AsyncEnumerable 10.x requires .NET 8.0+) -->
-    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    <PackageReference Include="System.Linq.Async" Version="7.0.0" />
   </ItemGroup>
 
   <!-- .NET 8.0 and later -->
