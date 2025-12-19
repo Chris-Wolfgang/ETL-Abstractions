@@ -274,7 +274,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public void CurrentItemCount_when_assigned_a_value_less_than_0_throws_ArgumentOutOfRangeException()
         {
 
-            var sut = new ConsoleLoaderFromBase(new List<string>());
+            var sut = new ConsoleLoaderFromBase([]);
             Assert.Throws<ArgumentOutOfRangeException>(() => sut.TestSettingCurrentItemCount(-1));
         }
 
@@ -284,7 +284,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public void CurrentItemCount_when_assigned_a_valid_value_stores_the_value()
         {
 
-            var sut = new ConsoleLoaderFromBase(new List<string>());
+            var sut = new ConsoleLoaderFromBase([]);
             sut.TestSettingCurrentItemCount(10);
 
             Assert.Equal(10, sut.CurrentItemCount);
@@ -296,7 +296,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public void ReportingInterval_when_assigned_a_value_less_than_0_throws_ArgumentOutOfRangeException()
         {
 
-            var sut = new ConsoleLoaderFromBase(new List<string>());
+            var sut = new ConsoleLoaderFromBase([]);
             Assert.Throws<ArgumentOutOfRangeException>(() => sut.ReportingInterval = -1);
         }
 
@@ -306,7 +306,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public void ReportingInterval_when_assigned_a_valid_value_stores_the_value()
         {
 
-            var sut = new ConsoleLoaderFromBase(new List<string>())
+            var sut = new ConsoleLoaderFromBase([])
             {
                 ReportingInterval = 10
             };
@@ -319,7 +319,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public void MaximumItemCount_when_assigned_a_value_less_than_1_throws_ArgumentOutOfRangeException()
         {
 
-            var sut = new ConsoleLoaderFromBase(new List<string>());
+            var sut = new ConsoleLoaderFromBase([]);
 
             Assert.Throws<ArgumentOutOfRangeException>(() => sut.MaximumItemCount = -1);
         }
@@ -330,7 +330,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public void MaximumItemCount_when_assigned_a_valid_value_stores_the_value()
         {
 
-            var sut = new ConsoleLoaderFromBase(new List<string>())
+            var sut = new ConsoleLoaderFromBase([])
             {
                 MaximumItemCount = 10
             };
@@ -343,7 +343,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public void SkipItemCount_when_assigned_a_value_less_than_0_throws_ArgumentOutOfRangeException()
         {
 
-            var sut = new ConsoleLoaderFromBase(new List<string>());
+            var sut = new ConsoleLoaderFromBase([]);
             Assert.Throws<ArgumentOutOfRangeException>(() => sut.SkipItemCount = -1);
         }
 
@@ -353,7 +353,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public void SkipItemCount_when_assigned_a_valid_value_stores_the_value()
         {
 
-            var sut = new ConsoleLoaderFromBase(new List<string>())
+            var sut = new ConsoleLoaderFromBase([])
             {
                 SkipItemCount = 10
             };

@@ -3,9 +3,9 @@
   <PropertyGroup>
 	  <TargetFrameworks>
 		  net462;net472;net48;net481;
-          netcoreapp3.1;
-		  net50;net6.0;net7.0;
-		  net8.0;net9.0
+		  netcoreapp3.1;
+          net5.0;net6.0;net7.0;
+		  net8.0;net9.0;net10.0
 	  </TargetFrameworks>
 	  <Version>1.0.0</Version>
 	  <LangVersion>latest</LangVersion>
@@ -15,26 +15,72 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-	  <Copyright>Copyright {copyright year} {author}</Copyright>
+	  <Copyright>Copyright 2025 Chris Wolfgang</Copyright>
 
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0"  allowedVersions="[17.13.0]">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" allowedVersions="[17.13.0]">
 	    <Version>[17.13.0]</Version>
     </PackageReference>
-
-	  <PackageReference Include="System.Linq.Async" Version="6.0.3" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.console" Version="2.9.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" allowedVersions="[2.8.2]">
-	    <Version>[2.8.2]</Version>
-		<PrivateAssets>all</PrivateAssets>
+  </ItemGroup>
+
+  <!-- Conditional xunit.runner.visualstudio for .NET Framework and older .NET Core/5.0 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR 
+						'$(TargetFramework)' == 'net472' OR 
+						'$(TargetFramework)' == 'net48' OR 
+						'$(TargetFramework)' == 'net481' OR 
+						'$(TargetFramework)' == 'netcoreapp3.1' OR 
+						'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.8">
+      <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <!-- Conditional xunit.runner.visualstudio for .NET 6.0+ -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR 
+						'$(TargetFramework)' == 'net7.0' OR 
+						'$(TargetFramework)' == 'net8.0' OR 
+						'$(TargetFramework)' == 'net9.0' OR 
+						'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" allowedVersions="[2.8.2]">
+	    <Version>[2.8.2]</Version>
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Conditional package references for async LINQ support -->
+  <!-- .NET Framework 4.x, .NET Core 3.1, and .NET 5.0 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR 
+						'$(TargetFramework)' == 'net472' OR 
+						'$(TargetFramework)' == 'net48' OR 
+						'$(TargetFramework)' == 'net481' OR 
+						'$(TargetFramework)' == 'netcoreapp3.1' OR 
+						'$(TargetFramework)' == 'net5.0'">
+	  <!-- Use System.Linq.Async for older frameworks -->
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
+
+  <!-- .NET 6.0 and .NET 7.0 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR 
+						'$(TargetFramework)' == 'net7.0'">
+    <!-- Use System.Linq.Async for .NET 6.0 and 7.0 (System.Linq.AsyncEnumerable 10.x requires .NET 8.0+) -->
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
+
+  <!-- .NET 8.0 and later -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' OR 
+						'$(TargetFramework)' == 'net9.0' OR 
+						'$(TargetFramework)' == 'net10.0'">
+    <!-- Use System.Linq.AsyncEnumerable for .NET 8.0+ -->
+    <PackageReference Include="System.Linq.AsyncEnumerable" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
