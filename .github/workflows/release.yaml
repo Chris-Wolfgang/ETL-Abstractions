@@ -76,7 +76,7 @@ jobs:
       - name: Pack NuGet Package for Each Project in Src (Release)
         shell: bash
         run: |
-            dotnet pack src/Wolfgang.Etl.Abstractions.csproj --no-build --configuration Release --output ./nuget-packages 
+            dotnet pack src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj --no-build --configuration Release --output ./nuget-packages 
             
       - name: Publish NuGet Package
         env:
