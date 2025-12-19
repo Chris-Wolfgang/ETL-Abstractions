@@ -8,7 +8,7 @@ using System.Threading;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Provides a basic implementation for data extractor that extracts data of type TSource
+/// Provides a basic implementation for data extractors that extract data of type TSource
 /// Library authors can use this base class to create custom extractors by inheriting from it and implementing
 /// ExtractWorkerAsync and CreateProgressReport methods.
 /// </summary>
