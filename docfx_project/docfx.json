@@ -3,40 +3,55 @@
     {
       "src": [
         {
-          "files": [ "**/*.csproj" ],
-          "src": "../src"
+          "files": [
+            "src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj"
+          ],
+          "src": ".."
         }
       ],
       "dest": "api",
+      "includePrivateMembers": false,
       "disableGitFeatures": false,
       "disableDefaultFilter": false,
-      "properties": {
-        "TargetFramework": "net8.0"
-      }
+      "noRestore": false,
+      "namespaceLayout": "flattened",
+      "memberLayout": "samePage",
+      "allowCompilationErrors": true
     }
   ],
   "build": {
     "content": [
       {
-        "files": [ "api/**.yml", "api/index.md" ]
+        "files": [
+          "api/**.yml",
+          "api/index.md"
+        ]
       },
       {
-        "files": [ "toc.yml", "*.md" ]
+        "files": [
+          "articles/**.md",
+          "articles/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ]
       }
     ],
     "resource": [
       {
-        "files": [ "images/**" ]
+        "files": [
+          "images/**"
+        ]
       }
     ],
-    "dest": "_site",
-    "globalMetadata": {
-      "_appTitle": "Wolfgang.Etl.Abstractions Documentation",
-      "_appName": "Wolfgang.Etl.Abstractions",
-      "_enableSearch": true
-    },
+    "output": "_site",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
     "template": [
-      "default"
-    ]
+      "default",
+      "modern"
+    ],
+    "postProcessors": [],
+    "keepFileLink": false,
+    "disableGitFeatures": false
   }
 }

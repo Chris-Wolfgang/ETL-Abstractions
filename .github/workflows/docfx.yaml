@@ -34,6 +34,15 @@ jobs:
         run: docfx build 
         working-directory: docfx_project
 
+      - name: Verify build output
+        run: |
+          if [ ! -d "docfx_project/_site" ]; then
+            echo "Error: _site directory not found!"
+            exit 1
+          fi
+          echo "Build successful. Contents of _site:"
+          ls -la docfx_project/_site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
