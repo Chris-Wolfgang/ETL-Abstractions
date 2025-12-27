@@ -16,7 +16,7 @@
       "noRestore": false,
       "namespaceLayout": "flattened",
       "memberLayout": "samePage",
-      "allowCompilationErrors": true
+      "allowCompilationErrors": false
     }
   ],
   "build": {
