@@ -126,7 +126,7 @@ jobs:
       - name: Pack NuGet Package with Symbols
         shell: pwsh
         run: |
-            dotnet pack src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj 
+            dotnet pack src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj `
             --no-build `
             --configuration Release `
             --output ./nuget-packages `
