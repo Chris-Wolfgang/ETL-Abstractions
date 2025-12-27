@@ -16,7 +16,7 @@
       "noRestore": false,
       "namespaceLayout": "flattened",
       "memberLayout": "samePage",
-      "allowCompilationErrors": true
+      "allowCompilationErrors": false
     }
   ],
   "build": {
@@ -43,7 +43,7 @@
         ]
       }
     ],
-    "output": "_site",
+    "dest": "_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
