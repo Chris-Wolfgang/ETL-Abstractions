@@ -49,7 +49,7 @@ jobs:
           
           echo "Building test project for cross-platform targets..."
           for fw in netcoreapp3.1 net50 net6.0 net7.0 net8.0 net9.0 net10.0; do
-            dotnet build tests/Wolfgang.Etl.Abstractions.Tests/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
+            dotnet build tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
               --no-restore \
               --configuration Release \
               --framework "$fw" || true
@@ -70,7 +70,7 @@ jobs:
         if: runner.os != 'Windows'
         shell: bash
         run: |
-          dotnet test tests/Wolfgang.Etl.Abstractions.Tests/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
+          dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj \
             --configuration Release \
             --framework net8.0 \
             --no-build \
@@ -82,7 +82,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          dotnet test tests/Wolfgang.Etl.Abstractions.Tests/Wolfgang.Etl.Abstractions.Tests.Unit.csproj `
+          dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj `
             --configuration Release `
             --no-build `
             --logger "trx" `
