@@ -1,4 +1,4 @@
-﻿# This workflow runs on pull requests to validate code quality, run tests, and perform security scans
+# This workflow runs on pull requests to validate code quality, run tests, and perform security scans
 # before merging into main or other protected branches
 
 name: PR Checks
@@ -204,3 +204,13 @@ jobs:
         with:
           name: devskim-results-${{ matrix.os }}
           path: devskim-results.txt
+
+      - name: Generate DocFX metadata
+        if: runner.os == 'Windows'
+        working-directory: docfx_project
+        run: dotnet docfx metadata docfx.json
+
+      - name: Build DocFX site
+        if: runner.os == 'Windows'
+        working-directory: docfx_project
+        run: dotnet docfx build docfx.json
