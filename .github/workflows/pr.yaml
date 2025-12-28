@@ -204,3 +204,11 @@ jobs:
         with:
           name: devskim-results-${{ matrix.os }}
           path: devskim-results.txt
+
+      - name: Generate DocFX metadata
+        working-directory: docfx_project
+        run: dotnet docfx metadata docfx.json
+
+      - name: Build DocFX site
+        working-directory: docfx_project
+        run: dotnet docfx build docfx.json
