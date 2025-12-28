@@ -206,9 +206,11 @@ jobs:
           path: devskim-results.txt
 
       - name: Generate DocFX metadata
+        if: runner.os == 'Windows'
         working-directory: docfx_project
         run: dotnet docfx metadata docfx.json
 
       - name: Build DocFX site
+        if: runner.os == 'Windows'
         working-directory: docfx_project
         run: dotnet docfx build docfx.json
