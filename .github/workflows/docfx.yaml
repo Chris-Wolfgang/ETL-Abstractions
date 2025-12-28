@@ -27,7 +27,7 @@ jobs:
         run: dotnet tool update docfx --global
 
       - name: Build DocFx Metadata
-        run: dotnet build /p: TargetFramework=net10.0 && docfx metadata 
+        run: dotnet build /p:TargetFramework=net10.0 && docfx metadata 
         working-directory: docfx_project
 
       - name:  Build Docs
