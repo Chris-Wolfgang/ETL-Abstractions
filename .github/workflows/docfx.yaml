@@ -27,7 +27,7 @@ jobs:
         run: dotnet tool update docfx --global
 
       - name: Build Project
-        run: dotnet build ../src/Wolfgang.Etl. Abstractions/Wolfgang.Etl.Abstractions.csproj /p:TargetFramework=net10.0
+        run: dotnet build ../src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj /p:TargetFramework=net10.0
         working-directory: docfx_project
 
       - name: Build DocFx Metadata
