@@ -35,6 +35,11 @@ jobs:
             9.0.x
             10.0.x
 
+      - name: Install docfx as local tool
+        run: |
+          dotnet new tool-manifest --force
+          dotnet tool install docfx
+
       - name: Restore dependencies
         run: dotnet restore
 
