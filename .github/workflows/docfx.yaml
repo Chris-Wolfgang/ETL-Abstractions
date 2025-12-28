@@ -6,19 +6,19 @@ on:
       - main # Your primary branch
 
 jobs:
-  build:
+  build: 
     runs-on:  ubuntu-latest
 
-    permissions: 
+    permissions:
       contents: read # Allow read access for checkout
       pages: write      # Allow write access for Pages deployment
       id-token: write   # Allow writing of ID tokens for deployment
 
-    steps:
-      - name:  Checkout repository
+    steps: 
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup . NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
@@ -26,8 +26,12 @@ jobs:
       - name: Install DocFX
         run: dotnet tool update docfx --global
 
+      - name: Build Project
+        run: dotnet build ../src/Wolfgang.Etl. Abstractions/Wolfgang.Etl.Abstractions.csproj /p:TargetFramework=net10.0
+        working-directory: docfx_project
+
       - name: Build DocFx Metadata
-        run: dotnet build /p:TargetFramework=net10.0 && docfx metadata 
+        run: docfx metadata 
         working-directory: docfx_project
 
       - name:  Build Docs
