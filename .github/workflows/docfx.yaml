@@ -2,23 +2,23 @@ name: Deploy DocFX Pages
 
 on:
   push:
-    branches:
+    branches: 
       - main # Your primary branch
 
 jobs:
-  build: 
-    runs-on:  ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read # Allow read access for checkout
       pages: write      # Allow write access for Pages deployment
       id-token: write   # Allow writing of ID tokens for deployment
 
-    steps: 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup . NET
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
@@ -26,25 +26,21 @@ jobs:
       - name: Install DocFX
         run: dotnet tool update docfx --global
 
-      - name: Build Project
-        run: dotnet build ../src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj /p:TargetFramework=net10.0
-        working-directory: docfx_project
-
       - name: Build DocFx Metadata
         run: docfx metadata 
         working-directory: docfx_project
 
-      - name:  Build Docs
+      - name: Build Docs
         run: docfx build 
         working-directory: docfx_project
 
-      - name: Verify build output
+      - name:  Verify build output
         run: |
-          if [ ! -d "docfx_project/_site" ]; then
+          if [ !  -d "docfx_project/_site" ]; then
             echo "Error: _site directory not found!"
             exit 1
           fi
-          echo "Build successful. Contents of _site:"
+          echo "Build successful.  Contents of _site:"
           ls -la docfx_project/_site
 
       - name: Upload artifact
@@ -53,13 +49,13 @@ jobs:
           path: docfx_project/_site # The path to the folder to upload
 
   deploy:
-    needs:  build
+    needs: build
     permissions:
       pages: write
-      id-token:  write
-    environment:
+      id-token: write
+    environment: 
       name: github-pages
-      url:  ${{ steps.deployment.outputs. page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
