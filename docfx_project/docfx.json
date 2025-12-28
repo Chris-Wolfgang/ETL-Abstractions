@@ -4,19 +4,22 @@
       "src": [
         {
           "files": [
-            "src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj"
+            "src/Wolfgang.Etl.Abstractions/Wolfgang. Etl.Abstractions.csproj"
           ],
           "src": ".."
         }
       ],
-      "dest": "api",
+      "dest":  "api",
       "includePrivateMembers": false,
       "disableGitFeatures": false,
       "disableDefaultFilter": false,
       "noRestore": false,
       "namespaceLayout": "flattened",
       "memberLayout": "samePage",
-      "allowCompilationErrors": false
+      "allowCompilationErrors": false,
+      "properties": {
+        "TargetFramework": "net10. 0"
+      }
     }
   ],
   "build": {
@@ -52,6 +55,6 @@
     ],
     "postProcessors": [],
     "keepFileLink": false,
-    "disableGitFeatures": false
+    "disableGitFeatures":  false
   }
 }
