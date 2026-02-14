@@ -1,0 +1,10 @@
+<Project>
+  <ItemGroup>
+    <!-- Add reference assemblies for .NET Framework targets when building on non-Windows platforms -->
+    <!-- Supports both SDK-style projects (TargetFramework) and old-style projects (TargetFrameworkVersion) -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" 
+                      Version="1.0.3" 
+                      PrivateAssets="All" 
+                      Condition="('$(TargetFramework)' != '' AND $(TargetFramework.StartsWith('net4'))) OR ('$(TargetFrameworkVersion)' != '' AND $(TargetFrameworkVersion.StartsWith('v4')))" />
+  </ItemGroup>
+</Project>
