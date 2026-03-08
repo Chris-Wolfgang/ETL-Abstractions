@@ -91,7 +91,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
             try
             {
                 cts.Cancel();
-                await task.ToListAsync();
+                await task.ToListAsync(cancellationToken: cts.Token);
                 Assert.Fail("OperationCanceledException was expected but not thrown");
             }
             catch (OperationCanceledException)
@@ -254,7 +254,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
             try
             {
                 cts.Cancel();
-                await task.ToListAsync();
+                await task.ToListAsync(cancellationToken: cts.Token);
                 Assert.Fail("OperationCanceledException was expected but not thrown");
             }
             catch (OperationCanceledException)
@@ -262,29 +262,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
                 // Expected exception was thrown
             }
         }
-
-
-
-        [Fact]
-        public void CurrentItemCount_when_assigned_a_value_less_than_0_throws_ArgumentOutOfRangeException()
-        {
-
-            var sut = new IntToStringTransformerFromTransformerBase();
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.TestSettingCurrentItemCount(-1));
-        }
-
-
-
-        [Fact]
-        public void CurrentItemCount_when_assigned_a_valid_value_stores_the_value()
-        {
-
-            var sut = new IntToStringTransformerFromTransformerBase();
-            sut.TestSettingCurrentItemCount(10);
-
-            Assert.Equal(10, sut.CurrentItemCount);
-        }
-
+        
 
 
         [Fact]
@@ -358,7 +336,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
 
         [ExcludeFromCodeCoverage]
-        internal class IntToStringTransformerFromTransformerBase : TransformerBase<int, string, EtlProgress>
+        private class IntToStringTransformerFromTransformerBase : TransformerBase<int, string, EtlProgress>
         {
             private readonly int _delay;
 
@@ -381,7 +359,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
                     await Task.Delay(_delay, token); // Simulate some delay in processing
                     token.ThrowIfCancellationRequested();
                     yield return item.ToString();
-                    ++CurrentItemCount;
+                    IncrementCurrentItemCount();
                 }
             }
 
@@ -392,16 +370,6 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
                 return new EtlProgress(CurrentItemCount);
             }
 
-
-
-            /// <summary>
-            /// Used for testing purposes to set the CurrentItemCount property.
-            /// </summary>
-            /// <param name="value"></param>
-            public void TestSettingCurrentItemCount(int value)
-            {
-                CurrentItemCount = value;
-            }
 
         }
     }
