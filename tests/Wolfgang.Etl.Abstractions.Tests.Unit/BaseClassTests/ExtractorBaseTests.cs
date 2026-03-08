@@ -184,30 +184,6 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
 
         [Fact]
-        public void CurrentItemCount_when_assigned_a_value_less_than_0_throws_ArgumentOutOfRangeException()
-        {
-            
-            var sut = new FibonacciExtractorFromExtractorBase();
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.TestSettingCurrentItemCount( -1));
-        }
-
-
-
-        [Fact]
-        public void CurrentItemCount_when_assigned_a_valid_value_stores_the_value()
-        {
-
-            var sut = new FibonacciExtractorFromExtractorBase();
-
-            sut.TestSettingCurrentItemCount(10);
-
-            Assert.Equal(10, sut.CurrentItemCount);
-        }
-
-
-
-        [Fact]
         public void ReportingInterval_when_assigned_a_value_less_than_0_throws_ArgumentOutOfRangeException()
         {
 
@@ -297,7 +273,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
                     throw new TaskCanceledException("Extraction was cancelled.");
                 }
                 yield return current;
-                ++CurrentItemCount;
+                IncrementCurrentItemCount();
 
                 var temp = current;
                 current += previous;
@@ -312,17 +288,6 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         protected override EtlProgress CreateProgressReport()
         {
             return new EtlProgress(CurrentItemCount);
-        }
-
-
-
-        /// <summary>
-        /// Used for testing purposes to set the CurrentItemCount property.
-        /// </summary>
-        /// <param name="value"></param>
-        public void TestSettingCurrentItemCount(int value)
-        {
-            CurrentItemCount = value;
         }
     }
 }

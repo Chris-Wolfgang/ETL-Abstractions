@@ -1,0 +1,10 @@
+<Project>
+  <ItemGroup>
+    <!-- Add reference assemblies for .NET Framework targets -->
+    <!-- Supports both SDK-style projects (TargetFramework) and old-style projects (TargetFrameworkVersion) -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" 
+                      Version="1.0.3" 
+                      PrivateAssets="All" 
+                      Condition="('$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481' OR '$(TargetFrameworkVersion)' == 'v4.6.2' OR '$(TargetFrameworkVersion)' == 'v4.7.2' OR '$(TargetFrameworkVersion)' == 'v4.8' OR '$(TargetFrameworkVersion)' == 'v4.8.1')" />
+  </ItemGroup>
+</Project>

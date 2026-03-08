@@ -31,9 +31,7 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR 
 						'$(TargetFramework)' == 'net472' OR 
 						'$(TargetFramework)' == 'net48' OR 
-						'$(TargetFramework)' == 'net481' OR 
-						'$(TargetFramework)' == 'netcoreapp3.1' OR 
-						'$(TargetFramework)' == 'net5.0'">
+						'$(TargetFramework)' == 'net481' ">
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" allowedVersions="[2.8.2]">
 	    <Version>[2.8.2]</Version>
       <PrivateAssets>all</PrivateAssets>
@@ -41,14 +39,23 @@
     </PackageReference>
   </ItemGroup>
 
+  <!-- Conditional xunit.runner.visualstudio for .NET Framework and Core 3.1 and .Net 5.0 -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0'">
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" allowedVersions="2.4.5">
+			<Version>2.4.5</Version>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
   <!-- Conditional xunit.runner.visualstudio for .NET 6.0+ -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR 
 						'$(TargetFramework)' == 'net7.0' OR 
 						'$(TargetFramework)' == 'net8.0' OR 
 						'$(TargetFramework)' == 'net9.0' OR 
 						'$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" allowedVersions="[3.0.1]">
-	    <Version>[3.0.1]</Version>
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" allowedVersions="3.0.1">
+	    <Version>3.0.1</Version>
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
