@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading;
 
 
@@ -8,14 +7,14 @@ using System.Threading;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Provides a basic implementation for data transformers that convert data from TSource to TDestination
+/// Provides a basic implementation for data transformers that convert data from TSource to TDestination.
 /// Library authors can use this base class to create custom transformers by inheriting from it and implementing
 /// TransformWorkerAsync and CreateProgressReport methods.
 /// </summary>
 /// <typeparam name="TSource">The type of the source object</typeparam>
 /// <typeparam name="TDestination">The type of the destination object</typeparam>
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
-public abstract class TransformerBase<TSource, TDestination, TProgress> 
+public abstract class TransformerBase<TSource, TDestination, TProgress>
     : ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>
 {
 
@@ -26,10 +25,11 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     private int _currentSkippedItemCount;
 
 
+
     /// <summary>
     /// The number of milliseconds between progress updates.
     /// </summary>
-    /// <exception cref="ArgumentException">Value cannot be less than 1</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
     public int ReportingInterval
     {
         get => _reportingInterval;
@@ -44,47 +44,25 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     }
 
 
+
     /// <summary>
     /// The current number of items transformed so far.
     /// </summary>
     /// <remarks>
-    /// It is the responsibility of the derived class to keep this value up to date as the
-    /// base class will have no way of knowing the correct value
+    /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
+    /// as each item is transformed. The base class has no way of knowing when an item has been processed.
     /// </remarks>
-
-    [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
-    public int CurrentItemCount
-    {
-        get => _currentItemCount;
-        protected set
-        {
-            if (value < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value));
-            }
-            _currentItemCount = value;
-        }
-    }
+    public int CurrentItemCount => _currentItemCount;
 
 
 
     /// <summary>
-    /// Gets the current number of records skipped
+    /// The current number of items skipped so far during transformation.
     /// </summary>
-    public int CurrentSkippedItemCount
-    {
-        get => _currentSkippedItemCount;
-        protected set
-        {
-            if (value < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "value cannot be less than 0.");
-            }
-        }
-    }
+    public int CurrentSkippedItemCount => _currentSkippedItemCount;
 
 
-        
+
     /// <summary>
     /// The maximum number of items to transform. Once the transformer has reached this limit,
     /// it should stop transforming and signal the end of the sequence.
@@ -93,16 +71,15 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// This is useful for transforming a subset of data, especially when the source is large
     /// or infinite or during development.
     /// </remarks>
-    /// <exception cref="ArgumentException">The specified value is less than 1</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     /// <example>
     /// <code>
     ///     foreach (var item in items.Skip(SkipItemCount).Take(MaxItemCount))
     ///     {
-    ///         // Transformer each item and return it
+    ///         // Transform each item and return it
     ///     }
     /// </code>
     /// </example>
-
     public int MaximumItemCount
     {
         get => _maximumItemCount;
@@ -126,16 +103,15 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// This is useful for transforming a subset of data, especially when the source is large
     /// or infinite or during development.
     /// </remarks>
-    /// <exception cref="ArgumentException">The specified value is less than 0</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     /// <example>
     /// <code>
     ///     foreach (var item in items.Skip(SkipItemCount).Take(MaxItemCount))
     ///     {
-    ///         // Transformer each item and return it
+    ///         // Transform each item and return it
     ///     }
     /// </code>
     /// </example>
-
     public int SkipItemCount
     {
         get => _skipItemCount;
@@ -156,9 +132,10 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// </summary>
     /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>
     /// <returns>
-    /// IAsyncEnumerable&lt;T&gt;
+    /// IAsyncEnumerable&lt;TDestination&gt;
     /// The result may be an empty sequence if no data is available or if the transformation fails.
     /// </returns>
+    /// <exception cref="ArgumentNullException">The value of items is null</exception>
     public virtual IAsyncEnumerable<TDestination> TransformAsync
     (
         IAsyncEnumerable<TSource> items
@@ -178,15 +155,17 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// Asynchronously transforms data of type TSource to TDestination
     /// </summary>
     /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>
-    /// <param name="token">A CancellationToken to observe while waiting for the task to complete</param>
+    /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// IAsyncEnumerable&lt;TDestination&gt; - A list of 0 or more transformed items
     /// </returns>
     /// <remarks>
+    /// The transformer should be able to handle cancellation requests gracefully.
+    /// If the caller doesn't plan on cancelling the transformation, they can pass CancellationToken.None.
     /// </remarks>
     public virtual IAsyncEnumerable<TDestination> TransformAsync
     (
-        IAsyncEnumerable<TSource> items, 
+        IAsyncEnumerable<TSource> items,
         CancellationToken token
     )
     {
@@ -204,8 +183,9 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// </summary>
     /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>
     /// <param name="progress">A provider for progress updates.</param>
-    /// <returns>IAsyncEnumerable&lt;T&gt; The result may be an empty sequence if no data is available or if the transformation fails.
-    /// </returns> 
+    /// <returns>
+    /// IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.
+    /// </returns>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TDestination> TransformAsync
     (
@@ -243,8 +223,8 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <param name="progress">A provider for progress updates.</param>
     /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
-    /// IAsyncEnumerable&lt;T&gt; The result may be an empty sequence if no data is available or if the transformation fails.
-    /// </returns> 
+    /// IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.
+    /// </returns>
     /// <remarks>
     /// The transformer should be able to handle cancellation requests gracefully.
     /// If the caller doesn't plan on cancelling the transformation, they can pass CancellationToken.None.
@@ -252,8 +232,8 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TDestination> TransformAsync
     (
-        IAsyncEnumerable<TSource> items, 
-        IProgress<TProgress> progress, 
+        IAsyncEnumerable<TSource> items,
+        IProgress<TProgress> progress,
         CancellationToken token
     )
     {
@@ -275,7 +255,6 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
             TimeSpan.FromMilliseconds(ReportingInterval)
         );
 
-            
         return TransformWorkerAsync(items, token);
     }
 
@@ -284,16 +263,14 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <summary>
     /// The worker method that performs the actual transformation.
     /// </summary>
-    /// <param name="items">
-    /// IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed
-    /// </param>
-    /// <param name="token">
-    /// A CancellationToken to observe while waiting for the task to complete.
-    /// </param>
-    /// <returns></returns>
+    /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>
+    /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
+    /// <returns>
+    /// IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.
+    /// </returns>
     protected abstract IAsyncEnumerable<TDestination> TransformWorkerAsync
     (
-        IAsyncEnumerable<TSource>items,  
+        IAsyncEnumerable<TSource> items,
         CancellationToken token
     );
 
@@ -314,7 +291,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// </summary>
     /// <remarks>
     /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
-    /// thread safe. This method ensures that CurrentItemCount is incremented safely 
+    /// thread safe. This method ensures that CurrentItemCount is incremented safely.
     /// </remarks>
     protected void IncrementCurrentItemCount()
     {
@@ -324,11 +301,11 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
     /// <summary>
-    /// Increments the CurrentItemCount in a thread safe manner.
+    /// Increments the CurrentSkippedItemCount in a thread safe manner.
     /// </summary>
     /// <remarks>
-    /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
-    /// thread safe. This method ensures that CurrentItemCount is incremented safely 
+    /// Simply calling CurrentSkippedItemCount++ or CurrentSkippedItemCount += 1 is not
+    /// thread safe. This method ensures that CurrentSkippedItemCount is incremented safely.
     /// </remarks>
     protected void IncrementCurrentSkippedItemCount()
     {
