@@ -28,21 +28,21 @@ namespace Example6_ReducingDuplicateCode.ETL
 
         public IAsyncEnumerable<int> ExtractAsync()
         {
-            return WorkerAsync(null,  CancellationToken.None);
+            return WorkerAsync(progress: null,  CancellationToken.None);
         }
 
 
 
         public IAsyncEnumerable<int> ExtractAsync(CancellationToken token)
         {
-            return WorkerAsync(null, token);
+            return WorkerAsync(progress: null, token);
         }
 
 
 
         public IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)
         {
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(progress);
 
             return WorkerAsync(progress, CancellationToken.None);
         }
@@ -55,7 +55,7 @@ namespace Example6_ReducingDuplicateCode.ETL
                 CancellationToken token
             )
         {
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(progress);
 
             return WorkerAsync(progress, token);
         }
@@ -74,10 +74,10 @@ namespace Example6_ReducingDuplicateCode.ETL
             await using var timer = new Timer
             (
                 _ => progress?.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
+                state: null,
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-            );
+            ).ConfigureAwait(false);
 
             var current = 1;
             var previous = 0;
@@ -100,7 +100,7 @@ namespace Example6_ReducingDuplicateCode.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
+                await Task.Delay(100, token).ConfigureAwait(false); // Simulate asynchronous operation
             }
 
             progress?.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
