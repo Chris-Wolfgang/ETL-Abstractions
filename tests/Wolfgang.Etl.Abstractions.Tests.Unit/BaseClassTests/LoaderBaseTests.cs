@@ -165,7 +165,6 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
             var cts = new CancellationTokenSource();
             var progress = new SynchronousProgress<EtlProgress>(_ => { });
 
-            var task = sut.LoadAsync(AsyncHelpers.GenerateSlowItemsAsync(10), progress);
             cts.Cancel();
 
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
