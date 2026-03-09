@@ -39,7 +39,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <!-- Conditional xunit.runner.visualstudio for .NET Framework and Core 3.1 and .Net 5.0 -->
+  <!-- Conditional xunit.runner.visualstudio for .NET Core 3.1 and .NET 5.0 -->
 	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0'">
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" allowedVersions="2.4.5">
 			<Version>2.4.5</Version>
