@@ -141,10 +141,10 @@ cd docfx_project
 docfx metadata  # Extract API metadata from source code
 docfx build     # Build HTML documentation
 
-# Documentation is generated in the docs/ folder at the repository root
+# Documentation is generated in the docfx_project/_site/ folder
 ```
 
-The documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch.
+The documentation is automatically built and deployed to GitHub Pages via the `docfx.yaml` workflow, which is triggered by `workflow_call` (invoked from `release.yaml` on a new GitHub Release) or manually via `workflow_dispatch`.
 
 **Local Preview:**
 ```bash
@@ -157,7 +157,7 @@ docfx build --serve
 
 **Documentation Structure:**
 - `docfx_project/` - DocFX configuration and source files
-- `docs/` - Generated HTML documentation (published to GitHub Pages)
+- `docfx_project/_site/` - Generated HTML documentation (published to GitHub Pages)
 - `docfx_project/index.md` - Main landing page content
 - `docfx_project/docs/` - Additional documentation articles
 - `docfx_project/api/` - Auto-generated API reference YAML files
