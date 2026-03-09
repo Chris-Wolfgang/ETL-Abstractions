@@ -1,4 +1,5 @@
-- name: Home
-  href: index.md
-- name: API Documentation
-  href: api/
+- name: Documentation
+  href: docs/toc.yml
+- name: API Reference
+  href: api/toc.yml
+  homepage: api/index.md

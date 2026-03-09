@@ -1,31 +1,181 @@
 # Wolfgang.Etl.Abstractions
 
-This package contains interfaces and base classes for building ETLs using a specific design pattern
+Interface and base classes for building ETLs
 
-The ETL design pattern is a common approach in data processing that involves three main stages:
-- **Extract**: Retrieving data from various sources.
-- **Transform**: Processing and transforming the extracted data into a desired format.
-- **Load**: Storing the transformed data into a target system.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![.NET](https://img.shields.io/badge/.NET-Multi--Targeted-purple.svg)](https://dotnet.microsoft.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions)
 
-The abstractions in this package provide a way to define and implement these stages 
-in a flexible and reusable manner. Each stage can be implemented with or without 
-support for cancellation and progress reporting, allowing for greater control 
-over the ETL process.
+---
 
-To build an ETL using this package, you would typically need to create 5 classes:
-- One class for each of the three stages: Extract, Transform, and Load.
-- One class representing the source data.
-- One class representing the target data.
-- One class that acts as the ETL orchestrator, coordinating the execution of the three stages.
+## 📦 Installation
 
-The design uses lazy loading and lazy evaluation to ensure that data is processed only when needed.
-This allows for efficient memory usage and can handle large datasets without loading everything into memory at once.
+```bash
+dotnet add package Wolfgang.Etl.Abstractions
+```
 
-The process uses a pull method rather than a push method to move data through the pipeline.
-The process starts when the ETL orchestrator calls the `LoadAsyc` method of the `Loader` class. 
-The loader will start enumerating through the list of items passed into its `LoadAsync` method.
-This will intern trigger the `TransformAsync` method of the `Transformer` class, which will process each item 
-and yield the transformed results. The process of transformation will also trigger the `ExtractAsync` method of the `Extractor` class,
-which will retrieve the necessary data from the source.
+**NuGet Package:** Available on NuGet.org
 
-For more information check out the [documentation](https://github.com/Chris-Wolfgang/ETL-Abstractions/wiki)
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📚 Documentation
+
+- **GitHub Repository:** [https://github.com/Chris-Wolfgang/ETL-Abstractions](https://github.com/Chris-Wolfgang/ETL-Abstractions)
+- **API Documentation:** https://Chris-Wolfgang.github.io/ETL-Abstractions/
+- **Formatting Guide:** [README-FORMATTING.md](README-FORMATTING.md)
+- **Contributing Guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
+
+---
+
+## 🚀 Quick Start
+
+{{QUICK_START_EXAMPLE}}
+
+---
+
+## ✨ Features
+
+{{FEATURES_TABLE}}
+
+**Examples:**
+{{FEATURE_EXAMPLES}}
+
+---
+
+## 🎯 Target Frameworks
+
+| Framework | Versions |
+|-----------|----------|
+| .Net Framework | .net 4.6.2, .net 4.7.0, .net 4.7.1, .net 4.7.2, .net 4.8, .net 4.8.1 | 
+| .Net Core | |
+| .Net | .net 5.0, .net 6.0, .net 7.0, .net 8.0, .net 9.0, .net 10.0 |
+
+---
+
+## 🔍 Code Quality & Static Analysis
+
+This project enforces **strict code quality standards** through **7 specialized analyzers** and custom async-first rules:
+
+### Analyzers in Use
+
+1. **Microsoft.CodeAnalysis.NetAnalyzers** - Built-in .NET analyzers for correctness and performance
+2. **Roslynator.Analyzers** - Advanced refactoring and code quality rules
+3. **AsyncFixer** - Async/await best practices and anti-pattern detection
+4. **Microsoft.VisualStudio.Threading.Analyzers** - Thread safety and async patterns
+5. **Microsoft.CodeAnalysis.BannedApiAnalyzers** - Prevents usage of banned synchronous APIs
+6. **Meziantou.Analyzer** - Comprehensive code quality rules
+7. **SonarAnalyzer.CSharp** - Industry-standard code analysis
+
+### Async-First Enforcement
+
+This library uses **`BannedSymbols.txt`** to prohibit synchronous APIs and enforce async-first patterns:
+
+**Blocked APIs Include:**
+- ❌ `Task.Wait()`, `Task.Result` - Use `await` instead
+- ❌ `Thread.Sleep()` - Use `await Task.Delay()` instead
+- ❌ Synchronous file I/O (`File.ReadAllText`) - Use async versions
+- ❌ Synchronous stream operations - Use `ReadAsync()`, `WriteAsync()`
+- ❌ `Parallel.For/ForEach` - Use `Task.WhenAll()` or `Parallel.ForEachAsync()`
+- ❌ Obsolete APIs (`WebClient`, `BinaryFormatter`)
+
+**Why?** To ensure all code is **truly async** and **non-blocking** for optimal performance in async contexts.
+
+---
+
+## 🛠️ Building from Source
+
+### Prerequisites
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) or later
+- Optional: [PowerShell Core](https://github.com/PowerShell/PowerShell) for formatting scripts
+
+### Build Steps
+
+```bash
+# Clone the repository
+git clone https://github.com/Chris-Wolfgang/ETL-Abstractions.git
+cd ETL-Abstractions
+
+# Restore dependencies
+dotnet restore
+
+# Build the solution
+dotnet build --configuration Release
+
+# Run tests
+dotnet test --configuration Release
+
+# Run code formatting (PowerShell Core)
+pwsh ./scripts/format.ps1
+```
+
+### Code Formatting
+
+This project uses `.editorconfig` and `dotnet format`:
+
+```bash
+# Format code
+dotnet format
+
+# Verify formatting (as CI does)
+dotnet format --verify-no-changes
+```
+
+See [README-FORMATTING.md](README-FORMATTING.md) for detailed formatting guidelines.
+
+### Building Documentation
+
+This project uses [DocFX](https://dotnet.github.io/docfx/) to generate API documentation:
+
+```bash
+# Install DocFX (one-time setup)
+dotnet tool install -g docfx
+
+# Generate API metadata and build documentation
+cd docfx_project
+docfx metadata  # Extract API metadata from source code
+docfx build     # Build HTML documentation
+
+# Documentation is generated in the docs/ folder at the repository root
+```
+
+The documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch.
+
+**Local Preview:**
+```bash
+# Serve documentation locally (with live reload)
+cd docfx_project
+docfx build --serve
+
+# Open http://localhost:8080 in your browser
+```
+
+**Documentation Structure:**
+- `docfx_project/` - DocFX configuration and source files
+- `docs/` - Generated HTML documentation (published to GitHub Pages)
+- `docfx_project/index.md` - Main landing page content
+- `docfx_project/docs/` - Additional documentation articles
+- `docfx_project/api/` - Auto-generated API reference YAML files
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- Code quality standards
+- Build and test instructions
+- Pull request guidelines
+- Analyzer configuration details
+
+---
+
+
+## 🙏 Acknowledgments
+
+{{ACKNOWLEDGMENTS}}
+
