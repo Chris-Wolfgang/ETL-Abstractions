@@ -420,7 +420,7 @@ jobs:
     name: "Stage 3: macOS Tests (.NET 6.0-10.0)"
     runs-on: macos-latest
     needs: [detect-projects, test-windows]
-    if: github.repository != 'Chris-Wolfgang/repo-template' && needs.detect-projects.outputs.has-projects == 'true'
+    if: github.repository != 'Chris-Wolfgang/repo-template' && needs.detect-projects.outputs.has-projects == 'true' && needs.test-windows.result == 'success'
     
     steps:
       - name: Checkout code
