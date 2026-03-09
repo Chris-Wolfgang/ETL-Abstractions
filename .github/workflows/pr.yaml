@@ -196,8 +196,8 @@ jobs:
             echo "=========================================="
             
             # Extract target frameworks from the project file
-            # Support both <TargetFramework> (single) and <TargetFrameworks> (multiple)
-            frameworks=$(grep -oP '<TargetFramework[s]?>\K[^<]+' "$test_proj" | tr ';' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -E '^net(5\.0|6\.0|7\.0|8\.0|9\.0|10\.0)$' || true)
+            # Support both <TargetFramework> (single) and <TargetFrameworks> (multiple), including multi-line values
+            frameworks=$(tr '\n' ' ' < "$test_proj" | grep -oP '<TargetFrameworks?\s*>\K[^<]+' | tr ';' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -E '^net(5\.0|6\.0|7\.0|8\.0|9\.0|10\.0)$' || true)
             
             if [ -z "$frameworks" ]; then
               echo "⊘ Skipping: No compatible .NET 5.0-10.0 target frameworks found"
