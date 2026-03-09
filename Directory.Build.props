@@ -14,12 +14,12 @@
     <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
     <!-- Include BannedSymbols.txt as AdditionalFiles for BannedApiAnalyzers -->
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)BannedSymbols.txt" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
     <!-- Roslynator - Code quality and refactoring -->
     <PackageReference Include="Roslynator.Analyzers" Version="4.15.0">
       <PrivateAssets>all</PrivateAssets>
