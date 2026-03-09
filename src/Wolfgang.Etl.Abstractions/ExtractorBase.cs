@@ -28,7 +28,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <summary>
     /// The number of milliseconds between progress updates.
     /// </summary>
-    /// <exception cref="ArgumentException">Value cannot be less than 1</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1</exception>
     public int ReportingInterval
     {
         get => _reportingInterval;
@@ -50,7 +50,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// It is the responsibility of the derived class to keep this value up to date as the
     /// base class will have no way of knowing the correct value
     /// </remarks>
-
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 0</exception>
     [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
     public int CurrentItemCount
     {
@@ -70,6 +70,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <summary>
     /// Gets the current number of records skipped
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 0</exception>
     public int CurrentSkippedItemCount
     {
         get => _currentSkippedItemCount;
@@ -92,7 +93,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// This is useful for partially extracting data from a source, especially when the source is large
     /// or infinite or during development.
     /// </remarks>
-    /// <exception cref="ArgumentException">The specified value is less than 0</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0</exception>
     /// <example>
     /// <code>
     ///     var count = 0;
@@ -136,7 +137,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// This is useful for partially extracting data from a source during development, or to skip
     /// items that were already processed or are not relevant for the current extraction.
     /// </remarks>
-    /// <exception cref="ArgumentException">The specified value is less than 0</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0</exception>
     /// <example>
     /// <code>
     ///     using (var reader = new StreamReader(filePath))
@@ -231,7 +232,7 @@ public abstract class ExtractorBase<TSource, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval)
         );
@@ -265,7 +266,7 @@ public abstract class ExtractorBase<TSource, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
                 
             TimeSpan.FromMilliseconds(ReportingInterval)
