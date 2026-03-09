@@ -81,6 +81,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
+            3.1.x
             5.0.x
             6.0.x
             7.0.x
@@ -333,8 +334,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
-            3.1.x
-            3.1.x
             3.1.x
             5.0.x
             6.0.x
