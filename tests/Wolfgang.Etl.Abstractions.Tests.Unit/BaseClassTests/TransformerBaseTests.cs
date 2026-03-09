@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
@@ -150,26 +151,6 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
 
 
-        [Fact(Skip = "Test succeeds on its own, but fails when run with other tests. Need to determine what is going on and get it working")]
-        public async Task TransformWithProgressAsync_reports_progress()
-        {
-            var sut = new IntToStringTransformerFromTransformerBase(100)
-            {
-                ReportingInterval = 100 // Report progress every second
-            };
-
-            var progressReported = false;
-
-            var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
-            var progress = new Progress<EtlProgress>(_ => progressReported = true);
-
-            await sut.TransformAsync(items, progress).ToListAsync();
-
-            Assert.True(progressReported, "Progress was not reported");
-        }
-
-
-
         // Transform With Progress And Cancellation tests
 
 
@@ -213,30 +194,6 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
             Assert.Equal(expectedResults, actualResults);
         }
-
-
-
-        [Fact(Skip = "Test succeeds on its own, but fails when run with other tests. Need to determine what is going on and get it working")]
-        public async Task TransformWithProgressAndCancellationAsync_reports_progress()
-        {
-            var sut = new IntToStringTransformerFromTransformerBase
-            {
-                ReportingInterval = 1000 // Report progress every second
-            };
-
-            var progressReported = false;
-
-            var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
-            var progress = new Progress<EtlProgress>(_ =>
-            {
-                progressReported = true;
-            });
-
-            await sut.TransformAsync(items, progress, CancellationToken.None).ToListAsync();
-
-            Assert.True(progressReported, "Progress was not reported");
-        }
-
 
 
 
@@ -335,6 +292,128 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
 
 
+        [Fact]
+        public void ReportingInterval_when_assigned_zero_throws_ArgumentOutOfRangeException()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase();
+            Assert.Throws<ArgumentOutOfRangeException>(() => sut.ReportingInterval = 0);
+        }
+
+
+
+        [Fact]
+        public void MaximumItemCount_when_assigned_zero_is_valid_and_stores_the_value()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase
+            {
+                MaximumItemCount = 0
+            };
+            Assert.Equal(0, sut.MaximumItemCount);
+        }
+
+
+
+        [Fact]
+        public async Task CurrentItemCount_reflects_number_of_items_transformed()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase();
+            var items = new[] { 1, 2, 3, 4, 5 }.ToAsyncEnumerable();
+
+            await sut.TransformAsync(items).ToListAsync();
+
+            Assert.Equal(5, sut.CurrentItemCount);
+        }
+
+
+
+        [Fact]
+        public async Task CurrentSkippedItemCount_reflects_number_of_items_skipped()
+        {
+            var sut = new IntToStringTransformerFromTransformerBaseWithSkips();
+            var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
+
+            await sut.TransformAsync(items).ToListAsync();
+
+            Assert.Equal(5, sut.CurrentSkippedItemCount);
+        }
+
+
+
+        [Fact]
+        public void ReportingInterval_default_value_is_1000()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase();
+            Assert.Equal(1_000, sut.ReportingInterval);
+        }
+
+
+
+        [Fact]
+        public void MaximumItemCount_default_value_is_int_MaxValue()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase();
+            Assert.Equal(int.MaxValue, sut.MaximumItemCount);
+        }
+
+
+
+        [Fact]
+        public void SkipItemCount_default_value_is_zero()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase();
+            Assert.Equal(0, sut.SkipItemCount);
+        }
+
+
+
+        [Fact]
+        public void CurrentItemCount_default_value_is_zero()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase();
+            Assert.Equal(0, sut.CurrentItemCount);
+        }
+
+
+
+        [Fact]
+        public void CurrentSkippedItemCount_default_value_is_zero()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase();
+            Assert.Equal(0, sut.CurrentSkippedItemCount);
+        }
+
+
+
+        [Fact(Skip = "Timer-based progress callback fires on a thread pool thread and races with enumeration completion across all target frameworks. Needs a redesign of the progress mechanism to be reliably testable.")]
+        public async Task TransformWithProgressAsync_invokes_progress_callback()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase(50) { ReportingInterval = 100 };
+            var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
+            using var callbackFired = new ManualResetEventSlim(false);
+            var progress = new SynchronousProgress<EtlProgress>(_ => callbackFired.Set());
+
+            await sut.TransformAsync(items, progress).ToListAsync();
+
+            Assert.True(callbackFired.IsSet, "Progress callback was never invoked.");
+        }
+
+
+
+        [Fact(Skip = "Timer-based progress callback fires on a thread pool thread and races with enumeration completion across all target frameworks. Needs a redesign of the progress mechanism to be reliably testable.")]
+        public async Task TransformWithProgressAndCancellationAsync_invokes_progress_callback()
+        {
+            var sut = new IntToStringTransformerFromTransformerBase(50) { ReportingInterval = 100 };
+            var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
+            using var callbackFired = new ManualResetEventSlim(false);
+            var progress = new SynchronousProgress<EtlProgress>(_ => callbackFired.Set());
+
+            await sut.TransformAsync(items, progress, CancellationToken.None).ToListAsync();
+
+            Assert.True(callbackFired.IsSet, "Progress callback was never invoked.");
+        }
+
+
+
         [ExcludeFromCodeCoverage]
         private class IntToStringTransformerFromTransformerBase : TransformerBase<int, string, EtlProgress>
         {
@@ -372,5 +451,39 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
 
         }
+
+
+
+        [ExcludeFromCodeCoverage]
+        private class IntToStringTransformerFromTransformerBaseWithSkips : TransformerBase<int, string, EtlProgress>
+        {
+            protected override async IAsyncEnumerable<string> TransformWorkerAsync
+            (
+                IAsyncEnumerable<int> items,
+                [EnumeratorCancellation] CancellationToken token
+            )
+            {
+                await foreach (var item in items.WithCancellation(token))
+                {
+                    if (item % 2 == 0)
+                    {
+                        IncrementCurrentSkippedItemCount();
+                        continue;
+                    }
+                    yield return item.ToString();
+                    IncrementCurrentItemCount();
+                }
+            }
+
+
+
+            protected override EtlProgress CreateProgressReport()
+            {
+                return new EtlProgress(CurrentItemCount);
+            }
+        }
     }
+
+
+
 }
