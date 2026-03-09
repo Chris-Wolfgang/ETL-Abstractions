@@ -100,7 +100,7 @@ namespace Example6_ReducingDuplicateCode.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100, token).ConfigureAwait(false); // Simulate asynchronous operation
+                await Task.Delay(100, CancellationToken.None).ConfigureAwait(false); // Simulate asynchronous operation
             }
 
             progress?.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
