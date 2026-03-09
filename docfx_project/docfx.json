@@ -1,60 +1,61 @@
 {
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
   "metadata": [
     {
       "src": [
         {
           "files": [
-            "src/Wolfgang.Etl.Abstractions/Wolfgang. Etl.Abstractions.csproj"
+            "src/**/*.csproj"
           ],
-          "src": ".."
+          "src": "../"
         }
       ],
-      "dest":  "api",
-      "includePrivateMembers": false,
-      "disableGitFeatures": false,
-      "disableDefaultFilter": false,
-      "noRestore": false,
-      "namespaceLayout": "flattened",
-      "memberLayout": "samePage",
-      "allowCompilationErrors": false,
+      "dest": "api",
       "properties": {
-        "TargetFramework": "net10. 0"
-      }
+        "TargetFramework": "net8.0"
+      },
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
     }
   ],
   "build": {
     "content": [
       {
         "files": [
-          "api/**.yml",
-          "api/index.md"
-        ]
-      },
-      {
-        "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
-          "toc.yml",
-          "*.md"
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
         ]
       }
     ],
     "resource": [
       {
         "files": [
+          "logo.svg",
           "images/**"
         ]
       }
     ],
+
     "output": "_site",
-    "globalMetadataFiles": [],
-    "fileMetadataFiles": [],
     "template": [
       "default",
       "modern"
     ],
-    "postProcessors": [],
-    "keepFileLink": false,
-    "disableGitFeatures":  false
+    "globalMetadata": {
+      "_appName": "Wolfgang.Etl.Abstractions",
+      "_appTitle": "Wolfgang.Etl.Abstractions Documentation",
+      "_appLogoPath": "logo.svg",
+      "_enableSearch": true,
+      "_appFooter": "Made with DocFX",
+      "_disableSidebar": false,
+      "_disableTocFilter": false,
+      "_enableDarkMode": true,
+      "colorMode": "dark",
+      "_baseUrl": "https://Chris-Wolfgang.github.io/ETL-Abstractions/",
+      "pdf": true
+    }
   }
 }
+
