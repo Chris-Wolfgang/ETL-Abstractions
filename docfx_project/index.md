@@ -1,21 +1,42 @@
+---
+_layout: landing
+---
+
 # Wolfgang.Etl.Abstractions Documentation
 
-Welcome to the Wolfgang.Etl.Abstractions API documentation.
+Welcome to the Wolfgang.Etl.Abstractions documentation. This site contains comprehensive guides, API reference, and examples to help you get started.
 
-## Overview
+## Quick Links
 
-This package contains interfaces and base classes for building ETLs using a specific design pattern.
+- [Getting Started](docs/getting-started.md) - Learn the basics
+- [API Reference](xref:Wolfgang.Etl.Abstractions) - Complete API documentation
+- [GitHub Repository](https://github.com/Chris-Wolfgang/ETL-Abstractions) - View source code
 
-The ETL design pattern is a common approach in data processing that involves three main stages:
-- **Extract**: Retrieving data from various sources.
-- **Transform**: Processing and transforming the extracted data into a desired format.
-- **Load**: Storing the transformed data into a target system.
+## About Wolfgang.Etl.Abstractions
 
-## Getting Started
+Interface and base classes for building ETLs
 
-See the [API Documentation](api/index.md) for detailed information about the available interfaces and classes.
+## Installation
 
-## Links
+```bash
+dotnet add package Wolfgang.Etl.Abstractions
+```
 
-- [GitHub Repository](https://github.com/Chris-Wolfgang/ETL-Abstractions)
-- [NuGet Package](https://www.nuget.org/packages/Wolfgang.Etl.Abstractions)
+## Documentation Sections
+
+### 📖 [Documentation](docs/getting-started.md)
+Step-by-step guides and tutorials to help you use Wolfgang.Etl.Abstractions effectively.
+
+### 📚 [API Reference](xref:Wolfgang.Etl.Abstractions)
+Complete API documentation automatically generated from source code XML comments.
+
+## Additional Resources
+
+- [Contributing Guidelines](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/CONTRIBUTING.md)
+- [Code of Conduct](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/CODE_OF_CONDUCT.md)
+- [License](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/LICENSE)
+
+---
+
+*Documentation built with [DocFX](https://dotnet.github.io/docfx/)*
+
