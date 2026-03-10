@@ -320,30 +320,60 @@ public class ExtractorBaseTests
 
 
 
-    [Fact(Skip = "Timer-based progress callback fires on a thread pool thread and races with enumeration completion across all target frameworks. Needs a redesign of the progress mechanism to be reliably testable.")]
+    [Fact]
     public async Task ExtractWithProgressAsync_invokes_progress_callback()
     {
-        var sut = new FibonacciExtractorFromExtractorBase(50) { ReportingInterval = 100 };
-        using var callbackFired = new ManualResetEventSlim(initialState: false);
-        var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
+        var sut = new FibonacciExtractorFromExtractorBase();
+        EtlProgress? captured = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => captured = p);
 
         await sut.ExtractAsync(progress).ToListAsync();
 
-        Assert.True(callbackFired.IsSet, "Progress callback was never invoked.");
+        Assert.NotNull(captured);
     }
 
 
 
-    [Fact(Skip = "Timer-based progress callback fires on a thread pool thread and races with enumeration completion across all target frameworks. Needs a redesign of the progress mechanism to be reliably testable.")]
+    [Fact]
+    public async Task ExtractWithProgressAsync_progress_callback_receives_current_item_count()
+    {
+        var sut = new FibonacciExtractorFromExtractorBase();
+        EtlProgress? lastReport = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => lastReport = p);
+
+        await sut.ExtractAsync(progress).ToListAsync();
+
+        Assert.NotNull(lastReport);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
+    }
+
+
+
+    [Fact]
     public async Task ExtractWithProgressAndCancellationAsync_invokes_progress_callback()
     {
-        var sut = new FibonacciExtractorFromExtractorBase(50) { ReportingInterval = 100 };
-        using var callbackFired = new ManualResetEventSlim(initialState: false);
-        var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
+        var sut = new FibonacciExtractorFromExtractorBase();
+        EtlProgress? captured = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => captured = p);
 
         await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync();
 
-        Assert.True(callbackFired.IsSet, "Progress callback was never invoked.");
+        Assert.NotNull(captured);
+    }
+
+
+
+    [Fact]
+    public async Task ExtractWithProgressAndCancellationAsync_progress_callback_receives_current_item_count()
+    {
+        var sut = new FibonacciExtractorFromExtractorBase();
+        EtlProgress? lastReport = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => lastReport = p);
+
+        await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync();
+
+        Assert.NotNull(lastReport);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
     }
 }
 

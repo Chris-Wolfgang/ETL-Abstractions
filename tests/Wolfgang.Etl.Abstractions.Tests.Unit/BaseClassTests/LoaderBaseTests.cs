@@ -144,17 +144,33 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
-    [Fact(Skip = "Timer-based progress callback fires on a thread pool thread and races with enumeration completion across all target frameworks. Needs a redesign of the progress mechanism to be reliably testable.")]
+    [Fact]
     public async Task LoadWithProgressAsync_invokes_progress_callback()
     {
         var actualResults = new List<string>();
-        var sut = new ConsoleLoaderFromBase(actualResults, 50) { ReportingInterval = 100 };
-        using var callbackFired = new ManualResetEventSlim(initialState: false);
-        var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
+        var sut = new ConsoleLoaderFromBase(actualResults);
+        EtlProgress? captured = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => captured = p);
 
         await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress);
 
-        Assert.True(callbackFired.IsSet, "Progress callback was never invoked.");
+        Assert.NotNull(captured);
+    }
+
+
+
+    [Fact]
+    public async Task LoadWithProgressAsync_progress_callback_receives_current_item_count()
+    {
+        var actualResults = new List<string>();
+        var sut = new ConsoleLoaderFromBase(actualResults);
+        EtlProgress? lastReport = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => lastReport = p);
+
+        await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress);
+
+        Assert.NotNull(lastReport);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
     }
 
 
@@ -229,17 +245,33 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
-    [Fact(Skip = "Timer-based progress callback fires on a thread pool thread and races with enumeration completion across all target frameworks. Needs a redesign of the progress mechanism to be reliably testable.")]
+    [Fact]
     public async Task LoadWithProgressAndCancellationAsync_invokes_progress_callback()
     {
         var actualResults = new List<string>();
-        var sut = new ConsoleLoaderFromBase(actualResults, 50) { ReportingInterval = 100 };
-        using var callbackFired = new ManualResetEventSlim(initialState: false);
-        var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
+        var sut = new ConsoleLoaderFromBase(actualResults);
+        EtlProgress? captured = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => captured = p);
 
         await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress, CancellationToken.None);
 
-        Assert.True(callbackFired.IsSet, "Progress callback was never invoked.");
+        Assert.NotNull(captured);
+    }
+
+
+
+    [Fact]
+    public async Task LoadWithProgressAndCancellationAsync_progress_callback_receives_current_item_count()
+    {
+        var actualResults = new List<string>();
+        var sut = new ConsoleLoaderFromBase(actualResults);
+        EtlProgress? lastReport = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => lastReport = p);
+
+        await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress, CancellationToken.None);
+
+        Assert.NotNull(lastReport);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
     }
 
 

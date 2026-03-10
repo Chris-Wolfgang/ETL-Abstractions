@@ -374,32 +374,64 @@ public class TransformerBaseTests
 
 
 
-    [Fact(Skip = "Timer-based progress callback fires on a thread pool thread and races with enumeration completion across all target frameworks. Needs a redesign of the progress mechanism to be reliably testable.")]
+    [Fact]
     public async Task TransformWithProgressAsync_invokes_progress_callback()
     {
-        var sut = new IntToStringTransformerFromTransformerBase(50) { ReportingInterval = 100 };
+        var sut = new IntToStringTransformerFromTransformerBase();
         var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
-        using var callbackFired = new ManualResetEventSlim(initialState: false);
-        var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
+        EtlProgress? captured = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => captured = p);
 
         await sut.TransformAsync(items, progress).ToListAsync();
 
-        Assert.True(callbackFired.IsSet, "Progress callback was never invoked.");
+        Assert.NotNull(captured);
     }
 
 
 
-    [Fact(Skip = "Timer-based progress callback fires on a thread pool thread and races with enumeration completion across all target frameworks. Needs a redesign of the progress mechanism to be reliably testable.")]
+    [Fact]
+    public async Task TransformWithProgressAsync_progress_callback_receives_current_item_count()
+    {
+        var sut = new IntToStringTransformerFromTransformerBase();
+        var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
+        EtlProgress? lastReport = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => lastReport = p);
+
+        await sut.TransformAsync(items, progress).ToListAsync();
+
+        Assert.NotNull(lastReport);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
+    }
+
+
+
+    [Fact]
     public async Task TransformWithProgressAndCancellationAsync_invokes_progress_callback()
     {
-        var sut = new IntToStringTransformerFromTransformerBase(50) { ReportingInterval = 100 };
+        var sut = new IntToStringTransformerFromTransformerBase();
         var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
-        using var callbackFired = new ManualResetEventSlim(initialState: false);
-        var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
+        EtlProgress? captured = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => captured = p);
 
         await sut.TransformAsync(items, progress, CancellationToken.None).ToListAsync();
 
-        Assert.True(callbackFired.IsSet, "Progress callback was never invoked.");
+        Assert.NotNull(captured);
+    }
+
+
+
+    [Fact]
+    public async Task TransformWithProgressAndCancellationAsync_progress_callback_receives_current_item_count()
+    {
+        var sut = new IntToStringTransformerFromTransformerBase();
+        var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
+        EtlProgress? lastReport = null;
+        var progress = new SynchronousProgress<EtlProgress>(callback: p => lastReport = p);
+
+        await sut.TransformAsync(items, progress, CancellationToken.None).ToListAsync();
+
+        Assert.NotNull(lastReport);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
     }
 
 
