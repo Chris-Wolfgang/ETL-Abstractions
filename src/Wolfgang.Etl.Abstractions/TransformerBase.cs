@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
 
@@ -20,10 +21,6 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     where TDestination : notnull
     where TProgress : notnull
 {
-
-    private int _reportingInterval = 1_000;
-    private int _maximumItemCount = int.MaxValue;
-    private int _skipItemCount;
     private int _currentItemCount;
     private int _currentSkippedItemCount;
 
@@ -35,16 +32,20 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
     public int ReportingInterval
     {
-        get => _reportingInterval;
+        get;
         set
         {
+#if NET8_0_OR_GREATER
+            ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
+#else
             if (value < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Reporting interval must be greater than 0.");
             }
-            _reportingInterval = value;
+#endif
+            field = value;
         }
-    }
+    } = 1_000;
 
 
 
@@ -85,16 +86,20 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// </example>
     public int MaximumItemCount
     {
-        get => _maximumItemCount;
+        get;
         set
         {
+#if NET8_0_OR_GREATER
+            ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
+#else
             if (value < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
             }
-            _maximumItemCount = value;
+#endif
+            field = value;
         }
-    }
+    } = int.MaxValue;
 
 
 
@@ -117,14 +122,18 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// </example>
     public int SkipItemCount
     {
-        get => _skipItemCount;
+        get;
         set
         {
+#if NET8_0_OR_GREATER
+            ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
+#else
             if (value < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Skip item count cannot be less than 0.");
             }
-            _skipItemCount = value;
+#endif
+            field = value;
         }
     }
 
@@ -139,16 +148,9 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// The result may be an empty sequence if no data is available or if the transformation fails.
     /// </returns>
     /// <exception cref="ArgumentNullException">The value of items is null</exception>
-    public virtual IAsyncEnumerable<TDestination> TransformAsync
-    (
-        IAsyncEnumerable<TSource> items
-    )
+    public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items)
     {
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-
+        ArgumentNullException.ThrowIfNull(items);
         return TransformWorkerAsync(items, CancellationToken.None);
     }
 
@@ -166,16 +168,9 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// The transformer should be able to handle cancellation requests gracefully.
     /// If the caller doesn't plan on cancelling the transformation, they can pass CancellationToken.None.
     /// </remarks>
-    public virtual IAsyncEnumerable<TDestination> TransformAsync
-    (
-        IAsyncEnumerable<TSource> items,
-        CancellationToken token
-    )
+    public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, CancellationToken token)
     {
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
+        ArgumentNullException.ThrowIfNull(items);
         return TransformWorkerAsync(items, token);
     }
 
@@ -190,29 +185,20 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.
     /// </returns>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
-    public virtual IAsyncEnumerable<TDestination> TransformAsync
-    (
-        IAsyncEnumerable<TSource> items,
-        IProgress<TProgress> progress
-    )
+    public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress)
     {
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
+        ArgumentNullException.ThrowIfNull(items);
+        ArgumentNullException.ThrowIfNull(progress);
 
-        if (progress == null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
-
-        using var timer = new Timer
-        (
+        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
+        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
+#pragma warning disable MA0042
+        using var timer = new Timer(
             _ => progress.Report(CreateProgressReport()),
             state: null,
             TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval)
-        );
+            TimeSpan.FromMilliseconds(ReportingInterval));
+#pragma warning restore MA0042
 
         return TransformWorkerAsync(items, CancellationToken.None);
     }
@@ -233,30 +219,20 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// If the caller doesn't plan on cancelling the transformation, they can pass CancellationToken.None.
     /// </remarks>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
-    public virtual IAsyncEnumerable<TDestination> TransformAsync
-    (
-        IAsyncEnumerable<TSource> items,
-        IProgress<TProgress> progress,
-        CancellationToken token
-    )
+    public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress, CancellationToken token)
     {
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
+        ArgumentNullException.ThrowIfNull(items);
+        ArgumentNullException.ThrowIfNull(progress);
 
-        if (progress == null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
-
-        using var timer = new Timer
-        (
+        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
+        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
+#pragma warning disable MA0042
+        using var timer = new Timer(
             _ => progress.Report(CreateProgressReport()),
             state: null,
             TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval)
-        );
+            TimeSpan.FromMilliseconds(ReportingInterval));
+#pragma warning restore MA0042
 
         return TransformWorkerAsync(items, token);
     }
@@ -271,11 +247,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <returns>
     /// IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.
     /// </returns>
-    protected abstract IAsyncEnumerable<TDestination> TransformWorkerAsync
-    (
-        IAsyncEnumerable<TSource> items,
-        CancellationToken token
-    );
+    protected abstract IAsyncEnumerable<TDestination> TransformWorkerAsync(IAsyncEnumerable<TSource> items, CancellationToken token);
 
 
 
@@ -296,9 +268,11 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
     /// thread safe. This method ensures that CurrentItemCount is incremented safely.
     /// </remarks>
+    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
+        Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
     protected void IncrementCurrentItemCount()
     {
-        Interlocked.Increment(ref _currentItemCount);
+        _ = Interlocked.Increment(ref _currentItemCount);
     }
 
 
@@ -310,9 +284,10 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// Simply calling CurrentSkippedItemCount++ or CurrentSkippedItemCount += 1 is not
     /// thread safe. This method ensures that CurrentSkippedItemCount is incremented safely.
     /// </remarks>
+    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
+        Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
     protected void IncrementCurrentSkippedItemCount()
     {
-        Interlocked.Increment(ref _currentSkippedItemCount);
+        _ = Interlocked.Increment(ref _currentSkippedItemCount);
     }
-
 }
