@@ -29,7 +29,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <summary>
     /// The number of milliseconds between progress updates.
     /// </summary>
-    /// <exception cref="ArgumentException">Value cannot be less than 1</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1</exception>
     public int ReportingInterval
     {
         get => _reportingInterval;
@@ -52,7 +52,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// It is the responsibility of the derived class to keep this value up to date as the
     /// base class will have no way of knowing the correct value
     /// </remarks>
-
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 0</exception>
     [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
     public int CurrentItemCount
     {
@@ -72,6 +72,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <summary>
     /// Gets the current number of records skipped
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 0</exception>
     public int CurrentSkippedItemCount
     {
         get => _currentSkippedItemCount;
@@ -94,7 +95,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// This is useful for partially loading data from a source, especially when the source is large
     /// or infinite or during development.
     /// </remarks>
-    /// <exception cref="ArgumentException">The specified value is less than 1</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1</exception>
     /// <example>
     /// <code>
     ///     foreach (var item in items.Skip(SkipItemCount).Take(MaxItemCount))
@@ -109,9 +110,9 @@ public abstract class LoaderBase<TDestination, TProgress>
         get => _maximumItemCount;
         set
         {
-            if (value < 0)
+            if (value < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 0.");
+                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
             }
             _maximumItemCount = value;
         }
@@ -126,7 +127,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <remarks>
     /// This is useful for skipping the beginning of the list during testing or because it may already be loaded
     /// </remarks>
-    /// <exception cref="ArgumentException">The specified value is less than 0</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0</exception>
     /// <example>
     /// <code>
     ///     foreach (var item in items.Skip(SkipItemCount).Take(MaxItemCount))
@@ -229,7 +230,7 @@ public abstract class LoaderBase<TDestination, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval)
         );
@@ -271,7 +272,7 @@ public abstract class LoaderBase<TDestination, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval)
         );
