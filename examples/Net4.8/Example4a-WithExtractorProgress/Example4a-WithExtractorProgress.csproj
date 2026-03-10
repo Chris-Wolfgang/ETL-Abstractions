@@ -35,8 +35,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>..\..\..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\..\..\packages\Microsoft.Bcl.AsyncInterfaces.10.0.3\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -66,9 +66,17 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj">
-      <Project>{c4987bad-4513-955f-b3c1-7563d0c1a7a3}</Project>
+      <Project>{c4987bad-4513-955f-b3c1-7563d0c1a7a3}  <ItemGroup>
+    <Compile Include="EtlProgress.cs" />
+    <Compile Include="ConsoleColors.cs" />
+  </ItemGroup>
+</Project>
       <Name>Wolfgang.Etl.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="EtlProgress.cs" />
+    <Compile Include="ConsoleColors.cs" />
+  </ItemGroup>
 </Project>

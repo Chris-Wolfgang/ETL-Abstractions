@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -28,7 +28,7 @@ namespace Example3_WithGracefulCancellation.ETL
         public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)
         {
             Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
-            
+        
             await foreach (var item in items.WithCancellation(token))
             {
                 if (token.IsCancellationRequested)
@@ -38,10 +38,10 @@ namespace Example3_WithGracefulCancellation.ETL
                 }
 
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50); // Simulate some delay for transformation
+                await Task.Delay(50, token); // Simulate some delay for transformation
                 yield return item.ToString();
             }
-            
+
             Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
         }
     }

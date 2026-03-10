@@ -1,41 +1,39 @@
 using Example4c_WithLoaderProgress.ETL;
 
-namespace Example4c_WithLoaderProgress
+namespace Example4c_WithLoaderProgress;
+internal class Program
 {
-    internal class Program
+    private static async Task Main()
     {
-        private static async Task Main()
+        // Print assembly version
+        var assembly = typeof(Program).Assembly;
+        var assemblyVersion = assembly.GetName().Version;
+        Console.WriteLine($"{ConsoleColors.Green}Assembly Version: {assemblyVersion}{ConsoleColors.Reset}\n");
+
+        // Print .NET Framework version
+        var frameworkVersion = Environment.Version;
+        Console.WriteLine($"{ConsoleColors.Green}.NET Version: {frameworkVersion}{ConsoleColors.Reset}\n");
+
+
+        var extractor = new FibonacciExtractor();
+        var transformer = new IntToStringTransformer();
+        var loader = new ConsoleLoader();
+
+        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process...{ConsoleColors.Reset}\n\n");
+
+        var progress = new Progress<EtlProgress>(p =>
         {
-            // Print assembly version
-            var assembly = typeof(Program).Assembly;
-            var assemblyVersion = assembly.GetName().Version;
-            Console.WriteLine($"{ConsoleColors.Green}Assembly Version: {assemblyVersion}{ConsoleColors.Reset}\n");
+            Console.WriteLine($"Loaded {ConsoleColors.Cyan}{p.CurrentCount}{ConsoleColors.Reset} items.");
+        });
 
-            // Print .NET Framework version
-            var frameworkVersion = Environment.Version;
-            Console.WriteLine($"{ConsoleColors.Green}.NET Version: {frameworkVersion}{ConsoleColors.Reset}\n");
+        // Best practice is to only use one progress reporter per ETL process. Using multiple progress reporters
+        // can lead to confusion and inconsistent reporting.
+        var sourceItems = extractor.ExtractAsync();
+        var transformedItems = transformer.TransformAsync(sourceItems);
+        await loader.LoadAsync(transformedItems, progress);
 
-
-            var extractor = new FibonacciExtractor();
-            var transformer = new IntToStringTransformer();
-            var loader = new ConsoleLoader();
-
-            Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process...{ConsoleColors.Reset}\n\n");
-
-            var progress = new Progress<EtlProgress>(p =>
-            {
-                Console.WriteLine($"Loaded {ConsoleColors.Cyan}{p.CurrentCount}{ConsoleColors.Reset} items.");
-            });
-
-            // Best practice is to only use one progress reporter per ETL process. Using multiple progress reporters
-            // can lead to confusion and inconsistent reporting.
-            var sourceItems = extractor.ExtractAsync();
-            var transformedItems = transformer.TransformAsync(sourceItems);
-            await loader.LoadAsync(transformedItems, progress);
-
-            Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
-        }
+        Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
     }
-
-
 }
+
+

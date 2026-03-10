@@ -1,33 +1,31 @@
 using Example1_BasicETL.ETL;
 
-namespace Example1_BasicETL
+namespace Example1_BasicETL;
+internal class Program
 {
-    internal class Program
+    private static async Task Main()
     {
-        private static async Task Main()
-        {
-            // Print assembly version
-            var assembly = typeof(Program).Assembly;
-            var assemblyVersion = assembly.GetName().Version;
-            Console.WriteLine($"{ConsoleColors.Green}Assembly Version: {assemblyVersion}{ConsoleColors.Reset}\n");
+        // Print assembly version
+        var assembly = typeof(Program).Assembly;
+        var assemblyVersion = assembly.GetName().Version;
+        Console.WriteLine($"{ConsoleColors.Green}Assembly Version: {assemblyVersion}{ConsoleColors.Reset}\n");
 
-            // Print .NET Framework version
-            var frameworkVersion = Environment.Version;
-            Console.WriteLine($"{ConsoleColors.Green}.NET Version: {frameworkVersion}{ConsoleColors.Reset}\n");
+        // Print .NET Framework version
+        var frameworkVersion = Environment.Version;
+        Console.WriteLine($"{ConsoleColors.Green}.NET Version: {frameworkVersion}{ConsoleColors.Reset}\n");
 
 
-            var extractor = new FibonacciExtractor();
-            var transformer = new IntToStringTransformer();
-            var loader = new ConsoleLoader();
+        var extractor = new FibonacciExtractor();
+        var transformer = new IntToStringTransformer();
+        var loader = new ConsoleLoader();
 
-            Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process...{ConsoleColors.Reset}\n\n");
-            
-            var sourceItems = extractor.ExtractAsync();
-            var transformedItems = transformer.TransformAsync(sourceItems);
-            await loader.LoadAsync(transformedItems);
+        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process...{ConsoleColors.Reset}\n\n");
+        
+        var sourceItems = extractor.ExtractAsync();
+        var transformedItems = transformer.TransformAsync(sourceItems);
+        await loader.LoadAsync(transformedItems);
 
-            Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
-        }
+        Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
     }
-
 }
+

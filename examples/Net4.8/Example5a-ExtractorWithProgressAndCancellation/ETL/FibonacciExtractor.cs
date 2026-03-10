@@ -5,162 +5,160 @@ using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 
-namespace Example5a_ExtractorWithProgressAndCancellation.ETL
+namespace Example5a_ExtractorWithProgressAndCancellation.ETL;
+internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int, EtlProgress>
 {
-    internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int, EtlProgress>
+    private int _progressInterval = 1_000;
+
+
+    /// <summary>
+    /// The number of milliseconds between progress updates.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
+    public int ProgressInterval
     {
-        private int _progressInterval = 1_000;
-
-
-        /// <summary>
-        /// The number of milliseconds between progress updates.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
-        public int ProgressInterval
+        get => _progressInterval;
+        set
         {
-            get => _progressInterval;
-            set
+            if (value < 1)
             {
-                if (value < 1)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
-                }
-                _progressInterval = value;
+                throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
             }
+            _progressInterval = value;
+        }
+    }
+
+
+
+    public async IAsyncEnumerable<int> ExtractAsync()
+    {
+        Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
+
+        var current = 1;
+        var previous = 0;
+        for (var x = 0; x < 10; ++x)
+        {
+            Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
+            yield return current;
+            var temp = current;
+            current += previous;
+            previous = temp;
+            await Task.Delay(100); // Simulate asynchronous operation
         }
 
+        Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
+    }
 
 
-        public async IAsyncEnumerable<int> ExtractAsync()
+
+    public async IAsyncEnumerable<int> ExtractAsync([EnumeratorCancellation] CancellationToken token)
+    {
+        Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
+
+        var current = 1;
+        var previous = 0;
+        for (var x = 0; x < 10; ++x)
         {
-            Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
+            // Throw exception if cancellation is requested
+            // See Example3-ExtractorWithGracefulCancellation for a more graceful cancellation approach
+            token.ThrowIfCancellationRequested();
 
-            var current = 1;
-            var previous = 0;
-            for (var x = 0; x < 10; ++x)
-            {
-                Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
-                yield return current;
-                var temp = current;
-                current += previous;
-                previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
-            }
-
-            Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
+            Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
+            yield return current;
+            var temp = current;
+            current += previous;
+            previous = temp;
+            await Task.Delay(100, token); // Simulate asynchronous operation
         }
 
+        Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
+    }
 
 
-        public async IAsyncEnumerable<int> ExtractAsync([EnumeratorCancellation] CancellationToken token)
+
+    public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)
+    {
+        if (progress == null)
         {
-            Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
-
-            var current = 1;
-            var previous = 0;
-            for (var x = 0; x < 10; ++x)
-            {
-                // Throw exception if cancellation is requested
-                // See Example3-ExtractorWithGracefulCancellation for a more graceful cancellation approach
-                token.ThrowIfCancellationRequested();
-
-                Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
-                yield return current;
-                var temp = current;
-                current += previous;
-                previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
-            }
-
-            Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
+            throw new ArgumentNullException(nameof(progress));
         }
 
+        Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
 
+        var count = 0;
+        using var timer = new Timer
+        (
+            state => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+            state: null,
+            TimeSpan.Zero,
+            TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
+        );
 
-        public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)
+        var current = 1;
+        var previous = 0;
+        for (var x = 0; x < 10; ++x)
         {
-            if (progress == null)
-            {
-                throw new ArgumentNullException(nameof(progress));
-            }
+            Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
+            yield return current;
+            count = Interlocked.Increment(ref count);
 
-            Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
-
-            var count = 0;
-            using var timer = new Timer
-            (
-                _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
-                TimeSpan.Zero,
-                TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-            );
-
-            var current = 1;
-            var previous = 0;
-            for (var x = 0; x < 10; ++x)
-            {
-                Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
-                yield return current;
-                count = Interlocked.Increment(ref count);
-
-                var temp = current;
-                current += previous;
-                previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
-            }
-
-            progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
-
-            Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
+            var temp = current;
+            current += previous;
+            previous = temp;
+            await Task.Delay(100); // Simulate asynchronous operation
         }
 
+        progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
+
+        Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
+    }
 
 
-        public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress, [EnumeratorCancellation] CancellationToken token)
+
+    public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress, [EnumeratorCancellation] CancellationToken token)
+    {
+        if (progress == null)
         {
-            if (progress == null)
-            {
-                throw new ArgumentNullException(nameof(progress));
-            }
-
-            Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
-
-            var count = 0;
-            using var timer = new Timer
-            ( 
-                _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
-                TimeSpan.Zero,
-                TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-            );
-
-            var current = 1;
-            var previous = 0;
-            for (var x = 0; x < 10; ++x)
-            {
-                // You can either throw an exception if cancellation is requested 
-                // token.ThrowIfCancellationRequested();
-
-                // or gracefully handle it.
-                if (token.IsCancellationRequested)
-                {
-                    Console.WriteLine($"{ConsoleColors.Red}Extraction cancelled{ConsoleColors.Reset}.");
-                    yield break;
-                }
-
-                Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
-                yield return current;
-                count = Interlocked.Increment(ref count);
-
-                var temp = current;
-                current += previous;
-                previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
-            }
-
-            progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
-
-            Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
+            throw new ArgumentNullException(nameof(progress));
         }
+
+        Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
+
+        var count = 0;
+        using var timer = new Timer
+        ( 
+            state => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+            state: null,
+            TimeSpan.Zero,
+            TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
+        );
+
+        var current = 1;
+        var previous = 0;
+        for (var x = 0; x < 10; ++x)
+        {
+            // You can either throw an exception if cancellation is requested 
+            // token.ThrowIfCancellationRequested();
+
+            // or gracefully handle it.
+            if (token.IsCancellationRequested)
+            {
+                Console.WriteLine($"{ConsoleColors.Red}Extraction cancelled{ConsoleColors.Reset}.");
+                yield break;
+            }
+
+            Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
+            yield return current;
+            count = Interlocked.Increment(ref count);
+
+            var temp = current;
+            current += previous;
+            previous = temp;
+            await Task.Delay(100, token); // Simulate asynchronous operation
+        }
+
+        progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
+
+        Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
     }
 }
