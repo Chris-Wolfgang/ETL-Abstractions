@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example3_WithGracefulCancellation.ETL
@@ -13,7 +13,7 @@ namespace Example3_WithGracefulCancellation.ETL
             await foreach (var item in items)
             {
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50, token); // Simulate some delay for transformation
+                await Task.Delay(50); // Simulate some delay for transformation
                 yield return item.ToString();
             }
 

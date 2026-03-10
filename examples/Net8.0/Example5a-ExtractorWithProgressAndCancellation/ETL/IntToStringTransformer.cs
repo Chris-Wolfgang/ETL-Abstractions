@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example5a_ExtractorWithProgressAndCancellation.ETL
@@ -11,6 +11,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
         /// <summary>
         /// The number of milliseconds between progress updates.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
         public int ProgressInterval
         {
             get => _progressInterval;
@@ -38,7 +39,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
             await foreach (var item in items)
             {
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50, token); // Simulate some delay for transformation
+                await Task.Delay(50); // Simulate some delay for transformation
                 yield return item.ToString();
             }
             
@@ -97,7 +98,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
             await foreach (var item in items)
             {
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50, token); // Simulate some delay for transformation
+                await Task.Delay(50); // Simulate some delay for transformation
                 yield return item.ToString();
                 count = Interlocked.Increment(ref count);
 

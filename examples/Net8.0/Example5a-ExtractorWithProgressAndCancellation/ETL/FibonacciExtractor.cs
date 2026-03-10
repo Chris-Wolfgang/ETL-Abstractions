@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example5a_ExtractorWithProgressAndCancellation.ETL
@@ -11,6 +11,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
         /// <summary>
         /// The number of milliseconds between progress updates.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
         public int ProgressInterval
         {
             get => _progressInterval;
@@ -39,7 +40,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100, token); // Simulate asynchronous operation
+                await Task.Delay(100); // Simulate asynchronous operation
             }
 
             Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
@@ -98,7 +99,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100, token); // Simulate asynchronous operation
+                await Task.Delay(100); // Simulate asynchronous operation
             }
 
             progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count

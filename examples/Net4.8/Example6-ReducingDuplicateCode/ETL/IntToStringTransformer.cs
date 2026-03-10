@@ -16,6 +16,7 @@ namespace Example6_ReducingDuplicateCode.ETL
         /// <summary>
         /// The number of milliseconds between progress updates.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
         public int ProgressInterval
         {
             get => _progressInterval;
