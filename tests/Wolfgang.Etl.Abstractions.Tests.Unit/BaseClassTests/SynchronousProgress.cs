@@ -1,5 +1,3 @@
-using System;
-
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 {
     /// <summary>

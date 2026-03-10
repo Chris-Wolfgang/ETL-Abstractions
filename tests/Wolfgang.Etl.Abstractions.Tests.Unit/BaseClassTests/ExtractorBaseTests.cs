@@ -1,13 +1,11 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
-using Xunit.Abstractions;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 {
-    public class ExtractorBaseTests(ITestOutputHelper _)
+    public class ExtractorBaseTests
     {
 
         [Fact]
@@ -327,8 +325,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public async Task ExtractWithProgressAsync_invokes_progress_callback()
         {
             var sut = new FibonacciExtractorFromExtractorBase(50) { ReportingInterval = 100 };
-            using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
+            using var callbackFired = new ManualResetEventSlim(initialState: false);
+            var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
 
             await sut.ExtractAsync(progress).ToListAsync();
 
@@ -341,8 +339,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public async Task ExtractWithProgressAndCancellationAsync_invokes_progress_callback()
         {
             var sut = new FibonacciExtractorFromExtractorBase(50) { ReportingInterval = 100 };
-            using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
+            using var callbackFired = new ManualResetEventSlim(initialState: false);
+            var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
 
             await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync();
 

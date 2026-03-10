@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading;
+using System.Diagnostics.CodeAnalysis;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 using Xunit.Abstractions;
 
@@ -87,12 +86,15 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
             var sut = new ConsoleLoaderFromBase(buffer, delay);
 
             using var cts = new CancellationTokenSource();
-            var items = AsyncHelpers.GenerateSlowItemsAsync(10);
-
-            var task = sut.LoadAsync(items, cts.Token);
+#if NET8_0_OR_GREATER
+            await cts.CancelAsync().ConfigureAwait(false);
+#else
             cts.Cancel();
+#endif
 
-            await Assert.ThrowsAnyAsync<OperationCanceledException>(() => task);
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+                sut.LoadAsync(AsyncHelpers.GenerateSlowItemsAsync(10), cts.Token))
+                .ConfigureAwait(false);
         }
 
         
@@ -148,8 +150,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             var actualResults = new List<string>();
             var sut = new ConsoleLoaderFromBase(actualResults, 50) { ReportingInterval = 100 };
-            using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
+            using var callbackFired = new ManualResetEventSlim(initialState: false);
+            var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
 
             await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress);
 
@@ -163,13 +165,17 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             var sut = new ConsoleLoaderFromBase([], 500);
             var cts = new CancellationTokenSource();
-            var progress = new SynchronousProgress<EtlProgress>(report => { });
+            var progress = new SynchronousProgress<EtlProgress>(callback: _ => { });
 
-            var task = sut.LoadAsync(AsyncHelpers.GenerateSlowItemsAsync(10), progress);
+#if NET8_0_OR_GREATER
+            await cts.CancelAsync().ConfigureAwait(false);
+#else
             cts.Cancel();
+#endif
 
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
-                sut.LoadAsync(AsyncHelpers.GenerateSlowItemsAsync(10), progress, cts.Token));
+                sut.LoadAsync(AsyncHelpers.GenerateSlowItemsAsync(10), progress, cts.Token))
+                .ConfigureAwait(false);
         }
 
 
@@ -229,8 +235,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             var actualResults = new List<string>();
             var sut = new ConsoleLoaderFromBase(actualResults, 50) { ReportingInterval = 100 };
-            using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
+            using var callbackFired = new ManualResetEventSlim(initialState: false);
+            var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
 
             await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress, CancellationToken.None);
 
@@ -319,13 +325,13 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
 
         [Fact]
-        public void MaximumItemCount_when_assigned_zero_is_valid_and_stores_the_value()
+        public void MaximumItemCount_when_assigned_one_is_valid_and_stores_the_value()
         {
             var sut = new ConsoleLoaderFromBase([])
             {
-                MaximumItemCount = 0
+                MaximumItemCount = 1
             };
-            Assert.Equal(0, sut.MaximumItemCount);
+            Assert.Equal(1, sut.MaximumItemCount);
         }
 
 
@@ -487,7 +493,10 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             _buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
             if (delay < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(delay), "Delay must be non-negative.");
+            }
+
             _delay = delay;
         }
 

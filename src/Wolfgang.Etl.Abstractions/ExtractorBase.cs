@@ -222,8 +222,8 @@ public abstract class ExtractorBase<TSource, TProgress>
         // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
 #pragma warning disable MA0042
         using var timer = new Timer(
-            _ => progress.Report(CreateProgressReport()),
-            state: null,
+            ReportProgress,
+            state: progress,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval));
 #pragma warning restore MA0042
@@ -264,8 +264,8 @@ public abstract class ExtractorBase<TSource, TProgress>
         // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
 #pragma warning disable MA0042
         using var timer = new Timer(
-            _ => progress.Report(CreateProgressReport()),
-            state: null,
+            ReportProgress,
+            state: progress,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval));
 #pragma warning restore MA0042
@@ -294,6 +294,19 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// </summary>
     /// <returns>Progress of type TProgress</returns>
     protected abstract TProgress CreateProgressReport();
+
+
+
+    // Named Timer callback: receives the IProgress<TProgress> instance as state,
+    // avoiding a lambda capture that would generate a compiler display class and
+    // produce a phantom (object) constructor entry in code-coverage reports.
+    // ExcludeFromCodeCoverage: TimerCallback requires object? state; the cast and
+    // null-forgiving operator produce an untakeable null branch in coverage tools.
+    [ExcludeFromCodeCoverage]
+    private void ReportProgress(object? state)
+    {
+        ((IProgress<TProgress>)state!).Report(CreateProgressReport());
+    }
 
 
 

@@ -1,5 +1,3 @@
-using Wolfgang.Etl.Abstractions;
-
 namespace Wolfgang.Etl.Abstractions.Tests.Unit
 {
     public class ReportTests

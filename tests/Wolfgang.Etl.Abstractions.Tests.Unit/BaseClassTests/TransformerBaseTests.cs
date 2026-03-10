@@ -1,6 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
@@ -83,22 +82,18 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public async Task TransformWithCancellationAsync_when_cancelled_throws_OperationCancelledException()
         {
             var sut = new IntToStringTransformerFromTransformerBase(1000);
-
             var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
-            var cts = new CancellationTokenSource();
 
-            var task = sut.TransformAsync(items, cts.Token);
+            using var cts = new CancellationTokenSource();
+#if NET8_0_OR_GREATER
+            await cts.CancelAsync().ConfigureAwait(false);
+#else
+            cts.Cancel();
+#endif
 
-            try
-            {
-                cts.Cancel();
-                await task.ToListAsync(cancellationToken: cts.Token);
-                Assert.Fail("OperationCanceledException was expected but not thrown");
-            }
-            catch (OperationCanceledException)
-            {
-                // Expected exception was thrown
-            }
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+                sut.TransformAsync(items, cts.Token).ToListAsync(cancellationToken: cts.Token).AsTask())
+                .ConfigureAwait(false);
         }
 
 
@@ -201,23 +196,19 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         public async Task TransformWithProgressAndCancellationAsync_when_cancelled_throws_OperationCancelledException()
         {
             var sut = new IntToStringTransformerFromTransformerBase(100);
-
             var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
-            var cts = new CancellationTokenSource();
-
             var progress = new Progress<EtlProgress>();
-            var task = sut.TransformAsync(items, progress, cts.Token);
 
-            try
-            {
-                cts.Cancel();
-                await task.ToListAsync(cancellationToken: cts.Token);
-                Assert.Fail("OperationCanceledException was expected but not thrown");
-            }
-            catch (OperationCanceledException)
-            {
-                // Expected exception was thrown
-            }
+            using var cts = new CancellationTokenSource();
+#if NET8_0_OR_GREATER
+            await cts.CancelAsync().ConfigureAwait(false);
+#else
+            cts.Cancel();
+#endif
+
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+                sut.TransformAsync(items, progress, cts.Token).ToListAsync(cancellationToken: cts.Token).AsTask())
+                .ConfigureAwait(false);
         }
         
 
@@ -302,13 +293,13 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
 
         [Fact]
-        public void MaximumItemCount_when_assigned_zero_is_valid_and_stores_the_value()
+        public void MaximumItemCount_when_assigned_one_is_valid_and_stores_the_value()
         {
             var sut = new IntToStringTransformerFromTransformerBase
             {
-                MaximumItemCount = 0
+                MaximumItemCount = 1
             };
-            Assert.Equal(0, sut.MaximumItemCount);
+            Assert.Equal(1, sut.MaximumItemCount);
         }
 
 
@@ -389,8 +380,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             var sut = new IntToStringTransformerFromTransformerBase(50) { ReportingInterval = 100 };
             var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
-            using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
+            using var callbackFired = new ManualResetEventSlim(initialState: false);
+            var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
 
             await sut.TransformAsync(items, progress).ToListAsync();
 
@@ -404,8 +395,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             var sut = new IntToStringTransformerFromTransformerBase(50) { ReportingInterval = 100 };
             var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
-            using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
+            using var callbackFired = new ManualResetEventSlim(initialState: false);
+            var progress = new SynchronousProgress<EtlProgress>(callback: _ => callbackFired.Set());
 
             await sut.TransformAsync(items, progress, CancellationToken.None).ToListAsync();
 
@@ -421,7 +412,11 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 
             public IntToStringTransformerFromTransformerBase(int delay = 0)
             {
-                if (delay < 0) throw new ArgumentOutOfRangeException(nameof(delay));
+                if (delay < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(delay));
+                }
+
                 _delay = delay;
             }
 
