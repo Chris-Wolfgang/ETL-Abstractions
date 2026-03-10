@@ -28,9 +28,9 @@ namespace Example6_ReducingDuplicateCode.ETL
 
         public Task LoadAsync(IAsyncEnumerable<string> items)
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(items);
 
-            return WorkerAsync(items, null, CancellationToken.None);
+            return WorkerAsync(items, progress: null, CancellationToken.None);
         }
 
 
@@ -38,17 +38,17 @@ namespace Example6_ReducingDuplicateCode.ETL
         public Task LoadAsync(IAsyncEnumerable<string> items, CancellationToken token)
         {
 
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(items);
 
-            return WorkerAsync(items, null, token);
+            return WorkerAsync(items, progress: null, token);
         }
 
 
 
         public Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress)
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(items);
+            ArgumentNullException.ThrowIfNull(progress);
 
             return WorkerAsync(items, progress, CancellationToken.None);
         }
@@ -57,8 +57,8 @@ namespace Example6_ReducingDuplicateCode.ETL
 
         public Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress, CancellationToken token)
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(items);
+            ArgumentNullException.ThrowIfNull(progress);
 
             return WorkerAsync(items, progress, token);
         }
@@ -72,7 +72,7 @@ namespace Example6_ReducingDuplicateCode.ETL
             CancellationToken token
         )
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(items);
 
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
 
@@ -80,10 +80,10 @@ namespace Example6_ReducingDuplicateCode.ETL
             await using var timer = new Timer
             (
                 _ => progress?.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
+                state: null,
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-            );
+            ).ConfigureAwait(false);
 
 
             await foreach (var item in items.WithCancellation(token))
@@ -91,7 +91,7 @@ namespace Example6_ReducingDuplicateCode.ETL
                 token.ThrowIfCancellationRequested();
 
                 Console.WriteLine($"Loading item: {item}\n");
-                await Task.Delay(50); // Simulate some delay for loading
+                await Task.Delay(50, token).ConfigureAwait(false); // Simulate some delay for loading
                 count = Interlocked.Increment(ref count);
 
             }

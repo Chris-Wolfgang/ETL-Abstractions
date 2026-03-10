@@ -91,9 +91,9 @@ public abstract class LoaderBase<TDestination, TProgress>
         get => _maximumItemCount;
         set
         {
-            if (value < 0)
+            if (value < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 0.");
+                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
             }
             _maximumItemCount = value;
         }
@@ -140,7 +140,8 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <remarks>
     /// Items may be an empty sequence if no data is available or if the loading fails.
     /// </remarks>
-    /// <exception cref="ArgumentNullException">The value of items is null.</exception>
+    /// <returns>Task</returns>
+    /// <exception cref="ArgumentNullException">Argument items is null</exception>
     public virtual Task LoadAsync
     (
         IAsyncEnumerable<TDestination> items
@@ -165,7 +166,8 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <remarks>
     /// Items may be an empty sequence if no data is available or if the loading fails.
     /// </remarks>
-    /// <exception cref="ArgumentNullException">The value of items is null.</exception>
+    /// <returns>Task</returns>
+    /// <exception cref="ArgumentNullException">Argument items is null</exception>
     public virtual Task LoadAsync
     (
         IAsyncEnumerable<TDestination> items,
@@ -190,8 +192,9 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <remarks>
     /// Items may be an empty sequence if no data is available or if the loading fails.
     /// </remarks>
-    /// <exception cref="ArgumentNullException">The value of items is null.</exception>
-    /// <exception cref="ArgumentNullException">The value of progress is null.</exception>
+    /// <returns>Task</returns>
+    /// <exception cref="ArgumentNullException">Argument items is null</exception>
+    /// <exception cref="ArgumentNullException">Argument progress is null</exception>
     public virtual Task LoadAsync
     (
         IAsyncEnumerable<TDestination> items,
@@ -210,7 +213,7 @@ public abstract class LoaderBase<TDestination, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval)
         );
@@ -230,12 +233,13 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <remarks>
     /// Items may be an empty sequence if no data is available or if the loading fails.
     /// </remarks>
-    /// <exception cref="ArgumentNullException">The value of items is null.</exception>
-    /// <exception cref="ArgumentNullException">The value of progress is null.</exception>
+    /// <returns>Task</returns>
+    /// <exception cref="ArgumentNullException">Argument items is null</exception>
+    /// <exception cref="ArgumentNullException">Argument progress is null</exception>
     public virtual Task LoadAsync
     (
         IAsyncEnumerable<TDestination> items,
-        IProgress<TProgress> progress,
+        IProgress<TProgress> progress, 
         CancellationToken token
     )
     {
@@ -252,7 +256,7 @@ public abstract class LoaderBase<TDestination, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval)
         );
@@ -272,6 +276,8 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <remarks>
     /// Items may be an empty sequence if no data is available or if the loading fails.
     /// </remarks>
+    /// <returns>Task</returns>
+    /// <exception cref="ArgumentNullException">Argument items is null</exception>
     protected abstract Task LoadWorkerAsync
     (
         IAsyncEnumerable<TDestination> items,

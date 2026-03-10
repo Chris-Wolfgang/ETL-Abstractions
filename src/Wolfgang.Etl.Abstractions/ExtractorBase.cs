@@ -210,7 +210,7 @@ public abstract class ExtractorBase<TSource, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval)
         );
@@ -244,7 +244,7 @@ public abstract class ExtractorBase<TSource, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval)
         );

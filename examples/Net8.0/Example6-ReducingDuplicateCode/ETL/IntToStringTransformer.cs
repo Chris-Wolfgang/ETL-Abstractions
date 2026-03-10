@@ -31,9 +31,9 @@ namespace Example6_ReducingDuplicateCode.ETL
                 IAsyncEnumerable<int> items
             )
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(items);
 
-            return WorkerAsync(items, null, CancellationToken.None);
+            return WorkerAsync(items, progress: null, CancellationToken.None);
         }
 
 
@@ -44,9 +44,9 @@ namespace Example6_ReducingDuplicateCode.ETL
                 CancellationToken token
             )
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(items);
 
-            return WorkerAsync(items, null, token);
+            return WorkerAsync(items, progress: null, token);
         }
 
 
@@ -57,8 +57,8 @@ namespace Example6_ReducingDuplicateCode.ETL
                 IProgress<EtlProgress> progress
             )
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(items);
+            ArgumentNullException.ThrowIfNull(progress);
 
             return WorkerAsync(items, progress, CancellationToken.None);
         }
@@ -72,8 +72,8 @@ namespace Example6_ReducingDuplicateCode.ETL
             CancellationToken token
         )
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(items);
+            ArgumentNullException.ThrowIfNull(progress);
 
             return WorkerAsync(items, progress, token);
 
@@ -88,7 +88,7 @@ namespace Example6_ReducingDuplicateCode.ETL
             [EnumeratorCancellation] CancellationToken token
         )
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(items);
 
             Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
 
@@ -96,10 +96,10 @@ namespace Example6_ReducingDuplicateCode.ETL
             await using var timer = new Timer
             (
                 _ => progress?.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
+                state: null,
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-            );
+            ).ConfigureAwait(false);
 
 
             await foreach (var item in items.WithCancellation(token))
@@ -115,7 +115,7 @@ namespace Example6_ReducingDuplicateCode.ETL
                 }
 
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50); // Simulate some delay for transformation
+                await Task.Delay(50, CancellationToken.None).ConfigureAwait(false); // Simulate some delay for transformation
                 yield return item.ToString();
                 count = Interlocked.Increment(ref count);
 

@@ -85,9 +85,9 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         get => _maximumItemCount;
         set
         {
-            if (value < 0)
+            if (value < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 0.");
+                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
             }
             _maximumItemCount = value;
         }
@@ -206,7 +206,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval)
         );
@@ -250,7 +250,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         using var timer = new Timer
         (
             _ => progress.Report(CreateProgressReport()),
-            null,
+            state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(ReportingInterval)
         );

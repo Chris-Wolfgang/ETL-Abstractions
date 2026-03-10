@@ -433,3 +433,4 @@ docfx_project/obj/
 docs/*
 !docs/.gitkeep
 !docs/RELEASE-WORKFLOW-SETUP.md
+.nuget/nuget.exe
