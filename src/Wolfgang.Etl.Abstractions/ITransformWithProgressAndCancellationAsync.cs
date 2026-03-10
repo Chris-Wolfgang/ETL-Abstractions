@@ -26,7 +26,7 @@ namespace Wolfgang.Etl.Abstractions;
 public interface ITransformWithProgressAndCancellationAsync<in TSource, out TDestination, out TProgress> :
     ITransformWithCancellationAsync<TSource, TDestination>,
     ITransformWithProgressAsync<TSource, TDestination, TProgress>
-    where TSource : notnull where TProgress : notnull
+    where TSource : notnull where TDestination : notnull where TProgress : notnull
 
 {
     /// <summary>
