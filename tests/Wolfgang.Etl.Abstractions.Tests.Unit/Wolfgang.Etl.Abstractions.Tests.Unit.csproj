@@ -36,6 +36,7 @@
 						'$(TargetFramework)' == 'net5.0'">
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" allowedVersions="[2.8.2]">
 	    <Version>[2.8.2]</Version>
+      <NoWarn>NU1701</NoWarn>
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
