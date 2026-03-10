@@ -15,53 +15,105 @@
     <Copyright>Copyright 2025 Chris Wolfgang</Copyright>
   </PropertyGroup>
 
-  <!-- net462; net472; net48; net481; netcoreapp3.1; net5.0 — xunit.runner.visualstudio 2.8.2 + System.Linq.Async -->
+  <!-- net462; net472; net48; net481 — xunit.runner.visualstudio capped below 3.0.0 because
+       3.x ships only net8.0 + net472 assets, dropping net462 support.
+       SuppressTfmSupportBuildWarnings suppresses warnings from transitive deps of
+       System.Linq.AsyncEnumerable (used in the net8+ group) evaluated across all TFMs at restore. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR
                         '$(TargetFramework)' == 'net472' OR
                         '$(TargetFramework)' == 'net48'  OR
-                        '$(TargetFramework)' == 'net481' OR
-                        '$(TargetFramework)' == 'netcoreapp3.1' OR
-                        '$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" allowedVersions="[17.13.0]" />
+                        '$(TargetFramework)' == 'net481'">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.console" Version="2.9.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" allowedVersions="[2.8.2]">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" allowedVersions="(,3.0.0)">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Linq.Async" Version="7.0.0" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
   </ItemGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net462' OR
+                            '$(TargetFramework)' == 'net472' OR
+                            '$(TargetFramework)' == 'net48'  OR
+                            '$(TargetFramework)' == 'net481'">
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+  </PropertyGroup>
 
-  <!-- net6.0; net7.0 — xunit.runner.visualstudio 3.0.1 + System.Linq.Async -->
+  <!-- netcoreapp3.1 — xunit.runner.visualstudio 2.4.5 is the last version with a native
+       netcoreapp3.1 asset; 2.5.0 dropped it. Capped below 2.5.0 to prevent NuGet selecting
+       a version that falls back to the net462 asset and may silently fail test discovery. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.console" Version="2.9.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" allowedVersions="(,2.5.0)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+  </PropertyGroup>
+
+  <!-- net5.0 — xunit.runner.visualstudio 2.4.5 is the last version with a native net5.0-compatible
+       asset; 2.5.0 dropped net5 along with netcoreapp3.1. Capped below 2.5.0. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.console" Version="2.9.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" allowedVersions="(,2.5.0)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+  </PropertyGroup>
+
+  <!-- net6.0; net7.0 — xunit.runner.visualstudio capped below 3.0.0 because 3.x ships only
+       net8.0 + net472 assets, dropping net6/7 support. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR
                         '$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" allowedVersions="[17.13.0]" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.console" Version="2.9.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" allowedVersions="[3.0.1]">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" allowedVersions="(,3.0.0)">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Linq.Async" Version="7.0.0" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
   </ItemGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0' OR
+                            '$(TargetFramework)' == 'net7.0'">
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+  </PropertyGroup>
 
-  <!-- net8.0; net9.0; net10.0 — xunit.runner.visualstudio 3.0.1 + System.Linq.AsyncEnumerable -->
+  <!-- net8.0; net9.0; net10.0 — xunit.runner.visualstudio 3.x natively supports these TFMs.
+       System.Linq.AsyncEnumerable has a native net8.0 asset. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'  OR
                         '$(TargetFramework)' == 'net9.0'  OR
                         '$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" allowedVersions="[17.13.0,)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.console" Version="2.9.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" allowedVersions="[3.0.1,)">
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
