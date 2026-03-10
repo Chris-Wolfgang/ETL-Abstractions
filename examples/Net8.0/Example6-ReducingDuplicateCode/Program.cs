@@ -16,16 +16,16 @@ namespace Example6_ReducingDuplicateCode
             Console.WriteLine($"{ConsoleColors.Green}.NET Version: {frameworkVersion}{ConsoleColors.Reset}\n");
 
 
-            await EtlWithNoProgressOrCancellation();
+            await EtlWithNoProgressOrCancellation().ConfigureAwait(false);
 
             
-            await EtlWithCancellationToken();
+            await EtlWithCancellationToken().ConfigureAwait(false);
 
 
-            await EtlWithProgress();
+            await EtlWithProgress().ConfigureAwait(false);
 
 
-            await EtlWithProgressAndCancellationToken();
+            await EtlWithProgressAndCancellationToken().ConfigureAwait(false);
 
 
             Console.WriteLine($"\n\n{ConsoleColors.Yellow}All ETLs completed.{ConsoleColors.Reset}");
@@ -43,7 +43,7 @@ namespace Example6_ReducingDuplicateCode
 
             var sourceItems = extractor.ExtractAsync();
             var transformedItems = transformer.TransformAsync(sourceItems);
-            await loader.LoadAsync(transformedItems);
+            await loader.LoadAsync(transformedItems).ConfigureAwait(false);
 
             Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
 
@@ -67,7 +67,7 @@ namespace Example6_ReducingDuplicateCode
 
             var sourceItems = extractor.ExtractAsync(token);
             var transformedItems = transformer.TransformAsync(sourceItems, token);
-            await loader.LoadAsync(transformedItems, token);
+            await loader.LoadAsync(transformedItems, token).ConfigureAwait(false);
 
             Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
 
@@ -95,7 +95,7 @@ namespace Example6_ReducingDuplicateCode
             // the loader, but you could also pass it to the extractor or transformer depending on your needs.
             var sourceItems = extractor.ExtractAsync();
             var transformedItems = transformer.TransformAsync(sourceItems);
-            await loader.LoadAsync(transformedItems, progress);
+            await loader.LoadAsync(transformedItems, progress).ConfigureAwait(false);
 
             Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
 
@@ -126,25 +126,10 @@ namespace Example6_ReducingDuplicateCode
             // the loader, but you could also pass it to the extractor or transformer depending on your needs.
             var sourceItems = extractor.ExtractAsync(token);
             var transformedItems = transformer.TransformAsync(sourceItems, token);
-            await loader.LoadAsync(transformedItems, progress, token);
+            await loader.LoadAsync(transformedItems, progress, token).ConfigureAwait(false);
 
             Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
 
         }
-    }
-
-
-
-    internal record EtlProgress(int CurrentCount);
-
-
-
-    internal class ConsoleColors
-    {
-        public const string Green = "\u001b[32m";
-        public const string Yellow = "\u001b[33m";
-        public const string Reset = "\u001b[0m";
-        public const string Red = "\u001b[31m";
-        public const string Cyan = "\u001b[36m";
     }
 }
