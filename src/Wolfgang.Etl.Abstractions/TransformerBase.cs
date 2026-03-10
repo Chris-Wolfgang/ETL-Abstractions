@@ -153,10 +153,12 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (items == null)
         {
             throw new ArgumentNullException(nameof(items));
         }
+#pragma warning restore RCS1140
 #endif
         return TransformWorkerAsync(items, CancellationToken.None);
     }
@@ -175,15 +177,18 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// The transformer should be able to handle cancellation requests gracefully.
     /// If the caller doesn't plan on cancelling the transformation, they can pass CancellationToken.None.
     /// </remarks>
+    /// <exception cref="ArgumentNullException">The value of items is null</exception>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, CancellationToken token)
     {
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (items == null)
         {
             throw new ArgumentNullException(nameof(items));
         }
+#pragma warning restore RCS1140
 #endif
         return TransformWorkerAsync(items, token);
     }
@@ -198,6 +203,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <returns>
     /// IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.
     /// </returns>
+    /// <exception cref="ArgumentNullException">The value of items is null</exception>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress)
     {
@@ -205,6 +211,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (items == null)
         {
             throw new ArgumentNullException(nameof(items));
@@ -213,6 +220,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         {
             throw new ArgumentNullException(nameof(progress));
         }
+#pragma warning restore RCS1140
 #endif
 
         // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
@@ -243,6 +251,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// The transformer should be able to handle cancellation requests gracefully.
     /// If the caller doesn't plan on cancelling the transformation, they can pass CancellationToken.None.
     /// </remarks>
+    /// <exception cref="ArgumentNullException">The value of items is null</exception>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress, CancellationToken token)
     {
@@ -250,6 +259,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (items == null)
         {
             throw new ArgumentNullException(nameof(items));
@@ -258,6 +268,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         {
             throw new ArgumentNullException(nameof(progress));
         }
+#pragma warning restore RCS1140
 #endif
 
         // Timer is synchronously disposed when this method returns its IAsyncEnumerable.

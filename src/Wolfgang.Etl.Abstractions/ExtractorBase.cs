@@ -210,10 +210,12 @@ public abstract class ExtractorBase<TSource, TProgress>
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(progress);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (progress == null)
         {
             throw new ArgumentNullException(nameof(progress));
         }
+#pragma warning restore RCS1140
 #endif
 
         // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
@@ -250,10 +252,12 @@ public abstract class ExtractorBase<TSource, TProgress>
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(progress);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (progress == null)
         {
             throw new ArgumentNullException(nameof(progress));
         }
+#pragma warning restore RCS1140
 #endif
 
         // Timer is synchronously disposed when this method returns its IAsyncEnumerable.

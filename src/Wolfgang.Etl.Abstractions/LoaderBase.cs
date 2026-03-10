@@ -151,10 +151,12 @@ public abstract class LoaderBase<TDestination, TProgress>
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (items == null)
         {
             throw new ArgumentNullException(nameof(items));
         }
+#pragma warning restore RCS1140
 #endif
         return LoadWorkerAsync(items, CancellationToken.None);
     }
@@ -176,10 +178,12 @@ public abstract class LoaderBase<TDestination, TProgress>
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (items == null)
         {
             throw new ArgumentNullException(nameof(items));
         }
+#pragma warning restore RCS1140
 #endif
         return LoadWorkerAsync(items, token);
     }
@@ -203,14 +207,16 @@ public abstract class LoaderBase<TDestination, TProgress>
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (items == null)
         {
             throw new ArgumentNullException(nameof(items));
         }
-		if (progress == null)
+        if (progress == null)
         {
             throw new ArgumentNullException(nameof(progress));
         }
+#pragma warning restore RCS1140
 #endif
 
         // Timer is synchronously disposed when this method returns its Task.
@@ -246,6 +252,7 @@ public abstract class LoaderBase<TDestination, TProgress>
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
 #else
+#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (items == null)
         {
             throw new ArgumentNullException(nameof(items));
@@ -254,6 +261,7 @@ public abstract class LoaderBase<TDestination, TProgress>
         {
             throw new ArgumentNullException(nameof(progress));
         }
+#pragma warning restore RCS1140
 #endif
 
         // Timer is synchronously disposed when this method returns its Task.
