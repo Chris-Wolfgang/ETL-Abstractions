@@ -16,6 +16,8 @@ namespace Wolfgang.Etl.Abstractions;
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
 public abstract class LoaderBase<TDestination, TProgress>
     : ILoadWithProgressAndCancellationAsync<TDestination, TProgress>
+    where TDestination : notnull
+    where TProgress : notnull
 {
 
     private int _reportingInterval = 1_000;

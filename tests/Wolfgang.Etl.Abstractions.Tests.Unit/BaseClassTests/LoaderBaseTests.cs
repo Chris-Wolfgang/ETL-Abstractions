@@ -149,7 +149,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
             var actualResults = new List<string>();
             var sut = new ConsoleLoaderFromBase(actualResults, 50) { ReportingInterval = 100 };
             using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(_ => callbackFired.Set());
+            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
 
             await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress);
 
@@ -163,7 +163,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             var sut = new ConsoleLoaderFromBase([], 500);
             var cts = new CancellationTokenSource();
-            var progress = new SynchronousProgress<EtlProgress>(_ => { });
+            var progress = new SynchronousProgress<EtlProgress>(report => { });
 
             var task = sut.LoadAsync(AsyncHelpers.GenerateSlowItemsAsync(10), progress);
             cts.Cancel();
@@ -230,7 +230,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
             var actualResults = new List<string>();
             var sut = new ConsoleLoaderFromBase(actualResults, 50) { ReportingInterval = 100 };
             using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(_ => callbackFired.Set());
+            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
 
             await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress, CancellationToken.None);
 
@@ -529,7 +529,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             await foreach (var item in items.WithCancellation(token))
             {
-                if (item == "skip")
+                if (string.Equals(item, "skip", StringComparison.Ordinal))
                 {
                     IncrementCurrentSkippedItemCount();
                     continue;

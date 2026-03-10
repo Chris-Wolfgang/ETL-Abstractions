@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
 
@@ -15,11 +16,9 @@ namespace Wolfgang.Etl.Abstractions;
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
 public abstract class ExtractorBase<TSource, TProgress>
     : IExtractWithProgressAndCancellationAsync<TSource, TProgress>
+    where TSource : notnull
+    where TProgress : notnull
 {
-
-    private int _reportingInterval = 1_000;
-    private int _maximumItemCount = int.MaxValue;
-    private int _skippedItemCount;
     private int _currentItemCount;
     private int _currentSkippedItemCount;
 
@@ -31,16 +30,20 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
     public int ReportingInterval
     {
-        get => _reportingInterval;
+        get;
         set
         {
+#if NET8_0_OR_GREATER
+            ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
+#else
             if (value < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Reporting interval must be greater than 0.");
             }
-            _reportingInterval = value;
+#endif
+            field = value;
         }
-    }
+    } = 1_000;
 
 
 
@@ -51,20 +54,14 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
     /// as each item is extracted. The base class has no way of knowing when an item has been processed.
     /// </remarks>
-    public int CurrentItemCount
-    {
-        get => _currentItemCount;
-    }
+    public int CurrentItemCount => _currentItemCount;
 
 
 
     /// <summary>
     /// The current number of items skipped so far during extraction.
     /// </summary>
-    public int CurrentSkippedItemCount
-    {
-        get => _currentSkippedItemCount;
-    }
+    public int CurrentSkippedItemCount => _currentSkippedItemCount;
 
 
 
@@ -97,16 +94,20 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// </example>
     public int MaximumItemCount
     {
-        get => _maximumItemCount;
+        get;
         set
         {
+#if NET8_0_OR_GREATER
+            ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
+#else
             if (value < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 0.");
             }
-            _maximumItemCount = value;
+#endif
+            field = value;
         }
-    }
+    } = int.MaxValue;
 
 
 
@@ -145,14 +146,18 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// </example>
     public int SkipItemCount
     {
-        get => _skippedItemCount;
+        get;
         set
         {
+#if NET8_0_OR_GREATER
+            ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
+#else
             if (value < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Skip item count cannot be less than 0.");
             }
-            _skippedItemCount = value;
+#endif
+            field = value;
         }
     }
 
@@ -207,13 +212,15 @@ public abstract class ExtractorBase<TSource, TProgress>
             throw new ArgumentNullException(nameof(progress), "Progress cannot be null.");
         }
 
-        using var timer = new Timer
-        (
+        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
+        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
+#pragma warning disable MA0042
+        using var timer = new Timer(
             _ => progress.Report(CreateProgressReport()),
             state: null,
             TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval)
-        );
+            TimeSpan.FromMilliseconds(ReportingInterval));
+#pragma warning restore MA0042
 
         return ExtractWorkerAsync(CancellationToken.None);
     }
@@ -241,13 +248,15 @@ public abstract class ExtractorBase<TSource, TProgress>
             throw new ArgumentNullException(nameof(progress), "Progress cannot be null.");
         }
 
-        using var timer = new Timer
-        (
+        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
+        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
+#pragma warning disable MA0042
+        using var timer = new Timer(
             _ => progress.Report(CreateProgressReport()),
             state: null,
             TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval)
-        );
+            TimeSpan.FromMilliseconds(ReportingInterval));
+#pragma warning restore MA0042
 
         return ExtractWorkerAsync(token);
     }
@@ -283,9 +292,11 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
     /// thread safe. This method ensures that CurrentItemCount is incremented safely.
     /// </remarks>
+    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
+        Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
     protected void IncrementCurrentItemCount()
     {
-        Interlocked.Increment(ref _currentItemCount);
+        _ = Interlocked.Increment(ref _currentItemCount);
     }
 
 
@@ -297,8 +308,10 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// Simply calling CurrentSkippedItemCount++ or CurrentSkippedItemCount += 1 is not
     /// thread safe. This method ensures that CurrentSkippedItemCount is incremented safely.
     /// </remarks>
+    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
+        Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
     protected void IncrementCurrentSkippedItemCount()
     {
-        Interlocked.Increment(ref _currentSkippedItemCount);
+        _ = Interlocked.Increment(ref _currentSkippedItemCount);
     }
 }

@@ -16,6 +16,9 @@ namespace Wolfgang.Etl.Abstractions;
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
 public abstract class TransformerBase<TSource, TDestination, TProgress>
     : ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>
+    where TSource : notnull
+    where TDestination : notnull
+    where TProgress : notnull
 {
 
     private int _reportingInterval = 1_000;

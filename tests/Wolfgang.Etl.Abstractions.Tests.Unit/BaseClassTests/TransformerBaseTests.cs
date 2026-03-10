@@ -390,7 +390,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
             var sut = new IntToStringTransformerFromTransformerBase(50) { ReportingInterval = 100 };
             var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
             using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(_ => callbackFired.Set());
+            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
 
             await sut.TransformAsync(items, progress).ToListAsync();
 
@@ -405,7 +405,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
             var sut = new IntToStringTransformerFromTransformerBase(50) { ReportingInterval = 100 };
             var items = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.ToAsyncEnumerable();
             using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(_ => callbackFired.Set());
+            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
 
             await sut.TransformAsync(items, progress, CancellationToken.None).ToListAsync();
 

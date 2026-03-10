@@ -7,7 +7,7 @@ using Xunit.Abstractions;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
 {
-    public class ExtractorBaseTests(ITestOutputHelper testOutputHelper)
+    public class ExtractorBaseTests(ITestOutputHelper _)
     {
 
         [Fact]
@@ -328,7 +328,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             var sut = new FibonacciExtractorFromExtractorBase(50) { ReportingInterval = 100 };
             using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(_ => callbackFired.Set());
+            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
 
             await sut.ExtractAsync(progress).ToListAsync();
 
@@ -342,7 +342,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests
         {
             var sut = new FibonacciExtractorFromExtractorBase(50) { ReportingInterval = 100 };
             using var callbackFired = new ManualResetEventSlim(false);
-            var progress = new SynchronousProgress<EtlProgress>(_ => callbackFired.Set());
+            var progress = new SynchronousProgress<EtlProgress>(report => callbackFired.Set());
 
             await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync();
 
