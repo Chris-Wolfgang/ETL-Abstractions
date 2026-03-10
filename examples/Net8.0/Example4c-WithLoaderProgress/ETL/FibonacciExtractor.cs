@@ -47,7 +47,7 @@ namespace Example4c_WithLoaderProgress.ETL
 
         public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)
         {
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(progress);
 
             Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
 
@@ -55,7 +55,7 @@ namespace Example4c_WithLoaderProgress.ETL
             await using var timer = new Timer
             ( 
                 _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
+                state: null,
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
             );

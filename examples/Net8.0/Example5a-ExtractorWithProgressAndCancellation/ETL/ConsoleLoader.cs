@@ -28,14 +28,14 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
 
         public async Task LoadAsync(IAsyncEnumerable<string> items)
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(items);
 
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
 
             await foreach (var item in items)
             {
                 Console.WriteLine($"Loading item: {item}\n");
-                await Task.Delay(50); // Simulate some delay for loading
+                await Task.Delay(50, token); // Simulate some delay for loading
             }
             
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
@@ -46,7 +46,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
         public async Task LoadAsync(IAsyncEnumerable<string> items, CancellationToken token)
         {
 
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(items);
             
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
 
@@ -63,7 +63,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
                 }
 
                 Console.WriteLine($"Loading item: {item}\n");
-                await Task.Delay(50); // Simulate some delay for loading
+                await Task.Delay(50, token); // Simulate some delay for loading
             }
 
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
@@ -73,8 +73,8 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
 
         public async Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress)
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(items);
+            ArgumentNullException.ThrowIfNull(progress);
 
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
 
@@ -82,7 +82,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
             await using var timer = new Timer
             (
                 _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
+                state: null,
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
             );
@@ -91,7 +91,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
             await foreach (var item in items)
             {
                 Console.WriteLine($"Loading item: {item}\n");
-                await Task.Delay(50); // Simulate some delay for loading
+                await Task.Delay(50, token); // Simulate some delay for loading
                 count = Interlocked.Increment(ref count);
 
             }
@@ -106,8 +106,8 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
 
         public async Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress, CancellationToken token)
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(items);
+            ArgumentNullException.ThrowIfNull(progress);
 
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
 
@@ -115,7 +115,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
             await using var timer = new Timer
             (
                 _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
+                state: null,
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
             );
@@ -126,7 +126,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
                 token.ThrowIfCancellationRequested();
 
                 Console.WriteLine($"Loading item: {item}\n");
-                await Task.Delay(50); // Simulate some delay for loading
+                await Task.Delay(50, token); // Simulate some delay for loading
                 count = Interlocked.Increment(ref count);
 
             }

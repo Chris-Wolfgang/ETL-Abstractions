@@ -39,7 +39,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
+                await Task.Delay(100, token); // Simulate asynchronous operation
             }
 
             Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
@@ -64,7 +64,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
+                await Task.Delay(100, token); // Simulate asynchronous operation
             }
 
             Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
@@ -74,7 +74,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
 
         public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)
         {
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(progress);
 
             Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
 
@@ -82,7 +82,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
             await using var timer = new Timer
             (
                 _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
+                state: null,
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
             );
@@ -98,7 +98,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
+                await Task.Delay(100, token); // Simulate asynchronous operation
             }
 
             progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
@@ -110,7 +110,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
 
         public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress, [EnumeratorCancellation] CancellationToken token)
         {
-            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+            ArgumentNullException.ThrowIfNull(progress);
 
             Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
 
@@ -118,7 +118,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
             await using var timer = new Timer
             ( 
                 _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
+                state: null,
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
             );
@@ -144,7 +144,7 @@ namespace Example5a_ExtractorWithProgressAndCancellation.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
+                await Task.Delay(100, token); // Simulate asynchronous operation
             }
 
             progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count

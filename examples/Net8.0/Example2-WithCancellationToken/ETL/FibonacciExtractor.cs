@@ -18,7 +18,7 @@ namespace Example2_WithCancellationToken.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
+                await Task.Delay(100, token); // Simulate asynchronous operation
             }
 
             Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
@@ -43,7 +43,7 @@ namespace Example2_WithCancellationToken.ETL
                 var temp = current;
                 current += previous;
                 previous = temp;
-                await Task.Delay(100); // Simulate asynchronous operation
+                await Task.Delay(100, token); // Simulate asynchronous operation
             }
 
             Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");

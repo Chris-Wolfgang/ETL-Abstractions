@@ -6,8 +6,9 @@
     <RootNamespace>Example6_ReducingDuplicateCode</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	  <Version>1.0.0</Version>
-	  <Copyright>Copyright {copyright year} {author}</Copyright>
+    <NoWarn>CA2007</NoWarn>
+    <Version>1.0.0</Version>
+    <Copyright>Copyright {copyright year} {author}</Copyright>
 
   </PropertyGroup>
 

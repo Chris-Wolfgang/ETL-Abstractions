@@ -12,7 +12,7 @@ namespace Example2_WithCancellationToken.ETL
             await foreach (var item in items)
             {
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50); // Simulate some delay for transformation
+                await Task.Delay(50, token); // Simulate some delay for transformation
                 yield return item.ToString();
             }
 
@@ -32,7 +32,7 @@ namespace Example2_WithCancellationToken.ETL
                 token.ThrowIfCancellationRequested();
 
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50); // Simulate some delay for transformation
+                await Task.Delay(50, token); // Simulate some delay for transformation
                 yield return item.ToString();
             }
             

@@ -50,7 +50,7 @@ namespace Example4b_WithTransformerProgress.ETL
             await using var timer = new Timer
             (
                 _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-                null,
+                state: null,
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
             );
