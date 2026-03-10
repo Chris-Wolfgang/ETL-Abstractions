@@ -148,7 +148,14 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <exception cref="ArgumentNullException">Argument items is null</exception>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items)
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
+#else
+        if (items == null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+#endif
         return LoadWorkerAsync(items, CancellationToken.None);
     }
 
@@ -166,7 +173,14 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <exception cref="ArgumentNullException">Argument items is null</exception>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, CancellationToken token)
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
+#else
+        if (items == null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+#endif
         return LoadWorkerAsync(items, token);
     }
 
@@ -185,8 +199,19 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <exception cref="ArgumentNullException">Argument progress is null</exception>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress)
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
+#else
+        if (items == null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+		if (progress == null)
+        {
+            throw new ArgumentNullException(nameof(progress));
+        }
+#endif
 
         // Timer is synchronously disposed when this method returns its Task.
         // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
@@ -217,8 +242,19 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <exception cref="ArgumentNullException">Argument progress is null</exception>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress, CancellationToken token)
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
+#else
+        if (items == null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+        if (progress == null)
+        {
+            throw new ArgumentNullException(nameof(progress));
+        }
+#endif
 
         // Timer is synchronously disposed when this method returns its Task.
         // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.

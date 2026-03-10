@@ -150,7 +150,14 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentNullException">The value of items is null</exception>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items)
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
+#else
+        if (items == null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+#endif
         return TransformWorkerAsync(items, CancellationToken.None);
     }
 
@@ -170,7 +177,14 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// </remarks>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, CancellationToken token)
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
+#else
+        if (items == null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+#endif
         return TransformWorkerAsync(items, token);
     }
 
@@ -187,8 +201,19 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress)
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
+#else
+        if (items == null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+        if (progress == null)
+        {
+            throw new ArgumentNullException(nameof(progress));
+        }
+#endif
 
         // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
         // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
@@ -221,8 +246,19 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress, CancellationToken token)
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
+#else
+        if (items == null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+        if (progress == null)
+        {
+            throw new ArgumentNullException(nameof(progress));
+        }
+#endif
 
         // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
         // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.

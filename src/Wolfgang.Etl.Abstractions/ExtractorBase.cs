@@ -207,10 +207,14 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(progress);
+#else
         if (progress == null)
         {
-            throw new ArgumentNullException(nameof(progress), "Progress cannot be null.");
+            throw new ArgumentNullException(nameof(progress));
         }
+#endif
 
         // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
         // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
@@ -243,10 +247,14 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress, CancellationToken token)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(progress);
+#else
         if (progress == null)
         {
-            throw new ArgumentNullException(nameof(progress), "Progress cannot be null.");
+            throw new ArgumentNullException(nameof(progress));
         }
+#endif
 
         // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
         // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
