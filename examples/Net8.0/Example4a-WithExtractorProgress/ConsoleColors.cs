@@ -2,9 +2,9 @@ namespace Example4a_WithExtractorProgress;
 
 internal class ConsoleColors
 {
-    public const string Green = "\u001b[32m";
-    public const string Yellow = "\u001b[33m";
-    public const string Reset = "\u001b[0m";
-    public const string Red = "\u001b[31m";
-    public const string Cyan = "\u001b[36m";
+    public const string Green = "\e[32m";
+    public const string Yellow = "\e[33m";
+    public const string Reset = "\e[0m";
+    public const string Red = "\e[31m";
+    public const string Cyan = "\e[36m";
 }
