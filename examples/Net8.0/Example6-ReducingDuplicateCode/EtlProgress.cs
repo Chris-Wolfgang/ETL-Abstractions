@@ -1,4 +1,2 @@
-namespace Example6_ReducingDuplicateCode
-{
-    internal record EtlProgress(int CurrentCount);
-}
+namespace Example6_ReducingDuplicateCode;
+internal record EtlProgress(int CurrentCount);

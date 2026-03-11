@@ -8,7 +8,8 @@
 	  net8.0;net9.0;net10.0
     </TargetFrameworks>
 	<LangVersion>latest</LangVersion>
-	<Version>0.8.1</Version>
+	<Nullable>enable</Nullable>
+	<Version>0.9.0</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Authors>Chris Wolfgang</Authors>
@@ -42,8 +43,12 @@
     </None>
   </ItemGroup>
 
+  <!-- Microsoft.Bcl.AsyncInterfaces 10.0.3 — supports all TFMs via net462/netstandard2.0/net8.0 assets -->
   <ItemGroup>
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
