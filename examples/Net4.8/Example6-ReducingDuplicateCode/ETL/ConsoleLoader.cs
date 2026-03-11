@@ -106,7 +106,7 @@ internal class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, Etl
         var count = 0;
         using var timer = new Timer
         (
-            state => progress?.Report(new EtlProgress(Volatile.Read(ref count))),
+            _ => progress?.Report(new EtlProgress(Volatile.Read(ref count))),
             state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval

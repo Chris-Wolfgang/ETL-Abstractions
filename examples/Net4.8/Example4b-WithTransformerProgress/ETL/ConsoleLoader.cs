@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,7 +52,7 @@ internal class ConsoleLoader : ILoadAsync<string>, ILoadWithProgressAsync<string
         var count = 0;
         using var timer = new Timer
         (
-            state => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+            _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
             state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval

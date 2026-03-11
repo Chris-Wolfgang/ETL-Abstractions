@@ -1,4 +1,4 @@
-\xef\xbb\xbfnamespace Example5a_ExtractorWithProgressAndCancellation
+namespace Example5a_ExtractorWithProgressAndCancellation
 {
     internal class EtlProgress
     {

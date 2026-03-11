@@ -1,4 +1,4 @@
-\xef\xbb\xbfnamespace Example4a_WithExtractorProgress
+namespace Example4a_WithExtractorProgress
 {
     internal class EtlProgress
     {

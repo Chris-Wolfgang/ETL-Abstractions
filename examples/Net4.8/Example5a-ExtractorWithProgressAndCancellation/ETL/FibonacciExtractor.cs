@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -88,7 +88,7 @@ internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int
         var count = 0;
         using var timer = new Timer
         (
-            state => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+            _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
             state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
@@ -127,7 +127,7 @@ internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int
         var count = 0;
         using var timer = new Timer
         ( 
-            state => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+            _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
             state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval

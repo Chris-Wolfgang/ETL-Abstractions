@@ -1,4 +1,4 @@
-\xef\xbb\xbfnamespace Example4b_WithTransformerProgress
+namespace Example4b_WithTransformerProgress
 {
     internal class EtlProgress
     {

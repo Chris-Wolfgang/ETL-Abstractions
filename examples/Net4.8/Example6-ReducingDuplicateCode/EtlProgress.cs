@@ -1,4 +1,4 @@
-\xef\xbb\xbfnamespace Example6_ReducingDuplicateCode
+namespace Example6_ReducingDuplicateCode
 {
     internal class EtlProgress
     {

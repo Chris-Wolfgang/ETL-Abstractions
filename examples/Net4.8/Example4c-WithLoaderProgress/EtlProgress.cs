@@ -1,4 +1,4 @@
-\xef\xbb\xbfnamespace Example4c_WithLoaderProgress
+namespace Example4c_WithLoaderProgress
 {
     internal class EtlProgress
     {
