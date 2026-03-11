@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Example4b_WithTransformerProgress.ETL;
 
 namespace Example4b_WithTransformerProgress;
+
 internal class Program
 {
     private static async Task Main()

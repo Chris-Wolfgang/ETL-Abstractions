@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Example6_ReducingDuplicateCode.ETL;
 
 namespace Example6_ReducingDuplicateCode;
+
 internal class Program
 {
     private static async Task Main()
@@ -20,7 +21,7 @@ internal class Program
 
         await EtlWithNoProgressOrCancellation();
 
-        
+
         await EtlWithCancellationToken();
 
 
@@ -34,7 +35,7 @@ internal class Program
     }
 
 
-    
+
     private static async Task EtlWithNoProgressOrCancellation()
     {
         var extractor = new FibonacciExtractor();

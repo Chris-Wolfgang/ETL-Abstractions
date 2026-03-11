@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Example4c_WithLoaderProgress.ETL;
 
 namespace Example4c_WithLoaderProgress;
+
 internal class Program
 {
     private static async Task Main()

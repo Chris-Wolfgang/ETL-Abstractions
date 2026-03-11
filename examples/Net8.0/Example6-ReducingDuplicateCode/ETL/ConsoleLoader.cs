@@ -1,6 +1,7 @@
-﻿using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.Abstractions;
 
 namespace Example6_ReducingDuplicateCode.ETL;
+
 internal class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, EtlProgress>
 {
 
@@ -67,8 +68,8 @@ internal class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, Etl
 
     private async Task WorkerAsync
     (
-        IAsyncEnumerable<string> items, 
-        IProgress<EtlProgress>? progress, 
+        IAsyncEnumerable<string> items,
+        IProgress<EtlProgress>? progress,
         CancellationToken token
     )
     {

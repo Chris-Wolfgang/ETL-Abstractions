@@ -1,4 +1,4 @@
-﻿namespace Example2_WithCancellationToken
+namespace Example2_WithCancellationToken
 {
     internal class ConsoleColors
     {

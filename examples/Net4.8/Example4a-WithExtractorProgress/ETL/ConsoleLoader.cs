@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example4a_WithExtractorProgress.ETL;
+
 internal class ConsoleLoader : ILoadWithProgressAsync<string, EtlProgress>
 {
 
@@ -39,7 +40,7 @@ internal class ConsoleLoader : ILoadWithProgressAsync<string, EtlProgress>
             Console.WriteLine($"Loading item: {item}\n");
             await Task.Delay(50); // Simulate some delay for loading
         }
-        
+
         Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
     }
 

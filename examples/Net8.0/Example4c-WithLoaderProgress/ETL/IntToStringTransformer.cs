@@ -1,7 +1,8 @@
-﻿using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.Abstractions;
 
 namespace Example4c_WithLoaderProgress.ETL;
-internal class IntToStringTransformer 
+
+internal class IntToStringTransformer
     : ITransformAsync<int, string>, ITransformWithProgressAsync<int, string, EtlProgress>
 {
 
@@ -29,14 +30,14 @@ internal class IntToStringTransformer
     public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items)
     {
         Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
-        
+
         await foreach (var item in items)
         {
             Console.WriteLine($"Transforming integer {item} to string.");
             await Task.Delay(50); // Simulate some delay for transformation
             yield return item.ToString();
         }
-        
+
         Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
     }
 

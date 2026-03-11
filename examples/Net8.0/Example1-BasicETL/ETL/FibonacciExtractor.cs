@@ -1,6 +1,7 @@
-﻿using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.Abstractions;
 
 namespace Example1_BasicETL.ETL;
+
 internal class FibonacciExtractor : IExtractAsync<int>
 {
     public async IAsyncEnumerable<int> ExtractAsync()

@@ -1,7 +1,8 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example6_ReducingDuplicateCode.ETL;
+
 internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsync<int, string, EtlProgress>
 {
 
@@ -40,7 +41,7 @@ internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsy
 
     public IAsyncEnumerable<string> TransformAsync
         (
-            IAsyncEnumerable<int> items, 
+            IAsyncEnumerable<int> items,
             CancellationToken token
         )
     {
@@ -53,7 +54,7 @@ internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsy
 
     public IAsyncEnumerable<string> TransformAsync
         (
-            IAsyncEnumerable<int> items, 
+            IAsyncEnumerable<int> items,
             IProgress<EtlProgress> progress
         )
     {

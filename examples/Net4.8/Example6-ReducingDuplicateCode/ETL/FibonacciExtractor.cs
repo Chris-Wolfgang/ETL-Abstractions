@@ -1,5 +1,5 @@
 #nullable enable
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example6_ReducingDuplicateCode.ETL;
+
 internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int, EtlProgress>
 {
     private int _progressInterval = 1_000;
@@ -59,7 +60,7 @@ internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int
 
     public IAsyncEnumerable<int> ExtractAsync
         (
-            IProgress<EtlProgress> progress, 
+            IProgress<EtlProgress> progress,
             CancellationToken token
         )
     {
@@ -75,7 +76,7 @@ internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int
 
     private async IAsyncEnumerable<int> WorkerAsync
     (
-        IProgress<EtlProgress>? progress, 
+        IProgress<EtlProgress>? progress,
         [EnumeratorCancellation] CancellationToken token
     )
     {

@@ -1,4 +1,5 @@
 namespace Example6_ReducingDuplicateCode;
+
 internal class ConsoleColors
 {
     public const string Green = "\e[32m";

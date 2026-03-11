@@ -30,7 +30,7 @@ namespace Example3_WithGracefulCancellation
             var token = cts.Token;
 
             var sourceItems = extractor.ExtractAsync(token);
-            var transformedItems = transformer.TransformAsync(sourceItems,token);
+            var transformedItems = transformer.TransformAsync(sourceItems, token);
             await loader.LoadAsync(transformedItems, token);
 
             Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
