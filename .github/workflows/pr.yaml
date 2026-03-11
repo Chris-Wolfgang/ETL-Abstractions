@@ -238,7 +238,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          if find ./TestResults -name "coverage.cobertura.xml" -quit 2>/dev/null | grep -q .; then
+          if find ./TestResults -name "coverage.cobertura.xml" -print -quit 2>/dev/null | grep -q .; then
             reportgenerator \
               -reports:"TestResults/**/coverage.cobertura.xml" \
               -targetdir:"CoverageReport" \
@@ -678,7 +678,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          if find ./TestResults -name "coverage.cobertura.xml" -quit 2>/dev/null | grep -q .; then
+          if find ./TestResults -name "coverage.cobertura.xml" -print -quit 2>/dev/null | grep -q .; then
             reportgenerator \
               -reports:"TestResults/**/coverage.cobertura.xml" \
               -targetdir:"CoverageReport" \
