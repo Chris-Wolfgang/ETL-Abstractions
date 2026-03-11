@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
+
 public class TransformerBaseTests
 {
 
@@ -28,7 +29,7 @@ public class TransformerBaseTests
     {
         var sut = new IntToStringTransformerFromTransformerBase();
 
-        await Assert.ThrowsAsync<ArgumentNullException> (async ()=> await sut.TransformAsync(null!).ToListAsync());
+        await Assert.ThrowsAsync<ArgumentNullException>(async () => await sut.TransformAsync(null!).ToListAsync());
     }
 
 
@@ -209,7 +210,7 @@ public class TransformerBaseTests
             sut.TransformAsync(items, progress, cts.Token).ToListAsync(cancellationToken: cts.Token).AsTask())
             .ConfigureAwait(false);
     }
-    
+
 
 
     [Fact]

@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
+
 public class ExtractorBaseTests
 {
 
@@ -53,7 +54,7 @@ public class ExtractorBaseTests
 
         var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(5));
 
-        await Assert.ThrowsAsync<TaskCanceledException>(async () =>  await sut.ExtractAsync(cts.Token).ToListAsync(CancellationToken.None));
+        await Assert.ThrowsAsync<TaskCanceledException>(async () => await sut.ExtractAsync(cts.Token).ToListAsync(CancellationToken.None));
     }
 
 
@@ -120,7 +121,7 @@ public class ExtractorBaseTests
 
         await Assert.ThrowsAsync<ArgumentNullException>(async () => await sut.ExtractAsync(null!, cts.Token).ToListAsync(CancellationToken.None));
     }
-    
+
 
 
     [Fact]
@@ -181,7 +182,7 @@ public class ExtractorBaseTests
         Assert.Equal(10, sut.MaximumItemCount);
     }
 
-    
+
     [Fact]
     public void SkipItemCount_when_assigned_a_value_less_than_0_throws_ArgumentOutOfRangeException()
     {
@@ -363,7 +364,7 @@ public class ExtractorBaseTests
 
 
 
-    [Fact (Skip = "Not working due to timing issues")]
+    [Fact(Skip = "Not working due to timing issues")]
     public async Task ExtractWithProgressAndCancellationAsync_progress_callback_receives_current_item_count()
     {
         var sut = new FibonacciExtractorFromExtractorBase();

@@ -3,6 +3,7 @@ using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 using Xunit.Abstractions;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
+
 public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 {
 
@@ -96,7 +97,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
             .ConfigureAwait(false);
     }
 
-    
+
 
     [Fact]
     public async Task LoadWithProgressAsync_when_passed_null_items_throws_ArgumentNullException()
@@ -107,7 +108,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
         var progress = new Progress<EtlProgress>(_ => { });
 
-        await Assert.ThrowsAsync<ArgumentNullException>(async () => 
+        await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             await sut.LoadAsync(null!, progress));
     }
 
@@ -209,7 +210,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
             Interlocked.Increment(ref progressReportCount);
         });
 
-        await Assert.ThrowsAsync<ArgumentNullException>(async () => 
+        await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             await sut.LoadAsync(null!, progress, CancellationToken.None));
     }
 

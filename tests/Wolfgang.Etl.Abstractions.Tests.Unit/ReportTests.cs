@@ -1,4 +1,5 @@
 namespace Wolfgang.Etl.Abstractions.Tests.Unit;
+
 public class ReportTests
 {
     [Fact]
