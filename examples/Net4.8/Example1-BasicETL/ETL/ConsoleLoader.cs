@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
@@ -16,7 +16,7 @@ namespace Example1_BasicETL.ETL
                 Console.WriteLine($"Loading item: {item}\n");
                 await Task.Delay(50); // Simulate some delay for loading
             }
-            
+        
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
         }
     }

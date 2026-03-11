@@ -1,7 +1,7 @@
 # Sequential PR validation workflow with coverage gating
-# Stage 1: Linux tests with 90% coverage requirement
-# Stage 2: Windows .NET (5.0-10.0) and .NET Framework (4.6.2-4.8.1) tests (only if Linux passes)
-# Stage 3: macOS tests (only if Stage 2 passes)
+# Stage 1: Linux tests (.NET 5.0-10.0 and netcoreapp3.1) — coverage collected for net5.0+ + 90% gate
+# Stage 2: Windows tests (all TFMs, only if Stage 1 passes) — coverage collected for net5.0+ + 90% gate
+# Stage 3: macOS tests (.NET 6.0-10.0, only if Stage 2 passes) — coverage collected for net6.0+ + 90% gate
 #
 # SECURITY NOTE:
 # - Uses pull_request_target to run workflow from the trusted main branch, not from the PR branch
@@ -53,10 +53,10 @@ jobs:
           fi
 
   # ============================================================================
-  # STAGE 1: Linux - .NET Core/5+ Tests with Coverage Gate
+  # STAGE 1: Linux - .NET Tests (no coverage collection)
   # ============================================================================
   test-linux-core: 
-    name: "Stage 1: Linux Tests (.NET 5.0-10.0) + Coverage Gate"
+    name: "Stage 1: Linux Tests (.NET 5.0-10.0 and netcoreapp3.1) + Coverage Gate"
     runs-on:  ubuntu-latest
     needs: detect-projects
     if: github.repository != 'Chris-Wolfgang/repo-template' && needs.detect-projects.outputs.has-projects == 'true'
@@ -175,7 +175,7 @@ jobs:
           echo ""
           echo "✅ All compatible projects built successfully"
 
-      - name: Run tests with coverage (.NET Core 5.0 - 10.0)
+      - name: Run tests (.NET 5.0-10.0 and netcoreapp3.1)
         run: |
           # Find all test projects (C#, VB.NET, F#)
           mapfile -d '' -t test_projects < <(find ./tests -type f \( -name "*.csproj" -o -name "*.vbproj" -o -name "*.fsproj" \) -print0)
@@ -198,10 +198,10 @@ jobs:
             
             # Extract target frameworks from the project file
             # Support both <TargetFramework> (single) and <TargetFrameworks> (multiple), including multi-line values
-            frameworks=$(tr '\n' ' ' < "$test_proj" | grep -oP '<TargetFrameworks?\s*>\K[^<]+' | tr ';' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -E '^net(5\.0|6\.0|7\.0|8\.0|9\.0|10\.0)$' || true)
+            frameworks=$(tr '\n' ' ' < "$test_proj" | grep -oP '<TargetFrameworks?\s*>\K[^<]+' | tr ';' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -E '^(net(5\.0|6\.0|7\.0|8\.0|9\.0|10\.0)|netcoreapp3\.1)$' || true)
             
             if [ -z "$frameworks" ]; then
-              echo "⊘ Skipping: No compatible .NET 5.0-10.0 target frameworks found"
+              echo "⊘ Skipping: No compatible target frameworks found"
               echo ""
               continue
             fi
@@ -210,47 +210,46 @@ jobs:
             echo ""
             
             # Test each framework that the project actually targets
+            # Collect coverage for net5.0+ only; netcoreapp3.1 is tested but excluded
             while IFS= read -r fw; do
               [ -z "$fw" ] && continue
               echo "Testing framework: $fw"
               
-              dotnet test "$test_proj" \
-                --configuration Release \
-                --framework "$fw" \
-                --collect:"XPlat Code Coverage" \
-                --results-directory "./TestResults" \
-                --logger "console;verbosity=minimal" || exit 1
+              if echo "$fw" | grep -qE '^net([5-9]|[1-9][0-9]+)\.'; then
+                dotnet test "$test_proj" \
+                  --configuration Release \
+                  --framework "$fw" \
+                  --collect:"XPlat Code Coverage" \
+                  --settings coverlet.runsettings \
+                  --results-directory "./TestResults" \
+                  --logger "console;verbosity=minimal" || exit 1
+              else
+                dotnet test "$test_proj" \
+                  --configuration Release \
+                  --framework "$fw" \
+                  --logger "console;verbosity=minimal" || exit 1
+              fi
             done <<< "$frameworks"
             echo ""
           done
 
-      - name: Check for coverage files
-        id: check-coverage
-        run: |
-          if find TestResults -type f -name "coverage.cobertura.xml" 2>/dev/null | grep -q .; then
-            echo "has-coverage=true" >> $GITHUB_OUTPUT
-            echo "✅ Coverage files found"
-          else
-            echo "has-coverage=false" >> $GITHUB_OUTPUT
-            echo "ℹ️  No coverage files found - skipping coverage report generation"
-          fi
-
       - name: Install ReportGenerator
-        if: steps.check-coverage.outputs.has-coverage == 'true'
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
       - name: Generate coverage report
-        if: steps.check-coverage.outputs.has-coverage == 'true'
         run: |
-          reportgenerator \
-            -reports:"TestResults/**/coverage.cobertura.xml" \
-            -targetdir:"CoverageReport" \
-            -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary"
+          if find ./TestResults -name "coverage.cobertura.xml" -quit 2>/dev/null | grep -q .; then
+            reportgenerator \
+              -reports:"TestResults/**/coverage.cobertura.xml" \
+              -targetdir:"CoverageReport" \
+              -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary"
+          else
+            echo "ℹ️  No coverage files found - skipping report generation"
+          fi
 
       - name: Enforce 90% coverage threshold
-        if: steps.check-coverage.outputs.has-coverage == 'true'
         run: |
-          if [ ! -f CoverageReport/Summary.txt ]; then
+          if [ ! -f "CoverageReport/Summary.txt" ]; then
             echo "❌ Coverage report not generated!"
             exit 1
           fi
@@ -258,44 +257,40 @@ jobs:
           echo "Coverage Summary:"
           cat CoverageReport/Summary.txt
           echo ""
-          
-          failed_projects=""
-          threshold=${CODECOV_MINIMUM:-90}
-          
-          while read -r line; do
-            # Match lines with module names and percentages
-            if echo "$line" | grep -qE '^[^ ].*[0-9]+%$' && ! echo "$line" | grep -q '^Summary'; then
-              module=$(echo "$line" | awk '{print $1}')
-              percent=$(echo "$line" | awk '{print $NF}' | tr -d '%')
-              
-              echo "Checking module: '$module' - Coverage: ${percent}%"
-              
-              if [ "$percent" -lt "$threshold" ]; then
-                echo "  ❌ FAIL: Below ${threshold}% threshold"
-                failed_projects="$failed_projects $module (${percent}%)"
+
+          THRESHOLD=${CODECOV_MINIMUM:-90}
+          FAILED=0
+
+          while IFS= read -r line; do
+            if echo "$line" | grep -qE '^[^ ]+.*[0-9]+%$' && ! echo "$line" | grep -q '^Summary'; then
+              MODULE=$(echo "$line" | grep -oP '^[^ ]+')
+              PERCENT=$(echo "$line" | grep -oP '[0-9]+(?=%)' | tail -1)
+              echo "Checking module: '$MODULE' - Coverage: ${PERCENT}%"
+              if [ "$PERCENT" -lt "$THRESHOLD" ]; then
+                echo "  ❌ FAIL: Below ${THRESHOLD}% threshold"
+                FAILED=1
               else
-                echo "  ✅ PASS: Meets ${threshold}% threshold"
+                echo "  ✅ PASS: Meets ${THRESHOLD}% threshold"
               fi
             fi
           done < CoverageReport/Summary.txt
 
-          if [ -n "$failed_projects" ]; then
+          if [ "$FAILED" -ne 0 ]; then
             echo ""
             echo "=========================================="
             echo "❌ COVERAGE GATE FAILED"
             echo "=========================================="
-            echo "Projects below ${threshold}% coverage: $failed_projects"
-            echo ""
-            echo "Stage 1 failed. Windows, macOS, and .NET Framework tests will NOT run."
+            echo "One or more modules are below ${THRESHOLD}% coverage."
+            echo "Stage 1 failed. Windows and macOS tests will NOT run."
             exit 1
-          else
-            echo ""
-            echo "=========================================="
-            echo "✅ COVERAGE GATE PASSED"
-            echo "=========================================="
-            echo "All projects meet ${threshold}% coverage threshold."
-            echo "Proceeding to Stage 2 (Windows and macOS tests)."
           fi
+
+          echo ""
+          echo "=========================================="
+          echo "✅ COVERAGE GATE PASSED"
+          echo "=========================================="
+          echo "All modules meet ${THRESHOLD}% coverage threshold."
+          echo "Proceeding to Stage 2 (Windows tests)."
 
       - name: Upload Linux coverage results
         if: always()
@@ -315,13 +310,13 @@ jobs:
             tests/**/bin/Release
 
   # ============================================================================
-  # STAGE 2: Windows - All .NET Tests (Gated by Stage 1)
+  # STAGE 2: Windows - All .NET Tests + Coverage Gate (Gated by Stage 1)
   # ============================================================================
   test-windows:
-    name: "Stage 2: Windows Tests (.NET 5.0-10.0, Framework 4.6.2-4.8.1)"
+    name: "Stage 2: Windows Tests (.NET 5.0-10.0, Framework 4.6.2-4.8.1) + Coverage"
     runs-on: windows-latest
     needs: [detect-projects, test-linux-core]
-    if: github.repository != 'Chris-Wolfgang/repo-template' && needs.detect-projects.outputs.has-projects == 'true'
+    if: success() && github.repository != 'Chris-Wolfgang/repo-template' && needs.detect-projects.outputs.has-projects == 'true'
     
     steps:
       - name: Checkout code
@@ -334,6 +329,8 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
+            3.1.x
+            3.1.x
             3.1.x
             5.0.x
             6.0.x
@@ -348,7 +345,7 @@ jobs:
       - name: Build solution
         run: dotnet build --no-restore --configuration Release
 
-      - name: Run all .NET tests (.NET 5.0-10.0 and Framework 4.6.2-4.8.1)
+      - name: Run all .NET tests with coverage (.NET 5.0-10.0 and Framework 4.6.2-4.8.1)
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
@@ -383,10 +380,10 @@ jobs:
             }
             
             # Split by semicolon for multi-targeting projects
-            $frameworks = $tfmMatch.Groups[1].Value -split ';' | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^net(5\.0|6\.0|7\.0|8\.0|9\.0|10\.0|462|47|471|472|48|481)$' }
+            $frameworks = $tfmMatch.Groups[1].Value -split ';' | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^net(5\.0|6\.0|7\.0|8\.0|9\.0|10\.0|462|47|471|472|48|481|coreapp3\.1)$' }
             
             if ($frameworks.Count -eq 0) {
-              Write-Host "⊘ Skipping: No compatible .NET 5.0-10.0 or Framework 4.6.2-4.8.1 target frameworks found" -ForegroundColor Yellow
+              Write-Host "⊘ Skipping: No compatible target frameworks found" -ForegroundColor Yellow
               Write-Host ""
               continue
             }
@@ -394,14 +391,27 @@ jobs:
             Write-Host "Target frameworks: $($frameworks -join ', ')" -ForegroundColor White
             Write-Host ""
             
-            # Test each framework that the project actually targets
+            # Test each framework; collect coverage only for .NET 5.0+ TFMs.
+            # netcoreapp3.1 and net4x are tested but excluded from coverage:
+            # netcoreapp3.1 has no matching test TFM on Linux (Stage 1) so its numbers
+            # would not be comparable; net4x cannot use the XPlat collector on Windows.
             foreach ($fw in $frameworks) {
               Write-Host "Testing framework: $fw" -ForegroundColor Yellow
               
-              dotnet test $testProj.FullName `
-                --configuration Release `
-                --framework $fw `
-                --logger "console;verbosity=normal"
+              if ($fw -match '^net([5-9]|[1-9][0-9]+)\.') {
+                dotnet test $testProj.FullName `
+                  --configuration Release `
+                  --framework $fw `
+                  --collect:"XPlat Code Coverage" `
+                  --settings coverlet.runsettings `
+                  --results-directory "./TestResults" `
+                  --logger "console;verbosity=normal"
+              } else {
+                dotnet test $testProj.FullName `
+                  --configuration Release `
+                  --framework $fw `
+                  --logger "console;verbosity=normal"
+              }
               
               if ($LASTEXITCODE -ne 0) {
                 Write-Error "Tests failed for $fw in $($testProj.Name)"
@@ -411,14 +421,98 @@ jobs:
             Write-Host ""
           }
 
+      - name: Check for coverage files
+        id: check-coverage
+        run: |
+          if (Get-ChildItem -Path TestResults -Recurse -Filter coverage.cobertura.xml -ErrorAction SilentlyContinue) {
+            echo "has-coverage=true" >> $env:GITHUB_OUTPUT
+            Write-Host "✅ Coverage files found"
+          } else {
+            echo "has-coverage=false" >> $env:GITHUB_OUTPUT
+            Write-Host "ℹ️  No coverage files found - skipping coverage report generation"
+          }
+        shell: pwsh
+
+      - name: Install ReportGenerator
+        if: steps.check-coverage.outputs.has-coverage == 'true'
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+      - name: Generate coverage report
+        if: steps.check-coverage.outputs.has-coverage == 'true'
+        shell: pwsh
+        run: |
+          reportgenerator `
+            -reports:"TestResults/**/coverage.cobertura.xml" `
+            -targetdir:"CoverageReport" `
+            -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary"
+
+      - name: Enforce 90% coverage threshold
+        if: steps.check-coverage.outputs.has-coverage == 'true'
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "CoverageReport/Summary.txt")) {
+            Write-Error "❌ Coverage report not generated!"
+            exit 1
+          }
+
+          Write-Host "Coverage Summary:"
+          Get-Content "CoverageReport/Summary.txt"
+          Write-Host ""
+
+          $threshold = if ($env:CODECOV_MINIMUM) { [int]$env:CODECOV_MINIMUM } else { 90 }
+          $failedProjects = @()
+
+          foreach ($line in (Get-Content "CoverageReport/Summary.txt")) {
+            if ($line -match '^([^ ]+).*?(\d+)%$' -and $line -notmatch '^Summary') {
+              $module  = $Matches[1]
+              $percent = [int]$Matches[2]
+
+              Write-Host "Checking module: '$module' - Coverage: ${percent}%"
+
+              if ($percent -lt $threshold) {
+                Write-Host "  ❌ FAIL: Below ${threshold}% threshold" -ForegroundColor Red
+                $failedProjects += "$module (${percent}%)"
+              } else {
+                Write-Host "  ✅ PASS: Meets ${threshold}% threshold" -ForegroundColor Green
+              }
+            }
+          }
+
+          if ($failedProjects.Count -gt 0) {
+            Write-Host ""
+            Write-Host "==========================================" -ForegroundColor Red
+            Write-Host "❌ COVERAGE GATE FAILED" -ForegroundColor Red
+            Write-Host "==========================================" -ForegroundColor Red
+            Write-Host "Projects below ${threshold}% coverage: $($failedProjects -join ', ')" -ForegroundColor Red
+            Write-Host ""
+            Write-Host "Stage 2 failed. macOS tests will NOT run."
+            exit 1
+          }
+
+          Write-Host ""
+          Write-Host "==========================================" -ForegroundColor Green
+          Write-Host "✅ COVERAGE GATE PASSED" -ForegroundColor Green
+          Write-Host "==========================================" -ForegroundColor Green
+          Write-Host "All projects meet ${threshold}% coverage threshold."
+          Write-Host "Proceeding to Stage 3 (macOS tests)."
+
+      - name: Upload Windows coverage results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-windows
+          path: |
+            TestResults/
+            CoverageReport/
+
   # ============================================================================
-  # STAGE 3: macOS Tests (Gated by Stage 2)
+  # STAGE 3: macOS Tests (Gated by Stage 2) + Coverage
   # ============================================================================
   test-macos-core:
-    name: "Stage 3: macOS Tests (.NET 6.0-10.0)"
+    name: "Stage 3: macOS Tests (.NET 6.0-10.0) + Coverage"
     runs-on: macos-latest
     needs: [detect-projects, test-windows]
-    if: github.repository != 'Chris-Wolfgang/repo-template' && needs.detect-projects.outputs.has-projects == 'true'
+    if: github.repository != 'Chris-Wolfgang/repo-template' && needs.detect-projects.outputs.has-projects == 'true' && needs.test-windows.result == 'success'
     
     steps:
       - name: Checkout code
@@ -563,6 +657,7 @@ jobs:
             echo ""
             
             # Test each framework that the project actually targets
+            # All frameworks here are net6.0+ so all get coverage
             while IFS= read -r fw; do
               [ -z "$fw" ] && continue
               echo "Testing framework: $fw"
@@ -570,10 +665,80 @@ jobs:
               dotnet test "$test_proj" \
                 --configuration Release \
                 --framework "$fw" \
+                --collect:"XPlat Code Coverage" \
+                --settings coverlet.runsettings \
+                --results-directory "./TestResults" \
                 --logger "console;verbosity=normal" || exit 1
             done <<< "$frameworks"
             echo ""
           done
+
+      - name: Install ReportGenerator
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+      - name: Generate coverage report
+        run: |
+          if find ./TestResults -name "coverage.cobertura.xml" -quit 2>/dev/null | grep -q .; then
+            reportgenerator \
+              -reports:"TestResults/**/coverage.cobertura.xml" \
+              -targetdir:"CoverageReport" \
+              -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary"
+          else
+            echo "ℹ️  No coverage files found - skipping report generation"
+          fi
+
+      - name: Enforce 90% coverage threshold
+        run: |
+          if [ ! -f "CoverageReport/Summary.txt" ]; then
+            echo "❌ Coverage report not generated!"
+            exit 1
+          fi
+
+          echo "Coverage Summary:"
+          cat CoverageReport/Summary.txt
+          echo ""
+
+          THRESHOLD=${CODECOV_MINIMUM:-90}
+          FAILED=0
+
+          while IFS= read -r line; do
+            if echo "$line" | grep -qE '^[^ ]+.*[0-9]+%$' && ! echo "$line" | grep -q '^Summary'; then
+              MODULE=$(echo "$line" | grep -oP '^[^ ]+')
+              PERCENT=$(echo "$line" | grep -oP '[0-9]+(?=%)' | tail -1)
+              echo "Checking module: '$MODULE' - Coverage: ${PERCENT}%"
+              if [ "$PERCENT" -lt "$THRESHOLD" ]; then
+                echo "  ❌ FAIL: Below ${THRESHOLD}% threshold"
+                FAILED=1
+              else
+                echo "  ✅ PASS: Meets ${THRESHOLD}% threshold"
+              fi
+            fi
+          done < CoverageReport/Summary.txt
+
+          if [ "$FAILED" -ne 0 ]; then
+            echo ""
+            echo "=========================================="
+            echo "❌ COVERAGE GATE FAILED"
+            echo "=========================================="
+            echo "One or more modules are below ${THRESHOLD}% coverage."
+            echo "Stage 3 failed."
+            exit 1
+          fi
+
+          echo ""
+          echo "=========================================="
+          echo "✅ COVERAGE GATE PASSED"
+          echo "=========================================="
+          echo "All modules meet ${THRESHOLD}% coverage threshold."
+
+      - name: Upload macOS coverage results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-macos
+          path: |
+            TestResults/
+            CoverageReport/
 
       - name: Display macOS architecture info
         if: always()
@@ -602,9 +767,9 @@ jobs:
           echo "=========================================="
           echo "✅ ALL STAGES PASSED"
           echo "=========================================="
-          echo "Stage 1: Linux tests + 90% coverage ✅"
-          echo "Stage 2: Windows .NET Core & .NET Framework tests ✅"
-          echo "Stage 3: macOS tests ✅"
+          echo "Stage 1: Linux tests (.NET 5.0-10.0, netcoreapp3.1) + coverage (net5.0+) + 90% gate ✅"
+          echo "Stage 2: Windows tests (all TFMs) + coverage (net5.0+) + 90% gate ✅"
+          echo "Stage 3: macOS tests (.NET 6.0-10.0) + coverage (net6.0+) + 90% gate ✅"
           echo ""
           echo "PR is ready to merge! 🎉"
 
