@@ -6,9 +6,8 @@
     <RootNamespace>Example5a_ExtractorWithProgressAndCancellation</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <NoWarn>CA2007</NoWarn>
-    <Version>1.0.0</Version>
-    <Copyright>Copyright {copyright year} {author}</Copyright>
+	  <Version>1.0.0</Version>
+	  <Copyright>Copyright {copyright year} {author}</Copyright>
 
   </PropertyGroup>
 

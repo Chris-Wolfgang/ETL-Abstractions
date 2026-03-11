@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 
 
@@ -8,60 +8,80 @@ using System.Threading;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Provides a basic implementation for data extractors that extract data of type TSource.
+/// Provides a basic implementation for data extractors that extract data of type TSource
 /// Library authors can use this base class to create custom extractors by inheriting from it and implementing
 /// ExtractWorkerAsync and CreateProgressReport methods.
 /// </summary>
 /// <typeparam name="TSource">The type of the object being extracted</typeparam>
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
-public abstract class ExtractorBase<TSource, TProgress>
+public abstract class ExtractorBase<TSource, TProgress> 
     : IExtractWithProgressAndCancellationAsync<TSource, TProgress>
-    where TSource : notnull
-    where TProgress : notnull
 {
+
+    private int _reportingInterval = 1_000;
+    private int _maximumItemCount = int.MaxValue;
+    private int _skippedItemCount;
     private int _currentItemCount;
     private int _currentSkippedItemCount;
-
 
 
     /// <summary>
     /// The number of milliseconds between progress updates.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1</exception>
     public int ReportingInterval
     {
-        get;
+        get => _reportingInterval;
         set
         {
-#if NET8_0_OR_GREATER
-            ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-#else
             if (value < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Reporting interval must be greater than 0.");
             }
-#endif
-            field = value;
+            _reportingInterval = value;
         }
-    } = 1_000;
-
+    }
 
 
     /// <summary>
     /// The current number of items extracted so far.
     /// </summary>
     /// <remarks>
-    /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
-    /// as each item is extracted. The base class has no way of knowing when an item has been processed.
+    /// It is the responsibility of the derived class to keep this value up to date as the
+    /// base class will have no way of knowing the correct value
     /// </remarks>
-    public int CurrentItemCount => _currentItemCount;
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 0</exception>
+    [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
+    public int CurrentItemCount
+    {
+        get => _currentItemCount;
+        protected set
+        {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(value));
+            }
+            _currentItemCount = value;
+        }
+    }
 
 
 
     /// <summary>
-    /// The current number of items skipped so far during extraction.
+    /// Gets the current number of records skipped
     /// </summary>
-    public int CurrentSkippedItemCount => _currentSkippedItemCount;
+    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 0</exception>
+    public int CurrentSkippedItemCount
+    {
+        get => _currentSkippedItemCount;
+        protected set
+        {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(value), "value cannot be less than 0.");
+            }
+        }
+    }
 
 
 
@@ -73,7 +93,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// This is useful for partially extracting data from a source, especially when the source is large
     /// or infinite or during development.
     /// </remarks>
-    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0</exception>
     /// <example>
     /// <code>
     ///     var count = 0;
@@ -92,22 +112,20 @@ public abstract class ExtractorBase<TSource, TProgress>
     ///     }
     /// </code>
     /// </example>
+
+    [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
     public int MaximumItemCount
     {
-        get;
+        get => _maximumItemCount;
         set
         {
-#if NET8_0_OR_GREATER
-            ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
-#else
             if (value < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 0.");
             }
-#endif
-            field = value;
+            _maximumItemCount = value;
         }
-    } = int.MaxValue;
+    }
 
 
 
@@ -119,7 +137,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// This is useful for partially extracting data from a source during development, or to skip
     /// items that were already processed or are not relevant for the current extraction.
     /// </remarks>
-    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0</exception>
     /// <example>
     /// <code>
     ///     using (var reader = new StreamReader(filePath))
@@ -133,31 +151,30 @@ public abstract class ExtractorBase<TSource, TProgress>
     ///             skipCount++;
     ///         }
     ///
+    /// 
     ///         // Now start yielding results
-    ///
-    ///         var count = 0;
+    /// 
+    ///         var count++;
     ///         while (!reader.EndOfStream)
     ///         {
     ///             yield return await reader.ReadLineAsync();
     ///             count++;
-    ///         }
+    ///        }
     ///     }
     /// </code>
     /// </example>
+
+    [Range(0, int.MaxValue, ErrorMessage = "Current item count cannot be less than 0.")]
     public int SkipItemCount
     {
-        get;
+        get => _skippedItemCount;
         set
         {
-#if NET8_0_OR_GREATER
-            ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
-#else
             if (value < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Skip item count cannot be less than 0.");
             }
-#endif
-            field = value;
+            _skippedItemCount = value;
         }
     }
 
@@ -167,7 +184,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// Asynchronously extracts data of type TSource from a source.
     /// </summary>
     /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt;
+    /// IAsyncEnumerable&lt;T&gt;
     /// The result may be an empty sequence if no data is available or if the extraction fails.
     /// </returns>
     public virtual IAsyncEnumerable<TSource> ExtractAsync()
@@ -182,12 +199,12 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// </summary>
     /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt;
+    /// IAsyncEnumerable&lt;T&gt;
     /// The result may be an empty sequence if no data is available or if the extraction fails.
     /// </returns>
     /// <remarks>
     /// The extractor should be able to handle cancellation requests gracefully.
-    /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
+    /// If the caller doesn't plan on cancelling the extraction, CancellationToken.None should be passed in.
     /// </remarks>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token)
     {
@@ -201,32 +218,24 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// </summary>
     /// <param name="progress">A provider for progress updates.</param>
     /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt;
+    /// IAsyncEnumerable&lt;T&gt;
     /// The result may be an empty sequence if no data is available or if the extraction fails.
     /// </returns>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress)
     {
-#if NET6_0_OR_GREATER
-        ArgumentNullException.ThrowIfNull(progress);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (progress == null)
         {
-            throw new ArgumentNullException(nameof(progress));
+            throw new ArgumentNullException(nameof(progress), "Progress cannot be null.");
         }
-#pragma warning restore RCS1140
-#endif
 
-        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
-        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
-#pragma warning disable MA0042
-        using var timer = new Timer(
-            ReportProgress,
-            state: progress,
+        using var timer = new Timer
+        (
+            _ => progress.Report(CreateProgressReport()),
+            state: null,
             TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval));
-#pragma warning restore MA0042
+            TimeSpan.FromMilliseconds(ReportingInterval)
+        );
 
         return ExtractWorkerAsync(CancellationToken.None);
     }
@@ -239,37 +248,31 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <param name="progress">A provider for progress updates.</param>
     /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt;
+    /// IAsyncEnumerable&lt;T&gt;
     /// The result may be an empty sequence if no data is available or if the extraction fails.
     /// </returns>
     /// <remarks>
     /// The extractor should be able to handle cancellation requests gracefully.
-    /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
+    /// If the caller doesn't plan on cancelling the extraction, CancellationToken.None should be passed in.
     /// </remarks>
     /// <exception cref="ArgumentNullException">The value of progress is null</exception>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress, CancellationToken token)
     {
-#if NET6_0_OR_GREATER
-        ArgumentNullException.ThrowIfNull(progress);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
         if (progress == null)
         {
-            throw new ArgumentNullException(nameof(progress));
+            throw new ArgumentNullException(nameof(progress), "Progress cannot be null.");
         }
-#pragma warning restore RCS1140
-#endif
 
-        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
-        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
-#pragma warning disable MA0042
-        using var timer = new Timer(
-            ReportProgress,
-            state: progress,
+        using var timer = new Timer
+        (
+            _ => progress.Report(CreateProgressReport()),
+            state: null,
             TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval));
-#pragma warning restore MA0042
-
+                
+            TimeSpan.FromMilliseconds(ReportingInterval)
+        );
+            
+            
         return ExtractWorkerAsync(token);
     }
 
@@ -281,7 +284,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// </summary>
     /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt;
+    /// IAsyncEnumerable&lt;T&gt;
     /// The result may be an empty sequence if no data is available or if the extraction fails.
     /// </returns>
     protected abstract IAsyncEnumerable<TSource> ExtractWorkerAsync(CancellationToken token);
@@ -297,15 +300,16 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
 
-    // Named Timer callback: receives the IProgress<TProgress> instance as state,
-    // avoiding a lambda capture that would generate a compiler display class and
-    // produce a phantom (object) constructor entry in code-coverage reports.
-    // ExcludeFromCodeCoverage: TimerCallback requires object? state; the cast and
-    // null-forgiving operator produce an untakeable null branch in coverage tools.
-    [ExcludeFromCodeCoverage]
-    private void ReportProgress(object? state)
+    /// <summary>
+    /// Increments the CurrentItemCount in a thread safe manner.
+    /// </summary>
+    /// <remarks>
+    /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
+    /// thread safe. This method ensures that CurrentItemCount is incremented safely 
+    /// </remarks>
+    protected void IncrementCurrentItemCount()
     {
-        ((IProgress<TProgress>)state!).Report(CreateProgressReport());
+        Interlocked.Increment(ref _currentItemCount);
     }
 
 
@@ -315,28 +319,10 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// </summary>
     /// <remarks>
     /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
-    /// thread safe. This method ensures that CurrentItemCount is incremented safely.
+    /// thread safe. This method ensures that CurrentItemCount is incremented safely 
     /// </remarks>
-    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
-        Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
-    protected void IncrementCurrentItemCount()
-    {
-        _ = Interlocked.Increment(ref _currentItemCount);
-    }
-
-
-
-    /// <summary>
-    /// Increments the CurrentSkippedItemCount in a thread safe manner.
-    /// </summary>
-    /// <remarks>
-    /// Simply calling CurrentSkippedItemCount++ or CurrentSkippedItemCount += 1 is not
-    /// thread safe. This method ensures that CurrentSkippedItemCount is incremented safely.
-    /// </remarks>
-    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
-        Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
     protected void IncrementCurrentSkippedItemCount()
     {
-        _ = Interlocked.Increment(ref _currentSkippedItemCount);
+        Interlocked.Increment(ref _currentSkippedItemCount);
     }
 }

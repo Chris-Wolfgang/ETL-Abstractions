@@ -1,75 +1,76 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 
-namespace Example4a_WithExtractorProgress.ETL;
-internal class ConsoleLoader : ILoadWithProgressAsync<string, EtlProgress>
+namespace Example4a_WithExtractorProgress.ETL
 {
-
-
-    private int _progressInterval = 1_000;
-
-    /// <summary>
-    /// The number of milliseconds between progress updates.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
-    public int ProgressInterval
+    internal class ConsoleLoader : ILoadAsync<string>, ILoadWithProgressAsync<string, EtlProgress>
     {
-        get => _progressInterval;
-        set
+
+
+        private int _progressInterval = 1_000;
+
+        /// <summary>
+        /// The number of milliseconds between progress updates.
+        /// </summary>
+        public int ProgressInterval
         {
-            if (value < 1)
+            get => _progressInterval;
+            set
             {
-                throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
+                if (value < 1)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
+                }
+                _progressInterval = value;
             }
-            _progressInterval = value;
         }
-    }
 
 
 
-    public async Task LoadAsync(IAsyncEnumerable<string> items)
-    {
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
-
-        await foreach (var item in items)
+        public async Task LoadAsync(IAsyncEnumerable<string> items)
         {
-            Console.WriteLine($"Loading item: {item}\n");
-            await Task.Delay(50); // Simulate some delay for loading
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
+
+            await foreach (var item in items)
+            {
+                Console.WriteLine($"Loading item: {item}\n");
+                await Task.Delay(50); // Simulate some delay for loading
+            }
+            
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
         }
-        
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
-    }
 
 
 
-    public async Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress)
-    {
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
-
-        var count = 0;
-        using var timer = new Timer
-        (
-            _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-            state: null,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-        );
-
-
-        await foreach (var item in items)
+        public async Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress)
         {
-            Console.WriteLine($"Loading item: {item}\n");
-            await Task.Delay(50); // Simulate some delay for loading
-            count = Interlocked.Increment(ref count);
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
 
+            var count = 0;
+            using var timer = new Timer
+            (
+                _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+                null,
+                TimeSpan.Zero,
+                TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
+            );
+
+
+            await foreach (var item in items)
+            {
+                Console.WriteLine($"Loading item: {item}\n");
+                await Task.Delay(50); // Simulate some delay for loading
+                count = Interlocked.Increment(ref count);
+
+            }
+
+            progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
+
+
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
         }
-
-        progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
-
-
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
     }
 }

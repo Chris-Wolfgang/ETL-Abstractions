@@ -1,158 +1,159 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions;
 
-namespace Example5a_ExtractorWithProgressAndCancellation.ETL;
-internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsync<int, string, EtlProgress>
+namespace Example5a_ExtractorWithProgressAndCancellation.ETL
 {
-
-    private int _progressInterval = 1_000;
-
-    /// <summary>
-    /// The number of milliseconds between progress updates.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
-    public int ProgressInterval
+    internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsync<int, string, EtlProgress>
     {
-        get => _progressInterval;
-        set
+
+        private int _progressInterval = 1_000;
+
+        /// <summary>
+        /// The number of milliseconds between progress updates.
+        /// </summary>
+        public int ProgressInterval
         {
-            if (value < 1)
+            get => _progressInterval;
+            set
             {
-                throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
+                if (value < 1)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
+                }
+                _progressInterval = value;
             }
-            _progressInterval = value;
         }
-    }
 
 
 
-    public async IAsyncEnumerable<string> TransformAsync
-        (
-            IAsyncEnumerable<int> items
-        )
-    {
-        ArgumentNullException.ThrowIfNull(items);
-
-        Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
-        
-        await foreach (var item in items)
+        public async IAsyncEnumerable<string> TransformAsync
+            (
+                IAsyncEnumerable<int> items
+            )
         {
-            Console.WriteLine($"Transforming integer {item} to string.");
-            await Task.Delay(50); // Simulate some delay for transformation
-            yield return item.ToString();
+            ArgumentNullException.ThrowIfNull(items, nameof(items));
+
+            Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
+            
+            await foreach (var item in items)
+            {
+                Console.WriteLine($"Transforming integer {item} to string.");
+                await Task.Delay(50); // Simulate some delay for transformation
+                yield return item.ToString();
+            }
+            
+            Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
         }
-        
-        Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
-    }
 
 
 
-    public async IAsyncEnumerable<string> TransformAsync
+        public async IAsyncEnumerable<string> TransformAsync
+            (
+                IAsyncEnumerable<int> items, 
+                [EnumeratorCancellation] CancellationToken token
+            )
+        {
+            ArgumentNullException.ThrowIfNull(items, nameof(items));
+
+            Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
+
+            await foreach (var item in items.WithCancellation(token))
+            {
+                // Throw exception if cancellation is requested
+                // See Example3-ExtractorWithGracefulCancellation for a more graceful cancellation approach
+                token.ThrowIfCancellationRequested();
+
+                Console.WriteLine($"Transforming integer {item} to string.");
+                await Task.Delay(50); // Simulate some delay for transformation
+                yield return item.ToString();
+            }
+
+            Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
+        }
+
+
+
+        public async IAsyncEnumerable<string> TransformAsync
+            (
+                IAsyncEnumerable<int> items, 
+                IProgress<EtlProgress> progress
+            )
+        {
+            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
+
+            Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
+
+            var count = 0;
+            await using var timer = new Timer
+            (
+                _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+                null,
+                TimeSpan.Zero,
+                TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
+            );
+
+
+            await foreach (var item in items)
+            {
+                Console.WriteLine($"Transforming integer {item} to string.");
+                await Task.Delay(50); // Simulate some delay for transformation
+                yield return item.ToString();
+                count = Interlocked.Increment(ref count);
+
+            }
+
+            progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
+
+            Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
+        }
+
+
+
+        public async IAsyncEnumerable<string> TransformAsync
         (
-            IAsyncEnumerable<int> items, 
+            IAsyncEnumerable<int> items,
+            IProgress<EtlProgress> progress,
             [EnumeratorCancellation] CancellationToken token
         )
-    {
-        ArgumentNullException.ThrowIfNull(items);
-
-        Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
-
-        await foreach (var item in items.WithCancellation(token))
         {
-            // Throw exception if cancellation is requested
-            // See Example3-ExtractorWithGracefulCancellation for a more graceful cancellation approach
-            token.ThrowIfCancellationRequested();
+            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
 
-            Console.WriteLine($"Transforming integer {item} to string.");
-            await Task.Delay(50, token); // Simulate some delay for transformation
-            yield return item.ToString();
-        }
+            Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
 
-        Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
-    }
-
-
-
-    public async IAsyncEnumerable<string> TransformAsync
-        (
-            IAsyncEnumerable<int> items, 
-            IProgress<EtlProgress> progress
-        )
-    {
-        ArgumentNullException.ThrowIfNull(items);
-        ArgumentNullException.ThrowIfNull(progress);
-
-        Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
-
-        var count = 0;
-        await using var timer = new Timer
-        (
-            _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-            state: null,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-        );
+            var count = 0;
+            await using var timer = new Timer
+            (
+                _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+                null,
+                TimeSpan.Zero,
+                TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
+            );
 
 
-        await foreach (var item in items)
-        {
-            Console.WriteLine($"Transforming integer {item} to string.");
-            await Task.Delay(50); // Simulate some delay for transformation
-            yield return item.ToString();
-            count = Interlocked.Increment(ref count);
-
-        }
-
-        progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
-
-        Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
-    }
-
-
-
-    public async IAsyncEnumerable<string> TransformAsync
-    (
-        IAsyncEnumerable<int> items,
-        IProgress<EtlProgress> progress,
-        [EnumeratorCancellation] CancellationToken token
-    )
-    {
-        ArgumentNullException.ThrowIfNull(items);
-        ArgumentNullException.ThrowIfNull(progress);
-
-        Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
-
-        var count = 0;
-        await using var timer = new Timer
-        (
-            _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-            state: null,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-        );
-
-
-        await foreach (var item in items)
-        {
-            // You can either throw an exception if cancellation is requested 
-            // token.ThrowIfCancellationRequested();
-
-            // or gracefully handle it.
-            if (token.IsCancellationRequested)
+            await foreach (var item in items)
             {
-                Console.WriteLine($"{ConsoleColors.Red}Transformation cancelled{ConsoleColors.Reset}.");
-                yield break;
+                // You can either throw an exception if cancellation is requested 
+                // token.ThrowIfCancellationRequested();
+
+                // or gracefully handle it.
+                if (token.IsCancellationRequested)
+                {
+                    Console.WriteLine($"{ConsoleColors.Red}Transformation cancelled{ConsoleColors.Reset}.");
+                    yield break;
+                }
+
+                Console.WriteLine($"Transforming integer {item} to string.");
+                await Task.Delay(50); // Simulate some delay for transformation
+                yield return item.ToString();
+                count = Interlocked.Increment(ref count);
+
             }
 
-            Console.WriteLine($"Transforming integer {item} to string.");
-            await Task.Delay(50, token); // Simulate some delay for transformation
-            yield return item.ToString();
-            count = Interlocked.Increment(ref count);
+            progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
 
+            Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
         }
-
-        progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
-
-        Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
     }
 }

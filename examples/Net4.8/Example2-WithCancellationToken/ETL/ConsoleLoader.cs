@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,9 +34,9 @@ namespace Example2_WithCancellationToken.ETL
                 token.ThrowIfCancellationRequested();
 
                 Console.WriteLine($"Loading item: {item}\n");
-                await Task.Delay(50, token); // Simulate some delay for loading
+                await Task.Delay(50); // Simulate some delay for loading
             }
-        
+            
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
         }
     }

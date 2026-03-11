@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Example1_BasicETL.ETL;
 
@@ -23,12 +23,20 @@ namespace Example1_BasicETL
             var loader = new ConsoleLoader();
 
             Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process...{ConsoleColors.Reset}\n\n");
-        
+            
             var sourceItems = extractor.ExtractAsync();
             var transformedItems = transformer.TransformAsync(sourceItems);
             await loader.LoadAsync(transformedItems);
 
             Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
         }
+    }
+
+
+    internal class ConsoleColors
+    {
+        public const string Green = "\u001b[32m";
+        public const string Yellow = "\u001b[33m";
+        public const string Reset = "\u001b[0m";
     }
 }

@@ -6,7 +6,6 @@
     <RootNamespace>Example3_WithGracefulCancellation</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <NoWarn>CA2007</NoWarn>
 	  <Version>1.0.0</Version>
 	  <Copyright>Copyright {copyright year} {author}</Copyright>
 

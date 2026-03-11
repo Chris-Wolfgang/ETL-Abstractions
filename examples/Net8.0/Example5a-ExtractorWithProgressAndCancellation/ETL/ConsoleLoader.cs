@@ -1,140 +1,141 @@
-using Wolfgang.Etl.Abstractions;
+﻿using Wolfgang.Etl.Abstractions;
 
-namespace Example5a_ExtractorWithProgressAndCancellation.ETL;
-internal class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, EtlProgress>
+namespace Example5a_ExtractorWithProgressAndCancellation.ETL
 {
-
-
-    private int _progressInterval = 1_000;
-
-    /// <summary>
-    /// The number of milliseconds between progress updates.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
-    public int ProgressInterval
+    internal class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, EtlProgress>
     {
-        get => _progressInterval;
-        set
+
+
+        private int _progressInterval = 1_000;
+
+        /// <summary>
+        /// The number of milliseconds between progress updates.
+        /// </summary>
+        public int ProgressInterval
         {
-            if (value < 1)
+            get => _progressInterval;
+            set
             {
-                throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
+                if (value < 1)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
+                }
+                _progressInterval = value;
             }
-            _progressInterval = value;
         }
-    }
 
 
 
-    public async Task LoadAsync(IAsyncEnumerable<string> items)
-    {
-        ArgumentNullException.ThrowIfNull(items);
-
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
-
-        await foreach (var item in items)
+        public async Task LoadAsync(IAsyncEnumerable<string> items)
         {
-            Console.WriteLine($"Loading item: {item}\n");
-            await Task.Delay(50); // Simulate some delay for loading
-        }
-        
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
-    }
+            ArgumentNullException.ThrowIfNull(items, nameof(items));
 
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
 
-
-    public async Task LoadAsync(IAsyncEnumerable<string> items, CancellationToken token)
-    {
-
-        ArgumentNullException.ThrowIfNull(items);
-        
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
-
-        await foreach (var item in items.WithCancellation(token))
-        {
-            // You can either throw an exception if cancellation is requested 
-            // token.ThrowIfCancellationRequested();
+            await foreach (var item in items)
+            {
+                Console.WriteLine($"Loading item: {item}\n");
+                await Task.Delay(50); // Simulate some delay for loading
+            }
             
-            // or gracefully handle it.
-            if (token.IsCancellationRequested)
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
+        }
+
+
+
+        public async Task LoadAsync(IAsyncEnumerable<string> items, CancellationToken token)
+        {
+
+            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
+
+            await foreach (var item in items.WithCancellation(token))
             {
-                Console.WriteLine($"{ConsoleColors.Red}Loading cancelled{ConsoleColors.Reset}.");
-                return;
+                // You can either throw an exception if cancellation is requested 
+                // token.ThrowIfCancellationRequested();
+                
+                // or gracefully handle it.
+                if (token.IsCancellationRequested)
+                {
+                    Console.WriteLine($"{ConsoleColors.Red}Loading cancelled{ConsoleColors.Reset}.");
+                    return;
+                }
+
+                Console.WriteLine($"Loading item: {item}\n");
+                await Task.Delay(50); // Simulate some delay for loading
             }
 
-            Console.WriteLine($"Loading item: {item}\n");
-            await Task.Delay(50, token); // Simulate some delay for loading
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
         }
 
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
-    }
 
 
-
-    public async Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress)
-    {
-        ArgumentNullException.ThrowIfNull(items);
-        ArgumentNullException.ThrowIfNull(progress);
-
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
-
-        var count = 0;
-        await using var timer = new Timer
-        (
-            _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-            state: null,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-        );
-
-
-        await foreach (var item in items)
+        public async Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress)
         {
-            Console.WriteLine($"Loading item: {item}\n");
-            await Task.Delay(50); // Simulate some delay for loading
-            count = Interlocked.Increment(ref count);
+            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
 
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
+
+            var count = 0;
+            await using var timer = new Timer
+            (
+                _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+                null,
+                TimeSpan.Zero,
+                TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
+            );
+
+
+            await foreach (var item in items)
+            {
+                Console.WriteLine($"Loading item: {item}\n");
+                await Task.Delay(50); // Simulate some delay for loading
+                count = Interlocked.Increment(ref count);
+
+            }
+
+            progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
+
+
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
         }
 
-        progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
 
 
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
-    }
-
-
-
-    public async Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress, CancellationToken token)
-    {
-        ArgumentNullException.ThrowIfNull(items);
-        ArgumentNullException.ThrowIfNull(progress);
-
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
-
-        var count = 0;
-        await using var timer = new Timer
-        (
-            _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
-            state: null,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-        );
-
-
-        await foreach (var item in items)
+        public async Task LoadAsync(IAsyncEnumerable<string> items, IProgress<EtlProgress> progress, CancellationToken token)
         {
-            token.ThrowIfCancellationRequested();
+            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(progress, nameof(progress));
 
-            Console.WriteLine($"Loading item: {item}\n");
-            await Task.Delay(50, token); // Simulate some delay for loading
-            count = Interlocked.Increment(ref count);
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
 
+            var count = 0;
+            await using var timer = new Timer
+            (
+                _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+                null,
+                TimeSpan.Zero,
+                TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
+            );
+
+
+            await foreach (var item in items)
+            {
+                token.ThrowIfCancellationRequested();
+
+                Console.WriteLine($"Loading item: {item}\n");
+                await Task.Delay(50); // Simulate some delay for loading
+                count = Interlocked.Increment(ref count);
+
+            }
+
+            progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
+
+
+            Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
         }
 
-        progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
-
-
-        Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
     }
-
 }

@@ -1,50 +1,52 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions;
 
-namespace Example2_WithCancellationToken.ETL;
-internal class FibonacciExtractor : IExtractWithCancellationAsync<int>
+namespace Example2_WithCancellationToken.ETL
 {
-    public async IAsyncEnumerable<int> ExtractAsync()
+    internal class FibonacciExtractor : IExtractWithCancellationAsync<int>
     {
-        Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
-
-        var current = 1;
-        var previous = 0;
-        for (var x = 0; x < 10; ++x)
+        public async IAsyncEnumerable<int> ExtractAsync()
         {
-            Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
-            yield return current;
-            var temp = current;
-            current += previous;
-            previous = temp;
-            await Task.Delay(100); // Simulate asynchronous operation
+            Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
+
+            var current = 1;
+            var previous = 0;
+            for (var x = 0; x < 10; ++x)
+            {
+                Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
+                yield return current;
+                var temp = current;
+                current += previous;
+                previous = temp;
+                await Task.Delay(100); // Simulate asynchronous operation
+            }
+
+            Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
         }
 
-        Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
-    }
 
 
-
-    public async IAsyncEnumerable<int> ExtractAsync([EnumeratorCancellation] CancellationToken token)
-    {
-        Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
-
-        var current = 1;
-        var previous = 0;
-        for (var x = 0; x < 10; ++x)
+        public async IAsyncEnumerable<int> ExtractAsync([EnumeratorCancellation] CancellationToken token)
         {
-            // Throw exception if cancellation is requested
-            // See Example3-ExtractorWithGracefulCancellation for a more graceful cancellation approach
-            token.ThrowIfCancellationRequested();
+            Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
 
-            Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
-            yield return current;
-            var temp = current;
-            current += previous;
-            previous = temp;
-            await Task.Delay(100, token); // Simulate asynchronous operation
+            var current = 1;
+            var previous = 0;
+            for (var x = 0; x < 10; ++x)
+            {
+                // Throw exception if cancellation is requested
+                // See Example3-ExtractorWithGracefulCancellation for a more graceful cancellation approach
+                token.ThrowIfCancellationRequested();
+
+                Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
+                yield return current;
+                var temp = current;
+                current += previous;
+                previous = temp;
+                await Task.Delay(100); // Simulate asynchronous operation
+            }
+
+            Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
         }
-
-        Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
     }
 }

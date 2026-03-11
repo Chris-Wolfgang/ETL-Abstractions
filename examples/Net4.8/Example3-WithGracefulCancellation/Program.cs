@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Example3_WithGracefulCancellation.ETL;
@@ -35,5 +35,14 @@ namespace Example3_WithGracefulCancellation
 
             Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
         }
+    }
+
+
+    internal class ConsoleColors
+    {
+        public const string Green = "\u001b[32m";
+        public const string Yellow = "\u001b[33m";
+        public const string Reset = "\u001b[0m";
+        public const string Red = "\u001b[31m";
     }
 }

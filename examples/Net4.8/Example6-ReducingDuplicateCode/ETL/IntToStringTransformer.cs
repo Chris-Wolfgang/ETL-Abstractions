@@ -1,4 +1,3 @@
-#nullable enable
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,153 +5,154 @@ using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 
-namespace Example6_ReducingDuplicateCode.ETL;
-internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsync<int, string, EtlProgress>
+namespace Example6_ReducingDuplicateCode.ETL
 {
-
-    private int _progressInterval = 1_000;
-
-    /// <summary>
-    /// The number of milliseconds between progress updates.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
-    public int ProgressInterval
+    internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsync<int, string, EtlProgress>
     {
-        get => _progressInterval;
-        set
+
+        private int _progressInterval = 1_000;
+
+        /// <summary>
+        /// The number of milliseconds between progress updates.
+        /// </summary>
+        public int ProgressInterval
         {
-            if (value < 1)
+            get => _progressInterval;
+            set
             {
-                throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
+                if (value < 1)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "Progress interval must be greater than 0.");
+                }
+                _progressInterval = value;
             }
-            _progressInterval = value;
         }
-    }
 
 
 
-    public IAsyncEnumerable<string> TransformAsync
-        (
-            IAsyncEnumerable<int> items
-        )
-    {
-        if (items is null)
+        public IAsyncEnumerable<string> TransformAsync
+            (
+                IAsyncEnumerable<int> items
+            )
         {
-            throw new ArgumentNullException(nameof(items));
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+
+            return WorkerAsync(items, null, CancellationToken.None);
         }
 
 
-        return WorkerAsync(items, progress: null, token: CancellationToken.None);
-    }
+
+        public IAsyncEnumerable<string> TransformAsync
+            (
+                IAsyncEnumerable<int> items, 
+                CancellationToken token
+            )
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+
+            return WorkerAsync(items, null, token);
+        }
 
 
 
-    public IAsyncEnumerable<string> TransformAsync
+        public IAsyncEnumerable<string> TransformAsync
+            (
+                IAsyncEnumerable<int> items, 
+                IProgress<EtlProgress> progress
+            )
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            if (progress is null)
+            {
+                throw new ArgumentNullException(nameof(progress));
+            }
+
+            return WorkerAsync(items, progress, CancellationToken.None);
+        }
+
+
+
+        public IAsyncEnumerable<string> TransformAsync
         (
-            IAsyncEnumerable<int> items, 
+            IAsyncEnumerable<int> items,
+            IProgress<EtlProgress> progress,
             CancellationToken token
         )
-    {
-        if (items is null)
         {
-            throw new ArgumentNullException(nameof(items));
-        }
-
-
-        return WorkerAsync(items, progress: null, token: token);
-    }
-
-
-
-    public IAsyncEnumerable<string> TransformAsync
-        (
-            IAsyncEnumerable<int> items, 
-            IProgress<EtlProgress> progress
-        )
-    {
-        if (items is null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-
-        if (progress is null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
-
-        return WorkerAsync(items, progress: progress, token: CancellationToken.None);
-    }
-
-
-
-    public IAsyncEnumerable<string> TransformAsync
-    (
-        IAsyncEnumerable<int> items,
-        IProgress<EtlProgress> progress,
-        CancellationToken token
-    )
-    {
-        if (items is null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-
-        if (progress is null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
-
-        return WorkerAsync(items, progress: progress, token: token);
-
-    }
-
-
-
-    private async IAsyncEnumerable<string> WorkerAsync
-    (
-        IAsyncEnumerable<int> items,
-        IProgress<EtlProgress>? progress,
-        [EnumeratorCancellation] CancellationToken token
-    )
-    {
-        if (items is null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-
-        Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
-
-        var count = 0;
-        using var timer = new Timer
-        (
-            _ => progress?.Report(new EtlProgress(Volatile.Read(ref count))),
-            state: null,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
-        );
-
-
-        await foreach (var item in items.WithCancellation(token))
-        {
-            // You can either throw an exception if cancellation is requested 
-            // token.ThrowIfCancellationRequested();
-
-            // or gracefully handle it.
-            if (token.IsCancellationRequested)
+            if (items is null)
             {
-                Console.WriteLine($"{ConsoleColors.Red}Transformation cancelled{ConsoleColors.Reset}.");
-                yield break;
+                throw new ArgumentNullException(nameof(items));
             }
 
-            Console.WriteLine($"Transforming integer {item} to string.");
-            await Task.Delay(50, token); // Simulate some delay for transformation
-            yield return item.ToString();
-            count = Interlocked.Increment(ref count);
+            if (progress is null)
+            {
+                throw new ArgumentNullException(nameof(progress));
+            }
+
+            return WorkerAsync(items, progress, token);
 
         }
 
-        progress?.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
 
-        Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
+
+        private async IAsyncEnumerable<string> WorkerAsync
+        (
+            IAsyncEnumerable<int> items,
+            IProgress<EtlProgress>? progress,
+            [EnumeratorCancellation] CancellationToken token
+        )
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
+
+            var count = 0;
+            using var timer = new Timer
+            (
+                _ => progress?.Report(new EtlProgress(Volatile.Read(ref count))),
+                null,
+                TimeSpan.Zero,
+                TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
+            );
+
+
+            await foreach (var item in items.WithCancellation(token))
+            {
+                // You can either throw an exception if cancellation is requested 
+                // token.ThrowIfCancellationRequested();
+
+                // or gracefully handle it.
+                if (token.IsCancellationRequested)
+                {
+                    Console.WriteLine($"{ConsoleColors.Red}Transformation cancelled{ConsoleColors.Reset}.");
+                    yield break;
+                }
+
+                Console.WriteLine($"Transforming integer {item} to string.");
+                await Task.Delay(50); // Simulate some delay for transformation
+                yield return item.ToString();
+                count = Interlocked.Increment(ref count);
+
+            }
+
+            progress?.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
+
+            Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
+        }
     }
 }
