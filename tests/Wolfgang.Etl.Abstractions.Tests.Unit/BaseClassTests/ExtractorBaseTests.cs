@@ -320,7 +320,7 @@ public class ExtractorBaseTests
     }
 
 
-
+    [ExcludeFromCodeCoverage]
     [Fact(Skip = "Not working due to timing issues")]
     public async Task ExtractWithProgressAsync_invokes_progress_callback()
     {
@@ -335,6 +335,7 @@ public class ExtractorBaseTests
 
 
 
+    [ExcludeFromCodeCoverage]
     [Fact(Skip = "Not working due to timing issues")]
     public async Task ExtractWithProgressAsync_progress_callback_receives_current_item_count()
     {
@@ -350,6 +351,7 @@ public class ExtractorBaseTests
 
 
 
+    [ExcludeFromCodeCoverage]
     [Fact(Skip = "Not working due to timing issues")]
     public async Task ExtractWithProgressAndCancellationAsync_invokes_progress_callback()
     {
@@ -364,6 +366,7 @@ public class ExtractorBaseTests
 
 
 
+    [ExcludeFromCodeCoverage]
     [Fact(Skip = "Not working due to timing issues")]
     public async Task ExtractWithProgressAndCancellationAsync_progress_callback_receives_current_item_count()
     {

@@ -145,6 +145,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
+    [ExcludeFromCodeCoverage]
     [Fact(Skip = "Not working due to timing issues")]
     public async Task LoadWithProgressAsync_invokes_progress_callback()
     {
@@ -160,6 +161,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
+    [ExcludeFromCodeCoverage]
     [Fact(Skip = "Not working due to timing issues")]
     public async Task LoadWithProgressAsync_progress_callback_receives_current_item_count()
     {
@@ -246,6 +248,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
+    [ExcludeFromCodeCoverage]
     [Fact(Skip = "Not working due to timing issues")]
     public async Task LoadWithProgressAndCancellationAsync_invokes_progress_callback()
     {
@@ -261,6 +264,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
+    [ExcludeFromCodeCoverage]
     [Fact(Skip = "Not working due to timing issues")]
     public async Task LoadWithProgressAndCancellationAsync_progress_callback_receives_current_item_count()
     {
