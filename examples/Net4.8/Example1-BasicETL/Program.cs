@@ -23,7 +23,7 @@ namespace Example1_BasicETL
             var loader = new ConsoleLoader();
 
             Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process...{ConsoleColors.Reset}\n\n");
-        
+
             var sourceItems = extractor.ExtractAsync();
             var transformedItems = transformer.TransformAsync(sourceItems);
             await loader.LoadAsync(transformedItems);

@@ -120,6 +120,22 @@
     <PackageReference Include="System.Linq.AsyncEnumerable" Version="10.0.2" />
   </ItemGroup>
 
+  <!-- coverlet.collector is required by dotnet test to generate coverage.cobertura.xml when
+       using XPlat Code Coverage collection. It must be referenced in the test project for
+       net5.0 and greater; .NET Framework and netcoreapp3.1 targets do not participate in
+       coverage collection. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'  OR
+                        '$(TargetFramework)' == 'net6.0'  OR
+                        '$(TargetFramework)' == 'net7.0'  OR
+                        '$(TargetFramework)' == 'net8.0'  OR
+                        '$(TargetFramework)' == 'net9.0'  OR
+                        '$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
   </ItemGroup>

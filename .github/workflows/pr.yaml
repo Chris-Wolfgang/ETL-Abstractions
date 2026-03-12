@@ -703,8 +703,8 @@ jobs:
 
           while IFS= read -r line; do
             if echo "$line" | grep -qE '^[^ ]+.*[0-9]+%$' && ! echo "$line" | grep -q '^Summary'; then
-              MODULE=$(echo "$line" | grep -oP '^[^ ]+')
-              PERCENT=$(echo "$line" | grep -oP '[0-9]+(?=%)' | tail -1)
+              MODULE=$(echo "$line" | awk '{print $1}')
+              PERCENT=$(echo "$line" | grep -oE '[0-9]+%' | tail -1 | tr -d '%')
               echo "Checking module: '$MODULE' - Coverage: ${PERCENT}%"
               if [ "$PERCENT" -lt "$THRESHOLD" ]; then
                 echo "  ❌ FAIL: Below ${THRESHOLD}% threshold"

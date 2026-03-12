@@ -1,6 +1,7 @@
 using Wolfgang.Etl.Abstractions;
 
 namespace Example5a_ExtractorWithProgressAndCancellation.ETL;
+
 internal class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, EtlProgress>
 {
 
@@ -37,7 +38,7 @@ internal class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, Etl
             Console.WriteLine($"Loading item: {item}\n");
             await Task.Delay(50); // Simulate some delay for loading
         }
-        
+
         Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
     }
 
@@ -47,14 +48,14 @@ internal class ConsoleLoader : ILoadWithProgressAndCancellationAsync<string, Etl
     {
 
         ArgumentNullException.ThrowIfNull(items);
-        
+
         Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} data to console asynchronously...\n");
 
         await foreach (var item in items.WithCancellation(token))
         {
             // You can either throw an exception if cancellation is requested 
             // token.ThrowIfCancellationRequested();
-            
+
             // or gracefully handle it.
             if (token.IsCancellationRequested)
             {

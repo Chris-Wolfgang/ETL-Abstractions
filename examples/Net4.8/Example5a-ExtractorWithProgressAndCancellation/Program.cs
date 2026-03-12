@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Example5a_ExtractorWithProgressAndCancellation.ETL;
 
 namespace Example5a_ExtractorWithProgressAndCancellation;
+
 internal class Program
 {
     private static async Task Main()

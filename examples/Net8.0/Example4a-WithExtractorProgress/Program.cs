@@ -1,6 +1,7 @@
 using Example4a_WithExtractorProgress.ETL;
 
 namespace Example4a_WithExtractorProgress;
+
 internal class Program
 {
     private static async Task Main()

@@ -160,7 +160,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
     }
 
 
-    
+
     [ExcludeFromCodeCoverage]
     [Fact(Skip = "Not working due to timing issues")]
     public async Task LoadWithProgressAsync_progress_callback_receives_current_item_count()

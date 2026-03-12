@@ -1,6 +1,7 @@
 using Wolfgang.Etl.Abstractions;
 
 namespace Example2_WithCancellationToken.ETL;
+
 internal class ConsoleLoader : ILoadWithCancellationAsync<string>
 {
 
@@ -32,7 +33,7 @@ internal class ConsoleLoader : ILoadWithCancellationAsync<string>
             Console.WriteLine($"Loading item: {item}\n");
             await Task.Delay(50, token); // Simulate some delay for loading
         }
-        
+
         Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example5a_ExtractorWithProgressAndCancellation.ETL;
+
 internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int, EtlProgress>
 {
     private int _progressInterval = 1_000;
@@ -126,7 +127,7 @@ internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int
 
         var count = 0;
         using var timer = new Timer
-        ( 
+        (
             _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
             state: null,
             TimeSpan.Zero,
