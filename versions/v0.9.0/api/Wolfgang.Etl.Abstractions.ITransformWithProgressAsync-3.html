@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface ITransformWithProgressAsync&lt;TSource, TDestination, TProgress&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface ITransformWithProgressAsync&lt;TSource, TDestination, TProgress&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Defines an asynchronous transformer interface for transforming data of type T to TResult. A class implementing this interface is intended to be the second step in an ETL (Extract, Transform, Load) process.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.9.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_ITransformWithProgressAsync_3.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.ITransformWithProgressAsync%603%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.Abstractions.ITransformWithProgressAsync`3">
+
+
+
+  <h1 id="Wolfgang_Etl_Abstractions_ITransformWithProgressAsync_3" data-uid="Wolfgang.Etl.Abstractions.ITransformWithProgressAsync`3" class="text-break">
+Interface ITransformWithProgressAsync&lt;TSource, TDestination, TProgress&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.9.0/src/Wolfgang.Etl.Abstractions/ITransformWithProgressAsync.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.Abstractions.html">Abstractions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.Abstractions.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
+A class implementing this interface is intended to be the second step in an
+ETL (Extract, Transform, Load) process.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ITransformWithProgressAsync&lt;in TSource, out TDestination, out TProgress&gt; : ITransformAsync&lt;TSource, TDestination&gt; where TSource : notnull where TDestination : notnull where TProgress : notnull</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSource</code></dt>
+    <dd><p>Represents a single item from the source of the ETL</p>
+</dd>
+    <dt><code>TDestination</code></dt>
+    <dd><p>Represents a single item to be sent to the destination of the ETL</p>
+</dd>
+    <dt><code>TProgress</code></dt>
+    <dd><p>The value of the updated progress</p>
+</dd>
+  </dl>
+
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformAsync-2.html#Wolfgang_Etl_Abstractions_ITransformAsync_2_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__">ITransformAsync&lt;TSource, TDestination&gt;.TransformAsync(IAsyncEnumerable&lt;TSource&gt;)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="Wolfgang_Etl_Abstractions_ITransformWithProgressAsync_3_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>The transformer is responsible for transforming data from source type to the destination type.
+The transformation may involve converting data types, filtering, aggregating, and mapping data.
+The transformer should be resilient and capable of handling any exceptions that may occur. The
+data is provided as an asynchronous stream of type TSource, and returned as an asynchronous
+stream of type TDestination allowing for efficient processing by the loader component.
+Ideally, the transformer should do all the transformation of the data, including but not limited to
+deserializing a string of JSON from a web service call and binding it to a specific type TDestination, or
+serializing an object of type TSource to a string of JSON before passing it to the loader.</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_Abstractions_ITransformWithProgressAsync_3_TransformAsync_" data-uid="Wolfgang.Etl.Abstractions.ITransformWithProgressAsync`3.TransformAsync*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_ITransformWithProgressAsync_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__System_IProgress__2__" data-uid="Wolfgang.Etl.Abstractions.ITransformWithProgressAsync`3.TransformAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.IProgress{`2})">
+  TransformAsync(IAsyncEnumerable&lt;TSource&gt;, IProgress&lt;TProgress&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.9.0/src/Wolfgang.Etl.Abstractions/ITransformWithProgressAsync.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Asynchronously transforms data of type TSource to TDestination.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAsyncEnumerable&lt;out TDestination&gt; TransformAsync(IAsyncEnumerable&lt;in TSource&gt; items, IProgress&lt;out TProgress&gt; progress)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;TSource&gt;</dt>
+    <dd><p>Asynchronous list of TSource</p>
+</dd>
+    <dt><code>progress</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress</a>&lt;TProgress&gt;</dt>
+    <dd><p>A provider for progress updates.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;TDestination&gt;</dt>
+    <dd><p>IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>The value of items or progress is null</p>
+</dd>
+  </dl>
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.9.0/src/Wolfgang.Etl.Abstractions/ITransformWithProgressAsync.cs/#L25" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
