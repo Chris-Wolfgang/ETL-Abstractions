@@ -1,4 +1,4 @@
-﻿namespace Example3_WithGracefulCancellation
+namespace Example3_WithGracefulCancellation
 {
     internal class ConsoleColors
     {

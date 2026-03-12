@@ -1,6 +1,7 @@
 using Example3_WithGracefulCancellation.ETL;
 
 namespace Example3_WithGracefulCancellation;
+
 internal class Program
 {
     private static async Task Main()

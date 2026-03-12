@@ -1,6 +1,7 @@
 using Example1_BasicETL.ETL;
 
 namespace Example1_BasicETL;
+
 internal class Program
 {
     private static async Task Main()
@@ -20,7 +21,7 @@ internal class Program
         var loader = new ConsoleLoader();
 
         Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process...{ConsoleColors.Reset}\n\n");
-        
+
         var sourceItems = extractor.ExtractAsync();
         var transformedItems = transformer.TransformAsync(sourceItems);
         await loader.LoadAsync(transformedItems);

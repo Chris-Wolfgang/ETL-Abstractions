@@ -2,7 +2,7 @@
   <PropertyGroup>
 	<TargetFrameworks>
 	  net462;net472;net48;net481;
-	  netstandard2.0;netstandard2.1;
+	  netstandard2.0;
 	  netcoreapp3.1;
 	  net5.0;net6.0;net7.0;
 	  net8.0;net9.0;net10.0
@@ -14,7 +14,7 @@
     <Title>$(AssemblyName)</Title>
     <Authors>Chris Wolfgang</Authors>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>
-	<Copyright>Copyright 2025 Chris Wolfgang</Copyright>
+	  <Copyright>Copyright 2025 Chris Wolfgang</Copyright>
     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>
@@ -42,6 +42,13 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+  <!-- No test project targets netstandard TFMs; exclude them from coverage so they don't
+       drag the aggregate below the gate. ExcludeFromCodeCoverage is the MSBuild property
+       read by dotCover (JetBrains), and the coverlet.runsettings ExcludeByFile handles CI. -->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+    <ExcludeFromCodeCoverage>true</ExcludeFromCodeCoverage>
+  </PropertyGroup>
 
   <!-- Microsoft.Bcl.AsyncInterfaces 10.0.3 — supports all TFMs via net462/netstandard2.0/net8.0 assets -->
   <ItemGroup>

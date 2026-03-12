@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example3_WithGracefulCancellation.ETL;
+
 internal class IntToStringTransformer : ITransformWithCancellationAsync<int, string>
 {
 
@@ -24,7 +25,7 @@ internal class IntToStringTransformer : ITransformWithCancellationAsync<int, str
     public async IAsyncEnumerable<string> TransformAsync(IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)
     {
         Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
-        
+
         await foreach (var item in items)
         {
             if (token.IsCancellationRequested)
@@ -37,7 +38,7 @@ internal class IntToStringTransformer : ITransformWithCancellationAsync<int, str
             await Task.Delay(50, token); // Simulate some delay for transformation
             yield return item.ToString();
         }
-        
+
         Console.WriteLine($"{ConsoleColors.Green}Transformation{ConsoleColors.Reset} completed.\n");
     }
 }

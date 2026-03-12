@@ -1,6 +1,7 @@
-﻿using Example6_ReducingDuplicateCode.ETL;
+using Example6_ReducingDuplicateCode.ETL;
 
 namespace Example6_ReducingDuplicateCode;
+
 internal class Program
 {
     private static async Task Main()
@@ -17,7 +18,7 @@ internal class Program
 
         await EtlWithNoProgressOrCancellation().ConfigureAwait(false);
 
-        
+
         await EtlWithCancellationToken().ConfigureAwait(false);
 
 
@@ -31,7 +32,7 @@ internal class Program
     }
 
 
-    
+
     private static async Task EtlWithNoProgressOrCancellation()
     {
         var extractor = new FibonacciExtractor();

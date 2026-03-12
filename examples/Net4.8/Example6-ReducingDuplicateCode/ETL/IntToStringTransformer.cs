@@ -1,5 +1,5 @@
 #nullable enable
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example6_ReducingDuplicateCode.ETL;
+
 internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsync<int, string, EtlProgress>
 {
 
@@ -49,7 +50,7 @@ internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsy
 
     public IAsyncEnumerable<string> TransformAsync
         (
-            IAsyncEnumerable<int> items, 
+            IAsyncEnumerable<int> items,
             CancellationToken token
         )
     {
@@ -66,7 +67,7 @@ internal class IntToStringTransformer : ITransformWithProgressAndCancellationAsy
 
     public IAsyncEnumerable<string> TransformAsync
         (
-            IAsyncEnumerable<int> items, 
+            IAsyncEnumerable<int> items,
             IProgress<EtlProgress> progress
         )
     {

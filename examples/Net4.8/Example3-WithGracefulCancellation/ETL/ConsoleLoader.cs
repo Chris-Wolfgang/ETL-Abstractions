@@ -38,7 +38,7 @@ namespace Example3_WithGracefulCancellation.ETL
                 Console.WriteLine($"Loading item: {item}\n");
                 await Task.Delay(50, token); // Simulate some delay for loading
             }
-        
+
             Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");
         }
     }

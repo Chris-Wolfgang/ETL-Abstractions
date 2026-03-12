@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions;
 
 namespace Example2_WithCancellationToken.ETL;
+
 internal class FibonacciExtractor : IExtractWithCancellationAsync<int>
 {
     public async IAsyncEnumerable<int> ExtractAsync()

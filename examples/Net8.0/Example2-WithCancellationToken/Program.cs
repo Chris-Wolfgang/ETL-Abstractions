@@ -1,6 +1,7 @@
 using Example2_WithCancellationToken.ETL;
 
 namespace Example2_WithCancellationToken;
+
 internal class Program
 {
     private static async Task Main()
