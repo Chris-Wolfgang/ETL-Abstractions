@@ -261,25 +261,19 @@ jobs:
           THRESHOLD=${CODECOV_MINIMUM:-90}
           FAILED=0
 
-          awk -v threshold="$THRESHOLD" '
-            BEGIN { failed = 0 }
-            /^[^ ]+.*[0-9]+%$/ && !/^Summary/ {
-              module = $1
-              pct = 0; s = $0
-              while (match(s, /[0-9]+%/)) {
-                pct = substr(s, RSTART, RLENGTH-1) + 0
-                s = substr(s, RSTART + RLENGTH)
-              }
-              printf "Checking module: \047%s\047 - Coverage: %d%%\n", module, pct
-              if (pct < threshold) {
-                print "  \342\235\214 FAIL: Below " threshold "% threshold"
-                failed = 1
-              } else {
-                print "  \342\234\205 PASS: Meets " threshold "% threshold"
-              }
-            }
-            END { exit failed }
-          ' CoverageReport/Summary.txt || FAILED=1
+          while IFS= read -r line; do
+            if echo "$line" | grep -qE '^[^ ]+.*[0-9]+%$' && ! echo "$line" | grep -q '^Summary'; then
+              MODULE=$(echo "$line" | grep -oP '^[^ ]+')
+              PERCENT=$(echo "$line" | grep -oP '[0-9]+(?=%)' | tail -1)
+              echo "Checking module: '$MODULE' - Coverage: ${PERCENT}%"
+              if [ "$PERCENT" -lt "$THRESHOLD" ]; then
+                echo "  ❌ FAIL: Below ${THRESHOLD}% threshold"
+                FAILED=1
+              else
+                echo "  ✅ PASS: Meets ${THRESHOLD}% threshold"
+              fi
+            fi
+          done < CoverageReport/Summary.txt
 
           if [ "$FAILED" -ne 0 ]; then
             echo ""
