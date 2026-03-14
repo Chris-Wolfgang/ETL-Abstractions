@@ -402,7 +402,13 @@ dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1601.severity = none
 dotnet_diagnostic.SA1602.severity = none
 
-# Benchmark projects - relaxed naming, no doc requirements
+# Contract test base classes live in src/ but follow test naming conventions
+[src/**/*ContractTests.cs]
+dotnet_diagnostic.SA1300.severity = none
+dotnet_diagnostic.IDE1006.severity = none
+dotnet_diagnostic.CA1707.severity = none
+
+# Benchmark, no doc requirements
 [benchmarks/**/*.cs]
 # Allow Benchmark_Method_Names
 dotnet_diagnostic.SA1300.severity = none
