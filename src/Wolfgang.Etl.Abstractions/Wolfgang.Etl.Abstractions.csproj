@@ -9,7 +9,7 @@
     </TargetFrameworks>
 	<LangVersion>latest</LangVersion>
 	<Nullable>enable</Nullable>
-	<Version>0.9.0</Version>
+	<Version>0.9.6</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Authors>Chris Wolfgang</Authors>
@@ -50,8 +50,8 @@
     <ExcludeFromCodeCoverage>true</ExcludeFromCodeCoverage>
   </PropertyGroup>
 
-  <!-- Microsoft.Bcl.AsyncInterfaces 10.0.3 — supports all TFMs via net462/netstandard2.0/net8.0 assets -->
-  <ItemGroup>
+  <!-- Microsoft.Bcl.AsyncInterfaces: only needed for net4x/netstandard2.0 — built in on net8+ -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" />
   </ItemGroup>
 

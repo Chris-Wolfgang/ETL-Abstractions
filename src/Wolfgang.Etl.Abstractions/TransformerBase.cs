@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 
@@ -223,17 +224,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 #pragma warning restore RCS1140
 #endif
 
-        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
-        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
-#pragma warning disable MA0042
-        using var timer = new Timer(
-            ReportProgress,
-            state: progress,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval));
-#pragma warning restore MA0042
-
-        return TransformWorkerAsync(items, CancellationToken.None);
+        return TransformWithProgressAsync(items, progress, CancellationToken.None);
     }
 
 
@@ -271,22 +262,41 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 #pragma warning restore RCS1140
 #endif
 
-        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
-        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
-#pragma warning disable MA0042
-        using var timer = new Timer(
-            ReportProgress,
-            state: progress,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval));
-#pragma warning restore MA0042
-
-        return TransformWorkerAsync(items, token);
+        return TransformWithProgressAsync(items, progress, token);
     }
 
 
 
-    /// <summary>
+
+    private async IAsyncEnumerable<TDestination> TransformWithProgressAsync(
+        IAsyncEnumerable<TSource> items, IProgress<TProgress> progress,
+        [EnumeratorCancellation] CancellationToken token)
+    {
+        // MA0042 suppressed: System.Threading.Timer does not implement IAsyncDisposable.
+#pragma warning disable MA0042
+        using var timer = new Timer(
+            ReportProgress,
+            state: progress,
+            TimeSpan.FromMilliseconds(ReportingInterval),
+            TimeSpan.FromMilliseconds(ReportingInterval));
+#pragma warning restore MA0042
+
+        try
+        {
+            await foreach (var item in TransformWorkerAsync(items, token))
+            {
+                yield return item;
+            }
+        }
+        finally
+        {
+            progress.Report(CreateProgressReport());
+        }
+    }
+
+
+
+        /// <summary>
     /// The worker method that performs the actual transformation.
     /// </summary>
     /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>
