@@ -33,6 +33,24 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).CreateProgressReport
   nameWithType: ExtractorBase<TSource, TProgress>.CreateProgressReport
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).CreateProgressReport
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.CreateProgressTimer(System.IProgress{`1})
+  name: CreateProgressTimer(IProgress<TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CreateProgressTimer_System_IProgress__1__
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.CreateProgressTimer(System.IProgress{`1})
+  name.vb: CreateProgressTimer(IProgress(Of TProgress))
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CreateProgressTimer(System.IProgress<TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).CreateProgressTimer(System.IProgress(Of TProgress))
+  nameWithType: ExtractorBase<TSource, TProgress>.CreateProgressTimer(IProgress<TProgress>)
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).CreateProgressTimer(IProgress(Of TProgress))
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.CreateProgressTimer*
+  name: CreateProgressTimer
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CreateProgressTimer_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.CreateProgressTimer
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CreateProgressTimer
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).CreateProgressTimer
+  nameWithType: ExtractorBase<TSource, TProgress>.CreateProgressTimer
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).CreateProgressTimer
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.CurrentItemCount
   name: CurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentItemCount
@@ -601,6 +619,24 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).CreateProgressReport
   nameWithType: LoaderBase<TDestination, TProgress>.CreateProgressReport
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).CreateProgressReport
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.CreateProgressTimer(System.IProgress{`1})
+  name: CreateProgressTimer(IProgress<TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_CreateProgressTimer_System_IProgress__1__
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.CreateProgressTimer(System.IProgress{`1})
+  name.vb: CreateProgressTimer(IProgress(Of TProgress))
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CreateProgressTimer(System.IProgress<TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).CreateProgressTimer(System.IProgress(Of TProgress))
+  nameWithType: LoaderBase<TDestination, TProgress>.CreateProgressTimer(IProgress<TProgress>)
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).CreateProgressTimer(IProgress(Of TProgress))
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.CreateProgressTimer*
+  name: CreateProgressTimer
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_CreateProgressTimer_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.CreateProgressTimer
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CreateProgressTimer
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).CreateProgressTimer
+  nameWithType: LoaderBase<TDestination, TProgress>.CreateProgressTimer
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).CreateProgressTimer
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.CurrentItemCount
   name: CurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_CurrentItemCount
@@ -860,6 +896,24 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).CreateProgressReport
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.CreateProgressReport
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).CreateProgressReport
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.CreateProgressTimer(System.IProgress{`2})
+  name: CreateProgressTimer(IProgress<TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CreateProgressTimer_System_IProgress__2__
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.CreateProgressTimer(System.IProgress{`2})
+  name.vb: CreateProgressTimer(IProgress(Of TProgress))
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressTimer(System.IProgress<TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).CreateProgressTimer(System.IProgress(Of TProgress))
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.CreateProgressTimer(IProgress<TProgress>)
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).CreateProgressTimer(IProgress(Of TProgress))
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.CreateProgressTimer*
+  name: CreateProgressTimer
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CreateProgressTimer_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.CreateProgressTimer
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressTimer
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).CreateProgressTimer
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.CreateProgressTimer
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).CreateProgressTimer
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.CurrentItemCount
   name: CurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentItemCount
