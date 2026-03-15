@@ -9,7 +9,7 @@
     </TargetFrameworks>
 	<LangVersion>latest</LangVersion>
 	<Nullable>enable</Nullable>
-	<Version>0.9.0</Version>
+	<Version>0.10.0</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Authors>Chris Wolfgang</Authors>
@@ -50,9 +50,16 @@
     <ExcludeFromCodeCoverage>true</ExcludeFromCodeCoverage>
   </PropertyGroup>
 
-  <!-- Microsoft.Bcl.AsyncInterfaces 10.0.3 — supports all TFMs via net462/netstandard2.0/net8.0 assets -->
-  <ItemGroup>
+  <!--
+    Microsoft.Bcl.AsyncInterfaces: the runtime assembly is built into net8+, so pre-net8 TFMs
+    get a full reference. The net8+ group pins the version with ExcludeAssets="runtime" to
+    prevent NuGet from resolving an older transitive version — no runtime assembly is copied.
+  -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" ExcludeAssets="runtime" />
   </ItemGroup>
 
   <ItemGroup>

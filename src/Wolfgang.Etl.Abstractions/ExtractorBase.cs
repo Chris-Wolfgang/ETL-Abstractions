@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 
@@ -73,7 +74,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// This is useful for partially extracting data from a source, especially when the source is large
     /// or infinite or during development.
     /// </remarks>
-    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1.</exception>
     /// <example>
     /// <code>
     ///     var count = 0;
@@ -98,11 +99,11 @@ public abstract class ExtractorBase<TSource, TProgress>
         set
         {
 #if NET8_0_OR_GREATER
-            ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
+            ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
 #else
-            if (value < 0)
+            if (value < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 0.");
+                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
             }
 #endif
             field = value;
@@ -218,17 +219,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 #pragma warning restore RCS1140
 #endif
 
-        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
-        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
-#pragma warning disable MA0042
-        using var timer = new Timer(
-            ReportProgress,
-            state: progress,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval));
-#pragma warning restore MA0042
-
-        return ExtractWorkerAsync(CancellationToken.None);
+        return ExtractWithProgressAsync(progress, CancellationToken.None);
     }
 
 
@@ -260,17 +251,38 @@ public abstract class ExtractorBase<TSource, TProgress>
 #pragma warning restore RCS1140
 #endif
 
-        // Timer is synchronously disposed when this method returns its IAsyncEnumerable.
-        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
+        return ExtractWithProgressAsync(progress, token);
+    }
+
+
+
+    private async IAsyncEnumerable<TSource> ExtractWithProgressAsync(
+        IProgress<TProgress> progress,
+        [EnumeratorCancellation] CancellationToken token)
+    {
+        // MA0042 suppressed: System.Threading.Timer does not implement IAsyncDisposable.
 #pragma warning disable MA0042
-        using var timer = new Timer(
+        var timer = new Timer(
             ReportProgress,
             state: progress,
-            TimeSpan.Zero,
+            TimeSpan.FromMilliseconds(ReportingInterval),
             TimeSpan.FromMilliseconds(ReportingInterval));
 #pragma warning restore MA0042
 
-        return ExtractWorkerAsync(token);
+        try
+        {
+            await foreach (var item in ExtractWorkerAsync(token))
+            {
+                yield return item;
+            }
+        }
+        finally
+        {
+#pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here; await is not valid in a finally block
+            timer.Dispose();
+#pragma warning restore CA1849, VSTHRD103
+            progress.Report(CreateProgressReport());
+        }
     }
 
 

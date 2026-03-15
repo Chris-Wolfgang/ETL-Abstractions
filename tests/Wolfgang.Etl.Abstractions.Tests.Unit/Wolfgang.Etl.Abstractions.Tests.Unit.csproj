@@ -6,7 +6,7 @@
       net5.0;net6.0;net7.0;
       net8.0;net9.0;net10.0
     </TargetFrameworks>
-    <Version>0.9.0</Version>
+    <Version>0.10.0</Version>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -15,15 +15,9 @@
     <Copyright>Copyright 2025 Chris Wolfgang</Copyright>
   </PropertyGroup>
 
-  <!-- net462; net472; net48; net481 — xunit.runner.visualstudio capped below 3.0.0 because
-       3.x ships only net8.0 + net472 assets, dropping net462 support.
-       SuppressTfmSupportBuildWarnings suppresses warnings from transitive deps of
-       System.Linq.AsyncEnumerable (used in the net8+ group) evaluated across all TFMs at restore. -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR
-                        '$(TargetFramework)' == 'net472' OR
-                        '$(TargetFramework)' == 'net48'  OR
-                        '$(TargetFramework)' == 'net481'">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+  <!-- net462; net472; net48; net481 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481'">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.console" Version="2.9.3">
       <PrivateAssets>all</PrivateAssets>
@@ -35,18 +29,13 @@
     </PackageReference>
     <PackageReference Include="System.Linq.Async" Version="7.0.0" />
   </ItemGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net462' OR
-                            '$(TargetFramework)' == 'net472' OR
-                            '$(TargetFramework)' == 'net48'  OR
-                            '$(TargetFramework)' == 'net481'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481'">
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
-  <!-- netcoreapp3.1 — xunit.runner.visualstudio 2.4.5 is the last version with a native
-       netcoreapp3.1 asset; 2.5.0 dropped it. Capped below 2.5.0 to prevent NuGet selecting
-       a version that falls back to the net462 asset and may silently fail test discovery. -->
+  <!-- netcoreapp3.1 -->
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.console" Version="2.9.3">
       <PrivateAssets>all</PrivateAssets>
@@ -62,8 +51,7 @@
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
-  <!-- net5.0 — xunit.runner.visualstudio 2.4.5 is the last version with a native net5.0-compatible
-       asset; 2.5.0 dropped net5 along with netcoreapp3.1. Capped below 2.5.0. -->
+  <!-- net5.0 -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
@@ -81,10 +69,8 @@
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
-  <!-- net6.0; net7.0 — xunit.runner.visualstudio capped below 3.0.0 because 3.x ships only
-       net8.0 + net472 assets, dropping net6/7 support. -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR
-                        '$(TargetFramework)' == 'net7.0'">
+  <!-- net6.0; net7.0 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.console" Version="2.9.3">
@@ -97,17 +83,13 @@
     </PackageReference>
     <PackageReference Include="System.Linq.Async" Version="7.0.0" />
   </ItemGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0' OR
-                            '$(TargetFramework)' == 'net7.0'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0'">
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
-  <!-- net8.0; net9.0; net10.0 — xunit.runner.visualstudio 3.x natively supports these TFMs.
-       System.Linq.AsyncEnumerable has a native net8.0 asset. -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'  OR
-                        '$(TargetFramework)' == 'net9.0'  OR
-                        '$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+  <!-- net8.0; net9.0; net10.0 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.console" Version="2.9.3">
       <PrivateAssets>all</PrivateAssets>
@@ -120,17 +102,9 @@
     <PackageReference Include="System.Linq.AsyncEnumerable" Version="10.0.2" />
   </ItemGroup>
 
-  <!-- coverlet.collector is required by dotnet test to generate coverage.cobertura.xml when
-       using XPlat Code Coverage collection. It must be referenced in the test project for
-       net5.0 and greater; .NET Framework and netcoreapp3.1 targets do not participate in
-       coverage collection. -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'  OR
-                        '$(TargetFramework)' == 'net6.0'  OR
-                        '$(TargetFramework)' == 'net7.0'  OR
-                        '$(TargetFramework)' == 'net8.0'  OR
-                        '$(TargetFramework)' == 'net9.0'  OR
-                        '$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="coverlet.collector" Version="6.0.4">
+  <!-- net5.0; net6.0; net7.0; net8.0; net9.0; net10.0 (coverlet) -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0' OR '$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="coverlet.collector" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -219,17 +220,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 #pragma warning restore RCS1140
 #endif
 
-        // Timer is synchronously disposed when this method returns its Task.
-        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
-#pragma warning disable MA0042
-        using var timer = new Timer(
-            ReportProgress,
-            state: progress,
-            TimeSpan.Zero,
-            TimeSpan.FromMilliseconds(ReportingInterval));
-#pragma warning restore MA0042
-
-        return LoadWorkerAsync(items, CancellationToken.None);
+        return LoadWithProgressAsync(items, progress, CancellationToken.None);
     }
 
 
@@ -264,17 +255,36 @@ public abstract class LoaderBase<TDestination, TProgress>
 #pragma warning restore RCS1140
 #endif
 
-        // Timer is synchronously disposed when this method returns its Task.
-        // MA0042 (prefer await using) is suppressed: System.Threading.Timer does not implement IAsyncDisposable.
+        return LoadWithProgressAsync(items, progress, token);
+    }
+
+
+
+    private async Task LoadWithProgressAsync(
+        IAsyncEnumerable<TDestination> items,
+        IProgress<TProgress> progress,
+        CancellationToken token)
+    {
+        // MA0042 suppressed: System.Threading.Timer does not implement IAsyncDisposable.
 #pragma warning disable MA0042
-        using var timer = new Timer(
+        var timer = new Timer(
             ReportProgress,
             state: progress,
-            TimeSpan.Zero,
+            TimeSpan.FromMilliseconds(ReportingInterval),
             TimeSpan.FromMilliseconds(ReportingInterval));
 #pragma warning restore MA0042
 
-        return LoadWorkerAsync(items, token);
+        try
+        {
+            await LoadWorkerAsync(items, token).ConfigureAwait(false);
+        }
+        finally
+        {
+#pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here; await is not valid in a finally block
+            timer.Dispose();
+#pragma warning restore CA1849, VSTHRD103
+            progress.Report(CreateProgressReport());
+        }
     }
 
 

@@ -215,13 +215,10 @@ public class ExtractorBaseTests
 
 
     [Fact]
-    public void MaximumItemCount_when_assigned_zero_is_valid_and_stores_the_value()
+    public void MaximumItemCount_when_assigned_zero_throws_ArgumentOutOfRangeException()
     {
-        var sut = new FibonacciExtractorFromExtractorBase()
-        {
-            MaximumItemCount = 0
-        };
-        Assert.Equal(0, sut.MaximumItemCount);
+        var sut = new FibonacciExtractorFromExtractorBase();
+        Assert.Throws<ArgumentOutOfRangeException>(() => sut.MaximumItemCount = 0);
     }
 
 

@@ -352,6 +352,12 @@ dotnet_diagnostic.MA0004.severity = none     # Meziantou: Use ConfigureAwait
 dotnet_diagnostic.S3216.severity = none      # SonarAnalyzer: ConfigureAwait
 dotnet_diagnostic.CA2007.severity = none     # .NET Analyzer: Use ConfigureAwait
 
+# Prefer expression bodies - suppress the suggestion to use block bodies instead
+dotnet_diagnostic.IDE0022.severity = none    # Expression bodies preferred
+
+# Test method names use Async by convention — VSTHRD200 is a false positive here
+dotnet_diagnostic.VSTHRD200.severity = none  # Async suffix not required in test method names
+
 # Test projects - relaxed naming, no doc requirements
 [tests/**/*.cs]
 # Allow Test_Method_Names_With_Underscores
@@ -402,7 +408,8 @@ dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1601.severity = none
 dotnet_diagnostic.SA1602.severity = none
 
-# Benchmark projects - relaxed naming, no doc requirements
+
+# Benchmark, no doc requirements
 [benchmarks/**/*.cs]
 # Allow Benchmark_Method_Names
 dotnet_diagnostic.SA1300.severity = none
