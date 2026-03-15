@@ -42,6 +42,7 @@ internal sealed class SystemProgressTimer : IProgressTimer
         _timer = new Timer(
             _ =>
             {
+                if (_disposed) return;
                 callback(state);
                 Elapsed?.Invoke();
             },
