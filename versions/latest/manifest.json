@@ -148,6 +148,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IProgressTimer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IProgressTimer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IProgressTimer",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IProgressTimer.yml\" sourcestartlinenumber=\"1\">Represents a timer that raises <xref href=\"Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed\" data-throw-if-not-resolved=\"false\"></xref> at a regular interval,\nused by extractor, transformer, and loader base classes to drive progress callbacks.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformAsync-2.yml",
       "output": {
         ".html": {

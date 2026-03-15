@@ -426,6 +426,47 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ILoadWithProgressAsync(Of TDestination, TProgress).LoadAsync
   nameWithType: ILoadWithProgressAsync<TDestination, TProgress>.LoadAsync
   nameWithType.vb: ILoadWithProgressAsync(Of TDestination, TProgress).LoadAsync
+- uid: Wolfgang.Etl.Abstractions.IProgressTimer
+  name: IProgressTimer
+  href: api/Wolfgang.Etl.Abstractions.IProgressTimer.html
+  commentId: T:Wolfgang.Etl.Abstractions.IProgressTimer
+  fullName: Wolfgang.Etl.Abstractions.IProgressTimer
+  nameWithType: IProgressTimer
+- uid: Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_Elapsed
+  commentId: E:Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed
+  fullName: Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed
+  nameWithType: IProgressTimer.Elapsed
+- uid: Wolfgang.Etl.Abstractions.IProgressTimer.Start(System.Int32)
+  name: Start(int)
+  href: api/Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_Start_System_Int32_
+  commentId: M:Wolfgang.Etl.Abstractions.IProgressTimer.Start(System.Int32)
+  name.vb: Start(Integer)
+  fullName: Wolfgang.Etl.Abstractions.IProgressTimer.Start(int)
+  fullName.vb: Wolfgang.Etl.Abstractions.IProgressTimer.Start(Integer)
+  nameWithType: IProgressTimer.Start(int)
+  nameWithType.vb: IProgressTimer.Start(Integer)
+- uid: Wolfgang.Etl.Abstractions.IProgressTimer.Start*
+  name: Start
+  href: api/Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_Start_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IProgressTimer.Start
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IProgressTimer.Start
+  nameWithType: IProgressTimer.Start
+- uid: Wolfgang.Etl.Abstractions.IProgressTimer.StopTimer
+  name: StopTimer()
+  href: api/Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_StopTimer
+  commentId: M:Wolfgang.Etl.Abstractions.IProgressTimer.StopTimer
+  fullName: Wolfgang.Etl.Abstractions.IProgressTimer.StopTimer()
+  nameWithType: IProgressTimer.StopTimer()
+- uid: Wolfgang.Etl.Abstractions.IProgressTimer.StopTimer*
+  name: StopTimer
+  href: api/Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_StopTimer_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IProgressTimer.StopTimer
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IProgressTimer.StopTimer
+  nameWithType: IProgressTimer.StopTimer
 - uid: Wolfgang.Etl.Abstractions.ITransformAsync`2
   name: ITransformAsync<TSource, TDestination>
   href: api/Wolfgang.Etl.Abstractions.ITransformAsync-2.html
