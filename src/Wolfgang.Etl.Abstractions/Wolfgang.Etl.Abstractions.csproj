@@ -9,7 +9,7 @@
     </TargetFrameworks>
 	<LangVersion>latest</LangVersion>
 	<Nullable>enable</Nullable>
-	<Version>0.10.0</Version>
+	<Version>0.10.1</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Authors>Chris Wolfgang</Authors>
@@ -27,6 +27,10 @@
     <SignAssembly>False</SignAssembly>
     <PackageTags>ETL;Extract-Transform-Load;</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Wolfgang.Etl.Abstractions.Tests.Unit" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="ETL-Abstractions.ico" />

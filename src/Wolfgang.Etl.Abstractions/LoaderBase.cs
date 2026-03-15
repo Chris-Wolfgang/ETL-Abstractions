@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -260,19 +259,28 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
+    /// <summary>
+    /// Creates the <see cref="IProgressTimer"/> used to drive progress callbacks.
+    /// Override this method in a derived class to inject a custom timer
+    /// (for example, a custom implementation that allows manual control in unit tests).
+    /// </summary>
+    /// <param name="progress">The progress sink that will receive callbacks.</param>
+    /// <returns>A started <see cref="IProgressTimer"/> instance.</returns>
+    protected virtual IProgressTimer CreateProgressTimer(IProgress<TProgress> progress)
+    {
+        var timer = new SystemProgressTimer(ReportProgress, progress);
+        timer.Start(ReportingInterval);
+        return timer;
+    }
+
+
+
     private async Task LoadWithProgressAsync(
         IAsyncEnumerable<TDestination> items,
         IProgress<TProgress> progress,
         CancellationToken token)
     {
-        // MA0042 suppressed: System.Threading.Timer does not implement IAsyncDisposable.
-#pragma warning disable MA0042
-        var timer = new Timer(
-            ReportProgress,
-            state: progress,
-            TimeSpan.FromMilliseconds(ReportingInterval),
-            TimeSpan.FromMilliseconds(ReportingInterval));
-#pragma warning restore MA0042
+        var timer = CreateProgressTimer(progress);
 
         try
         {
