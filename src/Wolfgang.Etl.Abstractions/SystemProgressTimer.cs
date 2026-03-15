@@ -35,8 +35,7 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// </summary>
     internal SystemProgressTimer(
         TimerCallback callback,
-        object? state,
-        int intervalMilliseconds)
+        object? state)
     {
         // Timer is created stopped (Timeout.Infinite) — Start() arms it.
 #pragma warning disable MA0042 // Timer does not implement IAsyncDisposable

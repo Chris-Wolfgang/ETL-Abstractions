@@ -269,7 +269,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <returns>A started <see cref="IProgressTimer"/> instance.</returns>
     protected virtual IProgressTimer CreateProgressTimer(IProgress<TProgress> progress)
     {
-        var timer = new SystemProgressTimer(ReportProgress, progress, ReportingInterval);
+        var timer = new SystemProgressTimer(ReportProgress, progress);
         timer.Start(ReportingInterval);
         return timer;
     }
