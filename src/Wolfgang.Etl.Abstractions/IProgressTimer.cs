@@ -9,10 +9,10 @@ namespace Wolfgang.Etl.Abstractions;
 /// used by extractor, transformer, and loader base classes to drive progress callbacks.
 /// </summary>
 /// <remarks>
-/// The default production implementation uses <see cref="System.Threading.Timer"/>
-/// internally. Inject a <c>ManualProgressTimer</c> (from
-/// <c>Wolfgang.Etl.TestKit.Xunit</c>) in unit tests to fire the event on demand,
-/// making progress callback assertions fully deterministic.
+/// The default production implementation typically uses <see cref="System.Threading.Timer"/>
+/// internally. In unit tests, a custom implementation can be injected to fire the
+/// <see cref="Elapsed"/> event on demand, making progress callback assertions
+/// deterministic.
 /// </remarks>
 public interface IProgressTimer : IDisposable
 {

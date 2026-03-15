@@ -274,7 +274,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     {
         // MA0042 suppressed: System.Threading.Timer does not implement IAsyncDisposable.
 #pragma warning disable MA0042
-        using var timer = new Timer(
+        var timer = new Timer(
             ReportProgress,
             state: progress,
             TimeSpan.FromMilliseconds(ReportingInterval),
@@ -290,6 +290,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         }
         finally
         {
+            timer.Dispose();
             progress.Report(CreateProgressReport());
         }
     }

@@ -50,7 +50,11 @@
     <ExcludeFromCodeCoverage>true</ExcludeFromCodeCoverage>
   </PropertyGroup>
 
-  <!-- Microsoft.Bcl.AsyncInterfaces: only needed for pre-net8 TFMs — built in on net8+ -->
+  <!--
+    Microsoft.Bcl.AsyncInterfaces: the runtime assembly is built into net8+, so pre-net8 TFMs
+    get a full reference. The net8+ group pins the version with ExcludeAssets="runtime" to
+    prevent NuGet from resolving an older transitive version — no runtime assembly is copied.
+  -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" />
   </ItemGroup>
