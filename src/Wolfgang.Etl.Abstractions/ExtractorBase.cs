@@ -278,7 +278,9 @@ public abstract class ExtractorBase<TSource, TProgress>
         }
         finally
         {
+#pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here; await is not valid in a finally block
             timer.Dispose();
+#pragma warning restore CA1849, VSTHRD103
             progress.Report(CreateProgressReport());
         }
     }
