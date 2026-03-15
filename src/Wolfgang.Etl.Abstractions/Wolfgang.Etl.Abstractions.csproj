@@ -29,6 +29,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Wolfgang.Etl.Abstractions.Tests.Unit" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="ETL-Abstractions.ico" />
   </ItemGroup>
 

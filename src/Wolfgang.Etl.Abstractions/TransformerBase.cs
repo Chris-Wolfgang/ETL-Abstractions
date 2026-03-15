@@ -271,7 +271,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <summary>
     /// Creates the <see cref="IProgressTimer"/> used to drive progress callbacks.
     /// Override this method in a derived class to inject a custom timer
-    /// (for example, a <c>ManualProgressTimer</c> in unit tests).
+    /// (for example, a custom implementation that allows manual control in unit tests).
     /// </summary>
     /// <param name="progress">The progress sink that will receive callbacks.</param>
     /// <returns>A started <see cref="IProgressTimer"/> instance.</returns>

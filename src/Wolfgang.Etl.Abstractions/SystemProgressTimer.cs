@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
 namespace Wolfgang.Etl.Abstractions;
@@ -33,22 +34,40 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// Initialises a new <see cref="SystemProgressTimer"/> and immediately
     /// wires the supplied <paramref name="callback"/> to fire on each tick.
     /// </summary>
-    internal SystemProgressTimer(
+    internal SystemProgressTimer
+    (
         TimerCallback callback,
-        object? state)
+        object? state
+    )
     {
         // Timer is created stopped (Timeout.Infinite) — Start() arms it.
 #pragma warning disable MA0042 // Timer does not implement IAsyncDisposable
-        _timer = new Timer(
-            _ =>
-            {
-                callback(state);
-                Elapsed?.Invoke();
-            },
+        _timer = new Timer
+        (
+            _ => OnTick(callback, state),
             state: null,
             Timeout.Infinite,
-            Timeout.Infinite);
+            Timeout.Infinite
+        );
 #pragma warning restore MA0042
+    }
+
+
+
+    /// <summary>
+    /// Invoked on each timer tick. The <see cref="_disposed"/> guard is a defensive
+    /// race-condition safety net — a queued tick may fire just after
+    /// <see cref="Dispose"/> sets the flag.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    private void OnTick(TimerCallback callback, object? state)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+        callback(state);
+        Elapsed?.Invoke();
     }
 
 
@@ -56,7 +75,10 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// <inheritdoc/>
     public void Start(int intervalMilliseconds)
     {
-        if (_disposed) return;
+        if (_disposed)
+        {
+            return;
+        }
         _timer.Change(intervalMilliseconds, intervalMilliseconds);
     }
 
@@ -65,7 +87,10 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// <inheritdoc/>
     public void StopTimer()
     {
-        if (_disposed) return;
+        if (_disposed)
+        {
+            return;
+        }
         _timer.Change(Timeout.Infinite, Timeout.Infinite);
     }
 
@@ -74,7 +99,10 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// <inheritdoc/>
     public void Dispose()
     {
-        if (_disposed) return;
+        if (_disposed)
+        {
+            return;
+        }
         _disposed = true;
         Elapsed = null;
 #pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here
