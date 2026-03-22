@@ -35,16 +35,44 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 ## 🚀 Quick Start
 
-{{QUICK_START_EXAMPLE}}
+```csharp
+// Create a custom extractor by inheriting from ExtractorBase
+public class MyExtractor : ExtractorBase<string, Report>
+{
+    protected override async IAsyncEnumerable<string> ExtractWorkerAsync(
+        [EnumeratorCancellation] CancellationToken token)
+    {
+        // Yield items from your data source
+        yield return "item1";
+        IncrementCurrentItemCount();
+    }
+
+    protected override Report CreateProgressReport()
+    {
+        return new Report(CurrentItemCount);
+    }
+}
+
+// Use the extractor
+var extractor = new MyExtractor();
+await foreach (var item in extractor.ExtractAsync())
+{
+    Console.WriteLine(item);
+}
+```
 
 ---
 
 ## ✨ Features
 
-{{FEATURES_TABLE}}
-
-**Examples:**
-{{FEATURE_EXAMPLES}}
+| Feature | Description |
+|---------|-------------|
+| Async Streaming | Built on `IAsyncEnumerable<T>` for efficient, non-blocking data pipelines |
+| Progress Reporting | Built-in `IProgress<T>` support with configurable reporting intervals |
+| Cancellation | Full `CancellationToken` support across all operations |
+| Multi-TFM | Targets .NET Framework 4.6.2+, .NET Standard 2.0+, and .NET 5.0–10.0 |
+| Skip & Limit | `SkipItemCount` and `MaximumItemCount` for partial extraction/loading |
+| Thread Safety | `Interlocked`-based counters for safe concurrent progress tracking |
 
 ---
 
@@ -177,5 +205,7 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
 ## 🙏 Acknowledgments
 
-{{ACKNOWLEDGMENTS}}
+- Built with [.NET](https://dotnet.microsoft.com/) and the async streaming APIs
+- Static analysis powered by Roslyn, Roslynator, Meziantou, and SonarAnalyzer
+- Documentation generated with [DocFX](https://dotnet.github.io/docfx/)
 

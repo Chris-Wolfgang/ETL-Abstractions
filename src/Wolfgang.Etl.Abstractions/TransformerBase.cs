@@ -76,7 +76,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// This is useful for transforming a subset of data, especially when the source is large
     /// or infinite or during development.
     /// </remarks>
-    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1.</exception>
     /// <example>
     /// <code>
     ///     foreach (var item in items.Skip(SkipItemCount).Take(MaxItemCount))
@@ -308,7 +308,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
-        /// <summary>
+    /// <summary>
     /// The worker method that performs the actual transformation.
     /// </summary>
     /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>

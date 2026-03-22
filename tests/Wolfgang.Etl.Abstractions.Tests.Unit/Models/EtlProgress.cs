@@ -2,18 +2,18 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 internal record EtlProgress
 {
-    public EtlProgress(int currentCount)
+    public EtlProgress(int currentItemCount)
     {
-        if (currentCount < 0)
+        if (currentItemCount < 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(currentCount), "Current count cannot be less than 0.");
+            throw new ArgumentOutOfRangeException(nameof(currentItemCount), "Current item count cannot be less than 0.");
         }
 
-        CurrentCount = currentCount;
+        CurrentItemCount = currentItemCount;
     }
 
 
 
-    public int CurrentCount { get; }
+    public int CurrentItemCount { get; }
 
 }

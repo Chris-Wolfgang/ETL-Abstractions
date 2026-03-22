@@ -145,8 +145,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
-    [ExcludeFromCodeCoverage]
-    [Fact(Skip = "Not working due to timing issues")]
+    [Fact]
     public async Task LoadWithProgressAsync_invokes_progress_callback()
     {
         var actualResults = new List<string>();
@@ -161,8 +160,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
-    [ExcludeFromCodeCoverage]
-    [Fact(Skip = "Not working due to timing issues")]
+    [Fact]
     public async Task LoadWithProgressAsync_progress_callback_receives_current_item_count()
     {
         var actualResults = new List<string>();
@@ -173,7 +171,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
         await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress);
 
         Assert.NotNull(lastReport);
-        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentItemCount);
     }
 
 
@@ -248,8 +246,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
-    [ExcludeFromCodeCoverage]
-    [Fact(Skip = "Not working due to timing issues")]
+    [Fact]
     public async Task LoadWithProgressAndCancellationAsync_invokes_progress_callback()
     {
         var actualResults = new List<string>();
@@ -264,8 +261,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
 
 
 
-    [ExcludeFromCodeCoverage]
-    [Fact(Skip = "Not working due to timing issues")]
+    [Fact]
     public async Task LoadWithProgressAndCancellationAsync_progress_callback_receives_current_item_count()
     {
         var actualResults = new List<string>();
@@ -276,7 +272,7 @@ public class LoaderBaseTests(ITestOutputHelper testOutputHelper)
         await sut.LoadAsync(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }.ToAsyncEnumerable(), progress, CancellationToken.None);
 
         Assert.NotNull(lastReport);
-        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentItemCount);
     }
 
 

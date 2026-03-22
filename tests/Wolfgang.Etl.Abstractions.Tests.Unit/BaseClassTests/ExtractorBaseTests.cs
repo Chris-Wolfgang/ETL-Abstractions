@@ -317,8 +317,7 @@ public class ExtractorBaseTests
     }
 
 
-    [ExcludeFromCodeCoverage]
-    [Fact(Skip = "Not working due to timing issues")]
+    [Fact]
     public async Task ExtractWithProgressAsync_invokes_progress_callback()
     {
         var sut = new FibonacciExtractorFromExtractorBase();
@@ -332,8 +331,7 @@ public class ExtractorBaseTests
 
 
 
-    [ExcludeFromCodeCoverage]
-    [Fact(Skip = "Not working due to timing issues")]
+    [Fact]
     public async Task ExtractWithProgressAsync_progress_callback_receives_current_item_count()
     {
         var sut = new FibonacciExtractorFromExtractorBase();
@@ -343,13 +341,12 @@ public class ExtractorBaseTests
         await sut.ExtractAsync(progress).ToListAsync();
 
         Assert.NotNull(lastReport);
-        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentItemCount);
     }
 
 
 
-    [ExcludeFromCodeCoverage]
-    [Fact(Skip = "Not working due to timing issues")]
+    [Fact]
     public async Task ExtractWithProgressAndCancellationAsync_invokes_progress_callback()
     {
         var sut = new FibonacciExtractorFromExtractorBase();
@@ -363,8 +360,7 @@ public class ExtractorBaseTests
 
 
 
-    [ExcludeFromCodeCoverage]
-    [Fact(Skip = "Not working due to timing issues")]
+    [Fact]
     public async Task ExtractWithProgressAndCancellationAsync_progress_callback_receives_current_item_count()
     {
         var sut = new FibonacciExtractorFromExtractorBase();
@@ -374,7 +370,7 @@ public class ExtractorBaseTests
         await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync();
 
         Assert.NotNull(lastReport);
-        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentCount);
+        Assert.Equal(sut.CurrentItemCount, lastReport.CurrentItemCount);
     }
 }
 
