@@ -1,6 +1,6 @@
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
-internal record EtlProgress
+public record EtlProgress
 {
     public EtlProgress(int currentItemCount)
     {
