@@ -39,7 +39,7 @@ public interface IExtractWithProgressAndCancellationAsync<out TSource, out TProg
     /// <param name="progress">A provider for progress updates.</param>
     /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt; The result may be an empty sequence if no data is available or if the extraction fails.
+    /// IAsyncEnumerable&lt;TSource&gt; - The result may be an empty sequence if no data is available or if the extraction fails.
     /// </returns> 
     /// <remarks>
     /// The extractor should be able to handle cancellation requests gracefully.

@@ -32,7 +32,7 @@ public interface ITransformWithProgressAndCancellationAsync<in TSource, out TDes
     /// <summary>
     /// Asynchronously transforms data of type TSource to TDestination.
     /// </summary>
-    /// <param name="items">Asynchronous list of TSource </param>
+    /// <param name="items">An asynchronous sequence of TSource items to be transformed.</param>
     /// <param name="progress">A provider for progress updates.</param>
     /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>

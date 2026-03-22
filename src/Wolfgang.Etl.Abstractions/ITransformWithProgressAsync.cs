@@ -29,7 +29,7 @@ public interface ITransformWithProgressAsync<in TSource, out TDestination, out T
     /// <summary>
     /// Asynchronously transforms data of type TSource to TDestination.
     /// </summary>
-    /// <param name="items">Asynchronous list of TSource </param>
+    /// <param name="items">An asynchronous sequence of TSource items to be transformed.</param>
     /// <param name="progress">A provider for progress updates.</param>
     /// <returns>
     /// IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.
