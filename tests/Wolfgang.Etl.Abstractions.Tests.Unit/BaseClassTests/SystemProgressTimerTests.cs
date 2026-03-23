@@ -35,25 +35,28 @@ public class SystemProgressTimerTests
             onTimerCreated: t => capturedTimer = t,
             intervalMs: 50);
 
-        var progress = new SynchronousProgress<EtlProgress>(_ => callbackCount++);
+        var progress = new SynchronousProgress<EtlProgress>(_ => Interlocked.Increment(ref callbackCount));
 
         // Start extraction on a background task so timer fires
         var task = sut.ExtractAsync(progress).ToListAsync().AsTask();
 
         // Wait for at least one callback to confirm timer is running
         await WaitUntil(() => callbackCount > 0, timeoutMs: 2000);
-        var countBeforeStop = callbackCount;
 
         capturedTimer!.StopTimer();
 
-        // Wait a couple of intervals and confirm no new callbacks fired
-        await Task.Delay(150);
+        // Allow any in-flight tick to land, then snapshot
+        await Task.Delay(50);
         var countAfterStop = callbackCount;
+
+        // Wait several more intervals — no new callbacks should fire
+        await Task.Delay(200);
+        var countAfterWait = callbackCount;
 
         await task;
 
-        Assert.True(countBeforeStop > 0, "Timer should have fired at least once before StopTimer");
-        Assert.Equal(countBeforeStop, countAfterStop);
+        Assert.True(countAfterStop > 0, "Timer should have fired at least once before StopTimer");
+        Assert.Equal(countAfterStop, countAfterWait);
     }
 
     /// <summary>
