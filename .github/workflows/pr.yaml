@@ -461,9 +461,9 @@ jobs:
           $failedProjects = @()
 
           foreach ($line in (Get-Content "CoverageReport/Summary.txt")) {
-            if ($line -match '^([^ ]+).*?(\d+)%$' -and $line -notmatch '^Summary') {
+            if ($line -match '^\s*(\S+)\s+(\d+(?:\.\d+)?)%\s*$' -and $line -notmatch '^\s*Summary') {
               $module  = $Matches[1]
-              $percent = [int]$Matches[2]
+              $percent = [int][math]::Floor([double]$Matches[2])
 
               Write-Host "Checking module: '$module' - Coverage: ${percent}%"
 
