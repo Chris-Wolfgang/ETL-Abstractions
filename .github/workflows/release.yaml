@@ -161,9 +161,10 @@ jobs:
                   --no-build `
                   --no-restore `
                   --collect:"XPlat Code Coverage" `
+                  --settings coverlet.runsettings `
                   --results-directory "./TestResults" `
                   --logger "console;verbosity=minimal"
-                
+
                 if ($LASTEXITCODE -ne 0) {
                   Write-Error "❌ Tests failed (no explicit TargetFramework) in $($testProj.Name)"
                   exit $LASTEXITCODE
@@ -182,6 +183,7 @@ jobs:
                   --no-build `
                   --no-restore `
                   --collect:"XPlat Code Coverage" `
+                  --settings coverlet.runsettings `
                   --results-directory "./TestResults" `
                   --logger "console;verbosity=minimal"
               } else {
