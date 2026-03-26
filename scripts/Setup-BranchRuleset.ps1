@@ -54,7 +54,7 @@
 [CmdletBinding()]
 param(
     [Parameter()]
-    [string]$Repository = "{{GITHUB_USERNAME}}/{{REPO_NAME}}",
+    [string]$Repository = "Chris-Wolfgang/ETL-Abstractions",
     
     [Parameter()]
     [string]$BranchName = "main"
@@ -83,7 +83,7 @@ try {
 }
 
 # Determine repository
-if ($Repository -eq "{{GITHUB_USERNAME}}/{{REPO_NAME}}" -or -not $Repository) {
+if ($Repository -eq "Chris-Wolfgang/ETL-Abstractions" -or -not $Repository) {
     # Placeholders not replaced or no repository specified - auto-detect
     Write-Host "🔍 Detecting current repository..." -ForegroundColor Cyan
     try {
@@ -91,7 +91,7 @@ if ($Repository -eq "{{GITHUB_USERNAME}}/{{REPO_NAME}}" -or -not $Repository) {
         $Repository = $repoInfo.nameWithOwner
         Write-Host "✅ Using repository: $Repository" -ForegroundColor Green
     } catch {
-        if ($Repository -eq "{{GITHUB_USERNAME}}/{{REPO_NAME}}") {
+        if ($Repository -eq "Chris-Wolfgang/ETL-Abstractions") {
             Write-Error "❌ Could not detect repository. Please run the setup script (pwsh ./scripts/setup.ps1) first to replace placeholders, or specify -Repository parameter."
         } else {
             Write-Error "❌ Could not detect repository. Please run from within a git repository or specify -Repository parameter."
@@ -108,28 +108,33 @@ Write-Host "📌 Protected branch: $BranchName`n" -ForegroundColor Cyan
 # Check if ruleset already exists
 Write-Host "🔍 Checking for existing rulesets..." -ForegroundColor Yellow
 try {
-    $matchingRulesets = gh api `
+    $rulesetOutput = gh api `
         -H "Accept: application/vnd.github+json" `
         -H "X-GitHub-Api-Version: 2022-11-28" `
         "/repos/$Repository/rulesets" `
         --paginate `
-        --jq '.[] | select(.name == "Protect main branch")' | ConvertFrom-Json
-    
-    $existingRuleset = $matchingRulesets | Select-Object -First 1
-    
-    if ($existingRuleset) {
-        Write-Host "✅ Ruleset 'Protect main branch' already exists!" -ForegroundColor Green
-        Write-Host "   View it at: https://github.com/$Repository/settings/rules" -ForegroundColor Cyan
-        $response = Read-Host "`nDo you want to continue anyway? This may fail. (y/N)"
-        if ($response -ne 'y' -and $response -ne 'Y') {
-            Write-Host "Exiting." -ForegroundColor Yellow
-            exit 0
+        --jq '.[] | select(.name == "Protect main branch")' 2>&1
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warning "⚠️  Could not check for existing rulesets (API returned exit code $LASTEXITCODE). Continuing..."
+    } elseif ($rulesetOutput) {
+        $matchingRulesets = $rulesetOutput | ConvertFrom-Json
+        $existingRuleset = $matchingRulesets | Select-Object -First 1
+
+        if ($existingRuleset) {
+            Write-Host "✅ Ruleset 'Protect main branch' already exists!" -ForegroundColor Green
+            Write-Host "   View it at: https://github.com/$Repository/settings/rules" -ForegroundColor Cyan
+            $response = Read-Host "`nDo you want to continue anyway? This may fail. (y/N)"
+            if ($response -ne 'y' -and $response -ne 'Y') {
+                Write-Host "Exiting." -ForegroundColor Yellow
+                exit 0
+            }
         }
     } else {
         Write-Host "ℹ️  Ruleset 'Protect main branch' does not exist yet." -ForegroundColor Gray
     }
 } catch {
-    Write-Warning "⚠️  Could not check for existing rulesets. Continuing..."
+    Write-Warning "⚠️  Could not check for existing rulesets: $($_.Exception.Message). Continuing..."
 }
 
 # Prompt for repository type
@@ -195,7 +200,7 @@ $rulesetConfig = @{
                     @{ context = "Stage 2: Windows Tests (.NET 5.0-10.0, Framework 4.6.2-4.8.1)" },
                     @{ context = "Stage 3: macOS Tests (.NET 6.0-10.0)" },
                     @{ context = "Security Scan (DevSkim)" },
-                    @{ context = "Security Scan (CodeQL)" }
+                    @{ context = "CodeQL Security Analysis / Security Scan (CodeQL) (csharp) (pull_request)" }
                 )
             }
         },
@@ -239,9 +244,6 @@ $rulesetConfig = @{
         },
         @{
             type = "deletion"
-        },
-        @{
-            type = "update"
         }
     )
 }
@@ -251,7 +253,7 @@ $jsonConfig = $rulesetConfig | ConvertTo-Json -Depth 10
 
 # Save to temporary file
 $tempFile = [System.IO.Path]::GetTempFileName()
-$jsonConfig | Out-File -FilePath $tempFile -Encoding UTF8
+$jsonConfig | Out-File -FilePath $tempFile -Encoding utf8NoBOM
 
 try {
     Write-Host "🚀 Creating branch ruleset..." -ForegroundColor Cyan
@@ -279,7 +281,7 @@ try {
         Write-Host "      - Stage 2: Windows Tests (.NET 5.0-10.0, Framework 4.6.2-4.8.1)" -ForegroundColor DarkGray
         Write-Host "      - Stage 3: macOS Tests (.NET 6.0-10.0)" -ForegroundColor DarkGray
         Write-Host "      - Security Scan (DevSkim)" -ForegroundColor DarkGray
-        Write-Host "      - Security Scan (CodeQL)" -ForegroundColor DarkGray
+        Write-Host "      - CodeQL Security Analysis / Security Scan (CodeQL) (csharp) (pull_request)" -ForegroundColor DarkGray
         Write-Host "   ✅ Branches must be up to date before merging" -ForegroundColor Gray
         Write-Host "   ✅ Conversation resolution required before merging" -ForegroundColor Gray
         Write-Host "   ✅ Stale reviews dismissed when new commits are pushed" -ForegroundColor Gray
