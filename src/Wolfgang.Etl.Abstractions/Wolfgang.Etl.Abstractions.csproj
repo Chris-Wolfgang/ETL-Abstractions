@@ -41,12 +41,6 @@
     </None>
   </ItemGroup>
 
-  <!-- No test project targets netstandard TFMs; exclude them from coverage so they don't
-       drag the aggregate below the gate. ExcludeFromCodeCoverage is the MSBuild property
-       read by dotCover (JetBrains), and the coverlet.runsettings ExcludeByFile handles CI. -->
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
-    <ExcludeFromCodeCoverage>true</ExcludeFromCodeCoverage>
-  </PropertyGroup>
 
   <!--
     Microsoft.Bcl.AsyncInterfaces: the runtime assembly is built into net8+, so pre-net8 TFMs
