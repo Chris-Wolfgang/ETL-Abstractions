@@ -32,16 +32,4 @@ public record Report
     /// The number of items that have been processed so far in the ETL process.
     /// </summary>
     public int CurrentItemCount { get; }
-
-
-
-    /// <summary>
-    /// The number of items that have been processed so far in the ETL process.
-    /// </summary>
-    /// <remarks>
-    /// This property is obsolete. Use <see cref="CurrentItemCount"/> instead.
-    /// </remarks>
-    [Obsolete("Use CurrentItemCount instead. CurrentCount will be removed in a future version.")]
-    public int CurrentCount => CurrentItemCount;
-
 }
