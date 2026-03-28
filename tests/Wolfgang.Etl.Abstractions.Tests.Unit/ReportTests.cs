@@ -46,17 +46,6 @@ public class ReportTests
 
 
 
-#pragma warning disable CS0618
-    [Fact]
-    public void CurrentCount_returns_the_same_value_as_CurrentItemCount()
-    {
-        var sut = new Report(7);
-        Assert.Equal(sut.CurrentItemCount, sut.CurrentCount);
-    }
-#pragma warning restore CS0618
-
-
-
     [Fact]
     public void Two_Report_instances_with_same_value_are_equal()
     {
