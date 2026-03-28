@@ -844,19 +844,6 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.Report.New
   nameWithType: Report.Report
   nameWithType.vb: Report.New
-- uid: Wolfgang.Etl.Abstractions.Report.CurrentCount
-  name: CurrentCount
-  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_CurrentCount
-  commentId: P:Wolfgang.Etl.Abstractions.Report.CurrentCount
-  fullName: Wolfgang.Etl.Abstractions.Report.CurrentCount
-  nameWithType: Report.CurrentCount
-- uid: Wolfgang.Etl.Abstractions.Report.CurrentCount*
-  name: CurrentCount
-  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_CurrentCount_
-  commentId: Overload:Wolfgang.Etl.Abstractions.Report.CurrentCount
-  isSpec: "True"
-  fullName: Wolfgang.Etl.Abstractions.Report.CurrentCount
-  nameWithType: Report.CurrentCount
 - uid: Wolfgang.Etl.Abstractions.Report.CurrentItemCount
   name: CurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_CurrentItemCount
