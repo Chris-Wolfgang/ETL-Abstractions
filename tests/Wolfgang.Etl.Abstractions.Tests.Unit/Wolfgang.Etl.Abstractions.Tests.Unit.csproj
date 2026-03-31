@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.5" />
-    <PackageReference Include="Wolfgang.Etl.TestKit" Version="0.5.0" />
+    <PackageReference Include="Wolfgang.Etl.TestKit" Version="0.6.0" />
     <PackageReference Include="Wolfgang.Etl.TestKit.Xunit" Version="0.5.0" />
   </ItemGroup>
 
