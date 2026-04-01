@@ -15,13 +15,13 @@ The `dotnet format` command is **built into the .NET SDK** starting with .NET 6 
 Run the formatting script with PowerShell Core (`pwsh`) on any supported platform:
 
 ```powershell
-.\scripts\format.ps1
+pwsh ./scripts/format.ps1
 ```
 
 Or check without making changes:
 
 ```powershell
-.\scripts\format.ps1 -Check
+pwsh ./scripts/format.ps1 -Check
 ```
 
 ### Manual Formatting
@@ -46,7 +46,7 @@ All pull requests are automatically checked for proper formatting. PRs with form
 
 ### If CI Fails
 
-1. Run `.\scripts\format.ps1` locally
+1. Run `pwsh ./scripts/format.ps1` locally
 2. Review the changes
 3. Commit and push the formatted code
 
@@ -63,6 +63,6 @@ Most IDEs automatically read `.editorconfig`:
 Key style rules:
 - **Indentation**: 4 spaces for C# (with `switch` case contents not additionally indented when inside a block, per `.editorconfig`), 2 for XML/JSON
 - **Braces**: Opening brace on new line
-- **Line endings**: LF (Unix style)
+- **Line endings**: LF (Unix style) for most files; PowerShell scripts (`*.ps1`) use CRLF as configured in `.editorconfig`
 - **Trailing whitespace**: Removed
 - **Using directives**: System namespaces first, sorted alphabetically
