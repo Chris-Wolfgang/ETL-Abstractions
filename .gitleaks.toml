@@ -9,6 +9,6 @@ title = "gitleaks config"
 [allowlist]
   description = "Global allowlist"
   paths = [
-    '(^|/)tests?/.*fixtures?/',
-    '(^|/)tests?/.*testdata/',
+    '''(^|/)tests?/.*fixtures?/''',
+    '''(^|/)tests?/.*testdata/''',
   ]
