@@ -46,7 +46,9 @@ Ensure the following settings are enabled:
     - "Stage 2: Windows Tests (.NET 5.0-10.0, Framework 4.6.2-4.8.1)"
     - "Stage 3: macOS Tests (.NET 6.0-10.0)"
     - "Security Scan (DevSkim)"
-    - "Security Scan (CodeQL)"
+- ✅ **CodeQL code scanning enforcement** (via `code_scanning` ruleset type, not status checks)
+  - Blocks merging on High+ severity findings
+  - Automatically skips when no supported languages are detected
 - ✅ **Require branches to be up to date before merging**
 - ✅ **Require conversation resolution before merging**
 - ✅ **Do not allow bypassing the above settings** (recommended, even for admins)
