@@ -64,10 +64,10 @@ representative at an online or offline event.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the community leaders responsible for enforcement by contacting the
-repository owner through their GitHub profile at
-[github.com/Chris-Wolfgang](https://github.com/Chris-Wolfgang) and clearly
-labeling the message as a Code of Conduct report.
+reported to the community leaders responsible for enforcement by
+[privately reporting through the repository's Security tab](../../security/advisories/new).
+Although this tab is labeled for security vulnerabilities, it provides
+a private channel suitable for sensitive reports including Code of Conduct violations.
 All complaints will be reviewed and investigated promptly and fairly.
 
 All community leaders are obligated to respect the privacy and security of the
