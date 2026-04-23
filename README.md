@@ -63,11 +63,47 @@ await foreach (var item in extractor.ExtractAsync())
 
 ---
 
+## 🔗 Fluent Pipeline API
+
+Compose an extractor, zero or more transformers, and a loader into a single executable
+pipeline with a fluent, strongly-typed chain. The compiler enforces that each stage's
+output type matches the next stage's input — mismatches surface as build errors, not
+runtime exceptions.
+
+```csharp
+await Pipeline
+    .Extract(csvExtractor).WithProgress(extractProgress)
+    .Transform(parseRecord)
+    .Transform(enrichFromApi).WithProgress(enrichProgress)
+    .Load(sqlLoader).WithProgress(loadProgress)
+    .WithName("nightly-import")
+    .RunAsync(cancellationToken);
+```
+
+**Key properties:**
+
+- **Compile-time type safety** — each `.Transform(...)` is constrained to accept the
+  previous stage's output type; `.Load(...)` must match the final stage.
+- **Opt-in progress** — `.WithProgress(...)` is only available on stages whose underlying
+  extractor/transformer/loader implements the progress-capable interface. Calling it on
+  a stage that doesn't support progress is a compile error.
+- **One-shot execution** — calling `RunAsync` a second time on the same pipeline throws
+  `InvalidOperationException`. Construct a new pipeline per run.
+- **Raw exception propagation** — stage exceptions bubble up unchanged; stage instances
+  retain their `CurrentItemCount` and other state for post-mortem inspection.
+- **Caller-owned lifetimes** — the pipeline never disposes the stages you hand it.
+
+The pipeline is syntactic sugar over the existing `IAsyncEnumerable` composition — there
+is no new runtime behavior, no buffering, and no additional allocations per item.
+
+---
+
 ## ✨ Features
 
 | Feature | Description |
 |---------|-------------|
 | Async Streaming | Built on `IAsyncEnumerable<T>` for efficient, non-blocking data pipelines |
+| Fluent Pipeline | `Pipeline.Extract(...).Transform(...).Load(...).RunAsync()` with compile-time stage typing |
 | Progress Reporting | Built-in `IProgress<T>` support with configurable reporting intervals |
 | Cancellation | Full `CancellationToken` support across all operations |
 | Multi-TFM | Targets .NET Framework 4.6.2+, .NET Standard 2.0+, and .NET 5.0–10.0 |
