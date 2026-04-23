@@ -7,7 +7,9 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Internal <see cref="IExtractStageWithProgress{TSource, TProgress}"/> implementation. Holds
-/// the progress-capable extractor and an optional bound <see cref="IProgress{TProgress}"/>.
+/// the progress-capable extractor and an optional captured <see cref="IProgress{TProgress}"/>
+/// sink. The sink, when present, is forwarded to the extractor's <c>ExtractAsync</c> overload
+/// at run time.
 /// </summary>
 internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractStageWithProgress<TSource, TProgress>
     where TSource : notnull

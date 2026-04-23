@@ -7,8 +7,9 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Internal <see cref="IExtractStage{TSource}"/> implementation whose source stream is a
-/// pre-captured delegate. Used when the extractor does not report progress or when progress
-/// has already been bound.
+/// pre-captured delegate. Used when the extractor does not report progress, or after
+/// <see cref="IExtractStageWithProgress{TSource, TProgress}.WithProgress"/> has captured a
+/// progress sink to forward to the extractor's <c>ExtractAsync</c> call.
 /// </summary>
 internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
     where TSource : notnull

@@ -7,8 +7,9 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Internal <see cref="ITransformStage{TSource}"/> implementation whose source stream is a
-/// pre-captured delegate. Used after a no-progress transformer, or after a progress-capable
-/// transformer whose progress has already been bound.
+/// pre-captured delegate. Used after a no-progress transformer, or after
+/// <see cref="ITransformStageWithProgress{TSource, TProgress}.WithProgress"/> has captured a
+/// progress sink to forward to the transformer's <c>TransformAsync</c> call.
 /// </summary>
 internal sealed class TransformStage<TSource> : ITransformStage<TSource>
     where TSource : notnull

@@ -8,7 +8,9 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Internal <see cref="IPipelineWithLoadProgress{TProgress}"/> implementation. Holds the upstream
-/// source, the progress-capable loader, and an optional bound <see cref="IProgress{TProgress}"/>.
+/// source, the progress-capable loader, and an optional captured
+/// <see cref="IProgress{TProgress}"/> sink. The sink, when present, is forwarded to the
+/// loader's <c>LoadAsync</c> overload at run time.
 /// </summary>
 internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWithLoadProgress<TProgress>
     where TItem : notnull

@@ -7,8 +7,9 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Internal <see cref="ITransformStageWithProgress{TDestination, TProgress}"/> implementation.
-/// Holds the upstream source, the progress-capable transformer, and an optional bound
-/// <see cref="IProgress{TProgress}"/>.
+/// Holds the upstream source, the progress-capable transformer, and an optional captured
+/// <see cref="IProgress{TProgress}"/> sink. The sink, when present, is forwarded to the
+/// transformer's <c>TransformAsync</c> overload at run time.
 /// </summary>
 internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgress>
     : ITransformStageWithProgress<TDestination, TProgress>

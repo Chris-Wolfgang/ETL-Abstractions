@@ -45,7 +45,7 @@ public static class Pipeline
     /// <summary>
     /// Begins a pipeline from a progress-reporting extractor. The returned stage exposes
     /// <see cref="IExtractStageWithProgress{TSource, TProgress}.WithProgress"/> so a progress sink
-    /// can be bound before appending further stages.
+    /// can be supplied before appending further stages.
     /// </summary>
     /// <typeparam name="TSource">The type of item produced by the extractor.</typeparam>
     /// <typeparam name="TProgress">The type of progress report emitted by the extractor.</typeparam>
