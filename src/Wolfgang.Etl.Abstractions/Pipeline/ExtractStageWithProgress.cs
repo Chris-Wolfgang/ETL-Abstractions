@@ -31,6 +31,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+    /// <inheritdoc/>
     public IExtractStage<TSource> WithProgress(IProgress<TProgress> progress)
     {
         if (progress is null)
@@ -43,6 +44,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+    /// <inheritdoc/>
     public ITransformStage<TDestination> Transform<TDestination>
     (
         ITransformWithCancellationAsync<TSource, TDestination> transformer
@@ -53,6 +55,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+    /// <inheritdoc/>
     public ITransformStageWithProgress<TDestination, TProgressOther> Transform<TDestination, TProgressOther>
     (
         ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgressOther> transformer
@@ -64,12 +67,14 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+    /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TSource> loader)
     {
         return new ExtractStage<TSource>(Source).Load(loader);
     }
 
 
+    /// <inheritdoc/>
     public IPipelineWithLoadProgress<TProgressOther> Load<TProgressOther>
     (
         ILoadWithProgressAndCancellationAsync<TSource, TProgressOther> loader

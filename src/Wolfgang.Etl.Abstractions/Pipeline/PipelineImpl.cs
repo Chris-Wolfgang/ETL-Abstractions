@@ -21,9 +21,11 @@ internal sealed class PipelineImpl : IPipeline
     }
 
 
+    /// <inheritdoc/>
     public string? Name { get; private set; }
 
 
+    /// <inheritdoc/>
     public IPipeline WithName(string name)
     {
         if (name is null)
@@ -36,12 +38,14 @@ internal sealed class PipelineImpl : IPipeline
     }
 
 
+    /// <inheritdoc/>
     public Task RunAsync()
     {
         return RunAsync(CancellationToken.None);
     }
 
 
+    /// <inheritdoc/>
     public Task RunAsync(CancellationToken token)
     {
         if (Interlocked.Exchange(ref _runCount, 1) != 0)

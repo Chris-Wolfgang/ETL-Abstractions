@@ -40,6 +40,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+    /// <inheritdoc/>
     public ITransformStage<TDestination> WithProgress(IProgress<TProgress> progress)
     {
         if (progress is null)
@@ -52,6 +53,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+    /// <inheritdoc/>
     public ITransformStage<TOut> Transform<TOut>
     (
         ITransformWithCancellationAsync<TDestination, TOut> transformer
@@ -62,6 +64,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+    /// <inheritdoc/>
     public ITransformStageWithProgress<TOut, TProgressOther> Transform<TOut, TProgressOther>
     (
         ITransformWithProgressAndCancellationAsync<TDestination, TOut, TProgressOther> transformer
@@ -73,12 +76,14 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+    /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TDestination> loader)
     {
         return new TransformStage<TDestination>(Source).Load(loader);
     }
 
 
+    /// <inheritdoc/>
     public IPipelineWithLoadProgress<TProgressOther> Load<TProgressOther>
     (
         ILoadWithProgressAndCancellationAsync<TDestination, TProgressOther> loader
