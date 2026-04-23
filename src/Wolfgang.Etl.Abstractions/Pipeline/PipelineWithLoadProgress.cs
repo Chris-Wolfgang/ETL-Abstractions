@@ -31,9 +31,11 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     }
 
 
+    /// <inheritdoc/>
     public string? Name { get; private set; }
 
 
+    /// <inheritdoc/>
     public IPipeline WithName(string name)
     {
         if (name is null)
@@ -46,6 +48,7 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     }
 
 
+    /// <inheritdoc/>
     public IPipeline WithProgress(IProgress<TProgress> progress)
     {
         if (progress is null)
@@ -58,12 +61,14 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     }
 
 
+    /// <inheritdoc/>
     public Task RunAsync()
     {
         return RunAsync(CancellationToken.None);
     }
 
 
+    /// <inheritdoc/>
     public Task RunAsync(CancellationToken token)
     {
         if (Interlocked.Exchange(ref _runCount, 1) != 0)
