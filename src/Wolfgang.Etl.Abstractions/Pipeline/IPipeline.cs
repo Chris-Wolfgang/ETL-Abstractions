@@ -10,12 +10,38 @@ namespace Wolfgang.Etl.Abstractions;
 /// <see cref="ITransformStage{TSource}"/> <c>Load</c> overload.
 /// </summary>
 /// <remarks>
+/// <para>
 /// A pipeline is one-shot: calling <see cref="RunAsync()"/> or
 /// <see cref="RunAsync(CancellationToken)"/> a second time on the same instance throws
 /// <see cref="InvalidOperationException"/>. Construct a new pipeline for each run.
-/// Exceptions thrown by any stage propagate unchanged to the caller of <c>RunAsync</c>;
-/// stage instances retain their progress state (e.g. <c>CurrentItemCount</c>) and can be
-/// inspected after a failure.
+/// </para>
+/// <para>
+/// <b>Exception handling.</b> The pipeline does not catch, wrap, or aggregate exceptions.
+/// Any exception thrown by an extractor, transformer, or loader — including
+/// <see cref="OperationCanceledException"/> from cancellation — propagates unchanged to the
+/// caller of <c>RunAsync</c>. Wrap the call in <c>try</c>/<c>catch</c> to handle failures at
+/// the call site:
+/// </para>
+/// <code>
+/// try
+/// {
+///     await Pipeline.Extract(e).Transform(t).Load(l).RunAsync(token);
+/// }
+/// catch (OperationCanceledException)
+/// {
+///     // cancellation
+/// }
+/// catch (Exception ex)
+/// {
+///     logger.LogError(ex, "Pipeline failed");
+///     throw;
+/// }
+/// </code>
+/// <para>
+/// After an exception, the stage instances the caller constructed remain valid and inspectable.
+/// <c>CurrentItemCount</c>, <c>CurrentSkippedItemCount</c>, and similar properties reflect
+/// progress up to the point of failure and can be read for diagnostics.
+/// </para>
 /// </remarks>
 public interface IPipeline
 {
