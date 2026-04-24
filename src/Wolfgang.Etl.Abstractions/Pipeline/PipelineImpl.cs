@@ -48,14 +48,23 @@ internal sealed class PipelineImpl : IPipeline
     /// <inheritdoc/>
     public Task RunAsync(CancellationToken token)
     {
-        if (Interlocked.Exchange(ref _runCount, 1) != 0)
+        try
         {
-            throw new InvalidOperationException
-            (
-                "Pipeline has already been run. Construct a new pipeline for each run."
-            );
-        }
+            if (Interlocked.Exchange(ref _runCount, 1) != 0)
+            {
+                throw new InvalidOperationException
+                (
+                    "Pipeline has already been run. Construct a new pipeline for each run."
+                );
+            }
 
-        return _run(token);
+            return _run(token);
+        }
+#pragma warning disable CA1031 // Do not catch general exception types — intentional: we forward every failure through the Task contract.
+        catch (Exception ex)
+#pragma warning restore CA1031
+        {
+            return Task.FromException(ex);
+        }
     }
 }

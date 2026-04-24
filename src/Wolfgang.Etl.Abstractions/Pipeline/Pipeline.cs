@@ -18,6 +18,17 @@ namespace Wolfgang.Etl.Abstractions;
 ///     .RunAsync(token);
 /// </code>
 /// </example>
+/// <remarks>
+/// <b>Overload resolution and capability interfaces.</b> The <c>Extract</c>, <c>Transform</c>, and
+/// <c>Load</c> methods are overloaded by interface capability — no-progress/no-cancellation, with
+/// cancellation, with progress, or both. C# overload resolution uses the <i>static</i> type at the
+/// call site. A class that implements
+/// <see cref="IExtractWithProgressAndCancellationAsync{TSource, TProgress}"/> but is passed via a
+/// variable declared as <see cref="IExtractAsync{TSource}"/> will silently bind to the bare
+/// overload, and the pipeline will neither forward a cancellation token nor accept a progress
+/// sink. Pass stages using their most-derived interface (or concrete class) to get the intended
+/// behavior.
+/// </remarks>
 public static class Pipeline
 {
     /// <summary>
