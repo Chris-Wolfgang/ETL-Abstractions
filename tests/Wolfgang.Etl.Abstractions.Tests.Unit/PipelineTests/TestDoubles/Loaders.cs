@@ -38,7 +38,8 @@ internal sealed class CancelOnlyLoader<T> : ILoadWithCancellationAsync<T>
     public bool TokenOverloadWasCalled { get; private set; }
 
 
-    public Task LoadAsync(IAsyncEnumerable<T> items) => throw new InvalidOperationException();
+    public Task LoadAsync(IAsyncEnumerable<T> items)
+        => throw new WrongOverloadCalledException("CancelOnlyLoader<T>.LoadAsync(items)");
 
 
     public async Task LoadAsync(IAsyncEnumerable<T> items, CancellationToken token)

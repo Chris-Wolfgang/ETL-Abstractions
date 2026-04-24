@@ -67,6 +67,8 @@ public class CancelOnlyTests
                 .Load(loader)
                 .RunAsync(cts.Token)
         );
+
+        Assert.Empty(loader.Loaded);
     }
 
 

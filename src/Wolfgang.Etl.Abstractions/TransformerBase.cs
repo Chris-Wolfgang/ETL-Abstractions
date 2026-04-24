@@ -57,14 +57,14 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
     /// as each item is transformed. The base class has no way of knowing when an item has been processed.
     /// </remarks>
-    public int CurrentItemCount => _currentItemCount;
+    public int CurrentItemCount => Volatile.Read(ref _currentItemCount);
 
 
 
     /// <summary>
     /// The current number of items skipped so far during transformation.
     /// </summary>
-    public int CurrentSkippedItemCount => _currentSkippedItemCount;
+    public int CurrentSkippedItemCount => Volatile.Read(ref _currentSkippedItemCount);
 
 
 

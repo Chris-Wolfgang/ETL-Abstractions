@@ -56,7 +56,7 @@ internal sealed class CancelOnlyTransformer<TSource, TDestination>
 
 
     public IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items)
-        => throw new InvalidOperationException();
+        => throw new WrongOverloadCalledException("CancelOnlyTransformer<TSource, TDestination>.TransformAsync(items)");
 
 
     public async IAsyncEnumerable<TDestination> TransformAsync
