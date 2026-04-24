@@ -89,6 +89,7 @@ internal sealed class ProgressOnlyExtractor<T, TProgress> : IExtractWithProgress
     private readonly TProgress _reportValue;
     public IProgress<TProgress>? LastReceivedProgress { get; private set; }
     public bool ProgressOverloadWasCalled { get; private set; }
+    public bool ParameterlessOverloadWasCalled { get; private set; }
 
 
     public ProgressOnlyExtractor(IReadOnlyList<T> items, TProgress reportValue)
@@ -100,6 +101,7 @@ internal sealed class ProgressOnlyExtractor<T, TProgress> : IExtractWithProgress
 
     public async IAsyncEnumerable<T> ExtractAsync()
     {
+        ParameterlessOverloadWasCalled = true;
         foreach (var item in _items)
         {
             yield return item;

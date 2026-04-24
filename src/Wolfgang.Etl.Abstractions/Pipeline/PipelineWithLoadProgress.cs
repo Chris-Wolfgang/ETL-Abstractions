@@ -61,6 +61,14 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
             throw new ArgumentNullException(nameof(progress));
         }
 
+        if (_progress is not null)
+        {
+            throw new InvalidOperationException
+            (
+                "WithProgress has already been called on this pipeline. Progress can only be set once."
+            );
+        }
+
         _progress = progress;
         return this;
     }
@@ -76,16 +84,25 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     /// <inheritdoc/>
     public Task RunAsync(CancellationToken token)
     {
-        if (Interlocked.Exchange(ref _runCount, 1) != 0)
+        try
         {
-            throw new InvalidOperationException
-            (
-                "Pipeline has already been run. Construct a new pipeline for each run."
-            );
-        }
+            if (Interlocked.Exchange(ref _runCount, 1) != 0)
+            {
+                throw new InvalidOperationException
+                (
+                    "Pipeline has already been run. Construct a new pipeline for each run."
+                );
+            }
 
-        return _progress is null
-            ? _noProgressLoad(_upstream(token), token)
-            : _withProgressLoad(_upstream(token), _progress, token);
+            return _progress is null
+                ? _noProgressLoad(_upstream(token), token)
+                : _withProgressLoad(_upstream(token), _progress, token);
+        }
+#pragma warning disable CA1031 // Do not catch general exception types — intentional: we forward every failure through the Task contract.
+        catch (Exception ex)
+#pragma warning restore CA1031
+        {
+            return Task.FromException(ex);
+        }
     }
 }

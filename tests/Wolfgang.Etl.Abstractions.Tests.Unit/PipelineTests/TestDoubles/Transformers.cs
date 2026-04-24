@@ -89,6 +89,7 @@ internal sealed class ProgressOnlyTransformer<TSource, TDestination, TProgress>
     private readonly TProgress _reportValue;
     public IProgress<TProgress>? LastReceivedProgress { get; private set; }
     public bool ProgressOverloadWasCalled { get; private set; }
+    public bool ParameterlessOverloadWasCalled { get; private set; }
 
 
     public ProgressOnlyTransformer(Func<TSource, TDestination> map, TProgress reportValue)
@@ -100,6 +101,7 @@ internal sealed class ProgressOnlyTransformer<TSource, TDestination, TProgress>
 
     public async IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items)
     {
+        ParameterlessOverloadWasCalled = true;
         await foreach (var item in items.ConfigureAwait(false))
         {
             yield return _map(item);
