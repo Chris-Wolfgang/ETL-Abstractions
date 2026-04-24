@@ -9,7 +9,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// forwarded to the loader's <c>LoadAsync</c> overload when the pipeline runs.
 /// </summary>
 /// <typeparam name="TProgress">The type of progress report emitted by the loader.</typeparam>
-public interface IPipelineWithLoadProgress<TProgress> : IPipeline
+public interface IPipelineWithLoadProgress<out TProgress> : IPipeline
     where TProgress : notnull
 {
     /// <summary>

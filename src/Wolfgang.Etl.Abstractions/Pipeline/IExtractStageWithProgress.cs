@@ -11,7 +11,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// </summary>
 /// <typeparam name="TSource">The type of item produced by the extractor.</typeparam>
 /// <typeparam name="TProgress">The type of progress report emitted by the extractor.</typeparam>
-public interface IExtractStageWithProgress<TSource, TProgress> : IExtractStage<TSource>
+public interface IExtractStageWithProgress<TSource, out TProgress> : IExtractStage<TSource>
     where TSource : notnull
     where TProgress : notnull
 {
