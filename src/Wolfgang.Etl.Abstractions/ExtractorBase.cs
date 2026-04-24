@@ -164,13 +164,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously extracts data of type TSource from a source.
-    /// </summary>
-    /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt;
-    /// The result may be an empty sequence if no data is available or if the extraction fails.
-    /// </returns>
+    /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync()
     {
         return ExtractWorkerAsync(CancellationToken.None);
@@ -178,18 +172,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously extracts data of type TSource from a source.
-    /// </summary>
-    /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt;
-    /// The result may be an empty sequence if no data is available or if the extraction fails.
-    /// </returns>
-    /// <remarks>
-    /// The extractor should be able to handle cancellation requests gracefully.
-    /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
-    /// </remarks>
+    /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token)
     {
         return ExtractWorkerAsync(token);
@@ -197,15 +180,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously extracts data of type TSource from a source.
-    /// </summary>
-    /// <param name="progress">A provider for progress updates.</param>
-    /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt;
-    /// The result may be an empty sequence if no data is available or if the extraction fails.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">The value of progress is null</exception>
+    /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress)
     {
 #if NET6_0_OR_GREATER
@@ -224,20 +199,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously extracts data of type TSource from a source.
-    /// </summary>
-    /// <param name="progress">A provider for progress updates.</param>
-    /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <returns>
-    /// IAsyncEnumerable&lt;TSource&gt;
-    /// The result may be an empty sequence if no data is available or if the extraction fails.
-    /// </returns>
-    /// <remarks>
-    /// The extractor should be able to handle cancellation requests gracefully.
-    /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
-    /// </remarks>
-    /// <exception cref="ArgumentNullException">The value of progress is null</exception>
+    /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress, CancellationToken token)
     {
 #if NET6_0_OR_GREATER

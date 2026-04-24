@@ -140,15 +140,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously transforms data of type TSource to TDestination
-    /// </summary>
-    /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>
-    /// <returns>
-    /// IAsyncEnumerable&lt;TDestination&gt;
-    /// The result may be an empty sequence if no data is available or if the transformation fails.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">The value of items is null</exception>
+    /// <inheritdoc/>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items)
     {
 #if NET6_0_OR_GREATER
@@ -166,19 +158,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously transforms data of type TSource to TDestination
-    /// </summary>
-    /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>
-    /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <returns>
-    /// IAsyncEnumerable&lt;TDestination&gt; - A list of 0 or more transformed items
-    /// </returns>
-    /// <remarks>
-    /// The transformer should be able to handle cancellation requests gracefully.
-    /// If the caller doesn't plan on cancelling the transformation, they can pass CancellationToken.None.
-    /// </remarks>
-    /// <exception cref="ArgumentNullException">The value of items is null</exception>
+    /// <inheritdoc/>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, CancellationToken token)
     {
 #if NET6_0_OR_GREATER
@@ -196,16 +176,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously transforms data of type TSource to TDestination
-    /// </summary>
-    /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>
-    /// <param name="progress">A provider for progress updates.</param>
-    /// <returns>
-    /// IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">The value of items is null</exception>
-    /// <exception cref="ArgumentNullException">The value of progress is null</exception>
+    /// <inheritdoc/>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress)
     {
 #if NET6_0_OR_GREATER
@@ -229,21 +200,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously transforms data of type TSource to TDestination
-    /// </summary>
-    /// <param name="items">IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</param>
-    /// <param name="progress">A provider for progress updates.</param>
-    /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <returns>
-    /// IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.
-    /// </returns>
-    /// <remarks>
-    /// The transformer should be able to handle cancellation requests gracefully.
-    /// If the caller doesn't plan on cancelling the transformation, they can pass CancellationToken.None.
-    /// </remarks>
-    /// <exception cref="ArgumentNullException">The value of items is null</exception>
-    /// <exception cref="ArgumentNullException">The value of progress is null</exception>
+    /// <inheritdoc/>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress, CancellationToken token)
     {
 #if NET6_0_OR_GREATER

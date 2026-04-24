@@ -137,15 +137,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously loads data of type TDestination into the target destination.
-    /// </summary>
-    /// <param name="items">The items to be loaded to the destination.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    /// <remarks>
-    /// Items may be an empty sequence if no data is available or if the loading fails.
-    /// </remarks>
-    /// <exception cref="ArgumentNullException">Argument items is null</exception>
+    /// <inheritdoc/>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items)
     {
 #if NET6_0_OR_GREATER
@@ -163,16 +155,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously loads data of type TDestination into the target destination.
-    /// </summary>
-    /// <param name="items">The items to be loaded to the destination.</param>
-    /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    /// <remarks>
-    /// Items may be an empty sequence if no data is available or if the loading fails.
-    /// </remarks>
-    /// <exception cref="ArgumentNullException">Argument items is null</exception>
+    /// <inheritdoc/>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, CancellationToken token)
     {
 #if NET6_0_OR_GREATER
@@ -190,17 +173,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously loads data of type TDestination into the target destination.
-    /// </summary>
-    /// <param name="items">The items to be loaded to the destination.</param>
-    /// <param name="progress">A provider for progress updates.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    /// <remarks>
-    /// Items may be an empty sequence if no data is available or if the loading fails.
-    /// </remarks>
-    /// <exception cref="ArgumentNullException">Argument items is null</exception>
-    /// <exception cref="ArgumentNullException">Argument progress is null</exception>
+    /// <inheritdoc/>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress)
     {
 #if NET6_0_OR_GREATER
@@ -224,18 +197,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
-    /// <summary>
-    /// Asynchronously loads data of type TDestination into the target destination.
-    /// </summary>
-    /// <param name="items">The items to be loaded to the destination.</param>
-    /// <param name="progress">A provider for progress updates.</param>
-    /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    /// <remarks>
-    /// Items may be an empty sequence if no data is available or if the loading fails.
-    /// </remarks>
-    /// <exception cref="ArgumentNullException">Argument items is null</exception>
-    /// <exception cref="ArgumentNullException">Argument progress is null</exception>
+    /// <inheritdoc/>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress, CancellationToken token)
     {
 #if NET6_0_OR_GREATER
