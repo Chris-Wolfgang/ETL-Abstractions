@@ -8,16 +8,17 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Internal <see cref="IPipelineWithLoadProgress{TProgress}"/> implementation. Holds the upstream
-/// source, the progress-capable loader, and an optional captured
-/// <see cref="IProgress{TProgress}"/> sink. The sink, when present, is forwarded to the
-/// loader's <c>LoadAsync</c> overload at run time.
+/// source, two loader entry points (with and without progress) as delegates, and an optional
+/// captured <see cref="IProgress{TProgress}"/> sink. Which delegate actually runs is decided by
+/// whether <see cref="WithProgress"/> has been called.
 /// </summary>
 internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWithLoadProgress<TProgress>
     where TItem : notnull
     where TProgress : notnull
 {
     private readonly Func<CancellationToken, IAsyncEnumerable<TItem>> _upstream;
-    private readonly ILoadWithProgressAndCancellationAsync<TItem, TProgress> _loader;
+    private readonly Func<IAsyncEnumerable<TItem>, CancellationToken, Task> _noProgressLoad;
+    private readonly Func<IAsyncEnumerable<TItem>, IProgress<TProgress>, CancellationToken, Task> _withProgressLoad;
     private IProgress<TProgress>? _progress;
     private int _runCount;
 
@@ -25,11 +26,13 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     internal PipelineWithLoadProgress
     (
         Func<CancellationToken, IAsyncEnumerable<TItem>> upstream,
-        ILoadWithProgressAndCancellationAsync<TItem, TProgress> loader
+        Func<IAsyncEnumerable<TItem>, CancellationToken, Task> noProgressLoad,
+        Func<IAsyncEnumerable<TItem>, IProgress<TProgress>, CancellationToken, Task> withProgressLoad
     )
     {
         _upstream = upstream;
-        _loader = loader;
+        _noProgressLoad = noProgressLoad;
+        _withProgressLoad = withProgressLoad;
     }
 
 
@@ -82,7 +85,7 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
         }
 
         return _progress is null
-            ? _loader.LoadAsync(_upstream(token), token)
-            : _loader.LoadAsync(_upstream(token), _progress, token);
+            ? _noProgressLoad(_upstream(token), token)
+            : _withProgressLoad(_upstream(token), _progress, token);
     }
 }

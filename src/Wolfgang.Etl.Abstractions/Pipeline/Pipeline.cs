@@ -4,9 +4,9 @@ using System;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Entry point for building a fluent ETL pipeline. Start with <see cref="Extract{TSource}"/>,
-/// chain zero or more <c>Transform</c> calls, terminate with <c>Load</c>, then invoke
-/// <see cref="IPipeline.RunAsync()"/>.
+/// Entry point for building a fluent ETL pipeline. Start with one of the <c>Extract</c> overloads,
+/// chain zero or more <c>Transform</c> calls, terminate with one of the <c>Load</c> overloads, then
+/// invoke <see cref="IPipeline.RunAsync()"/>.
 /// </summary>
 /// <example>
 /// <code>
@@ -21,7 +21,31 @@ namespace Wolfgang.Etl.Abstractions;
 public static class Pipeline
 {
     /// <summary>
-    /// Begins a pipeline from an extractor that does not report progress.
+    /// Begins a pipeline from an extractor that supports neither progress nor cancellation. The
+    /// pipeline's <see cref="System.Threading.CancellationToken"/> will not be forwarded into this
+    /// stage.
+    /// </summary>
+    /// <typeparam name="TSource">The type of item produced by the extractor.</typeparam>
+    /// <param name="extractor">The extractor that seeds the pipeline.</param>
+    /// <returns>An <see cref="IExtractStage{TSource}"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="extractor"/> is <see langword="null"/>.</exception>
+    public static IExtractStage<TSource> Extract<TSource>
+    (
+        IExtractAsync<TSource> extractor
+    )
+        where TSource : notnull
+    {
+        if (extractor is null)
+        {
+            throw new ArgumentNullException(nameof(extractor));
+        }
+
+        return new ExtractStage<TSource>(_ => extractor.ExtractAsync());
+    }
+
+
+    /// <summary>
+    /// Begins a pipeline from an extractor that supports cancellation but does not report progress.
     /// </summary>
     /// <typeparam name="TSource">The type of item produced by the extractor.</typeparam>
     /// <param name="extractor">The extractor that seeds the pipeline.</param>
@@ -43,9 +67,39 @@ public static class Pipeline
 
 
     /// <summary>
-    /// Begins a pipeline from a progress-reporting extractor. The returned stage exposes
-    /// <see cref="IExtractStageWithProgress{TSource, TProgress}.WithProgress"/> so a progress sink
-    /// can be supplied before appending further stages.
+    /// Begins a pipeline from a progress-reporting extractor that does not support cancellation.
+    /// The pipeline's <see cref="System.Threading.CancellationToken"/> will not be forwarded into
+    /// this stage. The returned stage exposes
+    /// <see cref="IExtractStageWithProgress{TSource, TProgress}.WithProgress"/>.
+    /// </summary>
+    /// <typeparam name="TSource">The type of item produced by the extractor.</typeparam>
+    /// <typeparam name="TProgress">The type of progress report emitted by the extractor.</typeparam>
+    /// <param name="extractor">The extractor that seeds the pipeline.</param>
+    /// <returns>An <see cref="IExtractStageWithProgress{TSource, TProgress}"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="extractor"/> is <see langword="null"/>.</exception>
+    public static IExtractStageWithProgress<TSource, TProgress> Extract<TSource, TProgress>
+    (
+        IExtractWithProgressAsync<TSource, TProgress> extractor
+    )
+        where TSource : notnull
+        where TProgress : notnull
+    {
+        if (extractor is null)
+        {
+            throw new ArgumentNullException(nameof(extractor));
+        }
+
+        return new ExtractStageWithProgress<TSource, TProgress>
+        (
+            noProgressSource: _ => extractor.ExtractAsync(),
+            withProgressSource: (progress, _) => extractor.ExtractAsync(progress)
+        );
+    }
+
+
+    /// <summary>
+    /// Begins a pipeline from a progress-reporting extractor that also supports cancellation. The
+    /// returned stage exposes <see cref="IExtractStageWithProgress{TSource, TProgress}.WithProgress"/>.
     /// </summary>
     /// <typeparam name="TSource">The type of item produced by the extractor.</typeparam>
     /// <typeparam name="TProgress">The type of progress report emitted by the extractor.</typeparam>
@@ -64,6 +118,10 @@ public static class Pipeline
             throw new ArgumentNullException(nameof(extractor));
         }
 
-        return new ExtractStageWithProgress<TSource, TProgress>(extractor);
+        return new ExtractStageWithProgress<TSource, TProgress>
+        (
+            noProgressSource: token => extractor.ExtractAsync(token),
+            withProgressSource: (progress, token) => extractor.ExtractAsync(progress, token)
+        );
     }
 }

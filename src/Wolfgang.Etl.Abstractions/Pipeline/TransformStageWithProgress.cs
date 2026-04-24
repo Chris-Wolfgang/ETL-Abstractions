@@ -7,9 +7,9 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Internal <see cref="ITransformStageWithProgress{TDestination, TProgress}"/> implementation.
-/// Holds the upstream source, the progress-capable transformer, and an optional captured
-/// <see cref="IProgress{TProgress}"/> sink. The sink, when present, is forwarded to the
-/// transformer's <c>TransformAsync</c> overload at run time.
+/// Holds the upstream source, two transformer entry points (with and without progress) as
+/// delegates, and an optional captured <see cref="IProgress{TProgress}"/> sink. Which delegate
+/// actually runs is decided by whether <see cref="WithProgress"/> has been called.
 /// </summary>
 internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgress>
     : ITransformStageWithProgress<TDestination, TProgress>
@@ -18,26 +18,29 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     where TProgress : notnull
 {
     private readonly Func<CancellationToken, IAsyncEnumerable<TUpstream>> _upstream;
-    private readonly ITransformWithProgressAndCancellationAsync<TUpstream, TDestination, TProgress> _transformer;
+    private readonly Func<IAsyncEnumerable<TUpstream>, CancellationToken, IAsyncEnumerable<TDestination>> _noProgressTransform;
+    private readonly Func<IAsyncEnumerable<TUpstream>, IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TDestination>> _withProgressTransform;
     private IProgress<TProgress>? _progress;
 
 
     internal TransformStageWithProgress
     (
         Func<CancellationToken, IAsyncEnumerable<TUpstream>> upstream,
-        ITransformWithProgressAndCancellationAsync<TUpstream, TDestination, TProgress> transformer
+        Func<IAsyncEnumerable<TUpstream>, CancellationToken, IAsyncEnumerable<TDestination>> noProgressTransform,
+        Func<IAsyncEnumerable<TUpstream>, IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TDestination>> withProgressTransform
     )
     {
         _upstream = upstream;
-        _transformer = transformer;
+        _noProgressTransform = noProgressTransform;
+        _withProgressTransform = withProgressTransform;
     }
 
 
     private IAsyncEnumerable<TDestination> Source(CancellationToken token)
     {
         return _progress is null
-            ? _transformer.TransformAsync(_upstream(token), token)
-            : _transformer.TransformAsync(_upstream(token), _progress, token);
+            ? _noProgressTransform(_upstream(token), token)
+            : _withProgressTransform(_upstream(token), _progress, token);
     }
 
 
@@ -57,9 +60,32 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     /// <inheritdoc/>
     public ITransformStage<TOut> Transform<TOut>
     (
+        ITransformAsync<TDestination, TOut> transformer
+    )
+        where TOut : notnull
+    {
+        return new TransformStage<TDestination>(Source).Transform(transformer);
+    }
+
+
+    /// <inheritdoc/>
+    public ITransformStage<TOut> Transform<TOut>
+    (
         ITransformWithCancellationAsync<TDestination, TOut> transformer
     )
         where TOut : notnull
+    {
+        return new TransformStage<TDestination>(Source).Transform(transformer);
+    }
+
+
+    /// <inheritdoc/>
+    public ITransformStageWithProgress<TOut, TProgressOther> Transform<TOut, TProgressOther>
+    (
+        ITransformWithProgressAsync<TDestination, TOut, TProgressOther> transformer
+    )
+        where TOut : notnull
+        where TProgressOther : notnull
     {
         return new TransformStage<TDestination>(Source).Transform(transformer);
     }
@@ -78,7 +104,25 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
 
 
     /// <inheritdoc/>
+    public IPipeline Load(ILoadAsync<TDestination> loader)
+    {
+        return new TransformStage<TDestination>(Source).Load(loader);
+    }
+
+
+    /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TDestination> loader)
+    {
+        return new TransformStage<TDestination>(Source).Load(loader);
+    }
+
+
+    /// <inheritdoc/>
+    public IPipelineWithLoadProgress<TProgressOther> Load<TProgressOther>
+    (
+        ILoadWithProgressAsync<TDestination, TProgressOther> loader
+    )
+        where TProgressOther : notnull
     {
         return new TransformStage<TDestination>(Source).Load(loader);
     }
