@@ -29,6 +29,7 @@ public class NoProgressPathTests
 
         Assert.Equal(new[] { 2, 3, 4 }, loader.Loaded);
         Assert.False(transformer.ProgressOverloadWasCalled);
+        Assert.True(transformer.ParameterlessOverloadWasCalled);
     }
 
 
@@ -64,6 +65,7 @@ public class NoProgressPathTests
 
         Assert.Equal(new[] { 1, 2 }, loader.Loaded);
         Assert.False(loader.ProgressOverloadWasCalled);
+        Assert.True(loader.ParameterlessOverloadWasCalled);
     }
 
 
@@ -99,6 +101,7 @@ public class NoProgressPathTests
 
         Assert.Equal(new[] { 2, 4 }, loader.Loaded);
         Assert.False(loader.ProgressOverloadWasCalled);
+        Assert.True(loader.ParameterlessOverloadWasCalled);
     }
 
 
@@ -119,6 +122,7 @@ public class NoProgressPathTests
 
         Assert.Equal(new[] { 11, 21 }, loader.Loaded);
         Assert.False(t2.ProgressOverloadWasCalled);
+        Assert.True(t2.ParameterlessOverloadWasCalled);
     }
 
 

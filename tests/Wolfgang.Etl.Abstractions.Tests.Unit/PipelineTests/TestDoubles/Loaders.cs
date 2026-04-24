@@ -65,6 +65,7 @@ internal sealed class ProgressOnlyLoader<T, TProgress> : ILoadWithProgressAsync<
     public List<T> Loaded { get; } = new();
     public IProgress<TProgress>? LastReceivedProgress { get; private set; }
     public bool ProgressOverloadWasCalled { get; private set; }
+    public bool ParameterlessOverloadWasCalled { get; private set; }
 
 
     public ProgressOnlyLoader(TProgress reportValue)
@@ -75,6 +76,7 @@ internal sealed class ProgressOnlyLoader<T, TProgress> : ILoadWithProgressAsync<
 
     public async Task LoadAsync(IAsyncEnumerable<T> items)
     {
+        ParameterlessOverloadWasCalled = true;
         await foreach (var item in items.ConfigureAwait(false))
         {
             Loaded.Add(item);
