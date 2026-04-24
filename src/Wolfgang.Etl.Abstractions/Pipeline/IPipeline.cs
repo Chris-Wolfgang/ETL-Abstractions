@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// A terminated, runnable ETL pipeline. Obtained from <see cref="IExtractStage{TSource}.Load"/>
-/// or <see cref="ITransformStage{TSource}.Load"/>.
+/// A terminated, runnable ETL pipeline. Obtained from an <see cref="IExtractStage{TSource}"/> or
+/// <see cref="ITransformStage{TSource}"/> <c>Load</c> overload.
 /// </summary>
 /// <remarks>
 /// A pipeline is one-shot: calling <see cref="RunAsync()"/> or

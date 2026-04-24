@@ -26,6 +26,26 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
     /// <inheritdoc/>
     public ITransformStage<TDestination> Transform<TDestination>
     (
+        ITransformAsync<TSource, TDestination> transformer
+    )
+        where TDestination : notnull
+    {
+        if (transformer is null)
+        {
+            throw new ArgumentNullException(nameof(transformer));
+        }
+
+        var source = _source;
+        return new TransformStage<TDestination>
+        (
+            token => transformer.TransformAsync(source(token))
+        );
+    }
+
+
+    /// <inheritdoc/>
+    public ITransformStage<TDestination> Transform<TDestination>
+    (
         ITransformWithCancellationAsync<TSource, TDestination> transformer
     )
         where TDestination : notnull
@@ -46,6 +66,29 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
     /// <inheritdoc/>
     public ITransformStageWithProgress<TDestination, TProgress> Transform<TDestination, TProgress>
     (
+        ITransformWithProgressAsync<TSource, TDestination, TProgress> transformer
+    )
+        where TDestination : notnull
+        where TProgress : notnull
+    {
+        if (transformer is null)
+        {
+            throw new ArgumentNullException(nameof(transformer));
+        }
+
+        var source = _source;
+        return new TransformStageWithProgress<TSource, TDestination, TProgress>
+        (
+            upstream: source,
+            noProgressTransform: (items, _) => transformer.TransformAsync(items),
+            withProgressTransform: (items, progress, _) => transformer.TransformAsync(items, progress)
+        );
+    }
+
+
+    /// <inheritdoc/>
+    public ITransformStageWithProgress<TDestination, TProgress> Transform<TDestination, TProgress>
+    (
         ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress> transformer
     )
         where TDestination : notnull
@@ -57,7 +100,28 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
         }
 
         var source = _source;
-        return new TransformStageWithProgress<TSource, TDestination, TProgress>(source, transformer);
+        return new TransformStageWithProgress<TSource, TDestination, TProgress>
+        (
+            upstream: source,
+            noProgressTransform: (items, token) => transformer.TransformAsync(items, token),
+            withProgressTransform: (items, progress, token) => transformer.TransformAsync(items, progress, token)
+        );
+    }
+
+
+    /// <inheritdoc/>
+    public IPipeline Load(ILoadAsync<TSource> loader)
+    {
+        if (loader is null)
+        {
+            throw new ArgumentNullException(nameof(loader));
+        }
+
+        var source = _source;
+        return new PipelineImpl
+        (
+            token => loader.LoadAsync(source(token))
+        );
     }
 
 
@@ -80,6 +144,27 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
     /// <inheritdoc/>
     public IPipelineWithLoadProgress<TProgress> Load<TProgress>
     (
+        ILoadWithProgressAsync<TSource, TProgress> loader
+    )
+        where TProgress : notnull
+    {
+        if (loader is null)
+        {
+            throw new ArgumentNullException(nameof(loader));
+        }
+
+        return new PipelineWithLoadProgress<TSource, TProgress>
+        (
+            upstream: _source,
+            noProgressLoad: (items, _) => loader.LoadAsync(items),
+            withProgressLoad: (items, progress, _) => loader.LoadAsync(items, progress)
+        );
+    }
+
+
+    /// <inheritdoc/>
+    public IPipelineWithLoadProgress<TProgress> Load<TProgress>
+    (
         ILoadWithProgressAndCancellationAsync<TSource, TProgress> loader
     )
         where TProgress : notnull
@@ -89,6 +174,11 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
             throw new ArgumentNullException(nameof(loader));
         }
 
-        return new PipelineWithLoadProgress<TSource, TProgress>(_source, loader);
+        return new PipelineWithLoadProgress<TSource, TProgress>
+        (
+            upstream: _source,
+            noProgressLoad: (items, token) => loader.LoadAsync(items, token),
+            withProgressLoad: (items, progress, token) => loader.LoadAsync(items, progress, token)
+        );
     }
 }

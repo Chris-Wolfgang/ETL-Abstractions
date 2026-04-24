@@ -7,29 +7,35 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Internal <see cref="IExtractStageWithProgress{TSource, TProgress}"/> implementation. Holds
-/// the progress-capable extractor and an optional captured <see cref="IProgress{TProgress}"/>
-/// sink. The sink, when present, is forwarded to the extractor's <c>ExtractAsync</c> overload
-/// at run time.
+/// the two extractor entry points (with and without progress) as delegates, plus an optional
+/// captured <see cref="IProgress{TProgress}"/> sink. Which delegate actually runs is decided by
+/// whether <see cref="WithProgress"/> has been called.
 /// </summary>
 internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractStageWithProgress<TSource, TProgress>
     where TSource : notnull
     where TProgress : notnull
 {
-    private readonly IExtractWithProgressAndCancellationAsync<TSource, TProgress> _extractor;
+    private readonly Func<CancellationToken, IAsyncEnumerable<TSource>> _noProgressSource;
+    private readonly Func<IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TSource>> _withProgressSource;
     private IProgress<TProgress>? _progress;
 
 
-    internal ExtractStageWithProgress(IExtractWithProgressAndCancellationAsync<TSource, TProgress> extractor)
+    internal ExtractStageWithProgress
+    (
+        Func<CancellationToken, IAsyncEnumerable<TSource>> noProgressSource,
+        Func<IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TSource>> withProgressSource
+    )
     {
-        _extractor = extractor;
+        _noProgressSource = noProgressSource;
+        _withProgressSource = withProgressSource;
     }
 
 
     private IAsyncEnumerable<TSource> Source(CancellationToken token)
     {
         return _progress is null
-            ? _extractor.ExtractAsync(token)
-            : _extractor.ExtractAsync(_progress, token);
+            ? _noProgressSource(token)
+            : _withProgressSource(_progress, token);
     }
 
 
@@ -49,9 +55,32 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     /// <inheritdoc/>
     public ITransformStage<TDestination> Transform<TDestination>
     (
+        ITransformAsync<TSource, TDestination> transformer
+    )
+        where TDestination : notnull
+    {
+        return new ExtractStage<TSource>(Source).Transform(transformer);
+    }
+
+
+    /// <inheritdoc/>
+    public ITransformStage<TDestination> Transform<TDestination>
+    (
         ITransformWithCancellationAsync<TSource, TDestination> transformer
     )
         where TDestination : notnull
+    {
+        return new ExtractStage<TSource>(Source).Transform(transformer);
+    }
+
+
+    /// <inheritdoc/>
+    public ITransformStageWithProgress<TDestination, TProgressOther> Transform<TDestination, TProgressOther>
+    (
+        ITransformWithProgressAsync<TSource, TDestination, TProgressOther> transformer
+    )
+        where TDestination : notnull
+        where TProgressOther : notnull
     {
         return new ExtractStage<TSource>(Source).Transform(transformer);
     }
@@ -70,7 +99,25 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
 
 
     /// <inheritdoc/>
+    public IPipeline Load(ILoadAsync<TSource> loader)
+    {
+        return new ExtractStage<TSource>(Source).Load(loader);
+    }
+
+
+    /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TSource> loader)
+    {
+        return new ExtractStage<TSource>(Source).Load(loader);
+    }
+
+
+    /// <inheritdoc/>
+    public IPipelineWithLoadProgress<TProgressOther> Load<TProgressOther>
+    (
+        ILoadWithProgressAsync<TSource, TProgressOther> loader
+    )
+        where TProgressOther : notnull
     {
         return new ExtractStage<TSource>(Source).Load(loader);
     }
