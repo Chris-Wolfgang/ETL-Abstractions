@@ -35,6 +35,29 @@ public class TransformerBaseTests
         var sut = CreateSut(1);
         Assert.Equal(1_000, sut.ReportingInterval);
     }
+
+
+    [Fact]
+    public void CurrentSkippedItemCount_default_value_is_zero()
+    {
+        var sut = CreateSut(1);
+        Assert.Equal(0, sut.CurrentSkippedItemCount);
+    }
+
+
+    [Fact]
+    public async Task CurrentSkippedItemCount_reflects_skipped_items_after_transform()
+    {
+        var sut = CreateSut(5);
+        sut.SkipItemCount = 2;
+
+        var source = new[] { "1", "2", "3", "4", "5" }.ToAsyncEnumerable();
+        await foreach (var _ in sut.TransformAsync(source))
+        {
+        }
+
+        Assert.Equal(2, sut.CurrentSkippedItemCount);
+    }
 }
 
 
