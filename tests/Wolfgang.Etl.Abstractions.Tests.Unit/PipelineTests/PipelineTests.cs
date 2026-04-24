@@ -360,4 +360,138 @@ public class PipelineTests
         Assert.True(extractor.CurrentItemCount >= 3);
         Assert.True((loader.GetCollectedItems()?.Count ?? 0) < 5);
     }
+
+
+    // ---------------------------------------------------------------
+    // Non-progress code paths (ExtractStage / TransformStage / PipelineImpl)
+    //
+    // The TestKit doubles all implement the progress-capable interfaces, so
+    // overload resolution on Pipeline.Extract/.Transform/.Load normally binds
+    // to the progress-capable overloads. These tests cast to the no-progress
+    // interfaces explicitly to exercise ExtractStage, TransformStage, and
+    // PipelineImpl, which would otherwise be dead code at test time.
+    // ---------------------------------------------------------------
+
+    [Fact]
+    public async Task RunAsync_non_progress_extract_and_load_delivers_all_items()
+    {
+        var source = new List<int> { 1, 2, 3, 4, 5 };
+        var extractor = new TestExtractor<int>(source);
+        var loader = new TestLoader<int>(collectItems: true);
+
+        await Pipeline
+            .Extract((IExtractWithCancellationAsync<int>)extractor)
+            .Load((ILoadWithCancellationAsync<int>)loader)
+            .RunAsync();
+
+        Assert.Equal(source, loader.GetCollectedItems());
+    }
+
+
+    [Fact]
+    public async Task RunAsync_non_progress_extract_transform_load_transforms_items()
+    {
+        var source = new List<int> { 1, 2, 3 };
+        var extractor = new TestExtractor<int>(source);
+        var doubler = new MappingTransformer<int, int>(x => x * 2);
+        var loader = new TestLoader<int>(collectItems: true);
+
+        await Pipeline
+            .Extract((IExtractWithCancellationAsync<int>)extractor)
+            .Transform((ITransformWithCancellationAsync<int, int>)doubler)
+            .Load((ILoadWithCancellationAsync<int>)loader)
+            .RunAsync();
+
+        Assert.Equal(new[] { 2, 4, 6 }, loader.GetCollectedItems());
+    }
+
+
+    [Fact]
+    public void Non_progress_pipeline_Name_defaults_to_null()
+    {
+        var pipeline = Pipeline
+            .Extract((IExtractWithCancellationAsync<int>)new TestExtractor<int>(new List<int> { 1 }))
+            .Load((ILoadWithCancellationAsync<int>)new TestLoader<int>(collectItems: true));
+
+        Assert.Null(pipeline.Name);
+    }
+
+
+    [Fact]
+    public void Non_progress_pipeline_WithName_sets_Name_property()
+    {
+        var pipeline = Pipeline
+            .Extract((IExtractWithCancellationAsync<int>)new TestExtractor<int>(new List<int> { 1 }))
+            .Load((ILoadWithCancellationAsync<int>)new TestLoader<int>(collectItems: true))
+            .WithName("nightly-import");
+
+        Assert.Equal("nightly-import", pipeline.Name);
+    }
+
+
+    [Fact]
+    public void Non_progress_pipeline_WithName_when_name_is_null_throws()
+    {
+        var pipeline = Pipeline
+            .Extract((IExtractWithCancellationAsync<int>)new TestExtractor<int>(new List<int> { 1 }))
+            .Load((ILoadWithCancellationAsync<int>)new TestLoader<int>(collectItems: true));
+
+        Assert.Throws<ArgumentNullException>(() => pipeline.WithName(null!));
+    }
+
+
+    [Fact]
+    public async Task Non_progress_pipeline_RunAsync_second_call_throws()
+    {
+        var pipeline = Pipeline
+            .Extract((IExtractWithCancellationAsync<int>)new TestExtractor<int>(new List<int> { 1 }))
+            .Load((ILoadWithCancellationAsync<int>)new TestLoader<int>(collectItems: true));
+
+        await pipeline.RunAsync();
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => pipeline.RunAsync());
+    }
+
+
+    [Fact]
+    public void Non_progress_Transform_when_transformer_is_null_throws()
+    {
+        var stage = Pipeline.Extract
+        (
+            (IExtractWithCancellationAsync<int>)new TestExtractor<int>(new List<int> { 1 })
+        );
+
+        Assert.Throws<ArgumentNullException>
+        (
+            () => stage.Transform((ITransformWithCancellationAsync<int, int>)null!)
+        );
+    }
+
+
+    [Fact]
+    public void Non_progress_Load_after_Transform_when_loader_is_null_throws()
+    {
+        var stage = Pipeline
+            .Extract((IExtractWithCancellationAsync<int>)new TestExtractor<int>(new List<int> { 1 }))
+            .Transform((ITransformWithCancellationAsync<int, int>)new MappingTransformer<int, int>(x => x));
+
+        Assert.Throws<ArgumentNullException>
+        (
+            () => stage.Load((ILoadWithCancellationAsync<int>)null!)
+        );
+    }
+
+
+    [Fact]
+    public void Non_progress_Transform_on_TransformStage_when_transformer_is_null_throws()
+    {
+        var stage = Pipeline
+            .Extract((IExtractWithCancellationAsync<int>)new TestExtractor<int>(new List<int> { 1 }))
+            .Transform((ITransformWithCancellationAsync<int, int>)new MappingTransformer<int, int>(x => x));
+
+        Assert.Throws<ArgumentNullException>
+        (
+            () => stage.Transform((ITransformWithCancellationAsync<int, int>)null!)
+        );
+    }
 }
