@@ -53,9 +53,9 @@ internal sealed class CancelOnlyExtractor<T> : IExtractWithCancellationAsync<T>
     }
 
 
-    public IAsyncEnumerable<T> ExtractAsync() => throw new InvalidOperationException
+    public IAsyncEnumerable<T> ExtractAsync() => throw new WrongOverloadCalledException
     (
-        "The pipeline should always call the token-taking overload for a cancellation-capable extractor."
+        "CancelOnlyExtractor<T>.ExtractAsync()"
     );
 
 

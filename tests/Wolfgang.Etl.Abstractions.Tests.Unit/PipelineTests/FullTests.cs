@@ -101,5 +101,7 @@ public class FullTests
                 .Load(loader)
                 .RunAsync(cts.Token)
         );
+
+        Assert.Empty(loader.Loaded);
     }
 }
