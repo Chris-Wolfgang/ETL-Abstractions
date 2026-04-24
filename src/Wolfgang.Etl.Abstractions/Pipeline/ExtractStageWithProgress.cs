@@ -31,7 +31,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
-    private IAsyncEnumerable<TSource> Source(CancellationToken token)
+    private IAsyncEnumerable<TSource> SourceAsync(CancellationToken token)
     {
         return _progress is null
             ? _noProgressSource(token)
@@ -48,7 +48,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         }
 
         _progress = progress;
-        return new ExtractStage<TSource>(Source);
+        return new ExtractStage<TSource>(SourceAsync);
     }
 
 
@@ -59,7 +59,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TDestination : notnull
     {
-        return new ExtractStage<TSource>(Source).Transform(transformer);
+        return new ExtractStage<TSource>(SourceAsync).Transform(transformer);
     }
 
 
@@ -70,7 +70,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TDestination : notnull
     {
-        return new ExtractStage<TSource>(Source).Transform(transformer);
+        return new ExtractStage<TSource>(SourceAsync).Transform(transformer);
     }
 
 
@@ -82,7 +82,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         where TDestination : notnull
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(Source).Transform(transformer);
+        return new ExtractStage<TSource>(SourceAsync).Transform(transformer);
     }
 
 
@@ -94,21 +94,21 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         where TDestination : notnull
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(Source).Transform(transformer);
+        return new ExtractStage<TSource>(SourceAsync).Transform(transformer);
     }
 
 
     /// <inheritdoc/>
     public IPipeline Load(ILoadAsync<TSource> loader)
     {
-        return new ExtractStage<TSource>(Source).Load(loader);
+        return new ExtractStage<TSource>(SourceAsync).Load(loader);
     }
 
 
     /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TSource> loader)
     {
-        return new ExtractStage<TSource>(Source).Load(loader);
+        return new ExtractStage<TSource>(SourceAsync).Load(loader);
     }
 
 
@@ -119,7 +119,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(Source).Load(loader);
+        return new ExtractStage<TSource>(SourceAsync).Load(loader);
     }
 
 
@@ -130,6 +130,6 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(Source).Load(loader);
+        return new ExtractStage<TSource>(SourceAsync).Load(loader);
     }
 }

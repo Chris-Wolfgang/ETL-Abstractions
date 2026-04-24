@@ -11,7 +11,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// </summary>
 /// <typeparam name="TSource">The current item type flowing through the pipeline.</typeparam>
 /// <typeparam name="TProgress">The type of progress report emitted by the transformer.</typeparam>
-public interface ITransformStageWithProgress<TSource, TProgress> : ITransformStage<TSource>
+public interface ITransformStageWithProgress<TSource, out TProgress> : ITransformStage<TSource>
     where TSource : notnull
     where TProgress : notnull
 {
