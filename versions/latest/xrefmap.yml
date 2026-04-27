@@ -256,6 +256,132 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.IExtractAsync(Of TSource).ExtractAsync
   nameWithType: IExtractAsync<TSource>.ExtractAsync
   nameWithType.vb: IExtractAsync(Of TSource).ExtractAsync
+- uid: Wolfgang.Etl.Abstractions.IExtractStageWithProgress`2
+  name: IExtractStageWithProgress<TSource, TProgress>
+  href: api/Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.html
+  commentId: T:Wolfgang.Etl.Abstractions.IExtractStageWithProgress`2
+  name.vb: IExtractStageWithProgress(Of TSource, TProgress)
+  fullName: Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStageWithProgress(Of TSource, TProgress)
+  nameWithType: IExtractStageWithProgress<TSource, TProgress>
+  nameWithType.vb: IExtractStageWithProgress(Of TSource, TProgress)
+- uid: Wolfgang.Etl.Abstractions.IExtractStageWithProgress`2.WithProgress(System.IProgress{`1})
+  name: WithProgress(IProgress<TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.html#Wolfgang_Etl_Abstractions_IExtractStageWithProgress_2_WithProgress_System_IProgress__1__
+  commentId: M:Wolfgang.Etl.Abstractions.IExtractStageWithProgress`2.WithProgress(System.IProgress{`1})
+  name.vb: WithProgress(IProgress(Of TProgress))
+  fullName: Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>.WithProgress(System.IProgress<TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStageWithProgress(Of TSource, TProgress).WithProgress(System.IProgress(Of TProgress))
+  nameWithType: IExtractStageWithProgress<TSource, TProgress>.WithProgress(IProgress<TProgress>)
+  nameWithType.vb: IExtractStageWithProgress(Of TSource, TProgress).WithProgress(IProgress(Of TProgress))
+- uid: Wolfgang.Etl.Abstractions.IExtractStageWithProgress`2.WithProgress*
+  name: WithProgress
+  href: api/Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.html#Wolfgang_Etl_Abstractions_IExtractStageWithProgress_2_WithProgress_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IExtractStageWithProgress`2.WithProgress
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>.WithProgress
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStageWithProgress(Of TSource, TProgress).WithProgress
+  nameWithType: IExtractStageWithProgress<TSource, TProgress>.WithProgress
+  nameWithType.vb: IExtractStageWithProgress(Of TSource, TProgress).WithProgress
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1
+  name: IExtractStage<TSource>
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html
+  commentId: T:Wolfgang.Etl.Abstractions.IExtractStage`1
+  name.vb: IExtractStage(Of TSource)
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource)
+  nameWithType: IExtractStage<TSource>
+  nameWithType.vb: IExtractStage(Of TSource)
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Load(Wolfgang.Etl.Abstractions.ILoadAsync{`0})
+  name: Load(ILoadAsync<TSource>)
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Load_Wolfgang_Etl_Abstractions_ILoadAsync__0__
+  commentId: M:Wolfgang.Etl.Abstractions.IExtractStage`1.Load(Wolfgang.Etl.Abstractions.ILoadAsync{`0})
+  name.vb: Load(ILoadAsync(Of TSource))
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Load(Wolfgang.Etl.Abstractions.ILoadAsync<TSource>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Load(Wolfgang.Etl.Abstractions.ILoadAsync(Of TSource))
+  nameWithType: IExtractStage<TSource>.Load(ILoadAsync<TSource>)
+  nameWithType.vb: IExtractStage(Of TSource).Load(ILoadAsync(Of TSource))
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Load(Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync{`0})
+  name: Load(ILoadWithCancellationAsync<TSource>)
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Load_Wolfgang_Etl_Abstractions_ILoadWithCancellationAsync__0__
+  commentId: M:Wolfgang.Etl.Abstractions.IExtractStage`1.Load(Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync{`0})
+  name.vb: Load(ILoadWithCancellationAsync(Of TSource))
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Load(Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync<TSource>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Load(Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync(Of TSource))
+  nameWithType: IExtractStage<TSource>.Load(ILoadWithCancellationAsync<TSource>)
+  nameWithType.vb: IExtractStage(Of TSource).Load(ILoadWithCancellationAsync(Of TSource))
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Load*
+  name: Load
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Load_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IExtractStage`1.Load
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Load
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Load
+  nameWithType: IExtractStage<TSource>.Load
+  nameWithType.vb: IExtractStage(Of TSource).Load
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync{`0,``0})
+  name: Load<TProgress>(ILoadWithProgressAndCancellationAsync<TSource, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Load__1_Wolfgang_Etl_Abstractions_ILoadWithProgressAndCancellationAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.IExtractStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync{`0,``0})
+  name.vb: Load(Of TProgress)(ILoadWithProgressAndCancellationAsync(Of TSource, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Load<TProgress>(Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync<TSource, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Load(Of TProgress)(Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync(Of TSource, TProgress))
+  nameWithType: IExtractStage<TSource>.Load<TProgress>(ILoadWithProgressAndCancellationAsync<TSource, TProgress>)
+  nameWithType.vb: IExtractStage(Of TSource).Load(Of TProgress)(ILoadWithProgressAndCancellationAsync(Of TSource, TProgress))
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAsync{`0,``0})
+  name: Load<TProgress>(ILoadWithProgressAsync<TSource, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Load__1_Wolfgang_Etl_Abstractions_ILoadWithProgressAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.IExtractStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAsync{`0,``0})
+  name.vb: Load(Of TProgress)(ILoadWithProgressAsync(Of TSource, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Load<TProgress>(Wolfgang.Etl.Abstractions.ILoadWithProgressAsync<TSource, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Load(Of TProgress)(Wolfgang.Etl.Abstractions.ILoadWithProgressAsync(Of TSource, TProgress))
+  nameWithType: IExtractStage<TSource>.Load<TProgress>(ILoadWithProgressAsync<TSource, TProgress>)
+  nameWithType.vb: IExtractStage(Of TSource).Load(Of TProgress)(ILoadWithProgressAsync(Of TSource, TProgress))
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Transform*
+  name: Transform
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Transform_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IExtractStage`1.Transform
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Transform
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Transform
+  nameWithType: IExtractStage<TSource>.Transform
+  nameWithType.vb: IExtractStage(Of TSource).Transform
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformAsync{`0,``0})
+  name: Transform<TDestination>(ITransformAsync<TSource, TDestination>)
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Transform__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformAsync{`0,``0})
+  name.vb: Transform(Of TDestination)(ITransformAsync(Of TSource, TDestination))
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Transform<TDestination>(Wolfgang.Etl.Abstractions.ITransformAsync<TSource, TDestination>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Transform(Of TDestination)(Wolfgang.Etl.Abstractions.ITransformAsync(Of TSource, TDestination))
+  nameWithType: IExtractStage<TSource>.Transform<TDestination>(ITransformAsync<TSource, TDestination>)
+  nameWithType.vb: IExtractStage(Of TSource).Transform(Of TDestination)(ITransformAsync(Of TSource, TDestination))
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync{`0,``0})
+  name: Transform<TDestination>(ITransformWithCancellationAsync<TSource, TDestination>)
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Transform__1_Wolfgang_Etl_Abstractions_ITransformWithCancellationAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync{`0,``0})
+  name.vb: Transform(Of TDestination)(ITransformWithCancellationAsync(Of TSource, TDestination))
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Transform<TDestination>(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync<TSource, TDestination>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Transform(Of TDestination)(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync(Of TSource, TDestination))
+  nameWithType: IExtractStage<TSource>.Transform<TDestination>(ITransformWithCancellationAsync<TSource, TDestination>)
+  nameWithType.vb: IExtractStage(Of TSource).Transform(Of TDestination)(ITransformWithCancellationAsync(Of TSource, TDestination))
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync{`0,``0,``1})
+  name: Transform<TDestination, TProgress>(ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Transform__2_Wolfgang_Etl_Abstractions_ITransformWithProgressAndCancellationAsync__0___0___1__
+  commentId: M:Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync{`0,``0,``1})
+  name.vb: Transform(Of TDestination, TProgress)(ITransformWithProgressAndCancellationAsync(Of TSource, TDestination, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Transform<TDestination, TProgress>(Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Transform(Of TDestination, TProgress)(Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync(Of TSource, TDestination, TProgress))
+  nameWithType: IExtractStage<TSource>.Transform<TDestination, TProgress>(ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>)
+  nameWithType.vb: IExtractStage(Of TSource).Transform(Of TDestination, TProgress)(ITransformWithProgressAndCancellationAsync(Of TSource, TDestination, TProgress))
+- uid: Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAsync{`0,``0,``1})
+  name: Transform<TDestination, TProgress>(ITransformWithProgressAsync<TSource, TDestination, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.IExtractStage-1.html#Wolfgang_Etl_Abstractions_IExtractStage_1_Transform__2_Wolfgang_Etl_Abstractions_ITransformWithProgressAsync__0___0___1__
+  commentId: M:Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAsync{`0,``0,``1})
+  name.vb: Transform(Of TDestination, TProgress)(ITransformWithProgressAsync(Of TSource, TDestination, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.IExtractStage<TSource>.Transform<TDestination, TProgress>(Wolfgang.Etl.Abstractions.ITransformWithProgressAsync<TSource, TDestination, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IExtractStage(Of TSource).Transform(Of TDestination, TProgress)(Wolfgang.Etl.Abstractions.ITransformWithProgressAsync(Of TSource, TDestination, TProgress))
+  nameWithType: IExtractStage<TSource>.Transform<TDestination, TProgress>(ITransformWithProgressAsync<TSource, TDestination, TProgress>)
+  nameWithType.vb: IExtractStage(Of TSource).Transform(Of TDestination, TProgress)(ITransformWithProgressAsync(Of TSource, TDestination, TProgress))
 - uid: Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync`1
   name: IExtractWithCancellationAsync<TSource>
   href: api/Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.html
@@ -444,6 +570,87 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ILoadWithProgressAsync(Of TDestination, TProgress).LoadAsync
   nameWithType: ILoadWithProgressAsync<TDestination, TProgress>.LoadAsync
   nameWithType.vb: ILoadWithProgressAsync(Of TDestination, TProgress).LoadAsync
+- uid: Wolfgang.Etl.Abstractions.IPipeline
+  name: IPipeline
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html
+  commentId: T:Wolfgang.Etl.Abstractions.IPipeline
+  fullName: Wolfgang.Etl.Abstractions.IPipeline
+  nameWithType: IPipeline
+- uid: Wolfgang.Etl.Abstractions.IPipeline.Name
+  name: Name
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_Name
+  commentId: P:Wolfgang.Etl.Abstractions.IPipeline.Name
+  fullName: Wolfgang.Etl.Abstractions.IPipeline.Name
+  nameWithType: IPipeline.Name
+- uid: Wolfgang.Etl.Abstractions.IPipeline.Name*
+  name: Name
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_Name_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IPipeline.Name
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IPipeline.Name
+  nameWithType: IPipeline.Name
+- uid: Wolfgang.Etl.Abstractions.IPipeline.RunAsync
+  name: RunAsync()
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_RunAsync
+  commentId: M:Wolfgang.Etl.Abstractions.IPipeline.RunAsync
+  fullName: Wolfgang.Etl.Abstractions.IPipeline.RunAsync()
+  nameWithType: IPipeline.RunAsync()
+- uid: Wolfgang.Etl.Abstractions.IPipeline.RunAsync(System.Threading.CancellationToken)
+  name: RunAsync(CancellationToken)
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_RunAsync_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.Abstractions.IPipeline.RunAsync(System.Threading.CancellationToken)
+  fullName: Wolfgang.Etl.Abstractions.IPipeline.RunAsync(System.Threading.CancellationToken)
+  nameWithType: IPipeline.RunAsync(CancellationToken)
+- uid: Wolfgang.Etl.Abstractions.IPipeline.RunAsync*
+  name: RunAsync
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_RunAsync_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IPipeline.RunAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IPipeline.RunAsync
+  nameWithType: IPipeline.RunAsync
+- uid: Wolfgang.Etl.Abstractions.IPipeline.WithName(System.String)
+  name: WithName(string)
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_WithName_System_String_
+  commentId: M:Wolfgang.Etl.Abstractions.IPipeline.WithName(System.String)
+  name.vb: WithName(String)
+  fullName: Wolfgang.Etl.Abstractions.IPipeline.WithName(string)
+  fullName.vb: Wolfgang.Etl.Abstractions.IPipeline.WithName(String)
+  nameWithType: IPipeline.WithName(string)
+  nameWithType.vb: IPipeline.WithName(String)
+- uid: Wolfgang.Etl.Abstractions.IPipeline.WithName*
+  name: WithName
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_WithName_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IPipeline.WithName
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IPipeline.WithName
+  nameWithType: IPipeline.WithName
+- uid: Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress`1
+  name: IPipelineWithLoadProgress<TProgress>
+  href: api/Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.html
+  commentId: T:Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress`1
+  name.vb: IPipelineWithLoadProgress(Of TProgress)
+  fullName: Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress<TProgress>
+  fullName.vb: Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress(Of TProgress)
+  nameWithType: IPipelineWithLoadProgress<TProgress>
+  nameWithType.vb: IPipelineWithLoadProgress(Of TProgress)
+- uid: Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress`1.WithProgress(System.IProgress{`0})
+  name: WithProgress(IProgress<TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.html#Wolfgang_Etl_Abstractions_IPipelineWithLoadProgress_1_WithProgress_System_IProgress__0__
+  commentId: M:Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress`1.WithProgress(System.IProgress{`0})
+  name.vb: WithProgress(IProgress(Of TProgress))
+  fullName: Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress<TProgress>.WithProgress(System.IProgress<TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress(Of TProgress).WithProgress(System.IProgress(Of TProgress))
+  nameWithType: IPipelineWithLoadProgress<TProgress>.WithProgress(IProgress<TProgress>)
+  nameWithType.vb: IPipelineWithLoadProgress(Of TProgress).WithProgress(IProgress(Of TProgress))
+- uid: Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress`1.WithProgress*
+  name: WithProgress
+  href: api/Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.html#Wolfgang_Etl_Abstractions_IPipelineWithLoadProgress_1_WithProgress_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress`1.WithProgress
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress<TProgress>.WithProgress
+  fullName.vb: Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress(Of TProgress).WithProgress
+  nameWithType: IPipelineWithLoadProgress<TProgress>.WithProgress
+  nameWithType.vb: IPipelineWithLoadProgress(Of TProgress).WithProgress
 - uid: Wolfgang.Etl.Abstractions.IProgressTimer
   name: IProgressTimer
   href: api/Wolfgang.Etl.Abstractions.IProgressTimer.html
@@ -512,6 +719,132 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ITransformAsync(Of TSource, TDestination).TransformAsync
   nameWithType: ITransformAsync<TSource, TDestination>.TransformAsync
   nameWithType.vb: ITransformAsync(Of TSource, TDestination).TransformAsync
+- uid: Wolfgang.Etl.Abstractions.ITransformStageWithProgress`2
+  name: ITransformStageWithProgress<TSource, TProgress>
+  href: api/Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.html
+  commentId: T:Wolfgang.Etl.Abstractions.ITransformStageWithProgress`2
+  name.vb: ITransformStageWithProgress(Of TSource, TProgress)
+  fullName: Wolfgang.Etl.Abstractions.ITransformStageWithProgress<TSource, TProgress>
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStageWithProgress(Of TSource, TProgress)
+  nameWithType: ITransformStageWithProgress<TSource, TProgress>
+  nameWithType.vb: ITransformStageWithProgress(Of TSource, TProgress)
+- uid: Wolfgang.Etl.Abstractions.ITransformStageWithProgress`2.WithProgress(System.IProgress{`1})
+  name: WithProgress(IProgress<TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.html#Wolfgang_Etl_Abstractions_ITransformStageWithProgress_2_WithProgress_System_IProgress__1__
+  commentId: M:Wolfgang.Etl.Abstractions.ITransformStageWithProgress`2.WithProgress(System.IProgress{`1})
+  name.vb: WithProgress(IProgress(Of TProgress))
+  fullName: Wolfgang.Etl.Abstractions.ITransformStageWithProgress<TSource, TProgress>.WithProgress(System.IProgress<TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStageWithProgress(Of TSource, TProgress).WithProgress(System.IProgress(Of TProgress))
+  nameWithType: ITransformStageWithProgress<TSource, TProgress>.WithProgress(IProgress<TProgress>)
+  nameWithType.vb: ITransformStageWithProgress(Of TSource, TProgress).WithProgress(IProgress(Of TProgress))
+- uid: Wolfgang.Etl.Abstractions.ITransformStageWithProgress`2.WithProgress*
+  name: WithProgress
+  href: api/Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.html#Wolfgang_Etl_Abstractions_ITransformStageWithProgress_2_WithProgress_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ITransformStageWithProgress`2.WithProgress
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ITransformStageWithProgress<TSource, TProgress>.WithProgress
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStageWithProgress(Of TSource, TProgress).WithProgress
+  nameWithType: ITransformStageWithProgress<TSource, TProgress>.WithProgress
+  nameWithType.vb: ITransformStageWithProgress(Of TSource, TProgress).WithProgress
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1
+  name: ITransformStage<TSource>
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html
+  commentId: T:Wolfgang.Etl.Abstractions.ITransformStage`1
+  name.vb: ITransformStage(Of TSource)
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource)
+  nameWithType: ITransformStage<TSource>
+  nameWithType.vb: ITransformStage(Of TSource)
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Load(Wolfgang.Etl.Abstractions.ILoadAsync{`0})
+  name: Load(ILoadAsync<TSource>)
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Load_Wolfgang_Etl_Abstractions_ILoadAsync__0__
+  commentId: M:Wolfgang.Etl.Abstractions.ITransformStage`1.Load(Wolfgang.Etl.Abstractions.ILoadAsync{`0})
+  name.vb: Load(ILoadAsync(Of TSource))
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Load(Wolfgang.Etl.Abstractions.ILoadAsync<TSource>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Load(Wolfgang.Etl.Abstractions.ILoadAsync(Of TSource))
+  nameWithType: ITransformStage<TSource>.Load(ILoadAsync<TSource>)
+  nameWithType.vb: ITransformStage(Of TSource).Load(ILoadAsync(Of TSource))
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Load(Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync{`0})
+  name: Load(ILoadWithCancellationAsync<TSource>)
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Load_Wolfgang_Etl_Abstractions_ILoadWithCancellationAsync__0__
+  commentId: M:Wolfgang.Etl.Abstractions.ITransformStage`1.Load(Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync{`0})
+  name.vb: Load(ILoadWithCancellationAsync(Of TSource))
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Load(Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync<TSource>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Load(Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync(Of TSource))
+  nameWithType: ITransformStage<TSource>.Load(ILoadWithCancellationAsync<TSource>)
+  nameWithType.vb: ITransformStage(Of TSource).Load(ILoadWithCancellationAsync(Of TSource))
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Load*
+  name: Load
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Load_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ITransformStage`1.Load
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Load
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Load
+  nameWithType: ITransformStage<TSource>.Load
+  nameWithType.vb: ITransformStage(Of TSource).Load
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync{`0,``0})
+  name: Load<TProgress>(ILoadWithProgressAndCancellationAsync<TSource, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Load__1_Wolfgang_Etl_Abstractions_ILoadWithProgressAndCancellationAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.ITransformStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync{`0,``0})
+  name.vb: Load(Of TProgress)(ILoadWithProgressAndCancellationAsync(Of TSource, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Load<TProgress>(Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync<TSource, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Load(Of TProgress)(Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync(Of TSource, TProgress))
+  nameWithType: ITransformStage<TSource>.Load<TProgress>(ILoadWithProgressAndCancellationAsync<TSource, TProgress>)
+  nameWithType.vb: ITransformStage(Of TSource).Load(Of TProgress)(ILoadWithProgressAndCancellationAsync(Of TSource, TProgress))
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAsync{`0,``0})
+  name: Load<TProgress>(ILoadWithProgressAsync<TSource, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Load__1_Wolfgang_Etl_Abstractions_ILoadWithProgressAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.ITransformStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAsync{`0,``0})
+  name.vb: Load(Of TProgress)(ILoadWithProgressAsync(Of TSource, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Load<TProgress>(Wolfgang.Etl.Abstractions.ILoadWithProgressAsync<TSource, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Load(Of TProgress)(Wolfgang.Etl.Abstractions.ILoadWithProgressAsync(Of TSource, TProgress))
+  nameWithType: ITransformStage<TSource>.Load<TProgress>(ILoadWithProgressAsync<TSource, TProgress>)
+  nameWithType.vb: ITransformStage(Of TSource).Load(Of TProgress)(ILoadWithProgressAsync(Of TSource, TProgress))
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Transform*
+  name: Transform
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Transform_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ITransformStage`1.Transform
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Transform
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Transform
+  nameWithType: ITransformStage<TSource>.Transform
+  nameWithType.vb: ITransformStage(Of TSource).Transform
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformAsync{`0,``0})
+  name: Transform<TDestination>(ITransformAsync<TSource, TDestination>)
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Transform__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.ITransformStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformAsync{`0,``0})
+  name.vb: Transform(Of TDestination)(ITransformAsync(Of TSource, TDestination))
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Transform<TDestination>(Wolfgang.Etl.Abstractions.ITransformAsync<TSource, TDestination>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Transform(Of TDestination)(Wolfgang.Etl.Abstractions.ITransformAsync(Of TSource, TDestination))
+  nameWithType: ITransformStage<TSource>.Transform<TDestination>(ITransformAsync<TSource, TDestination>)
+  nameWithType.vb: ITransformStage(Of TSource).Transform(Of TDestination)(ITransformAsync(Of TSource, TDestination))
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync{`0,``0})
+  name: Transform<TDestination>(ITransformWithCancellationAsync<TSource, TDestination>)
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Transform__1_Wolfgang_Etl_Abstractions_ITransformWithCancellationAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.ITransformStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync{`0,``0})
+  name.vb: Transform(Of TDestination)(ITransformWithCancellationAsync(Of TSource, TDestination))
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Transform<TDestination>(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync<TSource, TDestination>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Transform(Of TDestination)(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync(Of TSource, TDestination))
+  nameWithType: ITransformStage<TSource>.Transform<TDestination>(ITransformWithCancellationAsync<TSource, TDestination>)
+  nameWithType.vb: ITransformStage(Of TSource).Transform(Of TDestination)(ITransformWithCancellationAsync(Of TSource, TDestination))
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync{`0,``0,``1})
+  name: Transform<TDestination, TProgress>(ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Transform__2_Wolfgang_Etl_Abstractions_ITransformWithProgressAndCancellationAsync__0___0___1__
+  commentId: M:Wolfgang.Etl.Abstractions.ITransformStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync{`0,``0,``1})
+  name.vb: Transform(Of TDestination, TProgress)(ITransformWithProgressAndCancellationAsync(Of TSource, TDestination, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Transform<TDestination, TProgress>(Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Transform(Of TDestination, TProgress)(Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync(Of TSource, TDestination, TProgress))
+  nameWithType: ITransformStage<TSource>.Transform<TDestination, TProgress>(ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>)
+  nameWithType.vb: ITransformStage(Of TSource).Transform(Of TDestination, TProgress)(ITransformWithProgressAndCancellationAsync(Of TSource, TDestination, TProgress))
+- uid: Wolfgang.Etl.Abstractions.ITransformStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAsync{`0,``0,``1})
+  name: Transform<TDestination, TProgress>(ITransformWithProgressAsync<TSource, TDestination, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.ITransformStage-1.html#Wolfgang_Etl_Abstractions_ITransformStage_1_Transform__2_Wolfgang_Etl_Abstractions_ITransformWithProgressAsync__0___0___1__
+  commentId: M:Wolfgang.Etl.Abstractions.ITransformStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAsync{`0,``0,``1})
+  name.vb: Transform(Of TDestination, TProgress)(ITransformWithProgressAsync(Of TSource, TDestination, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.ITransformStage<TSource>.Transform<TDestination, TProgress>(Wolfgang.Etl.Abstractions.ITransformWithProgressAsync<TSource, TDestination, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.ITransformStage(Of TSource).Transform(Of TDestination, TProgress)(Wolfgang.Etl.Abstractions.ITransformWithProgressAsync(Of TSource, TDestination, TProgress))
+  nameWithType: ITransformStage<TSource>.Transform<TDestination, TProgress>(ITransformWithProgressAsync<TSource, TDestination, TProgress>)
+  nameWithType.vb: ITransformStage(Of TSource).Transform(Of TDestination, TProgress)(ITransformWithProgressAsync(Of TSource, TDestination, TProgress))
 - uid: Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync`2
   name: ITransformWithCancellationAsync<TSource, TDestination>
   href: api/Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.html
@@ -819,6 +1152,55 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).SkipItemCount
   nameWithType: LoaderBase<TDestination, TProgress>.SkipItemCount
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).SkipItemCount
+- uid: Wolfgang.Etl.Abstractions.Pipeline
+  name: Pipeline
+  href: api/Wolfgang.Etl.Abstractions.Pipeline.html
+  commentId: T:Wolfgang.Etl.Abstractions.Pipeline
+  fullName: Wolfgang.Etl.Abstractions.Pipeline
+  nameWithType: Pipeline
+- uid: Wolfgang.Etl.Abstractions.Pipeline.Extract*
+  name: Extract
+  href: api/Wolfgang.Etl.Abstractions.Pipeline.html#Wolfgang_Etl_Abstractions_Pipeline_Extract_
+  commentId: Overload:Wolfgang.Etl.Abstractions.Pipeline.Extract
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.Pipeline.Extract
+  nameWithType: Pipeline.Extract
+- uid: Wolfgang.Etl.Abstractions.Pipeline.Extract``1(Wolfgang.Etl.Abstractions.IExtractAsync{``0})
+  name: Extract<TSource>(IExtractAsync<TSource>)
+  href: api/Wolfgang.Etl.Abstractions.Pipeline.html#Wolfgang_Etl_Abstractions_Pipeline_Extract__1_Wolfgang_Etl_Abstractions_IExtractAsync___0__
+  commentId: M:Wolfgang.Etl.Abstractions.Pipeline.Extract``1(Wolfgang.Etl.Abstractions.IExtractAsync{``0})
+  name.vb: Extract(Of TSource)(IExtractAsync(Of TSource))
+  fullName: Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractAsync<TSource>)
+  fullName.vb: Wolfgang.Etl.Abstractions.Pipeline.Extract(Of TSource)(Wolfgang.Etl.Abstractions.IExtractAsync(Of TSource))
+  nameWithType: Pipeline.Extract<TSource>(IExtractAsync<TSource>)
+  nameWithType.vb: Pipeline.Extract(Of TSource)(IExtractAsync(Of TSource))
+- uid: Wolfgang.Etl.Abstractions.Pipeline.Extract``1(Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync{``0})
+  name: Extract<TSource>(IExtractWithCancellationAsync<TSource>)
+  href: api/Wolfgang.Etl.Abstractions.Pipeline.html#Wolfgang_Etl_Abstractions_Pipeline_Extract__1_Wolfgang_Etl_Abstractions_IExtractWithCancellationAsync___0__
+  commentId: M:Wolfgang.Etl.Abstractions.Pipeline.Extract``1(Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync{``0})
+  name.vb: Extract(Of TSource)(IExtractWithCancellationAsync(Of TSource))
+  fullName: Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync<TSource>)
+  fullName.vb: Wolfgang.Etl.Abstractions.Pipeline.Extract(Of TSource)(Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync(Of TSource))
+  nameWithType: Pipeline.Extract<TSource>(IExtractWithCancellationAsync<TSource>)
+  nameWithType.vb: Pipeline.Extract(Of TSource)(IExtractWithCancellationAsync(Of TSource))
+- uid: Wolfgang.Etl.Abstractions.Pipeline.Extract``2(Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync{``0,``1})
+  name: Extract<TSource, TProgress>(IExtractWithProgressAndCancellationAsync<TSource, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.Pipeline.html#Wolfgang_Etl_Abstractions_Pipeline_Extract__2_Wolfgang_Etl_Abstractions_IExtractWithProgressAndCancellationAsync___0___1__
+  commentId: M:Wolfgang.Etl.Abstractions.Pipeline.Extract``2(Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync{``0,``1})
+  name.vb: Extract(Of TSource, TProgress)(IExtractWithProgressAndCancellationAsync(Of TSource, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync<TSource, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.Pipeline.Extract(Of TSource, TProgress)(Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync(Of TSource, TProgress))
+  nameWithType: Pipeline.Extract<TSource, TProgress>(IExtractWithProgressAndCancellationAsync<TSource, TProgress>)
+  nameWithType.vb: Pipeline.Extract(Of TSource, TProgress)(IExtractWithProgressAndCancellationAsync(Of TSource, TProgress))
+- uid: Wolfgang.Etl.Abstractions.Pipeline.Extract``2(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync{``0,``1})
+  name: Extract<TSource, TProgress>(IExtractWithProgressAsync<TSource, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.Pipeline.html#Wolfgang_Etl_Abstractions_Pipeline_Extract__2_Wolfgang_Etl_Abstractions_IExtractWithProgressAsync___0___1__
+  commentId: M:Wolfgang.Etl.Abstractions.Pipeline.Extract``2(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync{``0,``1})
+  name.vb: Extract(Of TSource, TProgress)(IExtractWithProgressAsync(Of TSource, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync<TSource, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.Pipeline.Extract(Of TSource, TProgress)(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync(Of TSource, TProgress))
+  nameWithType: Pipeline.Extract<TSource, TProgress>(IExtractWithProgressAsync<TSource, TProgress>)
+  nameWithType.vb: Pipeline.Extract(Of TSource, TProgress)(IExtractWithProgressAsync(Of TSource, TProgress))
 - uid: Wolfgang.Etl.Abstractions.Report
   name: Report
   href: api/Wolfgang.Etl.Abstractions.Report.html

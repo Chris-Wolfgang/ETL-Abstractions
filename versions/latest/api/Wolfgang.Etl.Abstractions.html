@@ -95,6 +95,13 @@ LoadWorkerAsync and CreateProgressReport methods.</p>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.Pipeline.html">Pipeline</a></dt>
+      <dd><p>Entry point for building a fluent ETL pipeline. Start with one of the <code>Extract</code> overloads,
+chain zero or more <code>Transform</code> calls, terminate with one of the <code>Load</code> overloads, then
+invoke <a class="xref" href="Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_RunAsync">RunAsync()</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a></dt>
       <dd><p>Provides a report of the current item count in an ETL process.</p>
 </dd>
@@ -114,6 +121,21 @@ Interfaces
       <dd><p>Defines an asynchronous extractor interface for extracting data of type T.
 A class implementing this interface is intended to be the first step in an
 ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.html">IExtractStageWithProgress&lt;TSource, TProgress&gt;</a></dt>
+      <dd><p>An <a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStage-1.html">IExtractStage&lt;TSource&gt;</a> whose underlying extractor also supports progress
+reporting. Call <a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.html#Wolfgang_Etl_Abstractions_IExtractStageWithProgress_2_WithProgress_System_IProgress__1__">WithProgress(IProgress&lt;TProgress&gt;)</a> to supply an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a>
+sink that will be forwarded to the extractor's <code>ExtractAsync</code> overload when the
+pipeline runs.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStage-1.html">IExtractStage&lt;TSource&gt;</a></dt>
+      <dd><p>Represents the extractor stage of a fluent ETL pipeline for items of type
+<code class="typeparamref">TSource</code>. Call one of the <code>Transform</code> overloads to append a
+transformer, or one of the <code>Load</code> overloads to terminate the chain with a loader.</p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -166,6 +188,19 @@ ETL (Extract, Transform, Load) process.</p>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IPipeline.html">IPipeline</a></dt>
+      <dd><p>A terminated, runnable ETL pipeline. Obtained from an <a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStage-1.html">IExtractStage&lt;TSource&gt;</a> or
+<a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStage-1.html">ITransformStage&lt;TSource&gt;</a> <code>Load</code> overload.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.html">IPipelineWithLoadProgress&lt;TProgress&gt;</a></dt>
+      <dd><p>An <a class="xref" href="Wolfgang.Etl.Abstractions.IPipeline.html">IPipeline</a> whose loader supports progress reporting. Call
+<a class="xref" href="Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.html#Wolfgang_Etl_Abstractions_IPipelineWithLoadProgress_1_WithProgress_System_IProgress__0__">WithProgress(IProgress&lt;TProgress&gt;)</a> to supply an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> sink that will be
+forwarded to the loader's <code>LoadAsync</code> overload when the pipeline runs.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a></dt>
       <dd><p>Represents a timer that raises <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_Elapsed">Elapsed</a> at a regular interval,
 used by extractor, transformer, and loader base classes to drive progress callbacks.</p>
@@ -176,6 +211,21 @@ used by extractor, transformer, and loader base classes to drive progress callba
       <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
 A class implementing this interface is intended to be the second step in an
 ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.html">ITransformStageWithProgress&lt;TSource, TProgress&gt;</a></dt>
+      <dd><p>An <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStage-1.html">ITransformStage&lt;TSource&gt;</a> whose underlying transformer also supports progress
+reporting. Call <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.html#Wolfgang_Etl_Abstractions_ITransformStageWithProgress_2_WithProgress_System_IProgress__1__">WithProgress(IProgress&lt;TProgress&gt;)</a> to supply an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a>
+sink that will be forwarded to the transformer's <code>TransformAsync</code> overload when the
+pipeline runs.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStage-1.html">ITransformStage&lt;TSource&gt;</a></dt>
+      <dd><p>Represents a mid-chain stage of a fluent ETL pipeline whose current item type is
+<code class="typeparamref">TSource</code>. Call one of the <code>Transform</code> overloads to append another
+transformer, or one of the <code>Load</code> overloads to terminate the chain.</p>
 </dd>
     </dl>
     <dl class="jumplist">

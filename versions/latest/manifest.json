@@ -50,6 +50,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IExtractStage-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IExtractStage-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IExtractStage<TSource>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractStage-1.yml\" sourcestartlinenumber=\"1\">Represents the extractor stage of a fluent ETL pipeline for items of type\n<code class=\"typeparamref\">TSource</code>. Call one of the <code>Transform</code> overloads to append a\ntransformer, or one of the <code>Load</code> overloads to terminate the chain with a loader.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.yml\" sourcestartlinenumber=\"1\">An <xref href=\"Wolfgang.Etl.Abstractions.IExtractStage%601\" data-throw-if-not-resolved=\"false\"></xref> whose underlying extractor also supports progress\nreporting. Call <xref href=\"Wolfgang.Etl.Abstractions.IExtractStageWithProgress%602.WithProgress(System.IProgress%7b%601%7d)\" data-throw-if-not-resolved=\"false\"></xref> to supply an <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref>\nsink that will be forwarded to the extractor's <code>ExtractAsync</code> overload when the\npipeline runs.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.yml",
       "output": {
         ".html": {
@@ -148,6 +176,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IPipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IPipeline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IPipeline",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IPipeline.yml\" sourcestartlinenumber=\"1\">A terminated, runnable ETL pipeline. Obtained from an <xref href=\"Wolfgang.Etl.Abstractions.IExtractStage%601\" data-throw-if-not-resolved=\"false\"></xref> or\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformStage%601\" data-throw-if-not-resolved=\"false\"></xref> <code>Load</code> overload.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress<TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.yml\" sourcestartlinenumber=\"1\">An <xref href=\"Wolfgang.Etl.Abstractions.IPipeline\" data-throw-if-not-resolved=\"false\"></xref> whose loader supports progress reporting. Call\n<xref href=\"Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress%601.WithProgress(System.IProgress%7b%600%7d)\" data-throw-if-not-resolved=\"false\"></xref> to supply an <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref> sink that will be\nforwarded to the loader's <code>LoadAsync</code> overload when the pipeline runs.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.IProgressTimer.yml",
       "output": {
         ".html": {
@@ -173,6 +229,34 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ITransformAsync<TSource, TDestination>",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type T to TResult.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformStage-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ITransformStage-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ITransformStage<TSource>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformStage-1.yml\" sourcestartlinenumber=\"1\">Represents a mid-chain stage of a fluent ETL pipeline whose current item type is\n<code class=\"typeparamref\">TSource</code>. Call one of the <code>Transform</code> overloads to append another\ntransformer, or one of the <code>Load</code> overloads to terminate the chain.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ITransformStageWithProgress<TSource, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.yml\" sourcestartlinenumber=\"1\">An <xref href=\"Wolfgang.Etl.Abstractions.ITransformStage%601\" data-throw-if-not-resolved=\"false\"></xref> whose underlying transformer also supports progress\nreporting. Call <xref href=\"Wolfgang.Etl.Abstractions.ITransformStageWithProgress%602.WithProgress(System.IProgress%7b%601%7d)\" data-throw-if-not-resolved=\"false\"></xref> to supply an <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref>\nsink that will be forwarded to the transformer's <code>TransformAsync</code> overload when the\npipeline runs.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -229,6 +313,20 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.LoaderBase-2.yml\" sourcestartlinenumber=\"1\">Provides a basic implementation for data loaders that write data of type TDestination to a target destination.\nLibrary authors can use this base class to create custom loaders by inheriting from it and implementing\nLoadWorkerAsync and CreateProgressReport methods.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.Pipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.Pipeline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.Pipeline",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.Pipeline.yml\" sourcestartlinenumber=\"1\">Entry point for building a fluent ETL pipeline. Start with one of the <code>Extract</code> overloads,\nchain zero or more <code>Transform</code> calls, terminate with one of the <code>Load</code> overloads, then\ninvoke <xref href=\"Wolfgang.Etl.Abstractions.IPipeline.RunAsync\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
