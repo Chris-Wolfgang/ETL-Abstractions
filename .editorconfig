@@ -25,13 +25,13 @@ indent_size = 2
 [*.{yml,yaml}]
 indent_size = 2
 
-# PowerShell files
-# PowerShell uses CRLF to maintain compatibility with Windows and PowerShell conventions
-# This overrides the global end_of_line = lf setting and aligns with .gitattributes line 14
-[*.ps1]
-indent_size = 4
-end_of_line = crlf
-charset = utf-8-bom
+# PowerShell files inherit LF + UTF-8 (no BOM) + 4-space indent from
+# the global [*] section above — no [*.ps1] override needed. The
+# `charset = utf-8` setting is what prevents editors from writing a
+# BOM, which together with the LF requirement keeps the
+# `#!/usr/bin/env pwsh` shebang at the top of every script in scripts/
+# working on Linux/macOS (CR breaks the kernel's exec lookup, and a
+# leading BOM prevents shebang recognition entirely).
 
 # C# files
 [*.cs]
