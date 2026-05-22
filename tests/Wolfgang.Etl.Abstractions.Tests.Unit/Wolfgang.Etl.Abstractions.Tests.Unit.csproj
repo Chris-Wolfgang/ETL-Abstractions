@@ -4,7 +4,6 @@
     <Version>0.13.0</Version>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <Copyright>Copyright 2025 Chris Wolfgang</Copyright>
