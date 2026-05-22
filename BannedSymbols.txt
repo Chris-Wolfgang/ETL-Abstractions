@@ -1,4 +1,4 @@
-# BannedSymbols.txt - Async-First Enforcement for Wolfgang.Etl.Abstractions
+# BannedSymbols.txt - Async-First Enforcement for {{PROJECT_NAME}}
 # Format: <API Documentation ID>; <Reason/Alternative>
 # T: = Type, M: = Method, P: = Property, F: = Field
 # Task.Wait() - All overloads - Absolutely NOT allowed in async code
@@ -79,4 +79,3 @@ M:System.Console.ReadLine(); Blocking - avoid in async code paths
 M:System.Console.Read(); Blocking - avoid in async code paths
 M:System.Console.ReadKey(); Blocking - avoid in async code paths
 M:System.Console.ReadKey(System.Boolean); Blocking - avoid in async code paths
-
