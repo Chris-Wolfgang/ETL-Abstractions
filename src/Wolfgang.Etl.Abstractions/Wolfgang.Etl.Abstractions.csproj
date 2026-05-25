@@ -5,7 +5,6 @@
 	<Version>0.13.0</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
-    <Authors>Chris Wolfgang</Authors>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>
 	  <Copyright>Copyright 2025 Chris Wolfgang</Copyright>
     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
