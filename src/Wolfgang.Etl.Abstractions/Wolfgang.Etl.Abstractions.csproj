@@ -6,7 +6,6 @@
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>
-	  <Copyright>Copyright 2025 Chris Wolfgang</Copyright>
     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>
