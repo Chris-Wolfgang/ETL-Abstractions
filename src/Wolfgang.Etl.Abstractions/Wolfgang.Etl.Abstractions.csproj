@@ -12,7 +12,6 @@
     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageIcon>ETL-Abstractions.png</PackageIcon>
