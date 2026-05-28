@@ -4,13 +4,13 @@
 	<LangVersion>latest</LangVersion>
 	<Nullable>enable</Nullable>
 	<Version>0.13.0</Version>
-	<!-- Pin AssemblyVersion to MAJOR.0.0.0 so .NET Framework consumers
-	     do not need a binding redirect on every minor/patch bump. Only
-	     change this on a deliberate breaking API change. FileVersion +
-	     InformationalVersion (auto-derived from <Version>) carry the
-	     actual release version. -->
+	<!-- Pin AssemblyVersion to a fixed binding-stability baseline so consumers
+	     do not need to recompile / add binding redirects on every minor/patch
+	     bump. Bump only on a deliberate breaking API change. FileVersion +
+	     InformationalVersion (the latter auto-derived from <Version>) carry
+	     the actual release version. -->
 	<AssemblyVersion>1.0.0.0</AssemblyVersion>
-	<FileVersion>$(Version).0</FileVersion>
+	<FileVersion>$([System.Text.RegularExpressions.Regex]::Replace("$(Version)", "[-+].*$", "")).0</FileVersion>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Authors>Chris Wolfgang</Authors>
