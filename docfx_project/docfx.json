@@ -32,6 +32,7 @@
     "resource": [
       {
         "files": [
+          "favicon.svg",
           "logo.svg",
           "images/**"
         ]
@@ -47,6 +48,7 @@
       "_appName": "Wolfgang.Etl.Abstractions",
       "_appTitle": "Wolfgang.Etl.Abstractions Documentation",
       "_appLogoPath": "logo.svg",
+      "_appFaviconPath": "favicon.svg",
       "_enableSearch": true,
       "_appFooter": "Made with DocFX",
       "_disableSidebar": false,
