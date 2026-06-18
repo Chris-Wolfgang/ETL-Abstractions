@@ -6,7 +6,8 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 10
     labels:
-      - "dependencies"    groups:
+      - "dependencies"
+    groups:
       dotnet-dependencies:
         patterns:
           - "*"
