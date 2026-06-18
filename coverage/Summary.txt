@@ -1,0 +1,34 @@
+Summary
+  Generated on: 6/18/2026 - 10:38:55 PM
+  Coverage date: 6/18/2026 - 10:38:52 PM
+  Parser: Cobertura
+  Assemblies: 1
+  Classes: 12
+  Files: 12
+  Line coverage: 100%
+  Covered lines: 397
+  Uncovered lines: 0
+  Coverable lines: 397
+  Total lines: 2085
+  Branch coverage: 94.8% (74 of 78)
+  Covered branches: 74
+  Total branches: 78
+  Method coverage: 100% (111 of 111)
+  Full method coverage: 100% (111 of 111)
+  Covered methods: 111
+  Fully covered methods: 111
+  Total methods: 111
+
+Wolfgang.Etl.Abstractions                                             100%
+  Wolfgang.Etl.Abstractions.ExtractorBase<T1, T2>                     100%
+  Wolfgang.Etl.Abstractions.ExtractStage<T>                           100%
+  Wolfgang.Etl.Abstractions.ExtractStageWithProgress<T1, T2>          100%
+  Wolfgang.Etl.Abstractions.LoaderBase<T1, T2>                        100%
+  Wolfgang.Etl.Abstractions.Pipeline                                  100%
+  Wolfgang.Etl.Abstractions.PipelineImpl                              100%
+  Wolfgang.Etl.Abstractions.PipelineWithLoadProgress<T1, T2>          100%
+  Wolfgang.Etl.Abstractions.Report                                    100%
+  Wolfgang.Etl.Abstractions.SystemProgressTimer                       100%
+  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2, T3>               100%
+  Wolfgang.Etl.Abstractions.TransformStage<T>                         100%
+  Wolfgang.Etl.Abstractions.TransformStageWithProgress<T1, T2, T3>    100%
