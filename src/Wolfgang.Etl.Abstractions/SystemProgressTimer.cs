@@ -15,8 +15,9 @@ namespace Wolfgang.Etl.Abstractions;
 /// <c>ExtractorBase.CreateProgressTimer</c>,
 /// <c>TransformerBase.CreateProgressTimer</c>, and
 /// <c>LoaderBase.CreateProgressTimer</c>.
-/// In unit tests, override <c>CreateProgressTimer</c> to return a
-/// <c>ManualProgressTimer</c> instead.
+/// In unit tests, override <c>CreateProgressTimer</c> to return a custom
+/// <see cref="IProgressTimer"/> implementation (for example, a manually
+/// controlled fake whose ticks the test fires on demand).
 /// </remarks>
 internal sealed class SystemProgressTimer : IProgressTimer
 {
