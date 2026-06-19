@@ -79,4 +79,3 @@ M:System.Console.ReadLine(); Blocking - avoid in async code paths
 M:System.Console.Read(); Blocking - avoid in async code paths
 M:System.Console.ReadKey(); Blocking - avoid in async code paths
 M:System.Console.ReadKey(System.Boolean); Blocking - avoid in async code paths
-
