@@ -79,7 +79,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaxItemCount))
+    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
     ///     {
     ///         // Transform each item and return it
     ///     }
@@ -115,7 +115,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaxItemCount))
+    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
     ///     {
     ///         // Transform each item and return it
     ///     }

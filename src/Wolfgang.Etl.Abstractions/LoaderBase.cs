@@ -77,7 +77,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaxItemCount))
+    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
     ///     {
     ///         // Process the item
     ///     }
@@ -112,7 +112,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaxItemCount))
+    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
     ///     {
     ///         // Process the item
     ///     }
