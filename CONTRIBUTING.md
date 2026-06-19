@@ -49,7 +49,7 @@ You can contribute in several ways:
 
 This project maintains **extremely high code quality standards** through multiple layers of static analysis and automated enforcement.
 
-### The 7 Analyzers
+### The 8 Analyzers
 
 All code is analyzed by these tools during build:
 
