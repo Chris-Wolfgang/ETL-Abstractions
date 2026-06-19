@@ -87,6 +87,10 @@ All code is analyzed by these tools during build:
    - Security vulnerability detection
    - Code smell identification
 
+8. **Microsoft.CodeAnalysis.PublicApiAnalyzers**
+   - Tracks the declared public API surface (`PublicAPI.Shipped.txt` / `PublicAPI.Unshipped.txt`)
+   - Flags unintended additions, removals, or signature changes as breaking-change risks
+
 ### Async-First Enforcement
 
 This library **prohibits synchronous blocking calls** via `BannedSymbols.txt`. The following APIs are **banned**:
