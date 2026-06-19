@@ -99,15 +99,10 @@ abstract Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CreatePro
 abstract Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TDestination> items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
 abstract Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressReport() -> TProgress
 abstract Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TSource> items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>
-override Wolfgang.Etl.Abstractions.Report.Equals(object? obj) -> bool
-override Wolfgang.Etl.Abstractions.Report.GetHashCode() -> int
-override Wolfgang.Etl.Abstractions.Report.ToString() -> string
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync<TSource, TProgress> extractor) -> Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync<TSource, TProgress> extractor) -> Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractAsync<TSource> extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync<TSource> extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>
-static Wolfgang.Etl.Abstractions.Report.operator !=(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
-static Wolfgang.Etl.Abstractions.Report.operator ==(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CreateProgressTimer(System.IProgress<TProgress> progress) -> Wolfgang.Etl.Abstractions.IProgressTimer
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync() -> System.Collections.Generic.IAsyncEnumerable<TSource>
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync(System.IProgress<TProgress> progress) -> System.Collections.Generic.IAsyncEnumerable<TSource>
@@ -118,9 +113,6 @@ virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination> items, System.IProgress<TProgress> progress) -> System.Threading.Tasks.Task
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination> items, System.IProgress<TProgress> progress, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination> items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
-virtual Wolfgang.Etl.Abstractions.Report.<Clone>$() -> Wolfgang.Etl.Abstractions.Report
-virtual Wolfgang.Etl.Abstractions.Report.Equals(Wolfgang.Etl.Abstractions.Report? other) -> bool
-virtual Wolfgang.Etl.Abstractions.Report.PrintMembers(System.Text.StringBuilder builder) -> bool
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressTimer(System.IProgress<TProgress> progress) -> Wolfgang.Etl.Abstractions.IProgressTimer
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource> items) -> System.Collections.Generic.IAsyncEnumerable<TDestination>
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource> items, System.IProgress<TProgress> progress) -> System.Collections.Generic.IAsyncEnumerable<TDestination>
