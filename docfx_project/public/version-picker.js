@@ -56,6 +56,33 @@
             currentVersion = m[1];
         }
 
+        // If we're on /versions/latest/, resolve 'latest' to the concrete
+        // version it points to (matching the `latest` entry's url against
+        // the versioned entries). Without this resolution, the browser
+        // auto-selects the first option in the dropdown — which is usually
+        // the same concrete version 'latest' aliases — and picking that
+        // option doesn't fire `change`, leaving the user unable to navigate
+        // away from /versions/latest/ to the equivalent concrete-version
+        // URL via the picker.
+        if (currentVersion === 'latest') {
+            var latestEntry = null;
+            for (var i = 0; i < versions.length; i++) {
+                if (versions[i] && versions[i].version === 'latest') {
+                    latestEntry = versions[i];
+                    break;
+                }
+            }
+            if (latestEntry && latestEntry.url) {
+                for (var j = 0; j < versions.length; j++) {
+                    var v = versions[j];
+                    if (v && v.version !== 'latest' && v.url === latestEntry.url) {
+                        currentVersion = v.version;
+                        break;
+                    }
+                }
+            }
+        }
+
         // Build the <select>.
         var select = document.createElement('select');
         select.className = 'wolfgang-version-picker';
