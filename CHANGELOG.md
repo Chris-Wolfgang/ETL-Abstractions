@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.13.1] - 2026-06-01
+## [0.13.1] - 2026-06-19
 
 Canonical maintenance round + binding-stability fix. No public API or
 runtime behavior change vs v0.13.0. This release is the prerequisite
@@ -66,9 +66,26 @@ dependencies.
   `Fix-BranchRuleset.ps1`).
 - `github/codeql-action/init` and `analyze` bumped v3 → v4 (Node.js
   20 → 24 deprecation).
+- **Docs** — README accuracy pass: corrected the Target Frameworks
+  table (dropped the untargeted .NET 4.7.0 / 4.7.1 rows, added the
+  missing .NET Standard 2.0 row), analyzer count 7 → 8
+  (`Microsoft.CodeAnalysis.PublicApiAnalyzers`), and the build
+  prerequisite (.NET 8.0 → .NET 10.0 SDK). `CONTRIBUTING.md` analyzer
+  list updated to match.
+
+### Removed
+
+- `REPO-INSTRUCTIONS.md` — the repo-template post-setup bootstrap
+  checklist ("once you have completed the checklist below you can
+  delete this file"); setup is long complete.
 
 ### Fixed
 
+- **Docs** — corrected stale XML-doc `<example>` references found in a
+  code-review pass: `LoaderBase` / `TransformerBase` examples referenced
+  a non-existent `MaxItemCount` (corrected to `MaximumItemCount`), and
+  `SystemProgressTimer` pointed at a non-existent `ManualProgressTimer`
+  type (corrected to a resolvable `IProgressTimer` reference).
 - **C4** — restored explicit `<AssemblyVersion>1.0.0.0</AssemblyVersion>`
   and added a prerelease-safe `<FileVersion>` (regex-strip property
   function) to the src csproj. The original C4 fanout had dropped
