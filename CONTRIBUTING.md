@@ -49,7 +49,7 @@ You can contribute in several ways:
 
 This project maintains **extremely high code quality standards** through multiple layers of static analysis and automated enforcement.
 
-### The 7 Analyzers
+### The 8 Analyzers
 
 All code is analyzed by these tools during build:
 
@@ -62,9 +62,11 @@ All code is analyzed by these tools during build:
    - Advanced C# pattern detection
 
 3. **AsyncFixer**
-   - Detects async/await anti-patterns
-   - Ensures proper `ConfigureAwait()` usage
-   - Prevents fire-and-forget async calls
+   - Detects common async/await anti-patterns (AsyncFixer01–05)
+   - Flags missing or incorrect cancellation-token propagation
+   - Prevents fire-and-forget async calls (`async void` outside event handlers)
+   - NOTE: `ConfigureAwait()` enforcement is handled by Meziantou's
+     MA0004 / SonarAnalyzer S3216 / CA2007, not by AsyncFixer.
 
 4. **Microsoft.VisualStudio.Threading.Analyzers**
    - Thread safety enforcement
@@ -84,6 +86,10 @@ All code is analyzed by these tools during build:
    - Industry-standard code analysis
    - Security vulnerability detection
    - Code smell identification
+
+8. **Microsoft.CodeAnalysis.PublicApiAnalyzers**
+   - Tracks the declared public API surface (`PublicAPI.Shipped.txt` / `PublicAPI.Unshipped.txt`)
+   - Flags unintended additions, removals, or signature changes as breaking-change risks
 
 ### Async-First Enforcement
 
@@ -145,7 +151,7 @@ var now = DateTimeOffset.UtcNow;
 ## Build and Test Instructions
 
 ### Prerequisites
-- .NET 8.0 SDK or later
+- .NET 10.0 SDK or later (required for the repo's net10.0 target; older SDKs cannot load the csproj)
 - PowerShell Core (optional, for formatting scripts)
 
 ### Build the Project
@@ -185,7 +191,7 @@ dotnet format --verify-no-changes
 pwsh ./scripts/format.ps1
 ```
 
-See [README-FORMATTING.md](docs/README-FORMATTING.md) for detailed formatting rules.
+See [docs/README-FORMATTING.md](docs/README-FORMATTING.md) for detailed formatting rules.
 
 ---
 
@@ -237,4 +243,3 @@ Please be respectful and considerate in all interactions. See [CODE_OF_CONDUCT.m
 ---
 
 Thank you for contributing! 🎉
-

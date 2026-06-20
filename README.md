@@ -106,7 +106,7 @@ is no new runtime behavior, no buffering, and no additional allocations per item
 | Fluent Pipeline | `Pipeline.Extract(...).Transform(...).Load(...).RunAsync()` with compile-time stage typing |
 | Progress Reporting | Built-in `IProgress<T>` support with configurable reporting intervals |
 | Cancellation | Full `CancellationToken` support across all operations |
-| Multi-TFM | Targets .NET Framework 4.6.2+, .NET Standard 2.0+, and .NET 5.0–10.0 |
+| Multi-TFM | Targets .NET Framework 4.6.2–4.8.1, .NET Standard 2.0, and .NET 5.0–10.0 |
 | Skip & Limit | `SkipItemCount` and `MaximumItemCount` for partial extraction/loading |
 | Thread Safety | `Interlocked`-based counters for safe concurrent progress tracking |
 
@@ -116,15 +116,15 @@ is no new runtime behavior, no buffering, and no additional allocations per item
 
 | Framework | Versions |
 |-----------|----------|
-| .Net Framework | .net 4.6.2, .net 4.7.0, .net 4.7.1, .net 4.7.2, .net 4.8, .net 4.8.1 | 
-| .Net Core | |
-| .Net | .net 5.0, .net 6.0, .net 7.0, .net 8.0, .net 9.0, .net 10.0 |
+| .NET Framework | 4.6.2, 4.7.2, 4.8, 4.8.1 |
+| .NET Standard | 2.0 |
+| .NET | 5.0, 6.0, 7.0, 8.0, 9.0, 10.0 |
 
 ---
 
 ## 🔍 Code Quality & Static Analysis
 
-This project enforces **strict code quality standards** through **7 specialized analyzers** and custom async-first rules:
+This project enforces **strict code quality standards** through **8 specialized analyzers** and custom async-first rules:
 
 ### Analyzers in Use
 
@@ -135,6 +135,7 @@ This project enforces **strict code quality standards** through **7 specialized 
 5. **Microsoft.CodeAnalysis.BannedApiAnalyzers** - Prevents usage of banned synchronous APIs
 6. **Meziantou.Analyzer** - Comprehensive code quality rules
 7. **SonarAnalyzer.CSharp** - Industry-standard code analysis
+8. **Microsoft.CodeAnalysis.PublicApiAnalyzers** - Tracks the public API surface to catch unintended breaking changes
 
 ### Async-First Enforcement
 
@@ -155,7 +156,7 @@ This library uses **`BannedSymbols.txt`** to prohibit synchronous APIs and enfor
 ## 🛠️ Building from Source
 
 ### Prerequisites
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) or later
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download) or later (required to build all target frameworks)
 - Optional: [PowerShell Core](https://github.com/PowerShell/PowerShell) for formatting scripts
 
 ### Build Steps

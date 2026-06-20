@@ -2,17 +2,20 @@
   <PropertyGroup>
 	<TargetFrameworks>net462;net472;net48;net481;netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
 	<LangVersion>latest</LangVersion>
-	<Nullable>enable</Nullable>
-	<Version>0.13.0</Version>
+	<Version>0.13.1</Version>
+	<!-- Pin AssemblyVersion to a fixed binding-stability baseline so consumers
+	     do not need to recompile / add binding redirects on every minor/patch
+	     bump. Bump only on a deliberate breaking API change. FileVersion +
+	     InformationalVersion (the latter auto-derived from <Version>) carry
+	     the actual release version. -->
+	<AssemblyVersion>1.0.0.0</AssemblyVersion>
+	<FileVersion>$([System.Text.RegularExpressions.Regex]::Replace("$(Version)", "[-+].*$", "")).0</FileVersion>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
-    <Authors>Chris Wolfgang</Authors>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>
-	  <Copyright>Copyright 2025 Chris Wolfgang</Copyright>
     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageIcon>ETL-Abstractions.png</PackageIcon>
