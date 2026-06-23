@@ -41,6 +41,7 @@ Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync<TDestination, TP
 Wolfgang.Etl.Abstractions.ILoadWithProgressAsync<TDestination, TProgress>
 Wolfgang.Etl.Abstractions.ILoadWithProgressAsync<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.IProgress<TProgress>! progress) -> System.Threading.Tasks.Task!
 Wolfgang.Etl.Abstractions.IPipeline
+Wolfgang.Etl.Abstractions.IPipeline.DisposeStagesOnCompletion() -> Wolfgang.Etl.Abstractions.IPipeline!
 Wolfgang.Etl.Abstractions.IPipeline.Name.get -> string?
 Wolfgang.Etl.Abstractions.IPipeline.RunAsync() -> System.Threading.Tasks.Task!
 Wolfgang.Etl.Abstractions.IPipeline.RunAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!

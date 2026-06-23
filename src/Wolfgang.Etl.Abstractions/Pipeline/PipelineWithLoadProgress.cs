@@ -19,7 +19,9 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     private readonly Func<CancellationToken, IAsyncEnumerable<TItem>> _upstream;
     private readonly Func<IAsyncEnumerable<TItem>, CancellationToken, Task> _noProgressLoad;
     private readonly Func<IAsyncEnumerable<TItem>, IProgress<TProgress>, CancellationToken, Task> _withProgressLoad;
+    private readonly IReadOnlyList<object> _stages;
     private IProgress<TProgress>? _progress;
+    private bool _disposeStages;
     private int _runCount;
 
 
@@ -27,12 +29,14 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     (
         Func<CancellationToken, IAsyncEnumerable<TItem>> upstream,
         Func<IAsyncEnumerable<TItem>, CancellationToken, Task> noProgressLoad,
-        Func<IAsyncEnumerable<TItem>, IProgress<TProgress>, CancellationToken, Task> withProgressLoad
+        Func<IAsyncEnumerable<TItem>, IProgress<TProgress>, CancellationToken, Task> withProgressLoad,
+        IReadOnlyList<object> stages
     )
     {
         _upstream = upstream;
         _noProgressLoad = noProgressLoad;
         _withProgressLoad = withProgressLoad;
+        _stages = stages;
     }
 
 
@@ -75,6 +79,14 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
 
 
     /// <inheritdoc/>
+    public IPipeline DisposeStagesOnCompletion()
+    {
+        _disposeStages = true;
+        return this;
+    }
+
+
+    /// <inheritdoc/>
     public Task RunAsync()
     {
         return RunAsync(CancellationToken.None);
@@ -94,9 +106,9 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
                 );
             }
 
-            return _progress is null
-                ? _noProgressLoad(_upstream(token), token)
-                : _withProgressLoad(_upstream(token), _progress, token);
+            return _disposeStages
+                ? StageList.RunThenDisposeStagesAsync(Run, _stages, token)
+                : Run(token);
         }
 #pragma warning disable CA1031 // Do not catch general exception types — intentional: we forward every failure through the Task contract.
         catch (Exception ex)
@@ -104,5 +116,14 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
         {
             return Task.FromException(ex);
         }
+    }
+
+
+    // Builds and starts the load, choosing the progress-aware overload when a sink was supplied.
+    private Task Run(CancellationToken token)
+    {
+        return _progress is null
+            ? _noProgressLoad(_upstream(token), token)
+            : _withProgressLoad(_upstream(token), _progress, token);
     }
 }

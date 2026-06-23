@@ -15,11 +15,13 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
     where TSource : notnull
 {
     private readonly Func<CancellationToken, IAsyncEnumerable<TSource>> _source;
+    private readonly IReadOnlyList<object> _stages;
 
 
-    internal TransformStage(Func<CancellationToken, IAsyncEnumerable<TSource>> source)
+    internal TransformStage(Func<CancellationToken, IAsyncEnumerable<TSource>> source, IReadOnlyList<object> stages)
     {
         _source = source;
+        _stages = stages;
     }
 
 
@@ -38,7 +40,8 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         var source = _source;
         return new TransformStage<TDestination>
         (
-            token => transformer.TransformAsync(source(token))
+            token => transformer.TransformAsync(source(token)),
+            StageList.Append(_stages, transformer)
         );
     }
 
@@ -58,7 +61,8 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         var source = _source;
         return new TransformStage<TDestination>
         (
-            token => transformer.TransformAsync(source(token), token)
+            token => transformer.TransformAsync(source(token), token),
+            StageList.Append(_stages, transformer)
         );
     }
 
@@ -81,7 +85,8 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         (
             upstream: source,
             noProgressTransform: (items, _) => transformer.TransformAsync(items),
-            withProgressTransform: (items, progress, _) => transformer.TransformAsync(items, progress)
+            withProgressTransform: (items, progress, _) => transformer.TransformAsync(items, progress),
+            stages: StageList.Append(_stages, transformer)
         );
     }
 
@@ -104,7 +109,8 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         (
             upstream: source,
             noProgressTransform: (items, token) => transformer.TransformAsync(items, token),
-            withProgressTransform: (items, progress, token) => transformer.TransformAsync(items, progress, token)
+            withProgressTransform: (items, progress, token) => transformer.TransformAsync(items, progress, token),
+            stages: StageList.Append(_stages, transformer)
         );
     }
 
@@ -120,7 +126,8 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         var source = _source;
         return new PipelineImpl
         (
-            token => loader.LoadAsync(source(token))
+            token => loader.LoadAsync(source(token)),
+            StageList.Append(_stages, loader)
         );
     }
 
@@ -136,7 +143,8 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         var source = _source;
         return new PipelineImpl
         (
-            token => loader.LoadAsync(source(token), token)
+            token => loader.LoadAsync(source(token), token),
+            StageList.Append(_stages, loader)
         );
     }
 
@@ -157,7 +165,8 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         (
             upstream: _source,
             noProgressLoad: (items, _) => loader.LoadAsync(items),
-            withProgressLoad: (items, progress, _) => loader.LoadAsync(items, progress)
+            withProgressLoad: (items, progress, _) => loader.LoadAsync(items, progress),
+            stages: StageList.Append(_stages, loader)
         );
     }
 
@@ -178,7 +187,8 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         (
             upstream: _source,
             noProgressLoad: (items, token) => loader.LoadAsync(items, token),
-            withProgressLoad: (items, progress, token) => loader.LoadAsync(items, progress, token)
+            withProgressLoad: (items, progress, token) => loader.LoadAsync(items, progress, token),
+            stages: StageList.Append(_stages, loader)
         );
     }
 }
