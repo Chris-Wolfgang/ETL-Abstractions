@@ -17,7 +17,9 @@ namespace Wolfgang.Etl.Abstractions;
 /// <typeparam name="TDestination">The type of the destination object being written</typeparam>
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
 public abstract class LoaderBase<TDestination, TProgress>
-    : ILoadWithProgressAndCancellationAsync<TDestination, TProgress>
+    : ILoadWithProgressAndCancellationAsync<TDestination, TProgress>,
+      IAsyncDisposable,
+      IDisposable
     where TDestination : notnull
     where TProgress : notnull
 {
@@ -25,6 +27,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     private int _currentSkippedItemCount;
     private long _startTimestamp;
     private DateTimeOffset _startedAtUtc;
+    private bool _disposed;
 
 
 
@@ -415,5 +418,54 @@ public abstract class LoaderBase<TDestination, TProgress>
         {
             _startedAtUtc = now;
         }
+    }
+
+
+
+    /// <summary>
+    /// Asynchronously releases the resources held by this loader. The base implementation is a
+    /// no-op (the base owns no unmanaged resources); derived classes that hold resources such as
+    /// connections or streams override <see cref="Dispose(bool)"/> to release them. Enables
+    /// <c>await using</c> on any loader.
+    /// </summary>
+    /// <returns>A completed <see cref="ValueTask"/> for the default no-op implementation.</returns>
+    public virtual ValueTask DisposeAsync()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+        return default;
+    }
+
+
+
+    /// <summary>
+    /// Releases the resources held by this loader. The base implementation is a no-op; derived
+    /// classes that hold resources override <see cref="Dispose(bool)"/>.
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+
+
+    /// <summary>
+    /// Releases resources held by this loader. Override in a derived class to dispose resources
+    /// it owns (connections, streams, etc.), then call <c>base.Dispose(disposing)</c>. The base
+    /// implementation only marks the instance disposed and is idempotent.
+    /// </summary>
+    /// <param name="disposing">
+    /// <see langword="true"/> when called from <see cref="Dispose()"/> or <see cref="DisposeAsync"/>
+    /// (dispose managed resources); <see langword="false"/> when called from a finalizer.
+    /// </param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
     }
 }
