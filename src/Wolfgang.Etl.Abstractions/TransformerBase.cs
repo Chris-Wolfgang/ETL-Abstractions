@@ -94,6 +94,12 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <remarks>
     /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
     /// as each item is transformed. The base class has no way of knowing when an item has been processed.
+    /// <para>
+    /// This count is <b>per run</b>: it is reset to zero at the start of each run (when enumeration
+    /// of a <c>TransformAsync</c> result begins). Running the same instance more than once therefore
+    /// reports the count for the current run, not a cumulative total across runs. Re-enumerating a
+    /// single instance concurrently is not supported.
+    /// </para>
     /// </remarks>
     public int CurrentItemCount => Volatile.Read(ref _currentItemCount);
 
@@ -191,7 +197,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         }
 #pragma warning restore RCS1140
 #endif
-        return TransformWorkerAsync(items, CancellationToken.None);
+        return TransformWithResetAsync(items, CancellationToken.None);
     }
 
 
@@ -209,7 +215,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         }
 #pragma warning restore RCS1140
 #endif
-        return TransformWorkerAsync(items, token);
+        return TransformWithResetAsync(items, token);
     }
 
 
@@ -279,10 +285,28 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
+    private async IAsyncEnumerable<TDestination> TransformWithResetAsync
+    (
+        IAsyncEnumerable<TSource> items,
+        [EnumeratorCancellation] CancellationToken token
+    )
+    {
+        ResetRunState();
+
+        await foreach (var item in TransformWorkerAsync(items, token))
+        {
+            yield return item;
+        }
+    }
+
+
+
     private async IAsyncEnumerable<TDestination> TransformWithProgressAsync(
         IAsyncEnumerable<TSource> items, IProgress<TProgress> progress,
         [EnumeratorCancellation] CancellationToken token)
     {
+        ResetRunState();
+
         var timer = CreateProgressTimer(progress);
 
         try
@@ -299,6 +323,18 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 #pragma warning restore CA1849, VSTHRD103
             progress.Report(CreateProgressReport());
         }
+    }
+
+
+
+    // Resets the per-run counters and timing to their initial state. Fired at the start of every
+    // run, so running the same instance more than once reports counts and timing for the current
+    // run rather than cumulatively across runs.
+    private void ResetRunState()
+    {
+        Volatile.Write(ref _currentItemCount, 0);
+        Volatile.Write(ref _currentSkippedItemCount, 0);
+        Volatile.Write(ref _startTimestamp, 0L);
     }
 
 
