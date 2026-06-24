@@ -92,6 +92,11 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <remarks>
     /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
     /// as each item is loaded. The base class has no way of knowing when an item has been processed.
+    /// <para>
+    /// This count is <b>per run</b>: it is reset to zero at the start of each <c>LoadAsync</c> call.
+    /// Running the same instance more than once therefore reports the count for the current run, not
+    /// a cumulative total across runs. Running a single instance concurrently is not supported.
+    /// </para>
     /// </remarks>
     public int CurrentItemCount => Volatile.Read(ref _currentItemCount);
 
@@ -188,7 +193,7 @@ public abstract class LoaderBase<TDestination, TProgress>
         }
 #pragma warning restore RCS1140
 #endif
-        return LoadWorkerAsync(items, CancellationToken.None);
+        return LoadWithResetAsync(items, CancellationToken.None);
     }
 
 
@@ -206,7 +211,7 @@ public abstract class LoaderBase<TDestination, TProgress>
         }
 #pragma warning restore RCS1140
 #endif
-        return LoadWorkerAsync(items, token);
+        return LoadWithResetAsync(items, token);
     }
 
 
@@ -275,11 +280,25 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
+    private Task LoadWithResetAsync
+    (
+        IAsyncEnumerable<TDestination> items,
+        CancellationToken token
+    )
+    {
+        ResetRunState();
+        return LoadWorkerAsync(items, token);
+    }
+
+
+
     private async Task LoadWithProgressAsync(
         IAsyncEnumerable<TDestination> items,
         IProgress<TProgress> progress,
         CancellationToken token)
     {
+        ResetRunState();
+
         var timer = CreateProgressTimer(progress);
 
         try
@@ -293,6 +312,18 @@ public abstract class LoaderBase<TDestination, TProgress>
 #pragma warning restore CA1849, VSTHRD103
             progress.Report(CreateProgressReport());
         }
+    }
+
+
+
+    // Resets the per-run counters and timing to their initial state. Fired at the start of every
+    // run, so running the same instance more than once reports counts and timing for the current
+    // run rather than cumulatively across runs.
+    private void ResetRunState()
+    {
+        Volatile.Write(ref _currentItemCount, 0);
+        Volatile.Write(ref _currentSkippedItemCount, 0);
+        Volatile.Write(ref _startTimestamp, 0L);
     }
 
 

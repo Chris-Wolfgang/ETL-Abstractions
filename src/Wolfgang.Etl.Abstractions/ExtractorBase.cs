@@ -92,6 +92,12 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <remarks>
     /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
     /// as each item is extracted. The base class has no way of knowing when an item has been processed.
+    /// <para>
+    /// This count is <b>per run</b>: it is reset to zero at the start of each run (when enumeration
+    /// of an <c>ExtractAsync</c> result begins). Running the same instance more than once therefore
+    /// reports the count for the current run, not a cumulative total across runs. Re-enumerating a
+    /// single instance concurrently is not supported.
+    /// </para>
     /// </remarks>
     public int CurrentItemCount => Volatile.Read(ref _currentItemCount);
 
@@ -205,7 +211,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync()
     {
-        return ExtractWorkerAsync(CancellationToken.None);
+        return ExtractWithResetAsync(CancellationToken.None);
     }
 
 
@@ -213,7 +219,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token)
     {
-        return ExtractWorkerAsync(token);
+        return ExtractWithResetAsync(token);
     }
 
 
@@ -272,10 +278,27 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
 
+    private async IAsyncEnumerable<TSource> ExtractWithResetAsync
+    (
+        [EnumeratorCancellation] CancellationToken token
+    )
+    {
+        ResetRunState();
+
+        await foreach (var item in ExtractWorkerAsync(token))
+        {
+            yield return item;
+        }
+    }
+
+
+
     private async IAsyncEnumerable<TSource> ExtractWithProgressAsync(
         IProgress<TProgress> progress,
         [EnumeratorCancellation] CancellationToken token)
     {
+        ResetRunState();
+
         var timer = CreateProgressTimer(progress);
 
         try
@@ -292,6 +315,18 @@ public abstract class ExtractorBase<TSource, TProgress>
 #pragma warning restore CA1849, VSTHRD103
             progress.Report(CreateProgressReport());
         }
+    }
+
+
+
+    // Resets the per-run counters and timing to their initial state. Fired at the start of every
+    // run (when enumeration begins), so running the same instance more than once reports counts
+    // and timing for the current run rather than cumulatively across runs.
+    private void ResetRunState()
+    {
+        Volatile.Write(ref _currentItemCount, 0);
+        Volatile.Write(ref _currentSkippedItemCount, 0);
+        Volatile.Write(ref _startTimestamp, 0L);
     }
 
 
