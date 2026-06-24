@@ -103,4 +103,104 @@ public class AsyncDisposableTests
 
         Assert.Equal(1, sut.DisposeCount);
     }
+
+
+    private sealed class ResourceOwningLoader : LoaderBase<int, EtlProgress>
+    {
+        public int DisposeCount { get; private set; }
+
+        protected override Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token) => Task.CompletedTask;
+
+        protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+
+        protected override void Dispose(bool disposing)
+        {
+            DisposeCount++;
+            base.Dispose(disposing);
+        }
+    }
+
+
+    private sealed class ResourceOwningTransformer : TransformerBase<int, int, EtlProgress>
+    {
+        public int DisposeCount { get; private set; }
+
+        protected override async IAsyncEnumerable<int> TransformWorkerAsync(IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)
+        {
+            await Task.CompletedTask;
+            yield break;
+        }
+
+        protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+
+        protected override void Dispose(bool disposing)
+        {
+            DisposeCount++;
+            base.Dispose(disposing);
+        }
+    }
+
+
+    [Fact]
+    public void LoaderBase_implements_the_disposal_interfaces()
+    {
+        var sut = new ResourceOwningLoader();
+
+        Assert.IsAssignableFrom<IDisposable>(sut);
+        Assert.IsAssignableFrom<IAsyncDisposable>(sut);
+    }
+
+
+    [Fact]
+    public void LoaderBase_Dispose_invokes_the_derived_override()
+    {
+        var sut = new ResourceOwningLoader();
+
+        sut.Dispose();
+
+        Assert.Equal(1, sut.DisposeCount);
+    }
+
+
+    [Fact]
+    public async Task LoaderBase_DisposeAsync_invokes_the_derived_override()
+    {
+        var sut = new ResourceOwningLoader();
+
+        await sut.DisposeAsync();
+
+        Assert.Equal(1, sut.DisposeCount);
+    }
+
+
+    [Fact]
+    public void TransformerBase_implements_the_disposal_interfaces()
+    {
+        var sut = new ResourceOwningTransformer();
+
+        Assert.IsAssignableFrom<IDisposable>(sut);
+        Assert.IsAssignableFrom<IAsyncDisposable>(sut);
+    }
+
+
+    [Fact]
+    public void TransformerBase_Dispose_invokes_the_derived_override()
+    {
+        var sut = new ResourceOwningTransformer();
+
+        sut.Dispose();
+
+        Assert.Equal(1, sut.DisposeCount);
+    }
+
+
+    [Fact]
+    public async Task TransformerBase_DisposeAsync_invokes_the_derived_override()
+    {
+        var sut = new ResourceOwningTransformer();
+
+        await sut.DisposeAsync();
+
+        Assert.Equal(1, sut.DisposeCount);
+    }
 }
