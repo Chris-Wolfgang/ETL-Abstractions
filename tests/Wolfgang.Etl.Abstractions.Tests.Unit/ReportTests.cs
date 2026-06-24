@@ -63,4 +63,140 @@ public class ReportTests
         var b = new Report(10);
         Assert.NotEqual(a, b);
     }
+
+
+
+    [Fact]
+    public void New_report_has_default_timing_and_throughput_values()
+    {
+        var sut = new Report(10);
+
+        Assert.Null(sut.StartedAt);
+        Assert.Equal(TimeSpan.Zero, sut.Elapsed);
+        Assert.Null(sut.TotalItemCount);
+        Assert.Equal(0d, sut.ItemsPerSecond);
+        Assert.Null(sut.PercentComplete);
+        Assert.Null(sut.EstimatedRemaining);
+    }
+
+
+
+    [Fact]
+    public void TotalItemCount_when_set_to_a_negative_value_throws_ArgumentOutOfRangeException()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Report(0) { TotalItemCount = -1 });
+    }
+
+
+
+    [Fact]
+    public void ItemsPerSecond_when_time_has_elapsed_is_count_divided_by_seconds()
+    {
+        var sut = new Report(10) { Elapsed = TimeSpan.FromSeconds(2) };
+
+        Assert.Equal(5d, sut.ItemsPerSecond);
+    }
+
+
+
+    [Fact]
+    public void ItemsPerSecond_when_no_time_has_elapsed_is_zero()
+    {
+        var sut = new Report(10) { Elapsed = TimeSpan.Zero };
+
+        Assert.Equal(0d, sut.ItemsPerSecond);
+    }
+
+
+
+    [Fact]
+    public void PercentComplete_when_total_is_known_is_the_fraction_done()
+    {
+        var sut = new Report(50) { TotalItemCount = 200 };
+
+        Assert.Equal(25d, sut.PercentComplete);
+    }
+
+
+
+    [Fact]
+    public void PercentComplete_when_count_exceeds_total_is_clamped_to_100()
+    {
+        var sut = new Report(150) { TotalItemCount = 100 };
+
+        Assert.Equal(100d, sut.PercentComplete);
+    }
+
+
+
+    [Fact]
+    public void PercentComplete_when_total_is_zero_is_100()
+    {
+        var sut = new Report(0) { TotalItemCount = 0 };
+
+        Assert.Equal(100d, sut.PercentComplete);
+    }
+
+
+
+    [Fact]
+    public void PercentComplete_when_total_is_unknown_is_null()
+    {
+        var sut = new Report(50);
+
+        Assert.Null(sut.PercentComplete);
+    }
+
+
+
+    [Fact]
+    public void EstimatedRemaining_when_total_and_throughput_are_known_projects_remaining_time()
+    {
+        // 50 of 100 done in 10s => 5 items/s => 50 remaining => 10s left.
+        var sut = new Report(50) { TotalItemCount = 100, Elapsed = TimeSpan.FromSeconds(10) };
+
+        Assert.Equal(TimeSpan.FromSeconds(10), sut.EstimatedRemaining);
+    }
+
+
+
+    [Fact]
+    public void EstimatedRemaining_when_count_has_reached_total_is_zero()
+    {
+        var sut = new Report(100) { TotalItemCount = 100, Elapsed = TimeSpan.FromSeconds(10) };
+
+        Assert.Equal(TimeSpan.Zero, sut.EstimatedRemaining);
+    }
+
+
+
+    [Fact]
+    public void EstimatedRemaining_when_total_is_unknown_is_null()
+    {
+        var sut = new Report(50) { Elapsed = TimeSpan.FromSeconds(10) };
+
+        Assert.Null(sut.EstimatedRemaining);
+    }
+
+
+
+    [Fact]
+    public void EstimatedRemaining_when_throughput_is_zero_is_null()
+    {
+        var sut = new Report(50) { TotalItemCount = 100, Elapsed = TimeSpan.Zero };
+
+        Assert.Null(sut.EstimatedRemaining);
+    }
+
+
+
+    [Fact]
+    public void StartedAt_and_Elapsed_round_trip_through_init()
+    {
+        var started = DateTimeOffset.UtcNow;
+        var sut = new Report(1) { StartedAt = started, Elapsed = TimeSpan.FromSeconds(3) };
+
+        Assert.Equal(started, sut.StartedAt);
+        Assert.Equal(TimeSpan.FromSeconds(3), sut.Elapsed);
+    }
 }
