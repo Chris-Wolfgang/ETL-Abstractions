@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -24,6 +25,43 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 {
     private int _currentItemCount;
     private int _currentSkippedItemCount;
+    private long _startTimestamp;
+    private DateTimeOffset _startedAtUtc;
+
+
+
+    /// <summary>
+    /// The UTC time at which the first item was processed (transformed or skipped), or
+    /// <c>null</c> if transformation has not produced any items yet. Captured automatically
+    /// the first time <see cref="IncrementCurrentItemCount"/> or
+    /// <see cref="IncrementCurrentSkippedItemCount"/> is called, so derived classes can
+    /// surface it on their progress report (see <see cref="Report.StartedAt"/>).
+    /// </summary>
+    protected DateTimeOffset? StartedAt =>
+        Volatile.Read(ref _startTimestamp) == 0 ? null : _startedAtUtc;
+
+
+
+    /// <summary>
+    /// The monotonic wall-clock time elapsed since the first item was processed, or
+    /// <see cref="TimeSpan.Zero"/> if transformation has not produced any items yet.
+    /// Read this when building a progress report (see <see cref="Report.Elapsed"/>) to
+    /// snapshot how long transformation has been running.
+    /// </summary>
+    protected TimeSpan Elapsed
+    {
+        get
+        {
+            var start = Volatile.Read(ref _startTimestamp);
+            if (start == 0)
+            {
+                return TimeSpan.Zero;
+            }
+
+            var ticks = Stopwatch.GetTimestamp() - start;
+            return TimeSpan.FromSeconds(ticks / (double)Stopwatch.Frequency);
+        }
+    }
 
 
 
@@ -311,6 +349,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
     protected void IncrementCurrentItemCount()
     {
+        EnsureStarted();
         _ = Interlocked.Increment(ref _currentItemCount);
     }
 
@@ -327,6 +366,27 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
     protected void IncrementCurrentSkippedItemCount()
     {
+        EnsureStarted();
         _ = Interlocked.Increment(ref _currentSkippedItemCount);
+    }
+
+
+
+    // Captures the start timestamp (monotonic) and wall-clock StartedAt the first
+    // time any item is processed. Idempotent and thread-safe: the first caller to
+    // win the CompareExchange records the start; later calls are a cheap volatile read.
+    private void EnsureStarted()
+    {
+        if (Volatile.Read(ref _startTimestamp) != 0)
+        {
+            return;
+        }
+
+        var now = DateTimeOffset.UtcNow;
+        var timestamp = Stopwatch.GetTimestamp();
+        if (Interlocked.CompareExchange(ref _startTimestamp, timestamp, 0) == 0)
+        {
+            _startedAtUtc = now;
+        }
     }
 }

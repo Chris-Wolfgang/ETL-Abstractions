@@ -1,0 +1,16 @@
+# Analyzer rules relaxed for benchmark projects
+
+[*.cs]
+
+# AsyncFixer01: Remove async/await — benchmark components use async-iterator
+# conventions and intentionally minimal awaits
+dotnet_diagnostic.AsyncFixer01.severity = none
+
+# MA0004: Use ConfigureAwait(false) — not needed in the benchmark harness
+dotnet_diagnostic.MA0004.severity = none
+
+# S1215: Remove use of GC.GetTotalMemory — required for memory benchmarks
+dotnet_diagnostic.S1215.severity = none
+
+# VSTHRD200: Use Async suffix — benchmark methods follow BenchmarkDotNet naming conventions
+dotnet_diagnostic.VSTHRD200.severity = none
