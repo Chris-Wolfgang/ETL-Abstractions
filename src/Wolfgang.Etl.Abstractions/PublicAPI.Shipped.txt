@@ -1,4 +1,8 @@
 #nullable enable
+Wolfgang.Etl.Abstractions.BatchTransformerBase<TSource, TProgress>
+Wolfgang.Etl.Abstractions.BatchTransformerBase<TSource, TProgress>.BatchSize.get -> int
+Wolfgang.Etl.Abstractions.BatchTransformerBase<TSource, TProgress>.BatchSize.set -> void
+Wolfgang.Etl.Abstractions.BatchTransformerBase<TSource, TProgress>.BatchTransformerBase() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentSkippedItemCount.get -> int
@@ -120,6 +124,7 @@ abstract Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CreatePro
 abstract Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
 abstract Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressReport() -> TProgress
 abstract Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
+override sealed Wolfgang.Etl.Abstractions.BatchTransformerBase<TSource, TProgress>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<System.Collections.Generic.IReadOnlyList<TSource>!>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync<TSource, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync<TSource, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractAsync<TSource>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>!
