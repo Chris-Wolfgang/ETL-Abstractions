@@ -2,6 +2,7 @@
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentSkippedItemCount.get -> int
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentSkippedItemCount() -> void
@@ -11,6 +12,7 @@ Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ReportingInterval.ge
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ReportingInterval.set -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.SkipItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.SkipItemCount.set -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.StartedAt.get -> System.DateTimeOffset?
 Wolfgang.Etl.Abstractions.IExtractAsync<TSource>
 Wolfgang.Etl.Abstractions.IExtractAsync<TSource>.ExtractAsync() -> System.Collections.Generic.IAsyncEnumerable<TSource>!
 Wolfgang.Etl.Abstractions.IExtractStage<TSource>
@@ -71,6 +73,7 @@ Wolfgang.Etl.Abstractions.ITransformWithProgressAsync<TSource, TDestination, TPr
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentSkippedItemCount.get -> int
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase() -> void
@@ -80,13 +83,24 @@ Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ReportingInterval.
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ReportingInterval.set -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.SkipItemCount.get -> int
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.SkipItemCount.set -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.StartedAt.get -> System.DateTimeOffset?
 Wolfgang.Etl.Abstractions.Pipeline
 Wolfgang.Etl.Abstractions.Report
 Wolfgang.Etl.Abstractions.Report.CurrentItemCount.get -> int
+Wolfgang.Etl.Abstractions.Report.Elapsed.get -> System.TimeSpan
+Wolfgang.Etl.Abstractions.Report.Elapsed.init -> void
+Wolfgang.Etl.Abstractions.Report.EstimatedRemaining.get -> System.TimeSpan?
+Wolfgang.Etl.Abstractions.Report.ItemsPerSecond.get -> double
+Wolfgang.Etl.Abstractions.Report.PercentComplete.get -> double?
 Wolfgang.Etl.Abstractions.Report.Report(int currentItemCount) -> void
+Wolfgang.Etl.Abstractions.Report.StartedAt.get -> System.DateTimeOffset?
+Wolfgang.Etl.Abstractions.Report.StartedAt.init -> void
+Wolfgang.Etl.Abstractions.Report.TotalItemCount.get -> int?
+Wolfgang.Etl.Abstractions.Report.TotalItemCount.init -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CurrentSkippedItemCount.get -> int
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount.get -> int
@@ -95,6 +109,7 @@ Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Repo
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ReportingInterval.set -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.SkipItemCount.get -> int
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.SkipItemCount.set -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.StartedAt.get -> System.DateTimeOffset?
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase() -> void
 abstract Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CreateProgressReport() -> TProgress
 abstract Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TSource>!
