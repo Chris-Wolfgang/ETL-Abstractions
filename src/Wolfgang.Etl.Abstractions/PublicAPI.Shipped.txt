@@ -2,6 +2,7 @@
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentSkippedItemCount.get -> int
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Dispose() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount() -> void
@@ -73,6 +74,7 @@ Wolfgang.Etl.Abstractions.ITransformWithProgressAsync<TSource, TDestination, TPr
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentSkippedItemCount.get -> int
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Dispose() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
@@ -100,6 +102,7 @@ Wolfgang.Etl.Abstractions.Report.TotalItemCount.init -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CurrentSkippedItemCount.get -> int
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Dispose() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
@@ -122,16 +125,22 @@ static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.E
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractAsync<TSource>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync<TSource>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>!
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CreateProgressTimer(System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
+virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Dispose(bool disposing) -> void
+virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.DisposeAsync() -> System.Threading.Tasks.ValueTask
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync() -> System.Collections.Generic.IAsyncEnumerable<TSource>!
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync(System.IProgress<TProgress>! progress) -> System.Collections.Generic.IAsyncEnumerable<TSource>!
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync(System.IProgress<TProgress>! progress, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TSource>!
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TSource>!
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CreateProgressTimer(System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
+virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Dispose(bool disposing) -> void
+virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.DisposeAsync() -> System.Threading.Tasks.ValueTask
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items) -> System.Threading.Tasks.Task!
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.IProgress<TProgress>! progress) -> System.Threading.Tasks.Task!
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.IProgress<TProgress>! progress, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressTimer(System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
+virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Dispose(bool disposing) -> void
+virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.DisposeAsync() -> System.Threading.Tasks.ValueTask
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
