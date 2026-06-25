@@ -19,6 +19,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.14.1] - 2026-06-25
+
+Patch release: a robustness fix and documentation accuracy. No public API change.
+
+### Changed
+
+- **Docs** — README corrected: generated HTML is written to
+  `docfx_project/_site/` and published to the `gh-pages` branch (the `docs/`
+  folder holds supplementary markdown guides, not generated output). Added the
+  v0.14.0 `Report` timing/throughput, disposal, and per-run-reset capabilities
+  to the Features table and Quick Start. (#254)
+
+### Fixed
+
+- `Report.EstimatedRemaining` no longer throws `OverflowException` for a
+  pathologically low throughput (a single item after a very long elapsed time
+  with a large total); the projected estimate is clamped to
+  `TimeSpan.MaxValue`. (#255)
+
 ## [0.14.0] - 2026-06-24
 
 Adds timing/throughput reporting and resource-lifecycle management to the
