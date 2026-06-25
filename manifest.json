@@ -488,16 +488,6 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "public/main.js",
-      "output": {
-        "resource": {
-          "relative_path": "public/main.js"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
       "source_relative_path": "public/version-picker.js",
       "output": {
         "resource": {
