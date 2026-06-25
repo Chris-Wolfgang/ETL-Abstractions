@@ -19,6 +19,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.14.0] - 2026-06-24
+
+Adds timing/throughput reporting and resource-lifecycle management to the
+base classes. MINOR per SemVer — additions are source- and binary-additive,
+with one behavioral change (per-run counter reset) and one binary-sensitive
+addition: the base classes now implement `IDisposable`/`IAsyncDisposable`,
+so consumers that wrap a component in a `using` will now dispose it.
+
+### Added
+
+- `Report` now surfaces timing and throughput metrics: `StartedAt`,
+  `Elapsed`, `TotalItemCount`, `ItemsPerSecond`, `PercentComplete`, and
+  `EstimatedRemaining`. (#144, #91)
+- `ExtractorBase`, `LoaderBase`, and `TransformerBase` implement
+  `IAsyncDisposable` and `IDisposable`, with overridable `DisposeAsync()`,
+  `Dispose()`, and `Dispose(bool disposing)` so derived components can
+  release resources deterministically. (#92)
+- Protected `StartedAt` and `Elapsed` members on the three base classes,
+  populated automatically once the first item is processed. (#144)
+
+### Changed
+
+- Per-run counters and timing now reset at the start of each enumeration,
+  so a reused extractor, loader, or transformer reports the current run
+  rather than cumulative totals across runs. (#246)
+
 ## [0.13.1] - 2026-06-19
 
 Canonical maintenance round + binding-stability fix. No public API or
