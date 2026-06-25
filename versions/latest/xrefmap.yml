@@ -85,6 +85,66 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).CurrentSkippedItemCount
   nameWithType: ExtractorBase<TSource, TProgress>.CurrentSkippedItemCount
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).CurrentSkippedItemCount
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.Dispose
+  name: Dispose()
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_Dispose
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.Dispose
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Dispose()
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).Dispose()
+  nameWithType: ExtractorBase<TSource, TProgress>.Dispose()
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).Dispose()
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.Dispose(System.Boolean)
+  name: Dispose(bool)
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_Dispose_System_Boolean_
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.Dispose(System.Boolean)
+  name.vb: Dispose(Boolean)
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Dispose(bool)
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).Dispose(Boolean)
+  nameWithType: ExtractorBase<TSource, TProgress>.Dispose(bool)
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).Dispose(Boolean)
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.Dispose*
+  name: Dispose
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_Dispose_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.Dispose
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Dispose
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).Dispose
+  nameWithType: ExtractorBase<TSource, TProgress>.Dispose
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).Dispose
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.DisposeAsync
+  name: DisposeAsync()
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_DisposeAsync
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.DisposeAsync
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.DisposeAsync()
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).DisposeAsync()
+  nameWithType: ExtractorBase<TSource, TProgress>.DisposeAsync()
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).DisposeAsync()
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.DisposeAsync*
+  name: DisposeAsync
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_DisposeAsync_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.DisposeAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.DisposeAsync
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).DisposeAsync
+  nameWithType: ExtractorBase<TSource, TProgress>.DisposeAsync
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).DisposeAsync
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.Elapsed
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_Elapsed
+  commentId: P:Wolfgang.Etl.Abstractions.ExtractorBase`2.Elapsed
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Elapsed
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).Elapsed
+  nameWithType: ExtractorBase<TSource, TProgress>.Elapsed
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).Elapsed
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.Elapsed*
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_Elapsed_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.Elapsed
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Elapsed
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).Elapsed
+  nameWithType: ExtractorBase<TSource, TProgress>.Elapsed
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).Elapsed
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.ExtractAsync
   name: ExtractAsync()
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync
@@ -230,6 +290,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).SkipItemCount
   nameWithType: ExtractorBase<TSource, TProgress>.SkipItemCount
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).SkipItemCount
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.StartedAt
+  name: StartedAt
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_StartedAt
+  commentId: P:Wolfgang.Etl.Abstractions.ExtractorBase`2.StartedAt
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.StartedAt
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).StartedAt
+  nameWithType: ExtractorBase<TSource, TProgress>.StartedAt
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).StartedAt
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.StartedAt*
+  name: StartedAt
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_StartedAt_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.StartedAt
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.StartedAt
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).StartedAt
+  nameWithType: ExtractorBase<TSource, TProgress>.StartedAt
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).StartedAt
 - uid: Wolfgang.Etl.Abstractions.IExtractAsync`1
   name: IExtractAsync<TSource>
   href: api/Wolfgang.Etl.Abstractions.IExtractAsync-1.html
@@ -1004,6 +1081,66 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).CurrentSkippedItemCount
   nameWithType: LoaderBase<TDestination, TProgress>.CurrentSkippedItemCount
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).CurrentSkippedItemCount
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose
+  name: Dispose()
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Dispose()
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).Dispose()
+  nameWithType: LoaderBase<TDestination, TProgress>.Dispose()
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).Dispose()
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose(System.Boolean)
+  name: Dispose(bool)
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose_System_Boolean_
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose(System.Boolean)
+  name.vb: Dispose(Boolean)
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Dispose(bool)
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).Dispose(Boolean)
+  nameWithType: LoaderBase<TDestination, TProgress>.Dispose(bool)
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).Dispose(Boolean)
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose*
+  name: Dispose
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Dispose
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).Dispose
+  nameWithType: LoaderBase<TDestination, TProgress>.Dispose
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).Dispose
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.DisposeAsync
+  name: DisposeAsync()
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_DisposeAsync
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.DisposeAsync
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.DisposeAsync()
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).DisposeAsync()
+  nameWithType: LoaderBase<TDestination, TProgress>.DisposeAsync()
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).DisposeAsync()
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.DisposeAsync*
+  name: DisposeAsync
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_DisposeAsync_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.DisposeAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.DisposeAsync
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).DisposeAsync
+  nameWithType: LoaderBase<TDestination, TProgress>.DisposeAsync
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).DisposeAsync
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.Elapsed
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_Elapsed
+  commentId: P:Wolfgang.Etl.Abstractions.LoaderBase`2.Elapsed
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Elapsed
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).Elapsed
+  nameWithType: LoaderBase<TDestination, TProgress>.Elapsed
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).Elapsed
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.Elapsed*
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_Elapsed_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.Elapsed
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Elapsed
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).Elapsed
+  nameWithType: LoaderBase<TDestination, TProgress>.Elapsed
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).Elapsed
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentItemCount
   name: IncrementCurrentItemCount()
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount
@@ -1152,6 +1289,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).SkipItemCount
   nameWithType: LoaderBase<TDestination, TProgress>.SkipItemCount
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).SkipItemCount
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.StartedAt
+  name: StartedAt
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_StartedAt
+  commentId: P:Wolfgang.Etl.Abstractions.LoaderBase`2.StartedAt
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.StartedAt
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).StartedAt
+  nameWithType: LoaderBase<TDestination, TProgress>.StartedAt
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).StartedAt
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.StartedAt*
+  name: StartedAt
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_StartedAt_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.StartedAt
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.StartedAt
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).StartedAt
+  nameWithType: LoaderBase<TDestination, TProgress>.StartedAt
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).StartedAt
 - uid: Wolfgang.Etl.Abstractions.Pipeline
   name: Pipeline
   href: api/Wolfgang.Etl.Abstractions.Pipeline.html
@@ -1239,6 +1393,84 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.Abstractions.Report.CurrentItemCount
   nameWithType: Report.CurrentItemCount
+- uid: Wolfgang.Etl.Abstractions.Report.Elapsed
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_Elapsed
+  commentId: P:Wolfgang.Etl.Abstractions.Report.Elapsed
+  fullName: Wolfgang.Etl.Abstractions.Report.Elapsed
+  nameWithType: Report.Elapsed
+- uid: Wolfgang.Etl.Abstractions.Report.Elapsed*
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_Elapsed_
+  commentId: Overload:Wolfgang.Etl.Abstractions.Report.Elapsed
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.Report.Elapsed
+  nameWithType: Report.Elapsed
+- uid: Wolfgang.Etl.Abstractions.Report.EstimatedRemaining
+  name: EstimatedRemaining
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_EstimatedRemaining
+  commentId: P:Wolfgang.Etl.Abstractions.Report.EstimatedRemaining
+  fullName: Wolfgang.Etl.Abstractions.Report.EstimatedRemaining
+  nameWithType: Report.EstimatedRemaining
+- uid: Wolfgang.Etl.Abstractions.Report.EstimatedRemaining*
+  name: EstimatedRemaining
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_EstimatedRemaining_
+  commentId: Overload:Wolfgang.Etl.Abstractions.Report.EstimatedRemaining
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.Report.EstimatedRemaining
+  nameWithType: Report.EstimatedRemaining
+- uid: Wolfgang.Etl.Abstractions.Report.ItemsPerSecond
+  name: ItemsPerSecond
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_ItemsPerSecond
+  commentId: P:Wolfgang.Etl.Abstractions.Report.ItemsPerSecond
+  fullName: Wolfgang.Etl.Abstractions.Report.ItemsPerSecond
+  nameWithType: Report.ItemsPerSecond
+- uid: Wolfgang.Etl.Abstractions.Report.ItemsPerSecond*
+  name: ItemsPerSecond
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_ItemsPerSecond_
+  commentId: Overload:Wolfgang.Etl.Abstractions.Report.ItemsPerSecond
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.Report.ItemsPerSecond
+  nameWithType: Report.ItemsPerSecond
+- uid: Wolfgang.Etl.Abstractions.Report.PercentComplete
+  name: PercentComplete
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_PercentComplete
+  commentId: P:Wolfgang.Etl.Abstractions.Report.PercentComplete
+  fullName: Wolfgang.Etl.Abstractions.Report.PercentComplete
+  nameWithType: Report.PercentComplete
+- uid: Wolfgang.Etl.Abstractions.Report.PercentComplete*
+  name: PercentComplete
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_PercentComplete_
+  commentId: Overload:Wolfgang.Etl.Abstractions.Report.PercentComplete
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.Report.PercentComplete
+  nameWithType: Report.PercentComplete
+- uid: Wolfgang.Etl.Abstractions.Report.StartedAt
+  name: StartedAt
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_StartedAt
+  commentId: P:Wolfgang.Etl.Abstractions.Report.StartedAt
+  fullName: Wolfgang.Etl.Abstractions.Report.StartedAt
+  nameWithType: Report.StartedAt
+- uid: Wolfgang.Etl.Abstractions.Report.StartedAt*
+  name: StartedAt
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_StartedAt_
+  commentId: Overload:Wolfgang.Etl.Abstractions.Report.StartedAt
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.Report.StartedAt
+  nameWithType: Report.StartedAt
+- uid: Wolfgang.Etl.Abstractions.Report.TotalItemCount
+  name: TotalItemCount
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_TotalItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.Report.TotalItemCount
+  fullName: Wolfgang.Etl.Abstractions.Report.TotalItemCount
+  nameWithType: Report.TotalItemCount
+- uid: Wolfgang.Etl.Abstractions.Report.TotalItemCount*
+  name: TotalItemCount
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_TotalItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.Report.TotalItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.Report.TotalItemCount
+  nameWithType: Report.TotalItemCount
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3
   name: TransformerBase<TSource, TDestination, TProgress>
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html
@@ -1317,6 +1549,66 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).CurrentSkippedItemCount
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.CurrentSkippedItemCount
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).CurrentSkippedItemCount
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.Dispose
+  name: Dispose()
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_Dispose
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.Dispose
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Dispose()
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).Dispose()
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.Dispose()
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).Dispose()
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.Dispose(System.Boolean)
+  name: Dispose(bool)
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_Dispose_System_Boolean_
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.Dispose(System.Boolean)
+  name.vb: Dispose(Boolean)
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Dispose(bool)
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).Dispose(Boolean)
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.Dispose(bool)
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).Dispose(Boolean)
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.Dispose*
+  name: Dispose
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_Dispose_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.Dispose
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Dispose
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).Dispose
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.Dispose
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).Dispose
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.DisposeAsync
+  name: DisposeAsync()
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_DisposeAsync
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.DisposeAsync
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.DisposeAsync()
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).DisposeAsync()
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.DisposeAsync()
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).DisposeAsync()
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.DisposeAsync*
+  name: DisposeAsync
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_DisposeAsync_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.DisposeAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.DisposeAsync
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).DisposeAsync
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.DisposeAsync
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).DisposeAsync
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.Elapsed
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_Elapsed
+  commentId: P:Wolfgang.Etl.Abstractions.TransformerBase`3.Elapsed
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Elapsed
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).Elapsed
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.Elapsed
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).Elapsed
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.Elapsed*
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_Elapsed_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.Elapsed
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Elapsed
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).Elapsed
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.Elapsed
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).Elapsed
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentItemCount
   name: IncrementCurrentItemCount()
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentItemCount
@@ -1402,6 +1694,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).SkipItemCount
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.SkipItemCount
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).SkipItemCount
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.StartedAt
+  name: StartedAt
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_StartedAt
+  commentId: P:Wolfgang.Etl.Abstractions.TransformerBase`3.StartedAt
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.StartedAt
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).StartedAt
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.StartedAt
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).StartedAt
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.StartedAt*
+  name: StartedAt
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_StartedAt_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.StartedAt
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.StartedAt
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).StartedAt
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.StartedAt
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).StartedAt
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.TransformAsync(System.Collections.Generic.IAsyncEnumerable{`0})
   name: TransformAsync(IAsyncEnumerable<TSource>)
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__

@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.13.1/apiSpec/new?filename=Wolfgang_Etl_Abstractions_LoaderBase_2.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.LoaderBase%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.14.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_LoaderBase_2.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.LoaderBase%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_Abstractions_LoaderBase_2" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2" class="text-break">
-Class LoaderBase&lt;TDestination, TProgress&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L18"><i class="bi bi-code-slash"></i></a>
+Class LoaderBase&lt;TDestination, TProgress&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -90,7 +90,7 @@ LoadWorkerAsync and CreateProgressReport methods.</p>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class LoaderBase&lt;TDestination, TProgress&gt; : ILoadWithProgressAndCancellationAsync&lt;TDestination, TProgress&gt;, ILoadWithProgressAsync&lt;TDestination, TProgress&gt;, ILoadWithCancellationAsync&lt;TDestination&gt;, ILoadAsync&lt;TDestination&gt; where TDestination : notnull where TProgress : notnull</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class LoaderBase&lt;TDestination, TProgress&gt; : ILoadWithProgressAndCancellationAsync&lt;TDestination, TProgress&gt;, ILoadWithProgressAsync&lt;TDestination, TProgress&gt;, ILoadWithCancellationAsync&lt;TDestination&gt;, ILoadAsync&lt;TDestination&gt;, IAsyncDisposable, IDisposable where TDestination : notnull where TProgress : notnull</code></pre>
   </div>
 
 
@@ -120,6 +120,8 @@ LoadWorkerAsync and CreateProgressReport methods.</p>
       <div><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAsync-2.html">ILoadWithProgressAsync</a>&lt;TDestination, TProgress&gt;</div>
       <div><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync-1.html">ILoadWithCancellationAsync</a>&lt;TDestination&gt;</div>
       <div><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadAsync-1.html">ILoadAsync</a>&lt;TDestination&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
     </dd>
   </dl>
 
@@ -163,7 +165,7 @@ LoadWorkerAsync and CreateProgressReport methods.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_CurrentItemCount" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.CurrentItemCount">
   CurrentItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L104"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The current number of items loaded so far.</p>
@@ -190,6 +192,11 @@ LoadWorkerAsync and CreateProgressReport methods.</p>
   <h4 class="section" id="Wolfgang_Etl_Abstractions_LoaderBase_2_CurrentItemCount_remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>It is the responsibility of the derived class to call <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount">IncrementCurrentItemCount()</a>
 as each item is loaded. The base class has no way of knowing when an item has been processed.</p>
+<p>
+This count is <b>per run</b>: it is reset to zero at the start of each <code>LoadAsync</code> call.
+Running the same instance more than once therefore reports the count for the current run, not
+a cumulative total across runs. Running a single instance concurrently is not supported.
+</p>
 </div>
 
 
@@ -199,7 +206,7 @@ as each item is loaded. The base class has no way of knowing when an item has be
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_CurrentSkippedItemCount" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.CurrentSkippedItemCount">
   CurrentSkippedItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L111"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The current number of items skipped so far during loading.</p>
@@ -227,11 +234,46 @@ as each item is loaded. The base class has no way of knowing when an item has be
 
 
 
+  <a id="Wolfgang_Etl_Abstractions_LoaderBase_2_Elapsed_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.Elapsed*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_Elapsed" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.Elapsed">
+  Elapsed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The monotonic wall-clock time elapsed since the first item was processed, or
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan.zero">Zero</a> if loading has not produced any items yet.
+Read this when building a progress report (see <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_Elapsed">Elapsed</a>) to
+snapshot how long loading has been running.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected TimeSpan Elapsed { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Wolfgang_Etl_Abstractions_LoaderBase_2_MaximumItemCount_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.MaximumItemCount*"></a>
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_MaximumItemCount" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.MaximumItemCount">
   MaximumItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L132"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The maximum number of items to load. Once the loader has reached this limit,
@@ -280,7 +322,7 @@ or infinite or during development.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_ReportingInterval" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.ReportingInterval">
   ReportingInterval
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L73"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of milliseconds between progress updates.</p>
@@ -318,7 +360,7 @@ or infinite or during development.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_SkipItemCount" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.SkipItemCount">
   SkipItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L167"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of items skipped before loading.
@@ -362,6 +404,42 @@ The loader should skip the specified number of items before starting to process 
 
 
 
+  <a id="Wolfgang_Etl_Abstractions_LoaderBase_2_StartedAt_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.StartedAt*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_StartedAt" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.StartedAt">
+  StartedAt
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The UTC time at which the first item was processed (loaded or skipped), or
+<code>null</code> if loading has not produced any items yet. Captured automatically
+the first time <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount">IncrementCurrentItemCount()</a> or
+<a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentSkippedItemCount">IncrementCurrentSkippedItemCount()</a> is called, so derived classes can
+surface it on their progress report (see <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_StartedAt">StartedAt</a>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected DateTimeOffset? StartedAt { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -370,7 +448,7 @@ The loader should skip the specified number of items before starting to process 
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_CreateProgressReport" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.CreateProgressReport">
   CreateProgressReport()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L282"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L354"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a progress report of type TProgress. This gives the derived class the opportunity to
@@ -404,7 +482,7 @@ implement a custom progress report that is specific to the loading process.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_CreateProgressTimer_System_IProgress__1__" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.CreateProgressTimer(System.IProgress{`1})">
   CreateProgressTimer(IProgress&lt;TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L231"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L277"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> used to drive progress callbacks.
@@ -441,11 +519,111 @@ Override this method in a derived class to inject a custom timer
 
 
 
+  <a id="Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose">
+  Dispose()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L445"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Releases the resources held by this loader. The base implementation is a no-op; derived
+classes that hold resources override <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose_System_Boolean_">Dispose(bool)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose_System_Boolean_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.Dispose(System.Boolean)">
+  Dispose(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L462"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Releases resources held by this loader. Override in a derived class to dispose resources
+it owns (connections, streams, etc.), then call <code>base.Dispose(disposing)</code>. The base
+implementation only marks the instance disposed and is idempotent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>disposing</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> when called from <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose">Dispose()</a> or <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_DisposeAsync">DisposeAsync()</a>
+(dispose managed resources); <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a> when called from a finalizer.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_LoaderBase_2_DisposeAsync_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.DisposeAsync*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_DisposeAsync" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.DisposeAsync">
+  DisposeAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L432"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Asynchronously releases the resources held by this loader. The base implementation is a
+no-op (the base owns no unmanaged resources); derived classes that hold resources such as
+connections or streams override <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_Dispose_System_Boolean_">Dispose(bool)</a> to release them. Enables
+<code>await using</code> on any loader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual ValueTask DisposeAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask">ValueTask</a></dt>
+    <dd><p>A completed <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask">ValueTask</a> for the default no-op implementation.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentItemCount*"></a>
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentItemCount">
   IncrementCurrentItemCount()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L306"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L378"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Increments the CurrentItemCount in a thread safe manner.</p>
@@ -477,7 +655,7 @@ thread safe. This method ensures that CurrentItemCount is incremented safely.</p
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentSkippedItemCount" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentSkippedItemCount">
   IncrementCurrentSkippedItemCount()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L322"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L395"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Increments the CurrentSkippedItemCount in a thread safe manner.</p>
@@ -509,7 +687,7 @@ thread safe. This method ensures that CurrentSkippedItemCount is incremented saf
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_LoadAsync_System_Collections_Generic_IAsyncEnumerable__0__" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.LoadAsync(System.Collections.Generic.IAsyncEnumerable{`0})">
   LoadAsync(IAsyncEnumerable&lt;TDestination&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L141"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L187"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Loads the data asynchronously.</p>
@@ -554,7 +732,7 @@ thread safe. This method ensures that CurrentSkippedItemCount is incremented saf
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_LoadAsync_System_Collections_Generic_IAsyncEnumerable__0__System_IProgress__1__" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.LoadAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.IProgress{`1})">
   LoadAsync(IAsyncEnumerable&lt;TDestination&gt;, IProgress&lt;TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L177"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L223"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Loads the data asynchronously.</p>
@@ -602,7 +780,7 @@ thread safe. This method ensures that CurrentSkippedItemCount is incremented saf
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_LoadAsync_System_Collections_Generic_IAsyncEnumerable__0__System_IProgress__1__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.LoadAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.IProgress{`1},System.Threading.CancellationToken)">
   LoadAsync(IAsyncEnumerable&lt;TDestination&gt;, IProgress&lt;TProgress&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L201"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L247"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Loads the data asynchronously.</p>
@@ -657,7 +835,7 @@ If the caller doesn't plan on cancelling the loading, they can pass Cancellation
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_LoadAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.LoadAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
   LoadAsync(IAsyncEnumerable&lt;TDestination&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L159"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L205"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Loads the data asynchronously.</p>
@@ -703,7 +881,7 @@ If the caller doesn't plan on cancelling the loading, they can pass Cancellation
 
   <h3 id="Wolfgang_Etl_Abstractions_LoaderBase_2_LoadWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.LoaderBase`2.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
   LoadWorkerAsync(IAsyncEnumerable&lt;TDestination&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L273"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L345"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>This method is the core implementation of the loading logic and should be
@@ -755,7 +933,7 @@ overridden by derived classes.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.13.1/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L18" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.14.0/src/Wolfgang.Etl.Abstractions/LoaderBase.cs/#L19" class="edit-link">Edit this page</a>
         </div>
 
 

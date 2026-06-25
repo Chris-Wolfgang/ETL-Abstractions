@@ -340,7 +340,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.Report",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.Report.yml\" sourcestartlinenumber=\"1\">Provides a report of the current item count in an ETL process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.Report.yml\" sourcestartlinenumber=\"1\">Provides a point-in-time snapshot of the progress of an ETL process — how many\nitems have been processed, how long it has been running, and (when the total is\nknown) how far along it is and how much longer it is expected to take.</p>\n"
     },
     {
       "type": "ManagedReference",
