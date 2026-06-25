@@ -49,7 +49,13 @@ public class MyExtractor : ExtractorBase<string, Report>
 
     protected override Report CreateProgressReport()
     {
-        return new Report(CurrentItemCount);
+        // StartedAt/Elapsed are populated by the base class once the first
+        // item is processed; the Report derives ItemsPerSecond / EstimatedRemaining from them.
+        return new Report(CurrentItemCount)
+        {
+            StartedAt = StartedAt,
+            Elapsed = Elapsed,
+        };
     }
 }
 
@@ -105,6 +111,9 @@ is no new runtime behavior, no buffering, and no additional allocations per item
 | Async Streaming | Built on `IAsyncEnumerable<T>` for efficient, non-blocking data pipelines |
 | Fluent Pipeline | `Pipeline.Extract(...).Transform(...).Load(...).RunAsync()` with compile-time stage typing |
 | Progress Reporting | Built-in `IProgress<T>` support with configurable reporting intervals |
+| Throughput & ETA | `Report` exposes `StartedAt`, `Elapsed`, `ItemsPerSecond`, `PercentComplete`, and `EstimatedRemaining` derived from the item count and elapsed time |
+| Resource Disposal | Base classes implement `IDisposable` / `IAsyncDisposable`; override `Dispose(bool)` or `DisposeAsync()` to release resources deterministically |
+| Per-run State | Item counts and timing reset at the start of each enumeration, so a reused component reports the current run rather than cumulative totals |
 | Cancellation | Full `CancellationToken` support across all operations |
 | Multi-TFM | Targets .NET Framework 4.6.2–4.8.1, .NET Standard 2.0, and .NET 5.0–10.0 |
 | Skip & Limit | `SkipItemCount` and `MaximumItemCount` for partial extraction/loading |
@@ -206,7 +215,8 @@ cd docfx_project
 docfx metadata  # Extract API metadata from source code
 docfx build     # Build HTML documentation
 
-# Documentation is generated in the docs/ folder at the repository root
+# The generated site is written to docfx_project/_site/
+# (the release/docs workflow publishes it to the gh-pages branch)
 ```
 
 The documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch.
@@ -222,7 +232,8 @@ docfx build --serve
 
 **Documentation Structure:**
 - `docfx_project/` - DocFX configuration and source files
-- `docs/` - Generated HTML documentation (published to GitHub Pages)
+- `docfx_project/_site/` - Generated HTML site (published to the `gh-pages` branch → GitHub Pages)
+- `docs/` - Supplementary markdown guides (formatting, release workflow, version picker, workflow security)
 - `docfx_project/index.md` - Main landing page content
 - `docfx_project/docs/` - Additional documentation articles
 - `docfx_project/api/` - Auto-generated API reference YAML files
