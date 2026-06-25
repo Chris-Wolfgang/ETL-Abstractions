@@ -61,9 +61,14 @@ public class AsyncDisposableTests
     {
         var sut = new PlainExtractor();
 
-        // Should not throw.
+        // The default base implementation does nothing and must be safe to call
+        // repeatedly, in either form, without throwing or corrupting state.
+        await sut.DisposeAsync();
         await sut.DisposeAsync();
         sut.Dispose();
+        sut.Dispose();
+
+        Assert.Equal(0, sut.CurrentItemCount);
     }
 
 

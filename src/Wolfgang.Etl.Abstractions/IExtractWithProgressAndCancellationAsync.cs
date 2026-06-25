@@ -6,9 +6,9 @@ using System.Threading;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Defines an asynchronous extractor interface for extracting data of type T. 
+/// Defines an asynchronous extractor interface for extracting data of type T.
 /// A class implementing this interface is intended to be the first step in an
-/// ETL (Extract, Transform, Load) process. 
+/// ETL (Extract, Transform, Load) process.
 /// </summary>
 /// <typeparam name="TSource">Represents a single item from the source of the ETL</typeparam>
 /// <typeparam name="TProgress">The value of the updated progress</typeparam>
@@ -40,7 +40,7 @@ public interface IExtractWithProgressAndCancellationAsync<out TSource, out TProg
     /// <param name="token">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// IAsyncEnumerable&lt;TSource&gt; - The result may be an empty sequence if no data is available or if the extraction fails.
-    /// </returns> 
+    /// </returns>
     /// <remarks>
     /// The extractor should be able to handle cancellation requests gracefully.
     /// If the caller doesn't plan on cancelling the extraction, they can pass CancellationToken.None.
