@@ -191,6 +191,18 @@ public class ReportTests
 
 
     [Fact]
+    public void EstimatedRemaining_when_projection_overflows_is_clamped_to_max()
+    {
+        // 1 item in 30 days => a near-zero rate; projecting the remaining int.MaxValue
+        // items would exceed TimeSpan.MaxValue, so the estimate is clamped rather than throwing.
+        var sut = new Report(1) { TotalItemCount = int.MaxValue, Elapsed = TimeSpan.FromDays(30) };
+
+        Assert.Equal(TimeSpan.MaxValue, sut.EstimatedRemaining);
+    }
+
+
+
+    [Fact]
     public void StartedAt_and_Elapsed_round_trip_through_init()
     {
         var started = DateTimeOffset.UtcNow;
