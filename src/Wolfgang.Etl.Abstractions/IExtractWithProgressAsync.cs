@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Defines an asynchronous extractor interface for extracting data of type T. 
+/// Defines an asynchronous extractor interface for extracting data of type T.
 /// A class implementing this interface is intended to be the first step in an
-/// ETL (Extract, Transform, Load) process. 
+/// ETL (Extract, Transform, Load) process.
 /// </summary>
 /// <typeparam name="TSource">Represents a single item from the source of the ETL</typeparam>
 /// <typeparam name="TProgress">The value of the updated progress</typeparam>
