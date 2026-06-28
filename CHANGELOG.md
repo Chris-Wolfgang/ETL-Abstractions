@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ISupportDryRun` — an opt-in interface exposing `bool IsDryRun { get; set; }` for
+  ETL stages that support a dry run: the full pipeline is exercised but the external
+  side effect that mutates a destination or source is skipped. Implemented by the
+  stage that honours it (not by the base classes). (#259)
+
 ### Changed
 
 ### Deprecated
@@ -18,6 +23,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Security
+
+## [0.14.1] - 2026-06-25
+
+Patch release: a robustness fix and documentation accuracy. No public API change.
+
+### Changed
+
+- **Docs** — README corrected: generated HTML is written to
+  `docfx_project/_site/` and published to the `gh-pages` branch (the `docs/`
+  folder holds supplementary markdown guides, not generated output). Added the
+  v0.14.0 `Report` timing/throughput, disposal, and per-run-reset capabilities
+  to the Features table and Quick Start. (#254)
+
+### Fixed
+
+- `Report.EstimatedRemaining` no longer throws `OverflowException` for a
+  pathologically low throughput (a single item after a very long elapsed time
+  with a large total); the projected estimate is clamped to
+  `TimeSpan.MaxValue`. (#255)
+
+## [0.14.0] - 2026-06-24
+
+Adds timing/throughput reporting and resource-lifecycle management to the
+base classes. MINOR per SemVer — additions are source- and binary-additive,
+with one behavioral change (per-run counter reset) and one binary-sensitive
+addition: the base classes now implement `IDisposable`/`IAsyncDisposable`,
+so consumers that wrap a component in a `using` will now dispose it.
+
+### Added
+
+- `Report` now surfaces timing and throughput metrics: `StartedAt`,
+  `Elapsed`, `TotalItemCount`, `ItemsPerSecond`, `PercentComplete`, and
+  `EstimatedRemaining`. (#144, #91)
+- `ExtractorBase`, `LoaderBase`, and `TransformerBase` implement
+  `IAsyncDisposable` and `IDisposable`, with overridable `DisposeAsync()`,
+  `Dispose()`, and `Dispose(bool disposing)` so derived components can
+  release resources deterministically. (#92)
+- Protected `StartedAt` and `Elapsed` members on the three base classes,
+  populated automatically once the first item is processed. (#144)
+
+### Changed
+
+- Per-run counters and timing now reset at the start of each enumeration,
+  so a reused extractor, loader, or transformer reports the current run
+  rather than cumulative totals across runs. (#246)
 
 ## [0.13.1] - 2026-06-19
 

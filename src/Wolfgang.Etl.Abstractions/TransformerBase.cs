@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 
 
@@ -18,7 +19,9 @@ namespace Wolfgang.Etl.Abstractions;
 /// <typeparam name="TDestination">The type of the destination object</typeparam>
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
 public abstract class TransformerBase<TSource, TDestination, TProgress>
-    : ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>
+    : ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>,
+      IAsyncDisposable,
+      IDisposable
     where TSource : notnull
     where TDestination : notnull
     where TProgress : notnull
@@ -27,6 +30,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     private int _currentSkippedItemCount;
     private long _startTimestamp;
     private DateTimeOffset _startedAtUtc;
+    private bool _disposed;
 
 
 
@@ -94,6 +98,12 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <remarks>
     /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
     /// as each item is transformed. The base class has no way of knowing when an item has been processed.
+    /// <para>
+    /// This count is <b>per run</b>: it is reset to zero at the start of each run (when enumeration
+    /// of a <c>TransformAsync</c> result begins). Running the same instance more than once therefore
+    /// reports the count for the current run, not a cumulative total across runs. Re-enumerating a
+    /// single instance concurrently is not supported.
+    /// </para>
     /// </remarks>
     public int CurrentItemCount => Volatile.Read(ref _currentItemCount);
 
@@ -191,7 +201,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         }
 #pragma warning restore RCS1140
 #endif
-        return TransformWorkerAsync(items, CancellationToken.None);
+        return TransformWithResetAsync(items, CancellationToken.None);
     }
 
 
@@ -209,7 +219,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         }
 #pragma warning restore RCS1140
 #endif
-        return TransformWorkerAsync(items, token);
+        return TransformWithResetAsync(items, token);
     }
 
 
@@ -279,10 +289,28 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
+    private async IAsyncEnumerable<TDestination> TransformWithResetAsync
+    (
+        IAsyncEnumerable<TSource> items,
+        [EnumeratorCancellation] CancellationToken token
+    )
+    {
+        ResetRunState();
+
+        await foreach (var item in TransformWorkerAsync(items, token))
+        {
+            yield return item;
+        }
+    }
+
+
+
     private async IAsyncEnumerable<TDestination> TransformWithProgressAsync(
         IAsyncEnumerable<TSource> items, IProgress<TProgress> progress,
         [EnumeratorCancellation] CancellationToken token)
     {
+        ResetRunState();
+
         var timer = CreateProgressTimer(progress);
 
         try
@@ -299,6 +327,18 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 #pragma warning restore CA1849, VSTHRD103
             progress.Report(CreateProgressReport());
         }
+    }
+
+
+
+    // Resets the per-run counters and timing to their initial state. Fired at the start of every
+    // run, so running the same instance more than once reports counts and timing for the current
+    // run rather than cumulatively across runs.
+    private void ResetRunState()
+    {
+        Volatile.Write(ref _currentItemCount, 0);
+        Volatile.Write(ref _currentSkippedItemCount, 0);
+        Volatile.Write(ref _startTimestamp, 0L);
     }
 
 
@@ -388,5 +428,53 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         {
             _startedAtUtc = now;
         }
+    }
+
+
+
+    /// <summary>
+    /// Asynchronously releases the resources held by this transformer. The base implementation is a
+    /// no-op (the base owns no unmanaged resources); derived classes that hold resources override
+    /// <see cref="Dispose(bool)"/> to release them. Enables <c>await using</c> on any transformer.
+    /// </summary>
+    /// <returns>A completed <see cref="ValueTask"/> for the default no-op implementation.</returns>
+    public virtual ValueTask DisposeAsync()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+        return default;
+    }
+
+
+
+    /// <summary>
+    /// Releases the resources held by this transformer. The base implementation is a no-op; derived
+    /// classes that hold resources override <see cref="Dispose(bool)"/>.
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+
+
+    /// <summary>
+    /// Releases resources held by this transformer. Override in a derived class to dispose resources
+    /// it owns, then call <c>base.Dispose(disposing)</c>. The base implementation only marks the
+    /// instance disposed and is idempotent.
+    /// </summary>
+    /// <param name="disposing">
+    /// <see langword="true"/> when called from <see cref="Dispose()"/> or <see cref="DisposeAsync"/>
+    /// (dispose managed resources); <see langword="false"/> when called from a finalizer.
+    /// </param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
     }
 }

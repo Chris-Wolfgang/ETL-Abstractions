@@ -142,9 +142,17 @@ public record Report
             }
 
             var rate = ItemsPerSecond;
-            return rate > 0
-                ? TimeSpan.FromSeconds(remaining / rate)
-                : (TimeSpan?)null;
+            if (rate <= 0)
+            {
+                return null;
+            }
+
+            // Guard against TimeSpan.FromSeconds overflowing for a pathologically low
+            // rate (e.g. a single item after a very long elapsed time); clamp to TimeSpan.MaxValue.
+            var seconds = remaining / rate;
+            return seconds >= TimeSpan.MaxValue.TotalSeconds
+                ? TimeSpan.MaxValue
+                : TimeSpan.FromSeconds(seconds);
         }
     }
 }
