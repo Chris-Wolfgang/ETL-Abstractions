@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ISupportDryRun` — an opt-in interface exposing `bool IsDryRun { get; set; }` for
+  ETL stages that support a dry run: the full pipeline is exercised but the external
+  side effect that mutates a destination or source is skipped. Implemented by the
+  stage that honours it (not by the base classes). (#259)
+
 ### Changed
 
 ### Deprecated
