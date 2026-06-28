@@ -218,6 +218,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ISupportDryRun.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ISupportDryRun.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ISupportDryRun",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ISupportDryRun.yml\" sourcestartlinenumber=\"1\">Implemented by ETL stages that support a <em>dry run</em> — a mode in which the\nfull pipeline is exercised but the external side effect that mutates a destination\nor source is skipped.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformAsync-2.yml",
       "output": {
         ".html": {

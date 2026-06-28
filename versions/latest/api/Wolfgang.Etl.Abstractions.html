@@ -209,6 +209,13 @@ used by extractor, transformer, and loader base classes to drive progress callba
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ISupportDryRun.html">ISupportDryRun</a></dt>
+      <dd><p>Implemented by ETL stages that support a <em>dry run</em> — a mode in which the
+full pipeline is exercised but the external side effect that mutates a destination
+or source is skipped.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformAsync-2.html">ITransformAsync&lt;TSource, TDestination&gt;</a></dt>
       <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
 A class implementing this interface is intended to be the second step in an

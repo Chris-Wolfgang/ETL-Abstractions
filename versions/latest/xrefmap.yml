@@ -769,6 +769,25 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.Abstractions.IProgressTimer.StopTimer
   nameWithType: IProgressTimer.StopTimer
+- uid: Wolfgang.Etl.Abstractions.ISupportDryRun
+  name: ISupportDryRun
+  href: api/Wolfgang.Etl.Abstractions.ISupportDryRun.html
+  commentId: T:Wolfgang.Etl.Abstractions.ISupportDryRun
+  fullName: Wolfgang.Etl.Abstractions.ISupportDryRun
+  nameWithType: ISupportDryRun
+- uid: Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
+  name: IsDryRun
+  href: api/Wolfgang.Etl.Abstractions.ISupportDryRun.html#Wolfgang_Etl_Abstractions_ISupportDryRun_IsDryRun
+  commentId: P:Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
+  fullName: Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
+  nameWithType: ISupportDryRun.IsDryRun
+- uid: Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun*
+  name: IsDryRun
+  href: api/Wolfgang.Etl.Abstractions.ISupportDryRun.html#Wolfgang_Etl_Abstractions_ISupportDryRun_IsDryRun_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
+  nameWithType: ISupportDryRun.IsDryRun
 - uid: Wolfgang.Etl.Abstractions.ITransformAsync`2
   name: ITransformAsync<TSource, TDestination>
   href: api/Wolfgang.Etl.Abstractions.ITransformAsync-2.html
