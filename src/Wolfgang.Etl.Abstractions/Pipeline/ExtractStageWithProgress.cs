@@ -18,16 +18,19 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
 {
     private readonly Func<CancellationToken, IAsyncEnumerable<TSource>> _noProgressSource;
     private readonly Func<IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TSource>> _withProgressSource;
+    private readonly IReadOnlyList<object> _stages;
 
 
     internal ExtractStageWithProgress
     (
         Func<CancellationToken, IAsyncEnumerable<TSource>> noProgressSource,
-        Func<IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TSource>> withProgressSource
+        Func<IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TSource>> withProgressSource,
+        IReadOnlyList<object> stages
     )
     {
         _noProgressSource = noProgressSource;
         _withProgressSource = withProgressSource;
+        _stages = stages;
     }
 
 
@@ -40,7 +43,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         }
 
         var withProgressSource = _withProgressSource;
-        return new ExtractStage<TSource>(token => withProgressSource(progress, token));
+        return new ExtractStage<TSource>(token => withProgressSource(progress, token), _stages);
     }
 
 
@@ -51,7 +54,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TDestination : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource).Transform(transformer);
+        return new ExtractStage<TSource>(_noProgressSource, _stages).Transform(transformer);
     }
 
 
@@ -62,7 +65,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TDestination : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource).Transform(transformer);
+        return new ExtractStage<TSource>(_noProgressSource, _stages).Transform(transformer);
     }
 
 
@@ -74,7 +77,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         where TDestination : notnull
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource).Transform(transformer);
+        return new ExtractStage<TSource>(_noProgressSource, _stages).Transform(transformer);
     }
 
 
@@ -86,21 +89,21 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         where TDestination : notnull
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource).Transform(transformer);
+        return new ExtractStage<TSource>(_noProgressSource, _stages).Transform(transformer);
     }
 
 
     /// <inheritdoc/>
     public IPipeline Load(ILoadAsync<TSource> loader)
     {
-        return new ExtractStage<TSource>(_noProgressSource).Load(loader);
+        return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
     }
 
 
     /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TSource> loader)
     {
-        return new ExtractStage<TSource>(_noProgressSource).Load(loader);
+        return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
     }
 
 
@@ -111,7 +114,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource).Load(loader);
+        return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
     }
 
 
@@ -122,6 +125,6 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource).Load(loader);
+        return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
     }
 }

@@ -62,6 +62,30 @@ public interface IPipeline
 
 
     /// <summary>
+    /// Opts the pipeline into disposing its stages when the run completes (whether it succeeds or
+    /// throws). After <see cref="RunAsync()"/> finishes, each stage (extractor, every transformer,
+    /// and the loader) that implements <see cref="System.IAsyncDisposable"/> is disposed via
+    /// <c>DisposeAsync</c>; otherwise, if it implements <see cref="IDisposable"/>, via
+    /// <c>Dispose</c>; stages that implement neither are skipped.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The default behavior is the opposite — the pipeline owns nothing and the caller is
+    /// responsible for disposing the stages it constructed. Call this only when the stages are
+    /// owned by the call site and should not outlive the run (the common short-lived case), to
+    /// avoid wrapping every stage in its own <c>using</c>.
+    /// </para>
+    /// <para>
+    /// Every stage is disposed even if an earlier disposal throws; any exceptions thrown <em>while
+    /// disposing</em> are collected and surfaced as an <see cref="AggregateException"/>. If the run
+    /// itself threw, that original exception propagates and disposal still runs.
+    /// </para>
+    /// </remarks>
+    /// <returns>The same pipeline, for fluent chaining.</returns>
+    IPipeline DisposeStagesOnCompletion();
+
+
+    /// <summary>
     /// Runs the pipeline to completion with no cancellation token.
     /// </summary>
     /// <returns>A task that completes when the loader has finished consuming the stream.</returns>
