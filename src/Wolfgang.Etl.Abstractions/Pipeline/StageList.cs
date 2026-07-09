@@ -77,11 +77,16 @@ internal static class StageList
 
     // Disposes each stage that is IAsyncDisposable (preferred) or IDisposable, skipping the rest,
     // continuing past any failure and collecting the failures into an AggregateException (or null).
+    // Order: reverse construction order (loader → transformers → extractor), matching the LIFO
+    // convention of nested `using`/`await using` blocks and DI-container scope disposal — a
+    // downstream stage that transitively references an upstream stage's resources gets torn down
+    // before the upstream stage's cleanup runs.
     private static async Task<AggregateException?> DisposeStagesAsync(IReadOnlyList<object> stages)
     {
         List<Exception>? errors = null;
-        foreach (var stage in stages)
+        for (var i = stages.Count - 1; i >= 0; i--)
         {
+            var stage = stages[i];
             try
             {
                 if (stage is IAsyncDisposable asyncDisposable)

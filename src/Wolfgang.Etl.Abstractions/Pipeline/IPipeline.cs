@@ -76,10 +76,37 @@ public interface IPipeline
     /// avoid wrapping every stage in its own <c>using</c>.
     /// </para>
     /// <para>
-    /// Every stage is disposed even if an earlier disposal throws; any exceptions thrown <em>while
-    /// disposing</em> are collected and surfaced as an <see cref="AggregateException"/>. If the run
-    /// itself threw, that original exception propagates and disposal still runs.
+    /// Stages are disposed in <strong>reverse construction order</strong> (loader → transformers
+    /// → extractor), matching the LIFO convention of nested <c>using</c>/<c>await using</c> blocks
+    /// and DI-container scope disposal.
     /// </para>
+    /// <para>
+    /// Every stage is disposed even if an earlier disposal throws. What surfaces to the caller
+    /// depends on which failures happened:
+    /// </para>
+    /// <list type="bullet">
+    ///   <item>
+    ///     <description>
+    ///       Run succeeded, no disposal errors → <see cref="RunAsync()"/> returns normally.
+    ///     </description>
+    ///   </item>
+    ///   <item>
+    ///     <description>
+    ///       Run succeeded, one or more stages threw while being disposed → those exceptions are
+    ///       collected and surfaced as a single <see cref="AggregateException"/>.
+    ///     </description>
+    ///   </item>
+    ///   <item>
+    ///     <description>
+    ///       Run threw (with or without additional disposal failures) → the <em>run's</em>
+    ///       exception propagates unchanged (preserving its original stack trace), disposal still
+    ///       runs to completion, but any disposal exceptions are suppressed. The run failure is
+    ///       treated as the primary signal because it is what the caller expected to succeed;
+    ///       callers who need to observe disposal failures on the failing-run path should log
+    ///       them inside their own stages' <c>Dispose</c>/<c>DisposeAsync</c> implementations.
+    ///     </description>
+    ///   </item>
+    /// </list>
     /// </remarks>
     /// <returns>The same pipeline, for fluent chaining.</returns>
     IPipeline DisposeStagesOnCompletion();

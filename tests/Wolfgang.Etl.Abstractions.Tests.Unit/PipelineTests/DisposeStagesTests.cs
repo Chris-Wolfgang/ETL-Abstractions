@@ -204,4 +204,84 @@ public class DisposeStagesTests
 
         Assert.Contains(ex.InnerExceptions, e => e is InvalidOperationException && string.Equals(e.Message, "dispose failed", StringComparison.Ordinal));
     }
+
+
+    // Records the order in which stages were disposed by appending to a shared list.
+    private sealed class OrderRecordingExtractor : IExtractAsync<int>, IDisposable
+    {
+        private readonly List<string> _log;
+
+        public OrderRecordingExtractor(List<string> log) => _log = log;
+
+        public async IAsyncEnumerable<int> ExtractAsync()
+        {
+            yield return 0;
+            await Task.CompletedTask;
+        }
+
+        public void Dispose() => _log.Add(nameof(OrderRecordingExtractor));
+    }
+
+
+    private sealed class OrderRecordingTransformer : ITransformAsync<int, int>, IDisposable
+    {
+        private readonly List<string> _log;
+
+        public OrderRecordingTransformer(List<string> log) => _log = log;
+
+        public async IAsyncEnumerable<int> TransformAsync(IAsyncEnumerable<int> items)
+        {
+            await foreach (var item in items)
+            {
+                yield return item;
+            }
+        }
+
+        public void Dispose() => _log.Add(nameof(OrderRecordingTransformer));
+    }
+
+
+    private sealed class OrderRecordingLoader : ILoadAsync<int>, IDisposable
+    {
+        private readonly List<string> _log;
+
+        public OrderRecordingLoader(List<string> log) => _log = log;
+
+        public async Task LoadAsync(IAsyncEnumerable<int> items)
+        {
+            await foreach (var _ in items)
+            {
+            }
+        }
+
+        public void Dispose() => _log.Add(nameof(OrderRecordingLoader));
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_disposes_in_reverse_construction_order()
+    {
+        // Locks in the LIFO contract documented on IPipeline.DisposeStagesOnCompletion —
+        // matching nested `using`/`await using` and DI-container scope disposal, so
+        // downstream stages get torn down before the upstream stages they may reference.
+        var log = new List<string>();
+
+        await Pipeline
+            .Extract(new OrderRecordingExtractor(log))
+            .Transform(new OrderRecordingTransformer(log))
+            .Load(new OrderRecordingLoader(log))
+            .DisposeStagesOnCompletion()
+            .RunAsync();
+
+        Assert.Equal
+        (
+            new[]
+            {
+                nameof(OrderRecordingLoader),
+                nameof(OrderRecordingTransformer),
+                nameof(OrderRecordingExtractor),
+            },
+            log
+        );
+    }
 }
