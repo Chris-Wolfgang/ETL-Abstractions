@@ -1,4 +1,37 @@
 #nullable enable
+Wolfgang.Etl.Abstractions.EtlPipeline
+Wolfgang.Etl.Abstractions.EtlPipelineProgress
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed.get -> System.TimeSpan
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed.init -> void
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.EtlPipelineProgress(int RecordsExtracted, int RecordsLoaded, int RecordsFiltered, int RecordsErrored, System.TimeSpan Elapsed) -> void
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsErrored.get -> int
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsErrored.init -> void
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted.get -> int
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted.init -> void
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsFiltered.get -> int
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsFiltered.init -> void
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded.get -> int
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded.init -> void
+Wolfgang.Etl.Abstractions.EtlPipelineSource
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.AsAsyncEnumerable(System.Threading.CancellationToken token = default(System.Threading.CancellationToken)) -> System.Collections.Generic.IAsyncEnumerable<T>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Buffer(int size) -> Wolfgang.Etl.Abstractions.IEtlPipeline<System.Collections.Generic.IReadOnlyList<T>!>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Distinct<TKey>(System.Func<T, TKey>! keySelector, System.Collections.Generic.IEqualityComparer<TKey>? comparer = null) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Select<TOut>(System.Func<T, System.Threading.Tasks.ValueTask<TOut>>! selector) -> Wolfgang.Etl.Abstractions.IEtlPipeline<TOut>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Select<TOut>(System.Func<T, TOut>! selector) -> Wolfgang.Etl.Abstractions.IEtlPipeline<TOut>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.SelectMany<TOut>(System.Func<T, System.Collections.Generic.IAsyncEnumerable<TOut>!>! selector) -> Wolfgang.Etl.Abstractions.IEtlPipeline<TOut>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Skip(int count) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Take(int count) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Tap(System.Action<T>! sideEffect) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Tap(System.Func<T, System.Threading.Tasks.ValueTask>! asyncSideEffect) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.To<TProgress>(Wolfgang.Etl.Abstractions.LoaderBase<T, TProgress>! loader) -> Wolfgang.Etl.Abstractions.IEtlPipelineSink!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Where(System.Func<T, bool>! predicate) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Where(System.Func<T, System.Threading.Tasks.ValueTask<bool>>! asyncPredicate) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+Wolfgang.Etl.Abstractions.IEtlPipelineSink
+Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress<Wolfgang.Etl.Abstractions.EtlPipelineProgress!>? progress = null, System.Threading.CancellationToken token = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
 Wolfgang.Etl.Abstractions.ISupportDryRun
 Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.get -> bool
 Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.set -> void
+static Wolfgang.Etl.Abstractions.EtlPipeline.From<T, TProgress>(Wolfgang.Etl.Abstractions.ExtractorBase<T, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+static Wolfgang.Etl.Abstractions.EtlPipeline.From<T>(System.Collections.Generic.IAsyncEnumerable<T>! source) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+static Wolfgang.Etl.Abstractions.EtlPipeline.Source.get -> Wolfgang.Etl.Abstractions.EtlPipelineSource!
