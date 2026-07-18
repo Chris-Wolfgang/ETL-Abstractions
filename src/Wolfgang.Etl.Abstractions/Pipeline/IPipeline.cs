@@ -62,6 +62,57 @@ public interface IPipeline
 
 
     /// <summary>
+    /// Opts the pipeline into disposing its stages when the run completes (whether it succeeds or
+    /// throws). After <see cref="RunAsync()"/> finishes, each stage (extractor, every transformer,
+    /// and the loader) that implements <see cref="System.IAsyncDisposable"/> is disposed via
+    /// <c>DisposeAsync</c>; otherwise, if it implements <see cref="IDisposable"/>, via
+    /// <c>Dispose</c>; stages that implement neither are skipped.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The default behavior is the opposite — the pipeline owns nothing and the caller is
+    /// responsible for disposing the stages it constructed. Call this only when the stages are
+    /// owned by the call site and should not outlive the run (the common short-lived case), to
+    /// avoid wrapping every stage in its own <c>using</c>.
+    /// </para>
+    /// <para>
+    /// Stages are disposed in <strong>reverse construction order</strong> (loader → transformers
+    /// → extractor), matching the LIFO convention of nested <c>using</c>/<c>await using</c> blocks
+    /// and DI-container scope disposal.
+    /// </para>
+    /// <para>
+    /// Every stage is disposed even if an earlier disposal throws. What surfaces to the caller
+    /// depends on which failures happened:
+    /// </para>
+    /// <list type="bullet">
+    ///   <item>
+    ///     <description>
+    ///       Run succeeded, no disposal errors → <see cref="RunAsync()"/> returns normally.
+    ///     </description>
+    ///   </item>
+    ///   <item>
+    ///     <description>
+    ///       Run succeeded, one or more stages threw while being disposed → those exceptions are
+    ///       collected and surfaced as a single <see cref="AggregateException"/>.
+    ///     </description>
+    ///   </item>
+    ///   <item>
+    ///     <description>
+    ///       Run threw (with or without additional disposal failures) → the <em>run's</em>
+    ///       exception propagates unchanged (preserving its original stack trace), disposal still
+    ///       runs to completion, but any disposal exceptions are suppressed. The run failure is
+    ///       treated as the primary signal because it is what the caller expected to succeed;
+    ///       callers who need to observe disposal failures on the failing-run path should log
+    ///       them inside their own stages' <c>Dispose</c>/<c>DisposeAsync</c> implementations.
+    ///     </description>
+    ///   </item>
+    /// </list>
+    /// </remarks>
+    /// <returns>The same pipeline, for fluent chaining.</returns>
+    IPipeline DisposeStagesOnCompletion();
+
+
+    /// <summary>
     /// Runs the pipeline to completion with no cancellation token.
     /// </summary>
     /// <returns>A task that completes when the loader has finished consuming the stream.</returns>

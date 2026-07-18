@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,12 +13,15 @@ namespace Wolfgang.Etl.Abstractions;
 internal sealed class PipelineImpl : IPipeline
 {
     private readonly Func<CancellationToken, Task> _run;
+    private readonly IReadOnlyList<object> _stages;
+    private bool _disposeStages;
     private int _runCount;
 
 
-    internal PipelineImpl(Func<CancellationToken, Task> run)
+    internal PipelineImpl(Func<CancellationToken, Task> run, IReadOnlyList<object> stages)
     {
         _run = run;
+        _stages = stages;
     }
 
 
@@ -34,6 +38,14 @@ internal sealed class PipelineImpl : IPipeline
         }
 
         Name = name;
+        return this;
+    }
+
+
+    /// <inheritdoc/>
+    public IPipeline DisposeStagesOnCompletion()
+    {
+        _disposeStages = true;
         return this;
     }
 
@@ -58,7 +70,9 @@ internal sealed class PipelineImpl : IPipeline
                 );
             }
 
-            return _run(token);
+            return _disposeStages
+                ? StageList.RunThenDisposeStagesAsync(_run, _stages, token)
+                : _run(token);
         }
 #pragma warning disable CA1031 // Do not catch general exception types — intentional: we forward every failure through the Task contract.
         catch (Exception ex)
