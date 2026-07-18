@@ -97,10 +97,35 @@ await Pipeline
   `InvalidOperationException`. Construct a new pipeline per run.
 - **Raw exception propagation** — stage exceptions bubble up unchanged; stage instances
   retain their `CurrentItemCount` and other state for post-mortem inspection.
-- **Caller-owned lifetimes** — the pipeline never disposes the stages you hand it.
+- **Caller-owned lifetimes by default** — the pipeline does not dispose the stages you
+  hand it unless you opt in with `.DisposeStagesOnCompletion()` (see below).
 
 The pipeline is syntactic sugar over the existing `IAsyncEnumerable` composition — there
 is no new runtime behavior, no buffering, and no additional allocations per item.
+
+### Disposing stages
+
+By default the caller owns stage lifetimes. When the stages are owned by the call site and
+should not outlive the run — the common short-lived case — opt into automatic disposal with
+`.DisposeStagesOnCompletion()` instead of wrapping every stage in its own `using`:
+
+```csharp
+await Pipeline
+    .Extract(csvExtractor)
+    .Transform(parseRecord)
+    .Load(sqlLoader)
+    .DisposeStagesOnCompletion()
+    .RunAsync(cancellationToken);
+```
+
+- Each stage that implements `IAsyncDisposable` is disposed via `DisposeAsync`; otherwise, if
+  it implements `IDisposable`, via `Dispose`. Stages that implement neither are skipped.
+- Stages are disposed in **reverse construction order** (loader → transformers → extractor),
+  matching the LIFO convention of nested `using`/`await using` blocks and DI-scope disposal.
+- Disposal runs whether the run succeeded or threw, and every stage is disposed even if an
+  earlier disposal throws. If the run **succeeded**, any disposal failures surface together as
+  an `AggregateException`. If the run **threw**, that exception propagates unchanged (disposal
+  still runs, but its own failures are suppressed so the run's failure stays the primary signal).
 
 ---
 

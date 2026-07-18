@@ -4,17 +4,28 @@ Welcome to Wolfgang.Etl.Abstractions!
 
 ## Overview
 
-Interface and base classes for building ETLs
-
-<!-- Add your project overview here -->
+Wolfgang.Etl.Abstractions provides the interfaces and base classes for building
+Extract–Transform–Load flows on top of `IAsyncEnumerable<T>`. You implement an
+extractor, zero or more transformers, and a loader, then compose them into a
+single strongly-typed, streaming pipeline.
 
 ## Key Features
 
-<!-- List the main features of your project. For example:
-- Feature 1: Description
-- Feature 2: Description
-- Feature 3: Description
--->
+- **Fluent, type-safe pipeline** — `Pipeline.Extract(...).Transform(...).Load(...).RunAsync()`
+  composes stages into one runnable flow; the compiler enforces that each stage's
+  output type matches the next stage's input.
+- **Async streaming** — built on `IAsyncEnumerable<T>`, so items flow through the
+  pipeline without buffering the whole set in memory.
+- **Opt-in progress reporting** — progress-capable stages surface `IProgress<T>`
+  reports with throughput and ETA, on a configurable interval.
+- **Cooperative cancellation** — a `CancellationToken` passed to `RunAsync` is
+  forwarded to every stage that supports it.
+- **Optional stage disposal** — `.DisposeStagesOnCompletion()` tears stages down
+  in reverse order after the run, for call sites that own short-lived stages.
+- **Broad target coverage** — .NET Framework 4.6.2+, .NET Standard 2.0+, and
+  .NET 5.0 through .NET 10.0.
+
+See the [Getting Started](getting-started.md) guide for a full walkthrough.
 
 ## Getting Help
 
