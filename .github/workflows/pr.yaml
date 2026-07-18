@@ -339,7 +339,20 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '10.0.x'
+          # Install every SDK the test stages install. The solution
+          # multi-targets out-of-support TFMs (netcoreapp3.1 / net5.0 /
+          # net6.0 / net7.0) whose targeting packs are not guaranteed to
+          # restore under a lone 10.0.x SDK — a 10.0.x-only setup can fail
+          # the solution build below. Mirror Stage 1/2/3 so InspectCode
+          # builds the exact same TFM set the tests do.
+          dotnet-version: |
+            3.1.x
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+            9.0.x
+            10.0.x
 
       # Restore + build everything the solution knows about. On
       # windows-latest .NET Framework 4.x reference assemblies are bundled,
