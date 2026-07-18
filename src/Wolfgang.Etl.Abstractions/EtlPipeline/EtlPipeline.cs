@@ -9,19 +9,26 @@ namespace Wolfgang.Etl.Abstractions;
 /// Entry point for building a generic, format-agnostic ETL pipeline. Start from a source — either a
 /// built-in <see cref="From{T}(IAsyncEnumerable{T})"/> / <see cref="From{T, TProgress}(ExtractorBase{T, TProgress})"/>
 /// factory, or a format-specific factory hung off <see cref="Source"/> by a format package — chain
-/// the operators on <see cref="IEtlPipeline{T}"/>, terminate with a sink, then call
+/// append transformer stages on <see cref="IEtlPipeline{T}"/>, terminate with a sink, then call
 /// <see cref="IEtlPipelineSink.RunAsync(IProgress{EtlPipelineProgress}, CancellationToken)"/>.
 /// </summary>
 /// <remarks>
+/// <para>
 /// The name <c>EtlPipeline</c> (rather than <c>Pipeline</c>) avoids clashing with the fluent
 /// <see cref="Pipeline"/> extract/transform/load builder in this same namespace and with
 /// <c>System.IO.Pipelines</c>.
+/// </para>
+/// <para>
+/// The core exposes only the plumbing — a source, <see cref="IEtlPipeline{T}.Through{TOut}(ITransformAsync{T, TOut})"/>
+/// for appending transformer stages, and a sink. The LINQ-flavored operators (<c>Where</c>,
+/// <c>Select</c>, <c>Distinct</c>, …) are extension methods shipped by <c>Wolfgang.Etl.Transformers</c>,
+/// which already owns those transformers.
+/// </para>
 /// </remarks>
 /// <example>
 /// <code>
 /// await EtlPipeline.From(records)
-///     .Where(r =&gt; r.Amount &gt; 0)
-///     .Select(r =&gt; Enrich(r))
+///     .Through(new WhereTransformer&lt;Order&gt;(r =&gt; r.Amount &gt; 0))
 ///     .To(sqlLoader)
 ///     .RunAsync(progress, token);
 /// </code>

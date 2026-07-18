@@ -61,40 +61,12 @@ public class EtlPipelineTests
 
 
     [Fact]
-    public async Task Where_keeps_only_matching_records()
-    {
-        var loader = new CollectingLoader<int>();
-
-        await EtlPipeline.From(AsyncSource(1, 2, 3, 4, 5))
-            .Where(x => x % 2 == 0)
-            .To(loader)
-            .RunAsync();
-
-        Assert.Equal(new[] { 2, 4 }, loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Where_async_keeps_only_matching_records()
-    {
-        var loader = new CollectingLoader<int>();
-
-        await EtlPipeline.From(AsyncSource(1, 2, 3, 4, 5))
-            .Where(x => new ValueTask<bool>(x > 3))
-            .To(loader)
-            .RunAsync();
-
-        Assert.Equal(new[] { 4, 5 }, loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Select_projects_each_record()
+    public async Task Through_pipes_records_through_the_transformer()
     {
         var loader = new CollectingLoader<string>();
 
         await EtlPipeline.From(AsyncSource(1, 2, 3))
-            .Select(x => $"n{x}")
+            .Through(new MapTransformer<int, string>(x => $"n{x}"))
             .To(loader)
             .RunAsync();
 
@@ -103,177 +75,57 @@ public class EtlPipelineTests
 
 
     [Fact]
-    public async Task Select_async_projects_each_record()
+    public async Task Through_can_be_chained()
     {
         var loader = new CollectingLoader<int>();
 
         await EtlPipeline.From(AsyncSource(1, 2, 3))
-            .Select(x => new ValueTask<int>(x * 10))
+            .Through(new MapTransformer<int, int>(x => x + 1))
+            .Through(new MapTransformer<int, int>(x => x * 10))
             .To(loader)
             .RunAsync();
 
-        Assert.Equal(new[] { 10, 20, 30 }, loader.Loaded);
+        Assert.Equal(new[] { 20, 30, 40 }, loader.Loaded);
     }
 
 
     [Fact]
-    public async Task SelectMany_flattens_projected_streams()
+    public async Task Through_forwards_the_cancellation_token_to_a_cancellation_aware_transformer()
     {
+        using var cts = new CancellationTokenSource();
+        var transformer = new TokenRecordingTransformer<int>();
         var loader = new CollectingLoader<int>();
 
-        await EtlPipeline.From(AsyncSource(1, 2))
-            .SelectMany(x => AsyncSource(x, x))
+        await EtlPipeline.From(AsyncSource(1, 2, 3))
+            .Through(transformer)
             .To(loader)
-            .RunAsync();
+            .RunAsync(null, cts.Token);
 
-        Assert.Equal(new[] { 1, 1, 2, 2 }, loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Distinct_removes_duplicate_keys()
-    {
-        var loader = new CollectingLoader<int>();
-
-        await EtlPipeline.From(AsyncSource(1, 2, 2, 3, 1, 3))
-            .Distinct(x => x)
-            .To(loader)
-            .RunAsync();
-
+        Assert.Equal(cts.Token, transformer.LastToken);
         Assert.Equal(new[] { 1, 2, 3 }, loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Distinct_uses_the_supplied_comparer()
-    {
-        var loader = new CollectingLoader<string>();
-
-        await EtlPipeline.From(AsyncSource("a", "A", "b", "B"))
-            .Distinct(x => x, StringComparer.OrdinalIgnoreCase)
-            .To(loader)
-            .RunAsync();
-
-        Assert.Equal(new[] { "a", "b" }, loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Take_stops_after_the_requested_count()
-    {
-        var loader = new CollectingLoader<int>();
-
-        await EtlPipeline.From(AsyncSource(1, 2, 3, 4, 5))
-            .Take(2)
-            .To(loader)
-            .RunAsync();
-
-        Assert.Equal(new[] { 1, 2 }, loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Take_zero_delivers_nothing()
-    {
-        var loader = new CollectingLoader<int>();
-
-        await EtlPipeline.From(AsyncSource(1, 2, 3))
-            .Take(0)
-            .To(loader)
-            .RunAsync();
-
-        Assert.Empty(loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Skip_discards_the_leading_records()
-    {
-        var loader = new CollectingLoader<int>();
-
-        await EtlPipeline.From(AsyncSource(1, 2, 3, 4, 5))
-            .Skip(3)
-            .To(loader)
-            .RunAsync();
-
-        Assert.Equal(new[] { 4, 5 }, loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Tap_runs_the_side_effect_without_altering_the_stream()
-    {
-        var seen = new List<int>();
-        var loader = new CollectingLoader<int>();
-
-        await EtlPipeline.From(AsyncSource(1, 2, 3))
-            .Tap(seen.Add)
-            .To(loader)
-            .RunAsync();
-
-        Assert.Equal(new[] { 1, 2, 3 }, seen);
-        Assert.Equal(new[] { 1, 2, 3 }, loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Tap_async_runs_the_side_effect_without_altering_the_stream()
-    {
-        var seen = new List<int>();
-        var loader = new CollectingLoader<int>();
-
-        await EtlPipeline.From(AsyncSource(1, 2, 3))
-            .Tap(x =>
-            {
-                seen.Add(x);
-                return default;
-            })
-            .To(loader)
-            .RunAsync();
-
-        Assert.Equal(new[] { 1, 2, 3 }, seen);
-        Assert.Equal(new[] { 1, 2, 3 }, loader.Loaded);
-    }
-
-
-    [Fact]
-    public async Task Buffer_batches_records_including_a_smaller_final_batch()
-    {
-        var loader = new CollectingLoader<IReadOnlyList<int>>();
-
-        await EtlPipeline.From(AsyncSource(1, 2, 3, 4, 5))
-            .Buffer(2)
-            .To(loader)
-            .RunAsync();
-
-        Assert.Equal(3, loader.Loaded.Count);
-        Assert.Equal(new[] { 1, 2 }, loader.Loaded[0]);
-        Assert.Equal(new[] { 3, 4 }, loader.Loaded[1]);
-        Assert.Equal(new[] { 5 }, loader.Loaded[2]);
     }
 
 
     [Fact]
     public async Task AsAsyncEnumerable_exposes_the_composed_stream()
     {
-        var stream = EtlPipeline.From(AsyncSource(1, 2, 3, 4))
-            .Where(x => x % 2 == 0)
-            .Select(x => x * 100)
+        var stream = EtlPipeline.From(AsyncSource(1, 2, 3))
+            .Through(new MapTransformer<int, int>(x => x * 100))
             .AsAsyncEnumerable();
 
         var result = await Collect(stream);
 
-        Assert.Equal(new[] { 200, 400 }, result);
+        Assert.Equal(new[] { 100, 200, 300 }, result);
     }
 
 
     [Fact]
-    public async Task RunAsync_propagates_an_exception_thrown_by_an_operator()
+    public async Task RunAsync_propagates_an_exception_thrown_by_a_transformer()
     {
         var loader = new CollectingLoader<int>();
 
         var sink = EtlPipeline.From(AsyncSource(1, 2, 3))
-            .Select((Func<int, int>)(_ => throw new InvalidOperationException("boom")))
+            .Through(new MapTransformer<int, int>(_ => throw new InvalidOperationException("boom")))
             .To(loader);
 
         var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => sink.RunAsync());
@@ -285,18 +137,10 @@ public class EtlPipelineTests
     public async Task RunAsync_observes_cancellation_mid_stream()
     {
         using var cts = new CancellationTokenSource();
-        var count = 0;
         var loader = new CollectingLoader<int>();
 
         var sink = EtlPipeline.From(AsyncSource(1, 2, 3, 4, 5))
-            .Tap(_ =>
-            {
-                count++;
-                if (count == 2)
-                {
-                    cts.Cancel();
-                }
-            })
+            .Through(new CancelingTransformer<int>(cts, 2))
             .To(loader);
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => sink.RunAsync(null, cts.Token));
@@ -305,22 +149,19 @@ public class EtlPipelineTests
 
 
     [Fact]
-    public async Task RunAsync_reports_progress_counters()
+    public async Task RunAsync_reports_extracted_and_loaded_counters()
     {
         var reports = new List<EtlPipelineProgress>();
         var progress = new SynchronousProgress<EtlPipelineProgress>(reports.Add);
         var loader = new CollectingLoader<int>();
 
         await EtlPipeline.From(AsyncSource(1, 2, 3, 4, 5))
-            .Where(x => x % 2 == 1)
             .To(loader)
             .RunAsync(progress);
 
         var final = reports.Last();
         Assert.Equal(5, final.RecordsExtracted);
-        Assert.Equal(3, final.RecordsLoaded);
-        Assert.Equal(2, final.RecordsFiltered);
-        Assert.Equal(0, final.RecordsErrored);
+        Assert.Equal(5, final.RecordsLoaded);
     }
 
 
@@ -346,18 +187,18 @@ public class EtlPipelineTests
 
 
     [Fact]
-    public void Where_when_predicate_is_null_throws_ArgumentNullException()
+    public void Through_when_transformer_is_null_throws_ArgumentNullException()
     {
         var pipeline = EtlPipeline.From(AsyncSource(1));
-        Assert.Throws<ArgumentNullException>(() => pipeline.Where((Func<int, bool>)null!));
+        Assert.Throws<ArgumentNullException>(() => pipeline.Through((ITransformAsync<int, int>)null!));
     }
 
 
     [Fact]
-    public void Select_when_selector_is_null_throws_ArgumentNullException()
+    public void Through_when_cancellation_aware_transformer_is_null_throws_ArgumentNullException()
     {
         var pipeline = EtlPipeline.From(AsyncSource(1));
-        Assert.Throws<ArgumentNullException>(() => pipeline.Select((Func<int, string>)null!));
+        Assert.Throws<ArgumentNullException>(() => pipeline.Through((ITransformWithCancellationAsync<int, int>)null!));
     }
 
 
@@ -366,33 +207,5 @@ public class EtlPipelineTests
     {
         var pipeline = EtlPipeline.From(AsyncSource(1));
         Assert.Throws<ArgumentNullException>(() => pipeline.To<EtlProgress>(null!));
-    }
-
-
-    [Theory]
-    [InlineData(-1)]
-    [InlineData(-100)]
-    public void Take_when_count_is_negative_throws_ArgumentOutOfRangeException(int count)
-    {
-        var pipeline = EtlPipeline.From(AsyncSource(1));
-        Assert.Throws<ArgumentOutOfRangeException>(() => pipeline.Take(count));
-    }
-
-
-    [Fact]
-    public void Skip_when_count_is_negative_throws_ArgumentOutOfRangeException()
-    {
-        var pipeline = EtlPipeline.From(AsyncSource(1));
-        Assert.Throws<ArgumentOutOfRangeException>(() => pipeline.Skip(-1));
-    }
-
-
-    [Theory]
-    [InlineData(0)]
-    [InlineData(-1)]
-    public void Buffer_when_size_is_less_than_one_throws_ArgumentOutOfRangeException(int size)
-    {
-        var pipeline = EtlPipeline.From(AsyncSource(1));
-        Assert.Throws<ArgumentOutOfRangeException>(() => pipeline.Buffer(size));
     }
 }
