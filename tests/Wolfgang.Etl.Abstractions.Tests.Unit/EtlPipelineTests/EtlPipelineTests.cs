@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.EtlPipelineTests;
 
-public class EtlPipelineTests
+public class EtlPipelineCoreTests
 {
     private static async IAsyncEnumerable<T> AsyncSource<T>(params T[] items)
     {
