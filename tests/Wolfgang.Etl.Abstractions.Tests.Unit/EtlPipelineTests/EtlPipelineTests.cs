@@ -33,6 +33,17 @@ public class EtlPipelineTests
     }
 
 
+    // A stream-to-stream transform used to exercise the delegate Through overload
+    // (iterator lambdas aren't allowed in C#, so this is a method).
+    private static async IAsyncEnumerable<string> Label(IAsyncEnumerable<int> items)
+    {
+        await foreach (var item in items)
+        {
+            yield return $"#{item}";
+        }
+    }
+
+
     [Fact]
     public async Task RunAsync_when_source_is_IAsyncEnumerable_delivers_all_records_to_the_loader()
     {
@@ -103,6 +114,62 @@ public class EtlPipelineTests
 
         Assert.Equal(cts.Token, transformer.LastToken);
         Assert.Equal(new[] { 1, 2, 3 }, loader.Loaded);
+    }
+
+
+    [Fact]
+    public async Task Through_delegate_pipes_records_through_the_stage()
+    {
+        var loader = new CollectingLoader<string>();
+
+        await EtlPipeline.From(AsyncSource(1, 2, 3))
+            .Through(Label)                       // Func<IAsyncEnumerable<int>, IAsyncEnumerable<string>>
+            .To(loader)
+            .RunAsync();
+
+        Assert.Equal(new[] { "#1", "#2", "#3" }, loader.Loaded);
+    }
+
+
+    [Fact]
+    public async Task Through_cancellation_aware_delegate_forwards_the_token()
+    {
+        using var cts = new CancellationTokenSource();
+        var captured = CancellationToken.None;
+        var loader = new CollectingLoader<int>();
+
+        // Identity stage that records the token it is handed.
+        Func<IAsyncEnumerable<int>, CancellationToken, IAsyncEnumerable<int>> stage = (items, token) =>
+        {
+            captured = token;
+            return items;
+        };
+
+        await EtlPipeline.From(AsyncSource(1, 2, 3))
+            .Through(stage)
+            .To(loader)
+            .RunAsync(null, cts.Token);
+
+        Assert.Equal(cts.Token, captured);
+        Assert.Equal(new[] { 1, 2, 3 }, loader.Loaded);
+    }
+
+
+    [Fact]
+    public void Through_when_delegate_is_null_throws_ArgumentNullException()
+    {
+        var pipeline = EtlPipeline.From(AsyncSource(1));
+        Assert.Throws<ArgumentNullException>(
+            () => pipeline.Through((Func<IAsyncEnumerable<int>, IAsyncEnumerable<int>>)null!));
+    }
+
+
+    [Fact]
+    public void Through_when_cancellation_aware_delegate_is_null_throws_ArgumentNullException()
+    {
+        var pipeline = EtlPipeline.From(AsyncSource(1));
+        Assert.Throws<ArgumentNullException>(
+            () => pipeline.Through((Func<IAsyncEnumerable<int>, CancellationToken, IAsyncEnumerable<int>>)null!));
     }
 
 

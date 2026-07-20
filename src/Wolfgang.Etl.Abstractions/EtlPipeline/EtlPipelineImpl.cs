@@ -64,6 +64,32 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
 
 
     /// <inheritdoc/>
+    public IEtlPipeline<TOut> Through<TOut>(Func<IAsyncEnumerable<T>, IAsyncEnumerable<TOut>> stage)
+        where TOut : notnull
+    {
+        if (stage is null)
+        {
+            throw new ArgumentNullException(nameof(stage));
+        }
+
+        return new EtlPipelineImpl<TOut>((state, token) => stage(_factory(state, token)));
+    }
+
+
+    /// <inheritdoc/>
+    public IEtlPipeline<TOut> Through<TOut>(Func<IAsyncEnumerable<T>, CancellationToken, IAsyncEnumerable<TOut>> stage)
+        where TOut : notnull
+    {
+        if (stage is null)
+        {
+            throw new ArgumentNullException(nameof(stage));
+        }
+
+        return new EtlPipelineImpl<TOut>((state, token) => stage(_factory(state, token), token));
+    }
+
+
+    /// <inheritdoc/>
     public IEtlPipelineSink To<TProgress>(LoaderBase<T, TProgress> loader)
         where TProgress : notnull
     {

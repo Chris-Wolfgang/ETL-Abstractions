@@ -11,6 +11,8 @@ Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded.init -> void
 Wolfgang.Etl.Abstractions.EtlPipelineSource
 Wolfgang.Etl.Abstractions.IEtlPipeline<T>
 Wolfgang.Etl.Abstractions.IEtlPipeline<T>.AsAsyncEnumerable(System.Threading.CancellationToken token = default(System.Threading.CancellationToken)) -> System.Collections.Generic.IAsyncEnumerable<T>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Through<TOut>(System.Func<System.Collections.Generic.IAsyncEnumerable<T>!, System.Collections.Generic.IAsyncEnumerable<TOut>!>! stage) -> Wolfgang.Etl.Abstractions.IEtlPipeline<TOut>!
+Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Through<TOut>(System.Func<System.Collections.Generic.IAsyncEnumerable<T>!, System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TOut>!>! stage) -> Wolfgang.Etl.Abstractions.IEtlPipeline<TOut>!
 Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Through<TOut>(Wolfgang.Etl.Abstractions.ITransformAsync<T, TOut>! transformer) -> Wolfgang.Etl.Abstractions.IEtlPipeline<TOut>!
 Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Through<TOut>(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync<T, TOut>! transformer) -> Wolfgang.Etl.Abstractions.IEtlPipeline<TOut>!
 Wolfgang.Etl.Abstractions.IEtlPipeline<T>.To<TProgress>(Wolfgang.Etl.Abstractions.LoaderBase<T, TProgress>! loader) -> Wolfgang.Etl.Abstractions.IEtlPipelineSink!

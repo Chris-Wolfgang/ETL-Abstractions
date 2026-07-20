@@ -53,6 +53,31 @@ public interface IEtlPipeline<T>
 
 
     /// <summary>
+    /// Appends a stream-to-stream transformer stage supplied as a delegate — the same contract as
+    /// <see cref="ITransformAsync{TSource, TDestination}.TransformAsync(IAsyncEnumerable{TSource})"/>,
+    /// but inline, without declaring a class. Note this transforms the <em>whole stream</em>; a
+    /// per-element projection (<c>Select</c>) is an operator provided by <c>Wolfgang.Etl.Transformers</c>,
+    /// not the core.
+    /// </summary>
+    /// <typeparam name="TOut">The type produced by the stage.</typeparam>
+    /// <param name="stage">The stream-to-stream transform to append.</param>
+    /// <returns>A pipeline carrying <typeparamref name="TOut"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="stage"/> is <see langword="null"/>.</exception>
+    IEtlPipeline<TOut> Through<TOut>(Func<IAsyncEnumerable<T>, IAsyncEnumerable<TOut>> stage) where TOut : notnull;
+
+
+    /// <summary>
+    /// Appends a cancellation-aware stream-to-stream transformer stage supplied as a delegate. The
+    /// pipeline's cancellation token is forwarded into the delegate.
+    /// </summary>
+    /// <typeparam name="TOut">The type produced by the stage.</typeparam>
+    /// <param name="stage">The stream-to-stream transform to append.</param>
+    /// <returns>A pipeline carrying <typeparamref name="TOut"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="stage"/> is <see langword="null"/>.</exception>
+    IEtlPipeline<TOut> Through<TOut>(Func<IAsyncEnumerable<T>, CancellationToken, IAsyncEnumerable<TOut>> stage) where TOut : notnull;
+
+
+    /// <summary>
     /// Terminates the pipeline with a loader. Format-specific sink terminators (for example
     /// <c>CsvLoader</c> or <c>SqlBulkCopyLoader</c>) are extension methods shipped by their own
     /// packages; this generic overload is the catch-all for callers who already hold a
