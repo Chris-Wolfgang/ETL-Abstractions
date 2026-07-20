@@ -22,12 +22,12 @@ internal class Program
 
         // From a raw async stream, pipe through three transformer stages, then load.
         // Each Through returns IEtlPipeline<TOut>, so the element type flows
-        // string -> int -> int -> string across the chain and the compiler enforces
+        // string -> int -> double -> string across the chain and the compiler enforces
         // that each stage's output matches the next stage's input.
         await EtlPipeline.From(RawNumbers())
             .Through(new ParseIntTransformer())   // string -> int
-            .Through(new DoubleTransformer())     // int    -> int
-            .Through(new FormatTransformer())     // int    -> string
+            .Through(new DoubleTransformer())     // int    -> double
+            .Through(new FormatTransformer())     // double -> string
             .To(new ConsoleLoader())              // LoaderBase<string, Report>
             .RunAsync(progress);
 

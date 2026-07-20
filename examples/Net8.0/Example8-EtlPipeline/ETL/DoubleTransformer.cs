@@ -2,15 +2,15 @@ using Wolfgang.Etl.Abstractions;
 
 namespace Example8_EtlPipeline.ETL;
 
-// Stage 2: int -> int (a same-type stage — chaining doesn't require a type change)
-internal sealed class DoubleTransformer : ITransformAsync<int, int>
+// Stage 2: int -> double
+internal sealed class DoubleTransformer : ITransformAsync<int, double>
 {
-    public async IAsyncEnumerable<int> TransformAsync(IAsyncEnumerable<int> items)
+    public async IAsyncEnumerable<double> TransformAsync(IAsyncEnumerable<int> items)
     {
         await foreach (var item in items)
         {
-            var doubled = item * 2;
-            Console.WriteLine($"{ConsoleColors.Green}double{ConsoleColors.Reset} {item} -> {doubled}");
+            var doubled = item * 2.0;
+            Console.WriteLine($"{ConsoleColors.Green}double{ConsoleColors.Reset} {item} -> {doubled:F1}");
             yield return doubled;
         }
     }
