@@ -275,4 +275,36 @@ public class EtlPipelineTests
         var pipeline = EtlPipeline.From(AsyncSource(1));
         Assert.Throws<ArgumentNullException>(() => pipeline.To<EtlProgress>(null!));
     }
+
+
+    [Fact]
+    public void EtlPipelineProgress_has_value_semantics()
+    {
+        var a = new EtlPipelineProgress(5, 3, TimeSpan.FromSeconds(2));
+        var b = new EtlPipelineProgress(5, 3, TimeSpan.FromSeconds(2));
+        var different = a with { RecordsLoaded = 4 };
+
+        // Property accessors.
+        Assert.Equal(5, a.RecordsExtracted);
+        Assert.Equal(3, a.RecordsLoaded);
+        Assert.Equal(TimeSpan.FromSeconds(2), a.Elapsed);
+
+        // Equality (Equals, ==, !=, GetHashCode).
+        Assert.Equal(a, b);
+        Assert.True(a == b);
+        Assert.False(a != b);
+        Assert.Equal(a.GetHashCode(), b.GetHashCode());
+        Assert.NotEqual(a, different);
+        Assert.True(a != different);
+        Assert.Equal(4, different.RecordsLoaded);
+
+        // Deconstruct.
+        var (extracted, loaded, elapsed) = a;
+        Assert.Equal(5, extracted);
+        Assert.Equal(3, loaded);
+        Assert.Equal(TimeSpan.FromSeconds(2), elapsed);
+
+        // ToString surfaces the members.
+        Assert.Contains("RecordsExtracted", a.ToString());
+    }
 }
