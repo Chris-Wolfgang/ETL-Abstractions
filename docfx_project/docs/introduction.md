@@ -14,7 +14,7 @@ single strongly-typed, streaming pipeline.
 - **Fluent, type-safe pipeline** — `Pipeline.Extract(...).Transform(...).Load(...).RunAsync()`
   composes stages into one runnable flow; the compiler enforces that each stage's
   output type matches the next stage's input.
-- **Generic, format-agnostic pipeline** — `EtlPipeline.From(...).Through(...).To(...).RunAsync()`
+- **Generic, format-agnostic pipeline** — `EtlPipeline.Create().From(...).Through(...).To(...).RunAsync()`
   starts from any `IAsyncEnumerable<T>` or extractor, chains transformer stages, and is
   the extension point that operator (`Wolfgang.Etl.Transformers`) and format packages
   build on.
