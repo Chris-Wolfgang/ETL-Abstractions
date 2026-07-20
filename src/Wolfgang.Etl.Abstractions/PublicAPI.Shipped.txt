@@ -170,3 +170,5 @@ virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgre
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
+Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
+static Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned(this Wolfgang.Etl.Abstractions.IEtlPipelineSink! sink, params object![]! ownedResources) -> Wolfgang.Etl.Abstractions.IEtlPipelineSink!
