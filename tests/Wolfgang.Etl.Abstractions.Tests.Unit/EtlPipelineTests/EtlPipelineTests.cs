@@ -49,7 +49,9 @@ public class EtlPipelineTests
     {
         var loader = new CollectingLoader<int>();
 
-        await EtlPipeline.Create().From(AsyncSource(1, 2, 3))
+        await EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3))
             .To(loader)
             .RunAsync();
 
@@ -63,7 +65,9 @@ public class EtlPipelineTests
         var loader = new CollectingLoader<int>();
         var extractor = new SeededExtractor<int>(new[] { 10, 20, 30 });
 
-        await EtlPipeline.Create().From(extractor)
+        await EtlPipeline
+            .Create()
+            .From(extractor)
             .To(loader)
             .RunAsync();
 
@@ -76,7 +80,9 @@ public class EtlPipelineTests
     {
         var loader = new CollectingLoader<string>();
 
-        await EtlPipeline.Create().From(AsyncSource(1, 2, 3))
+        await EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3))
             .Through(new MapTransformer<int, string>(x => $"n{x}"))
             .To(loader)
             .RunAsync();
@@ -90,7 +96,9 @@ public class EtlPipelineTests
     {
         var loader = new CollectingLoader<int>();
 
-        await EtlPipeline.Create().From(AsyncSource(1, 2, 3))
+        await EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3))
             .Through(new MapTransformer<int, int>(x => x + 1))
             .Through(new MapTransformer<int, int>(x => x * 10))
             .To(loader)
@@ -107,7 +115,9 @@ public class EtlPipelineTests
         var transformer = new TokenRecordingTransformer<int>();
         var loader = new CollectingLoader<int>();
 
-        await EtlPipeline.Create().From(AsyncSource(1, 2, 3))
+        await EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3))
             .Through(transformer)
             .To(loader)
             .RunAsync(null, cts.Token);
@@ -122,7 +132,9 @@ public class EtlPipelineTests
     {
         var loader = new CollectingLoader<string>();
 
-        await EtlPipeline.Create().From(AsyncSource(1, 2, 3))
+        await EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3))
             .Through(Label)                       // Func<IAsyncEnumerable<int>, IAsyncEnumerable<string>>
             .To(loader)
             .RunAsync();
@@ -145,7 +157,9 @@ public class EtlPipelineTests
             return items;
         };
 
-        await EtlPipeline.Create().From(AsyncSource(1, 2, 3))
+        await EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3))
             .Through(stage)
             .To(loader)
             .RunAsync(null, cts.Token);
@@ -158,7 +172,9 @@ public class EtlPipelineTests
     [Fact]
     public void Through_when_delegate_is_null_throws_ArgumentNullException()
     {
-        var pipeline = EtlPipeline.Create().From(AsyncSource(1));
+        var pipeline = EtlPipeline
+            .Create()
+            .From(AsyncSource(1));
         Assert.Throws<ArgumentNullException>(
             () => pipeline.Through((Func<IAsyncEnumerable<int>, IAsyncEnumerable<int>>)null!));
     }
@@ -167,7 +183,9 @@ public class EtlPipelineTests
     [Fact]
     public void Through_when_cancellation_aware_delegate_is_null_throws_ArgumentNullException()
     {
-        var pipeline = EtlPipeline.Create().From(AsyncSource(1));
+        var pipeline = EtlPipeline
+            .Create()
+            .From(AsyncSource(1));
         Assert.Throws<ArgumentNullException>(
             () => pipeline.Through((Func<IAsyncEnumerable<int>, CancellationToken, IAsyncEnumerable<int>>)null!));
     }
@@ -176,7 +194,9 @@ public class EtlPipelineTests
     [Fact]
     public async Task AsAsyncEnumerable_exposes_the_composed_stream()
     {
-        var stream = EtlPipeline.Create().From(AsyncSource(1, 2, 3))
+        var stream = EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3))
             .Through(new MapTransformer<int, int>(x => x * 100))
             .AsAsyncEnumerable();
 
@@ -191,7 +211,9 @@ public class EtlPipelineTests
     {
         var loader = new CollectingLoader<int>();
 
-        var sink = EtlPipeline.Create().From(AsyncSource(1, 2, 3))
+        var sink = EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3))
             .Through(new MapTransformer<int, int>(_ => throw new InvalidOperationException("boom")))
             .To(loader);
 
@@ -206,7 +228,9 @@ public class EtlPipelineTests
         using var cts = new CancellationTokenSource();
         var loader = new CollectingLoader<int>();
 
-        var sink = EtlPipeline.Create().From(AsyncSource(1, 2, 3, 4, 5))
+        var sink = EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3, 4, 5))
             .Through(new CancelingTransformer<int>(cts, 2))
             .To(loader);
 
@@ -222,7 +246,9 @@ public class EtlPipelineTests
         var progress = new SynchronousProgress<EtlPipelineProgress>(reports.Add);
         var loader = new CollectingLoader<int>();
 
-        await EtlPipeline.Create().From(AsyncSource(1, 2, 3, 4, 5))
+        await EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3, 4, 5))
             .To(loader)
             .RunAsync(progress);
 
@@ -246,21 +272,27 @@ public class EtlPipelineTests
     [Fact]
     public void From_when_stream_is_null_throws_ArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => EtlPipeline.Create().From<int>((IAsyncEnumerable<int>)null!));
+        Assert.Throws<ArgumentNullException>(() => EtlPipeline
+            .Create()
+            .From<int>((IAsyncEnumerable<int>)null!));
     }
 
 
     [Fact]
     public void From_when_extractor_is_null_throws_ArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => EtlPipeline.Create().From<int, EtlProgress>(null!));
+        Assert.Throws<ArgumentNullException>(() => EtlPipeline
+            .Create()
+            .From<int, EtlProgress>(null!));
     }
 
 
     [Fact]
     public void Through_when_transformer_is_null_throws_ArgumentNullException()
     {
-        var pipeline = EtlPipeline.Create().From(AsyncSource(1));
+        var pipeline = EtlPipeline
+            .Create()
+            .From(AsyncSource(1));
         Assert.Throws<ArgumentNullException>(() => pipeline.Through((ITransformAsync<int, int>)null!));
     }
 
@@ -268,7 +300,9 @@ public class EtlPipelineTests
     [Fact]
     public void Through_when_cancellation_aware_transformer_is_null_throws_ArgumentNullException()
     {
-        var pipeline = EtlPipeline.Create().From(AsyncSource(1));
+        var pipeline = EtlPipeline
+            .Create()
+            .From(AsyncSource(1));
         Assert.Throws<ArgumentNullException>(() => pipeline.Through((ITransformWithCancellationAsync<int, int>)null!));
     }
 
@@ -276,7 +310,9 @@ public class EtlPipelineTests
     [Fact]
     public void To_when_loader_is_null_throws_ArgumentNullException()
     {
-        var pipeline = EtlPipeline.Create().From(AsyncSource(1));
+        var pipeline = EtlPipeline
+            .Create()
+            .From(AsyncSource(1));
         Assert.Throws<ArgumentNullException>(() => pipeline.To<EtlProgress>(null!));
     }
 
