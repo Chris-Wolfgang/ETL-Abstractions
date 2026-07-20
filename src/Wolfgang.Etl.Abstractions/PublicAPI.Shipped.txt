@@ -8,6 +8,8 @@ Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted.get -> int
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted.init -> void
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded.get -> int
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded.init -> void
+Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
+Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentSkippedItemCount.get -> int
@@ -142,9 +144,10 @@ abstract Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CreatePro
 abstract Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
 abstract Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressReport() -> TProgress
 abstract Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
-Wolfgang.Etl.Abstractions.EtlPipeline.From<T, TProgress>(Wolfgang.Etl.Abstractions.ExtractorBase<T, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
-Wolfgang.Etl.Abstractions.EtlPipeline.From<T>(System.Collections.Generic.IAsyncEnumerable<T>! source) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
 static Wolfgang.Etl.Abstractions.EtlPipeline.Create() -> Wolfgang.Etl.Abstractions.EtlPipeline!
+static Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned(this Wolfgang.Etl.Abstractions.IEtlPipelineSink! sink, params object![]! ownedResources) -> Wolfgang.Etl.Abstractions.IEtlPipelineSink!
+static Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T, TProgress>(this Wolfgang.Etl.Abstractions.EtlPipeline! pipeline, Wolfgang.Etl.Abstractions.ExtractorBase<T, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+static Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T>(this Wolfgang.Etl.Abstractions.EtlPipeline! pipeline, System.Collections.Generic.IAsyncEnumerable<T>! source) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync<TSource, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync<TSource, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractAsync<TSource>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>!
@@ -170,5 +173,3 @@ virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgre
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
-Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
-static Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned(this Wolfgang.Etl.Abstractions.IEtlPipelineSink! sink, params object![]! ownedResources) -> Wolfgang.Etl.Abstractions.IEtlPipelineSink!

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 
 
@@ -7,10 +6,10 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Entry point for building a generic, format-agnostic ETL pipeline. Obtain a fresh builder with
-/// <see cref="Create"/>, start from a source — either a built-in <see cref="From{T}(IAsyncEnumerable{T})"/> /
-/// <see cref="From{T, TProgress}(ExtractorBase{T, TProgress})"/> factory, or a format-specific factory
-/// hung off the <see cref="EtlPipeline"/> instance by a format package — chain append transformer stages
-/// on <see cref="IEtlPipeline{T}"/>, terminate with a sink, then call
+/// <see cref="Create"/>, start from a source — either a built-in <c>From</c> factory (see
+/// <see cref="EtlPipelineSourceExtensions"/>) or a format-specific factory hung off the
+/// <see cref="EtlPipeline"/> instance by a format package — append transformer stages on
+/// <see cref="IEtlPipeline{T}"/>, terminate with a sink, then call
 /// <see cref="IEtlPipelineSink.RunAsync(IProgress{EtlPipelineProgress}, CancellationToken)"/>.
 /// </summary>
 /// <remarks>
@@ -21,8 +20,8 @@ namespace Wolfgang.Etl.Abstractions;
 /// </para>
 /// <para>
 /// <see cref="Create"/> returns a fresh <see cref="EtlPipeline"/> seed: it carries no data itself and
-/// exists to give source factories a strongly-typed receiver. Format packages extend the instance with
-/// class-named factories — for example a CSV package adds
+/// exists to give source factories a strongly-typed receiver. The built-in <c>From</c> factories and
+/// any format-package factories are extension methods on this type — for example a CSV package adds
 /// <c>public static ICsvExtractorBuilder&lt;T&gt; CsvExtractor&lt;T&gt;(this EtlPipeline pipeline, string path)</c>,
 /// enabling <c>EtlPipeline.Create().CsvExtractor&lt;Order&gt;("orders.csv")</c>.
 /// </para>
@@ -54,46 +53,4 @@ public sealed class EtlPipeline
     /// </summary>
     /// <returns>A fresh builder instance.</returns>
     public static EtlPipeline Create() => new();
-
-
-    /// <summary>
-    /// Begins a pipeline from an existing asynchronous stream — the generic escape hatch for any
-    /// source the caller already has as an <see cref="IAsyncEnumerable{T}"/>.
-    /// </summary>
-    /// <typeparam name="T">The type of item produced by the source.</typeparam>
-    /// <param name="source">The stream that seeds the pipeline.</param>
-    /// <returns>An <see cref="IEtlPipeline{T}"/> for chaining.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>
-    public IEtlPipeline<T> From<T>(IAsyncEnumerable<T> source)
-        where T : notnull
-    {
-        if (source is null)
-        {
-            throw new ArgumentNullException(nameof(source));
-        }
-
-        return EtlPipelineImpl<T>.FromStream((_, _) => source);
-    }
-
-
-    /// <summary>
-    /// Begins a pipeline from an <see cref="ExtractorBase{TSource, TProgress}"/>. The pipeline's
-    /// cancellation token is forwarded to the extractor.
-    /// </summary>
-    /// <typeparam name="T">The type of item produced by the extractor.</typeparam>
-    /// <typeparam name="TProgress">The extractor's progress-report type.</typeparam>
-    /// <param name="extractor">The extractor that seeds the pipeline.</param>
-    /// <returns>An <see cref="IEtlPipeline{T}"/> for chaining.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="extractor"/> is <see langword="null"/>.</exception>
-    public IEtlPipeline<T> From<T, TProgress>(ExtractorBase<T, TProgress> extractor)
-        where T : notnull
-        where TProgress : notnull
-    {
-        if (extractor is null)
-        {
-            throw new ArgumentNullException(nameof(extractor));
-        }
-
-        return EtlPipelineImpl<T>.FromStream((_, token) => extractor.ExtractAsync(token));
-    }
 }
