@@ -6,10 +6,11 @@ using System.Threading;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Entry point for building a generic, format-agnostic ETL pipeline. Start from a source — either a
-/// built-in <see cref="From{T}(IAsyncEnumerable{T})"/> / <see cref="From{T, TProgress}(ExtractorBase{T, TProgress})"/>
-/// factory, or a format-specific factory hung off <see cref="Source"/> by a format package — chain
-/// append transformer stages on <see cref="IEtlPipeline{T}"/>, terminate with a sink, then call
+/// Entry point for building a generic, format-agnostic ETL pipeline. Obtain a fresh builder with
+/// <see cref="Create"/>, start from a source — either a built-in <see cref="From{T}(IAsyncEnumerable{T})"/> /
+/// <see cref="From{T, TProgress}(ExtractorBase{T, TProgress})"/> factory, or a format-specific factory
+/// hung off the <see cref="EtlPipeline"/> instance by a format package — chain append transformer stages
+/// on <see cref="IEtlPipeline{T}"/>, terminate with a sink, then call
 /// <see cref="IEtlPipelineSink.RunAsync(IProgress{EtlPipelineProgress}, CancellationToken)"/>.
 /// </summary>
 /// <remarks>
@@ -17,6 +18,13 @@ namespace Wolfgang.Etl.Abstractions;
 /// The name <c>EtlPipeline</c> (rather than <c>Pipeline</c>) avoids clashing with the fluent
 /// <see cref="Pipeline"/> extract/transform/load builder in this same namespace and with
 /// <c>System.IO.Pipelines</c>.
+/// </para>
+/// <para>
+/// <see cref="Create"/> returns a fresh <see cref="EtlPipeline"/> seed: it carries no data itself and
+/// exists to give source factories a strongly-typed receiver. Format packages extend the instance with
+/// class-named factories — for example a CSV package adds
+/// <c>public static ICsvExtractorBuilder&lt;T&gt; CsvExtractor&lt;T&gt;(this EtlPipeline pipeline, string path)</c>,
+/// enabling <c>EtlPipeline.Create().CsvExtractor&lt;Order&gt;("orders.csv")</c>.
 /// </para>
 /// <para>
 /// The core exposes only the plumbing — a source, <see cref="IEtlPipeline{T}.Through{TOut}(ITransformAsync{T, TOut})"/>
@@ -27,19 +35,25 @@ namespace Wolfgang.Etl.Abstractions;
 /// </remarks>
 /// <example>
 /// <code>
-/// await EtlPipeline.From(records)
+/// await EtlPipeline.Create()
+///     .From(records)
 ///     .Through(new WhereTransformer&lt;Order&gt;(r =&gt; r.Amount &gt; 0))
 ///     .To(sqlLoader)
 ///     .RunAsync(progress, token);
 /// </code>
 /// </example>
-public static class EtlPipeline
+public sealed class EtlPipeline
 {
+    private EtlPipeline()
+    {
+    }
+
+
     /// <summary>
-    /// The sentinel that format packages extend with source factories, enabling the
-    /// <c>EtlPipeline.Source.CsvExtractor&lt;T&gt;(...)</c> shape. See <see cref="EtlPipelineSource"/>.
+    /// Creates a new, empty <see cref="EtlPipeline"/> builder to start a fluent pipeline chain.
     /// </summary>
-    public static EtlPipelineSource Source { get; } = new();
+    /// <returns>A fresh builder instance.</returns>
+    public static EtlPipeline Create() => new();
 
 
     /// <summary>
@@ -50,7 +64,7 @@ public static class EtlPipeline
     /// <param name="source">The stream that seeds the pipeline.</param>
     /// <returns>An <see cref="IEtlPipeline{T}"/> for chaining.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>
-    public static IEtlPipeline<T> From<T>(IAsyncEnumerable<T> source)
+    public IEtlPipeline<T> From<T>(IAsyncEnumerable<T> source)
         where T : notnull
     {
         if (source is null)
@@ -71,7 +85,7 @@ public static class EtlPipeline
     /// <param name="extractor">The extractor that seeds the pipeline.</param>
     /// <returns>An <see cref="IEtlPipeline{T}"/> for chaining.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="extractor"/> is <see langword="null"/>.</exception>
-    public static IEtlPipeline<T> From<T, TProgress>(ExtractorBase<T, TProgress> extractor)
+    public IEtlPipeline<T> From<T, TProgress>(ExtractorBase<T, TProgress> extractor)
         where T : notnull
         where TProgress : notnull
     {

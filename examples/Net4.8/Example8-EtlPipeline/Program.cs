@@ -27,7 +27,9 @@ namespace Example8_EtlPipeline
             // Each Through returns IEtlPipeline<TOut>, so the element type flows
             // string -> int -> double -> string across the chain and the compiler enforces
             // that each stage's output matches the next stage's input.
-            await EtlPipeline.From(RawNumbers())
+            await EtlPipeline
+                .Create()
+                .From(RawNumbers())
                 .Through(new ParseIntTransformer())   // string -> int
                 .Through(new DoubleTransformer())     // int    -> double
                 .Through(new FormatTransformer())     // double -> string
@@ -38,8 +40,8 @@ namespace Example8_EtlPipeline
         }
 
 
-        // Any IAsyncEnumerable<T> is a valid source via EtlPipeline.From(...).
-        // An ExtractorBase<T, TProgress> works too: EtlPipeline.From(myExtractor).
+        // Any IAsyncEnumerable<T> is a valid source via EtlPipeline.Create().From(...).
+        // An ExtractorBase<T, TProgress> works too: EtlPipeline.Create().From(myExtractor).
         private static async IAsyncEnumerable<string> RawNumbers()
         {
             for (var i = 1; i <= 8; i++)

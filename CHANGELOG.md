@@ -28,8 +28,10 @@ Minor release: adds a generic, format-agnostic ETL pipeline. No breaking change.
 - `EtlPipeline` — a generic, format-agnostic pipeline that composes any source, transformer
   stages, and a loader into a single runnable flow, complementing the existing fluent
   `Pipeline` (Extract/Transform/Load) builder:
-  - `EtlPipeline.From(IAsyncEnumerable<T>)` and `From(ExtractorBase<T, TProgress>)` factories,
-    plus the `EtlPipeline.Source` sentinel that format packages extend with source factories.
+  - `EtlPipeline.Create()` returns a fresh builder seed; `From(IAsyncEnumerable<T>)` and
+    `From(ExtractorBase<T, TProgress>)` factories start the chain from any source. Format
+    packages extend the `EtlPipeline` instance with class-named source factories, e.g.
+    `EtlPipeline.Create().CsvExtractor<Order>("orders.csv")`.
   - `IEtlPipeline<T>` with `Through` (four overloads — an `ITransformAsync<T, TOut>` or
     `ITransformWithCancellationAsync<T, TOut>` transformer, or a stream-to-stream delegate,
     with or without a `CancellationToken`), `To<TProgress>(LoaderBase<T, TProgress>)`, and
