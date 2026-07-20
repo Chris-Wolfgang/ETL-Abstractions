@@ -24,7 +24,9 @@ internal class Program
         // Each Through returns IEtlPipeline<TOut>, so the element type flows
         // string -> int -> double -> string across the chain and the compiler enforces
         // that each stage's output matches the next stage's input.
-        await EtlPipeline.Create().From(RawNumbers())
+        await EtlPipeline
+            .Create()
+            .From(RawNumbers())
             .Through(new ParseIntTransformer())   // string -> int
             .Through(new DoubleTransformer())     // int    -> double
             .Through(new FormatTransformer())     // double -> string
