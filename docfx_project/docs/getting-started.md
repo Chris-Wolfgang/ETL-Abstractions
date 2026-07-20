@@ -135,6 +135,36 @@ the match (a same-type `ITransformAsync<T, T>` stage is fine). Nothing runs unti
 `To(...).RunAsync()` — records are then pulled through the whole chain one at a time,
 with no buffering between stages.
 
+### Supplying a stage: a transformer class or an inline delegate
+
+`Through` has two shapes. Pass an `ITransformAsync<T, TOut>` (or the cancellation-aware
+`ITransformWithCancellationAsync<T, TOut>`) when you have a reusable transformer class —
+or pass a **stream-to-stream delegate** to define a one-off stage inline, without
+declaring a class:
+
+```csharp
+await EtlPipeline.From(orders)
+    .Through(s => s.Where(o => o.Amount > 0))   // Func<IAsyncEnumerable<Order>, IAsyncEnumerable<Order>>
+    .Through(Enrich)                            // a method: IAsyncEnumerable<Order> -> IAsyncEnumerable<EnrichedOrder>
+    .To(sqlLoader)
+    .RunAsync();
+```
+
+The delegate is the same stream-to-stream contract as `ITransformAsync.TransformAsync`
+(the lambda body typically composes `System.Linq.Async` operators), so it stays at the
+"append a stage" level — it is *not* a per-element projection. (A per-element
+`Where`/`Select` over individual records is an operator, provided by
+`Wolfgang.Etl.Transformers`; see below.) A cancellation-aware delegate overload,
+`Func<IAsyncEnumerable<T>, CancellationToken, IAsyncEnumerable<TOut>>`, receives the
+run's token.
+
+And if the source already produces what the loader consumes, skip `Through` entirely —
+the compiler requires the loader's input type to match the source's output:
+
+```csharp
+await EtlPipeline.From(orders).To(orderLoader).RunAsync();
+```
+
 ### Progress, cancellation, and the escape hatch
 
 - **Progress** — pass an `IProgress<EtlPipelineProgress>` to `RunAsync`. The snapshot
