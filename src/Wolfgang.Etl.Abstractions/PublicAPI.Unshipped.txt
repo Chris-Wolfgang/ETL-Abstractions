@@ -1,4 +1,1 @@
 #nullable enable
-Wolfgang.Etl.Abstractions.ISupportDryRun
-Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.get -> bool
-Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.set -> void

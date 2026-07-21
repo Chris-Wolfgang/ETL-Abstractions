@@ -19,6 +19,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.16.0] - 2026-07-20
+
+Minor release: adds a generic, format-agnostic ETL pipeline. No breaking change.
+
+### Added
+
+- `EtlPipeline` — a generic, format-agnostic pipeline that composes any source, transformer
+  stages, and a loader into a single runnable flow, complementing the existing fluent
+  `Pipeline` (Extract/Transform/Load) builder:
+  - `EtlPipeline.Create()` returns a fresh builder seed; `From(IAsyncEnumerable<T>)` and
+    `From(ExtractorBase<T, TProgress>)` factories start the chain from any source. Format
+    packages extend the `EtlPipeline` instance with class-named source factories, e.g.
+    `EtlPipeline.Create().CsvExtractor<Order>("orders.csv")`.
+  - `IEtlPipeline<T>` with `Through` (four overloads — an `ITransformAsync<T, TOut>` or
+    `ITransformWithCancellationAsync<T, TOut>` transformer, or a stream-to-stream delegate,
+    with or without a `CancellationToken`), `To<TProgress>(LoaderBase<T, TProgress>)`, and
+    `AsAsyncEnumerable()`.
+  - `IEtlPipelineSink.RunAsync(IProgress<EtlPipelineProgress>?, CancellationToken)` and the
+    `EtlPipelineProgress` record (`RecordsExtracted`, `RecordsLoaded`, `Elapsed`).
+  - The pipeline is lazy and streaming. The LINQ-flavored operators (`Where`, `Select`, …) are
+    provided separately by `Wolfgang.Etl.Transformers` as extension methods layered over
+    `Through`, so the core takes no dependency on them.
+
 ## [0.15.0] - 2026-06-28
 
 Minor release: adds an opt-in dry-run contract. No breaking change.
