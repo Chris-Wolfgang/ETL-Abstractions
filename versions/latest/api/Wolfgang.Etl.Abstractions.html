@@ -81,6 +81,36 @@
 Classes
 </h3>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a></dt>
+      <dd><p>Entry point for building a generic, format-agnostic ETL pipeline. Obtain a fresh builder with
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html#Wolfgang_Etl_Abstractions_EtlPipeline_Create">Create()</a>, start from a source — either a built-in <code>From</code> factory (see
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html">EtlPipelineSourceExtensions</a>) or a format-specific factory hung off the
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a> instance by a format package — append transformer stages on
+<a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline&lt;T&gt;</a>, terminate with a sink, then call
+<a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html#Wolfgang_Etl_Abstractions_IEtlPipelineSink_RunAsync_System_IProgress_Wolfgang_Etl_Abstractions_EtlPipelineProgress__System_Threading_CancellationToken_">RunAsync(IProgress&lt;EtlPipelineProgress&gt;?, CancellationToken)</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineProgress.html">EtlPipelineProgress</a></dt>
+      <dd><p>An immutable snapshot of a generic <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a> run's throughput, reported through
+the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> sink passed to
+<a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html#Wolfgang_Etl_Abstractions_IEtlPipelineSink_RunAsync_System_IProgress_Wolfgang_Etl_Abstractions_EtlPipelineProgress__System_Threading_CancellationToken_">RunAsync(IProgress&lt;EtlPipelineProgress&gt;?, CancellationToken)</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.html">EtlPipelineSinkExtensions</a></dt>
+      <dd><p>Extensions for terminal <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a> pipelines.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html">EtlPipelineSourceExtensions</a></dt>
+      <dd><p>Built-in source factories for <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a>. They begin a pipeline from a raw stream or
+an extractor. Format packages add their own class-named source factories (for example
+<code>CsvExtractor</code>) as extension methods on <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a> alongside these, so every
+source reads the same way: <code>EtlPipeline.Create().Xxx(...)</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase&lt;TSource, TProgress&gt;</a></dt>
       <dd><p>Provides a basic implementation for data extractors that extract data of type TSource.
 Library authors can use this base class to create custom extractors by inheriting from it and implementing
@@ -118,6 +148,21 @@ TransformWorkerAsync and CreateProgressReport methods.</p>
     <h3 id="interfaces">
 Interfaces
 </h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a></dt>
+      <dd><p>A terminated, runnable generic ETL pipeline. Obtained from
+<a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_To__1_Wolfgang_Etl_Abstractions_LoaderBase__0___0__">To&lt;TProgress&gt;(LoaderBase&lt;T, TProgress&gt;)</a> or a format-specific sink
+terminator (for example a <code>CsvLoader</code> extension shipped by a format package).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline&lt;T&gt;</a></dt>
+      <dd><p>A generic, format-agnostic ETL pipeline carrying a stream of items of type
+<code class="typeparamref">T</code>. Append transformer stages with <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__">Through&lt;TOut&gt;(ITransformAsync&lt;T, TOut&gt;)</a>,
+then terminate with <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_To__1_Wolfgang_Etl_Abstractions_LoaderBase__0___0__">To&lt;TProgress&gt;(LoaderBase&lt;T, TProgress&gt;)</a> (or a format-specific
+sink terminator) to obtain a runnable <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a>.</p>
+</dd>
+    </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractAsync-1.html">IExtractAsync&lt;TSource&gt;</a></dt>
       <dd><p>Defines an asynchronous extractor interface for extracting data of type T.

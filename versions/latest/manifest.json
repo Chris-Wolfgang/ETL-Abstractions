@@ -22,6 +22,62 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipeline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.EtlPipeline",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.EtlPipeline.yml\" sourcestartlinenumber=\"1\">Entry point for building a generic, format-agnostic ETL pipeline. Obtain a fresh builder with\n<xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline.Create\" data-throw-if-not-resolved=\"false\"></xref>, start from a source — either a built-in <code>From</code> factory (see\n<xref href=\"Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions\" data-throw-if-not-resolved=\"false\"></xref>) or a format-specific factory hung off the\n<xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref> instance by a format package — append transformer stages on\n<xref href=\"Wolfgang.Etl.Abstractions.IEtlPipeline%601\" data-throw-if-not-resolved=\"false\"></xref>, terminate with a sink, then call\n<xref href=\"Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress%7bWolfgang.Etl.Abstractions.EtlPipelineProgress%7d%2cSystem.Threading.CancellationToken)\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.EtlPipelineProgress",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.yml\" sourcestartlinenumber=\"1\">An immutable snapshot of a generic <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref> run's throughput, reported through\nthe <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref> sink passed to\n<xref href=\"Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress%7bWolfgang.Etl.Abstractions.EtlPipelineProgress%7d%2cSystem.Threading.CancellationToken)\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.yml\" sourcestartlinenumber=\"1\">Extensions for terminal <xref href=\"Wolfgang.Etl.Abstractions.IEtlPipelineSink\" data-throw-if-not-resolved=\"false\"></xref> pipelines.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.yml\" sourcestartlinenumber=\"1\">Built-in source factories for <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref>. They begin a pipeline from a raw stream or\nan extractor. Format packages add their own class-named source factories (for example\n<code>CsvExtractor</code>) as extension methods on <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref> alongside these, so every\nsource reads the same way: <code>EtlPipeline.Create().Xxx(...)</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorBase-2.yml",
       "output": {
         ".html": {
@@ -33,6 +89,34 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ExtractorBase-2.yml\" sourcestartlinenumber=\"1\">Provides a basic implementation for data extractors that extract data of type TSource.\nLibrary authors can use this base class to create custom extractors by inheriting from it and implementing\nExtractWorkerAsync and CreateProgressReport methods.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IEtlPipeline<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.yml\" sourcestartlinenumber=\"1\">A generic, format-agnostic ETL pipeline carrying a stream of items of type\n<code class=\"typeparamref\">T</code>. Append transformer stages with <xref href=\"Wolfgang.Etl.Abstractions.IEtlPipeline%601.Through%60%601(Wolfgang.Etl.Abstractions.ITransformAsync%7b%600%2c%60%600%7d)\" data-throw-if-not-resolved=\"false\"></xref>,\nthen terminate with <xref href=\"Wolfgang.Etl.Abstractions.IEtlPipeline%601.To%60%601(Wolfgang.Etl.Abstractions.LoaderBase%7b%600%2c%60%600%7d)\" data-throw-if-not-resolved=\"false\"></xref> (or a format-specific\nsink terminator) to obtain a runnable <xref href=\"Wolfgang.Etl.Abstractions.IEtlPipelineSink\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IEtlPipelineSink",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.yml\" sourcestartlinenumber=\"1\">A terminated, runnable generic ETL pipeline. Obtained from\n<xref href=\"Wolfgang.Etl.Abstractions.IEtlPipeline%601.To%60%601(Wolfgang.Etl.Abstractions.LoaderBase%7b%600%2c%60%600%7d)\" data-throw-if-not-resolved=\"false\"></xref> or a format-specific sink\nterminator (for example a <code>CsvLoader</code> extension shipped by a format package).</p>\n"
     },
     {
       "type": "ManagedReference",

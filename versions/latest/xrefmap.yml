@@ -7,6 +7,142 @@ references:
   commentId: N:Wolfgang.Etl.Abstractions
   fullName: Wolfgang.Etl.Abstractions
   nameWithType: Wolfgang.Etl.Abstractions
+- uid: Wolfgang.Etl.Abstractions.EtlPipeline
+  name: EtlPipeline
+  href: api/Wolfgang.Etl.Abstractions.EtlPipeline.html
+  commentId: T:Wolfgang.Etl.Abstractions.EtlPipeline
+  fullName: Wolfgang.Etl.Abstractions.EtlPipeline
+  nameWithType: EtlPipeline
+- uid: Wolfgang.Etl.Abstractions.EtlPipeline.Create
+  name: Create()
+  href: api/Wolfgang.Etl.Abstractions.EtlPipeline.html#Wolfgang_Etl_Abstractions_EtlPipeline_Create
+  commentId: M:Wolfgang.Etl.Abstractions.EtlPipeline.Create
+  fullName: Wolfgang.Etl.Abstractions.EtlPipeline.Create()
+  nameWithType: EtlPipeline.Create()
+- uid: Wolfgang.Etl.Abstractions.EtlPipeline.Create*
+  name: Create
+  href: api/Wolfgang.Etl.Abstractions.EtlPipeline.html#Wolfgang_Etl_Abstractions_EtlPipeline_Create_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipeline.Create
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.EtlPipeline.Create
+  nameWithType: EtlPipeline.Create
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress
+  name: EtlPipelineProgress
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html
+  commentId: T:Wolfgang.Etl.Abstractions.EtlPipelineProgress
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress
+  nameWithType: EtlPipelineProgress
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.#ctor(System.Int32,System.Int32,System.TimeSpan)
+  name: EtlPipelineProgress(int, int, TimeSpan)
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress__ctor_System_Int32_System_Int32_System_TimeSpan_
+  commentId: M:Wolfgang.Etl.Abstractions.EtlPipelineProgress.#ctor(System.Int32,System.Int32,System.TimeSpan)
+  name.vb: New(Integer, Integer, TimeSpan)
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.EtlPipelineProgress(int, int, System.TimeSpan)
+  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineProgress.New(Integer, Integer, System.TimeSpan)
+  nameWithType: EtlPipelineProgress.EtlPipelineProgress(int, int, TimeSpan)
+  nameWithType.vb: EtlPipelineProgress.New(Integer, Integer, TimeSpan)
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.#ctor*
+  name: EtlPipelineProgress
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress__ctor_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineProgress.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.EtlPipelineProgress
+  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineProgress.New
+  nameWithType: EtlPipelineProgress.EtlPipelineProgress
+  nameWithType.vb: EtlPipelineProgress.New
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_Elapsed
+  commentId: P:Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed
+  nameWithType: EtlPipelineProgress.Elapsed
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed*
+  name: Elapsed
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_Elapsed_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed
+  nameWithType: EtlPipelineProgress.Elapsed
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
+  name: RecordsExtracted
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_RecordsExtracted
+  commentId: P:Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
+  nameWithType: EtlPipelineProgress.RecordsExtracted
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted*
+  name: RecordsExtracted
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_RecordsExtracted_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
+  nameWithType: EtlPipelineProgress.RecordsExtracted
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
+  name: RecordsLoaded
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_RecordsLoaded
+  commentId: P:Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
+  nameWithType: EtlPipelineProgress.RecordsLoaded
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded*
+  name: RecordsLoaded
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_RecordsLoaded_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
+  nameWithType: EtlPipelineProgress.RecordsLoaded
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
+  name: EtlPipelineSinkExtensions
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.html
+  commentId: T:Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
+  nameWithType: EtlPipelineSinkExtensions
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned(Wolfgang.Etl.Abstractions.IEtlPipelineSink,System.Object[])
+  name: DisposingOwned(IEtlPipelineSink, params object[])
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineSinkExtensions_DisposingOwned_Wolfgang_Etl_Abstractions_IEtlPipelineSink_System_Object___
+  commentId: M:Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned(Wolfgang.Etl.Abstractions.IEtlPipelineSink,System.Object[])
+  name.vb: DisposingOwned(IEtlPipelineSink, ParamArray Object())
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned(Wolfgang.Etl.Abstractions.IEtlPipelineSink, params object[])
+  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned(Wolfgang.Etl.Abstractions.IEtlPipelineSink, ParamArray Object())
+  nameWithType: EtlPipelineSinkExtensions.DisposingOwned(IEtlPipelineSink, params object[])
+  nameWithType.vb: EtlPipelineSinkExtensions.DisposingOwned(IEtlPipelineSink, ParamArray Object())
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned*
+  name: DisposingOwned
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineSinkExtensions_DisposingOwned_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned
+  nameWithType: EtlPipelineSinkExtensions.DisposingOwned
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions
+  name: EtlPipelineSourceExtensions
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html
+  commentId: T:Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions
+  nameWithType: EtlPipelineSourceExtensions
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From*
+  name: From
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineSourceExtensions_From_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From
+  nameWithType: EtlPipelineSourceExtensions.From
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From``1(Wolfgang.Etl.Abstractions.EtlPipeline,System.Collections.Generic.IAsyncEnumerable{``0})
+  name: From<T>(EtlPipeline, IAsyncEnumerable<T>)
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineSourceExtensions_From__1_Wolfgang_Etl_Abstractions_EtlPipeline_System_Collections_Generic_IAsyncEnumerable___0__
+  commentId: M:Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From``1(Wolfgang.Etl.Abstractions.EtlPipeline,System.Collections.Generic.IAsyncEnumerable{``0})
+  name.vb: From(Of T)(EtlPipeline, IAsyncEnumerable(Of T))
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T>(Wolfgang.Etl.Abstractions.EtlPipeline, System.Collections.Generic.IAsyncEnumerable<T>)
+  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From(Of T)(Wolfgang.Etl.Abstractions.EtlPipeline, System.Collections.Generic.IAsyncEnumerable(Of T))
+  nameWithType: EtlPipelineSourceExtensions.From<T>(EtlPipeline, IAsyncEnumerable<T>)
+  nameWithType.vb: EtlPipelineSourceExtensions.From(Of T)(EtlPipeline, IAsyncEnumerable(Of T))
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From``2(Wolfgang.Etl.Abstractions.EtlPipeline,Wolfgang.Etl.Abstractions.ExtractorBase{``0,``1})
+  name: From<T, TProgress>(EtlPipeline, ExtractorBase<T, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineSourceExtensions_From__2_Wolfgang_Etl_Abstractions_EtlPipeline_Wolfgang_Etl_Abstractions_ExtractorBase___0___1__
+  commentId: M:Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From``2(Wolfgang.Etl.Abstractions.EtlPipeline,Wolfgang.Etl.Abstractions.ExtractorBase{``0,``1})
+  name.vb: From(Of T, TProgress)(EtlPipeline, ExtractorBase(Of T, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T, TProgress>(Wolfgang.Etl.Abstractions.EtlPipeline, Wolfgang.Etl.Abstractions.ExtractorBase<T, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From(Of T, TProgress)(Wolfgang.Etl.Abstractions.EtlPipeline, Wolfgang.Etl.Abstractions.ExtractorBase(Of T, TProgress))
+  nameWithType: EtlPipelineSourceExtensions.From<T, TProgress>(EtlPipeline, ExtractorBase<T, TProgress>)
+  nameWithType.vb: EtlPipelineSourceExtensions.From(Of T, TProgress)(EtlPipeline, ExtractorBase(Of T, TProgress))
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2
   name: ExtractorBase<TSource, TProgress>
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html
@@ -307,6 +443,117 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).StartedAt
   nameWithType: ExtractorBase<TSource, TProgress>.StartedAt
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).StartedAt
+- uid: Wolfgang.Etl.Abstractions.IEtlPipelineSink
+  name: IEtlPipelineSink
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.html
+  commentId: T:Wolfgang.Etl.Abstractions.IEtlPipelineSink
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipelineSink
+  nameWithType: IEtlPipelineSink
+- uid: Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress{Wolfgang.Etl.Abstractions.EtlPipelineProgress},System.Threading.CancellationToken)
+  name: RunAsync(IProgress<EtlPipelineProgress>?, CancellationToken)
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.html#Wolfgang_Etl_Abstractions_IEtlPipelineSink_RunAsync_System_IProgress_Wolfgang_Etl_Abstractions_EtlPipelineProgress__System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress{Wolfgang.Etl.Abstractions.EtlPipelineProgress},System.Threading.CancellationToken)
+  name.vb: RunAsync(IProgress(Of EtlPipelineProgress), CancellationToken)
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress<Wolfgang.Etl.Abstractions.EtlPipelineProgress>?, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress(Of Wolfgang.Etl.Abstractions.EtlPipelineProgress), System.Threading.CancellationToken)
+  nameWithType: IEtlPipelineSink.RunAsync(IProgress<EtlPipelineProgress>?, CancellationToken)
+  nameWithType.vb: IEtlPipelineSink.RunAsync(IProgress(Of EtlPipelineProgress), CancellationToken)
+- uid: Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync*
+  name: RunAsync
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.html#Wolfgang_Etl_Abstractions_IEtlPipelineSink_RunAsync_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync
+  nameWithType: IEtlPipelineSink.RunAsync
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1
+  name: IEtlPipeline<T>
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html
+  commentId: T:Wolfgang.Etl.Abstractions.IEtlPipeline`1
+  name.vb: IEtlPipeline(Of T)
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T)
+  nameWithType: IEtlPipeline<T>
+  nameWithType.vb: IEtlPipeline(Of T)
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1.AsAsyncEnumerable(System.Threading.CancellationToken)
+  name: AsAsyncEnumerable(CancellationToken)
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_AsAsyncEnumerable_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.Abstractions.IEtlPipeline`1.AsAsyncEnumerable(System.Threading.CancellationToken)
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>.AsAsyncEnumerable(System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T).AsAsyncEnumerable(System.Threading.CancellationToken)
+  nameWithType: IEtlPipeline<T>.AsAsyncEnumerable(CancellationToken)
+  nameWithType.vb: IEtlPipeline(Of T).AsAsyncEnumerable(CancellationToken)
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1.AsAsyncEnumerable*
+  name: AsAsyncEnumerable
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_AsAsyncEnumerable_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IEtlPipeline`1.AsAsyncEnumerable
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>.AsAsyncEnumerable
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T).AsAsyncEnumerable
+  nameWithType: IEtlPipeline<T>.AsAsyncEnumerable
+  nameWithType.vb: IEtlPipeline(Of T).AsAsyncEnumerable
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through*
+  name: Through
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Through
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T).Through
+  nameWithType: IEtlPipeline<T>.Through
+  nameWithType.vb: IEtlPipeline(Of T).Through
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(System.Func{System.Collections.Generic.IAsyncEnumerable{`0},System.Collections.Generic.IAsyncEnumerable{``0}})
+  name: Through<TOut>(Func<IAsyncEnumerable<T>, IAsyncEnumerable<TOut>>)
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_System_Func_System_Collections_Generic_IAsyncEnumerable__0__System_Collections_Generic_IAsyncEnumerable___0___
+  commentId: M:Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(System.Func{System.Collections.Generic.IAsyncEnumerable{`0},System.Collections.Generic.IAsyncEnumerable{``0}})
+  name.vb: Through(Of TOut)(Func(Of IAsyncEnumerable(Of T), IAsyncEnumerable(Of TOut)))
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Through<TOut>(System.Func<System.Collections.Generic.IAsyncEnumerable<T>, System.Collections.Generic.IAsyncEnumerable<TOut>>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T).Through(Of TOut)(System.Func(Of System.Collections.Generic.IAsyncEnumerable(Of T), System.Collections.Generic.IAsyncEnumerable(Of TOut)))
+  nameWithType: IEtlPipeline<T>.Through<TOut>(Func<IAsyncEnumerable<T>, IAsyncEnumerable<TOut>>)
+  nameWithType.vb: IEtlPipeline(Of T).Through(Of TOut)(Func(Of IAsyncEnumerable(Of T), IAsyncEnumerable(Of TOut)))
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(System.Func{System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{``0}})
+  name: Through<TOut>(Func<IAsyncEnumerable<T>, CancellationToken, IAsyncEnumerable<TOut>>)
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_System_Func_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable___0___
+  commentId: M:Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(System.Func{System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{``0}})
+  name.vb: Through(Of TOut)(Func(Of IAsyncEnumerable(Of T), CancellationToken, IAsyncEnumerable(Of TOut)))
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Through<TOut>(System.Func<System.Collections.Generic.IAsyncEnumerable<T>, System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TOut>>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T).Through(Of TOut)(System.Func(Of System.Collections.Generic.IAsyncEnumerable(Of T), System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable(Of TOut)))
+  nameWithType: IEtlPipeline<T>.Through<TOut>(Func<IAsyncEnumerable<T>, CancellationToken, IAsyncEnumerable<TOut>>)
+  nameWithType.vb: IEtlPipeline(Of T).Through(Of TOut)(Func(Of IAsyncEnumerable(Of T), CancellationToken, IAsyncEnumerable(Of TOut)))
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(Wolfgang.Etl.Abstractions.ITransformAsync{`0,``0})
+  name: Through<TOut>(ITransformAsync<T, TOut>)
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(Wolfgang.Etl.Abstractions.ITransformAsync{`0,``0})
+  name.vb: Through(Of TOut)(ITransformAsync(Of T, TOut))
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Through<TOut>(Wolfgang.Etl.Abstractions.ITransformAsync<T, TOut>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T).Through(Of TOut)(Wolfgang.Etl.Abstractions.ITransformAsync(Of T, TOut))
+  nameWithType: IEtlPipeline<T>.Through<TOut>(ITransformAsync<T, TOut>)
+  nameWithType.vb: IEtlPipeline(Of T).Through(Of TOut)(ITransformAsync(Of T, TOut))
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync{`0,``0})
+  name: Through<TOut>(ITransformWithCancellationAsync<T, TOut>)
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformWithCancellationAsync__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync{`0,``0})
+  name.vb: Through(Of TOut)(ITransformWithCancellationAsync(Of T, TOut))
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>.Through<TOut>(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync<T, TOut>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T).Through(Of TOut)(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync(Of T, TOut))
+  nameWithType: IEtlPipeline<T>.Through<TOut>(ITransformWithCancellationAsync<T, TOut>)
+  nameWithType.vb: IEtlPipeline(Of T).Through(Of TOut)(ITransformWithCancellationAsync(Of T, TOut))
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1.To*
+  name: To
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_To_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IEtlPipeline`1.To
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>.To
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T).To
+  nameWithType: IEtlPipeline<T>.To
+  nameWithType.vb: IEtlPipeline(Of T).To
+- uid: Wolfgang.Etl.Abstractions.IEtlPipeline`1.To``1(Wolfgang.Etl.Abstractions.LoaderBase{`0,``0})
+  name: To<TProgress>(LoaderBase<T, TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_To__1_Wolfgang_Etl_Abstractions_LoaderBase__0___0__
+  commentId: M:Wolfgang.Etl.Abstractions.IEtlPipeline`1.To``1(Wolfgang.Etl.Abstractions.LoaderBase{`0,``0})
+  name.vb: To(Of TProgress)(LoaderBase(Of T, TProgress))
+  fullName: Wolfgang.Etl.Abstractions.IEtlPipeline<T>.To<TProgress>(Wolfgang.Etl.Abstractions.LoaderBase<T, TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.IEtlPipeline(Of T).To(Of TProgress)(Wolfgang.Etl.Abstractions.LoaderBase(Of T, TProgress))
+  nameWithType: IEtlPipeline<T>.To<TProgress>(LoaderBase<T, TProgress>)
+  nameWithType.vb: IEtlPipeline(Of T).To(Of TProgress)(LoaderBase(Of T, TProgress))
 - uid: Wolfgang.Etl.Abstractions.IExtractAsync`1
   name: IExtractAsync<TSource>
   href: api/Wolfgang.Etl.Abstractions.IExtractAsync-1.html
@@ -653,6 +900,19 @@ references:
   commentId: T:Wolfgang.Etl.Abstractions.IPipeline
   fullName: Wolfgang.Etl.Abstractions.IPipeline
   nameWithType: IPipeline
+- uid: Wolfgang.Etl.Abstractions.IPipeline.DisposeStagesOnCompletion
+  name: DisposeStagesOnCompletion()
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_DisposeStagesOnCompletion
+  commentId: M:Wolfgang.Etl.Abstractions.IPipeline.DisposeStagesOnCompletion
+  fullName: Wolfgang.Etl.Abstractions.IPipeline.DisposeStagesOnCompletion()
+  nameWithType: IPipeline.DisposeStagesOnCompletion()
+- uid: Wolfgang.Etl.Abstractions.IPipeline.DisposeStagesOnCompletion*
+  name: DisposeStagesOnCompletion
+  href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_DisposeStagesOnCompletion_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IPipeline.DisposeStagesOnCompletion
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IPipeline.DisposeStagesOnCompletion
+  nameWithType: IPipeline.DisposeStagesOnCompletion
 - uid: Wolfgang.Etl.Abstractions.IPipeline.Name
   name: Name
   href: api/Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_Name

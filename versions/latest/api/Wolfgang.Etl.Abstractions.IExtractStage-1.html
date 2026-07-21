@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.15.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_IExtractStage_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.IExtractStage%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.16.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_IExtractStage_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.IExtractStage%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_Abstractions_IExtractStage_1" data-uid="Wolfgang.Etl.Abstractions.IExtractStage`1" class="text-break">
-Interface IExtractStage&lt;TSource&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L18"><i class="bi bi-code-slash"></i></a>
+Interface IExtractStage&lt;TSource&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -124,7 +124,7 @@ compile-time-typed wrapper that defers execution until
 
   <h3 id="Wolfgang_Etl_Abstractions_IExtractStage_1_Load_Wolfgang_Etl_Abstractions_ILoadAsync__0__" data-uid="Wolfgang.Etl.Abstractions.IExtractStage`1.Load(Wolfgang.Etl.Abstractions.ILoadAsync{`0})">
   Load(ILoadAsync&lt;TSource&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L91"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Terminates the chain with a loader that supports neither progress nor cancellation.
@@ -170,7 +170,7 @@ The pipeline's <a class="xref" href="https://learn.microsoft.com/dotnet/api/syst
 
   <h3 id="Wolfgang_Etl_Abstractions_IExtractStage_1_Load_Wolfgang_Etl_Abstractions_ILoadWithCancellationAsync__0__" data-uid="Wolfgang.Etl.Abstractions.IExtractStage`1.Load(Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync{`0})">
   Load(ILoadWithCancellationAsync&lt;TSource&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L100"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Terminates the chain with a loader that supports cancellation but does not report progress.</p>
@@ -215,7 +215,7 @@ The pipeline's <a class="xref" href="https://learn.microsoft.com/dotnet/api/syst
 
   <h3 id="Wolfgang_Etl_Abstractions_IExtractStage_1_Load__1_Wolfgang_Etl_Abstractions_ILoadWithProgressAndCancellationAsync__0___0__" data-uid="Wolfgang.Etl.Abstractions.IExtractStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync{`0,``0})">
   Load&lt;TProgress&gt;(ILoadWithProgressAndCancellationAsync&lt;TSource, TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L126"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L126"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Terminates the chain with a progress-reporting loader that also supports cancellation.
@@ -267,7 +267,7 @@ The returned pipeline exposes <a class="xref" href="Wolfgang.Etl.Abstractions.IP
 
   <h3 id="Wolfgang_Etl_Abstractions_IExtractStage_1_Load__1_Wolfgang_Etl_Abstractions_ILoadWithProgressAsync__0___0__" data-uid="Wolfgang.Etl.Abstractions.IExtractStage`1.Load``1(Wolfgang.Etl.Abstractions.ILoadWithProgressAsync{`0,``0})">
   Load&lt;TProgress&gt;(ILoadWithProgressAsync&lt;TSource, TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L111"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L111"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Terminates the chain with a progress-reporting loader that does not support cancellation.
@@ -319,7 +319,7 @@ The returned pipeline exposes <a class="xref" href="Wolfgang.Etl.Abstractions.IP
 
   <h3 id="Wolfgang_Etl_Abstractions_IExtractStage_1_Transform__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__" data-uid="Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformAsync{`0,``0})">
   Transform&lt;TDestination&gt;(ITransformAsync&lt;TSource, TDestination&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Appends a transformer that supports neither progress nor cancellation. The pipeline's
@@ -371,7 +371,7 @@ The returned pipeline exposes <a class="xref" href="Wolfgang.Etl.Abstractions.IP
 
   <h3 id="Wolfgang_Etl_Abstractions_IExtractStage_1_Transform__1_Wolfgang_Etl_Abstractions_ITransformWithCancellationAsync__0___0__" data-uid="Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``1(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync{`0,``0})">
   Transform&lt;TDestination&gt;(ITransformWithCancellationAsync&lt;TSource, TDestination&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Appends a transformer that supports cancellation but does not report progress.</p>
@@ -422,7 +422,7 @@ The returned pipeline exposes <a class="xref" href="Wolfgang.Etl.Abstractions.IP
 
   <h3 id="Wolfgang_Etl_Abstractions_IExtractStage_1_Transform__2_Wolfgang_Etl_Abstractions_ITransformWithProgressAndCancellationAsync__0___0___1__" data-uid="Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync{`0,``0,``1})">
   Transform&lt;TDestination, TProgress&gt;(ITransformWithProgressAndCancellationAsync&lt;TSource, TDestination, TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L76"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Appends a progress-reporting transformer that also supports cancellation. The returned
@@ -477,7 +477,7 @@ stage exposes <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStageWit
 
   <h3 id="Wolfgang_Etl_Abstractions_IExtractStage_1_Transform__2_Wolfgang_Etl_Abstractions_ITransformWithProgressAsync__0___0___1__" data-uid="Wolfgang.Etl.Abstractions.IExtractStage`1.Transform``2(Wolfgang.Etl.Abstractions.ITransformWithProgressAsync{`0,``0,``1})">
   Transform&lt;TDestination, TProgress&gt;(ITransformWithProgressAsync&lt;TSource, TDestination, TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Appends a progress-reporting transformer that does not support cancellation. The pipeline's
@@ -532,7 +532,7 @@ stage exposes <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStageWit
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L18" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/Pipeline/IExtractStage.cs/#L18" class="edit-link">Edit this page</a>
         </div>
 
 

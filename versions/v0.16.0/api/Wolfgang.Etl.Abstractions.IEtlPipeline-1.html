@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IEtlPipeline&lt;T&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IEtlPipeline&lt;T&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="A generic, format-agnostic ETL pipeline carrying a stream of items of type T. Append transformer stages with , then terminate with  (or a format-specific sink terminator) to obtain a runnable .">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.16.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_IEtlPipeline_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.IEtlPipeline%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1">
+
+
+
+  <h1 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1" class="text-break">
+Interface IEtlPipeline&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.Abstractions.html">Abstractions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.Abstractions.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A generic, format-agnostic ETL pipeline carrying a stream of items of type
+<code class="typeparamref">T</code>. Append transformer stages with <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__">Through&lt;TOut&gt;(ITransformAsync&lt;T, TOut&gt;)</a>,
+then terminate with <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_To__1_Wolfgang_Etl_Abstractions_LoaderBase__0___0__">To&lt;TProgress&gt;(LoaderBase&lt;T, TProgress&gt;)</a> (or a format-specific
+sink terminator) to obtain a runnable <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IEtlPipeline&lt;T&gt; where T : notnull</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of item currently flowing through the pipeline.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+This is the minimal pipeline core. It knows how to pull from a source, pipe through transformers,
+and push to a sink — nothing more. The LINQ-flavored operators (<code>Where</code>, <code>Select</code>,
+<code>Distinct</code>, <code>Take</code>, <code>Buffer</code>, …) are <em>extension methods</em> that layer on top
+of <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__">Through&lt;TOut&gt;(ITransformAsync&lt;T, TOut&gt;)</a> and are shipped by
+<code>Wolfgang.Etl.Transformers</code>, which already owns those transformers — the core does not
+re-implement them.
+</p>
+<p>
+The pipeline is lazy: appending a stage builds up a description of the work and nothing executes
+until <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html#Wolfgang_Etl_Abstractions_IEtlPipelineSink_RunAsync_System_IProgress_Wolfgang_Etl_Abstractions_EtlPipelineProgress__System_Threading_CancellationToken_">RunAsync(IProgress&lt;EtlPipelineProgress&gt;?, CancellationToken)</a>
+is called (or the stream is enumerated via <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_AsAsyncEnumerable_System_Threading_CancellationToken_">AsAsyncEnumerable(CancellationToken)</a>).
+</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_AsAsyncEnumerable_" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.AsAsyncEnumerable*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_AsAsyncEnumerable_System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.AsAsyncEnumerable(System.Threading.CancellationToken)">
+  AsAsyncEnumerable(CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Drops down to the raw <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable&lt;T&gt;</a> — the escape hatch for consumers who
+want to apply <code>System.Linq.Async</code> operators directly or otherwise leave the pipeline.
+Enumerating the returned stream runs the pipeline (without a sink, so
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_RecordsLoaded">RecordsLoaded</a> is not tracked).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAsyncEnumerable&lt;T&gt; AsAsyncEnumerable(CancellationToken token = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>token</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A cancellation token observed while enumerating.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>The composed record stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through_" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_System_Func_System_Collections_Generic_IAsyncEnumerable__0__System_Collections_Generic_IAsyncEnumerable___0___" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(System.Func{System.Collections.Generic.IAsyncEnumerable{`0},System.Collections.Generic.IAsyncEnumerable{``0}})">
+  Through&lt;TOut&gt;(Func&lt;IAsyncEnumerable&lt;T&gt;, IAsyncEnumerable&lt;TOut&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a stream-to-stream transformer stage supplied as a delegate — the same contract as
+<a class="xref" href="Wolfgang.Etl.Abstractions.ITransformAsync-2.html#Wolfgang_Etl_Abstractions_ITransformAsync_2_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__">TransformAsync(IAsyncEnumerable&lt;TSource&gt;)</a>,
+but inline, without declaring a class. Note this transforms the <em>whole stream</em>; a
+per-element projection (<code>Select</code>) is an operator provided by <code>Wolfgang.Etl.Transformers</code>,
+not the core.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEtlPipeline&lt;TOut&gt; Through&lt;TOut&gt;(Func&lt;IAsyncEnumerable&lt;T&gt;, IAsyncEnumerable&lt;TOut&gt;&gt; stage) where TOut : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;TOut&gt;&gt;</dt>
+    <dd><p>The stream-to-stream transform to append.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline</a>&lt;TOut&gt;</dt>
+    <dd><p>A pipeline carrying <code class="typeparamref">TOut</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TOut</code></dt>
+    <dd><p>The type produced by the stage.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">stage</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through_" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_System_Func_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable___0___" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(System.Func{System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{``0}})">
+  Through&lt;TOut&gt;(Func&lt;IAsyncEnumerable&lt;T&gt;, CancellationToken, IAsyncEnumerable&lt;TOut&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a cancellation-aware stream-to-stream transformer stage supplied as a delegate. The
+pipeline's cancellation token is forwarded into the delegate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEtlPipeline&lt;TOut&gt; Through&lt;TOut&gt;(Func&lt;IAsyncEnumerable&lt;T&gt;, CancellationToken, IAsyncEnumerable&lt;TOut&gt;&gt; stage) where TOut : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;TOut&gt;&gt;</dt>
+    <dd><p>The stream-to-stream transform to append.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline</a>&lt;TOut&gt;</dt>
+    <dd><p>A pipeline carrying <code class="typeparamref">TOut</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TOut</code></dt>
+    <dd><p>The type produced by the stage.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">stage</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through_" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(Wolfgang.Etl.Abstractions.ITransformAsync{`0,``0})">
+  Through&lt;TOut&gt;(ITransformAsync&lt;T, TOut&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a transformer stage, piping the current stream through it. This is the primitive on
+which higher-level operators are built.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEtlPipeline&lt;TOut&gt; Through&lt;TOut&gt;(ITransformAsync&lt;T, TOut&gt; transformer) where TOut : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>transformer</code> <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformAsync-2.html">ITransformAsync</a>&lt;T, TOut&gt;</dt>
+    <dd><p>The transformer to append.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline</a>&lt;TOut&gt;</dt>
+    <dd><p>A pipeline carrying <code class="typeparamref">TOut</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TOut</code></dt>
+    <dd><p>The type produced by the transformer.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">transformer</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through_" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformWithCancellationAsync__0___0__" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync{`0,``0})">
+  Through&lt;TOut&gt;(ITransformWithCancellationAsync&lt;T, TOut&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a cancellation-aware transformer stage. The pipeline's cancellation token is forwarded
+into the transformer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEtlPipeline&lt;TOut&gt; Through&lt;TOut&gt;(ITransformWithCancellationAsync&lt;T, TOut&gt; transformer) where TOut : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>transformer</code> <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.html">ITransformWithCancellationAsync</a>&lt;T, TOut&gt;</dt>
+    <dd><p>The transformer to append.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline</a>&lt;TOut&gt;</dt>
+    <dd><p>A pipeline carrying <code class="typeparamref">TOut</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TOut</code></dt>
+    <dd><p>The type produced by the transformer.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">transformer</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_To_" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.To*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_To__1_Wolfgang_Etl_Abstractions_LoaderBase__0___0__" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.To``1(Wolfgang.Etl.Abstractions.LoaderBase{`0,``0})">
+  To&lt;TProgress&gt;(LoaderBase&lt;T, TProgress&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Terminates the pipeline with a loader. Format-specific sink terminators (for example
+<code>CsvLoader</code> or <code>SqlBulkCopyLoader</code>) are extension methods shipped by their own
+packages; this generic overload is the catch-all for callers who already hold a
+<a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEtlPipelineSink To&lt;TProgress&gt;(LoaderBase&lt;T, TProgress&gt; loader) where TProgress : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>loader</code> <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase</a>&lt;T, TProgress&gt;</dt>
+    <dd><p>The loader that consumes the pipeline output.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a></dt>
+    <dd><p>A runnable <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TProgress</code></dt>
+    <dd><p>The loader's progress-report type.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">loader</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L30" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

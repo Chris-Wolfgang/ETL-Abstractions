@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/docfx_project/docs/introduction.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/docfx_project/docs/introduction.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,14 +75,31 @@
 
 <p>Welcome to Wolfgang.Etl.Abstractions!</p>
 <h2 id="overview">Overview</h2>
-<p>Interface and base classes for building ETLs</p>
-<!-- Add your project overview here -->
+<p>Wolfgang.Etl.Abstractions provides the interfaces and base classes for building
+Extract–Transform–Load flows on top of <code>IAsyncEnumerable&lt;T&gt;</code>. You implement an
+extractor, zero or more transformers, and a loader, then compose them into a
+single strongly-typed, streaming pipeline.</p>
 <h2 id="key-features">Key Features</h2>
-<!-- List the main features of your project. For example:
-- Feature 1: Description
-- Feature 2: Description
-- Feature 3: Description
--->
+<ul>
+<li><strong>Fluent, type-safe pipeline</strong> — <code>Pipeline.Extract(...).Transform(...).Load(...).RunAsync()</code>
+composes stages into one runnable flow; the compiler enforces that each stage's
+output type matches the next stage's input.</li>
+<li><strong>Generic, format-agnostic pipeline</strong> — <code>EtlPipeline.Create().From(...).Through(...).To(...).RunAsync()</code>
+starts from any <code>IAsyncEnumerable&lt;T&gt;</code> or extractor, chains transformer stages, and is
+the extension point that operator (<code>Wolfgang.Etl.Transformers</code>) and format packages
+build on.</li>
+<li><strong>Async streaming</strong> — built on <code>IAsyncEnumerable&lt;T&gt;</code>, so items flow through the
+pipeline without buffering the whole set in memory.</li>
+<li><strong>Opt-in progress reporting</strong> — progress-capable stages surface <code>IProgress&lt;T&gt;</code>
+reports with throughput and ETA, on a configurable interval.</li>
+<li><strong>Cooperative cancellation</strong> — a <code>CancellationToken</code> passed to <code>RunAsync</code> is
+forwarded to every stage that supports it.</li>
+<li><strong>Optional stage disposal</strong> — <code>.DisposeStagesOnCompletion()</code> tears stages down
+in reverse order after the run, for call sites that own short-lived stages.</li>
+<li><strong>Broad target coverage</strong> — .NET Framework 4.6.2+, .NET Standard 2.0+, and
+.NET 5.0 through .NET 10.0.</li>
+</ul>
+<p>See the <a href="getting-started.html">Getting Started</a> guide for a full walkthrough.</p>
 <h2 id="getting-help">Getting Help</h2>
 <p>If you need help with Wolfgang.Etl.Abstractions, please:</p>
 <ul>
@@ -95,7 +112,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/docfx_project/docs/introduction.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/docfx_project/docs/introduction.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

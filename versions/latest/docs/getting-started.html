@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/docfx_project/docs/getting-started.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/docfx_project/docs/getting-started.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,10 +75,11 @@
 
 <p>This guide will help you quickly get up and running with Wolfgang.Etl.Abstractions.</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<!-- List any prerequisites needed. For example:
-- .NET 8.0 or later
-- Visual Studio 2022 or Visual Studio Code
--->
+<ul>
+<li>A project targeting any framework the package supports — .NET Framework 4.6.2+,
+.NET Standard 2.0+, or .NET 5.0 through .NET 10.0.</li>
+<li>Any editor: Visual Studio 2022, Visual Studio Code, or JetBrains Rider.</li>
+</ul>
 <h2 id="installation">Installation</h2>
 <h3 id="via-nuget-package-manager">Via NuGet Package Manager</h3>
 <pre><code class="lang-bash">dotnet add package Wolfgang.Etl.Abstractions
@@ -87,14 +88,221 @@
 <pre><code class="lang-powershell">Install-Package Wolfgang.Etl.Abstractions
 </code></pre>
 <h2 id="quick-start">Quick Start</h2>
-<!-- Add a quick start example. For example: -->
-<pre><code class="lang-csharp">// Add your quick start code example here
-// This should show the simplest way to use your library
+<p>An ETL flow has three kinds of stage — an <strong>extractor</strong> (produces items), zero or
+more <strong>transformers</strong> (reshape items), and a <strong>loader</strong> (consumes items). Implement
+the matching async interface for each:</p>
+<pre><code class="lang-csharp">using Wolfgang.Etl.Abstractions;
 
-using Wolfgang.Etl.Abstractions;
+// Extract: produce a stream of items.
+internal sealed class NumberExtractor : IExtractAsync&lt;int&gt;
+{
+    public async IAsyncEnumerable&lt;int&gt; ExtractAsync()
+    {
+        for (var i = 1; i &lt;= 5; i++)
+        {
+            yield return i;
+            await Task.Yield();
+        }
+    }
+}
 
-// Example usage
+// Transform: map each item to a new shape or type.
+internal sealed class ToStringTransformer : ITransformAsync&lt;int, string&gt;
+{
+    public async IAsyncEnumerable&lt;string&gt; TransformAsync(IAsyncEnumerable&lt;int&gt; items)
+    {
+        await foreach (var item in items)
+        {
+            yield return $&quot;Item {item}&quot;;
+        }
+    }
+}
+
+// Load: consume the final stream.
+internal sealed class ConsoleLoader : ILoadAsync&lt;string&gt;
+{
+    public async Task LoadAsync(IAsyncEnumerable&lt;string&gt; items)
+    {
+        await foreach (var item in items)
+        {
+            Console.WriteLine(item);
+        }
+    }
+}
 </code></pre>
+<p>Then compose them into a single, strongly-typed pipeline with the fluent
+<code>Pipeline</code> API and run it:</p>
+<pre><code class="lang-csharp">await Pipeline
+    .Extract(new NumberExtractor())
+    .Transform(new ToStringTransformer())
+    .Load(new ConsoleLoader())
+    .RunAsync();
+</code></pre>
+<p>The compiler enforces that each stage's output type matches the next stage's
+input, so a mismatch is a build error rather than a runtime surprise.</p>
+<h3 id="optional-capabilities">Optional capabilities</h3>
+<p>The chain grows to fit the run without changing the stages:</p>
+<ul>
+<li><strong>Cancellation</strong> — pass a token to <code>RunAsync(token)</code>; it is forwarded to every
+stage that supports cancellation.</li>
+<li><strong>Progress</strong> — for stages that implement a progress-capable interface, call
+<code>.WithProgress(progress)</code> to receive <code>IProgress&lt;T&gt;</code> reports. Calling it on a
+stage that doesn't support progress is a compile error.</li>
+<li><strong>Naming</strong> — <code>.WithName(&quot;nightly-import&quot;)</code> labels the pipeline for diagnostics.</li>
+<li><strong>Stage disposal</strong> — <code>.DisposeStagesOnCompletion()</code> disposes each stage (in
+reverse construction order) once the run finishes, so short-lived stages the
+call site owns don't each need their own <code>using</code>.</li>
+</ul>
+<pre><code class="lang-csharp">await Pipeline
+    .Extract(extractor).WithProgress(extractProgress)
+    .Transform(transformer)
+    .Load(loader).WithProgress(loadProgress)
+    .WithName(&quot;nightly-import&quot;)
+    .DisposeStagesOnCompletion()
+    .RunAsync(cancellationToken);
+</code></pre>
+<p>A complete, runnable version of the basic walkthrough lives in
+<a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/tree/main/examples/Net8.0/Example7-FluentPipeline"><code>examples/Net8.0/Example7-FluentPipeline</code></a>
+(the <code>Net4.8</code> folder has the same example for .NET Framework).</p>
+<h2 id="generic-pipeline-etlpipeline">Generic pipeline (<code>EtlPipeline</code>)</h2>
+<p>Alongside the fluent <code>Pipeline</code>, <code>EtlPipeline</code> is a <strong>format-agnostic</strong> pipeline
+built for cross-format flows (CSV → JSON, JSON → SQL, …) and for being extended by
+other packages. Where <code>Pipeline</code> starts from a typed extractor, <code>EtlPipeline</code> starts
+from <em>any</em> source — an <code>IAsyncEnumerable&lt;T&gt;</code> or an <code>ExtractorBase&lt;T, TProgress&gt;</code> —
+appends transformer stages with <code>Through</code>, and terminates with a loader:</p>
+<pre><code class="lang-csharp">using Wolfgang.Etl.Abstractions;
+
+await EtlPipeline
+    .Create()                                // a fresh pipeline builder
+    .From(source)                            // IAsyncEnumerable&lt;string&gt; or an ExtractorBase
+    .Through(new ParseTransformer())         // ITransformAsync&lt;string, Order&gt;
+    .Through(new EnrichTransformer(lookup))  // ITransformAsync&lt;Order, EnrichedOrder&gt;
+    .To(sqlLoader)                           // LoaderBase&lt;EnrichedOrder, TProgress&gt;
+    .RunAsync(progress, cancellationToken);
+</code></pre>
+<p><code>Through</code> returns <code>IEtlPipeline&lt;TOut&gt;</code>, so you can chain as many stages as you like;
+the element type flows from one stage's output to the next and the compiler enforces
+the match (a same-type <code>ITransformAsync&lt;T, T&gt;</code> stage is fine). Nothing runs until
+<code>To(...).RunAsync()</code> — records are then pulled through the whole chain one at a time,
+with no buffering between stages.</p>
+<h3 id="supplying-a-stage-a-transformer-class-or-an-inline-delegate">Supplying a stage: a transformer class or an inline delegate</h3>
+<p><code>Through</code> has two shapes. Pass an <code>ITransformAsync&lt;T, TOut&gt;</code> (or the cancellation-aware
+<code>ITransformWithCancellationAsync&lt;T, TOut&gt;</code>) when you have a reusable transformer class —
+or pass a <strong>stream-to-stream delegate</strong> to define a one-off stage inline, without
+declaring a class:</p>
+<pre><code class="lang-csharp">await EtlPipeline
+    .Create()
+    .From(orders)
+    .Through(s =&gt; s.Where(o =&gt; o.Amount &gt; 0))   // Func&lt;IAsyncEnumerable&lt;Order&gt;, IAsyncEnumerable&lt;Order&gt;&gt;
+    .Through(Enrich)                            // a method: IAsyncEnumerable&lt;Order&gt; -&gt; IAsyncEnumerable&lt;EnrichedOrder&gt;
+    .To(sqlLoader)
+    .RunAsync();
+</code></pre>
+<p>The delegate is the same stream-to-stream contract as <code>ITransformAsync.TransformAsync</code>
+(the lambda body typically composes <code>System.Linq.Async</code> operators), so it stays at the
+&quot;append a stage&quot; level — it is <em>not</em> a per-element projection. (A per-element
+<code>Where</code>/<code>Select</code> over individual records is an operator, provided by
+<code>Wolfgang.Etl.Transformers</code>; see below.) A cancellation-aware delegate overload,
+<code>Func&lt;IAsyncEnumerable&lt;T&gt;, CancellationToken, IAsyncEnumerable&lt;TOut&gt;&gt;</code>, receives the
+run's token.</p>
+<p>And if the source already produces what the loader consumes, skip <code>Through</code> entirely —
+the compiler requires the loader's input type to match the source's output:</p>
+<pre><code class="lang-csharp">await EtlPipeline
+    .Create()
+    .From(orders)
+    .To(orderLoader)
+    .RunAsync();
+</code></pre>
+<h3 id="progress-cancellation-and-the-escape-hatch">Progress, cancellation, and the escape hatch</h3>
+<ul>
+<li><strong>Progress</strong> — pass an <code>IProgress&lt;EtlPipelineProgress&gt;</code> to <code>RunAsync</code>. The snapshot
+reports <code>RecordsExtracted</code> (counted at the source) and <code>RecordsLoaded</code> (counted at
+the sink) plus <code>Elapsed</code>, regardless of how many stages sit in between.</li>
+<li><strong>Cancellation</strong> — the token passed to <code>RunAsync</code> is observed while pulling from the
+source and is forwarded into any cancellation-aware transformer stage.</li>
+<li><strong>Escape hatch</strong> — <code>AsAsyncEnumerable(token)</code> drops to the raw <code>IAsyncEnumerable&lt;T&gt;</code>
+so you can apply <code>System.Linq.Async</code> operators directly.</li>
+</ul>
+<pre><code class="lang-csharp">var progress = new Progress&lt;EtlPipelineProgress&gt;(p =&gt;
+    Console.WriteLine($&quot;extracted {p.RecordsExtracted}, loaded {p.RecordsLoaded}&quot;));
+
+await EtlPipeline
+    .Create()
+    .From(extractor)
+    .Through(enrich)
+    .To(loader)
+    .RunAsync(progress, cancellationToken);
+</code></pre>
+<h3 id="operators-and-source-factories">Operators and source factories</h3>
+<p>The core deliberately ships only the plumbing — <code>From</code>, <code>Through</code>, <code>To</code>, and
+<code>AsAsyncEnumerable</code>. Two layers build on it:</p>
+<ul>
+<li><strong>LINQ-flavored operators</strong> (<code>Where</code>, <code>Select</code>, <code>Distinct</code>, <code>Take</code>, <code>Buffer</code>, …) are
+provided by the companion <code>Wolfgang.Etl.Transformers</code> package as extension methods
+over <code>Through</code>, reusing the transformers it already ships. With that package
+referenced the chain reads <code>EtlPipeline.Create().From(...).Where(...).Select(...).To(...)</code>.</li>
+<li><strong>Source factories and sink terminators</strong> (for example <code>CsvExtractor&lt;T&gt;(...)</code> or
+<code>SqlBulkCopyLoader&lt;T&gt;(...)</code>) are provided by the format packages as <strong>extension methods
+on the <code>EtlPipeline</code> instance</strong> (sources) and on <code>IEtlPipeline&lt;T&gt;</code> (sinks):
+<code>EtlPipeline.Create().CsvExtractor&lt;Order&gt;(&quot;orders.csv&quot;)</code>.</li>
+</ul>
+<h3 id="cleaning-up-factory-owned-resources-disposingowned">Cleaning up factory-owned resources (<code>DisposingOwned</code>)</h3>
+<p>A path-based factory opens a resource the caller never handed it — a file stream, a
+connection. <code>IEtlPipelineSink.DisposingOwned(params object[])</code> wraps the terminal sink so
+those resources are disposed after the run completes (whether it succeeds or throws),
+preferring <code>IAsyncDisposable</code> and falling back to <code>IDisposable</code>, in reverse (LIFO) order.
+Format-package sink terminators use it so callers don't have to:</p>
+<pre><code class="lang-csharp">// inside a format package's sink terminator
+public static IEtlPipelineSink CsvLoader&lt;T&gt;(this IEtlPipeline&lt;T&gt; pipeline, string path)
+    where T : notnull
+{
+    var stream = File.Create(path);
+    return pipeline
+        .To(new CsvLoader&lt;T&gt;(stream))
+        .DisposingOwned(stream);          // stream closed after RunAsync
+}
+</code></pre>
+<p>Passing no resources returns the sink unchanged, so it is safe to call unconditionally. A
+runnable version is in
+<a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/tree/main/examples/Net8.0/Example9-DisposingOwned"><code>examples/Net8.0/Example9-DisposingOwned</code></a>.</p>
+<p>A complete, runnable version lives in
+<a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/tree/main/examples/Net8.0/Example8-EtlPipeline"><code>examples/Net8.0/Example8-EtlPipeline</code></a>
+(the <code>Net4.8</code> folder has the same example for .NET Framework).</p>
+<h3 id="pipeline-vs-etlpipeline"><code>Pipeline</code> vs <code>EtlPipeline</code></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>Pipeline</code> (fluent)</th>
+<th><code>EtlPipeline</code> (generic)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Starts from</td>
+<td>a typed extractor</td>
+<td>any <code>IAsyncEnumerable&lt;T&gt;</code> or <code>ExtractorBase&lt;T, TProgress&gt;</code></td>
+</tr>
+<tr>
+<td>Appends stages</td>
+<td><code>.Transform(...)</code></td>
+<td><code>.Through(...)</code> (plus operators via <code>Wolfgang.Etl.Transformers</code>)</td>
+</tr>
+<tr>
+<td>Extended by packages</td>
+<td>no</td>
+<td>yes — source factories are extension methods on the <code>EtlPipeline</code> instance</td>
+</tr>
+<tr>
+<td>Progress</td>
+<td>per-stage <code>IProgress&lt;T&gt;</code></td>
+<td>pipeline-level <code>EtlPipelineProgress</code></td>
+</tr>
+</tbody>
+</table>
+<p>Reach for <code>Pipeline</code> when you already hold discrete extractor/transformer/loader
+objects and want per-stage progress; reach for <code>EtlPipeline</code> for cross-format flows or
+when you want the operator and format-package extensions.</p>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li>Explore the <a href="../api/index.html">API Reference</a> for detailed documentation</li>
@@ -113,7 +321,7 @@ using Wolfgang.Etl.Abstractions;
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.15.0/docfx_project/docs/getting-started.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.0/docfx_project/docs/getting-started.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
