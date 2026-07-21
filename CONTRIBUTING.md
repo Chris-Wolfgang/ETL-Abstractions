@@ -233,6 +233,11 @@ View the complete configuration in [.editorconfig](.editorconfig).
 - Reference related issues in your pull request description.
 - Keep changes focused and atomic - one feature/fix per PR.
 - Update documentation if you change public APIs.
+- If your change makes a non-obvious design decision (a trade-off a future
+  maintainer would otherwise re-derive), add an Architecture Decision Record in
+  [`docs/adr/`](docs/adr/index.md) in the same PR — copy
+  [`TEMPLATE.md`](docs/adr/TEMPLATE.md) and add a row to the index. See
+  [ADR-0001](docs/adr/0001-record-architecture-decisions.md) for the practice.
 
 ---
 
