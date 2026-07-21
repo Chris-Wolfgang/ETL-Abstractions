@@ -1,0 +1,69 @@
+name: SAST (Semgrep)
+
+# Security-grade static analysis beyond CodeQL (#198).
+#
+# Semgrep runs a different engine and ruleset from CodeQL (pattern/dataflow rules
+# for C#, a general security-audit pack, and a secrets pack), so it surfaces
+# issues CodeQL's queries don't. Findings upload to Code Scanning (Security tab)
+# as an additional signal; report-only for now (`|| true`) so a noisy new ruleset
+# version can't block merges — the current baseline is clean (0 findings), so this
+# can be promoted to a gate later.
+#
+# Uses the public Semgrep registry packs, which need no account/login. The scan
+# is scoped to src/ (the shipped library) — SAST belongs on shipped code, and
+# scanning test/CI-helper scripts only produces false positives (e.g. stdlib xml
+# use in a CI trx parser that reads trusted, self-generated input). Repo-wide
+# secret scanning is already covered by gitleaks in pr.yaml.
+
+on:
+  pull_request:
+    branches:
+      - main
+      - vNext
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: semgrep-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  semgrep:
+    name: Semgrep
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run Semgrep
+        run: |
+          semgrep scan \
+            --config p/csharp \
+            --config p/security-audit \
+            --config p/secrets \
+            --sarif --output semgrep.sarif \
+            --error src/ || true
+
+      - name: Upload Semgrep SARIF
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: semgrep.sarif
