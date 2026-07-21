@@ -122,7 +122,9 @@ appends transformer stages with `Through`, and terminates with a loader:
 ```csharp
 using Wolfgang.Etl.Abstractions;
 
-await EtlPipeline.From(source)               // IAsyncEnumerable<string> or an ExtractorBase
+await EtlPipeline
+    .Create()                                // a fresh pipeline builder
+    .From(source)                            // IAsyncEnumerable<string> or an ExtractorBase
     .Through(new ParseTransformer())         // ITransformAsync<string, Order>
     .Through(new EnrichTransformer(lookup))  // ITransformAsync<Order, EnrichedOrder>
     .To(sqlLoader)                           // LoaderBase<EnrichedOrder, TProgress>
@@ -143,7 +145,9 @@ or pass a **stream-to-stream delegate** to define a one-off stage inline, withou
 declaring a class:
 
 ```csharp
-await EtlPipeline.From(orders)
+await EtlPipeline
+    .Create()
+    .From(orders)
     .Through(s => s.Where(o => o.Amount > 0))   // Func<IAsyncEnumerable<Order>, IAsyncEnumerable<Order>>
     .Through(Enrich)                            // a method: IAsyncEnumerable<Order> -> IAsyncEnumerable<EnrichedOrder>
     .To(sqlLoader)
@@ -162,7 +166,11 @@ And if the source already produces what the loader consumes, skip `Through` enti
 the compiler requires the loader's input type to match the source's output:
 
 ```csharp
-await EtlPipeline.From(orders).To(orderLoader).RunAsync();
+await EtlPipeline
+    .Create()
+    .From(orders)
+    .To(orderLoader)
+    .RunAsync();
 ```
 
 ### Progress, cancellation, and the escape hatch
@@ -179,7 +187,9 @@ await EtlPipeline.From(orders).To(orderLoader).RunAsync();
 var progress = new Progress<EtlPipelineProgress>(p =>
     Console.WriteLine($"extracted {p.RecordsExtracted}, loaded {p.RecordsLoaded}"));
 
-await EtlPipeline.From(extractor)
+await EtlPipeline
+    .Create()
+    .From(extractor)
     .Through(enrich)
     .To(loader)
     .RunAsync(progress, cancellationToken);
@@ -193,10 +203,35 @@ The core deliberately ships only the plumbing — `From`, `Through`, `To`, and
 - **LINQ-flavored operators** (`Where`, `Select`, `Distinct`, `Take`, `Buffer`, …) are
   provided by the companion `Wolfgang.Etl.Transformers` package as extension methods
   over `Through`, reusing the transformers it already ships. With that package
-  referenced the chain reads `EtlPipeline.From(...).Where(...).Select(...).To(...)`.
+  referenced the chain reads `EtlPipeline.Create().From(...).Where(...).Select(...).To(...)`.
 - **Source factories and sink terminators** (for example `CsvExtractor<T>(...)` or
-  `SqlBulkCopyLoader<T>(...)`) are provided by the format packages, hung off the
-  `EtlPipeline.Source` sentinel: `EtlPipeline.Source.CsvExtractor<Order>("orders.csv")`.
+  `SqlBulkCopyLoader<T>(...)`) are provided by the format packages as **extension methods
+  on the `EtlPipeline` instance** (sources) and on `IEtlPipeline<T>` (sinks):
+  `EtlPipeline.Create().CsvExtractor<Order>("orders.csv")`.
+
+### Cleaning up factory-owned resources (`DisposingOwned`)
+
+A path-based factory opens a resource the caller never handed it — a file stream, a
+connection. `IEtlPipelineSink.DisposingOwned(params object[])` wraps the terminal sink so
+those resources are disposed after the run completes (whether it succeeds or throws),
+preferring `IAsyncDisposable` and falling back to `IDisposable`, in reverse (LIFO) order.
+Format-package sink terminators use it so callers don't have to:
+
+```csharp
+// inside a format package's sink terminator
+public static IEtlPipelineSink CsvLoader<T>(this IEtlPipeline<T> pipeline, string path)
+    where T : notnull
+{
+    var stream = File.Create(path);
+    return pipeline
+        .To(new CsvLoader<T>(stream))
+        .DisposingOwned(stream);          // stream closed after RunAsync
+}
+```
+
+Passing no resources returns the sink unchanged, so it is safe to call unconditionally. A
+runnable version is in
+[`examples/Net8.0/Example9-DisposingOwned`](https://github.com/Chris-Wolfgang/ETL-Abstractions/tree/main/examples/Net8.0/Example9-DisposingOwned).
 
 A complete, runnable version lives in
 [`examples/Net8.0/Example8-EtlPipeline`](https://github.com/Chris-Wolfgang/ETL-Abstractions/tree/main/examples/Net8.0/Example8-EtlPipeline)
@@ -208,7 +243,7 @@ A complete, runnable version lives in
 |---|---|---|
 | Starts from | a typed extractor | any `IAsyncEnumerable<T>` or `ExtractorBase<T, TProgress>` |
 | Appends stages | `.Transform(...)` | `.Through(...)` (plus operators via `Wolfgang.Etl.Transformers`) |
-| Extended by packages | no | yes — source factories via the `Source` sentinel |
+| Extended by packages | no | yes — source factories are extension methods on the `EtlPipeline` instance |
 | Progress | per-stage `IProgress<T>` | pipeline-level `EtlPipelineProgress` |
 
 Reach for `Pipeline` when you already hold discrete extractor/transformer/loader

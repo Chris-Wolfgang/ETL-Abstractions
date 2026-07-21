@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Example9_DisposingOwned</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>CA2007</NoWarn>
+    <Version>1.0.0</Version>
+    <Copyright>Copyright {copyright year} {author}</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
+  </ItemGroup>
+
+  <!-- Analyzer PackageReferences are centralized in Directory.Build.props -->
+
+</Project>
