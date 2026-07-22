@@ -19,6 +19,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.16.1] - 2026-07-21
+
+Patch release: maintenance, testing, and supply-chain hardening. **No API or
+behavioural change** — the compiled assembly is identical to 0.16.0; consumers can
+upgrade without any code change and without a binding redirect (`AssemblyVersion`
+remains `1.0.0.0`).
+
+### Added
+
+- Verified **Native-AOT and trim** compatibility — a `PublishAot` + `PublishTrimmed`
+  smoke consumer is published for `linux-x64` and run on every PR, so AOT/trim
+  regressions are caught before they reach a consumer's published app.
+- Verified **globalization / `CultureInfo` invariance** — the suite now runs under
+  `tr-TR`, `de-DE`, `zh-CN`, `ar-SA`, and `ja-JP` in addition to `en-US`.
+- Architecture Decision Records under [`docs/adr/`](docs/adr/index.md), a
+  migration-guide convention under `docs/migrations/`, and a "Release path &
+  compromise scope" appendix in `SECURITY.md`.
+
+### Security
+
+- **ABI-compatibility gate**: Package Validation now fails the pack if a non-major
+  release breaks binary/API compatibility against the previously published version.
+- All GitHub Actions are pinned to commit SHAs, and a workflow-security audit
+  (zizmor + actionlint) runs on every PR to keep them pinned and hardened.
+
 ## [0.16.0] - 2026-07-20
 
 Minor release: adds a generic, format-agnostic ETL pipeline. No breaking change.
