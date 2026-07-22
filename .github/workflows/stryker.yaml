@@ -1,15 +1,30 @@
-# Stryker mutation testing
+# Stryker mutation testing (#205 — release-gate quality bar)
 #
-# Runs the Stryker.NET mutation tester against the repo's test projects to
-# measure mutation score. Mutation runs are slow — triggered manually
-# (workflow_dispatch) and on a weekly schedule, not on every PR.
+# Runs the Stryker.NET mutation tester to measure mutation score. The
+# stryker-config.json `break` threshold is the documented floor: `dotnet stryker`
+# exits non-zero (failing the job) if the score drops below it, so this is an
+# enforced gate, not just a report. Ratchet the floor UP over time; never down.
+#
+# Triggers:
+#   - pull_request touching src/** — gates a PR that would drop the score below
+#     the floor, BEFORE merge. Mutation runs are slow (tens of minutes), so this
+#     is scoped to source changes only; docs/test-only/workflow PRs skip it.
+#   - schedule (weekly) + workflow_dispatch — full-project trend / on-demand runs.
 #
 # The workflow looks for a stryker-config.json at the repo root or under
-# tests/**/. If none is present the run is a no-op (Stryker setup is a
-# per-repo follow-up; this file is the canonical infrastructure).
+# tests/**/. If none is present the run is a no-op.
 name: Stryker (mutation testing)
 
 on:
+  pull_request:
+    branches:
+      - main
+      - vNext
+    paths:
+      - 'src/**/*.cs'
+      - 'tests/**/*.cs'
+      - 'stryker-config.json'
+      - '.github/workflows/stryker.yaml'
   workflow_dispatch:
   schedule:
     - cron: '0 6 * * 0' # weekly Sunday 06:00 UTC
@@ -65,7 +80,9 @@ jobs:
 
       - name: Install dotnet-stryker
         if: steps.check.outputs.found == 'true'
-        run: dotnet tool update -g dotnet-stryker || dotnet tool install -g dotnet-stryker
+        # Pinned: mutation score / the gate must be reproducible, and a floating
+        # Stryker can change instrumentation or break on an analyzer/Roslyn bump.
+        run: dotnet tool update -g dotnet-stryker --version 4.16.0 || dotnet tool install -g dotnet-stryker --version 4.16.0
 
       - name: Run Stryker
         if: steps.check.outputs.found == 'true'
