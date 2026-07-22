@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace Wolfgang.Etl.Abstractions | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace Wolfgang.Etl.Abstractions | Wolfgang.Etl.Abstractions Documentation ">
+      
+      
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.Abstractions">
+
+  <h1 id="Wolfgang_Etl_Abstractions" data-uid="Wolfgang.Etl.Abstractions" class="text-break">Namespace Wolfgang.Etl.Abstractions</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a></dt>
+      <dd><p>Entry point for building a generic, format-agnostic ETL pipeline. Obtain a fresh builder with
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html#Wolfgang_Etl_Abstractions_EtlPipeline_Create">Create()</a>, start from a source — either a built-in <code>From</code> factory (see
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html">EtlPipelineSourceExtensions</a>) or a format-specific factory hung off the
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a> instance by a format package — append transformer stages on
+<a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline&lt;T&gt;</a>, terminate with a sink, then call
+<a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html#Wolfgang_Etl_Abstractions_IEtlPipelineSink_RunAsync_System_IProgress_Wolfgang_Etl_Abstractions_EtlPipelineProgress__System_Threading_CancellationToken_">RunAsync(IProgress&lt;EtlPipelineProgress&gt;?, CancellationToken)</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineProgress.html">EtlPipelineProgress</a></dt>
+      <dd><p>An immutable snapshot of a generic <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a> run's throughput, reported through
+the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> sink passed to
+<a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html#Wolfgang_Etl_Abstractions_IEtlPipelineSink_RunAsync_System_IProgress_Wolfgang_Etl_Abstractions_EtlPipelineProgress__System_Threading_CancellationToken_">RunAsync(IProgress&lt;EtlPipelineProgress&gt;?, CancellationToken)</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.html">EtlPipelineSinkExtensions</a></dt>
+      <dd><p>Extensions for terminal <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a> pipelines.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html">EtlPipelineSourceExtensions</a></dt>
+      <dd><p>Built-in source factories for <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a>. They begin a pipeline from a raw stream or
+an extractor. Format packages add their own class-named source factories (for example
+<code>CsvExtractor</code>) as extension methods on <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a> alongside these, so every
+source reads the same way: <code>EtlPipeline.Create().Xxx(...)</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase&lt;TSource, TProgress&gt;</a></dt>
+      <dd><p>Provides a basic implementation for data extractors that extract data of type TSource.
+Library authors can use this base class to create custom extractors by inheriting from it and implementing
+ExtractWorkerAsync and CreateProgressReport methods.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a></dt>
+      <dd><p>Provides a basic implementation for data loaders that write data of type TDestination to a target destination.
+Library authors can use this base class to create custom loaders by inheriting from it and implementing
+LoadWorkerAsync and CreateProgressReport methods.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.Pipeline.html">Pipeline</a></dt>
+      <dd><p>Entry point for building a fluent ETL pipeline. Start with one of the <code>Extract</code> overloads,
+chain zero or more <code>Transform</code> calls, terminate with one of the <code>Load</code> overloads, then
+invoke <a class="xref" href="Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_Etl_Abstractions_IPipeline_RunAsync">RunAsync()</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a></dt>
+      <dd><p>Provides a point-in-time snapshot of the progress of an ETL process — how many
+items have been processed, how long it has been running, and (when the total is
+known) how far along it is and how much longer it is expected to take.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase&lt;TSource, TDestination, TProgress&gt;</a></dt>
+      <dd><p>Provides a basic implementation for data transformers that convert data from TSource to TDestination.
+Library authors can use this base class to create custom transformers by inheriting from it and implementing
+TransformWorkerAsync and CreateProgressReport methods.</p>
+</dd>
+    </dl>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a></dt>
+      <dd><p>A terminated, runnable generic ETL pipeline. Obtained from
+<a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_To__1_Wolfgang_Etl_Abstractions_LoaderBase__0___0__">To&lt;TProgress&gt;(LoaderBase&lt;T, TProgress&gt;)</a> or a format-specific sink
+terminator (for example a <code>CsvLoader</code> extension shipped by a format package).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline&lt;T&gt;</a></dt>
+      <dd><p>A generic, format-agnostic ETL pipeline carrying a stream of items of type
+<code class="typeparamref">T</code>. Append transformer stages with <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__">Through&lt;TOut&gt;(ITransformAsync&lt;T, TOut&gt;)</a>,
+then terminate with <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html#Wolfgang_Etl_Abstractions_IEtlPipeline_1_To__1_Wolfgang_Etl_Abstractions_LoaderBase__0___0__">To&lt;TProgress&gt;(LoaderBase&lt;T, TProgress&gt;)</a> (or a format-specific
+sink terminator) to obtain a runnable <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractAsync-1.html">IExtractAsync&lt;TSource&gt;</a></dt>
+      <dd><p>Defines an asynchronous extractor interface for extracting data of type T.
+A class implementing this interface is intended to be the first step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.html">IExtractStageWithProgress&lt;TSource, TProgress&gt;</a></dt>
+      <dd><p>An <a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStage-1.html">IExtractStage&lt;TSource&gt;</a> whose underlying extractor also supports progress
+reporting. Call <a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.html#Wolfgang_Etl_Abstractions_IExtractStageWithProgress_2_WithProgress_System_IProgress__1__">WithProgress(IProgress&lt;TProgress&gt;)</a> to supply an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a>
+sink that will be forwarded to the extractor's <code>ExtractAsync</code> overload when the
+pipeline runs.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStage-1.html">IExtractStage&lt;TSource&gt;</a></dt>
+      <dd><p>Represents the extractor stage of a fluent ETL pipeline for items of type
+<code class="typeparamref">TSource</code>. Call one of the <code>Transform</code> overloads to append a
+transformer, or one of the <code>Load</code> overloads to terminate the chain with a loader.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.html">IExtractWithCancellationAsync&lt;TSource&gt;</a></dt>
+      <dd><p>Defines an asynchronous extractor interface for extracting data of type T.
+A class implementing this interface is intended to be the first step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync-2.html">IExtractWithProgressAndCancellationAsync&lt;TSource, TProgress&gt;</a></dt>
+      <dd><p>Defines an asynchronous extractor interface for extracting data of type T.
+A class implementing this interface is intended to be the first step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.html">IExtractWithProgressAsync&lt;TSource, TProgress&gt;</a></dt>
+      <dd><p>Defines an asynchronous extractor interface for extracting data of type T.
+A class implementing this interface is intended to be the first step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadAsync-1.html">ILoadAsync&lt;TDestination&gt;</a></dt>
+      <dd><p>Defines an asynchronous loader interface for loading data of type T.
+A class implementing this interface is intended to be the last step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync-1.html">ILoadWithCancellationAsync&lt;TDestination&gt;</a></dt>
+      <dd><p>Defines an asynchronous loader interface for loading data of type T.
+A class implementing this interface is intended to be the last step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.html">ILoadWithProgressAndCancellationAsync&lt;TDestination, TProgress&gt;</a></dt>
+      <dd><p>Defines an asynchronous loader interface for loading data of type T.
+A class implementing this interface is intended to be the last step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAsync-2.html">ILoadWithProgressAsync&lt;TDestination, TProgress&gt;</a></dt>
+      <dd><p>Defines an asynchronous loader interface for loading data of type T.
+A class implementing this interface is intended to be the last step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IPipeline.html">IPipeline</a></dt>
+      <dd><p>A terminated, runnable ETL pipeline. Obtained from an <a class="xref" href="Wolfgang.Etl.Abstractions.IExtractStage-1.html">IExtractStage&lt;TSource&gt;</a> or
+<a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStage-1.html">ITransformStage&lt;TSource&gt;</a> <code>Load</code> overload.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.html">IPipelineWithLoadProgress&lt;TProgress&gt;</a></dt>
+      <dd><p>An <a class="xref" href="Wolfgang.Etl.Abstractions.IPipeline.html">IPipeline</a> whose loader supports progress reporting. Call
+<a class="xref" href="Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.html#Wolfgang_Etl_Abstractions_IPipelineWithLoadProgress_1_WithProgress_System_IProgress__0__">WithProgress(IProgress&lt;TProgress&gt;)</a> to supply an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> sink that will be
+forwarded to the loader's <code>LoadAsync</code> overload when the pipeline runs.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a></dt>
+      <dd><p>Represents a timer that raises <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_Elapsed">Elapsed</a> at a regular interval,
+used by extractor, transformer, and loader base classes to drive progress callbacks.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ISupportDryRun.html">ISupportDryRun</a></dt>
+      <dd><p>Implemented by ETL stages that support a <em>dry run</em> — a mode in which the
+full pipeline is exercised but the external side effect that mutates a destination
+or source is skipped.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformAsync-2.html">ITransformAsync&lt;TSource, TDestination&gt;</a></dt>
+      <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
+A class implementing this interface is intended to be the second step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.html">ITransformStageWithProgress&lt;TSource, TProgress&gt;</a></dt>
+      <dd><p>An <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStage-1.html">ITransformStage&lt;TSource&gt;</a> whose underlying transformer also supports progress
+reporting. Call <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.html#Wolfgang_Etl_Abstractions_ITransformStageWithProgress_2_WithProgress_System_IProgress__1__">WithProgress(IProgress&lt;TProgress&gt;)</a> to supply an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a>
+sink that will be forwarded to the transformer's <code>TransformAsync</code> overload when the
+pipeline runs.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformStage-1.html">ITransformStage&lt;TSource&gt;</a></dt>
+      <dd><p>Represents a mid-chain stage of a fluent ETL pipeline whose current item type is
+<code class="typeparamref">TSource</code>. Call one of the <code>Transform</code> overloads to append another
+transformer, or one of the <code>Load</code> overloads to terminate the chain.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.html">ITransformWithCancellationAsync&lt;TSource, TDestination&gt;</a></dt>
+      <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
+A class implementing this interface is intended to be the second step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync-3.html">ITransformWithProgressAndCancellationAsync&lt;TSource, TDestination, TProgress&gt;</a></dt>
+      <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
+A class implementing this interface is intended to be the second step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithProgressAsync-3.html">ITransformWithProgressAsync&lt;TSource, TDestination, TProgress&gt;</a></dt>
+      <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
+A class implementing this interface is intended to be the second step in an
+ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
