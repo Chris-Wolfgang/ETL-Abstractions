@@ -1,0 +1,70 @@
+name: Build Reproducibility
+
+# Deterministic-build verification (#216).
+#
+# The library builds with Deterministic + ContinuousIntegrationBuild + SourceLink,
+# which should make the compiled assembly byte-for-byte reproducible regardless of
+# the checkout path. This job proves it: check the same commit out to two different
+# directories, build each with ContinuousIntegrationBuild=true (which normalises
+# source paths to /_/), and fail if the produced assemblies don't hash identically.
+
+on:
+  pull_request:
+    branches:
+      - main
+      - vNext
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reproducible-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  reproducible:
+    name: Reproducible build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ASM: src/Wolfgang.Etl.Abstractions/bin/Release/net10.0/Wolfgang.Etl.Abstractions.dll
+      PROJ: src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj
+    steps:
+      - name: Checkout (copy A)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          path: a
+          persist-credentials: false
+
+      - name: Checkout (copy B)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          path: b
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build copy A
+        run: dotnet build "a/${{ env.PROJ }}" -c Release -f net10.0 -p:ContinuousIntegrationBuild=true
+
+      - name: Build copy B
+        run: dotnet build "b/${{ env.PROJ }}" -c Release -f net10.0 -p:ContinuousIntegrationBuild=true
+
+      - name: Compare assembly hashes
+        run: |
+          ha=$(sha256sum "a/${ASM}" | cut -d' ' -f1)
+          hb=$(sha256sum "b/${ASM}" | cut -d' ' -f1)
+          echo "A: $ha"
+          echo "B: $hb"
+          if [ "$ha" != "$hb" ]; then
+            echo "::error::Build is not reproducible — assembly hashes differ."
+            exit 1
+          fi
+          echo "✅ Reproducible: $ha"

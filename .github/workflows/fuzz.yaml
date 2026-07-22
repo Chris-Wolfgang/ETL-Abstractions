@@ -1,0 +1,77 @@
+name: Fuzz
+
+# Continuous fuzz sweep (#196). The unit suite runs the same CsCheck properties
+# at ~1000 cases per PR (seconds); this scheduled workflow runs them at a far
+# higher case count to surface rare edge cases, and auto-files an issue if a
+# property is falsified. CsCheck prints a replayable seed on failure, so the
+# reported case can be pinned as a deterministic regression in the unit suite.
+
+on:
+  schedule:
+    - cron: '0 5 * * 0'   # weekly, Sunday 05:00 UTC
+  workflow_dispatch:
+    inputs:
+      iterations:
+        description: 'Cases per property'
+        required: false
+        default: '1000000'
+
+permissions:
+  contents: read
+
+jobs:
+  fuzz:
+    name: Property fuzz sweep
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write   # auto-file an issue when a property is falsified
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: |
+            10.0.x
+
+      - name: Run fuzz sweep
+        id: fuzz
+        env:
+          FUZZ_ITER: ${{ github.event.inputs.iterations || '1000000' }}
+        run: |
+          set -o pipefail
+          dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Fuzz/Wolfgang.Etl.Abstractions.Tests.Fuzz.csproj \
+            -c Release --logger "console;verbosity=detailed" 2>&1 | tee fuzz-output.txt
+
+      - name: Upload fuzz log
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: fuzz-output
+          path: fuzz-output.txt
+          retention-days: 30
+
+      - name: File issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # CsCheck prints a replayable seed in the failure output; the issue body
+          # carries the log tail so the seed can be pinned as a regression.
+          {
+            echo "The scheduled fuzz sweep falsified a property."
+            echo ""
+            echo "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo ""
+            echo '```'
+            tail -c 4000 fuzz-output.txt || true
+            echo '```'
+          } > issue-body.txt
+          gh issue create \
+            --title "Fuzz sweep falsified a property ($(date -u +%Y-%m-%d))" \
+            --label bug \
+            --body-file issue-body.txt

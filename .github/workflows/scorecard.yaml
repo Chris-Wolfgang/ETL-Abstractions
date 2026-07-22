@@ -1,0 +1,52 @@
+name: Scorecard supply-chain security
+
+# OSSF Scorecard (#222): scores the repository's security posture (branch
+# protection, pinned dependencies, dangerous-workflow patterns, token
+# permissions, ...) against ~20 best practices and uploads the result to the
+# code-scanning / Security tab. Distinct from CodeQL — Scorecard grades the repo
+# *configuration*, not the source code. publish_results powers the README badge.
+
+on:
+  # Re-score when branch-protection rules change (a common posture regression).
+  branch_protection_rule:
+  schedule:
+    - cron: '20 7 * * 1'   # weekly, Monday 07:20 UTC
+  push:
+    branches:
+      - main
+
+# Top-level least privilege; the analysis job opts into exactly what it needs.
+permissions: read-all
+
+jobs:
+  analysis:
+    name: Scorecard analysis
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write   # upload the SARIF result to code-scanning
+      id-token: write          # publish to the OpenSSF API (badge + transparency log)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Run analysis
+        uses: ossf/scorecard-action@4eaacf0543bb3f2c246792bd56e8cdeffafb205a # v2.4.3
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          # Publish to the OpenSSF transparency log so the README badge resolves.
+          publish_results: true
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: SARIF file
+          path: results.sarif
+          retention-days: 5
+
+      - name: Upload to code-scanning
+        uses: github/codeql-action/upload-sarif@e4c79b4e9ebfe577d446333c2e31ed81079e7b03 # v4
+        with:
+          sarif_file: results.sarif

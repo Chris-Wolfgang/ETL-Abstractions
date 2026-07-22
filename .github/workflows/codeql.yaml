@@ -31,7 +31,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       with:
         persist-credentials: false
 
@@ -77,7 +77,7 @@ jobs:
 
     - name: Initialize CodeQL
       if: steps.check-csharp.outputs.has-csharp == 'true'
-      uses: github/codeql-action/init@v4
+      uses: github/codeql-action/init@e4c79b4e9ebfe577d446333c2e31ed81079e7b03 # v4
       with:
         languages: ${{ matrix.language }}
         # security-extended adds the broader security query pack on top of the
@@ -86,7 +86,7 @@ jobs:
 
     - name: Setup .NET
       if: steps.check-csharp.outputs.has-csharp == 'true'
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
       with:
         dotnet-version: '10.0.x'
 
@@ -159,7 +159,7 @@ jobs:
     - name: Perform CodeQL Analysis
       id: perform-codeql-analysis
       if: steps.check-csharp.outputs.has-csharp == 'true'
-      uses: github/codeql-action/analyze@v4
+      uses: github/codeql-action/analyze@e4c79b4e9ebfe577d446333c2e31ed81079e7b03 # v4
       with:
         category: "/language:${{matrix.language}}"
 

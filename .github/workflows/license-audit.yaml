@@ -1,0 +1,57 @@
+name: License Audit
+
+# Transitive-dependency license audit (#218). Dependabot tracks dependency
+# versions and CVEs but not the *licenses* of transitive packages — a new
+# transitive dep under an incompatible license (GPL/AGPL/OSL/source-available)
+# would silently leak into this MIT-licensed package. This job enumerates every
+# transitive package and fails on any license outside the documented allowlist.
+#
+# Allowlist:            .github/license/allowed-licenses.json
+# License-URL mappings: .github/license/license-url-mappings.json
+# Ignored (build-only): SonarAnalyzer.CSharp (SONAR source-available; PrivateAssets=all,
+#                       never distributed to consumers).
+
+on:
+  pull_request:
+    branches:
+      - main
+      - vNext
+  schedule:
+    - cron: '30 7 * * 1'   # weekly, Monday 07:30 UTC
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: License audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj
+
+      - name: Install nuget-license
+        run: |
+          dotnet tool install --global nuget-license
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
+      - name: Audit transitive licenses
+        run: |
+          nuget-license \
+            -i src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj \
+            -t \
+            -a .github/license/allowed-licenses.json \
+            -mapping .github/license/license-url-mappings.json \
+            -ignore SonarAnalyzer.CSharp \
+            -o Table
