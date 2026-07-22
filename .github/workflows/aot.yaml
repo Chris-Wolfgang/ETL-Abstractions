@@ -1,0 +1,71 @@
+name: AOT / Trim Smoke
+
+# Native-AOT + trim compatibility gate (#213). The library advertises net8.0 /
+# net10.0 targets, but nothing verified it survives the trimmer / ILC: reflection
+# on type names the trimmer can't see, dynamic generic instantiation, or runtime
+# codegen break silently under AOT. This publishes a tiny consumer with
+# PublishAot + PublishTrimmed and RUNS the native binary — so an AOT regression
+# fails here, on the PR, instead of in a consumer's published app.
+#
+# The build-time trim/AOT analyzers (IsAotCompatible in the smoke csproj) already
+# run in the normal build; this job adds the real linux-x64 native link + run,
+# which can only be done on Linux.
+
+on:
+  pull_request:
+    branches:
+      - main
+      - vNext
+    paths:
+      - 'src/**/*.cs'
+      - 'src/**/*.csproj'
+      - 'tests/Wolfgang.Etl.Abstractions.AotSmoke/**'
+      - '.github/workflows/aot.yaml'
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  aot-smoke:
+    name: PublishAot linux-x64 + run
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: |
+            10.0.x
+
+      - name: Install Native AOT prerequisites
+        # ILC links native code with clang against zlib; ubuntu-latest ships clang
+        # but the zlib dev headers must be installed.
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends clang zlib1g-dev
+
+      - name: Publish (Native AOT + trimmed)
+        # A trim/AOT incompatibility in the library's reachable surface fails the
+        # publish (analyzer warning -> error, or an ILC error) before the run.
+        run: >
+          dotnet publish
+          tests/Wolfgang.Etl.Abstractions.AotSmoke/Wolfgang.Etl.Abstractions.AotSmoke.csproj
+          -c Release -r linux-x64
+
+      - name: Run the published native binary
+        # No managed runtime here — the binary is fully native. A reflection path
+        # that silently no-ops or throws NotSupportedException under AOT makes the
+        # smoke exit non-zero and fails the job.
+        run: |
+          set -euo pipefail
+          BIN="tests/Wolfgang.Etl.Abstractions.AotSmoke/bin/Release/net10.0/linux-x64/publish/Wolfgang.Etl.Abstractions.AotSmoke"
+          "$BIN"
