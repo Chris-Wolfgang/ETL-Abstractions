@@ -29,6 +29,7 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 - **GitHub Repository:** [https://github.com/Chris-Wolfgang/ETL-Abstractions](https://github.com/Chris-Wolfgang/ETL-Abstractions)
 - **API Documentation:** https://Chris-Wolfgang.github.io/ETL-Abstractions/
 - **Formatting Guide:** [README-FORMATTING.md](docs/README-FORMATTING.md)
+- **Architecture Decisions:** [docs/adr/](docs/adr/index.md) — the *why* behind non-obvious design choices
 - **Contributing Guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---

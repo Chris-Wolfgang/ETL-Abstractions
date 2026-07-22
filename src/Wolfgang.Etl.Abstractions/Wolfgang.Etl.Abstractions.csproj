@@ -2,7 +2,7 @@
   <PropertyGroup>
 	<TargetFrameworks>net462;net472;net48;net481;netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
 	<LangVersion>latest</LangVersion>
-	<Version>0.16.0</Version>
+	<Version>0.16.1</Version>
 	<!-- Pin AssemblyVersion to a fixed binding-stability baseline so consumers
 	     do not need to recompile / add binding redirects on every minor/patch
 	     bump. Bump only on a deliberate breaking API change. FileVersion +
@@ -10,6 +10,17 @@
 	     the actual release version. -->
 	<AssemblyVersion>1.0.0.0</AssemblyVersion>
 	<FileVersion>$([System.Text.RegularExpressions.Regex]::Replace("$(Version)", "[-+].*$", "")).0</FileVersion>
+    <!-- API/ABI compatibility gate (#206). Package Validation compares the packed
+         package against the last published version on NuGet and fails the pack if a
+         non-major change breaks binary/API compatibility (default-value changes,
+         nullability flips, removed members, layout shifts) — the behavioural breaks
+         PublicApiAnalyzers (A1) can't see. Keep the baseline at the last PUBLISHED
+         version and bump it after each release (see reference: keep baseline at
+         last-published during release). Intentional breaks in a MAJOR release are
+         recorded in CompatibilitySuppressions.xml, regenerated with
+         `dotnet pack /p:GenerateCompatibilitySuppressionFile=true`. -->
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <PackageValidationBaselineVersion>0.16.0</PackageValidationBaselineVersion>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>
