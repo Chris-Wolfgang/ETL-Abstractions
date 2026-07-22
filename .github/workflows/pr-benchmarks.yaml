@@ -1,0 +1,109 @@
+name: PR Benchmarks
+
+# Forward-looking perf-regression signal (#224). benchmarks.yaml graphs the BDN
+# trend AFTER a merge to main (backward-looking). This workflow runs the suite on
+# a PR and compares it against the gh-pages baseline, posting a delta comment and
+# failing the PR if a metric regresses past the alert threshold — so a PR that
+# balloons allocations or runtime is caught before merge, not after.
+#
+# Scoped to code that can actually move the numbers (src/**, benchmarks/**) so it
+# does not run on docs/test-only PRs, and to main/vNext so it exercises release
+# candidates. Full mutation-style cost is avoided by BDN's --job short.
+
+on:
+  pull_request:
+    branches:
+      - main
+      - vNext
+    paths:
+      # Only run on actual code changes — a version/csproj/docs-only PR can't move
+      # the numbers, so it should not spend ~5 min on benchmarks.
+      - 'src/**/*.cs'
+      - 'benchmarks/**/*.cs'
+      - '.github/workflows/pr-benchmarks.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-benchmarks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  benchmark:
+    name: BDN delta vs base
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write   # post / update the delta comment
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: |
+            10.0.x
+
+      - name: Restore
+        run: dotnet restore benchmarks/Wolfgang.Etl.Abstractions.Benchmarks/Wolfgang.Etl.Abstractions.Benchmarks.csproj
+
+      - name: Build (Release)
+        run: dotnet build -c Release --no-restore benchmarks/Wolfgang.Etl.Abstractions.Benchmarks/Wolfgang.Etl.Abstractions.Benchmarks.csproj
+
+      - name: Run benchmarks
+        working-directory: benchmarks/Wolfgang.Etl.Abstractions.Benchmarks
+        # ShortRun (~3-5 min). GitHub-hosted runners are noisy, so the delta is
+        # reliable for allocations and double-digit time changes; the alert
+        # threshold below is set accordingly to avoid false alarms.
+        run: dotnet run -c Release --no-build -- --filter "*" --job short --memory --exporters json
+
+      - name: Merge per-class BDN reports
+        id: locate
+        working-directory: benchmarks/Wolfgang.Etl.Abstractions.Benchmarks
+        run: |
+          # BDN's --exporters json writes one *-report-full-compressed.json per
+          # benchmark class. github-action-benchmark consumes a single file, so
+          # we combine the .Benchmarks arrays into one synthetic report.
+          shopt -s nullglob
+          reports=(BenchmarkDotNet.Artifacts/results/*-report-full-compressed.json)
+          if [ ${#reports[@]} -eq 0 ]; then
+            echo "::error::No BenchmarkDotNet JSON report found"
+            exit 1
+          fi
+          echo "Merging ${#reports[@]} report(s):"
+          printf '  %s\n' "${reports[@]}"
+          jq -s '{
+            Title: "BenchmarkDotNet combined report",
+            HostEnvironmentInfo: .[0].HostEnvironmentInfo,
+            Benchmarks: [.[].Benchmarks[]]
+          }' "${reports[@]}" > benchmarks-result.json
+          echo "report=benchmarks/Wolfgang.Etl.Abstractions.Benchmarks/benchmarks-result.json" >> "$GITHUB_OUTPUT"
+
+      - name: Compare against baseline & comment
+        # Same action + SHA pin as benchmarks.yaml. Compares the PR result against
+        # the gh-pages baseline (latest main data point) WITHOUT pushing:
+        # auto-push:false + save-data-file:false leave gh-pages untouched.
+        uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba  # v1.22.1
+        with:
+          name: BenchmarkDotNet
+          tool: 'benchmarkdotnet'
+          output-file-path: ${{ steps.locate.outputs.report }}
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: dev/bench
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: false
+          save-data-file: false
+          summary-always: true
+          comment-always: true
+          comment-on-alert: true
+          # 150% = a metric 1.5x worse than baseline. Deliberately loose because
+          # GitHub-hosted runners are noisy; tighten once the noise floor settles.
+          alert-threshold: '150%'
+          fail-on-alert: true
