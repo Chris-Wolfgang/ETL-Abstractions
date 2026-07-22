@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Native-AOT / trim smoke consumer (#213). Publishes the library into an
+       AOT + trimmed console app and runs it, so a reflection/dynamic-codegen
+       regression that breaks AOT consumers fails CI instead of the consumer's
+       publish. IsAotCompatible turns on the trim/AOT analyzers at BUILD time
+       (they run cross-platform), so an incompatibility is flagged as a
+       warning -> error even before the native link; aot.yaml does the actual
+       linux-x64 native publish + run. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+
+    <PublishAot>true</PublishAot>
+    <PublishTrimmed>true</PublishTrimmed>
+    <IsAotCompatible>true</IsAotCompatible>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <!-- Report every trim warning, not just one per assembly, so nothing hides. -->
+    <TrimmerSingleWarn>false</TrimmerSingleWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

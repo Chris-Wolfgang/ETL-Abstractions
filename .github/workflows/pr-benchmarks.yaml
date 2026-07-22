@@ -1,39 +1,43 @@
-name: Benchmarks
+name: PR Benchmarks
 
-# Runs BenchmarkDotNet after a merge to main, then publishes the results to
-# the gh-pages branch under /dev/bench/ where benchmark-action/github-action-benchmark
-# renders an interactive line chart.
+# Forward-looking perf-regression signal (#224). benchmarks.yaml graphs the BDN
+# trend AFTER a merge to main (backward-looking). This workflow runs the suite on
+# a PR and compares it against the gh-pages baseline, posting a delta comment and
+# failing the PR if a metric regresses past the alert threshold — so a PR that
+# balloons allocations or runtime is caught before merge, not after.
 #
-# This workflow is decoupled from PR validation and release: it does NOT gate
-# merging or publishing — it just adds one data point per qualifying push.
+# Scoped to code that can actually move the numbers (src/**, benchmarks/**) so it
+# does not run on docs/test-only PRs, and to main/vNext so it exercises release
+# candidates. Full mutation-style cost is avoided by BDN's --job short.
 
 on:
-  push:
-    branches: [main]
+  pull_request:
+    branches:
+      - main
+      - vNext
     paths:
-      - 'src/**'
-      - 'benchmarks/**'
-      - '.github/workflows/benchmarks.yaml'
+      # Only run on actual code changes — a version/csproj/docs-only PR can't move
+      # the numbers, so it should not spend ~5 min on benchmarks.
+      - 'src/**/*.cs'
+      - 'benchmarks/**/*.cs'
+      - '.github/workflows/pr-benchmarks.yaml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
-# Serialize benchmark publishes so two pushes to main close together can't race
-# on the gh-pages branch. cancel-in-progress: false — every merge represents a
-# meaningful data point, so we queue rather than discard.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  group: pr-benchmarks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   benchmark:
-    name: Run BenchmarkDotNet & publish chart
+    name: BDN delta vs base
     runs-on: ubuntu-latest
 
     permissions:
-      # Required to push the rendered chart + history to the gh-pages branch.
-      contents: write
+      contents: read
+      pull-requests: write   # post / update the delta comment
 
     steps:
       - name: Checkout repository
@@ -55,9 +59,9 @@ jobs:
 
       - name: Run benchmarks
         working-directory: benchmarks/Wolfgang.Etl.Abstractions.Benchmarks
-        # ShortRun keeps total runtime small (~3-5 min). GitHub-hosted runners
-        # are noisy, so chart trends are reliable for allocations and double-digit
-        # time changes; smaller deltas are not.
+        # ShortRun (~3-5 min). GitHub-hosted runners are noisy, so the delta is
+        # reliable for allocations and double-digit time changes; the alert
+        # threshold below is set accordingly to avoid false alarms.
         run: dotnet run -c Release --no-build -- --filter "*" --job short --memory --exporters json
 
       - name: Merge per-class BDN reports
@@ -67,9 +71,6 @@ jobs:
           # BDN's --exporters json writes one *-report-full-compressed.json per
           # benchmark class. github-action-benchmark consumes a single file, so
           # we combine the .Benchmarks arrays into one synthetic report.
-          # nullglob: empty match expands to nothing (instead of the literal
-          # pattern), so the explicit "no report found" branch can run before
-          # set -e + pipefail aborts the step.
           shopt -s nullglob
           reports=(BenchmarkDotNet.Artifacts/results/*-report-full-compressed.json)
           if [ ${#reports[@]} -eq 0 ]; then
@@ -85,9 +86,10 @@ jobs:
           }' "${reports[@]}" > benchmarks-result.json
           echo "report=benchmarks/Wolfgang.Etl.Abstractions.Benchmarks/benchmarks-result.json" >> "$GITHUB_OUTPUT"
 
-      - name: Publish chart to gh-pages
-        # Pinned to v1.22.1 commit per repo convention (third-party actions
-        # publishing to gh-pages are pinned by SHA, not mutable tag).
+      - name: Compare against baseline & comment
+        # Same action + SHA pin as benchmarks.yaml. Compares the PR result against
+        # the gh-pages baseline (latest main data point) WITHOUT pushing:
+        # auto-push:false + save-data-file:false leave gh-pages untouched.
         uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba  # v1.22.1
         with:
           name: BenchmarkDotNet
@@ -95,9 +97,13 @@ jobs:
           output-file-path: ${{ steps.locate.outputs.report }}
           gh-pages-branch: gh-pages
           benchmark-data-dir-path: dev/bench
-          auto-push: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Don't fail the workflow if a metric regresses — this is a tracker,
-          # not a gate. Tighten later if the noise floor settles.
-          alert-threshold: '200%'
-          fail-on-alert: false
+          auto-push: false
+          save-data-file: false
+          summary-always: true
+          comment-always: true
+          comment-on-alert: true
+          # 150% = a metric 1.5x worse than baseline. Deliberately loose because
+          # GitHub-hosted runners are noisy; tighten once the noise floor settles.
+          alert-threshold: '150%'
+          fail-on-alert: true

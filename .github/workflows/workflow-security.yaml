@@ -1,0 +1,62 @@
+name: Workflow Security
+
+# Lints the GitHub Actions workflows themselves (#223):
+#   - actionlint: syntax, shell (shellcheck), and expression errors.
+#   - zizmor:     workflow-level security (template injection, over-broad
+#                 permissions, unpinned actions, dangerous triggers).
+# The zizmor pinning policy lives in .github/zizmor.yml. Both tools fail the PR
+# on a finding, so a workflow change that introduces one is caught before merge
+# rather than on the server after.
+
+on:
+  pull_request:
+    branches:
+      - main
+      - vNext
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  actionlint:
+    name: actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Run actionlint
+        # Download + checksum-verify the pinned binary (same pattern as the
+        # gitleaks step in pr.yaml) rather than a floating third-party action.
+        run: |
+          set -euo pipefail
+          ACTIONLINT_VERSION="1.7.12"
+          ACTIONLINT_SHA256="8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8"
+          TARBALL="actionlint.tar.gz"
+          curl -sSfL -o "$TARBALL" "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz"
+          echo "${ACTIONLINT_SHA256}  ${TARBALL}" | sha256sum -c -
+          tar -xzf "$TARBALL" actionlint
+          ./actionlint -color
+
+  zizmor:
+    name: zizmor
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.13'
+
+      - name: Install zizmor
+        run: pip install zizmor==1.26.1
+
+      - name: Run zizmor
+        # --format=github emits inline PR annotations; a high-severity finding
+        # exits non-zero and fails the job.
+        run: zizmor --format=github --min-severity=high --config .github/zizmor.yml .github/workflows/

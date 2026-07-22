@@ -1,0 +1,26 @@
+# zizmor configuration (#223).
+#
+# Pinning policy: every action reference must be pinned to a full commit hash.
+# This repo SHA-pinned all of its actions in #298 (first-party actions/* and
+# github/* included, not just third-party), so the strictest policy is the one
+# that matches reality and keeps it that way — a future PR that adds a
+# tag-pinned action is a high-severity finding that fails the check.
+#
+# (Local reusable-workflow calls of the form `uses: ./…` are not registry
+# actions and are not subject to pinning.)
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        "*": hash-pin
+
+  # Accepted-suppression baseline. Each entry is a pre-existing finding that is
+  # intentional; a NEW high-severity finding anywhere else still fails the PR.
+  dangerous-triggers:
+    ignore:
+      # pr.yaml's `pull_request_target` is deliberate: the protected-file guard
+      # ("Detect .NET Projects") must run trusted workflow code from the base
+      # branch, not from the PR branch, so it cannot be spoofed by a fork PR.
+      # It never checks out or executes PR-supplied code, which is what makes
+      # pull_request_target dangerous. Revisiting this is out of scope for #223.
+      - pr.yaml
