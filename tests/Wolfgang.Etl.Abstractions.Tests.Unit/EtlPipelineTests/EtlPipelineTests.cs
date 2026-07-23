@@ -255,6 +255,10 @@ public class EtlPipelineCoreTests
         var final = reports.Last();
         Assert.Equal(5, final.RecordsExtracted);
         Assert.Equal(5, final.RecordsLoaded);
+
+        // The sink reports after each loaded item, not only at the end — so an intermediate
+        // snapshot capturing exactly one loaded record must be present.
+        Assert.Contains(reports, r => r.RecordsLoaded == 1);
     }
 
 
