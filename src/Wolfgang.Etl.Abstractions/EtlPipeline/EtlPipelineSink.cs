@@ -37,8 +37,6 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
         var state = new EtlRunState();
         var stream = CountLoaded(_factory(state, token), state, progress, token);
 
-        // Stryker disable once Boolean: equivalent under test — ConfigureAwait(false)->(true) only
-        // matters with a SynchronizationContext, which the test host does not install.
         await _loader.LoadAsync(stream, token).ConfigureAwait(false);
 
         progress?.Report(state.Snapshot());
@@ -53,8 +51,6 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
         [EnumeratorCancellation] CancellationToken token
     )
     {
-        // Stryker disable once Boolean: equivalent under test — no SynchronizationContext in the
-        // test host, so ConfigureAwait(false)->(true) schedules the continuation identically.
         await foreach (var item in stream.ConfigureAwait(false))
         {
             // Stryker disable once Statement: equivalent — the pipeline head (CountExtracted) runs

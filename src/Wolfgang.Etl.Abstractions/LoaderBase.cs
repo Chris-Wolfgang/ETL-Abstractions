@@ -306,8 +306,6 @@ public abstract class LoaderBase<TDestination, TProgress>
 
         try
         {
-            // Stryker disable once Boolean: equivalent under test — no SynchronizationContext in the
-            // test host, so ConfigureAwait(false)->(true) schedules the continuation identically.
             await LoadWorkerAsync(items, token).ConfigureAwait(false);
         }
         finally
