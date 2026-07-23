@@ -150,6 +150,10 @@ public record Report
             // Guard against TimeSpan.FromSeconds overflowing for a pathologically low
             // rate (e.g. a single item after a very long elapsed time); clamp to TimeSpan.MaxValue.
             var seconds = remaining / rate;
+            // Stryker disable once Equality: equivalent mutant — >= versus > differs only when
+            // seconds exactly equals TimeSpan.MaxValue.TotalSeconds. That is a computed double from
+            // (int remaining / positive rate); no clean test input lands on that exact boundary, and
+            // both branches clamp identically for every reachable value.
             return seconds >= TimeSpan.MaxValue.TotalSeconds
                 ? TimeSpan.MaxValue
                 : TimeSpan.FromSeconds(seconds);

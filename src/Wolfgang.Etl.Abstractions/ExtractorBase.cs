@@ -409,10 +409,14 @@ public abstract class ExtractorBase<TSource, TProgress>
     // win the CompareExchange records the start; later calls are a cheap volatile read.
     private void EnsureStarted()
     {
+        // Stryker disable all: equivalent mutant — the CompareExchange below is the real guard, so
+        // whether this fast-path early-out (or its whole block) executes, a re-entrant caller that
+        // has already started changes nothing: the assignment only happens on the winning exchange.
         if (Volatile.Read(ref _startTimestamp) != 0)
         {
             return;
         }
+        // Stryker restore all
 
         var now = DateTimeOffset.UtcNow;
         var timestamp = Stopwatch.GetTimestamp();
@@ -461,6 +465,9 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <see langword="true"/> when called from <see cref="Dispose()"/> or <see cref="DisposeAsync"/>
     /// (dispose managed resources); <see langword="false"/> when called from a finalizer.
     /// </param>
+    // Stryker disable all: equivalent mutant — Dispose(bool) has an inert base body: _disposed has
+    // no other reader (nothing throws ObjectDisposedException). Removing the whole body, negating the
+    // guard, or dropping the assignment is all unobservable; derived overrides supply real behaviour.
     protected virtual void Dispose(bool disposing)
     {
         if (_disposed)
@@ -470,4 +477,5 @@ public abstract class ExtractorBase<TSource, TProgress>
 
         _disposed = true;
     }
+    // Stryker restore all
 }
