@@ -44,9 +44,17 @@ dotnet stryker --mutate "**/Report.cs"   # a single file, faster
 The HTML report under `StrykerOutput/**/reports/` lists every survived mutant with
 its file, line, and the mutation applied — the worklist for raising the score.
 
-## Not yet automated
+## Score history & survivor tracking
 
-Publishing the score trend to a chart and auto-filing `kind:mutation-survives`
-issues for survivors (parts of #205) are deferred; the enforced floor above is the
-load-bearing gate. The HTML/JSON reports are uploaded as a workflow artifact in the
-meantime.
+On the weekly schedule (and manual `workflow_dispatch`) runs — not on PRs — the
+workflow also:
+
+- **Charts the score trend** on the `gh-pages` branch under `/dev/stryker/`, using
+  the same `github-action-benchmark` action as the BDN benchmark charts
+  (`customBiggerIsBetter`, one data point per run). This is trend visibility only —
+  it never fails the run; the `break` floor is the gate.
+- **Tracks survivors** by writing the survivor worklist (file:line + mutator) to the
+  run's job summary and keeping **one** rolling `kind:mutation-survives` issue up to
+  date. It is deliberately a single rolling issue, not one issue per survivor —
+  there are dozens, and per-mutant issues would be noise. Work the list down from
+  the issue (or the uploaded HTML report), then raise the floor.

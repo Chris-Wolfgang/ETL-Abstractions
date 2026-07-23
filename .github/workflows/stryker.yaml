@@ -37,6 +37,9 @@ jobs:
     name: Run Stryker
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    permissions:
+      contents: write   # publish the score-history chart to gh-pages (non-PR runs only)
+      issues: write     # upsert the single survivors tracking issue (non-PR runs only)
     steps:
       - name: Check out repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -88,7 +91,10 @@ jobs:
         if: steps.check.outputs.found == 'true'
         shell: bash
         run: |
-          set -e
+          # pipefail so the gate is preserved: `dotnet stryker` exits non-zero when
+          # the score is below the config's `break` floor, and `| tee` must NOT mask
+          # that. The tee'd log is parsed by the next step for the score.
+          set -eo pipefail
           shopt -s globstar nullglob
           # Run BOTH a root stryker-config.json (if present) AND any
           # tests/**/stryker-config.json suites. The Detect step collects
@@ -97,20 +103,102 @@ jobs:
           ran=0
           if [ -f stryker-config.json ]; then
             echo "::group::Stryker with root stryker-config.json"
-            dotnet stryker --config-file stryker-config.json
+            dotnet stryker --config-file stryker-config.json 2>&1 | tee -a "$GITHUB_WORKSPACE/stryker.log"
             echo "::endgroup::"
             ran=1
           fi
           for cfg in tests/**/stryker-config.json; do
             dir=$(dirname "$cfg")
             echo "::group::Stryker in $dir"
-            (cd "$dir" && dotnet stryker)
+            (cd "$dir" && dotnet stryker 2>&1 | tee -a "$GITHUB_WORKSPACE/stryker.log")
             echo "::endgroup::"
             ran=1
           done
           if [ "$ran" -eq 0 ]; then
             echo "::error::Detect step said stryker-config.json was present, but Run found neither root nor tests/**/stryker-config.json. Bailing."
             exit 1
+          fi
+
+      - name: Extract mutation score
+        id: score
+        # always(): publish/track even when the gate FAILED (a low score is exactly
+        # when the trend + survivor list matter most).
+        if: always() && steps.check.outputs.found == 'true'
+        shell: bash
+        run: |
+          # Stryker prints e.g. "The final mutation score is 74.40 %".
+          score=$(grep -oE 'final mutation score is [0-9]+(\.[0-9]+)?' "$GITHUB_WORKSPACE/stryker.log" 2>/dev/null \
+                    | grep -oE '[0-9]+(\.[0-9]+)?' | tail -1)
+          if [ -z "$score" ]; then
+            echo "::warning::Could not parse a mutation score from the Stryker output."
+            score=0
+          fi
+          echo "score=$score" >> "$GITHUB_OUTPUT"
+          printf '[{"name":"Mutation score","unit":"%%","value":%s}]\n' "$score" > mutation-score.json
+          echo "Mutation score: ${score} %"
+
+      - name: Publish mutation-score history to gh-pages
+        # Trend chart under gh-pages /dev/stryker (same action + pin as the BDN
+        # benchmark charts). Non-PR only — one data point per scheduled/manual run.
+        if: always() && steps.check.outputs.found == 'true' && github.event_name != 'pull_request'
+        uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba  # v1.22.1
+        with:
+          name: Mutation score
+          tool: 'customBiggerIsBetter'
+          output-file-path: mutation-score.json
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: dev/stryker
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          summary-always: true
+          # The `break` floor is the enforced gate; this chart is trend visibility,
+          # so it must not double-fail the run.
+          fail-on-alert: false
+
+      - name: Track surviving mutants
+        # Writes the survivor worklist to the run summary and keeps ONE rolling
+        # kind:mutation-survives issue up to date (deliberately not one issue per
+        # survivor — there are dozens). Best-effort: never fails the run.
+        if: always() && steps.check.outputs.found == 'true' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -uo pipefail
+          shopt -s globstar nullglob
+          reports=(**/StrykerOutput/**/reports/mutation-report.json)
+          if (( ${#reports[@]} == 0 )); then
+            echo "::warning::No mutation-report.json found; skipping survivor tracking."
+            exit 0
+          fi
+          report="${reports[-1]}"
+          survivors=$(jq -r '.files | to_entries[] | .key as $f | .value.mutants[]?
+                              | select(.status=="Survived")
+                              | "- `\($f):\(.location.start.line)` — \(.mutatorName)"' "$report" | sort)
+          count=$(printf '%s\n' "$survivors" | grep -c '^- ' || true)
+          score='${{ steps.score.outputs.score }}'
+
+          {
+            echo "## Surviving mutants: ${count}"
+            echo ""
+            echo "Mutation score **${score} %** (floor 70). Kill these to raise it:"
+            echo ""
+            printf '%s\n' "$survivors"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # Ensure the label exists, then upsert a single rolling tracking issue.
+          gh label create "kind:mutation-survives" --repo "$GITHUB_REPOSITORY" \
+            --color BFD4F2 --description "A mutant survived — a test gap to close" 2>/dev/null || true
+          title="Mutation survivors (${count}) — kill these to raise the score"
+          body=$(printf '_Auto-updated by the Stryker workflow (run %s). Mutation score **%s %%** (floor 70)._\n\n%s\n' \
+                   "$GITHUB_RUN_ID" "$score" "$survivors")
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --label "kind:mutation-survives" \
+                       --state open --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body" || true
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body" \
+              --label "kind:mutation-survives" || true
           fi
 
       - name: Upload Stryker report
