@@ -409,6 +409,9 @@ public abstract class LoaderBase<TDestination, TProgress>
     {
         if (Volatile.Read(ref _startTimestamp) != 0)
         {
+            // Stryker disable once Statement: equivalent mutant — removing this early return is
+            // unobservable. The CompareExchange below only assigns _startedAtUtc when it wins the
+            // race (result == 0), so a re-entrant caller that has already started changes nothing.
             return;
         }
 
@@ -432,6 +435,8 @@ public abstract class LoaderBase<TDestination, TProgress>
     public virtual ValueTask DisposeAsync()
     {
         Dispose(disposing: true);
+        // Stryker disable once Statement: equivalent mutant — this type declares no finalizer,
+        // so suppressing (or not) finalization has no observable effect.
         GC.SuppressFinalize(this);
         return default;
     }
@@ -445,6 +450,8 @@ public abstract class LoaderBase<TDestination, TProgress>
     public void Dispose()
     {
         Dispose(disposing: true);
+        // Stryker disable once Statement: equivalent mutant — this type declares no finalizer,
+        // so suppressing (or not) finalization has no observable effect.
         GC.SuppressFinalize(this);
     }
 
@@ -461,11 +468,15 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// </param>
     protected virtual void Dispose(bool disposing)
     {
+        // Stryker disable once all: equivalent mutant — _disposed has no other reader in the base
+        // (nothing throws ObjectDisposedException), so the base body is inert and negating the
+        // guard or dropping the assignment is unobservable. Derived overrides supply real behaviour.
         if (_disposed)
         {
             return;
         }
 
+        // Stryker disable once all: see above — the flag is write-only within the base type.
         _disposed = true;
     }
 }

@@ -94,6 +94,26 @@ public class DisposeStagesTests
     }
 
 
+    private sealed class ThrowingDisposableExtractor : IExtractAsync<int>, IDisposable
+    {
+        private readonly int _count;
+
+        public ThrowingDisposableExtractor(int count) => _count = count;
+
+        public async IAsyncEnumerable<int> ExtractAsync()
+        {
+            for (var i = 0; i < _count; i++)
+            {
+                yield return i;
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public void Dispose() => throw new InvalidOperationException("extractor dispose failed");
+    }
+
+
     // Not disposable — must be skipped without error.
     private sealed class PlainTransformer : ITransformAsync<int, int>
     {
@@ -235,6 +255,23 @@ public class DisposeStagesTests
 
         Assert.Contains(ex.InnerExceptions, e => e is InvalidOperationException && string.Equals(e.Message, "dispose failed", StringComparison.Ordinal));
         Assert.StartsWith("One or more pipeline stages threw while being disposed.", ex.Message);
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_aggregates_every_stage_disposal_failure()
+    {
+        // Two stages throw on disposal — both errors must accumulate into the aggregate,
+        // proving the error list is appended to (errors ??= ...) rather than reset per stage.
+        var ex = await Assert.ThrowsAsync<AggregateException>(() => Pipeline
+            .Extract(new ThrowingDisposableExtractor(2))
+            .Load(new ThrowingDisposableLoader())
+            .DisposeStagesOnCompletion()
+            .RunAsync());
+
+        Assert.Equal(2, ex.InnerExceptions.Count);
+        Assert.Contains(ex.InnerExceptions, e => string.Equals(e.Message, "extractor dispose failed", StringComparison.Ordinal));
+        Assert.Contains(ex.InnerExceptions, e => string.Equals(e.Message, "dispose failed", StringComparison.Ordinal));
     }
 
 

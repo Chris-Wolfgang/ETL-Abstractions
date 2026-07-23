@@ -240,6 +240,25 @@ public class EtlPipelineCoreTests
 
 
     [Fact]
+    public async Task RunAsync_honours_a_pre_cancelled_token_even_when_the_source_ignores_it()
+    {
+        // AsyncSource never observes the token, so the pipeline head's explicit
+        // ThrowIfCancellationRequested is the only thing that can enforce cancellation.
+        using var cts = new CancellationTokenSource();
+        cts.Cancel();
+
+        var loader = new CollectingLoader<int>();
+        var sink = EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3, 4, 5))
+            .To(loader);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => sink.RunAsync(null, cts.Token));
+        Assert.Empty(loader.Loaded);
+    }
+
+
+    [Fact]
     public async Task RunAsync_reports_extracted_and_loaded_counters()
     {
         var reports = new List<EtlPipelineProgress>();
