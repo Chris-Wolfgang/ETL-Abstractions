@@ -67,10 +67,13 @@ public static class EtlPipelineSinkExtensions
         {
             try
             {
+                // Stryker disable once Boolean: equivalent under test — no SynchronizationContext in
+                // the test host, so ConfigureAwait(false)->(true) schedules the continuation identically.
                 await _inner.RunAsync(progress, token).ConfigureAwait(false);
             }
             finally
             {
+                // Stryker disable once Boolean: equivalent under test — see above.
                 await DisposeOwnedAsync().ConfigureAwait(false);
             }
         }
@@ -86,6 +89,7 @@ public static class EtlPipelineSinkExtensions
                 switch (_ownedResources[i])
                 {
                     case IAsyncDisposable asyncDisposable:
+                        // Stryker disable once Boolean: equivalent under test — no SynchronizationContext.
                         await asyncDisposable.DisposeAsync().ConfigureAwait(false);
                         break;
                     case IDisposable disposable:

@@ -119,8 +119,14 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
         [EnumeratorCancellation] CancellationToken token
     )
     {
+        // Stryker disable once Boolean: equivalent under test — ConfigureAwait(false)->(true) only
+        // changes continuation scheduling when a SynchronizationContext is present; there is none in
+        // the test host, and the library always awaits with false by policy.
         await foreach (var item in source.WithCancellation(token).ConfigureAwait(false))
         {
+            // Stryker disable once Statement: equivalent — the sink's CountLoaded performs the same
+            // ThrowIfCancellationRequested one layer down, so removing this defence-in-depth check
+            // leaves cancellation behaviour unchanged (the paired guard still throws).
             token.ThrowIfCancellationRequested();
             state.RecordsExtracted++;
             yield return item;

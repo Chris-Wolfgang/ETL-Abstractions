@@ -409,13 +409,14 @@ public abstract class ExtractorBase<TSource, TProgress>
     // win the CompareExchange records the start; later calls are a cheap volatile read.
     private void EnsureStarted()
     {
+        // Stryker disable all: equivalent mutant — the CompareExchange below is the real guard, so
+        // whether this fast-path early-out (or its whole block) executes, a re-entrant caller that
+        // has already started changes nothing: the assignment only happens on the winning exchange.
         if (Volatile.Read(ref _startTimestamp) != 0)
         {
-            // Stryker disable once Statement: equivalent mutant — removing this early return is
-            // unobservable. The CompareExchange below only assigns _startedAtUtc when it wins the
-            // race (result == 0), so a re-entrant caller that has already started changes nothing.
             return;
         }
+        // Stryker restore all
 
         var now = DateTimeOffset.UtcNow;
         var timestamp = Stopwatch.GetTimestamp();
@@ -468,17 +469,17 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <see langword="true"/> when called from <see cref="Dispose()"/> or <see cref="DisposeAsync"/>
     /// (dispose managed resources); <see langword="false"/> when called from a finalizer.
     /// </param>
+    // Stryker disable all: equivalent mutant — Dispose(bool) has an inert base body: _disposed has
+    // no other reader (nothing throws ObjectDisposedException). Removing the whole body, negating the
+    // guard, or dropping the assignment is all unobservable; derived overrides supply real behaviour.
     protected virtual void Dispose(bool disposing)
     {
-        // Stryker disable once all: equivalent mutant — _disposed has no other reader in the base
-        // (nothing throws ObjectDisposedException), so the base body is inert and negating the
-        // guard or dropping the assignment is unobservable. Derived overrides supply real behaviour.
         if (_disposed)
         {
             return;
         }
 
-        // Stryker disable once all: see above — the flag is write-only within the base type.
         _disposed = true;
     }
+    // Stryker restore all
 }

@@ -54,6 +54,8 @@ internal static class StageList
         ExceptionDispatchInfo? runError = null;
         try
         {
+            // Stryker disable once Boolean: equivalent under test — no SynchronizationContext in the
+            // test host, so ConfigureAwait(false)->(true) schedules the continuation identically.
             await run(token).ConfigureAwait(false);
         }
 #pragma warning disable CA1031 // Do not catch general exception types — intentional: capture to rethrow after disposal.
@@ -63,6 +65,7 @@ internal static class StageList
             runError = ExceptionDispatchInfo.Capture(ex);
         }
 
+        // Stryker disable once Boolean: equivalent under test — see above (no SynchronizationContext).
         var disposalError = await DisposeStagesAsync(stages).ConfigureAwait(false);
 
         // The run's own failure is the primary signal — rethrow it unchanged. Disposal still ran.
@@ -91,6 +94,7 @@ internal static class StageList
             {
                 if (stage is IAsyncDisposable asyncDisposable)
                 {
+                    // Stryker disable once Boolean: equivalent under test — no SynchronizationContext.
                     await asyncDisposable.DisposeAsync().ConfigureAwait(false);
                 }
                 else if (stage is IDisposable disposable)

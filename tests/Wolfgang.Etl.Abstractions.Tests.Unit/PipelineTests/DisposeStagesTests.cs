@@ -114,6 +114,89 @@ public class DisposeStagesTests
     }
 
 
+    private sealed class TrackingCancellableExtractor : IExtractWithCancellationAsync<int>, IDisposable
+    {
+        private readonly int _count;
+
+        public TrackingCancellableExtractor(int count) => _count = count;
+
+        public bool Disposed { get; private set; }
+
+        public IAsyncEnumerable<int> ExtractAsync() => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(CancellationToken token) => Produce();
+
+        private async IAsyncEnumerable<int> Produce()
+        {
+            for (var i = 0; i < _count; i++)
+            {
+                yield return i;
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public void Dispose() => Disposed = true;
+    }
+
+
+    private sealed class TrackingProgressExtractor : IExtractWithProgressAsync<int, string>, IDisposable
+    {
+        private readonly int _count;
+
+        public TrackingProgressExtractor(int count) => _count = count;
+
+        public bool Disposed { get; private set; }
+
+        public IAsyncEnumerable<int> ExtractAsync() => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(IProgress<string> progress) => Produce();
+
+        private async IAsyncEnumerable<int> Produce()
+        {
+            for (var i = 0; i < _count; i++)
+            {
+                yield return i;
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public void Dispose() => Disposed = true;
+    }
+
+
+    private sealed class TrackingProgressCancellableExtractor
+        : IExtractWithProgressAndCancellationAsync<int, string>, IDisposable
+    {
+        private readonly int _count;
+
+        public TrackingProgressCancellableExtractor(int count) => _count = count;
+
+        public bool Disposed { get; private set; }
+
+        public IAsyncEnumerable<int> ExtractAsync() => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(CancellationToken token) => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(IProgress<string> progress) => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(IProgress<string> progress, CancellationToken token) => Produce();
+
+        private async IAsyncEnumerable<int> Produce()
+        {
+            for (var i = 0; i < _count; i++)
+            {
+                yield return i;
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public void Dispose() => Disposed = true;
+    }
+
+
     // Not disposable — must be skipped without error.
     private sealed class PlainTransformer : ITransformAsync<int, int>
     {
@@ -255,6 +338,55 @@ public class DisposeStagesTests
 
         Assert.Contains(ex.InnerExceptions, e => e is InvalidOperationException && string.Equals(e.Message, "dispose failed", StringComparison.Ordinal));
         Assert.StartsWith("One or more pipeline stages threw while being disposed.", ex.Message);
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_disposes_a_cancellation_extractor()
+    {
+        // Covers the Extract(IExtractWithCancellationAsync) factory — a distinct stages array
+        // from the plain IExtractAsync overload.
+        var extractor = new TrackingCancellableExtractor(2);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TrackingLoader())
+            .DisposeStagesOnCompletion()
+            .RunAsync();
+
+        Assert.True(extractor.Disposed);
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_disposes_a_progress_extractor()
+    {
+        // Covers the Extract(IExtractWithProgressAsync) factory's stages array.
+        var extractor = new TrackingProgressExtractor(2);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TrackingLoader())
+            .DisposeStagesOnCompletion()
+            .RunAsync();
+
+        Assert.True(extractor.Disposed);
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_disposes_a_progress_and_cancellation_extractor()
+    {
+        // Covers the Extract(IExtractWithProgressAndCancellationAsync) factory's stages array.
+        var extractor = new TrackingProgressCancellableExtractor(2);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TrackingLoader())
+            .DisposeStagesOnCompletion()
+            .RunAsync();
+
+        Assert.True(extractor.Disposed);
     }
 
 
