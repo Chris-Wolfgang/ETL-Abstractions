@@ -445,8 +445,6 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public virtual ValueTask DisposeAsync()
     {
         Dispose(disposing: true);
-        // Stryker disable once Statement: equivalent mutant — this type declares no finalizer,
-        // so suppressing (or not) finalization has no observable effect.
         GC.SuppressFinalize(this);
         return default;
     }
@@ -460,8 +458,6 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public void Dispose()
     {
         Dispose(disposing: true);
-        // Stryker disable once Statement: equivalent mutant — this type declares no finalizer,
-        // so suppressing (or not) finalization has no observable effect.
         GC.SuppressFinalize(this);
     }
 

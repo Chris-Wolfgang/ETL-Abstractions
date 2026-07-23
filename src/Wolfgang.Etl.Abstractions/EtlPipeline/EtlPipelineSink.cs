@@ -53,9 +53,11 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
     {
         await foreach (var item in stream.ConfigureAwait(false))
         {
-            // Stryker disable once Statement: equivalent — the pipeline head (CountExtracted) runs
-            // the same ThrowIfCancellationRequested one layer up, so this defence-in-depth check is
-            // redundant; removing it leaves observable cancellation behaviour unchanged.
+            // Stryker disable once Statement: equivalent in every reachable path — the pipeline head
+            // (EtlPipelineImpl.CountExtracted) always runs the same ThrowIfCancellationRequested one
+            // layer up (it is the sole source of this sink's stream), so removing this defence-in-depth
+            // check cannot change observable cancellation behaviour. The head guard itself IS tested
+            // directly — see EtlPipelineTests.AsAsyncEnumerable_honours_cancellation_at_the_head.
             token.ThrowIfCancellationRequested();
             state.RecordsLoaded++;
             progress?.Report(state.Snapshot());
