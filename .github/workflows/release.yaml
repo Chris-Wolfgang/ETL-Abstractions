@@ -769,6 +769,36 @@ jobs:
       - name: Zip coverage report
         run: zip -r release-coverage.zip ./release-coverage
 
+      - name: Generate reproducible-build manifest
+        # Publishes the expected sha256 of each SHIPPED assembly (the deterministic
+        # artifact) so a third party can rebuild from the tag and verify byte-for-byte
+        # (#225). Hashes the .dll inside the .nupkg, not the .nupkg itself — the zip
+        # envelope carries non-deterministic timestamps; the assembly does not. See
+        # docs/REPRODUCIBLE-BUILD.md for the verification procedure.
+        shell: bash
+        run: |
+          set -euo pipefail
+          pkg=$(ls ./nuget-packages/*.nupkg | grep -v '\.symbols\.' | head -1)
+          version=$(basename "$pkg" .nupkg | sed 's/^Wolfgang\.Etl\.Abstractions\.//')
+          workdir=$(mktemp -d)
+          unzip -q "$pkg" 'lib/*/*.dll' -d "$workdir"
+          {
+            printf '{\n  "package": "Wolfgang.Etl.Abstractions",\n  "version": "%s",\n' "$version"
+            printf '  "algorithm": "sha256",\n  "assemblies": {\n'
+            first=1
+            while IFS= read -r dll; do
+              rel=${dll#"$workdir"/}
+              hash=$(sha256sum "$dll" | cut -d' ' -f1)
+              [ $first -eq 1 ] || printf ',\n'
+              printf '    "%s": "%s"' "$rel" "$hash"
+              first=0
+            done < <(find "$workdir/lib" -name '*.dll' | sort)
+            printf '\n  }\n}\n'
+          } > reproducible-build-manifest.json
+          echo "::group::reproducible-build-manifest.json"
+          cat reproducible-build-manifest.json
+          echo "::endgroup::"
+
       - name: Attach artifacts to release
         uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228  # v3.0.2
         with:
@@ -777,5 +807,6 @@ jobs:
             ./nuget-packages/*.nupkg
             ./nuget-packages/*.snupkg
             ./nuget-packages/*.bom.json
+            reproducible-build-manifest.json
             release-coverage.zip
 
