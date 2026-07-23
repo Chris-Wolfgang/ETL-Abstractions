@@ -191,6 +191,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
 #else
@@ -209,6 +210,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, CancellationToken token)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
 #else
@@ -227,6 +229,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
@@ -251,6 +254,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress, CancellationToken token)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
@@ -472,17 +476,30 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <see langword="true"/> when called from <see cref="Dispose()"/> or <see cref="DisposeAsync"/>
     /// (dispose managed resources); <see langword="false"/> when called from a finalizer.
     /// </param>
-    // Stryker disable all: equivalent mutant — Dispose(bool) has an inert base body: _disposed has
-    // no other reader (nothing throws ObjectDisposedException). Removing the whole body, negating the
-    // guard, or dropping the assignment is all unobservable; derived overrides supply real behaviour.
     protected virtual void Dispose(bool disposing)
     {
         if (_disposed)
+        // Stryker disable once all: equivalent — dropping this guard block only skips a redundant,
+        // idempotent re-assignment of _disposed. The guard's negation and the assignment below are
+        // real and killable (covered by the use-after-dispose tests).
         {
+            // Stryker disable once all: equivalent — same reasoning; skipping the early return just
+            // re-runs the idempotent `_disposed = true`.
             return;
         }
 
         _disposed = true;
     }
-    // Stryker restore all
+
+
+    // Throws if this transformer has already been disposed. Reads _disposed, so the public entry
+    // points reject use-after-dispose (and give the Dispose(bool) idempotency guard an observable
+    // effect).
+    private void ThrowIfDisposed()
+    {
+        if (_disposed)
+        {
+            throw new ObjectDisposedException(GetType().FullName);
+        }
+    }
 }
