@@ -1,0 +1,7 @@
+{
+  "AssembliesPath": "bin/Release/net8.0",
+  "Assemblies": [
+    "Wolfgang.Etl.Abstractions.Tests.Concurrency.dll",
+    "Wolfgang.Etl.Abstractions.dll"
+  ]
+}

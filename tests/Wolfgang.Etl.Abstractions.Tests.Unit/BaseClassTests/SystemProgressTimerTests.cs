@@ -45,11 +45,15 @@ public class SystemProgressTimerTests
 
         capturedTimer!.StopTimer();
 
-        // Allow any in-flight tick to land, then snapshot
-        await Task.Delay(50);
-        var countAfterStop = callbackCount;
+        // A tick already dispatched when StopTimer was called can still land after it
+        // (at most one). A fixed grace delay is racy on a slow/loaded runner — the
+        // in-flight tick can land after it — so instead wait until the count has been
+        // stable for a full window, which absorbs that last tick regardless of runner
+        // speed. If StopTimer were broken the count would keep growing and this would
+        // hit its deadline, and the assertion below would then catch it.
+        var countAfterStop = await WaitUntilStable(() => callbackCount);
 
-        // Wait several more intervals — no new callbacks should fire
+        // Wait several more intervals — a still-running timer would fire ~4 more callbacks.
         await Task.Delay(200);
         var countAfterWait = callbackCount;
 
@@ -187,6 +191,40 @@ public class SystemProgressTimerTests
         var deadline = DateTime.UtcNow.AddMilliseconds(timeoutMs);
         while (!condition() && DateTime.UtcNow < deadline)
             await Task.Delay(10);
+    }
+
+
+    /// <summary>
+    /// Polls <paramref name="read"/> until its value has not changed for
+    /// <paramref name="stableForMs"/>, then returns that value. Adapts to runner
+    /// speed: a late in-flight tick resets the stability window rather than racing a
+    /// fixed delay. Bounded by <paramref name="maxWaitMs"/> so a value that never
+    /// settles (e.g. a timer that failed to stop) returns instead of hanging, letting
+    /// the caller's assertion report the failure.
+    /// </summary>
+    private static async Task<int> WaitUntilStable(
+        Func<int> read,
+        int stableForMs = 150,
+        int pollMs = 15,
+        int maxWaitMs = 3000)
+    {
+        var overallDeadline = DateTime.UtcNow.AddMilliseconds(maxWaitMs);
+        var last = read();
+        var stableSince = DateTime.UtcNow;
+
+        while (DateTime.UtcNow - stableSince < TimeSpan.FromMilliseconds(stableForMs)
+               && DateTime.UtcNow < overallDeadline)
+        {
+            await Task.Delay(pollMs);
+            var current = read();
+            if (current != last)
+            {
+                last = current;
+                stableSince = DateTime.UtcNow;
+            }
+        }
+
+        return last;
     }
 
 
