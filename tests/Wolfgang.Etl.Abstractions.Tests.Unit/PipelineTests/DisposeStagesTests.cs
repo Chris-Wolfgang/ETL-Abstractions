@@ -141,6 +141,37 @@ public class DisposeStagesTests
 
 
     [Fact]
+    public async Task DisposeStagesOnCompletion_disposes_stages_on_the_load_progress_path()
+    {
+        // A load-progress loader routes the run through PipelineWithLoadProgress, whose
+        // dispose branch is separate from the bare path — exercise it explicitly.
+        var extractor = new TrackingExtractor(3);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TestDoubles.ProgressOnlyLoader<int, string>("p"))
+            .DisposeStagesOnCompletion()
+            .RunAsync();
+
+        Assert.True(extractor.Disposed);
+    }
+
+
+    [Fact]
+    public async Task Load_progress_pipeline_without_DisposeStagesOnCompletion_leaves_stages_undisposed()
+    {
+        var extractor = new TrackingExtractor(3);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TestDoubles.ProgressOnlyLoader<int, string>("p"))
+            .RunAsync();
+
+        Assert.False(extractor.Disposed);
+    }
+
+
+    [Fact]
     public async Task DisposeStagesOnCompletion_prefers_DisposeAsync_over_Dispose()
     {
         var loader = new DualDisposableLoader();
@@ -203,6 +234,7 @@ public class DisposeStagesTests
             .RunAsync());
 
         Assert.Contains(ex.InnerExceptions, e => e is InvalidOperationException && string.Equals(e.Message, "dispose failed", StringComparison.Ordinal));
+        Assert.StartsWith("One or more pipeline stages threw while being disposed.", ex.Message);
     }
 
 

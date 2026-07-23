@@ -120,7 +120,8 @@ public class WithProgressSemanticsTests
 
         pipeline.WithProgress(progressA);
 
-        Assert.Throws<InvalidOperationException>(() => pipeline.WithProgress(progressB));
+        var ex = Assert.Throws<InvalidOperationException>(() => pipeline.WithProgress(progressB));
+        Assert.Equal("WithProgress has already been called on this pipeline. Progress can only be set once.", ex.Message);
     }
 
 
