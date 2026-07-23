@@ -792,7 +792,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          pkg=$(ls ./nuget-packages/*.nupkg | grep -v '\.symbols\.' | head -1)
+          # Pick the first non-symbols .nupkg via a glob loop (SC2010: avoid ls | grep).
+          pkg=""
+          for candidate in ./nuget-packages/*.nupkg; do
+            case "$candidate" in
+              *.symbols.nupkg) continue ;;
+            esac
+            pkg="$candidate"
+            break
+          done
+          if [ -z "$pkg" ]; then
+            echo "No non-symbols .nupkg found in ./nuget-packages" >&2
+            exit 1
+          fi
           version=$(basename "$pkg" .nupkg | sed 's/^Wolfgang\.Etl\.Abstractions\.//')
           workdir=$(mktemp -d)
           unzip -q "$pkg" 'lib/*/*.dll' -d "$workdir"
