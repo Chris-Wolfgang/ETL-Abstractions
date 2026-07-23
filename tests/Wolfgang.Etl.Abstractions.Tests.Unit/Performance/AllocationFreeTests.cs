@@ -1,3 +1,7 @@
+// GC.GetAllocatedBytesForCurrentThread was added to .NET Framework in 4.8, so this
+// suite compiles on net48+ / netcoreapp3.1+ / net5.0+ but not net462/net472. The
+// allocation behaviour under test is TFM-agnostic, so the modern targets cover it.
+#if !NET462 && !NET472
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -127,3 +131,4 @@ public sealed class AllocationFreeTests
         protected override Report CreateProgressReport() => new(CurrentItemCount);
     }
 }
+#endif
