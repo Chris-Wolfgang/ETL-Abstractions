@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.17.0] - 2026-07-23
+## [0.17.0] - 2026-07-24
 
 Minor release: a new **use-after-dispose contract** plus a substantial testing-depth
 pass. The only behavioural change is the dispose guard described under *Changed* —
