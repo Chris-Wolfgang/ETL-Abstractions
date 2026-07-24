@@ -1,0 +1,87 @@
+name: Concurrency (Coyote)
+
+# Systematic concurrency / race-condition testing (#207) with Microsoft Coyote.
+# Coyote rewrites the assemblies to control the task scheduler, then replays each
+# test under thousands of distinct interleavings — surfacing races/deadlocks that a
+# normal single-schedule run never hits. `coyote test` exits non-zero on a found
+# bug, so this is an enforced gate.
+#
+# The Coyote project targets net8.0: the Coyote 1.7.x CLI cannot load net10.0
+# assemblies (it predates that runtime), and the concurrency being explored is
+# runtime-agnostic. Triggers:
+#   - pull_request touching src/** or the concurrency project — a lighter run
+#     (1000 iterations/test) gates races before merge.
+#   - schedule (weekly) + workflow_dispatch — the deep run (10000 iterations/test).
+#
+# NOT implemented: the optional 24h soak (handle/thread/memory-leak hunting via
+# dotnet-counters). It requires a persistent self-hosted runner, which this project
+# does not have; add it here behind a `runs-on: [self-hosted]` job when one exists.
+
+on:
+  pull_request:
+    branches:
+      - main
+      - vNext
+    paths:
+      - 'src/**/*.cs'
+      - 'tests/Wolfgang.Etl.Abstractions.Tests.Concurrency/**'
+      - '.github/workflows/coyote.yaml'
+  schedule:
+    - cron: '0 5 * * 1' # weekly Monday 05:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  coyote:
+    name: Coyote systematic exploration
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PROJECT: tests/Wolfgang.Etl.Abstractions.Tests.Concurrency
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Build the concurrency project (Release)
+        run: dotnet build "$PROJECT/Wolfgang.Etl.Abstractions.Tests.Concurrency.csproj" -c Release
+
+      - name: Install Coyote CLI
+        run: |
+          dotnet tool install --global Microsoft.Coyote.CLI --version 1.7.11
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
+      - name: Rewrite assemblies for the controlled scheduler
+        working-directory: ${{ env.PROJECT }}
+        run: coyote rewrite coyote.json
+
+      - name: Run Coyote systematic tests
+        working-directory: ${{ env.PROJECT }}
+        run: |
+          set -euo pipefail
+          # Deep run on schedule/dispatch; a lighter gate on PRs to keep them fast.
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            iterations=1000
+          else
+            iterations=10000
+          fi
+          dll="bin/Release/net8.0/Wolfgang.Etl.Abstractions.Tests.Concurrency.dll"
+          methods=(
+            Concurrent_item_count_increments_never_lose_an_update
+            Dispose_racing_enumeration_never_deadlocks
+          )
+          for m in "${methods[@]}"; do
+            echo "::group::coyote test $m ($iterations iterations)"
+            coyote test "$dll" --method "$m" --iterations "$iterations"
+            echo "::endgroup::"
+          done

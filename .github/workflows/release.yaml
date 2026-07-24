@@ -752,13 +752,27 @@ jobs:
     if: needs.pack-and-validate.outputs.has-packages == 'true'
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Required to upload assets to the GitHub Release
+      contents: write       # Required to upload assets to the GitHub Release
+      id-token: write       # OIDC token for the SLSA build-provenance attestation (#208)
+      attestations: write   # Write the provenance to the repo's attestation store (#208)
     steps:
       - name: Download NuGet packages artifact
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: nuget-packages
           path: ./nuget-packages
+
+      - name: Generate SLSA build-provenance attestation
+        # Attests each packed .nupkg — records a signed, verifiable statement that
+        # this artifact was built by THIS workflow from THIS repo/commit. Stored in
+        # the repo's attestation store; consumers verify with
+        # `gh attestation verify <pkg> --repo Chris-Wolfgang/ETL-Abstractions`.
+        # (Complements the CycloneDX SBOM already attached below. Package signing —
+        # `nuget verify`-able signatures — is separate and needs a code-signing
+        # certificate; still tracked on #208.)
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1
+        with:
+          subject-path: './nuget-packages/*.nupkg'
 
       - name: Download coverage report artifact
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -769,6 +783,48 @@ jobs:
       - name: Zip coverage report
         run: zip -r release-coverage.zip ./release-coverage
 
+      - name: Generate reproducible-build manifest
+        # Publishes the expected sha256 of each SHIPPED assembly (the deterministic
+        # artifact) so a third party can rebuild from the tag and verify byte-for-byte
+        # (#225). Hashes the .dll inside the .nupkg, not the .nupkg itself — the zip
+        # envelope carries non-deterministic timestamps; the assembly does not. See
+        # docs/REPRODUCIBLE-BUILD.md for the verification procedure.
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Pick the first non-symbols .nupkg via a glob loop (SC2010: avoid ls | grep).
+          pkg=""
+          for candidate in ./nuget-packages/*.nupkg; do
+            case "$candidate" in
+              *.symbols.nupkg) continue ;;
+            esac
+            pkg="$candidate"
+            break
+          done
+          if [ -z "$pkg" ]; then
+            echo "No non-symbols .nupkg found in ./nuget-packages" >&2
+            exit 1
+          fi
+          version=$(basename "$pkg" .nupkg | sed 's/^Wolfgang\.Etl\.Abstractions\.//')
+          workdir=$(mktemp -d)
+          unzip -q "$pkg" 'lib/*/*.dll' -d "$workdir"
+          {
+            printf '{\n  "package": "Wolfgang.Etl.Abstractions",\n  "version": "%s",\n' "$version"
+            printf '  "algorithm": "sha256",\n  "assemblies": {\n'
+            first=1
+            while IFS= read -r dll; do
+              rel=${dll#"$workdir"/}
+              hash=$(sha256sum "$dll" | cut -d' ' -f1)
+              [ $first -eq 1 ] || printf ',\n'
+              printf '    "%s": "%s"' "$rel" "$hash"
+              first=0
+            done < <(find "$workdir/lib" -name '*.dll' | sort)
+            printf '\n  }\n}\n'
+          } > reproducible-build-manifest.json
+          echo "::group::reproducible-build-manifest.json"
+          cat reproducible-build-manifest.json
+          echo "::endgroup::"
+
       - name: Attach artifacts to release
         uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228  # v3.0.2
         with:
@@ -777,5 +833,6 @@ jobs:
             ./nuget-packages/*.nupkg
             ./nuget-packages/*.snupkg
             ./nuget-packages/*.bom.json
+            reproducible-build-manifest.json
             release-coverage.zip
 
