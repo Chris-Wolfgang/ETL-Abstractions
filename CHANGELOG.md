@@ -23,8 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Minor release: adds an **opt-in per-item error-handling mechanism** (#84) to the
 three base stages, so a worker can skip a bad item and keep going instead of
-aborting the whole run. Purely additive — no existing signature changed, so
-Package Validation passes against 0.17.0 and `AssemblyVersion` remains `1.0.0.0`.
+aborting the whole run. Also renames the `EtlPipelineProgress` counters for a
+consistent `...ItemCount` naming (see *Changed* — a small, pre-1.0 breaking
+change bundled here while `EtlPipelineProgress` is only days old).
+`AssemblyVersion` remains `1.0.0.0`.
 
 ### Added
 
@@ -38,8 +40,18 @@ Package Validation passes against 0.17.0 and `AssemblyVersion` remains `1.0.0.0`
 - `CurrentErrorItemCount` on each base stage, counting items discarded by an
   error-`Skip`. It is kept distinct from `CurrentSkippedItemCount` (intentional
   skip-budget skips) so a failure is never silently absorbed into the skip total.
-- `EtlPipelineProgress.RecordsErrored`, surfacing an extractor's error-item count
-  in the pipeline progress snapshot.
+- `EtlPipelineProgress.ErrorItemCount`, surfacing an extractor's error-item
+  count in the pipeline progress snapshot.
+
+### Changed
+
+- **Breaking:** renamed the `EtlPipelineProgress` counters for a consistent
+  `...ItemCount` scheme — `RecordsExtracted` → `ExtractedItemCount` and
+  `RecordsLoaded` → `LoadedItemCount` (the new error counter is `ErrorItemCount`,
+  not `RecordsErrored`), aligning them with the base stages' `Current*ItemCount`. `EtlPipelineProgress` was introduced in 0.16.0; renaming now,
+  while adoption is negligible, is far cheaper than doing it later. Package Validation
+  against the 0.17.0 baseline waives the two removed accessors via
+  `CompatibilitySuppressions.xml`.
 
 ## [0.17.0] - 2026-07-24
 

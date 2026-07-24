@@ -13,7 +13,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit;
 /// Covers the #84 per-item error-handling mechanism on the base classes: the protected
 /// <c>HandleItemError</c> helper and <c>OnItemError</c> policy hook, the <see cref="ItemErrorContext"/>
 /// and <see cref="ItemErrorAction"/> vocabulary, error counting (a failure is never silent), and the
-/// pipeline-level <c>RecordsErrored</c> surface.
+/// pipeline-level <c>ErrorItemCount</c> surface.
 /// </summary>
 public sealed class ItemErrorHandlingTests
 {
@@ -141,10 +141,10 @@ public sealed class ItemErrorHandlingTests
     }
 
 
-    // ---- Pipeline RecordsErrored surface ----
+    // ---- Pipeline ErrorItemCount surface ----
 
     [Fact]
-    public async Task Pipeline_RecordsErrored_reflects_the_extractor_skips()
+    public async Task Pipeline_ErrorItemCount_reflects_the_extractor_skips()
     {
         var reports = new List<EtlPipelineProgress>();
         var progress = new SynchronousProgress<EtlPipelineProgress>(reports.Add);
@@ -160,14 +160,14 @@ public sealed class ItemErrorHandlingTests
             .RunAsync(progress);
 
         var final = reports[^1];
-        Assert.Equal(3, final.RecordsExtracted);
-        Assert.Equal(3, final.RecordsLoaded);
-        Assert.Equal(2, final.RecordsErrored);
+        Assert.Equal(3, final.ExtractedItemCount);
+        Assert.Equal(3, final.LoadedItemCount);
+        Assert.Equal(2, final.ErrorItemCount);
     }
 
 
     [Fact]
-    public async Task Pipeline_RecordsErrored_is_zero_for_a_raw_stream_source()
+    public async Task Pipeline_ErrorItemCount_is_zero_for_a_raw_stream_source()
     {
         var reports = new List<EtlPipelineProgress>();
         var progress = new SynchronousProgress<EtlPipelineProgress>(reports.Add);
@@ -178,7 +178,7 @@ public sealed class ItemErrorHandlingTests
             .To(new CollectingLoader())
             .RunAsync(progress);
 
-        Assert.Equal(0, reports[^1].RecordsErrored);
+        Assert.Equal(0, reports[^1].ErrorItemCount);
     }
 
 

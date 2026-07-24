@@ -94,7 +94,7 @@ public interface IEtlPipeline<T>
     /// Drops down to the raw <see cref="IAsyncEnumerable{T}"/> — the escape hatch for consumers who
     /// want to apply <c>System.Linq.Async</c> operators directly or otherwise leave the pipeline.
     /// Enumerating the returned stream runs the pipeline (without a sink, so
-    /// <see cref="EtlPipelineProgress.RecordsLoaded"/> is not tracked).
+    /// <see cref="EtlPipelineProgress.LoadedItemCount"/> is not tracked).
     /// </summary>
     /// <param name="token">A cancellation token observed while enumerating.</param>
     /// <returns>The composed record stream.</returns>

@@ -295,12 +295,12 @@ public class EtlPipelineCoreTests
             .RunAsync(progress);
 
         var final = reports.Last();
-        Assert.Equal(5, final.RecordsExtracted);
-        Assert.Equal(5, final.RecordsLoaded);
+        Assert.Equal(5, final.ExtractedItemCount);
+        Assert.Equal(5, final.LoadedItemCount);
 
         // The sink reports after each loaded item, not only at the end — so an intermediate
         // snapshot capturing exactly one loaded record must be present.
-        Assert.Contains(reports, r => r.RecordsLoaded == 1);
+        Assert.Contains(reports, r => r.LoadedItemCount == 1);
     }
 
 
@@ -368,11 +368,11 @@ public class EtlPipelineCoreTests
     {
         var a = new EtlPipelineProgress(5, 3, TimeSpan.FromSeconds(2));
         var b = new EtlPipelineProgress(5, 3, TimeSpan.FromSeconds(2));
-        var different = a with { RecordsLoaded = 4 };
+        var different = a with { LoadedItemCount = 4 };
 
         // Property accessors.
-        Assert.Equal(5, a.RecordsExtracted);
-        Assert.Equal(3, a.RecordsLoaded);
+        Assert.Equal(5, a.ExtractedItemCount);
+        Assert.Equal(3, a.LoadedItemCount);
         Assert.Equal(TimeSpan.FromSeconds(2), a.Elapsed);
 
         // Equality (Equals, ==, !=, GetHashCode).
@@ -382,7 +382,7 @@ public class EtlPipelineCoreTests
         Assert.Equal(a.GetHashCode(), b.GetHashCode());
         Assert.NotEqual(a, different);
         Assert.True(a != different);
-        Assert.Equal(4, different.RecordsLoaded);
+        Assert.Equal(4, different.LoadedItemCount);
 
         // Deconstruct.
         var (extracted, loaded, elapsed) = a;
@@ -391,6 +391,6 @@ public class EtlPipelineCoreTests
         Assert.Equal(TimeSpan.FromSeconds(2), elapsed);
 
         // ToString surfaces the members.
-        Assert.Contains("RecordsExtracted", a.ToString());
+        Assert.Contains("ExtractedItemCount", a.ToString());
     }
 }

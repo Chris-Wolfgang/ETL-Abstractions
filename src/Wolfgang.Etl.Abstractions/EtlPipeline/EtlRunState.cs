@@ -14,9 +14,9 @@ internal sealed class EtlRunState
 {
     private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
 
-    public int RecordsExtracted;
+    public int ExtractedItemCount;
 
-    public int RecordsLoaded;
+    public int LoadedItemCount;
 
     // Optional reader that surfaces an error-reporting source's error-item count into the snapshot.
     // Left null for sources that don't report errors (e.g. a raw IAsyncEnumerable), which reads as 0.
@@ -25,9 +25,9 @@ internal sealed class EtlRunState
 
     public EtlPipelineProgress Snapshot()
     {
-        return new EtlPipelineProgress(RecordsExtracted, RecordsLoaded, _stopwatch.Elapsed)
+        return new EtlPipelineProgress(ExtractedItemCount, LoadedItemCount, _stopwatch.Elapsed)
         {
-            RecordsErrored = ErrorCountReader?.Invoke() ?? 0,
+            ErrorItemCount = ErrorCountReader?.Invoke() ?? 0,
         };
     }
 }
