@@ -2,7 +2,7 @@
   <PropertyGroup>
 	<TargetFrameworks>net462;net472;net48;net481;netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
 	<LangVersion>latest</LangVersion>
-	<Version>0.17.0</Version>
+	<Version>0.18.0</Version>
 	<!-- Pin AssemblyVersion to a fixed binding-stability baseline so consumers
 	     do not need to recompile / add binding redirects on every minor/patch
 	     bump. Bump only on a deliberate breaking API change. FileVersion +
@@ -20,7 +20,7 @@
          recorded in CompatibilitySuppressions.xml, regenerated with
          `dotnet pack /p:GenerateCompatibilitySuppressionFile=true`. -->
     <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>0.16.1</PackageValidationBaselineVersion>
+    <PackageValidationBaselineVersion>0.17.0</PackageValidationBaselineVersion>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>
