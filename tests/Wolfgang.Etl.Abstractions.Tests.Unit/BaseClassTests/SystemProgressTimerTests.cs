@@ -45,22 +45,28 @@ public class SystemProgressTimerTests
 
         capturedTimer!.StopTimer();
 
-        // A tick already dispatched when StopTimer was called can still land after it
-        // (at most one). A fixed grace delay is racy on a slow/loaded runner — the
-        // in-flight tick can land after it — so instead wait until the count has been
-        // stable for a full window, which absorbs that last tick regardless of runner
-        // speed. If StopTimer were broken the count would keep growing and this would
-        // hit its deadline, and the assertion below would then catch it.
+        // A tick already dispatched when StopTimer was called can still land afterwards —
+        // StopTimer cannot un-dispatch a callback the thread pool already queued. Wait until
+        // the count has been stable for a full window, which normally absorbs that last tick
+        // regardless of runner speed. If StopTimer were broken the count would keep growing,
+        // this would hit its deadline, and the assertion below catches it.
         var countAfterStop = await WaitUntilStable(() => callbackCount);
 
-        // Wait several more intervals — a still-running timer would fire ~4 more callbacks.
-        await Task.Delay(200);
+        // Wait several more intervals — a still-running 50 ms timer would fire ~6 more.
+        await Task.Delay(300);
         var countAfterWait = callbackCount;
 
         await task;
 
         Assert.True(countAfterStop > 0, "Timer should have fired at least once before StopTimer");
-        Assert.Equal(countAfterStop, countAfterWait);
+
+        // Allow the single in-flight callback described above: on a starved runner it can land
+        // after the stability window closed. A timer that never actually stopped would add
+        // roughly six callbacks over the 300 ms wait, so this still fails loudly for a real bug.
+        var late = countAfterWait - countAfterStop;
+        Assert.True(
+            late <= 1,
+            $"StopTimer should stop further callbacks; {late} landed after it (at most one in-flight tick is allowed).");
     }
 
     /// <summary>
@@ -204,9 +210,9 @@ public class SystemProgressTimerTests
     /// </summary>
     private static async Task<int> WaitUntilStable(
         Func<int> read,
-        int stableForMs = 150,
+        int stableForMs = 400,
         int pollMs = 15,
-        int maxWaitMs = 3000)
+        int maxWaitMs = 5000)
     {
         var overallDeadline = DateTime.UtcNow.AddMilliseconds(maxWaitMs);
         var last = read();
