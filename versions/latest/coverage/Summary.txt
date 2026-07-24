@@ -1,25 +1,25 @@
 Summary
-  Generated on: 7/22/2026 - 2:18:49 PM
-  Coverage date: 7/22/2026 - 2:18:40 PM
+  Generated on: 7/24/2026 - 2:23:31 AM
+  Coverage date: 7/24/2026 - 2:23:24 AM - 7/24/2026 - 2:23:25 AM
   Parser: MultiReport (2x Cobertura)
   Assemblies: 1
   Classes: 20
   Files: 20
-  Line coverage: 99.4%
-  Covered lines: 667
-  Uncovered lines: 4
-  Coverable lines: 671
-  Total lines: 3281
-  Branch coverage: 92% (184 of 200)
-  Covered branches: 184
-  Total branches: 200
-  Method coverage: 99.4% (173 of 174)
-  Full method coverage: 98.2% (171 of 174)
-  Covered methods: 173
-  Fully covered methods: 171
-  Total methods: 174
+  Line coverage: 99.8%
+  Covered lines: 691
+  Uncovered lines: 1
+  Coverable lines: 692
+  Total lines: 3370
+  Branch coverage: 93.6% (193 of 206)
+  Covered branches: 193
+  Total branches: 206
+  Method coverage: 100% (177 of 177)
+  Full method coverage: 99.4% (176 of 177)
+  Covered methods: 177
+  Fully covered methods: 176
+  Total methods: 177
 
-Wolfgang.Etl.Abstractions                                            99.4%
+Wolfgang.Etl.Abstractions                                            99.8%
   Wolfgang.Etl.Abstractions.EtlPipeline                               100%
   Wolfgang.Etl.Abstractions.EtlPipelineImpl<T>                        100%
   Wolfgang.Etl.Abstractions.EtlPipelineProgress                       100%
@@ -30,13 +30,13 @@ Wolfgang.Etl.Abstractions                                            99.4%
   Wolfgang.Etl.Abstractions.ExtractorBase<T1, T2>                     100%
   Wolfgang.Etl.Abstractions.ExtractStage<T>                           100%
   Wolfgang.Etl.Abstractions.ExtractStageWithProgress<T1, T2>          100%
-  Wolfgang.Etl.Abstractions.LoaderBase<T1, T2>                       98.5%
+  Wolfgang.Etl.Abstractions.LoaderBase<T1, T2>                        100%
   Wolfgang.Etl.Abstractions.Pipeline                                  100%
   Wolfgang.Etl.Abstractions.PipelineImpl                              100%
-  Wolfgang.Etl.Abstractions.PipelineWithLoadProgress<T1, T2>         95.2%
+  Wolfgang.Etl.Abstractions.PipelineWithLoadProgress<T1, T2>          100%
   Wolfgang.Etl.Abstractions.Report                                    100%
   Wolfgang.Etl.Abstractions.StageList                                 100%
   Wolfgang.Etl.Abstractions.SystemProgressTimer                       100%
-  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2, T3>              98.6%
+  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2, T3>              98.7%
   Wolfgang.Etl.Abstractions.TransformStage<T>                         100%
   Wolfgang.Etl.Abstractions.TransformStageWithProgress<T1, T2, T3>    100%

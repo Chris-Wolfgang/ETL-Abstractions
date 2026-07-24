@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.16.1/apiSpec/new?filename=Wolfgang_Etl_Abstractions_IEtlPipeline_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.IEtlPipeline%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.17.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_IEtlPipeline_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.IEtlPipeline%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1" class="text-break">
-Interface IEtlPipeline&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.1/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L30"><i class="bi bi-code-slash"></i></a>
+Interface IEtlPipeline&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.17.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -135,7 +135,7 @@ is called (or the stream is enumerated via <a class="xref" href="Wolfgang.Etl.Ab
 
   <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_AsAsyncEnumerable_System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.AsAsyncEnumerable(System.Threading.CancellationToken)">
   AsAsyncEnumerable(CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.1/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.17.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L101"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Drops down to the raw <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable&lt;T&gt;</a> — the escape hatch for consumers who
@@ -177,7 +177,7 @@ Enumerating the returned stream runs the pipeline (without a sink, so
 
   <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_System_Func_System_Collections_Generic_IAsyncEnumerable__0__System_Collections_Generic_IAsyncEnumerable___0___" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(System.Func{System.Collections.Generic.IAsyncEnumerable{`0},System.Collections.Generic.IAsyncEnumerable{``0}})">
   Through&lt;TOut&gt;(Func&lt;IAsyncEnumerable&lt;T&gt;, IAsyncEnumerable&lt;TOut&gt;&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.1/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.17.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L66"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Appends a stream-to-stream transformer stage supplied as a delegate — the same contract as
@@ -232,7 +232,7 @@ not the core.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_System_Func_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable___0___" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(System.Func{System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{``0}})">
   Through&lt;TOut&gt;(Func&lt;IAsyncEnumerable&lt;T&gt;, CancellationToken, IAsyncEnumerable&lt;TOut&gt;&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.1/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.17.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L77"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Appends a cancellation-aware stream-to-stream transformer stage supplied as a delegate. The
@@ -284,7 +284,7 @@ pipeline's cancellation token is forwarded into the delegate.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformAsync__0___0__" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(Wolfgang.Etl.Abstractions.ITransformAsync{`0,``0})">
   Through&lt;TOut&gt;(ITransformAsync&lt;T, TOut&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.1/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.17.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Appends a transformer stage, piping the current stream through it. This is the primitive on
@@ -336,7 +336,7 @@ which higher-level operators are built.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_Through__1_Wolfgang_Etl_Abstractions_ITransformWithCancellationAsync__0___0__" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.Through``1(Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync{`0,``0})">
   Through&lt;TOut&gt;(ITransformWithCancellationAsync&lt;T, TOut&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.1/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.17.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Appends a cancellation-aware transformer stage. The pipeline's cancellation token is forwarded
@@ -388,7 +388,7 @@ into the transformer.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_IEtlPipeline_1_To__1_Wolfgang_Etl_Abstractions_LoaderBase__0___0__" data-uid="Wolfgang.Etl.Abstractions.IEtlPipeline`1.To``1(Wolfgang.Etl.Abstractions.LoaderBase{`0,``0})">
   To&lt;TProgress&gt;(LoaderBase&lt;T, TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.1/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.17.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L90"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Terminates the pipeline with a loader. Format-specific sink terminators (for example
@@ -442,7 +442,7 @@ packages; this generic overload is the catch-all for callers who already hold a
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.16.1/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L30" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.17.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/IEtlPipeline.cs/#L30" class="edit-link">Edit this page</a>
         </div>
 
 
