@@ -182,6 +182,200 @@ public sealed class ItemErrorHandlingTests
     }
 
 
+    // ---- A counted skip marks the run started (even if it is the first thing to happen) ----
+
+    [Fact]
+    public void Extractor_HandleItemError_skip_marks_the_run_started()
+    {
+        var sut = new ConfigurableExtractor { Policy = ItemErrorAction.Skip };
+
+        _ = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.NotNull(sut.StartedAtForTest);
+    }
+
+
+    [Fact]
+    public void Loader_HandleItemError_skip_marks_the_run_started()
+    {
+        var sut = new ConfigurableLoader { Policy = ItemErrorAction.Skip };
+
+        _ = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.NotNull(sut.StartedAtForTest);
+    }
+
+
+    [Fact]
+    public void Transformer_HandleItemError_skip_marks_the_run_started()
+    {
+        var sut = new ConfigurableTransformer { Policy = ItemErrorAction.Skip };
+
+        _ = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.NotNull(sut.StartedAtForTest);
+    }
+
+
+    // ---- Reset across runs (every base zeroes CurrentErrorItemCount) ----
+
+    [Fact]
+    public async Task Extractor_CurrentErrorItemCount_resets_between_runs()
+    {
+        var extractor = new ParsingExtractor(new[] { "1", "bad", "3" }) { Policy = ItemErrorAction.Skip };
+
+        await Drain(extractor.ExtractAsync());
+        Assert.Equal(1, extractor.CurrentErrorItemCount);
+
+        await Drain(extractor.ExtractAsync());
+        Assert.Equal(1, extractor.CurrentErrorItemCount);   // reset per run, not 2
+    }
+
+
+    // ---- LoaderBase: the #84 mechanism (was entirely uncovered) ----
+
+    [Fact]
+    public void Loader_HandleItemError_defaults_to_Abort_and_does_not_count()
+    {
+        var sut = new DefaultPolicyLoader();
+
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Abort, action);
+        Assert.Equal(0, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public void Loader_HandleItemError_when_policy_skips_increments_the_error_count()
+    {
+        var sut = new ConfigurableLoader { Policy = ItemErrorAction.Skip };
+
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Skip, action);
+        Assert.Equal(1, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public void Loader_HandleItemError_when_policy_aborts_does_not_count()
+    {
+        var sut = new ConfigurableLoader { Policy = ItemErrorAction.Abort };
+
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Abort, action);
+        Assert.Equal(0, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public void Loader_HandleItemError_null_context_throws()
+    {
+        var sut = new ConfigurableLoader();
+        var ex = Assert.Throws<ArgumentNullException>(() => sut.Handle(null!));
+        Assert.Equal("context", ex.ParamName);
+    }
+
+
+    [Fact]
+    public async Task Loader_worker_skips_bad_items_and_counts_them()
+    {
+        var sut = new ConfigurableLoader { Policy = ItemErrorAction.Skip };
+
+        await sut.LoadAsync(AsyncSource(1, -1, 2, -2, 3));
+
+        Assert.Equal(3, sut.CurrentItemCount);
+        Assert.Equal(2, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public async Task Loader_CurrentErrorItemCount_resets_between_runs()
+    {
+        var sut = new ConfigurableLoader { Policy = ItemErrorAction.Skip };
+
+        await sut.LoadAsync(AsyncSource(1, -1, -2));
+        Assert.Equal(2, sut.CurrentErrorItemCount);
+
+        await sut.LoadAsync(AsyncSource(1, 2));
+        Assert.Equal(0, sut.CurrentErrorItemCount);         // reset per run, not 2
+    }
+
+
+    // ---- TransformerBase: the #84 mechanism (was entirely uncovered) ----
+
+    [Fact]
+    public void Transformer_HandleItemError_defaults_to_Abort_and_does_not_count()
+    {
+        var sut = new DefaultPolicyTransformer();
+
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Abort, action);
+        Assert.Equal(0, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public void Transformer_HandleItemError_when_policy_skips_increments_the_error_count()
+    {
+        var sut = new ConfigurableTransformer { Policy = ItemErrorAction.Skip };
+
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Skip, action);
+        Assert.Equal(1, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public void Transformer_HandleItemError_when_policy_aborts_does_not_count()
+    {
+        var sut = new ConfigurableTransformer { Policy = ItemErrorAction.Abort };
+
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Abort, action);
+        Assert.Equal(0, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public void Transformer_HandleItemError_null_context_throws()
+    {
+        var sut = new ConfigurableTransformer();
+        var ex = Assert.Throws<ArgumentNullException>(() => sut.Handle(null!));
+        Assert.Equal("context", ex.ParamName);
+    }
+
+
+    [Fact]
+    public async Task Transformer_worker_skips_bad_items_and_yields_the_good_ones()
+    {
+        var sut = new ConfigurableTransformer { Policy = ItemErrorAction.Skip };
+
+        var yielded = await Drain(sut.TransformAsync(AsyncSource(1, -1, 2, -2, 3)));
+
+        Assert.Equal(new[] { 1, 2, 3 }, yielded);
+        Assert.Equal(2, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public async Task Transformer_CurrentErrorItemCount_resets_between_runs()
+    {
+        var sut = new ConfigurableTransformer { Policy = ItemErrorAction.Skip };
+
+        await Drain(sut.TransformAsync(AsyncSource(1, -1, -2)));
+        Assert.Equal(2, sut.CurrentErrorItemCount);
+
+        await Drain(sut.TransformAsync(AsyncSource(1, 2)));
+        Assert.Equal(0, sut.CurrentErrorItemCount);         // reset per run, not 2
+    }
+
+
     // ---- helpers / doubles ----
 
     private static async IAsyncEnumerable<int> AsyncSource(params int[] items)
@@ -215,6 +409,8 @@ public sealed class ItemErrorHandlingTests
         public ItemErrorContext? LastContext { get; private set; }
 
         public int OnItemErrorCallCount { get; private set; }
+
+        public System.DateTimeOffset? StartedAtForTest => StartedAt;
 
         public ItemErrorAction Handle(ItemErrorContext context) => HandleItemError(context);
 
@@ -307,6 +503,109 @@ public sealed class ItemErrorHandlingTests
             {
                 _ = item;
                 IncrementCurrentItemCount();
+            }
+        }
+
+        protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+    }
+
+
+    // Does NOT override OnItemError — exercises the base default (Abort) on LoaderBase.
+    [ExcludeFromCodeCoverage]
+    private sealed class DefaultPolicyLoader : LoaderBase<int, EtlProgress>
+    {
+        public ItemErrorAction Handle(ItemErrorContext context) => HandleItemError(context);
+
+        protected override Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token) => Task.CompletedTask;
+
+        protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+    }
+
+
+    // Overrides OnItemError so the Skip/count path is exercised; its worker skips negative items.
+    [ExcludeFromCodeCoverage]
+    private sealed class ConfigurableLoader : LoaderBase<int, EtlProgress>
+    {
+        public ItemErrorAction Policy { get; set; } = ItemErrorAction.Abort;
+
+        public ItemErrorAction Handle(ItemErrorContext context) => HandleItemError(context);
+
+        protected override ItemErrorAction OnItemError(ItemErrorContext context) => Policy;
+
+        public System.DateTimeOffset? StartedAtForTest => StartedAt;
+
+        protected override async Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
+        {
+            long n = 0;
+            await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
+            {
+                n++;
+                if (item < 0)
+                {
+                    if (HandleItemError(new ItemErrorContext(n, new FormatException("bad"))) == ItemErrorAction.Abort)
+                    {
+                        throw new FormatException("bad");
+                    }
+
+                    continue;
+                }
+
+                IncrementCurrentItemCount();
+            }
+        }
+
+        protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+    }
+
+
+    // Does NOT override OnItemError — exercises the base default (Abort) on TransformerBase.
+    [ExcludeFromCodeCoverage]
+    private sealed class DefaultPolicyTransformer : TransformerBase<int, int, EtlProgress>
+    {
+        public ItemErrorAction Handle(ItemErrorContext context) => HandleItemError(context);
+
+        protected override async IAsyncEnumerable<int> TransformWorkerAsync(
+            IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)
+        {
+            await Task.CompletedTask;
+            yield break;
+        }
+
+        protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+    }
+
+
+    // Overrides OnItemError so the Skip/count path is exercised; its worker skips negative items.
+    [ExcludeFromCodeCoverage]
+    private sealed class ConfigurableTransformer : TransformerBase<int, int, EtlProgress>
+    {
+        public ItemErrorAction Policy { get; set; } = ItemErrorAction.Abort;
+
+        public ItemErrorAction Handle(ItemErrorContext context) => HandleItemError(context);
+
+        protected override ItemErrorAction OnItemError(ItemErrorContext context) => Policy;
+
+        public System.DateTimeOffset? StartedAtForTest => StartedAt;
+
+        protected override async IAsyncEnumerable<int> TransformWorkerAsync(
+            IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)
+        {
+            long n = 0;
+            await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
+            {
+                n++;
+                if (item < 0)
+                {
+                    if (HandleItemError(new ItemErrorContext(n, new FormatException("bad"))) == ItemErrorAction.Abort)
+                    {
+                        throw new FormatException("bad");
+                    }
+
+                    continue;
+                }
+
+                IncrementCurrentItemCount();
+                yield return item;
             }
         }
 

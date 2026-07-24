@@ -440,6 +440,8 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// can genuinely resume after a bad record overrides this and surfaces its own public knob.
     /// </remarks>
     protected virtual ItemErrorAction OnItemError(ItemErrorContext context)
+    // Stryker disable once all: equivalent — Abort is the enum's default (0), so removing the body
+    // (which makes it return default) yields the identical value; no test can distinguish them.
     {
         return ItemErrorAction.Abort;
     }
