@@ -36,6 +36,14 @@ public class ReportTests
     }
 
 
+    [Fact]
+    public void Constructor_when_passed_a_negative_value_throws_with_explanatory_message()
+    {
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new Report(-1));
+        Assert.StartsWith("Current item count cannot be less than 0.", ex.Message);
+    }
+
+
 
     [Fact]
     public void CurrentItemCount_returns_the_value_passed_to_the_constructor()
@@ -85,6 +93,15 @@ public class ReportTests
     public void TotalItemCount_when_set_to_a_negative_value_throws_ArgumentOutOfRangeException()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => new Report(0) { TotalItemCount = -1 });
+    }
+
+
+    [Fact]
+    public void TotalItemCount_when_set_to_a_negative_value_throws_with_param_name_and_message()
+    {
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new Report(0) { TotalItemCount = -1 });
+        Assert.Equal("value", ex.ParamName);
+        Assert.StartsWith("Total item count cannot be less than 0.", ex.Message);
     }
 
 
@@ -168,6 +185,18 @@ public class ReportTests
         Assert.Equal(TimeSpan.Zero, sut.EstimatedRemaining);
     }
 
+
+
+    [Fact]
+    public void EstimatedRemaining_is_zero_when_count_reached_total_even_with_no_elapsed_time()
+    {
+        // remaining == 0 must short-circuit to Zero *before* the throughput check, so a
+        // completed run with a zero rate still reports Zero rather than null. Distinguishes
+        // the "remaining <= 0" boundary from "remaining < 0".
+        var sut = new Report(100) { TotalItemCount = 100, Elapsed = TimeSpan.Zero };
+
+        Assert.Equal(TimeSpan.Zero, sut.EstimatedRemaining);
+    }
 
 
     [Fact]

@@ -215,6 +215,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync()
     {
+        ThrowIfDisposed();
         return ExtractWithResetAsync(CancellationToken.None);
     }
 
@@ -223,6 +224,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token)
     {
+        ThrowIfDisposed();
         return ExtractWithResetAsync(token);
     }
 
@@ -231,6 +233,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(progress);
 #else
@@ -250,6 +253,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <inheritdoc/>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress, CancellationToken token)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(progress);
 #else
@@ -410,7 +414,13 @@ public abstract class ExtractorBase<TSource, TProgress>
     private void EnsureStarted()
     {
         if (Volatile.Read(ref _startTimestamp) != 0)
+        // Stryker disable once all: equivalent — dropping this fast-path block only skips a cheap
+        // early-out. The CompareExchange below is the real guard and assigns only on the winning
+        // exchange, so a re-entrant caller changes nothing either way. (The CONDITION itself is not
+        // disabled — flipping it returns before the first timestamp is recorded, which the
+        // StartedAt/Elapsed tests catch.)
         {
+            // Stryker disable once all: equivalent — same reasoning as the block above.
             return;
         }
 
@@ -464,10 +474,27 @@ public abstract class ExtractorBase<TSource, TProgress>
     protected virtual void Dispose(bool disposing)
     {
         if (_disposed)
+        // Stryker disable once all: equivalent — dropping this guard block only skips a redundant,
+        // idempotent re-assignment of _disposed. The guard's negation and the assignment below are
+        // real and killable (covered by the use-after-dispose tests).
         {
+            // Stryker disable once all: equivalent — same reasoning; skipping the early return just
+            // re-runs the idempotent `_disposed = true`.
             return;
         }
 
         _disposed = true;
+    }
+
+
+    // Throws if this extractor has already been disposed. Reads _disposed, so the public entry
+    // points reject use-after-dispose (and give the Dispose(bool) idempotency guard an observable
+    // effect).
+    private void ThrowIfDisposed()
+    {
+        if (_disposed)
+        {
+            throw new ObjectDisposedException(GetType().FullName);
+        }
     }
 }

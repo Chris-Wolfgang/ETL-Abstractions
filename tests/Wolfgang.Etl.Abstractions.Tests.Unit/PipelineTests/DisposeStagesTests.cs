@@ -94,6 +94,109 @@ public class DisposeStagesTests
     }
 
 
+    private sealed class ThrowingDisposableExtractor : IExtractAsync<int>, IDisposable
+    {
+        private readonly int _count;
+
+        public ThrowingDisposableExtractor(int count) => _count = count;
+
+        public async IAsyncEnumerable<int> ExtractAsync()
+        {
+            for (var i = 0; i < _count; i++)
+            {
+                yield return i;
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public void Dispose() => throw new InvalidOperationException("extractor dispose failed");
+    }
+
+
+    private sealed class TrackingCancellableExtractor : IExtractWithCancellationAsync<int>, IDisposable
+    {
+        private readonly int _count;
+
+        public TrackingCancellableExtractor(int count) => _count = count;
+
+        public bool Disposed { get; private set; }
+
+        public IAsyncEnumerable<int> ExtractAsync() => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(CancellationToken token) => Produce();
+
+        private async IAsyncEnumerable<int> Produce()
+        {
+            for (var i = 0; i < _count; i++)
+            {
+                yield return i;
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public void Dispose() => Disposed = true;
+    }
+
+
+    private sealed class TrackingProgressExtractor : IExtractWithProgressAsync<int, string>, IDisposable
+    {
+        private readonly int _count;
+
+        public TrackingProgressExtractor(int count) => _count = count;
+
+        public bool Disposed { get; private set; }
+
+        public IAsyncEnumerable<int> ExtractAsync() => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(IProgress<string> progress) => Produce();
+
+        private async IAsyncEnumerable<int> Produce()
+        {
+            for (var i = 0; i < _count; i++)
+            {
+                yield return i;
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public void Dispose() => Disposed = true;
+    }
+
+
+    private sealed class TrackingProgressCancellableExtractor
+        : IExtractWithProgressAndCancellationAsync<int, string>, IDisposable
+    {
+        private readonly int _count;
+
+        public TrackingProgressCancellableExtractor(int count) => _count = count;
+
+        public bool Disposed { get; private set; }
+
+        public IAsyncEnumerable<int> ExtractAsync() => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(CancellationToken token) => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(IProgress<string> progress) => Produce();
+
+        public IAsyncEnumerable<int> ExtractAsync(IProgress<string> progress, CancellationToken token) => Produce();
+
+        private async IAsyncEnumerable<int> Produce()
+        {
+            for (var i = 0; i < _count; i++)
+            {
+                yield return i;
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public void Dispose() => Disposed = true;
+    }
+
+
     // Not disposable — must be skipped without error.
     private sealed class PlainTransformer : ITransformAsync<int, int>
     {
@@ -137,6 +240,37 @@ public class DisposeStagesTests
 
         Assert.False(extractor.Disposed);
         Assert.False(loader.Disposed);
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_disposes_stages_on_the_load_progress_path()
+    {
+        // A load-progress loader routes the run through PipelineWithLoadProgress, whose
+        // dispose branch is separate from the bare path — exercise it explicitly.
+        var extractor = new TrackingExtractor(3);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TestDoubles.ProgressOnlyLoader<int, string>("p"))
+            .DisposeStagesOnCompletion()
+            .RunAsync();
+
+        Assert.True(extractor.Disposed);
+    }
+
+
+    [Fact]
+    public async Task Load_progress_pipeline_without_DisposeStagesOnCompletion_leaves_stages_undisposed()
+    {
+        var extractor = new TrackingExtractor(3);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TestDoubles.ProgressOnlyLoader<int, string>("p"))
+            .RunAsync();
+
+        Assert.False(extractor.Disposed);
     }
 
 
@@ -203,6 +337,73 @@ public class DisposeStagesTests
             .RunAsync());
 
         Assert.Contains(ex.InnerExceptions, e => e is InvalidOperationException && string.Equals(e.Message, "dispose failed", StringComparison.Ordinal));
+        Assert.StartsWith("One or more pipeline stages threw while being disposed.", ex.Message);
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_disposes_a_cancellation_extractor()
+    {
+        // Covers the Extract(IExtractWithCancellationAsync) factory — a distinct stages array
+        // from the plain IExtractAsync overload.
+        var extractor = new TrackingCancellableExtractor(2);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TrackingLoader())
+            .DisposeStagesOnCompletion()
+            .RunAsync();
+
+        Assert.True(extractor.Disposed);
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_disposes_a_progress_extractor()
+    {
+        // Covers the Extract(IExtractWithProgressAsync) factory's stages array.
+        var extractor = new TrackingProgressExtractor(2);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TrackingLoader())
+            .DisposeStagesOnCompletion()
+            .RunAsync();
+
+        Assert.True(extractor.Disposed);
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_disposes_a_progress_and_cancellation_extractor()
+    {
+        // Covers the Extract(IExtractWithProgressAndCancellationAsync) factory's stages array.
+        var extractor = new TrackingProgressCancellableExtractor(2);
+
+        await Pipeline
+            .Extract(extractor)
+            .Load(new TrackingLoader())
+            .DisposeStagesOnCompletion()
+            .RunAsync();
+
+        Assert.True(extractor.Disposed);
+    }
+
+
+    [Fact]
+    public async Task DisposeStagesOnCompletion_aggregates_every_stage_disposal_failure()
+    {
+        // Two stages throw on disposal — both errors must accumulate into the aggregate,
+        // proving the error list is appended to (errors ??= ...) rather than reset per stage.
+        var ex = await Assert.ThrowsAsync<AggregateException>(() => Pipeline
+            .Extract(new ThrowingDisposableExtractor(2))
+            .Load(new ThrowingDisposableLoader())
+            .DisposeStagesOnCompletion()
+            .RunAsync());
+
+        Assert.Equal(2, ex.InnerExceptions.Count);
+        Assert.Contains(ex.InnerExceptions, e => string.Equals(e.Message, "extractor dispose failed", StringComparison.Ordinal));
+        Assert.Contains(ex.InnerExceptions, e => string.Equals(e.Message, "dispose failed", StringComparison.Ordinal));
     }
 
 
