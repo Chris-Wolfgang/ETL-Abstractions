@@ -413,14 +413,16 @@ public abstract class ExtractorBase<TSource, TProgress>
     // win the CompareExchange records the start; later calls are a cheap volatile read.
     private void EnsureStarted()
     {
-        // Stryker disable all: equivalent mutant — the CompareExchange below is the real guard, so
-        // whether this fast-path early-out (or its whole block) executes, a re-entrant caller that
-        // has already started changes nothing: the assignment only happens on the winning exchange.
         if (Volatile.Read(ref _startTimestamp) != 0)
+        // Stryker disable once all: equivalent — dropping this fast-path block only skips a cheap
+        // early-out. The CompareExchange below is the real guard and assigns only on the winning
+        // exchange, so a re-entrant caller changes nothing either way. (The CONDITION itself is not
+        // disabled — flipping it returns before the first timestamp is recorded, which the
+        // StartedAt/Elapsed tests catch.)
         {
+            // Stryker disable once all: equivalent — same reasoning as the block above.
             return;
         }
-        // Stryker restore all
 
         var now = DateTimeOffset.UtcNow;
         var timestamp = Stopwatch.GetTimestamp();
