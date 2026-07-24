@@ -26,6 +26,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 {
     private int _currentItemCount;
     private int _currentSkippedItemCount;
+    private int _currentErrorItemCount;
     private long _startTimestamp;
     private DateTimeOffset _startedAtUtc;
     private bool _disposed;
@@ -111,6 +112,16 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// The current number of items skipped so far during extraction.
     /// </summary>
     public int CurrentSkippedItemCount => Volatile.Read(ref _currentSkippedItemCount);
+
+
+
+    /// <summary>
+    /// The number of items that raised an error and were discarded by the stage's error policy
+    /// (<see cref="OnItemError"/> returned <see cref="ItemErrorAction.Skip"/>) so far. This is distinct
+    /// from <see cref="CurrentSkippedItemCount"/>, which counts items skipped intentionally (for
+    /// example by <c>SkipItemCount</c>): a failed record is counted here, never silently dropped.
+    /// </summary>
+    public int CurrentErrorItemCount => Volatile.Read(ref _currentErrorItemCount);
 
 
 
@@ -334,6 +345,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     {
         Volatile.Write(ref _currentItemCount, 0);
         Volatile.Write(ref _currentSkippedItemCount, 0);
+        Volatile.Write(ref _currentErrorItemCount, 0);
         Volatile.Write(ref _startTimestamp, 0L);
     }
 
@@ -436,7 +448,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
     /// <summary>
     /// Applies the stage's error policy to a failed item: invokes <see cref="OnItemError"/> and, when
-    /// it returns <see cref="ItemErrorAction.Skip"/>, increments the skipped-item count so the skip is
+    /// it returns <see cref="ItemErrorAction.Skip"/>, increments the error-item count so the failure is
     /// never silent. Call this from a worker's <c>catch</c> block and re-throw when it returns
     /// <see cref="ItemErrorAction.Abort"/>.
     /// </summary>
@@ -456,7 +468,8 @@ public abstract class ExtractorBase<TSource, TProgress>
         var action = OnItemError(context);
         if (action == ItemErrorAction.Skip)
         {
-            IncrementCurrentSkippedItemCount();
+            EnsureStarted();
+            _ = Interlocked.Increment(ref _currentErrorItemCount);
         }
 
         return action;

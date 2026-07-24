@@ -12,8 +12,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit;
 /// <summary>
 /// Covers the #84 per-item error-handling mechanism on the base classes: the protected
 /// <c>HandleItemError</c> helper and <c>OnItemError</c> policy hook, the <see cref="ItemErrorContext"/>
-/// and <see cref="ItemErrorAction"/> vocabulary, skip counting (a skip is never silent), and the
-/// pipeline-level <c>RecordsSkipped</c> surface.
+/// and <see cref="ItemErrorAction"/> vocabulary, error counting (a failure is never silent), and the
+/// pipeline-level <c>RecordsErrored</c> surface.
 /// </summary>
 public sealed class ItemErrorHandlingTests
 {
@@ -64,19 +64,19 @@ public sealed class ItemErrorHandlingTests
         var action = sut.Handle(new ItemErrorContext(1, new Exception()));
 
         Assert.Equal(ItemErrorAction.Abort, action);
-        Assert.Equal(0, sut.CurrentSkippedItemCount);
+        Assert.Equal(0, sut.CurrentErrorItemCount);
     }
 
 
     [Fact]
-    public void HandleItemError_when_policy_skips_returns_Skip_and_increments_the_skipped_count()
+    public void HandleItemError_when_policy_skips_returns_Skip_and_increments_the_error_count()
     {
         var sut = new ConfigurableExtractor { Policy = ItemErrorAction.Skip };
 
         var action = sut.Handle(new ItemErrorContext(1, new Exception()));
 
         Assert.Equal(ItemErrorAction.Skip, action);
-        Assert.Equal(1, sut.CurrentSkippedItemCount);
+        Assert.Equal(1, sut.CurrentErrorItemCount);
     }
 
 
@@ -88,7 +88,7 @@ public sealed class ItemErrorHandlingTests
         var action = sut.Handle(new ItemErrorContext(1, new Exception()));
 
         Assert.Equal(ItemErrorAction.Abort, action);
-        Assert.Equal(0, sut.CurrentSkippedItemCount);
+        Assert.Equal(0, sut.CurrentErrorItemCount);
     }
 
 
@@ -128,7 +128,7 @@ public sealed class ItemErrorHandlingTests
 
         Assert.Equal(new[] { 1, 3, 5 }, yielded);
         Assert.Equal(3, extractor.CurrentItemCount);
-        Assert.Equal(2, extractor.CurrentSkippedItemCount);   // the two bad rows — not silent
+        Assert.Equal(2, extractor.CurrentErrorItemCount);   // the two bad rows — not silent
     }
 
 
@@ -141,10 +141,10 @@ public sealed class ItemErrorHandlingTests
     }
 
 
-    // ---- Pipeline RecordsSkipped surface ----
+    // ---- Pipeline RecordsErrored surface ----
 
     [Fact]
-    public async Task Pipeline_RecordsSkipped_reflects_the_extractor_skips()
+    public async Task Pipeline_RecordsErrored_reflects_the_extractor_skips()
     {
         var reports = new List<EtlPipelineProgress>();
         var progress = new SynchronousProgress<EtlPipelineProgress>(reports.Add);
@@ -162,12 +162,12 @@ public sealed class ItemErrorHandlingTests
         var final = reports[^1];
         Assert.Equal(3, final.RecordsExtracted);
         Assert.Equal(3, final.RecordsLoaded);
-        Assert.Equal(2, final.RecordsSkipped);
+        Assert.Equal(2, final.RecordsErrored);
     }
 
 
     [Fact]
-    public async Task Pipeline_RecordsSkipped_is_zero_for_a_raw_stream_source()
+    public async Task Pipeline_RecordsErrored_is_zero_for_a_raw_stream_source()
     {
         var reports = new List<EtlPipelineProgress>();
         var progress = new SynchronousProgress<EtlPipelineProgress>(reports.Add);
@@ -178,7 +178,7 @@ public sealed class ItemErrorHandlingTests
             .To(new CollectingLoader())
             .RunAsync(progress);
 
-        Assert.Equal(0, reports[^1].RecordsSkipped);
+        Assert.Equal(0, reports[^1].RecordsErrored);
     }
 
 

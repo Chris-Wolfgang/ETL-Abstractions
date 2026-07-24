@@ -54,9 +54,9 @@ public static class EtlPipelineSourceExtensions
 
         return EtlPipelineImpl<T>.FromStream((state, token) =>
         {
-            // Surface the extractor's skipped-item count into the pipeline snapshot so a bad record
+            // Surface the extractor's error-item count into the pipeline snapshot so a bad record
             // the extractor's error policy discarded is reported, not silently absent from the totals.
-            state.SkippedCountReader = () => extractor.CurrentSkippedItemCount;
+            state.ErrorCountReader = () => extractor.CurrentErrorItemCount;
             return extractor.ExtractAsync(token);
         });
     }

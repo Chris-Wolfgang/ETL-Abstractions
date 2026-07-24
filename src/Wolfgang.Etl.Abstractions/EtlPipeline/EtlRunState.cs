@@ -18,16 +18,16 @@ internal sealed class EtlRunState
 
     public int RecordsLoaded;
 
-    // Optional reader that surfaces a skip-aware source's skipped-item count into the snapshot.
-    // Left null for sources that don't report skips (e.g. a raw IAsyncEnumerable), which reads as 0.
-    public Func<int>? SkippedCountReader;
+    // Optional reader that surfaces an error-reporting source's error-item count into the snapshot.
+    // Left null for sources that don't report errors (e.g. a raw IAsyncEnumerable), which reads as 0.
+    public Func<int>? ErrorCountReader;
 
 
     public EtlPipelineProgress Snapshot()
     {
         return new EtlPipelineProgress(RecordsExtracted, RecordsLoaded, _stopwatch.Elapsed)
         {
-            RecordsSkipped = SkippedCountReader?.Invoke() ?? 0,
+            RecordsErrored = ErrorCountReader?.Invoke() ?? 0,
         };
     }
 }
