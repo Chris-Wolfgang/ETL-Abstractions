@@ -1,1 +1,17 @@
 #nullable enable
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsSkipped.get -> int
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsSkipped.init -> void
+Wolfgang.Etl.Abstractions.ItemErrorAction
+Wolfgang.Etl.Abstractions.ItemErrorAction.Abort = 0 -> Wolfgang.Etl.Abstractions.ItemErrorAction
+Wolfgang.Etl.Abstractions.ItemErrorAction.Skip = 1 -> Wolfgang.Etl.Abstractions.ItemErrorAction
+Wolfgang.Etl.Abstractions.ItemErrorContext
+Wolfgang.Etl.Abstractions.ItemErrorContext.Exception.get -> System.Exception!
+Wolfgang.Etl.Abstractions.ItemErrorContext.ItemErrorContext(long recordNumber, System.Exception! exception, System.Func<string?>? rawContent = null) -> void
+Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent.get -> System.Func<string?>?
+Wolfgang.Etl.Abstractions.ItemErrorContext.RecordNumber.get -> long
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
+virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
+virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
+virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction

@@ -52,6 +52,12 @@ public static class EtlPipelineSourceExtensions
             throw new ArgumentNullException(nameof(extractor));
         }
 
-        return EtlPipelineImpl<T>.FromStream((_, token) => extractor.ExtractAsync(token));
+        return EtlPipelineImpl<T>.FromStream((state, token) =>
+        {
+            // Surface the extractor's skipped-item count into the pipeline snapshot so a bad record
+            // the extractor's error policy discarded is reported, not silently absent from the totals.
+            state.SkippedCountReader = () => extractor.CurrentSkippedItemCount;
+            return extractor.ExtractAsync(token);
+        });
     }
 }

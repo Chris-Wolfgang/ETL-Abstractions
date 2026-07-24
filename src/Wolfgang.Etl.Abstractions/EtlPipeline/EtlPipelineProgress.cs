@@ -24,4 +24,15 @@ public sealed record EtlPipelineProgress
     int RecordsExtracted,
     int RecordsLoaded,
     TimeSpan Elapsed
-);
+)
+{
+    /// <summary>
+    /// The number of records a skip-aware source discarded so far — an
+    /// <see cref="ExtractorBase{TSource, TProgress}"/> whose error policy returned
+    /// <see cref="ItemErrorAction.Skip"/> for a bad record — or <c>0</c> for a source that does not
+    /// report skips (for example a raw <see cref="System.Collections.Generic.IAsyncEnumerable{T}"/>).
+    /// Reported separately from <see cref="RecordsExtracted"/>, which counts only the records that
+    /// successfully flowed into the pipeline, so a skipped record is never silent.
+    /// </summary>
+    public int RecordsSkipped { get; init; }
+}
