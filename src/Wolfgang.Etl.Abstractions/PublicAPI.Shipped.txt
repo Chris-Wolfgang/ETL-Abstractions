@@ -4,6 +4,8 @@ Wolfgang.Etl.Abstractions.EtlPipelineProgress
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed.init -> void
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.EtlPipelineProgress(int RecordsExtracted, int RecordsLoaded, System.TimeSpan Elapsed) -> void
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsErrored.get -> int
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsErrored.init -> void
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted.get -> int
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted.init -> void
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded.get -> int
@@ -11,11 +13,13 @@ Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded.init -> void
 Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
 Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentErrorItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentSkippedItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Dispose() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase() -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentSkippedItemCount() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.MaximumItemCount.get -> int
@@ -95,11 +99,21 @@ Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync<TSource, TD
 Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 Wolfgang.Etl.Abstractions.ITransformWithProgressAsync<TSource, TDestination, TProgress>
 Wolfgang.Etl.Abstractions.ITransformWithProgressAsync<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
+Wolfgang.Etl.Abstractions.ItemErrorAction
+Wolfgang.Etl.Abstractions.ItemErrorAction.Abort = 0 -> Wolfgang.Etl.Abstractions.ItemErrorAction
+Wolfgang.Etl.Abstractions.ItemErrorAction.Skip = 1 -> Wolfgang.Etl.Abstractions.ItemErrorAction
+Wolfgang.Etl.Abstractions.ItemErrorContext
+Wolfgang.Etl.Abstractions.ItemErrorContext.Exception.get -> System.Exception!
+Wolfgang.Etl.Abstractions.ItemErrorContext.ItemErrorContext(long recordNumber, System.Exception! exception, System.Func<string?>? rawContent = null) -> void
+Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent.get -> System.Func<string?>?
+Wolfgang.Etl.Abstractions.ItemErrorContext.RecordNumber.get -> long
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentErrorItemCount.get -> int
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentSkippedItemCount.get -> int
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Dispose() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Elapsed.get -> System.TimeSpan
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase() -> void
@@ -124,10 +138,12 @@ Wolfgang.Etl.Abstractions.Report.StartedAt.init -> void
 Wolfgang.Etl.Abstractions.Report.TotalItemCount.get -> int?
 Wolfgang.Etl.Abstractions.Report.TotalItemCount.init -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CurrentErrorItemCount.get -> int
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CurrentSkippedItemCount.get -> int
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Dispose() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Elapsed.get -> System.TimeSpan
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount.get -> int
@@ -159,6 +175,7 @@ virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync(System.IProgress<TProgress>! progress) -> System.Collections.Generic.IAsyncEnumerable<TSource>!
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync(System.IProgress<TProgress>! progress, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TSource>!
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TSource>!
+virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CreateProgressTimer(System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Dispose(bool disposing) -> void
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.DisposeAsync() -> System.Threading.Tasks.ValueTask
@@ -166,9 +183,11 @@ virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.IProgress<TProgress>! progress) -> System.Threading.Tasks.Task!
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.IProgress<TProgress>! progress, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
+virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressTimer(System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Dispose(bool disposing) -> void
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.DisposeAsync() -> System.Threading.Tasks.ValueTask
+virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.IProgress<TProgress>! progress, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
