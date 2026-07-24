@@ -104,9 +104,9 @@ Wolfgang.Etl.Abstractions.ItemErrorAction.Abort = 0 -> Wolfgang.Etl.Abstractions
 Wolfgang.Etl.Abstractions.ItemErrorAction.Skip = 1 -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.ItemErrorContext
 Wolfgang.Etl.Abstractions.ItemErrorContext.Exception.get -> System.Exception!
-Wolfgang.Etl.Abstractions.ItemErrorContext.ItemErrorContext(long recordNumber, System.Exception! exception, System.Func<string?>? rawContent = null) -> void
+Wolfgang.Etl.Abstractions.ItemErrorContext.ItemErrorContext(long itemNumber, System.Exception! exception, System.Func<string?>? rawContent = null) -> void
+Wolfgang.Etl.Abstractions.ItemErrorContext.ItemNumber.get -> long
 Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent.get -> System.Func<string?>?
-Wolfgang.Etl.Abstractions.ItemErrorContext.RecordNumber.get -> long
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentErrorItemCount.get -> int
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentItemCount.get -> int

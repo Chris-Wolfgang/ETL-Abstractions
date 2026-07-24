@@ -30,7 +30,7 @@ change bundled here while `EtlPipelineProgress` is only days old).
 
 ### Added
 
-- `ItemErrorAction` (`Abort`, `Skip`) and `ItemErrorContext` (record number,
+- `ItemErrorAction` (`Abort`, `Skip`) and `ItemErrorContext` (item number,
   exception, and an optional lazy raw-content accessor) describing a failed item.
 - `ExtractorBase`, `LoaderBase`, and `TransformerBase` each gain a protected
   `HandleItemError(ItemErrorContext)` helper — call it from a worker's `catch`

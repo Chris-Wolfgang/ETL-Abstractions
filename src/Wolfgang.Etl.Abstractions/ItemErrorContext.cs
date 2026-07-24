@@ -12,7 +12,7 @@ public sealed class ItemErrorContext
     /// <summary>
     /// Initialises a new <see cref="ItemErrorContext"/>.
     /// </summary>
-    /// <param name="recordNumber">The 1-based ordinal of the failed item within the current run.</param>
+    /// <param name="itemNumber">The 1-based ordinal of the failed item within the current run.</param>
     /// <param name="exception">The exception the item raised.</param>
     /// <param name="rawContent">
     /// An optional, lazily-evaluated accessor for the item's raw source text (a line, a fixed-width
@@ -20,9 +20,9 @@ public sealed class ItemErrorContext
     /// buffer or reconstruct the raw content pays that cost only if the policy actually reads it.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="exception"/> is <see langword="null"/>.</exception>
-    public ItemErrorContext(long recordNumber, Exception exception, Func<string?>? rawContent = null)
+    public ItemErrorContext(long itemNumber, Exception exception, Func<string?>? rawContent = null)
     {
-        RecordNumber = recordNumber;
+        ItemNumber = itemNumber;
         Exception = exception ?? throw new ArgumentNullException(nameof(exception));
         RawContent = rawContent;
     }
@@ -30,7 +30,7 @@ public sealed class ItemErrorContext
     /// <summary>
     /// The 1-based ordinal of the failed item within the current run.
     /// </summary>
-    public long RecordNumber { get; }
+    public long ItemNumber { get; }
 
     /// <summary>
     /// The exception the item raised.

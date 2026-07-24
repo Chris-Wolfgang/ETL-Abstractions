@@ -25,7 +25,7 @@ public sealed class ItemErrorHandlingTests
         var ex = new InvalidOperationException("boom");
         var context = new ItemErrorContext(7, ex, () => "raw line");
 
-        Assert.Equal(7, context.RecordNumber);
+        Assert.Equal(7, context.ItemNumber);
         Assert.Same(ex, context.Exception);
         Assert.Equal("raw line", context.RawContent!());
     }
@@ -464,10 +464,10 @@ public sealed class ItemErrorHandlingTests
         protected override async IAsyncEnumerable<int> ExtractWorkerAsync(
             [EnumeratorCancellation] CancellationToken token)
         {
-            long recordNumber = 0;
+            long itemNumber = 0;
             foreach (var line in _lines)
             {
-                recordNumber++;
+                itemNumber++;
                 await Task.Yield();
 
                 int value;
@@ -477,7 +477,7 @@ public sealed class ItemErrorHandlingTests
                 }
                 catch (FormatException ex)
                 {
-                    if (HandleItemError(new ItemErrorContext(recordNumber, ex, () => line)) == ItemErrorAction.Abort)
+                    if (HandleItemError(new ItemErrorContext(itemNumber, ex, () => line)) == ItemErrorAction.Abort)
                     {
                         throw;
                     }
