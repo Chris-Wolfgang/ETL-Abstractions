@@ -31,3 +31,28 @@ Facts a maintainer would need at 2am if the release identity is compromised. Gen
 - **Owner**: @Chris-Wolfgang.
 - **Downstream consumers**: this is the framework's foundational package — every `Wolfgang.Etl.*` library depends on it, including `Wolfgang.Etl.TestKit`, `Wolfgang.Etl.Transformers`, and the format packages (`Wolfgang.Etl.Csv`, `.Json`, `.Xml`, `.FixedWidth`, `.SqlBulkCopy`, `.DbClient`). A compromise cascades to all of them. Unknown external consumers may also exist on nuget.org.
 - **Package coordinates for unlisting**: `Wolfgang.Etl.Abstractions` — https://www.nuget.org/packages/Wolfgang.Etl.Abstractions/ (single package; symbols publish as the matching `.snupkg`).
+
+## Verifying the supply chain
+
+Each release ships provenance so consumers can verify what they downloaded:
+
+- **SBOM** — a CycloneDX SBOM (`Wolfgang.Etl.Abstractions.bom.json`) is generated at
+  release time and attached to the GitHub Release, listing the package's transitive
+  dependency set.
+- **SLSA build provenance** — each `.nupkg` is attested with
+  [`actions/attest-build-provenance`](https://github.com/actions/attest-build-provenance),
+  recording a signed statement that the artifact was built by this repo's
+  `release.yaml` from a specific commit. Verify a downloaded package with:
+
+  ```bash
+  gh attestation verify Wolfgang.Etl.Abstractions.<version>.nupkg \
+    --repo Chris-Wolfgang/ETL-Abstractions
+  ```
+
+  A pass confirms the package's digest matches an attestation produced by this
+  repository's release workflow.
+
+> **Not yet enabled — Authenticode/NuGet package signing.** The `.nupkg` is not yet
+> signed with a code-signing certificate, so `nuget verify --signatures` will report
+> it as unsigned. That is tracked on issue #208 and requires a code-signing
+> certificate; the SBOM + SLSA attestation above are the current verification path.

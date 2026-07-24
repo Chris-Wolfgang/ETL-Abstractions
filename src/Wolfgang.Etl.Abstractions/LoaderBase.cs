@@ -186,6 +186,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <inheritdoc/>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
 #else
@@ -204,6 +205,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <inheritdoc/>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, CancellationToken token)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
 #else
@@ -222,6 +224,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <inheritdoc/>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
@@ -246,6 +249,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <inheritdoc/>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress, CancellationToken token)
     {
+        ThrowIfDisposed();
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
@@ -408,7 +412,13 @@ public abstract class LoaderBase<TDestination, TProgress>
     private void EnsureStarted()
     {
         if (Volatile.Read(ref _startTimestamp) != 0)
+        // Stryker disable once all: equivalent — dropping this fast-path block only skips a cheap
+        // early-out. The CompareExchange below is the real guard and assigns only on the winning
+        // exchange, so a re-entrant caller changes nothing either way. (The CONDITION itself is not
+        // disabled — flipping it returns before the first timestamp is recorded, which the
+        // StartedAt/Elapsed tests catch.)
         {
+            // Stryker disable once all: equivalent — same reasoning as the block above.
             return;
         }
 
@@ -462,10 +472,26 @@ public abstract class LoaderBase<TDestination, TProgress>
     protected virtual void Dispose(bool disposing)
     {
         if (_disposed)
+        // Stryker disable once all: equivalent — dropping this guard block only skips a redundant,
+        // idempotent re-assignment of _disposed. The guard's negation and the assignment below are
+        // real and killable (covered by the use-after-dispose tests).
         {
+            // Stryker disable once all: equivalent — same reasoning; skipping the early return just
+            // re-runs the idempotent `_disposed = true`.
             return;
         }
 
         _disposed = true;
+    }
+
+
+    // Throws if this loader has already been disposed. Reads _disposed, so the public entry points
+    // reject use-after-dispose (and give the Dispose(bool) idempotency guard an observable effect).
+    private void ThrowIfDisposed()
+    {
+        if (_disposed)
+        {
+            throw new ObjectDisposedException(GetType().FullName);
+        }
     }
 }

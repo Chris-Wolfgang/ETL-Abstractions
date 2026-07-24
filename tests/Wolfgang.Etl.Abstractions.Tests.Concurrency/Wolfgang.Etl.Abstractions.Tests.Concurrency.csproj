@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Concurrency / race-condition stress testing with Microsoft Coyote (#207).
+       Coyote is a systematic-concurrency explorer: it rewrites the assemblies to
+       take control of the task scheduler, then replays each test method under
+       thousands of distinct interleavings to surface races/deadlocks a normal
+       run never hits. This project is driven by the `coyote` CLI from
+       .github/workflows/coyote.yaml — NOT by the xunit test job — so it is not a
+       standard test project. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Coyote" Version="1.7.11" />
+    <PackageReference Include="Microsoft.Coyote.Test" Version="1.7.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

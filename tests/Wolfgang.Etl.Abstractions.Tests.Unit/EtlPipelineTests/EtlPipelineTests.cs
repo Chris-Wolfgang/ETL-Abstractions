@@ -240,6 +240,48 @@ public class EtlPipelineCoreTests
 
 
     [Fact]
+    public async Task AsAsyncEnumerable_honours_cancellation_at_the_head()
+    {
+        // AsAsyncEnumerable exposes the pipeline head (CountExtracted) with no sink downstream, so
+        // its explicit ThrowIfCancellationRequested is the ONLY thing that can enforce cancellation
+        // when the raw source ignores the token — isolating that guard from the sink's paired one.
+        using var cts = new CancellationTokenSource();
+        cts.Cancel();
+
+        var stream = EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3))
+            .AsAsyncEnumerable(cts.Token);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
+        {
+            await foreach (var _ in stream)
+            {
+            }
+        });
+    }
+
+
+    [Fact]
+    public async Task RunAsync_honours_a_pre_cancelled_token_even_when_the_source_ignores_it()
+    {
+        // AsyncSource never observes the token, so the pipeline head's explicit
+        // ThrowIfCancellationRequested is the only thing that can enforce cancellation.
+        using var cts = new CancellationTokenSource();
+        cts.Cancel();
+
+        var loader = new CollectingLoader<int>();
+        var sink = EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3, 4, 5))
+            .To(loader);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => sink.RunAsync(null, cts.Token));
+        Assert.Empty(loader.Loaded);
+    }
+
+
+    [Fact]
     public async Task RunAsync_reports_extracted_and_loaded_counters()
     {
         var reports = new List<EtlPipelineProgress>();
@@ -255,6 +297,10 @@ public class EtlPipelineCoreTests
         var final = reports.Last();
         Assert.Equal(5, final.RecordsExtracted);
         Assert.Equal(5, final.RecordsLoaded);
+
+        // The sink reports after each loaded item, not only at the end — so an intermediate
+        // snapshot capturing exactly one loaded record must be present.
+        Assert.Contains(reports, r => r.RecordsLoaded == 1);
     }
 
 

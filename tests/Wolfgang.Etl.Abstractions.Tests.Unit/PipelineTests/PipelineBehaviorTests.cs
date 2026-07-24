@@ -257,7 +257,8 @@ public class PipelineBehaviorTests
 
         await pipeline.RunAsync();
 
-        await Assert.ThrowsAsync<InvalidOperationException>(() => pipeline.RunAsync());
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => pipeline.RunAsync());
+        Assert.Equal("Pipeline has already been run. Construct a new pipeline for each run.", ex.Message);
     }
 
 
@@ -270,7 +271,8 @@ public class PipelineBehaviorTests
 
         await pipeline.RunAsync();
 
-        await Assert.ThrowsAsync<InvalidOperationException>(() => pipeline.RunAsync(CancellationToken.None));
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => pipeline.RunAsync(CancellationToken.None));
+        Assert.Equal("Pipeline has already been run. Construct a new pipeline for each run.", ex.Message);
     }
 
 

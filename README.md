@@ -34,7 +34,19 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 - **API Documentation:** https://Chris-Wolfgang.github.io/ETL-Abstractions/
 - **Formatting Guide:** [README-FORMATTING.md](docs/README-FORMATTING.md)
 - **Architecture Decisions:** [docs/adr/](docs/adr/index.md) — the *why* behind non-obvious design choices
+- **Verify the build:** [REPRODUCIBLE-BUILD.md](docs/REPRODUCIBLE-BUILD.md) — rebuild from source and confirm the shipped assembly
 - **Contributing Guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
+
+---
+
+## 🔒 Verify the build
+
+This library is built **deterministically**, so you don't have to trust our CI — you
+can rebuild it yourself from any release tag and confirm the shipped assembly, byte
+for byte. Each release attaches a `reproducible-build-manifest.json` with the expected
+`sha256` of every target framework's assembly. See
+[**docs/REPRODUCIBLE-BUILD.md**](docs/REPRODUCIBLE-BUILD.md) for the step-by-step
+verification procedure and how to report a discrepancy.
 
 ---
 

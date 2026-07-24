@@ -19,6 +19,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.17.0] - 2026-07-24
+
+Minor release: a new **use-after-dispose contract** plus a substantial testing-depth
+pass. The only behavioural change is the dispose guard described under *Changed* —
+no public signatures were added, removed, or altered, so Package Validation passes
+against 0.16.1 and no binding redirect is needed (`AssemblyVersion` remains
+`1.0.0.0`).
+
+### Changed
+
+- **Using a disposed component now throws `ObjectDisposedException`.** Every public
+  entry point on `ExtractorBase`, `LoaderBase`, and `TransformerBase`
+  (`ExtractAsync` / `LoadAsync` / `TransformAsync`, all overloads) rejects calls made
+  after `Dispose()` or `DisposeAsync()` instead of silently running. **Upgrade note:**
+  code that reused a component after disposing it previously "worked" and will now
+  throw — construct a new instance per run instead. `Dispose` remains idempotent.
+
+### Added
+
+- **Mutation testing is now a release gate.** Stryker runs on every PR with a
+  `break` threshold; the suite's mutation score is **~97%**. Coverage added along the
+  way pins down per-run counter/timestamp reset, `StartedAt`/`Elapsed` semantics,
+  dispose-stage behaviour across all `Extract()` overloads, aggregate disposal
+  failures, and exact exception messages.
+- **The library is verified context-agnostic.** A counting `SynchronizationContext`
+  test proves no internal await marshals a continuation back to the caller's context,
+  so `.Result`/`.Wait()` from a UI or legacy-ASP.NET thread cannot deadlock on it.
+- **Concurrency stress testing** with Microsoft Coyote, exercising the base classes'
+  interleavings for races in the counter/timestamp machinery.
+- **Allocation-free hot-path verification** — the documented per-record and
+  per-progress-tick members are asserted to allocate zero bytes per call.
+- **Long-running GC / allocation profiling** (`tools/GcProfileWorkload`) to catch
+  steady-state leaks and Gen2 growth over sustained runs.
+- **End-to-end SourceLink debug-step-into verification**, so consumers can step from
+  their code into this library's sources.
+- **Consumer-side reproducible-build verification** — releases publish a manifest of
+  each shipped assembly's SHA-256 so a third party can rebuild from the tag and
+  confirm byte-for-byte equality. See [`docs/REPRODUCIBLE-BUILD.md`](docs/REPRODUCIBLE-BUILD.md).
+
+### Fixed
+
+- De-flaked `SystemProgressTimerTests.StopTimer_prevents_further_callbacks`, which
+  could fail on a slow or loaded runner.
+
+### Security
+
+- **SLSA build-provenance attestation** is now generated for release artifacts, in
+  addition to the SBOM that already shipped. (Package signing remains outstanding —
+  tracked in #208.)
+
 ## [0.16.1] - 2026-07-21
 
 Patch release: maintenance, testing, and supply-chain hardening. **No API or
