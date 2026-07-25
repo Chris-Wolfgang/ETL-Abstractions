@@ -16,12 +16,24 @@ namespace Wolfgang.Etl.Abstractions;
 /// <see cref="IProgress{T}"/> observer directly to the extractor or loader before handing it to the
 /// pipeline.
 /// </remarks>
-/// <param name="RecordsExtracted">The number of records pulled from the source so far.</param>
-/// <param name="RecordsLoaded">The number of records delivered to the sink so far.</param>
+/// <param name="ExtractedItemCount">The number of records pulled from the source so far.</param>
+/// <param name="LoadedItemCount">The number of records delivered to the sink so far.</param>
 /// <param name="Elapsed">The wall-clock time elapsed since the run started.</param>
 public sealed record EtlPipelineProgress
 (
-    int RecordsExtracted,
-    int RecordsLoaded,
+    int ExtractedItemCount,
+    int LoadedItemCount,
     TimeSpan Elapsed
-);
+)
+{
+    /// <summary>
+    /// The number of records a source discarded via its error policy so far — an
+    /// <see cref="ExtractorBase{TSource, TProgress}"/> whose <c>OnItemError</c> returned
+    /// <see cref="ItemErrorAction.Skip"/> for a bad record — or <c>0</c> for a source that does not
+    /// report errors (for example a raw <see cref="System.Collections.Generic.IAsyncEnumerable{T}"/>).
+    /// Reported separately from <see cref="ExtractedItemCount"/>, which counts only the records that
+    /// successfully flowed into the pipeline, so a failed record is never silent. Distinct from
+    /// intentional skips (an extractor's <c>SkipItemCount</c> budget), which are not surfaced here.
+    /// </summary>
+    public int ErrorItemCount { get; init; }
+}

@@ -28,6 +28,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 {
     private int _currentItemCount;
     private int _currentSkippedItemCount;
+    private int _currentErrorItemCount;
     private long _startTimestamp;
     private DateTimeOffset _startedAtUtc;
     private bool _disposed;
@@ -113,6 +114,16 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// The current number of items skipped so far during transformation.
     /// </summary>
     public int CurrentSkippedItemCount => Volatile.Read(ref _currentSkippedItemCount);
+
+
+
+    /// <summary>
+    /// The number of items that raised an error and were discarded by the stage's error policy
+    /// (<see cref="OnItemError"/> returned <see cref="ItemErrorAction.Skip"/>) so far. This is distinct
+    /// from <see cref="CurrentSkippedItemCount"/>, which counts items skipped intentionally (for
+    /// example by <c>SkipItemCount</c>): a failed record is counted here, never silently dropped.
+    /// </summary>
+    public int CurrentErrorItemCount => Volatile.Read(ref _currentErrorItemCount);
 
 
 
@@ -342,6 +353,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     {
         Volatile.Write(ref _currentItemCount, 0);
         Volatile.Write(ref _currentSkippedItemCount, 0);
+        Volatile.Write(ref _currentErrorItemCount, 0);
         Volatile.Write(ref _startTimestamp, 0L);
     }
 
@@ -412,6 +424,65 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     {
         EnsureStarted();
         _ = Interlocked.Increment(ref _currentSkippedItemCount);
+    }
+
+
+
+    /// <summary>
+    /// Decides what to do when an item fails to process. Override in a derived stage to record the
+    /// failure and return <see cref="ItemErrorAction.Skip"/> to discard the item and continue, or
+    /// <see cref="ItemErrorAction.Abort"/> to re-throw and stop the run. The base implementation
+    /// always returns <see cref="ItemErrorAction.Abort"/>, so a stage that does not opt in keeps its
+    /// fail-fast behaviour.
+    /// </summary>
+    /// <param name="context">
+    /// Describes the failed item — its ordinal, the exception, and optional raw content.
+    /// </param>
+    /// <returns>Whether to skip the item or abort the run.</returns>
+    /// <remarks>
+    /// This is the policy hook a derived stage overrides; a worker does not call it directly. A worker
+    /// calls <see cref="HandleItemError"/>, which invokes this method and performs the skip
+    /// bookkeeping. The base classes deliberately expose no public error-handling property: a base
+    /// class cannot catch a per-item failure on the worker's behalf — a C# async iterator cannot
+    /// resume after it throws — so the worker owns the <c>try</c>/<c>catch</c>, and only a format that
+    /// can genuinely resume after a bad record overrides this and surfaces its own public knob.
+    /// </remarks>
+    protected virtual ItemErrorAction OnItemError(ItemErrorContext context)
+    // Stryker disable once all: equivalent — Abort is the enum's default (0), so removing the body
+    // (which makes it return default) yields the identical value; no test can distinguish them.
+    {
+        return ItemErrorAction.Abort;
+    }
+
+
+
+    /// <summary>
+    /// Applies the stage's error policy to a failed item: invokes <see cref="OnItemError"/> and, when
+    /// it returns <see cref="ItemErrorAction.Skip"/>, increments the error-item count so the failure is
+    /// never silent. Call this from a worker's <c>catch</c> block and re-throw when it returns
+    /// <see cref="ItemErrorAction.Abort"/>.
+    /// </summary>
+    /// <param name="context">Describes the failed item.</param>
+    /// <returns>
+    /// <see cref="ItemErrorAction.Skip"/> to discard the item and continue, or
+    /// <see cref="ItemErrorAction.Abort"/> to re-throw.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref name="context"/> is <see langword="null"/>.</exception>
+    protected ItemErrorAction HandleItemError(ItemErrorContext context)
+    {
+        if (context is null)
+        {
+            throw new ArgumentNullException(nameof(context));
+        }
+
+        var action = OnItemError(context);
+        if (action == ItemErrorAction.Skip)
+        {
+            EnsureStarted();
+            _ = Interlocked.Increment(ref _currentErrorItemCount);
+        }
+
+        return action;
     }
 
 

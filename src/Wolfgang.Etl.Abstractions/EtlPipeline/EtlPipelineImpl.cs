@@ -122,7 +122,7 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
         await foreach (var item in source.WithCancellation(token).ConfigureAwait(false))
         {
             token.ThrowIfCancellationRequested();
-            state.RecordsExtracted++;
+            state.ExtractedItemCount++;
             yield return item;
         }
     }

@@ -50,8 +50,8 @@ public class EtlPipelineFuzzTests
 
                 Assert.Equal(items, loader.Loaded);
                 Assert.NotNull(last);
-                Assert.Equal(items.Length, last!.RecordsExtracted);
-                Assert.Equal(items.Length, last.RecordsLoaded);
+                Assert.Equal(items.Length, last!.ExtractedItemCount);
+                Assert.Equal(items.Length, last.LoadedItemCount);
             },
             iter: Iterations);
     }

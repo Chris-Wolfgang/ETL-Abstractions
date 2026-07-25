@@ -59,7 +59,7 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
             // check cannot change observable cancellation behaviour. The head guard itself IS tested
             // directly — see EtlPipelineTests.AsAsyncEnumerable_honours_cancellation_at_the_head.
             token.ThrowIfCancellationRequested();
-            state.RecordsLoaded++;
+            state.LoadedItemCount++;
             progress?.Report(state.Snapshot());
             yield return item;
         }
