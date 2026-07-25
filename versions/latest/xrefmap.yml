@@ -64,32 +64,45 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed
   nameWithType: EtlPipelineProgress.Elapsed
-- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
-  name: RecordsExtracted
-  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_RecordsExtracted
-  commentId: P:Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
-  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
-  nameWithType: EtlPipelineProgress.RecordsExtracted
-- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted*
-  name: RecordsExtracted
-  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_RecordsExtracted_
-  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount
+  name: ErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_ErrorItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount
+  nameWithType: EtlPipelineProgress.ErrorItemCount
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount*
+  name: ErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_ErrorItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount
   isSpec: "True"
-  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsExtracted
-  nameWithType: EtlPipelineProgress.RecordsExtracted
-- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
-  name: RecordsLoaded
-  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_RecordsLoaded
-  commentId: P:Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
-  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
-  nameWithType: EtlPipelineProgress.RecordsLoaded
-- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded*
-  name: RecordsLoaded
-  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_RecordsLoaded_
-  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount
+  nameWithType: EtlPipelineProgress.ErrorItemCount
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.ExtractedItemCount
+  name: ExtractedItemCount
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_ExtractedItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.EtlPipelineProgress.ExtractedItemCount
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.ExtractedItemCount
+  nameWithType: EtlPipelineProgress.ExtractedItemCount
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.ExtractedItemCount*
+  name: ExtractedItemCount
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_ExtractedItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineProgress.ExtractedItemCount
   isSpec: "True"
-  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.RecordsLoaded
-  nameWithType: EtlPipelineProgress.RecordsLoaded
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.ExtractedItemCount
+  nameWithType: EtlPipelineProgress.ExtractedItemCount
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount
+  name: LoadedItemCount
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_LoadedItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount
+  nameWithType: EtlPipelineProgress.LoadedItemCount
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount*
+  name: LoadedItemCount
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_LoadedItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount
+  nameWithType: EtlPipelineProgress.LoadedItemCount
 - uid: Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
   name: EtlPipelineSinkExtensions
   href: api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.html
@@ -187,6 +200,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).CreateProgressTimer
   nameWithType: ExtractorBase<TSource, TProgress>.CreateProgressTimer
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).CreateProgressTimer
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.CurrentErrorItemCount
+  name: CurrentErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentErrorItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.ExtractorBase`2.CurrentErrorItemCount
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentErrorItemCount
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).CurrentErrorItemCount
+  nameWithType: ExtractorBase<TSource, TProgress>.CurrentErrorItemCount
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).CurrentErrorItemCount
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.CurrentErrorItemCount*
+  name: CurrentErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentErrorItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.CurrentErrorItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentErrorItemCount
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).CurrentErrorItemCount
+  nameWithType: ExtractorBase<TSource, TProgress>.CurrentErrorItemCount
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).CurrentErrorItemCount
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.CurrentItemCount
   name: CurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentItemCount
@@ -341,6 +371,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).ExtractWorkerAsync
   nameWithType: ExtractorBase<TSource, TProgress>.ExtractWorkerAsync
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).ExtractWorkerAsync
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  name: HandleItemError(ItemErrorContext)
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  nameWithType: ExtractorBase<TSource, TProgress>.HandleItemError(ItemErrorContext)
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).HandleItemError(ItemErrorContext)
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.HandleItemError*
+  name: HandleItemError
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_HandleItemError_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.HandleItemError
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.HandleItemError
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).HandleItemError
+  nameWithType: ExtractorBase<TSource, TProgress>.HandleItemError
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).HandleItemError
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.IncrementCurrentItemCount
   name: IncrementCurrentItemCount()
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentItemCount
@@ -392,6 +439,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).MaximumItemCount
   nameWithType: ExtractorBase<TSource, TProgress>.MaximumItemCount
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).MaximumItemCount
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  name: OnItemError(ItemErrorContext)
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  nameWithType: ExtractorBase<TSource, TProgress>.OnItemError(ItemErrorContext)
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).OnItemError(ItemErrorContext)
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.OnItemError*
+  name: OnItemError
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_OnItemError_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.OnItemError
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.OnItemError
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).OnItemError
+  nameWithType: ExtractorBase<TSource, TProgress>.OnItemError
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).OnItemError
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.ReportingInterval
   name: ReportingInterval
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ReportingInterval
@@ -1282,6 +1346,88 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ITransformWithProgressAsync(Of TSource, TDestination, TProgress).TransformAsync
   nameWithType: ITransformWithProgressAsync<TSource, TDestination, TProgress>.TransformAsync
   nameWithType.vb: ITransformWithProgressAsync(Of TSource, TDestination, TProgress).TransformAsync
+- uid: Wolfgang.Etl.Abstractions.ItemErrorAction
+  name: ItemErrorAction
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorAction.html
+  commentId: T:Wolfgang.Etl.Abstractions.ItemErrorAction
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorAction
+  nameWithType: ItemErrorAction
+- uid: Wolfgang.Etl.Abstractions.ItemErrorAction.Abort
+  name: Abort
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Abort
+  commentId: F:Wolfgang.Etl.Abstractions.ItemErrorAction.Abort
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorAction.Abort
+  nameWithType: ItemErrorAction.Abort
+- uid: Wolfgang.Etl.Abstractions.ItemErrorAction.Skip
+  name: Skip
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip
+  commentId: F:Wolfgang.Etl.Abstractions.ItemErrorAction.Skip
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorAction.Skip
+  nameWithType: ItemErrorAction.Skip
+- uid: Wolfgang.Etl.Abstractions.ItemErrorContext
+  name: ItemErrorContext
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorContext.html
+  commentId: T:Wolfgang.Etl.Abstractions.ItemErrorContext
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorContext
+  nameWithType: ItemErrorContext
+- uid: Wolfgang.Etl.Abstractions.ItemErrorContext.#ctor(System.Int64,System.Exception,System.Func{System.String})
+  name: ItemErrorContext(long, Exception, Func<string?>?)
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorContext.html#Wolfgang_Etl_Abstractions_ItemErrorContext__ctor_System_Int64_System_Exception_System_Func_System_String__
+  commentId: M:Wolfgang.Etl.Abstractions.ItemErrorContext.#ctor(System.Int64,System.Exception,System.Func{System.String})
+  name.vb: New(Long, Exception, Func(Of String))
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorContext.ItemErrorContext(long, System.Exception, System.Func<string?>?)
+  fullName.vb: Wolfgang.Etl.Abstractions.ItemErrorContext.New(Long, System.Exception, System.Func(Of String))
+  nameWithType: ItemErrorContext.ItemErrorContext(long, Exception, Func<string?>?)
+  nameWithType.vb: ItemErrorContext.New(Long, Exception, Func(Of String))
+- uid: Wolfgang.Etl.Abstractions.ItemErrorContext.#ctor*
+  name: ItemErrorContext
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorContext.html#Wolfgang_Etl_Abstractions_ItemErrorContext__ctor_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ItemErrorContext.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorContext.ItemErrorContext
+  fullName.vb: Wolfgang.Etl.Abstractions.ItemErrorContext.New
+  nameWithType: ItemErrorContext.ItemErrorContext
+  nameWithType.vb: ItemErrorContext.New
+- uid: Wolfgang.Etl.Abstractions.ItemErrorContext.Exception
+  name: Exception
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorContext.html#Wolfgang_Etl_Abstractions_ItemErrorContext_Exception
+  commentId: P:Wolfgang.Etl.Abstractions.ItemErrorContext.Exception
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorContext.Exception
+  nameWithType: ItemErrorContext.Exception
+- uid: Wolfgang.Etl.Abstractions.ItemErrorContext.Exception*
+  name: Exception
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorContext.html#Wolfgang_Etl_Abstractions_ItemErrorContext_Exception_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ItemErrorContext.Exception
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorContext.Exception
+  nameWithType: ItemErrorContext.Exception
+- uid: Wolfgang.Etl.Abstractions.ItemErrorContext.ItemNumber
+  name: ItemNumber
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorContext.html#Wolfgang_Etl_Abstractions_ItemErrorContext_ItemNumber
+  commentId: P:Wolfgang.Etl.Abstractions.ItemErrorContext.ItemNumber
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorContext.ItemNumber
+  nameWithType: ItemErrorContext.ItemNumber
+- uid: Wolfgang.Etl.Abstractions.ItemErrorContext.ItemNumber*
+  name: ItemNumber
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorContext.html#Wolfgang_Etl_Abstractions_ItemErrorContext_ItemNumber_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ItemErrorContext.ItemNumber
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorContext.ItemNumber
+  nameWithType: ItemErrorContext.ItemNumber
+- uid: Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent
+  name: RawContent
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorContext.html#Wolfgang_Etl_Abstractions_ItemErrorContext_RawContent
+  commentId: P:Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent
+  nameWithType: ItemErrorContext.RawContent
+- uid: Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent*
+  name: RawContent
+  href: api/Wolfgang.Etl.Abstractions.ItemErrorContext.html#Wolfgang_Etl_Abstractions_ItemErrorContext_RawContent_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent
+  nameWithType: ItemErrorContext.RawContent
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2
   name: LoaderBase<TDestination, TProgress>
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html
@@ -1326,6 +1472,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).CreateProgressTimer
   nameWithType: LoaderBase<TDestination, TProgress>.CreateProgressTimer
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).CreateProgressTimer
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.CurrentErrorItemCount
+  name: CurrentErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_CurrentErrorItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.LoaderBase`2.CurrentErrorItemCount
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentErrorItemCount
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).CurrentErrorItemCount
+  nameWithType: LoaderBase<TDestination, TProgress>.CurrentErrorItemCount
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).CurrentErrorItemCount
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.CurrentErrorItemCount*
+  name: CurrentErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_CurrentErrorItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.CurrentErrorItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentErrorItemCount
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).CurrentErrorItemCount
+  nameWithType: LoaderBase<TDestination, TProgress>.CurrentErrorItemCount
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).CurrentErrorItemCount
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.CurrentItemCount
   name: CurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_CurrentItemCount
@@ -1420,6 +1583,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).Elapsed
   nameWithType: LoaderBase<TDestination, TProgress>.Elapsed
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).Elapsed
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  name: HandleItemError(ItemErrorContext)
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  nameWithType: LoaderBase<TDestination, TProgress>.HandleItemError(ItemErrorContext)
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).HandleItemError(ItemErrorContext)
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.HandleItemError*
+  name: HandleItemError
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_HandleItemError_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.HandleItemError
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.HandleItemError
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).HandleItemError
+  nameWithType: LoaderBase<TDestination, TProgress>.HandleItemError
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).HandleItemError
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentItemCount
   name: IncrementCurrentItemCount()
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount
@@ -1534,6 +1714,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).MaximumItemCount
   nameWithType: LoaderBase<TDestination, TProgress>.MaximumItemCount
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).MaximumItemCount
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  name: OnItemError(ItemErrorContext)
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  nameWithType: LoaderBase<TDestination, TProgress>.OnItemError(ItemErrorContext)
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).OnItemError(ItemErrorContext)
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.OnItemError*
+  name: OnItemError
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_OnItemError_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.OnItemError
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.OnItemError
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).OnItemError
+  nameWithType: LoaderBase<TDestination, TProgress>.OnItemError
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).OnItemError
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.ReportingInterval
   name: ReportingInterval
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_ReportingInterval
@@ -1794,6 +1991,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).CreateProgressTimer
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.CreateProgressTimer
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).CreateProgressTimer
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.CurrentErrorItemCount
+  name: CurrentErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentErrorItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.TransformerBase`3.CurrentErrorItemCount
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CurrentErrorItemCount
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).CurrentErrorItemCount
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.CurrentErrorItemCount
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).CurrentErrorItemCount
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.CurrentErrorItemCount*
+  name: CurrentErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentErrorItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.CurrentErrorItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CurrentErrorItemCount
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).CurrentErrorItemCount
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.CurrentErrorItemCount
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).CurrentErrorItemCount
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.CurrentItemCount
   name: CurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentItemCount
@@ -1888,6 +2102,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).Elapsed
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.Elapsed
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).Elapsed
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  name: HandleItemError(ItemErrorContext)
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.HandleItemError(ItemErrorContext)
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).HandleItemError(ItemErrorContext)
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.HandleItemError*
+  name: HandleItemError
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_HandleItemError_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.HandleItemError
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.HandleItemError
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).HandleItemError
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.HandleItemError
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).HandleItemError
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentItemCount
   name: IncrementCurrentItemCount()
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentItemCount
@@ -1939,6 +2170,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).MaximumItemCount
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).MaximumItemCount
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  name: OnItemError(ItemErrorContext)
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.OnItemError(ItemErrorContext)
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).OnItemError(ItemErrorContext)
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.OnItemError*
+  name: OnItemError
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_OnItemError_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.OnItemError
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.OnItemError
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).OnItemError
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.OnItemError
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).OnItemError
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.ReportingInterval
   name: ReportingInterval
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_ReportingInterval

@@ -118,6 +118,13 @@ ExtractWorkerAsync and CreateProgressReport methods.</p>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a></dt>
+      <dd><p>Describes a single item that failed to process. It is passed to a stage's <code>OnItemError</code>
+policy so the policy can record the failure (a &quot;dead letter&quot;) and decide whether to
+<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip">Skip</a> the item or <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Abort">Abort</a> the run.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a></dt>
       <dd><p>Provides a basic implementation for data loaders that write data of type TDestination to a target destination.
 Library authors can use this base class to create custom loaders by inheriting from it and implementing
@@ -301,6 +308,15 @@ ETL (Extract, Transform, Load) process.</p>
       <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
 A class implementing this interface is intended to be the second step in an
 ETL (Extract, Transform, Load) process.</p>
+</dd>
+    </dl>
+    <h3 id="enums">
+Enums
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a></dt>
+      <dd><p>The action a stage takes for an item that failed to process — returned by a stage's
+<code>OnItemError</code> policy and applied by the worker that called <code>HandleItemError</code>.</p>
 </dd>
     </dl>
 

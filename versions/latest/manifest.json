@@ -400,6 +400,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ItemErrorAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ItemErrorAction.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ItemErrorAction",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ItemErrorAction.yml\" sourcestartlinenumber=\"1\">The action a stage takes for an item that failed to process — returned by a stage's\n<code>OnItemError</code> policy and applied by the worker that called <code>HandleItemError</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ItemErrorContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ItemErrorContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ItemErrorContext",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ItemErrorContext.yml\" sourcestartlinenumber=\"1\">Describes a single item that failed to process. It is passed to a stage's <code>OnItemError</code>\npolicy so the policy can record the failure (a &quot;dead letter&quot;) and decide whether to\n<xref href=\"Wolfgang.Etl.Abstractions.ItemErrorAction.Skip\" data-throw-if-not-resolved=\"false\"></xref> the item or <xref href=\"Wolfgang.Etl.Abstractions.ItemErrorAction.Abort\" data-throw-if-not-resolved=\"false\"></xref> the run.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.LoaderBase-2.yml",
       "output": {
         ".html": {
