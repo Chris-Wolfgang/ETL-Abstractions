@@ -77,6 +77,13 @@ public record Report
     /// The wall-clock time (UTC) at which processing started, or <c>null</c> if it
     /// has not started yet (no items processed) or the producer does not track it.
     /// </summary>
+    /// <remarks>
+    /// When constructing a report from a <em>different</em> assembly, set this through the timing
+    /// constructor (<c>Report(int, DateTimeOffset?, TimeSpan, int?)</c>) rather than the
+    /// object-initializer (<see langword="init"/>) form: an <c>init</c> setter is not safe across a
+    /// <c>netstandard2.0</c> / <c>net5.0+</c> assembly boundary (a <c>MissingMethodException</c> on
+    /// .NET 6/7). Same-assembly or matched-framework use is unaffected.
+    /// </remarks>
     public DateTimeOffset? StartedAt { get; init; }
 
 
@@ -86,6 +93,11 @@ public record Report
     /// moment this report was constructed. <see cref="TimeSpan.Zero"/> when timing is
     /// not tracked or processing has not started.
     /// </summary>
+    /// <remarks>
+    /// When constructing a report from a <em>different</em> assembly, set this through the timing
+    /// constructor (<c>Report(int, DateTimeOffset?, TimeSpan, int?)</c>) rather than the
+    /// object-initializer (<see langword="init"/>) form — see <see cref="StartedAt"/>.
+    /// </remarks>
     public TimeSpan Elapsed { get; init; }
 
 
@@ -95,6 +107,11 @@ public record Report
     /// file line count or a SQL <c>COUNT(*)</c>). <c>null</c> for unknown-size or
     /// infinite sources. Must be greater than or equal to 0 when set.
     /// </summary>
+    /// <remarks>
+    /// When constructing a report from a <em>different</em> assembly, set this through the timing
+    /// constructor (<c>Report(int, DateTimeOffset?, TimeSpan, int?)</c>) rather than the
+    /// object-initializer (<see langword="init"/>) form — see <see cref="StartedAt"/>.
+    /// </remarks>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     public int? TotalItemCount
     {

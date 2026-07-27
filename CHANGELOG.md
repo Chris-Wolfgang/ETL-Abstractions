@@ -28,6 +28,12 @@ Patch release. Purely additive — no breaking change.
 - `Report(int currentItemCount, DateTimeOffset? startedAt, TimeSpan elapsed, int? totalItemCount = null)`
   constructor, a cross-assembly-safe way to build a `Report` with its timing/total snapshot values.
 
+### Changed
+
+- The `Report.StartedAt` / `Elapsed` / `TotalItemCount` documentation now steers cross-assembly
+  callers to the new constructor instead of the object-initializer (`init`) form, and the AOT
+  smoke test builds its report through the constructor.
+
 ### Fixed
 
 - A `netstandard2.0`-compiled consumer that set `Report`'s `StartedAt` / `Elapsed` /
