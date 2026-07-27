@@ -297,10 +297,18 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <returns>A started <see cref="IProgressTimer"/> instance.</returns>
     protected virtual IProgressTimer CreateProgressTimer(IProgress<TProgress> progress)
     {
-        var timer = new SystemProgressTimer(ReportProgress, progress);
+        var timer = TimerCoreFactory is null
+            ? new SystemProgressTimer(ReportProgress, progress)
+            : new SystemProgressTimer(ReportProgress, progress, TimerCoreFactory);
         timer.Start(ReportingInterval);
         return timer;
     }
+
+
+    // Test seam: when set, CreateProgressTimer builds its SystemProgressTimer over this timer core
+    // (a deterministic fake) instead of a real System.Threading.Timer.
+    internal Func<System.Threading.TimerCallback, ITimerCore>? TimerCoreFactory;
+
 
 
 
