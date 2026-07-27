@@ -19,6 +19,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.18.1] - 2026-07-27
+
+Patch release. Purely additive — no breaking change.
+
+### Added
+
+- `Report(int currentItemCount, DateTimeOffset? startedAt, TimeSpan elapsed, int? totalItemCount = null)`
+  constructor, a cross-assembly-safe way to build a `Report` with its timing/total snapshot values.
+
+### Fixed
+
+- A `netstandard2.0`-compiled consumer that set `Report`'s `StartedAt` / `Elapsed` /
+  `TotalItemCount` via the object-initializer (`init`) form and then ran on **.NET 6 or .NET 7**
+  (which resolve this package's modern assembly) hit a `MissingMethodException`: an `init`
+  setter carries an `IsExternalInit` modreq whose identity differs between the `netstandard2.0`
+  polyfill and the built-in `net5.0+` type, so the compiled call did not match the runtime
+  method. The new constructor takes the values as plain parameters — its signature is identical
+  on every target framework — so consumers can set them without tripping the mismatch. The
+  `init` setters are unchanged and remain safe within a single target framework.
+
 ## [0.18.0] - 2026-07-25
 
 Minor release: adds an **opt-in per-item error-handling mechanism** (#84) to the

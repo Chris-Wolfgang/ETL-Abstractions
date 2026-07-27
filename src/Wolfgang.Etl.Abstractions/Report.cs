@@ -41,6 +41,32 @@ public record Report
 
 
     /// <summary>
+    /// Constructs a new <see cref="Report"/> with the timing and total snapshot values set.
+    /// Prefer this over the object-initializer (<c>init</c>) form when constructing a report
+    /// from a <em>different</em> assembly: an <c>init</c>-only setter carries an
+    /// <c>IsExternalInit</c> modreq whose identity differs between this library's
+    /// <c>netstandard2.0</c> assembly and its <c>net5.0+</c> assemblies, so a
+    /// <c>netstandard2.0</c>-compiled caller running on .NET 6/7 (which resolves the modern
+    /// assembly) would fail with a <see cref="MissingMethodException"/>. This constructor takes
+    /// the values as plain parameters, so its signature is identical across every target
+    /// framework.
+    /// </summary>
+    /// <param name="currentItemCount">The number of items processed so far. Must be greater than or equal to 0.</param>
+    /// <param name="startedAt">The wall-clock time (UTC) at which processing started, or <see langword="null"/>.</param>
+    /// <param name="elapsed">The wall-clock time elapsed since processing started.</param>
+    /// <param name="totalItemCount">The total number of items expected, when known; otherwise <see langword="null"/>. Must be greater than or equal to 0 when set.</param>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="currentItemCount"/> is less than 0, or <paramref name="totalItemCount"/> is less than 0.</exception>
+    public Report(int currentItemCount, DateTimeOffset? startedAt, TimeSpan elapsed, int? totalItemCount = null)
+        : this(currentItemCount)
+    {
+        StartedAt = startedAt;
+        Elapsed = elapsed;
+        TotalItemCount = totalItemCount;
+    }
+
+
+
+    /// <summary>
     /// The number of items that have been processed so far in the ETL process.
     /// </summary>
     public int CurrentItemCount { get; }
