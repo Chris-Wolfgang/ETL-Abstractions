@@ -6,22 +6,18 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// The default <see cref="IProgressTimer"/> implementation that wraps
-/// <see cref="System.Threading.Timer"/> to drive progress callbacks on a
-/// background thread-pool thread at a regular interval.
+/// <see cref="System.Threading.Timer"/> (via <see cref="ITimerCore"/>) to drive progress callbacks on
+/// a background thread-pool thread at a regular interval.
 /// </summary>
 /// <remarks>
-/// This class is used internally by the ETL base classes. In production code
-/// it is created automatically by
-/// <c>ExtractorBase.CreateProgressTimer</c>,
-/// <c>TransformerBase.CreateProgressTimer</c>, and
-/// <c>LoaderBase.CreateProgressTimer</c>.
-/// In unit tests, override <c>CreateProgressTimer</c> to return a custom
-/// <see cref="IProgressTimer"/> implementation (for example, a manually
-/// controlled fake whose ticks the test fires on demand).
+/// This class is used internally by the ETL base classes. In production code it is created
+/// automatically by <c>ExtractorBase.CreateProgressTimer</c>, <c>TransformerBase.CreateProgressTimer</c>,
+/// and <c>LoaderBase.CreateProgressTimer</c>. In unit tests, inject a fake <see cref="ITimerCore"/> via
+/// the test constructor so the Start / StopTimer / Dispose contract can be verified deterministically.
 /// </remarks>
 internal sealed class SystemProgressTimer : IProgressTimer
 {
-    private readonly Timer _timer;
+    private readonly ITimerCore _timer;
     private bool _disposed;
 
 
@@ -32,25 +28,24 @@ internal sealed class SystemProgressTimer : IProgressTimer
 
 
     /// <summary>
-    /// Initialises a new <see cref="SystemProgressTimer"/> and immediately
-    /// wires the supplied <paramref name="callback"/> to fire on each tick.
+    /// Initialises a new <see cref="SystemProgressTimer"/> backed by a real
+    /// <see cref="System.Threading.Timer"/>, wiring <paramref name="callback"/> to fire on each tick.
     /// </summary>
-    internal SystemProgressTimer
-    (
-        TimerCallback callback,
-        object? state
-    )
+    internal SystemProgressTimer(TimerCallback callback, object? state)
+        : this(callback, state, onTick => new SystemTimerCore(onTick))
     {
-        // Timer is created stopped (Timeout.Infinite) — Start() arms it.
-#pragma warning disable MA0042 // Timer does not implement IAsyncDisposable
-        _timer = new Timer
-        (
-            _ => OnTick(callback, state),
-            state: null,
-            Timeout.Infinite,
-            Timeout.Infinite
-        );
-#pragma warning restore MA0042
+    }
+
+
+
+    /// <summary>
+    /// Test seam: initialises a new <see cref="SystemProgressTimer"/> whose underlying timer is produced
+    /// by <paramref name="coreFactory"/> (the factory receives the per-tick callback to invoke).
+    /// </summary>
+    internal SystemProgressTimer(TimerCallback callback, object? state, Func<TimerCallback, ITimerCore> coreFactory)
+    {
+        // The core is created stopped; Start() arms it.
+        _timer = coreFactory(_ => OnTick(callback, state));
     }
 
 
@@ -106,8 +101,31 @@ internal sealed class SystemProgressTimer : IProgressTimer
         }
         _disposed = true;
         Elapsed = null;
-#pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here
         _timer.Dispose();
+    }
+
+
+
+    /// <summary>The production <see cref="ITimerCore"/> — a thin wrapper over <see cref="Timer"/>.</summary>
+    private sealed class SystemTimerCore : ITimerCore
+    {
+        private readonly Timer _timer;
+
+        internal SystemTimerCore(TimerCallback onTick)
+        {
+#pragma warning disable MA0042 // Timer does not implement IAsyncDisposable
+            _timer = new Timer(onTick, state: null, Timeout.Infinite, Timeout.Infinite);
+#pragma warning restore MA0042
+        }
+
+        public void Change(int dueTime, int period) => _timer.Change(dueTime, period);
+
+        [ExcludeFromCodeCoverage] // thin BCL delegation
+        public void Dispose()
+        {
+#pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here
+            _timer.Dispose();
 #pragma warning restore CA1849, VSTHRD103
+        }
     }
 }
