@@ -3,12 +3,12 @@ Wolfgang.Etl.Abstractions.EtlPipeline
 Wolfgang.Etl.Abstractions.EtlPipelineProgress
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed.init -> void
-Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount.get -> int
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount.get -> long
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount.init -> void
-Wolfgang.Etl.Abstractions.EtlPipelineProgress.EtlPipelineProgress(int ExtractedItemCount, int LoadedItemCount, System.TimeSpan Elapsed) -> void
-Wolfgang.Etl.Abstractions.EtlPipelineProgress.ExtractedItemCount.get -> int
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.EtlPipelineProgress(long ExtractedItemCount, long LoadedItemCount, System.TimeSpan Elapsed) -> void
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.ExtractedItemCount.get -> long
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.ExtractedItemCount.init -> void
-Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount.get -> int
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount.get -> long
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount.init -> void
 Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
 Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions
