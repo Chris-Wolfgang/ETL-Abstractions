@@ -393,4 +393,19 @@ public class EtlPipelineCoreTests
         // ToString surfaces the members.
         Assert.Contains("ExtractedItemCount", a.ToString());
     }
+
+
+    [Fact]
+    public void EtlPipelineProgress_counters_hold_values_beyond_int_MaxValue()
+    {
+        // #285: the counters are long so a long-running pipeline can report more than
+        // int.MaxValue (~2.1B) records without overflow.
+        var big = (long)int.MaxValue + 1;
+
+        var p = new EtlPipelineProgress(big, big, TimeSpan.Zero) { ErrorItemCount = big };
+
+        Assert.Equal(big, p.ExtractedItemCount);
+        Assert.Equal(big, p.LoadedItemCount);
+        Assert.Equal(big, p.ErrorItemCount);
+    }
 }

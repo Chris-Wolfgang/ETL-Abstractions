@@ -14,9 +14,9 @@ internal sealed class EtlRunState
 {
     private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
 
-    public int ExtractedItemCount;
+    public long ExtractedItemCount;
 
-    public int LoadedItemCount;
+    public long LoadedItemCount;
 
     // Optional reader that surfaces an error-reporting source's error-item count into the snapshot.
     // Left null for sources that don't report errors (e.g. a raw IAsyncEnumerable), which reads as 0.
