@@ -19,6 +19,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
 public abstract class ExtractorBase<TSource, TProgress>
     : IExtractWithProgressAndCancellationAsync<TSource, TProgress>,
+      IReportsItemErrors,
       IAsyncDisposable,
       IDisposable
     where TSource : notnull

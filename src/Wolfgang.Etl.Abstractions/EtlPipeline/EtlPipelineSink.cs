@@ -35,6 +35,11 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
     public async Task RunAsync(IProgress<EtlPipelineProgress>? progress = null, CancellationToken token = default)
     {
         var state = new EtlRunState();
+
+        // Surface the loader's error-item count into the snapshot too, summed with the source and any
+        // transformer error counts so the pipeline total reflects every stage, not just the source.
+        state.AddErrorCountReader(() => _loader.CurrentErrorItemCount);
+
         var stream = CountLoaded(_factory(state, token), state, progress, token);
 
         await _loader.LoadAsync(stream, token).ConfigureAwait(false);

@@ -56,7 +56,8 @@ public static class EtlPipelineSourceExtensions
         {
             // Surface the extractor's error-item count into the pipeline snapshot so a bad record
             // the extractor's error policy discarded is reported, not silently absent from the totals.
-            state.ErrorCountReader = () => extractor.CurrentErrorItemCount;
+            // Summed with any transformer/loader error counts (see EtlRunState.AddErrorCountReader).
+            state.AddErrorCountReader(() => extractor.CurrentErrorItemCount);
             return extractor.ExtractAsync(token);
         });
     }

@@ -20,6 +20,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
 public abstract class TransformerBase<TSource, TDestination, TProgress>
     : ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>,
+      IReportsItemErrors,
       IAsyncDisposable,
       IDisposable
     where TSource : notnull
