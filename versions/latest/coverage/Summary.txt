@@ -1,23 +1,23 @@
 Summary
-  Generated on: 7/25/2026 - 1:35:40 PM
-  Coverage date: 7/25/2026 - 1:35:35 PM - 7/25/2026 - 1:35:36 PM
+  Generated on: 7/28/2026 - 12:26:39 AM
+  Coverage date: 7/28/2026 - 12:26:34 AM - 7/28/2026 - 12:26:35 AM
   Parser: MultiReport (2x Cobertura)
   Assemblies: 1
   Classes: 21
   Files: 21
   Line coverage: 99.8%
-  Covered lines: 739
+  Covered lines: 744
   Uncovered lines: 1
-  Coverable lines: 740
-  Total lines: 3654
+  Coverable lines: 745
+  Total lines: 3697
   Branch coverage: 94.1% (211 of 224)
   Covered branches: 211
   Total branches: 224
-  Method coverage: 100% (191 of 191)
-  Full method coverage: 99.4% (190 of 191)
-  Covered methods: 191
-  Fully covered methods: 190
-  Total methods: 191
+  Method coverage: 100% (192 of 192)
+  Full method coverage: 99.4% (191 of 192)
+  Covered methods: 192
+  Fully covered methods: 191
+  Total methods: 192
 
 Wolfgang.Etl.Abstractions                                            99.8%
   Wolfgang.Etl.Abstractions.EtlPipeline                               100%

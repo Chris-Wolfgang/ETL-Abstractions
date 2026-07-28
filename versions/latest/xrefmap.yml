@@ -1846,6 +1846,15 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.Report.New(Integer)
   nameWithType: Report.Report(int)
   nameWithType.vb: Report.New(Integer)
+- uid: Wolfgang.Etl.Abstractions.Report.#ctor(System.Int32,System.Nullable{System.DateTimeOffset},System.TimeSpan,System.Nullable{System.Int32})
+  name: Report(int, DateTimeOffset?, TimeSpan, int?)
+  href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report__ctor_System_Int32_System_Nullable_System_DateTimeOffset__System_TimeSpan_System_Nullable_System_Int32__
+  commentId: M:Wolfgang.Etl.Abstractions.Report.#ctor(System.Int32,System.Nullable{System.DateTimeOffset},System.TimeSpan,System.Nullable{System.Int32})
+  name.vb: New(Integer, DateTimeOffset?, TimeSpan, Integer?)
+  fullName: Wolfgang.Etl.Abstractions.Report.Report(int, System.DateTimeOffset?, System.TimeSpan, int?)
+  fullName.vb: Wolfgang.Etl.Abstractions.Report.New(Integer, System.DateTimeOffset?, System.TimeSpan, Integer?)
+  nameWithType: Report.Report(int, DateTimeOffset?, TimeSpan, int?)
+  nameWithType.vb: Report.New(Integer, DateTimeOffset?, TimeSpan, Integer?)
 - uid: Wolfgang.Etl.Abstractions.Report.#ctor*
   name: Report
   href: api/Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report__ctor_
