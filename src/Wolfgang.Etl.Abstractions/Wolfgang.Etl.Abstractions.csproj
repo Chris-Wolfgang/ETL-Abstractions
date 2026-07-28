@@ -38,6 +38,8 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="Wolfgang.Etl.Abstractions.Tests.Unit" />
+    <!-- #338: lets ETL-Test-Kit doubles inject a fake ITimeSource for deterministic Report timing. -->
+    <InternalsVisibleTo Include="Wolfgang.Etl.TestKit" />
   </ItemGroup>
 
   <ItemGroup>
