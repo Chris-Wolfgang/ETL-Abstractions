@@ -3,3 +3,20 @@ virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WrapWorkerEx
 virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task!>! workerFactory, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TDestination>!>! workerFactory, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 Wolfgang.Etl.Abstractions.Report.Report(int currentItemCount, System.DateTimeOffset? startedAt, System.TimeSpan elapsed, int? totalItemCount = null) -> void
+Wolfgang.Etl.Abstractions.IItemMiddleware<T>
+Wolfgang.Etl.Abstractions.IItemMiddleware<T>.OnItemAsync(T item, System.Threading.CancellationToken token) -> System.Threading.Tasks.ValueTask<Wolfgang.Etl.Abstractions.MiddlewareResult<T>>
+Wolfgang.Etl.Abstractions.MiddlewareResult
+static Wolfgang.Etl.Abstractions.MiddlewareResult.Continue<T>(T item) -> Wolfgang.Etl.Abstractions.MiddlewareResult<T>
+static Wolfgang.Etl.Abstractions.MiddlewareResult.Drop<T>() -> Wolfgang.Etl.Abstractions.MiddlewareResult<T>
+Wolfgang.Etl.Abstractions.MiddlewareResult<T>
+Wolfgang.Etl.Abstractions.MiddlewareResult<T>.MiddlewareResult() -> void
+Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Item.get -> T
+Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Skip.get -> bool
+Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Equals(Wolfgang.Etl.Abstractions.MiddlewareResult<T> other) -> bool
+override Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Equals(object? obj) -> bool
+override Wolfgang.Etl.Abstractions.MiddlewareResult<T>.GetHashCode() -> int
+static Wolfgang.Etl.Abstractions.MiddlewareResult<T>.operator ==(Wolfgang.Etl.Abstractions.MiddlewareResult<T> left, Wolfgang.Etl.Abstractions.MiddlewareResult<T> right) -> bool
+static Wolfgang.Etl.Abstractions.MiddlewareResult<T>.operator !=(Wolfgang.Etl.Abstractions.MiddlewareResult<T> left, Wolfgang.Etl.Abstractions.MiddlewareResult<T> right) -> bool
+Wolfgang.Etl.Abstractions.MiddlewareExtensions
+static Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware<T>(this System.Collections.Generic.IAsyncEnumerable<T>! source, Wolfgang.Etl.Abstractions.IItemMiddleware<T>! middleware, System.Threading.CancellationToken token = default(System.Threading.CancellationToken)) -> System.Collections.Generic.IAsyncEnumerable<T>!
+static Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware<T>(this System.Collections.Generic.IAsyncEnumerable<T>! source, System.Collections.Generic.IEnumerable<Wolfgang.Etl.Abstractions.IItemMiddleware<T>!>! middlewares, System.Threading.CancellationToken token = default(System.Threading.CancellationToken)) -> System.Collections.Generic.IAsyncEnumerable<T>!
