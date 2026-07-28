@@ -1,2 +1,5 @@
 #nullable enable
+virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TSource>!>! workerFactory, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TSource>!
+virtual Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task!>! workerFactory, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
+virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TDestination>!>! workerFactory, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
 Wolfgang.Etl.Abstractions.Report.Report(int currentItemCount, System.DateTimeOffset? startedAt, System.TimeSpan elapsed, int? totalItemCount = null) -> void
