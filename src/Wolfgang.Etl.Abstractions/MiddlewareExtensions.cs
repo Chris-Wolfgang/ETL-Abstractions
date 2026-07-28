@@ -25,13 +25,15 @@ public static class MiddlewareExtensions
     /// <param name="token">A <see cref="CancellationToken"/> to observe.</param>
     /// <returns>The decorated stream.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="middleware"/> is <see langword="null"/>.</exception>
-    public static async IAsyncEnumerable<T> WithMiddleware<T>
+    public static IAsyncEnumerable<T> WithMiddleware<T>
     (
         this IAsyncEnumerable<T> source,
         IItemMiddleware<T> middleware,
-        [EnumeratorCancellation] CancellationToken token = default
+        CancellationToken token = default
     )
     {
+        // Validate eagerly (at the call site), then delegate to the iterator, so a null argument fails
+        // fast rather than only when the returned stream is first enumerated.
         if (source is null)
         {
             throw new ArgumentNullException(nameof(source));
@@ -42,13 +44,23 @@ public static class MiddlewareExtensions
             throw new ArgumentNullException(nameof(middleware));
         }
 
-        await foreach (var item in source.WithCancellation(token))
+        return Iterate(source, middleware, token);
+
+
+        static async IAsyncEnumerable<T> Iterate(
+            IAsyncEnumerable<T> source,
+            IItemMiddleware<T> middleware,
+            [EnumeratorCancellation] CancellationToken token)
         {
             // Stryker disable once Boolean: equivalent — with no synchronization context in play, ConfigureAwait(false) and (true) are indistinguishable.
-            var result = await middleware.OnItemAsync(item, token).ConfigureAwait(false);
-            if (!result.Skip)
+            await foreach (var item in source.WithCancellation(token).ConfigureAwait(false))
             {
-                yield return result.Item;
+                // Stryker disable once Boolean: equivalent — with no synchronization context in play, ConfigureAwait(false) and (true) are indistinguishable.
+                var result = await middleware.OnItemAsync(item, token).ConfigureAwait(false);
+                if (!result.Skip)
+                {
+                    yield return result.Item;
+                }
             }
         }
     }
@@ -67,13 +79,16 @@ public static class MiddlewareExtensions
     /// <param name="token">A <see cref="CancellationToken"/> to observe.</param>
     /// <returns>The decorated stream.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="middlewares"/> is <see langword="null"/>, or a member of <paramref name="middlewares"/> is <see langword="null"/>.</exception>
-    public static async IAsyncEnumerable<T> WithMiddleware<T>
+    public static IAsyncEnumerable<T> WithMiddleware<T>
     (
         this IAsyncEnumerable<T> source,
         IEnumerable<IItemMiddleware<T>> middlewares,
-        [EnumeratorCancellation] CancellationToken token = default
+        CancellationToken token = default
     )
     {
+        // Validate — and snapshot the chain — eagerly at the call site, so a null argument (or null
+        // member) fails fast rather than only when the returned stream is first enumerated. The
+        // snapshot also fixes the ordered set that runs for every item.
         if (source is null)
         {
             throw new ArgumentNullException(nameof(source));
@@ -84,7 +99,6 @@ public static class MiddlewareExtensions
             throw new ArgumentNullException(nameof(middlewares));
         }
 
-        // Snapshot the chain once so the same ordered set runs for every item.
         var chain = new List<IItemMiddleware<T>>(middlewares);
         foreach (var middleware in chain)
         {
@@ -95,27 +109,37 @@ public static class MiddlewareExtensions
             }
         }
 
-        await foreach (var item in source.WithCancellation(token))
-        {
-            var current = item;
-            var dropped = false;
+        return Iterate(source, chain, token);
 
-            foreach (var middleware in chain)
+
+        static async IAsyncEnumerable<T> Iterate(
+            IAsyncEnumerable<T> source,
+            List<IItemMiddleware<T>> chain,
+            [EnumeratorCancellation] CancellationToken token)
+        {
+            // Stryker disable once Boolean: equivalent — with no synchronization context in play, ConfigureAwait(false) and (true) are indistinguishable.
+            await foreach (var item in source.WithCancellation(token).ConfigureAwait(false))
             {
-                // Stryker disable once Boolean: equivalent — with no synchronization context in play, ConfigureAwait(false) and (true) are indistinguishable.
-                var result = await middleware.OnItemAsync(current, token).ConfigureAwait(false);
-                if (result.Skip)
+                var current = item;
+                var dropped = false;
+
+                foreach (var middleware in chain)
                 {
-                    dropped = true;
-                    break;
+                    // Stryker disable once Boolean: equivalent — with no synchronization context in play, ConfigureAwait(false) and (true) are indistinguishable.
+                    var result = await middleware.OnItemAsync(current, token).ConfigureAwait(false);
+                    if (result.Skip)
+                    {
+                        dropped = true;
+                        break;
+                    }
+
+                    current = result.Item;
                 }
 
-                current = result.Item;
-            }
-
-            if (!dropped)
-            {
-                yield return current;
+                if (!dropped)
+                {
+                    yield return current;
+                }
             }
         }
     }

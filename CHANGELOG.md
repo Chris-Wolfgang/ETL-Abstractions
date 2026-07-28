@@ -31,6 +31,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   only the extractor's error-item count; it now sums the error-item counts of the source, every
   transformer, and the loader (each stage that implements `IReportsItemErrors`), so an item any
   stage's error policy discarded is reflected in the total. Pre-1.0 behaviour change.
+- _Internal (no public API change):_ the base classes' `StartedAt` / `Elapsed` timing now reads
+  through an injectable time source (#338), so downstream test kits can drive the `Report`
+  throughput / ETA metrics from a fake clock (unblocks ETL-Test-Kit#262).
+
 ### Deprecated
 
 ### Removed

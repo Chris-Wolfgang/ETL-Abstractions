@@ -103,18 +103,19 @@ public class MiddlewareTests
 
 
     [Fact]
-    public async Task WithMiddleware_when_source_is_null_throws_ArgumentNullException()
+    public void WithMiddleware_when_source_is_null_throws_ArgumentNullException()
     {
-        await Assert.ThrowsAsync<ArgumentNullException>(
-            () => Drain(((IAsyncEnumerable<int>)null!).WithMiddleware(new TimesTenMiddleware())));
+        // Validation is eager, so the throw happens at the WithMiddleware call — not on enumeration.
+        Assert.Throws<ArgumentNullException>(
+            () => ((IAsyncEnumerable<int>)null!).WithMiddleware(new TimesTenMiddleware()));
     }
 
 
     [Fact]
-    public async Task WithMiddleware_when_middleware_is_null_throws_ArgumentNullException()
+    public void WithMiddleware_when_middleware_is_null_throws_ArgumentNullException()
     {
-        await Assert.ThrowsAsync<ArgumentNullException>(
-            () => Drain(AsyncSource(1).WithMiddleware((IItemMiddleware<int>)null!)));
+        Assert.Throws<ArgumentNullException>(
+            () => AsyncSource(1).WithMiddleware((IItemMiddleware<int>)null!));
     }
 
 
@@ -164,18 +165,18 @@ public class MiddlewareTests
 
 
     [Fact]
-    public async Task WithMiddleware_chain_when_source_is_null_throws_ArgumentNullException()
+    public void WithMiddleware_chain_when_source_is_null_throws_ArgumentNullException()
     {
-        await Assert.ThrowsAsync<ArgumentNullException>(
-            () => Drain(((IAsyncEnumerable<int>)null!).WithMiddleware(new IItemMiddleware<int>[] { new TimesTenMiddleware() })));
+        Assert.Throws<ArgumentNullException>(
+            () => ((IAsyncEnumerable<int>)null!).WithMiddleware(new IItemMiddleware<int>[] { new TimesTenMiddleware() }));
     }
 
 
     [Fact]
-    public async Task WithMiddleware_chain_when_middlewares_is_null_throws_ArgumentNullException()
+    public void WithMiddleware_chain_when_middlewares_is_null_throws_ArgumentNullException()
     {
-        var ex = await Assert.ThrowsAsync<ArgumentNullException>(
-            () => Drain(AsyncSource(1).WithMiddleware((IEnumerable<IItemMiddleware<int>>)null!)));
+        var ex = Assert.Throws<ArgumentNullException>(
+            () => AsyncSource(1).WithMiddleware((IEnumerable<IItemMiddleware<int>>)null!));
 
         // The explicit guard names "middlewares"; without it the fallback List ctor would name "collection".
         Assert.Equal("middlewares", ex.ParamName);
@@ -183,12 +184,12 @@ public class MiddlewareTests
 
 
     [Fact]
-    public async Task WithMiddleware_chain_when_a_member_is_null_throws_ArgumentNullException()
+    public void WithMiddleware_chain_when_a_member_is_null_throws_ArgumentNullException()
     {
         var chain = new IItemMiddleware<int>[] { new TimesTenMiddleware(), null! };
 
-        await Assert.ThrowsAsync<ArgumentNullException>(
-            () => Drain(AsyncSource(1).WithMiddleware(chain)));
+        Assert.Throws<ArgumentNullException>(
+            () => AsyncSource(1).WithMiddleware(chain));
     }
 
 
