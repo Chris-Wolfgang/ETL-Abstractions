@@ -33,6 +33,15 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
+    // Test seam (#338): when set, StartedAt/Elapsed derive from this time source instead of the
+    // system clock, so the timing-derived Report metrics can be driven deterministically. Left null
+    // in production (real clock). Internal + InternalsVisibleTo, mirroring the IProgressTimer
+    // injection pattern, so Test-Kit doubles can advance a fake clock.
+    internal ITimeSource? TimeSource;
+
+
+
+
     /// <summary>
     /// The UTC time at which the first item was processed (loaded or skipped), or
     /// <c>null</c> if loading has not produced any items yet. Captured automatically
@@ -61,8 +70,9 @@ public abstract class LoaderBase<TDestination, TProgress>
                 return TimeSpan.Zero;
             }
 
-            var ticks = Stopwatch.GetTimestamp() - start;
-            return TimeSpan.FromSeconds(ticks / (double)Stopwatch.Frequency);
+            var source = TimeSource ?? SystemTimeSource.Instance;
+            var ticks = source.GetTimestamp() - start;
+            return TimeSpan.FromSeconds(ticks / (double)source.TimestampFrequency);
         }
     }
 
@@ -539,8 +549,9 @@ public abstract class LoaderBase<TDestination, TProgress>
             return;
         }
 
-        var now = DateTimeOffset.UtcNow;
-        var timestamp = Stopwatch.GetTimestamp();
+        var source = TimeSource ?? SystemTimeSource.Instance;
+        var now = source.UtcNow;
+        var timestamp = source.GetTimestamp();
         if (Interlocked.CompareExchange(ref _startTimestamp, timestamp, 0) == 0)
         {
             _startedAtUtc = now;

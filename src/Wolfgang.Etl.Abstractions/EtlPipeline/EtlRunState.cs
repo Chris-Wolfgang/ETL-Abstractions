@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 
 namespace Wolfgang.Etl.Abstractions;
@@ -13,7 +12,8 @@ namespace Wolfgang.Etl.Abstractions;
 /// </summary>
 internal sealed class EtlRunState
 {
-    private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
+    private readonly ITimeSource _timeSource;
+    private readonly long _startTimestamp;
 
     public long ExtractedItemCount;
 
@@ -29,6 +29,30 @@ internal sealed class EtlRunState
     public void AddErrorCountReader(Func<int> reader) => _errorCountReaders.Add(reader);
 
 
+    public EtlRunState()
+        : this(SystemTimeSource.Instance)
+    {
+    }
+
+
+    // Test seam (#338): inject a fake time source so the elapsed metric is deterministic.
+    internal EtlRunState(ITimeSource timeSource)
+    {
+        _timeSource = timeSource;
+        _startTimestamp = timeSource.GetTimestamp();
+    }
+
+
+    private TimeSpan Elapsed
+    {
+        get
+        {
+            var ticks = _timeSource.GetTimestamp() - _startTimestamp;
+            return TimeSpan.FromSeconds(ticks / (double)_timeSource.TimestampFrequency);
+        }
+    }
+
+
     public EtlPipelineProgress Snapshot()
     {
         long errorItemCount = 0;
@@ -37,7 +61,7 @@ internal sealed class EtlRunState
             errorItemCount += reader();
         }
 
-        return new EtlPipelineProgress(ExtractedItemCount, LoadedItemCount, _stopwatch.Elapsed)
+        return new EtlPipelineProgress(ExtractedItemCount, LoadedItemCount, Elapsed)
         {
             ErrorItemCount = errorItemCount,
         };

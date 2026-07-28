@@ -133,6 +133,7 @@ Wolfgang.Etl.Abstractions.Report.EstimatedRemaining.get -> System.TimeSpan?
 Wolfgang.Etl.Abstractions.Report.ItemsPerSecond.get -> double
 Wolfgang.Etl.Abstractions.Report.PercentComplete.get -> double?
 Wolfgang.Etl.Abstractions.Report.Report(int currentItemCount) -> void
+Wolfgang.Etl.Abstractions.Report.Report(int currentItemCount, System.DateTimeOffset? startedAt, System.TimeSpan elapsed, int? totalItemCount = null) -> void
 Wolfgang.Etl.Abstractions.Report.StartedAt.get -> System.DateTimeOffset?
 Wolfgang.Etl.Abstractions.Report.StartedAt.init -> void
 Wolfgang.Etl.Abstractions.Report.TotalItemCount.get -> int?
