@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Middleware / interceptor (#93):** a composable per-item hook — `IItemMiddleware<T>` returning
+  `MiddlewareResult<T>` (`Continue` to keep/replace an item, `Drop` to remove it) — attached to any
+  stream with the `WithMiddleware(...)` extensions (single or ordered chain). Lets cross-cutting
+  concerns (logging, validation, metrics, throttling, dedup) decorate an extractor/transformer output
+  or loader input without changing the component, and composes inside an `EtlPipeline` via
+  `Through(s => s.WithMiddleware(...))`. Dependency-free.
 - **Retry seam (#94):** `ExtractorBase`, `LoaderBase`, and `TransformerBase` gained a
   `protected virtual WrapWorkerExecution(...)` hook wrapped around every worker invocation. The
   default implementation is a no-op, so behaviour is unchanged; override it to run the worker through
