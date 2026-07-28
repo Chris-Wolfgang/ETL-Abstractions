@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1784984613356,
+  "lastUpdate": 1785197329167,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -1260,6 +1260,90 @@ window.BENCHMARK_DATA = {
             "value": 7287177.130208333,
             "unit": "ns",
             "range": "± 38994.55034843781"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3a14ba987efec2b7c0e65fdc0aae89bc33f8f5b8",
+          "message": "Merge pull request #331 from Chris-Wolfgang/fix/report-timing-ctor\n\nfix: cross-assembly-safe Report timing constructor (0.18.1)",
+          "timestamp": "2026-07-27T20:06:37-04:00",
+          "tree_id": "8bdb1ced7eeae2d1d36ab263f92347fb1e402240",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/3a14ba987efec2b7c0e65fdc0aae89bc33f8f5b8"
+        },
+        "date": 1785197326245,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 31930.534067789715,
+            "unit": "ns",
+            "range": "± 658.2371578009119"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 34010.91799926758,
+            "unit": "ns",
+            "range": "± 129.0833785595842"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3106942.7135416665,
+            "unit": "ns",
+            "range": "± 3078.2601995964997"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3369861.2369791665,
+            "unit": "ns",
+            "range": "± 3214.804757548345"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29861.78623453776,
+            "unit": "ns",
+            "range": "± 94.08997512637652"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29908.161814371746,
+            "unit": "ns",
+            "range": "± 70.64600581703343"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 68483.69946289062,
+            "unit": "ns",
+            "range": "± 285.6650714675182"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2854886.4140625,
+            "unit": "ns",
+            "range": "± 1462.1467840974312"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2870112.7330729165,
+            "unit": "ns",
+            "range": "± 326.26898943322766"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 6728828.515625,
+            "unit": "ns",
+            "range": "± 4243.902731655375"
           }
         ]
       }
