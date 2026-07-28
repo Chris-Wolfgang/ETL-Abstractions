@@ -240,4 +240,44 @@ public class ReportTests
         Assert.Equal(started, sut.StartedAt);
         Assert.Equal(TimeSpan.FromSeconds(3), sut.Elapsed);
     }
+
+
+
+    [Fact]
+    public void Timing_constructor_stores_all_snapshot_values()
+    {
+        var started = DateTimeOffset.UtcNow;
+        var sut = new Report(7, started, TimeSpan.FromSeconds(2), 20);
+
+        Assert.Equal(7, sut.CurrentItemCount);
+        Assert.Equal(started, sut.StartedAt);
+        Assert.Equal(TimeSpan.FromSeconds(2), sut.Elapsed);
+        Assert.Equal(20, sut.TotalItemCount);
+    }
+
+
+
+    [Fact]
+    public void Timing_constructor_defaults_TotalItemCount_to_null()
+    {
+        var sut = new Report(3, DateTimeOffset.UtcNow, TimeSpan.FromSeconds(1));
+
+        Assert.Null(sut.TotalItemCount);
+    }
+
+
+
+    [Fact]
+    public void Timing_constructor_when_currentItemCount_is_negative_throws_ArgumentOutOfRangeException()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Report(-1, null, TimeSpan.Zero));
+    }
+
+
+
+    [Fact]
+    public void Timing_constructor_when_totalItemCount_is_negative_throws_ArgumentOutOfRangeException()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Report(0, null, TimeSpan.Zero, -1));
+    }
 }

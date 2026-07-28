@@ -49,12 +49,9 @@ await foreach (var _ in EtlPipeline.Create().From(Numbers(4)).AsAsyncEnumerable(
 
 Require(seen == 4, "AsAsyncEnumerable");
 
-// Report metrics: fixed arithmetic, no reflection.
-var report = new Report(50)
-{
-    TotalItemCount = 100,
-    Elapsed = TimeSpan.FromSeconds(10),
-};
+// Report metrics: fixed arithmetic, no reflection. Built via the timing constructor
+// (cross-assembly-safe on every target framework) rather than the init form.
+var report = new Report(50, startedAt: null, elapsed: TimeSpan.FromSeconds(10), totalItemCount: 100);
 
 Require(report.CurrentItemCount == 50, "Report.CurrentItemCount");
 Require(report.ItemsPerSecond == 5d, "Report.ItemsPerSecond");
