@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Retry seam (#94):** `ExtractorBase`, `LoaderBase`, and `TransformerBase` gained a
+  `protected virtual WrapWorkerExecution(...)` hook wrapped around every worker invocation. The
+  default implementation is a no-op, so behaviour is unchanged; override it to run the worker through
+  a retry / resilience strategy. The override receives a re-invocable worker factory (call it again to
+  retry) and stream-level semantics are documented on the method. Kept dependency-free — a ready-made
+  Polly integration will ship as a separate opt-in `Wolfgang.Etl.Polly` package (#332).
+
 ### Changed
 
 - **Breaking (#285):** `EtlPipelineProgress`'s counters — `ExtractedItemCount`, `LoadedItemCount`, and
