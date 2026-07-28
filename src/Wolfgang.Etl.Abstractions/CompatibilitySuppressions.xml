@@ -4,7 +4,7 @@
   0.19.0 widened the EtlPipelineProgress counters from int to long (#285) so a long-running
   pipeline can report more than int.MaxValue records without overflow. These CP0002 baseline
   suppressions waive the intentional int->long change of the record's getters, constructor, and
-  Deconstruct against the 0.18.0 baseline — a deliberate pre-1.0 breaking change. See CHANGELOG [0.19.0].
+  Deconstruct against the 0.18.1 baseline — a deliberate pre-1.0 breaking change. See CHANGELOG [0.19.0].
 -->
 <Suppressions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Suppression>

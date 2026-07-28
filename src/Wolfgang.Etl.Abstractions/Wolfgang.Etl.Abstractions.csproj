@@ -20,7 +20,7 @@
          recorded in CompatibilitySuppressions.xml, regenerated with
          `dotnet pack /p:GenerateCompatibilitySuppressionFile=true`. -->
     <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>0.18.0</PackageValidationBaselineVersion>
+    <PackageValidationBaselineVersion>0.18.1</PackageValidationBaselineVersion>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>

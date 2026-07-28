@@ -11,13 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Breaking (#285):** `EtlPipelineProgress`'s counters — `ExtractedItemCount`, `LoadedItemCount`, and
-  `ErrorItemCount` — are now `long` instead of `int`, so a long-running pipeline can report more than
-  `int.MaxValue` (~2.1 billion) records without overflow. This changes the record's getters, positional
-  constructor, and `Deconstruct` from `int` to `long`; Package Validation against the 0.18.0 baseline
-  waives the change via `CompatibilitySuppressions.xml`. `AssemblyVersion` stays pinned at `1.0.0.0`.
-  Pre-1.0.
-
 ### Deprecated
 
 ### Removed
@@ -25,6 +18,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Security
+
+## [0.19.0] - 2026-07-28
+
+Minor release: makes the `EtlPipelineProgress` record counters overflow-safe.
+
+### Changed
+
+- **Breaking (#285):** `EtlPipelineProgress`'s counters — `ExtractedItemCount`, `LoadedItemCount`, and
+  `ErrorItemCount` — are now `long` instead of `int`, so a long-running pipeline can report more than
+  `int.MaxValue` (~2.1 billion) records without overflow. This changes the record's getters, positional
+  constructor, and `Deconstruct` from `int` to `long`; Package Validation against the 0.18.1 baseline
+  waives the change via `CompatibilitySuppressions.xml`. `AssemblyVersion` stays pinned at `1.0.0.0`.
+  Pre-1.0.
 
 ## [0.18.1] - 2026-07-27
 
