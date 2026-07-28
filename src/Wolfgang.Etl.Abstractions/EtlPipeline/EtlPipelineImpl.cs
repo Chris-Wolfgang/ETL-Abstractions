@@ -46,7 +46,11 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
             throw new ArgumentNullException(nameof(transformer));
         }
 
-        return new EtlPipelineImpl<TOut>((state, token) => transformer.TransformAsync(_factory(state, token)));
+        return new EtlPipelineImpl<TOut>((state, token) =>
+        {
+            RegisterErrorReader(transformer, state);
+            return transformer.TransformAsync(_factory(state, token));
+        });
     }
 
 
@@ -59,7 +63,11 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
             throw new ArgumentNullException(nameof(transformer));
         }
 
-        return new EtlPipelineImpl<TOut>((state, token) => transformer.TransformAsync(_factory(state, token), token));
+        return new EtlPipelineImpl<TOut>((state, token) =>
+        {
+            RegisterErrorReader(transformer, state);
+            return transformer.TransformAsync(_factory(state, token), token);
+        });
     }
 
 
@@ -106,6 +114,18 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
     public IAsyncEnumerable<T> AsAsyncEnumerable(CancellationToken token = default)
     {
         return _factory(new EtlRunState(), token);
+    }
+
+
+    // Registers a transformer stage's error-item count with the run so
+    // EtlPipelineProgress.ErrorItemCount sums it alongside the source and sink. A transformer that
+    // does not report errors (for example a plain delegate transform) is skipped.
+    private static void RegisterErrorReader(object transformer, EtlRunState state)
+    {
+        if (transformer is IReportsItemErrors reporter)
+        {
+            state.AddErrorCountReader(() => reporter.CurrentErrorItemCount);
+        }
     }
 
 

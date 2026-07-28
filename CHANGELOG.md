@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`IReportsItemErrors` (#335):** a small interface (`int CurrentErrorItemCount { get; }`) implemented
+  by `ExtractorBase`, `LoaderBase`, and `TransformerBase`, letting a pipeline read any stage's
+  error-item count uniformly regardless of concrete type.
 - **Middleware / interceptor (#93):** a composable per-item hook — `IItemMiddleware<T>` returning
   `MiddlewareResult<T>` (`Continue` to keep/replace an item, `Drop` to remove it) — attached to any
   stream with the `WithMiddleware(...)` extensions (single or ordered chain). Lets cross-cutting
@@ -24,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **`EtlPipelineProgress.ErrorItemCount` now aggregates every stage (#335).** Previously it reported
+  only the extractor's error-item count; it now sums the error-item counts of the source, every
+  transformer, and the loader (each stage that implements `IReportsItemErrors`), so an item any
+  stage's error policy discarded is reflected in the total. Pre-1.0 behaviour change.
 - **Breaking (#285):** `EtlPipelineProgress`'s counters — `ExtractedItemCount`, `LoadedItemCount`, and
   `ErrorItemCount` — are now `long` instead of `int`, so a long-running pipeline can report more than
   `int.MaxValue` (~2.1 billion) records without overflow. This changes the record's getters, positional

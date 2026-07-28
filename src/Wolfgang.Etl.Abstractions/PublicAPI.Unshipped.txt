@@ -20,3 +20,5 @@ static Wolfgang.Etl.Abstractions.MiddlewareResult<T>.operator !=(Wolfgang.Etl.Ab
 Wolfgang.Etl.Abstractions.MiddlewareExtensions
 static Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware<T>(this System.Collections.Generic.IAsyncEnumerable<T>! source, Wolfgang.Etl.Abstractions.IItemMiddleware<T>! middleware, System.Threading.CancellationToken token = default(System.Threading.CancellationToken)) -> System.Collections.Generic.IAsyncEnumerable<T>!
 static Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware<T>(this System.Collections.Generic.IAsyncEnumerable<T>! source, System.Collections.Generic.IEnumerable<Wolfgang.Etl.Abstractions.IItemMiddleware<T>!>! middlewares, System.Threading.CancellationToken token = default(System.Threading.CancellationToken)) -> System.Collections.Generic.IAsyncEnumerable<T>!
+Wolfgang.Etl.Abstractions.IReportsItemErrors
+Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount.get -> int
