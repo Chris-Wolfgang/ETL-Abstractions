@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.20.0] - 2026-07-30
+
+Minor release: a dependency-free retry seam, composable per-item middleware, and pipeline-wide
+error aggregation on the base stages. Purely additive — no breaking change (validates against the
+0.19.0 baseline).
+
+### Added
+
 - **`IReportsItemErrors` (#335):** a small interface (`int CurrentErrorItemCount { get; }`) implemented
   by `ExtractorBase`, `LoaderBase`, and `TransformerBase`, letting a pipeline read any stage's
   error-item count uniformly regardless of concrete type.
@@ -34,14 +52,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - _Internal (no public API change):_ the base classes' `StartedAt` / `Elapsed` timing now reads
   through an injectable time source (#338), so downstream test kits can drive the `Report`
   throughput / ETA metrics from a fake clock (unblocks ETL-Test-Kit#262).
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 
 ## [0.19.0] - 2026-07-29
 
