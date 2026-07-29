@@ -32,15 +32,15 @@ references:
   commentId: T:Wolfgang.Etl.Abstractions.EtlPipelineProgress
   fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress
   nameWithType: EtlPipelineProgress
-- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.#ctor(System.Int32,System.Int32,System.TimeSpan)
-  name: EtlPipelineProgress(int, int, TimeSpan)
-  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress__ctor_System_Int32_System_Int32_System_TimeSpan_
-  commentId: M:Wolfgang.Etl.Abstractions.EtlPipelineProgress.#ctor(System.Int32,System.Int32,System.TimeSpan)
-  name.vb: New(Integer, Integer, TimeSpan)
-  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.EtlPipelineProgress(int, int, System.TimeSpan)
-  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineProgress.New(Integer, Integer, System.TimeSpan)
-  nameWithType: EtlPipelineProgress.EtlPipelineProgress(int, int, TimeSpan)
-  nameWithType.vb: EtlPipelineProgress.New(Integer, Integer, TimeSpan)
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.#ctor(System.Int64,System.Int64,System.TimeSpan)
+  name: EtlPipelineProgress(long, long, TimeSpan)
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress__ctor_System_Int64_System_Int64_System_TimeSpan_
+  commentId: M:Wolfgang.Etl.Abstractions.EtlPipelineProgress.#ctor(System.Int64,System.Int64,System.TimeSpan)
+  name.vb: New(Long, Long, TimeSpan)
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineProgress.EtlPipelineProgress(long, long, System.TimeSpan)
+  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineProgress.New(Long, Long, System.TimeSpan)
+  nameWithType: EtlPipelineProgress.EtlPipelineProgress(long, long, TimeSpan)
+  nameWithType.vb: EtlPipelineProgress.New(Long, Long, TimeSpan)
 - uid: Wolfgang.Etl.Abstractions.EtlPipelineProgress.#ctor*
   name: EtlPipelineProgress
   href: api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress__ctor_

@@ -1,23 +1,23 @@
 Summary
-  Generated on: 7/28/2026 - 12:26:39 AM
-  Coverage date: 7/28/2026 - 12:26:34 AM - 7/28/2026 - 12:26:35 AM
+  Generated on: 7/29/2026 - 1:08:56 AM
+  Coverage date: 7/29/2026 - 1:08:51 AM - 7/29/2026 - 1:08:52 AM
   Parser: MultiReport (2x Cobertura)
   Assemblies: 1
-  Classes: 21
-  Files: 21
+  Classes: 22
+  Files: 22
   Line coverage: 99.8%
-  Covered lines: 744
+  Covered lines: 765
   Uncovered lines: 1
-  Coverable lines: 745
-  Total lines: 3697
-  Branch coverage: 94.1% (211 of 224)
-  Covered branches: 211
-  Total branches: 224
-  Method coverage: 100% (192 of 192)
-  Full method coverage: 99.4% (191 of 192)
-  Covered methods: 192
-  Fully covered methods: 191
-  Total methods: 192
+  Coverable lines: 766
+  Total lines: 3824
+  Branch coverage: 94.6% (229 of 242)
+  Covered branches: 229
+  Total branches: 242
+  Method coverage: 100% (202 of 202)
+  Full method coverage: 99.5% (201 of 202)
+  Covered methods: 202
+  Fully covered methods: 201
+  Total methods: 202
 
 Wolfgang.Etl.Abstractions                                            99.8%
   Wolfgang.Etl.Abstractions.EtlPipeline                               100%
@@ -38,6 +38,7 @@ Wolfgang.Etl.Abstractions                                            99.8%
   Wolfgang.Etl.Abstractions.Report                                    100%
   Wolfgang.Etl.Abstractions.StageList                                 100%
   Wolfgang.Etl.Abstractions.SystemProgressTimer                       100%
+  Wolfgang.Etl.Abstractions.SystemTimeSource                          100%
   Wolfgang.Etl.Abstractions.TransformerBase<T1, T2, T3>              98.9%
   Wolfgang.Etl.Abstractions.TransformStage<T>                         100%
   Wolfgang.Etl.Abstractions.TransformStageWithProgress<T1, T2, T3>    100%

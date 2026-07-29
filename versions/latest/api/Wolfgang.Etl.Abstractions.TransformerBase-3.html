@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.18.1/apiSpec/new?filename=Wolfgang_Etl_Abstractions_TransformerBase_3.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.TransformerBase%603%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.19.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_TransformerBase_3.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.TransformerBase%603%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_Abstractions_TransformerBase_3" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3" class="text-break">
-Class TransformerBase&lt;TSource, TDestination, TProgress&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L21"><i class="bi bi-code-slash"></i></a>
+Class TransformerBase&lt;TSource, TDestination, TProgress&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -168,7 +168,7 @@ TransformWorkerAsync and CreateProgressReport methods.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentErrorItemCount" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.CurrentErrorItemCount">
   CurrentErrorItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L126"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L136"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of items that raised an error and were discarded by the stage's error policy
@@ -203,7 +203,7 @@ example by <code>SkipItemCount</code>): a failed record is counted here, never s
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentItemCount" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.CurrentItemCount">
   CurrentItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L119"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The current number of items transformed so far.</p>
@@ -245,7 +245,7 @@ single instance concurrently is not supported.
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentSkippedItemCount" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.CurrentSkippedItemCount">
   CurrentSkippedItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L126"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The current number of items skipped so far during transformation.</p>
@@ -277,7 +277,7 @@ single instance concurrently is not supported.
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_Elapsed" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.Elapsed">
   Elapsed
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L65"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The monotonic wall-clock time elapsed since the first item was processed, or
@@ -312,7 +312,7 @@ snapshot how long transformation has been running.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_MaximumItemCount" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.MaximumItemCount">
   MaximumItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L147"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L157"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The maximum number of items to transform. Once the transformer has reached this limit,
@@ -361,7 +361,7 @@ or infinite or during development.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_ReportingInterval" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.ReportingInterval">
   ReportingInterval
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L87"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of milliseconds between progress updates.</p>
@@ -399,7 +399,7 @@ or infinite or during development.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_SkipItemCount" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.SkipItemCount">
   SkipItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L183"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L193"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of items to skip before transforming.
@@ -448,7 +448,7 @@ or infinite or during development.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_StartedAt" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.StartedAt">
   StartedAt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L54"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The UTC time at which the first item was processed (transformed or skipped), or
@@ -488,7 +488,7 @@ surface it on their progress report (see <a class="xref" href="Wolfgang.Etl.Abst
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_CreateProgressReport" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.CreateProgressReport">
   CreateProgressReport()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L380"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L398"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a progress report object of type TProgress.</p>
@@ -521,7 +521,7 @@ surface it on their progress report (see <a class="xref" href="Wolfgang.Etl.Abst
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_CreateProgressTimer_System_IProgress__2__" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.CreateProgressTimer(System.IProgress{`2})">
   CreateProgressTimer(IProgress&lt;TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L298"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L308"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> used to drive progress callbacks.
@@ -562,7 +562,7 @@ Override this method in a derived class to inject a custom timer
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_Dispose" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.Dispose">
   Dispose()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L535"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L554"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Releases the resources held by this transformer. The base implementation is a no-op; derived
@@ -590,7 +590,7 @@ classes that hold resources override <a class="xref" href="Wolfgang.Etl.Abstract
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_Dispose_System_Boolean_" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.Dispose(System.Boolean)">
   Dispose(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L552"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L571"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Releases resources held by this transformer. Override in a derived class to dispose resources
@@ -626,7 +626,7 @@ instance disposed and is idempotent.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_DisposeAsync" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.DisposeAsync">
   DisposeAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L522"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L541"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously releases the resources held by this transformer. The base implementation is a
@@ -661,7 +661,7 @@ no-op (the base owns no unmanaged resources); derived classes that hold resource
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)">
   HandleItemError(ItemErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L471"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L489"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies the stage's error policy to a failed item: invokes <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_">OnItemError(ItemErrorContext)</a> and, when
@@ -710,7 +710,7 @@ never silent. Call this from a worker's <code>catch</code> block and re-throw wh
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentItemCount" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentItemCount">
   IncrementCurrentItemCount()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L404"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L422"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Increments the CurrentItemCount in a thread safe manner.</p>
@@ -742,7 +742,7 @@ thread safe. This method ensures that CurrentItemCount is incremented safely.</p
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentSkippedItemCount" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentSkippedItemCount">
   IncrementCurrentSkippedItemCount()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L421"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L439"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Increments the CurrentSkippedItemCount in a thread safe manner.</p>
@@ -774,7 +774,7 @@ thread safe. This method ensures that CurrentSkippedItemCount is incremented saf
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)">
   OnItemError(ItemErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L450"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L468"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Decides what to do when an item fails to process. Override in a derived stage to record the
@@ -825,7 +825,7 @@ can genuinely resume after a bad record overrides this and surfaces its own publ
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.TransformAsync(System.Collections.Generic.IAsyncEnumerable{`0})">
   TransformAsync(IAsyncEnumerable&lt;TSource&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L203"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L213"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously transforms data of type TSource to TDestination.</p>
@@ -870,7 +870,7 @@ can genuinely resume after a bad record overrides this and surfaces its own publ
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__System_IProgress__2__" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.TransformAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.IProgress{`2})">
   TransformAsync(IAsyncEnumerable&lt;TSource&gt;, IProgress&lt;TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L241"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L251"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously transforms data of type TSource to TDestination.</p>
@@ -918,7 +918,7 @@ can genuinely resume after a bad record overrides this and surfaces its own publ
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__System_IProgress__2__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.TransformAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.IProgress{`2},System.Threading.CancellationToken)">
   TransformAsync(IAsyncEnumerable&lt;TSource&gt;, IProgress&lt;TProgress&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L266"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L276"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously transforms data of type TSource to TDestination.</p>
@@ -973,7 +973,7 @@ If the caller doesn't plan on cancelling the transformation, they can pass Cance
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.TransformAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
   TransformAsync(IAsyncEnumerable&lt;TSource&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L222"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L232"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously transforms data of type TSource to TDestination.</p>
@@ -1019,7 +1019,7 @@ If the caller doesn't plan on cancelling the transformation, they can pass Cance
 
   <h3 id="Wolfgang_Etl_Abstractions_TransformerBase_3_TransformWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.TransformerBase`3.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
   TransformWorkerAsync(IAsyncEnumerable&lt;TSource&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L370"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L388"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The worker method that performs the actual transformation.</p>
@@ -1061,7 +1061,7 @@ If the caller doesn't plan on cancelling the transformation, they can pass Cance
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.18.1/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L21" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/TransformerBase.cs/#L21" class="edit-link">Edit this page</a>
         </div>
 
 
