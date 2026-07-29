@@ -21,8 +21,8 @@ namespace Wolfgang.Etl.Abstractions;
 /// <param name="Elapsed">The wall-clock time elapsed since the run started.</param>
 public sealed record EtlPipelineProgress
 (
-    int ExtractedItemCount,
-    int LoadedItemCount,
+    long ExtractedItemCount,
+    long LoadedItemCount,
     TimeSpan Elapsed
 )
 {
@@ -35,5 +35,5 @@ public sealed record EtlPipelineProgress
     /// successfully flowed into the pipeline, so a failed record is never silent. Distinct from
     /// intentional skips (an extractor's <c>SkipItemCount</c> budget), which are not surfaced here.
     /// </summary>
-    public int ErrorItemCount { get; init; }
+    public long ErrorItemCount { get; init; }
 }

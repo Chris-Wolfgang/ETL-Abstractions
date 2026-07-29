@@ -35,6 +35,15 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
+    // Test seam (#338): when set, StartedAt/Elapsed derive from this time source instead of the
+    // system clock, so the timing-derived Report metrics can be driven deterministically. Left null
+    // in production (real clock). Internal + InternalsVisibleTo, mirroring the IProgressTimer
+    // injection pattern, so Test-Kit doubles can advance a fake clock.
+    internal ITimeSource? TimeSource;
+
+
+
+
     /// <summary>
     /// The UTC time at which the first item was processed (transformed or skipped), or
     /// <c>null</c> if transformation has not produced any items yet. Captured automatically
@@ -63,8 +72,9 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
                 return TimeSpan.Zero;
             }
 
-            var ticks = Stopwatch.GetTimestamp() - start;
-            return TimeSpan.FromSeconds(ticks / (double)Stopwatch.Frequency);
+            var source = TimeSource ?? SystemTimeSource.Instance;
+            var ticks = source.GetTimestamp() - start;
+            return TimeSpan.FromSeconds(ticks / (double)source.TimestampFrequency);
         }
     }
 
@@ -297,10 +307,18 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <returns>A started <see cref="IProgressTimer"/> instance.</returns>
     protected virtual IProgressTimer CreateProgressTimer(IProgress<TProgress> progress)
     {
-        var timer = new SystemProgressTimer(ReportProgress, progress);
+        var timer = TimerCoreFactory is null
+            ? new SystemProgressTimer(ReportProgress, progress)
+            : new SystemProgressTimer(ReportProgress, progress, TimerCoreFactory);
         timer.Start(ReportingInterval);
         return timer;
     }
+
+
+    // Test seam: when set, CreateProgressTimer builds its SystemProgressTimer over this timer core
+    // (a deterministic fake) instead of a real System.Threading.Timer.
+    internal Func<System.Threading.TimerCallback, ITimerCore>? TimerCoreFactory;
+
 
 
 
@@ -503,8 +521,9 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
             return;
         }
 
-        var now = DateTimeOffset.UtcNow;
-        var timestamp = Stopwatch.GetTimestamp();
+        var source = TimeSource ?? SystemTimeSource.Instance;
+        var now = source.UtcNow;
+        var timestamp = source.GetTimestamp();
         if (Interlocked.CompareExchange(ref _startTimestamp, timestamp, 0) == 0)
         {
             _startedAtUtc = now;
