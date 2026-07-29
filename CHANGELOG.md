@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.19.0] - 2026-07-28
+## [0.19.0] - 2026-07-29
 
 Minor release: makes the `EtlPipelineProgress` record counters overflow-safe.
 
