@@ -19,6 +19,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
 public abstract class ExtractorBase<TSource, TProgress>
     : IExtractWithProgressAndCancellationAsync<TSource, TProgress>,
+      IReportsItemErrors,
       IAsyncDisposable,
       IDisposable
     where TSource : notnull
@@ -322,7 +323,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     {
         ResetRunState();
 
-        await foreach (var item in ExtractWorkerAsync(token))
+        await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token))
         {
             yield return item;
         }
@@ -340,7 +341,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
         try
         {
-            await foreach (var item in ExtractWorkerAsync(token))
+            await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token))
             {
                 yield return item;
             }
@@ -379,6 +380,43 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// The result may be an empty sequence if no data is available or if the extraction fails.
     /// </returns>
     protected abstract IAsyncEnumerable<TSource> ExtractWorkerAsync(CancellationToken token);
+
+
+
+    /// <summary>
+    /// A resilience seam wrapped around every invocation of <see cref="ExtractWorkerAsync"/>. The
+    /// default implementation simply invokes <paramref name="workerFactory"/> once, so extraction
+    /// behaves exactly as if the seam were absent. Override it to run the worker through a retry /
+    /// resilience strategy (for example a Polly <c>ResiliencePipeline</c>): the strategy can invoke
+    /// <paramref name="workerFactory"/> more than once, each call producing a fresh stream, to retry
+    /// a transient failure.
+    /// </summary>
+    /// <remarks>
+    /// This is <b>stream-level</b> resilience: a retry re-runs the whole worker from the start, so a
+    /// failure part-way through re-yields items already seen. The per-run counters
+    /// (<see cref="CurrentItemCount"/>, <see cref="CurrentSkippedItemCount"/>,
+    /// <see cref="CurrentErrorItemCount"/>) are reset once at the start of the run, <b>not</b> on each
+    /// retry, so they accumulate across attempts unless the override resets them. Any delay the
+    /// override introduces must observe <paramref name="token"/>. Kept dependency-free by design — a
+    /// concrete Polly integration lives in a separate opt-in package rather than in this library.
+    /// </remarks>
+    /// <param name="workerFactory">A factory that produces a fresh worker stream for the supplied token. Re-invocable — call it again to retry.</param>
+    /// <param name="token">A <see cref="CancellationToken"/> to observe, including during any retry delay.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="workerFactory"/> is <see langword="null"/>.</exception>
+    /// <returns>The (possibly resilience-wrapped) stream of extracted items.</returns>
+    protected virtual IAsyncEnumerable<TSource> WrapWorkerExecution
+    (
+        Func<CancellationToken, IAsyncEnumerable<TSource>> workerFactory,
+        CancellationToken token
+    )
+    {
+        if (workerFactory is null)
+        {
+            throw new ArgumentNullException(nameof(workerFactory));
+        }
+
+        return workerFactory(token);
+    }
 
 
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 
 namespace Wolfgang.Etl.Abstractions;
@@ -18,9 +19,14 @@ internal sealed class EtlRunState
 
     public long LoadedItemCount;
 
-    // Optional reader that surfaces an error-reporting source's error-item count into the snapshot.
-    // Left null for sources that don't report errors (e.g. a raw IAsyncEnumerable), which reads as 0.
-    public Func<int>? ErrorCountReader;
+    // Error-item-count readers, one per stage that reports errors (source, transformers, sink). Their
+    // values are summed into the snapshot so an item any stage's error policy discarded is reported,
+    // not just the source's. Empty for a pipeline of stages that don't report errors, which reads as 0.
+    private readonly List<Func<int>> _errorCountReaders = new();
+
+
+    // Registers a stage's error-item-count reader. Called once per stage as the factory chain runs.
+    public void AddErrorCountReader(Func<int> reader) => _errorCountReaders.Add(reader);
 
 
     public EtlRunState()
@@ -49,9 +55,15 @@ internal sealed class EtlRunState
 
     public EtlPipelineProgress Snapshot()
     {
+        long errorItemCount = 0;
+        foreach (var reader in _errorCountReaders)
+        {
+            errorItemCount += reader();
+        }
+
         return new EtlPipelineProgress(ExtractedItemCount, LoadedItemCount, Elapsed)
         {
-            ErrorItemCount = ErrorCountReader?.Invoke() ?? 0,
+            ErrorItemCount = errorItemCount,
         };
     }
 }

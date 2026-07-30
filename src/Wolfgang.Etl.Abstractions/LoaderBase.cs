@@ -18,6 +18,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// <typeparam name="TProgress">The type of the progress object</typeparam>
 public abstract class LoaderBase<TDestination, TProgress>
     : ILoadWithProgressAndCancellationAsync<TDestination, TProgress>,
+      IReportsItemErrors,
       IAsyncDisposable,
       IDisposable
     where TDestination : notnull
@@ -323,7 +324,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     )
     {
         ResetRunState();
-        return LoadWorkerAsync(items, token);
+        return WrapWorkerExecution(ct => LoadWorkerAsync(items, ct), token);
     }
 
 
@@ -339,7 +340,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
         try
         {
-            await LoadWorkerAsync(items, token).ConfigureAwait(false);
+            await WrapWorkerExecution(ct => LoadWorkerAsync(items, ct), token).ConfigureAwait(false);
         }
         finally
         {
@@ -377,6 +378,43 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// </remarks>
     /// <exception cref="ArgumentNullException">Argument items is null</exception>
     protected abstract Task LoadWorkerAsync(IAsyncEnumerable<TDestination> items, CancellationToken token);
+
+
+
+    /// <summary>
+    /// A resilience seam wrapped around every invocation of <see cref="LoadWorkerAsync"/>. The
+    /// default implementation simply invokes <paramref name="workerFactory"/> once, so loading
+    /// behaves exactly as if the seam were absent. Override it to run the worker through a retry /
+    /// resilience strategy (for example a Polly <c>ResiliencePipeline</c>): the strategy can invoke
+    /// <paramref name="workerFactory"/> more than once to retry a transient failure.
+    /// </summary>
+    /// <remarks>
+    /// This is <b>stream-level</b> resilience: a retry re-runs the whole worker, which re-enumerates
+    /// the source <c>items</c> from the start — so retry is only safe when that source can be
+    /// enumerated more than once. The per-run counters (<see cref="CurrentItemCount"/>,
+    /// <see cref="CurrentSkippedItemCount"/>, <see cref="CurrentErrorItemCount"/>) are reset once at
+    /// the start of the run, <b>not</b> on each retry, so they accumulate across attempts unless the
+    /// override resets them. Any delay the override introduces must observe <paramref name="token"/>.
+    /// Kept dependency-free by design — a concrete Polly integration lives in a separate opt-in
+    /// package rather than in this library.
+    /// </remarks>
+    /// <param name="workerFactory">A factory that runs the worker for the supplied token. Re-invocable — call it again to retry.</param>
+    /// <param name="token">A <see cref="CancellationToken"/> to observe, including during any retry delay.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="workerFactory"/> is <see langword="null"/>.</exception>
+    /// <returns>A task representing the (possibly resilience-wrapped) load operation.</returns>
+    protected virtual Task WrapWorkerExecution
+    (
+        Func<CancellationToken, Task> workerFactory,
+        CancellationToken token
+    )
+    {
+        if (workerFactory is null)
+        {
+            throw new ArgumentNullException(nameof(workerFactory));
+        }
+
+        return workerFactory(token);
+    }
 
 
 

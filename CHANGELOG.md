@@ -19,6 +19,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.20.0] - 2026-07-30
+
+Minor release: a dependency-free retry seam, composable per-item middleware, and pipeline-wide
+error aggregation on the base stages. Purely additive — no breaking change (validates against the
+0.19.0 baseline).
+
+### Added
+
+- **`IReportsItemErrors` (#335):** a small interface (`int CurrentErrorItemCount { get; }`) implemented
+  by `ExtractorBase`, `LoaderBase`, and `TransformerBase`, letting a pipeline read any stage's
+  error-item count uniformly regardless of concrete type.
+- **Middleware / interceptor (#93):** a composable per-item hook — `IItemMiddleware<T>` returning
+  `MiddlewareResult<T>` (`Continue` to keep/replace an item, `Drop` to remove it) — attached to any
+  stream with the `WithMiddleware(...)` extensions (single or ordered chain). Lets cross-cutting
+  concerns (logging, validation, metrics, throttling, dedup) decorate an extractor/transformer output
+  or loader input without changing the component, and composes inside an `EtlPipeline` via
+  `Through(s => s.WithMiddleware(...))`. Dependency-free.
+- **Retry seam (#94):** `ExtractorBase`, `LoaderBase`, and `TransformerBase` gained a
+  `protected virtual WrapWorkerExecution(...)` hook wrapped around every worker invocation. The
+  default implementation is a no-op, so behaviour is unchanged; override it to run the worker through
+  a retry / resilience strategy. The override receives a re-invocable worker factory (call it again to
+  retry) and stream-level semantics are documented on the method. Kept dependency-free — a ready-made
+  Polly integration will ship as a separate opt-in `Wolfgang.Etl.Polly` package (#332).
+
+### Changed
+
+- **`EtlPipelineProgress.ErrorItemCount` now aggregates every stage (#335).** Previously it reported
+  only the extractor's error-item count; it now sums the error-item counts of the source, every
+  transformer, and the loader (each stage that implements `IReportsItemErrors`), so an item any
+  stage's error policy discarded is reflected in the total. Pre-1.0 behaviour change.
+- _Internal (no public API change):_ the base classes' `StartedAt` / `Elapsed` timing now reads
+  through an injectable time source (#338), so downstream test kits can drive the `Report`
+  throughput / ETA metrics from a fake clock (unblocks ETL-Test-Kit#262).
+
 ## [0.19.0] - 2026-07-29
 
 Minor release: makes the `EtlPipelineProgress` record counters overflow-safe.

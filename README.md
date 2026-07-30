@@ -156,6 +156,9 @@ await Pipeline
 | Throughput & ETA | `Report` exposes `StartedAt`, `Elapsed`, `ItemsPerSecond`, `PercentComplete`, and `EstimatedRemaining` derived from the item count and elapsed time |
 | Resource Disposal | Base classes implement `IDisposable` / `IAsyncDisposable`; override `Dispose(bool)` or `DisposeAsync()` to release resources deterministically |
 | Per-run State | Item counts and timing reset at the start of each enumeration, so a reused component reports the current run rather than cumulative totals |
+| Per-item Error Handling | Opt-in `OnItemError` policy (`Abort` / `Skip`) on each base stage with a distinct `CurrentErrorItemCount`; the pipeline sums error counts across every stage (source, transformers, sink) into `EtlPipelineProgress.ErrorItemCount` |
+| Middleware / Interceptors | Attach composable per-item behaviour (logging, validation, metrics, throttling, dedup) to any stream with `WithMiddleware(...)` — an `IItemMiddleware<T>` returning `MiddlewareResult<T>` (`Continue` / `Drop`) |
+| Retry Seam | `WrapWorkerExecution` hook on each base stage to run the worker through a retry / resilience strategy (for example Polly); default no-op, dependency-free |
 | Cancellation | Full `CancellationToken` support across all operations |
 | Multi-TFM | Targets .NET Framework 4.6.2–4.8.1, .NET Standard 2.0, and .NET 5.0–10.0 |
 | Skip & Limit | `SkipItemCount` and `MaximumItemCount` for partial extraction/loading |
