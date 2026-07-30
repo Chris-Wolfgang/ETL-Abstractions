@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Convenience base classes (#344):** `ExtractorBase<TSource>`, `LoaderBase<TDestination>`, and
+  `TransformerBase<TSource, TDestination>` fix the progress type to the built-in `Report` and supply a
+  default `CreateProgressReport()`, so a component that doesn't need a custom progress-report type
+  implements only its worker method — no progress record and no `CreateProgressReport` override.
+  Override it to enrich the report (for example a known total). The existing two/three-type-parameter
+  bases are unchanged. Additive.
+
 ### Changed
 
 ### Deprecated
