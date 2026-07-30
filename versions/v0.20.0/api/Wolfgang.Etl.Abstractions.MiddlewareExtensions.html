@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class MiddlewareExtensions | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class MiddlewareExtensions | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Extension methods that attach  to an  stream, so cross-cutting per-item behaviour composes onto any extractor / transformer output or loader input — and inside an EtlPipeline via Through(stream =&amp;gt; stream.WithMiddleware(...)) — without changing the component itself.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.20.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_MiddlewareExtensions.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.MiddlewareExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.Abstractions.MiddlewareExtensions">
+
+
+
+  <h1 id="Wolfgang_Etl_Abstractions_MiddlewareExtensions" data-uid="Wolfgang.Etl.Abstractions.MiddlewareExtensions" class="text-break">
+Class MiddlewareExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareExtensions.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.Abstractions.html">Abstractions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.Abstractions.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Extension methods that attach <a class="xref" href="Wolfgang.Etl.Abstractions.IItemMiddleware-1.html">IItemMiddleware&lt;T&gt;</a> to an
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable&lt;T&gt;</a> stream, so cross-cutting per-item behaviour composes onto any
+extractor / transformer output or loader input — and inside an <code>EtlPipeline</code> via
+<code>Through(stream =&gt; stream.WithMiddleware(...))</code> — without changing the component itself.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class MiddlewareExtensions</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">MiddlewareExtensions</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_Abstractions_MiddlewareExtensions_WithMiddleware_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_MiddlewareExtensions_WithMiddleware__1_System_Collections_Generic_IAsyncEnumerable___0__System_Collections_Generic_IEnumerable_Wolfgang_Etl_Abstractions_IItemMiddleware___0___System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware``1(System.Collections.Generic.IAsyncEnumerable{``0},System.Collections.Generic.IEnumerable{Wolfgang.Etl.Abstractions.IItemMiddleware{``0}},System.Threading.CancellationToken)">
+  WithMiddleware&lt;T&gt;(IAsyncEnumerable&lt;T&gt;, IEnumerable&lt;IItemMiddleware&lt;T&gt;&gt;, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareExtensions.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pipes every item of <code class="paramref">source</code> through <code class="paramref">middlewares</code> in order:
+each middleware sees the item the previous one passed on. If any middleware drops the item
+(<a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Drop__1">Drop&lt;T&gt;()</a>), the remaining middleware is not run and the item is
+removed from the stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IAsyncEnumerable&lt;T&gt; WithMiddleware&lt;T&gt;(this IAsyncEnumerable&lt;T&gt; source, IEnumerable&lt;IItemMiddleware&lt;T&gt;&gt; middlewares, CancellationToken token = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>The stream to decorate.</p>
+</dd>
+    <dt><code>middlewares</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.IItemMiddleware-1.html">IItemMiddleware</a>&lt;T&gt;&gt;</dt>
+    <dd><p>The middleware chain, applied in enumeration order.</p>
+</dd>
+    <dt><code>token</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> to observe.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>The decorated stream.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The item type.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">source</code> or <code class="paramref">middlewares</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, or a member of <code class="paramref">middlewares</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_MiddlewareExtensions_WithMiddleware_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_MiddlewareExtensions_WithMiddleware__1_System_Collections_Generic_IAsyncEnumerable___0__Wolfgang_Etl_Abstractions_IItemMiddleware___0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware``1(System.Collections.Generic.IAsyncEnumerable{``0},Wolfgang.Etl.Abstractions.IItemMiddleware{``0},System.Threading.CancellationToken)">
+  WithMiddleware&lt;T&gt;(IAsyncEnumerable&lt;T&gt;, IItemMiddleware&lt;T&gt;, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareExtensions.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pipes every item of <code class="paramref">source</code> through <code class="paramref">middleware</code>. Items the
+middleware drops (<a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Drop__1">Drop&lt;T&gt;()</a>) are removed from the stream; otherwise
+the (possibly replaced) item is yielded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IAsyncEnumerable&lt;T&gt; WithMiddleware&lt;T&gt;(this IAsyncEnumerable&lt;T&gt; source, IItemMiddleware&lt;T&gt; middleware, CancellationToken token = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>The stream to decorate.</p>
+</dd>
+    <dt><code>middleware</code> <a class="xref" href="Wolfgang.Etl.Abstractions.IItemMiddleware-1.html">IItemMiddleware</a>&lt;T&gt;</dt>
+    <dd><p>The middleware to run for each item.</p>
+</dd>
+    <dt><code>token</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> to observe.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>The decorated stream.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The item type.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">source</code> or <code class="paramref">middleware</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareExtensions.cs/#L15" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

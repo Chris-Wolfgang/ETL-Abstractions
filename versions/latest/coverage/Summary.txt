@@ -1,25 +1,25 @@
 Summary
-  Generated on: 7/29/2026 - 1:08:56 AM
-  Coverage date: 7/29/2026 - 1:08:51 AM - 7/29/2026 - 1:08:52 AM
+  Generated on: 7/30/2026 - 1:15:44 AM
+  Coverage date: 7/30/2026 - 1:15:40 AM
   Parser: MultiReport (2x Cobertura)
   Assemblies: 1
-  Classes: 22
-  Files: 22
-  Line coverage: 99.8%
-  Covered lines: 765
-  Uncovered lines: 1
-  Coverable lines: 766
-  Total lines: 3824
-  Branch coverage: 94.6% (229 of 242)
-  Covered branches: 229
-  Total branches: 242
-  Method coverage: 100% (202 of 202)
-  Full method coverage: 99.5% (201 of 202)
-  Covered methods: 202
-  Fully covered methods: 201
-  Total methods: 202
+  Classes: 25
+  Files: 25
+  Line coverage: 99.7%
+  Covered lines: 835
+  Uncovered lines: 2
+  Coverable lines: 837
+  Total lines: 4212
+  Branch coverage: 92.5% (261 of 282)
+  Covered branches: 261
+  Total branches: 282
+  Method coverage: 99.5% (220 of 221)
+  Full method coverage: 99% (219 of 221)
+  Covered methods: 220
+  Fully covered methods: 219
+  Total methods: 221
 
-Wolfgang.Etl.Abstractions                                            99.8%
+Wolfgang.Etl.Abstractions                                            99.7%
   Wolfgang.Etl.Abstractions.EtlPipeline                               100%
   Wolfgang.Etl.Abstractions.EtlPipelineImpl<T>                        100%
   Wolfgang.Etl.Abstractions.EtlPipelineProgress                       100%
@@ -32,6 +32,9 @@ Wolfgang.Etl.Abstractions                                            99.8%
   Wolfgang.Etl.Abstractions.ExtractStageWithProgress<T1, T2>          100%
   Wolfgang.Etl.Abstractions.ItemErrorContext                          100%
   Wolfgang.Etl.Abstractions.LoaderBase<T1, T2>                        100%
+  Wolfgang.Etl.Abstractions.MiddlewareExtensions                      100%
+  Wolfgang.Etl.Abstractions.MiddlewareResult                          100%
+  Wolfgang.Etl.Abstractions.MiddlewareResult<T>                        90%
   Wolfgang.Etl.Abstractions.Pipeline                                  100%
   Wolfgang.Etl.Abstractions.PipelineImpl                              100%
   Wolfgang.Etl.Abstractions.PipelineWithLoadProgress<T1, T2>          100%

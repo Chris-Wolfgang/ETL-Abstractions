@@ -507,6 +507,24 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).StartedAt
   nameWithType: ExtractorBase<TSource, TProgress>.StartedAt
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).StartedAt
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{`0}},System.Threading.CancellationToken)
+  name: WrapWorkerExecution(Func<CancellationToken, IAsyncEnumerable<TSource>>, CancellationToken)
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable__0___System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{`0}},System.Threading.CancellationToken)
+  name.vb: WrapWorkerExecution(Func(Of CancellationToken, IAsyncEnumerable(Of TSource)), CancellationToken)
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TSource>>, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).WrapWorkerExecution(System.Func(Of System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable(Of TSource)), System.Threading.CancellationToken)
+  nameWithType: ExtractorBase<TSource, TProgress>.WrapWorkerExecution(Func<CancellationToken, IAsyncEnumerable<TSource>>, CancellationToken)
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).WrapWorkerExecution(Func(Of CancellationToken, IAsyncEnumerable(Of TSource)), CancellationToken)
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.WrapWorkerExecution*
+  name: WrapWorkerExecution
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_WrapWorkerExecution_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.WrapWorkerExecution
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WrapWorkerExecution
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).WrapWorkerExecution
+  nameWithType: ExtractorBase<TSource, TProgress>.WrapWorkerExecution
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).WrapWorkerExecution
 - uid: Wolfgang.Etl.Abstractions.IEtlPipelineSink
   name: IEtlPipelineSink
   href: api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.html
@@ -850,6 +868,32 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.IExtractWithProgressAsync(Of TSource, TProgress).ExtractAsync
   nameWithType: IExtractWithProgressAsync<TSource, TProgress>.ExtractAsync
   nameWithType.vb: IExtractWithProgressAsync(Of TSource, TProgress).ExtractAsync
+- uid: Wolfgang.Etl.Abstractions.IItemMiddleware`1
+  name: IItemMiddleware<T>
+  href: api/Wolfgang.Etl.Abstractions.IItemMiddleware-1.html
+  commentId: T:Wolfgang.Etl.Abstractions.IItemMiddleware`1
+  name.vb: IItemMiddleware(Of T)
+  fullName: Wolfgang.Etl.Abstractions.IItemMiddleware<T>
+  fullName.vb: Wolfgang.Etl.Abstractions.IItemMiddleware(Of T)
+  nameWithType: IItemMiddleware<T>
+  nameWithType.vb: IItemMiddleware(Of T)
+- uid: Wolfgang.Etl.Abstractions.IItemMiddleware`1.OnItemAsync(`0,System.Threading.CancellationToken)
+  name: OnItemAsync(T, CancellationToken)
+  href: api/Wolfgang.Etl.Abstractions.IItemMiddleware-1.html#Wolfgang_Etl_Abstractions_IItemMiddleware_1_OnItemAsync__0_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.Abstractions.IItemMiddleware`1.OnItemAsync(`0,System.Threading.CancellationToken)
+  fullName: Wolfgang.Etl.Abstractions.IItemMiddleware<T>.OnItemAsync(T, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.Abstractions.IItemMiddleware(Of T).OnItemAsync(T, System.Threading.CancellationToken)
+  nameWithType: IItemMiddleware<T>.OnItemAsync(T, CancellationToken)
+  nameWithType.vb: IItemMiddleware(Of T).OnItemAsync(T, CancellationToken)
+- uid: Wolfgang.Etl.Abstractions.IItemMiddleware`1.OnItemAsync*
+  name: OnItemAsync
+  href: api/Wolfgang.Etl.Abstractions.IItemMiddleware-1.html#Wolfgang_Etl_Abstractions_IItemMiddleware_1_OnItemAsync_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IItemMiddleware`1.OnItemAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IItemMiddleware<T>.OnItemAsync
+  fullName.vb: Wolfgang.Etl.Abstractions.IItemMiddleware(Of T).OnItemAsync
+  nameWithType: IItemMiddleware<T>.OnItemAsync
+  nameWithType.vb: IItemMiddleware(Of T).OnItemAsync
 - uid: Wolfgang.Etl.Abstractions.ILoadAsync`1
   name: ILoadAsync<TDestination>
   href: api/Wolfgang.Etl.Abstractions.ILoadAsync-1.html
@@ -1093,6 +1137,25 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.Abstractions.IProgressTimer.StopTimer
   nameWithType: IProgressTimer.StopTimer
+- uid: Wolfgang.Etl.Abstractions.IReportsItemErrors
+  name: IReportsItemErrors
+  href: api/Wolfgang.Etl.Abstractions.IReportsItemErrors.html
+  commentId: T:Wolfgang.Etl.Abstractions.IReportsItemErrors
+  fullName: Wolfgang.Etl.Abstractions.IReportsItemErrors
+  nameWithType: IReportsItemErrors
+- uid: Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount
+  name: CurrentErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.IReportsItemErrors.html#Wolfgang_Etl_Abstractions_IReportsItemErrors_CurrentErrorItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount
+  fullName: Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount
+  nameWithType: IReportsItemErrors.CurrentErrorItemCount
+- uid: Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount*
+  name: CurrentErrorItemCount
+  href: api/Wolfgang.Etl.Abstractions.IReportsItemErrors.html#Wolfgang_Etl_Abstractions_IReportsItemErrors_CurrentErrorItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount
+  nameWithType: IReportsItemErrors.CurrentErrorItemCount
 - uid: Wolfgang.Etl.Abstractions.ISupportDryRun
   name: ISupportDryRun
   href: api/Wolfgang.Etl.Abstractions.ISupportDryRun.html
@@ -1782,6 +1845,218 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).StartedAt
   nameWithType: LoaderBase<TDestination, TProgress>.StartedAt
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).StartedAt
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task},System.Threading.CancellationToken)
+  name: WrapWorkerExecution(Func<CancellationToken, Task>, CancellationToken)
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Threading_Tasks_Task__System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task},System.Threading.CancellationToken)
+  name.vb: WrapWorkerExecution(Func(Of CancellationToken, Task), CancellationToken)
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task>, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).WrapWorkerExecution(System.Func(Of System.Threading.CancellationToken, System.Threading.Tasks.Task), System.Threading.CancellationToken)
+  nameWithType: LoaderBase<TDestination, TProgress>.WrapWorkerExecution(Func<CancellationToken, Task>, CancellationToken)
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).WrapWorkerExecution(Func(Of CancellationToken, Task), CancellationToken)
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.WrapWorkerExecution*
+  name: WrapWorkerExecution
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_WrapWorkerExecution_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.WrapWorkerExecution
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WrapWorkerExecution
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).WrapWorkerExecution
+  nameWithType: LoaderBase<TDestination, TProgress>.WrapWorkerExecution
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).WrapWorkerExecution
+- uid: Wolfgang.Etl.Abstractions.MiddlewareExtensions
+  name: MiddlewareExtensions
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.html
+  commentId: T:Wolfgang.Etl.Abstractions.MiddlewareExtensions
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareExtensions
+  nameWithType: MiddlewareExtensions
+- uid: Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware*
+  name: WithMiddleware
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.html#Wolfgang_Etl_Abstractions_MiddlewareExtensions_WithMiddleware_
+  commentId: Overload:Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware
+  nameWithType: MiddlewareExtensions.WithMiddleware
+- uid: Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware``1(System.Collections.Generic.IAsyncEnumerable{``0},System.Collections.Generic.IEnumerable{Wolfgang.Etl.Abstractions.IItemMiddleware{``0}},System.Threading.CancellationToken)
+  name: WithMiddleware<T>(IAsyncEnumerable<T>, IEnumerable<IItemMiddleware<T>>, CancellationToken)
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.html#Wolfgang_Etl_Abstractions_MiddlewareExtensions_WithMiddleware__1_System_Collections_Generic_IAsyncEnumerable___0__System_Collections_Generic_IEnumerable_Wolfgang_Etl_Abstractions_IItemMiddleware___0___System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware``1(System.Collections.Generic.IAsyncEnumerable{``0},System.Collections.Generic.IEnumerable{Wolfgang.Etl.Abstractions.IItemMiddleware{``0}},System.Threading.CancellationToken)
+  name.vb: WithMiddleware(Of T)(IAsyncEnumerable(Of T), IEnumerable(Of IItemMiddleware(Of T)), CancellationToken)
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware<T>(System.Collections.Generic.IAsyncEnumerable<T>, System.Collections.Generic.IEnumerable<Wolfgang.Etl.Abstractions.IItemMiddleware<T>>, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware(Of T)(System.Collections.Generic.IAsyncEnumerable(Of T), System.Collections.Generic.IEnumerable(Of Wolfgang.Etl.Abstractions.IItemMiddleware(Of T)), System.Threading.CancellationToken)
+  nameWithType: MiddlewareExtensions.WithMiddleware<T>(IAsyncEnumerable<T>, IEnumerable<IItemMiddleware<T>>, CancellationToken)
+  nameWithType.vb: MiddlewareExtensions.WithMiddleware(Of T)(IAsyncEnumerable(Of T), IEnumerable(Of IItemMiddleware(Of T)), CancellationToken)
+- uid: Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware``1(System.Collections.Generic.IAsyncEnumerable{``0},Wolfgang.Etl.Abstractions.IItemMiddleware{``0},System.Threading.CancellationToken)
+  name: WithMiddleware<T>(IAsyncEnumerable<T>, IItemMiddleware<T>, CancellationToken)
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.html#Wolfgang_Etl_Abstractions_MiddlewareExtensions_WithMiddleware__1_System_Collections_Generic_IAsyncEnumerable___0__Wolfgang_Etl_Abstractions_IItemMiddleware___0__System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware``1(System.Collections.Generic.IAsyncEnumerable{``0},Wolfgang.Etl.Abstractions.IItemMiddleware{``0},System.Threading.CancellationToken)
+  name.vb: WithMiddleware(Of T)(IAsyncEnumerable(Of T), IItemMiddleware(Of T), CancellationToken)
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware<T>(System.Collections.Generic.IAsyncEnumerable<T>, Wolfgang.Etl.Abstractions.IItemMiddleware<T>, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware(Of T)(System.Collections.Generic.IAsyncEnumerable(Of T), Wolfgang.Etl.Abstractions.IItemMiddleware(Of T), System.Threading.CancellationToken)
+  nameWithType: MiddlewareExtensions.WithMiddleware<T>(IAsyncEnumerable<T>, IItemMiddleware<T>, CancellationToken)
+  nameWithType.vb: MiddlewareExtensions.WithMiddleware(Of T)(IAsyncEnumerable(Of T), IItemMiddleware(Of T), CancellationToken)
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult
+  name: MiddlewareResult
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult.html
+  commentId: T:Wolfgang.Etl.Abstractions.MiddlewareResult
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult
+  nameWithType: MiddlewareResult
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult.Continue*
+  name: Continue
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Continue_
+  commentId: Overload:Wolfgang.Etl.Abstractions.MiddlewareResult.Continue
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult.Continue
+  nameWithType: MiddlewareResult.Continue
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult.Continue``1(``0)
+  name: Continue<T>(T)
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Continue__1___0_
+  commentId: M:Wolfgang.Etl.Abstractions.MiddlewareResult.Continue``1(``0)
+  name.vb: Continue(Of T)(T)
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult.Continue<T>(T)
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult.Continue(Of T)(T)
+  nameWithType: MiddlewareResult.Continue<T>(T)
+  nameWithType.vb: MiddlewareResult.Continue(Of T)(T)
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult.Drop*
+  name: Drop
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Drop_
+  commentId: Overload:Wolfgang.Etl.Abstractions.MiddlewareResult.Drop
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult.Drop
+  nameWithType: MiddlewareResult.Drop
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult.Drop``1
+  name: Drop<T>()
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Drop__1
+  commentId: M:Wolfgang.Etl.Abstractions.MiddlewareResult.Drop``1
+  name.vb: Drop(Of T)()
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult.Drop<T>()
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult.Drop(Of T)()
+  nameWithType: MiddlewareResult.Drop<T>()
+  nameWithType.vb: MiddlewareResult.Drop(Of T)()
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1
+  name: MiddlewareResult<T>
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html
+  commentId: T:Wolfgang.Etl.Abstractions.MiddlewareResult`1
+  name.vb: MiddlewareResult(Of T)
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T)
+  nameWithType: MiddlewareResult<T>
+  nameWithType.vb: MiddlewareResult(Of T)
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals(System.Object)
+  name: Equals(object?)
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_Equals_System_Object_
+  commentId: M:Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Equals(object?)
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).Equals(Object)
+  nameWithType: MiddlewareResult<T>.Equals(object?)
+  nameWithType.vb: MiddlewareResult(Of T).Equals(Object)
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals(Wolfgang.Etl.Abstractions.MiddlewareResult{`0})
+  name: Equals(MiddlewareResult<T>)
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_Equals_Wolfgang_Etl_Abstractions_MiddlewareResult__0__
+  commentId: M:Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals(Wolfgang.Etl.Abstractions.MiddlewareResult{`0})
+  name.vb: Equals(MiddlewareResult(Of T))
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Equals(Wolfgang.Etl.Abstractions.MiddlewareResult<T>)
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).Equals(Wolfgang.Etl.Abstractions.MiddlewareResult(Of T))
+  nameWithType: MiddlewareResult<T>.Equals(MiddlewareResult<T>)
+  nameWithType.vb: MiddlewareResult(Of T).Equals(MiddlewareResult(Of T))
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals*
+  name: Equals
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_Equals_
+  commentId: Overload:Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Equals
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).Equals
+  nameWithType: MiddlewareResult<T>.Equals
+  nameWithType.vb: MiddlewareResult(Of T).Equals
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.GetHashCode
+  name: GetHashCode()
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_GetHashCode
+  commentId: M:Wolfgang.Etl.Abstractions.MiddlewareResult`1.GetHashCode
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.GetHashCode()
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).GetHashCode()
+  nameWithType: MiddlewareResult<T>.GetHashCode()
+  nameWithType.vb: MiddlewareResult(Of T).GetHashCode()
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.GetHashCode*
+  name: GetHashCode
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_GetHashCode_
+  commentId: Overload:Wolfgang.Etl.Abstractions.MiddlewareResult`1.GetHashCode
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.GetHashCode
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).GetHashCode
+  nameWithType: MiddlewareResult<T>.GetHashCode
+  nameWithType.vb: MiddlewareResult(Of T).GetHashCode
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.Item
+  name: Item
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_Item
+  commentId: P:Wolfgang.Etl.Abstractions.MiddlewareResult`1.Item
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Item
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).Item
+  nameWithType: MiddlewareResult<T>.Item
+  nameWithType.vb: MiddlewareResult(Of T).Item
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.Item*
+  name: Item
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_Item_
+  commentId: Overload:Wolfgang.Etl.Abstractions.MiddlewareResult`1.Item
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Item
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).Item
+  nameWithType: MiddlewareResult<T>.Item
+  nameWithType.vb: MiddlewareResult(Of T).Item
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.Skip
+  name: Skip
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_Skip
+  commentId: P:Wolfgang.Etl.Abstractions.MiddlewareResult`1.Skip
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Skip
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).Skip
+  nameWithType: MiddlewareResult<T>.Skip
+  nameWithType.vb: MiddlewareResult(Of T).Skip
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.Skip*
+  name: Skip
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_Skip_
+  commentId: Overload:Wolfgang.Etl.Abstractions.MiddlewareResult`1.Skip
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Skip
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).Skip
+  nameWithType: MiddlewareResult<T>.Skip
+  nameWithType.vb: MiddlewareResult(Of T).Skip
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Equality(Wolfgang.Etl.Abstractions.MiddlewareResult{`0},Wolfgang.Etl.Abstractions.MiddlewareResult{`0})
+  name: operator ==(MiddlewareResult<T>, MiddlewareResult<T>)
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_op_Equality_Wolfgang_Etl_Abstractions_MiddlewareResult__0__Wolfgang_Etl_Abstractions_MiddlewareResult__0__
+  commentId: M:Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Equality(Wolfgang.Etl.Abstractions.MiddlewareResult{`0},Wolfgang.Etl.Abstractions.MiddlewareResult{`0})
+  name.vb: =(MiddlewareResult(Of T), MiddlewareResult(Of T))
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.operator ==(Wolfgang.Etl.Abstractions.MiddlewareResult<T>, Wolfgang.Etl.Abstractions.MiddlewareResult<T>)
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).=(Wolfgang.Etl.Abstractions.MiddlewareResult(Of T), Wolfgang.Etl.Abstractions.MiddlewareResult(Of T))
+  nameWithType: MiddlewareResult<T>.operator ==(MiddlewareResult<T>, MiddlewareResult<T>)
+  nameWithType.vb: MiddlewareResult(Of T).=(MiddlewareResult(Of T), MiddlewareResult(Of T))
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Equality*
+  name: operator ==
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_op_Equality_
+  commentId: Overload:Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Equality
+  isSpec: "True"
+  name.vb: =
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.operator ==
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).=
+  nameWithType: MiddlewareResult<T>.operator ==
+  nameWithType.vb: MiddlewareResult(Of T).=
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Inequality(Wolfgang.Etl.Abstractions.MiddlewareResult{`0},Wolfgang.Etl.Abstractions.MiddlewareResult{`0})
+  name: operator !=(MiddlewareResult<T>, MiddlewareResult<T>)
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_op_Inequality_Wolfgang_Etl_Abstractions_MiddlewareResult__0__Wolfgang_Etl_Abstractions_MiddlewareResult__0__
+  commentId: M:Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Inequality(Wolfgang.Etl.Abstractions.MiddlewareResult{`0},Wolfgang.Etl.Abstractions.MiddlewareResult{`0})
+  name.vb: <>(MiddlewareResult(Of T), MiddlewareResult(Of T))
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.operator !=(Wolfgang.Etl.Abstractions.MiddlewareResult<T>, Wolfgang.Etl.Abstractions.MiddlewareResult<T>)
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).<>(Wolfgang.Etl.Abstractions.MiddlewareResult(Of T), Wolfgang.Etl.Abstractions.MiddlewareResult(Of T))
+  nameWithType: MiddlewareResult<T>.operator !=(MiddlewareResult<T>, MiddlewareResult<T>)
+  nameWithType.vb: MiddlewareResult(Of T).<>(MiddlewareResult(Of T), MiddlewareResult(Of T))
+- uid: Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Inequality*
+  name: operator !=
+  href: api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_op_Inequality_
+  commentId: Overload:Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Inequality
+  isSpec: "True"
+  name.vb: <>
+  fullName: Wolfgang.Etl.Abstractions.MiddlewareResult<T>.operator !=
+  fullName.vb: Wolfgang.Etl.Abstractions.MiddlewareResult(Of T).<>
+  nameWithType: MiddlewareResult<T>.operator !=
+  nameWithType.vb: MiddlewareResult(Of T).<>
 - uid: Wolfgang.Etl.Abstractions.Pipeline
   name: Pipeline
   href: api/Wolfgang.Etl.Abstractions.Pipeline.html
@@ -2310,3 +2585,21 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).TransformWorkerAsync
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.TransformWorkerAsync
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).TransformWorkerAsync
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{`1}},System.Threading.CancellationToken)
+  name: WrapWorkerExecution(Func<CancellationToken, IAsyncEnumerable<TDestination>>, CancellationToken)
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable__1___System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{`1}},System.Threading.CancellationToken)
+  name.vb: WrapWorkerExecution(Func(Of CancellationToken, IAsyncEnumerable(Of TDestination)), CancellationToken)
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TDestination>>, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).WrapWorkerExecution(System.Func(Of System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable(Of TDestination)), System.Threading.CancellationToken)
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.WrapWorkerExecution(Func<CancellationToken, IAsyncEnumerable<TDestination>>, CancellationToken)
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).WrapWorkerExecution(Func(Of CancellationToken, IAsyncEnumerable(Of TDestination)), CancellationToken)
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.WrapWorkerExecution*
+  name: WrapWorkerExecution
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_WrapWorkerExecution_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.WrapWorkerExecution
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.WrapWorkerExecution
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).WrapWorkerExecution
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.WrapWorkerExecution
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).WrapWorkerExecution

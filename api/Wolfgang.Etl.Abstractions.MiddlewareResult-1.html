@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Struct MiddlewareResult&lt;T&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Struct MiddlewareResult&lt;T&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="The outcome of running a single item through an : the (possibly replaced) item to pass on, and whether the item should be dropped from the stream. Create one with  to keep an item flowing or  to discard it.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.20.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_MiddlewareResult_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.MiddlewareResult%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1">
+
+
+
+  <h1 id="Wolfgang_Etl_Abstractions_MiddlewareResult_1" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1" class="text-break">
+Struct MiddlewareResult&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareResult.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.Abstractions.html">Abstractions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.Abstractions.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>The outcome of running a single item through an <a class="xref" href="Wolfgang.Etl.Abstractions.IItemMiddleware-1.html">IItemMiddleware&lt;T&gt;</a>: the
+(possibly replaced) item to pass on, and whether the item should be dropped from the stream.
+Create one with <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Continue__1___0_">Continue&lt;T&gt;(T)</a> to keep an item flowing or
+<a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Drop__1">Drop&lt;T&gt;()</a> to discard it.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly struct MiddlewareResult&lt;T&gt; : IEquatable&lt;MiddlewareResult&lt;T&gt;&gt;</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The item type flowing through the pipeline.</p>
+</dd>
+  </dl>
+
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html">MiddlewareResult</a>&lt;T&gt;&gt;</div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.tostring">ValueType.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_Item_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.Item*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_Item" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.Item">
+  Item
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareResult.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The item to pass on to the next middleware (or to the stream). Meaningful only when
+<a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html#Wolfgang_Etl_Abstractions_MiddlewareResult_1_Skip">Skip</a> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Item { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_Skip_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.Skip*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_Skip" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.Skip">
+  Skip
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareResult.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> to drop the item from the stream (later middleware is not run and the
+item is not yielded); <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a> to keep it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Skip { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_Equals_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_Equals_System_Object_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals(System.Object)">
+  Equals(object?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareResult.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether this instance and a specified object are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The object to compare with the current instance.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if <code class="paramref">obj</code> and this instance are the same type and represent the same value; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_Equals_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_Equals_Wolfgang_Etl_Abstractions_MiddlewareResult__0__" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.Equals(Wolfgang.Etl.Abstractions.MiddlewareResult{`0})">
+  Equals(MiddlewareResult&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareResult.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether the current object is equal to another object of the same type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(MiddlewareResult&lt;T&gt; other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html">MiddlewareResult</a>&lt;T&gt;</dt>
+    <dd><p>An object to compare with this object.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the current object is equal to the <code class="paramref">other</code> parameter; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_GetHashCode_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.GetHashCode*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_GetHashCode" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.GetHashCode">
+  GetHashCode()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareResult.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the hash code for this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>A 32-bit signed integer that is the hash code for this instance.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+
+  <a id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_op_Equality_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Equality*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_op_Equality_Wolfgang_Etl_Abstractions_MiddlewareResult__0__Wolfgang_Etl_Abstractions_MiddlewareResult__0__" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Equality(Wolfgang.Etl.Abstractions.MiddlewareResult{`0},Wolfgang.Etl.Abstractions.MiddlewareResult{`0})">
+  operator ==(MiddlewareResult&lt;T&gt;, MiddlewareResult&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareResult.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether two results are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(MiddlewareResult&lt;T&gt; left, MiddlewareResult&lt;T&gt; right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html">MiddlewareResult</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html">MiddlewareResult</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_op_Inequality_" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Inequality*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_MiddlewareResult_1_op_Inequality_Wolfgang_Etl_Abstractions_MiddlewareResult__0__Wolfgang_Etl_Abstractions_MiddlewareResult__0__" data-uid="Wolfgang.Etl.Abstractions.MiddlewareResult`1.op_Inequality(Wolfgang.Etl.Abstractions.MiddlewareResult{`0},Wolfgang.Etl.Abstractions.MiddlewareResult{`0})">
+  operator !=(MiddlewareResult&lt;T&gt;, MiddlewareResult&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareResult.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether two results are not equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(MiddlewareResult&lt;T&gt; left, MiddlewareResult&lt;T&gt; right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html">MiddlewareResult</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html">MiddlewareResult</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/MiddlewareResult.cs/#L13" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

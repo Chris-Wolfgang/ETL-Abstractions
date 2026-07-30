@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.19.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_ExtractorBase_2.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.ExtractorBase%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.20.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_ExtractorBase_2.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.ExtractorBase%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_Abstractions_ExtractorBase_2" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2" class="text-break">
-Class ExtractorBase&lt;TSource, TProgress&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
+Class ExtractorBase&lt;TSource, TProgress&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -90,7 +90,7 @@ ExtractWorkerAsync and CreateProgressReport methods.</p>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class ExtractorBase&lt;TSource, TProgress&gt; : IExtractWithProgressAndCancellationAsync&lt;TSource, TProgress&gt;, IExtractWithCancellationAsync&lt;TSource&gt;, IExtractWithProgressAsync&lt;TSource, TProgress&gt;, IExtractAsync&lt;TSource&gt;, IAsyncDisposable, IDisposable where TSource : notnull where TProgress : notnull</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class ExtractorBase&lt;TSource, TProgress&gt; : IExtractWithProgressAndCancellationAsync&lt;TSource, TProgress&gt;, IExtractWithCancellationAsync&lt;TSource&gt;, IExtractWithProgressAsync&lt;TSource, TProgress&gt;, IExtractAsync&lt;TSource&gt;, IReportsItemErrors, IAsyncDisposable, IDisposable where TSource : notnull where TProgress : notnull</code></pre>
   </div>
 
 
@@ -120,6 +120,7 @@ ExtractWorkerAsync and CreateProgressReport methods.</p>
       <div><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.html">IExtractWithCancellationAsync</a>&lt;TSource&gt;</div>
       <div><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.html">IExtractWithProgressAsync</a>&lt;TSource, TProgress&gt;</div>
       <div><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractAsync-1.html">IExtractAsync</a>&lt;TSource&gt;</div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.IReportsItemErrors.html">IReportsItemErrors</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
     </dd>
@@ -165,7 +166,7 @@ ExtractWorkerAsync and CreateProgressReport methods.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentErrorItemCount" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.CurrentErrorItemCount">
   CurrentErrorItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L134"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L135"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of items that raised an error and were discarded by the stage's error policy
@@ -200,7 +201,7 @@ example by <code>SkipItemCount</code>): a failed record is counted here, never s
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentItemCount" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.CurrentItemCount">
   CurrentItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L117"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L118"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The current number of items extracted so far.</p>
@@ -242,7 +243,7 @@ single instance concurrently is not supported.
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentSkippedItemCount" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.CurrentSkippedItemCount">
   CurrentSkippedItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L125"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The current number of items skipped so far during extraction.</p>
@@ -274,7 +275,7 @@ single instance concurrently is not supported.
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_Elapsed" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.Elapsed">
   Elapsed
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L64"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The monotonic wall-clock time elapsed since the first item was processed, or
@@ -309,7 +310,7 @@ snapshot how long extraction has been running.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_MaximumItemCount" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.MaximumItemCount">
   MaximumItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L165"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L166"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The maximum number of items to extract. Once the extractor has reached this limit,
@@ -368,7 +369,7 @@ or infinite or during development.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_ReportingInterval" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.ReportingInterval">
   ReportingInterval
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L86"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of milliseconds between progress updates.</p>
@@ -406,7 +407,7 @@ or infinite or during development.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_SkipItemCount" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.SkipItemCount">
   SkipItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L217"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L218"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of items to skip before extracting.
@@ -471,7 +472,7 @@ items that were already processed or are not relevant for the current extraction
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_StartedAt" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.StartedAt">
   StartedAt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L53"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The UTC time at which the first item was processed (extracted or skipped), or
@@ -511,7 +512,7 @@ surface it on their progress report (see <a class="xref" href="Wolfgang.Etl.Abst
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_CreateProgressReport" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.CreateProgressReport">
   CreateProgressReport()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L390"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L428"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a progress report of type TProgress. This gives the derived class the opportunity to
@@ -545,7 +546,7 @@ implement a custom progress report that is specific to the extraction process.</
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_CreateProgressTimer_System_IProgress__1__" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.CreateProgressTimer(System.IProgress{`1})">
   CreateProgressTimer(IProgress&lt;TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L301"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L302"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> used to drive progress callbacks.
@@ -586,7 +587,7 @@ Override this method in a derived class to inject a custom timer
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_Dispose" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.Dispose">
   Dispose()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L547"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L585"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Releases the resources held by this extractor. The base implementation is a no-op; derived
@@ -614,7 +615,7 @@ classes that hold resources override <a class="xref" href="Wolfgang.Etl.Abstract
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_Dispose_System_Boolean_" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.Dispose(System.Boolean)">
   Dispose(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L564"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L602"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Releases resources held by this extractor. Override in a derived class to dispose resources
@@ -650,7 +651,7 @@ implementation only marks the instance disposed and is idempotent.</p>
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_DisposeAsync" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.DisposeAsync">
   DisposeAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L534"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L572"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously releases the resources held by this extractor. The base implementation is a
@@ -686,7 +687,7 @@ streams or connections override <a class="xref" href="Wolfgang.Etl.Abstractions.
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.ExtractAsync">
   ExtractAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L237"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L238"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously extracts data of type TSource from a source.</p>
@@ -719,7 +720,7 @@ streams or connections override <a class="xref" href="Wolfgang.Etl.Abstractions.
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync_System_IProgress__1__" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.ExtractAsync(System.IProgress{`1})">
   ExtractAsync(IProgress&lt;TProgress&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L255"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L256"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously extracts data of type TSource from a source.</p>
@@ -764,7 +765,7 @@ streams or connections override <a class="xref" href="Wolfgang.Etl.Abstractions.
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync_System_IProgress__1__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.ExtractAsync(System.IProgress{`1},System.Threading.CancellationToken)">
   ExtractAsync(IProgress&lt;TProgress&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L275"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L276"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously extracts data of type TSource from a source.</p>
@@ -816,7 +817,7 @@ If the caller doesn't plan on cancelling the extraction, they can pass Cancellat
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync_System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.ExtractAsync(System.Threading.CancellationToken)">
   ExtractAsync(CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L246"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L247"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously extracts data of type TSource from a source.</p>
@@ -859,7 +860,7 @@ If the caller doesn't plan on cancelling the extraction, they can pass Cancellat
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractWorkerAsync_System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.ExtractWorkerAsync(System.Threading.CancellationToken)">
   ExtractWorkerAsync(CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L381"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L382"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>This method is the core implementation of the extraction logic and should be
@@ -900,7 +901,7 @@ The result may be an empty sequence if no data is available or if the extraction
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)">
   HandleItemError(ItemErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L481"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L519"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies the stage's error policy to a failed item: invokes <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_">OnItemError(ItemErrorContext)</a> and, when
@@ -949,7 +950,7 @@ never silent. Call this from a worker's <code>catch</code> block and re-throw wh
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentItemCount" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.IncrementCurrentItemCount">
   IncrementCurrentItemCount()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L414"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L452"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Increments the CurrentItemCount in a thread safe manner.</p>
@@ -981,7 +982,7 @@ thread safe. This method ensures that CurrentItemCount is incremented safely.</p
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentSkippedItemCount" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.IncrementCurrentSkippedItemCount">
   IncrementCurrentSkippedItemCount()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L431"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L469"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Increments the CurrentSkippedItemCount in a thread safe manner.</p>
@@ -1013,7 +1014,7 @@ thread safe. This method ensures that CurrentSkippedItemCount is incremented saf
 
   <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)">
   OnItemError(ItemErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L460"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L498"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Decides what to do when an item fails to process. Override in a derived stage to record the
@@ -1060,11 +1061,73 @@ can genuinely resume after a bad record overrides this and surfaces its own publ
 
 
 
+  <a id="Wolfgang_Etl_Abstractions_ExtractorBase_2_WrapWorkerExecution_" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.WrapWorkerExecution*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_2_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable__0___System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`2.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{`0}},System.Threading.CancellationToken)">
+  WrapWorkerExecution(Func&lt;CancellationToken, IAsyncEnumerable&lt;TSource&gt;&gt;, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L407"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A resilience seam wrapped around every invocation of <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractWorkerAsync_System_Threading_CancellationToken_">ExtractWorkerAsync(CancellationToken)</a>. The
+default implementation simply invokes <code class="paramref">workerFactory</code> once, so extraction
+behaves exactly as if the seam were absent. Override it to run the worker through a retry /
+resilience strategy (for example a Polly <code>ResiliencePipeline</code>): the strategy can invoke
+<code class="paramref">workerFactory</code> more than once, each call producing a fresh stream, to retry
+a transient failure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual IAsyncEnumerable&lt;TSource&gt; WrapWorkerExecution(Func&lt;CancellationToken, IAsyncEnumerable&lt;TSource&gt;&gt; workerFactory, CancellationToken token)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>workerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;TSource&gt;&gt;</dt>
+    <dd><p>A factory that produces a fresh worker stream for the supplied token. Re-invocable — call it again to retry.</p>
+</dd>
+    <dt><code>token</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> to observe, including during any retry delay.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;TSource&gt;</dt>
+    <dd><p>The (possibly resilience-wrapped) stream of extracted items.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_Abstractions_ExtractorBase_2_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable__0___System_Threading_CancellationToken__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This is <b>stream-level</b> resilience: a retry re-runs the whole worker from the start, so a
+failure part-way through re-yields items already seen. The per-run counters
+(<a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentItemCount">CurrentItemCount</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentSkippedItemCount">CurrentSkippedItemCount</a>,
+<a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentErrorItemCount">CurrentErrorItemCount</a>) are reset once at the start of the run, <b>not</b> on each
+retry, so they accumulate across attempts unless the override resets them. Any delay the
+override introduces must observe <code class="paramref">token</code>. Kept dependency-free by design — a
+concrete Polly integration lives in a separate opt-in package rather than in this library.</p>
+</div>
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">workerFactory</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.19.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L20" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.20.0/src/Wolfgang.Etl.Abstractions/ExtractorBase.cs/#L20" class="edit-link">Edit this page</a>
         </div>
 
 

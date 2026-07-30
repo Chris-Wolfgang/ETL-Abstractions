@@ -204,6 +204,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IItemMiddleware-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IItemMiddleware-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IItemMiddleware<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IItemMiddleware-1.yml\" sourcestartlinenumber=\"1\">A composable, reusable hook for cross-cutting per-item behaviour (logging, validation, metrics,\nthrottling, deduplication) that can be attached to any stream without modifying the extractor,\ntransformer, or loader that produced it. Attach one or more with\n<xref href=\"Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware%60%601(System.Collections.Generic.IAsyncEnumerable%7b%60%600%7d%2cWolfgang.Etl.Abstractions.IItemMiddleware%7b%60%600%7d%2cSystem.Threading.CancellationToken)\" data-throw-if-not-resolved=\"false\"></xref>;\nthey run in the order attached, each seeing the item the previous one passed on.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.ILoadAsync-1.yml",
       "output": {
         ".html": {
@@ -299,6 +313,20 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.IProgressTimer",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IProgressTimer.yml\" sourcestartlinenumber=\"1\">Represents a timer that raises <xref href=\"Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed\" data-throw-if-not-resolved=\"false\"></xref> at a regular interval,\nused by extractor, transformer, and loader base classes to drive progress callbacks.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IReportsItemErrors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IReportsItemErrors.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IReportsItemErrors",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IReportsItemErrors.yml\" sourcestartlinenumber=\"1\">Implemented by an ETL stage that counts items its error policy discarded, so a pipeline can read\nthat count uniformly regardless of the stage's concrete type. <xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%602\" data-throw-if-not-resolved=\"false\"></xref>,\n<xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%602\" data-throw-if-not-resolved=\"false\"></xref>, and <xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%603\" data-throw-if-not-resolved=\"false\"></xref>\nall implement it, and <code>EtlPipeline</code> sums <xref href=\"Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount\" data-throw-if-not-resolved=\"false\"></xref> across every stage\nthat reports it into <xref href=\"Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -439,6 +467,48 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.LoaderBase-2.yml\" sourcestartlinenumber=\"1\">Provides a basic implementation for data loaders that write data of type TDestination to a target destination.\nLibrary authors can use this base class to create custom loaders by inheriting from it and implementing\nLoadWorkerAsync and CreateProgressReport methods.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.MiddlewareExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods that attach <xref href=\"Wolfgang.Etl.Abstractions.IItemMiddleware%601\" data-throw-if-not-resolved=\"false\"></xref> to an\n<xref href=\"System.Collections.Generic.IAsyncEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref> stream, so cross-cutting per-item behaviour composes onto any\nextractor / transformer output or loader input — and inside an <code>EtlPipeline</code> via\n<code>Through(stream =&gt; stream.WithMiddleware(...))</code> — without changing the component itself.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.MiddlewareResult<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.yml\" sourcestartlinenumber=\"1\">The outcome of running a single item through an <xref href=\"Wolfgang.Etl.Abstractions.IItemMiddleware%601\" data-throw-if-not-resolved=\"false\"></xref>: the\n(possibly replaced) item to pass on, and whether the item should be dropped from the stream.\nCreate one with <xref href=\"Wolfgang.Etl.Abstractions.MiddlewareResult.Continue%60%601(%60%600)\" data-throw-if-not-resolved=\"false\"></xref> to keep an item flowing or\n<xref href=\"Wolfgang.Etl.Abstractions.MiddlewareResult.Drop%60%601\" data-throw-if-not-resolved=\"false\"></xref> to discard it.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.MiddlewareResult",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.MiddlewareResult.yml\" sourcestartlinenumber=\"1\">Factory methods for creating <xref href=\"Wolfgang.Etl.Abstractions.MiddlewareResult%601\" data-throw-if-not-resolved=\"false\"></xref> values from an\n<xref href=\"Wolfgang.Etl.Abstractions.IItemMiddleware%601\" data-throw-if-not-resolved=\"false\"></xref> implementation.</p>\n"
     },
     {
       "type": "ManagedReference",
