@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`Wolfgang.Etl.ErrorPolicies` package (new, lockstep-versioned with `Wolfgang.Etl.Abstractions`):**
+  a static `ItemErrorPolicy` factory of ready-made policies for a stage's `OnError` hook —
+  `Skip`, `Abort`, `SkipAndLog(ILogger)`, and dead-letter families `SkipAndDeadLetter` /
+  `SkipDeadLetterAndLog`, each overloaded for a caller-owned `ICollection<ItemErrorContext>` or a
+  `System.Threading.Channels.ChannelWriter<ItemErrorContext>`. Ships from this repo so the shared
+  policy set is defined once for the whole ETL family; the core `Wolfgang.Etl.Abstractions` assembly
+  keeps its minimal dependency set — only this package takes `Microsoft.Extensions.Logging.Abstractions`
+  and `System.Threading.Channels`.
+
 ### Changed
 
 ### Deprecated
