@@ -158,6 +158,33 @@ public sealed class ItemErrorPolicyTests
         Assert.True(channel.Reader.TryRead(out var written));
         Assert.Same(context, written);
         Assert.Equal(1, logger.WarningCount);
+        Assert.Equal(1, logger.LastEventId.Id);            // ItemFailedAndSkipped
+    }
+
+
+
+    [Fact]
+    public void SkipDeadLetterAndLog_channel_when_full_logs_the_dropped_write_and_returns_Skip()
+    {
+        // A bounded channel at capacity: TryWrite returns false, so the failure record is dropped.
+        var channel = Channel.CreateBounded<ItemErrorContext>
+        (
+            new BoundedChannelOptions(1) { FullMode = BoundedChannelFullMode.Wait }
+        );
+        var prefilled = Context();
+        Assert.True(channel.Writer.TryWrite(prefilled));   // fill it to capacity
+
+        var logger = new RecordingLogger();
+        var context = Context();
+
+        var action = ItemErrorPolicy.SkipDeadLetterAndLog(channel.Writer, logger)(context);
+
+        Assert.Equal(ItemErrorAction.Skip, action);        // still skips — a full sink never aborts the run
+        Assert.True(channel.Reader.TryRead(out var only));
+        Assert.Same(prefilled, only);                      // the new failure was dropped, not enqueued
+        Assert.False(channel.Reader.TryRead(out _));       // nothing else in the channel
+        Assert.Equal(1, logger.WarningCount);              // the drop is logged, not silent
+        Assert.Equal(2, logger.LastEventId.Id);            // ItemDeadLetterDropped
     }
 
 
@@ -165,6 +192,8 @@ public sealed class ItemErrorPolicyTests
     private sealed class RecordingLogger : ILogger
     {
         public int WarningCount { get; private set; }
+
+        public EventId LastEventId { get; private set; }
 
         public IDisposable BeginScope<TState>(TState state) where TState : notnull => NullScope.Instance;
 
@@ -182,6 +211,7 @@ public sealed class ItemErrorPolicyTests
             if (logLevel == LogLevel.Warning)
             {
                 WarningCount++;
+                LastEventId = eventId;
             }
         }
 

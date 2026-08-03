@@ -16,4 +16,14 @@ internal static class ItemErrorPolicyLog
             new EventId(1, nameof(ItemFailedAndSkipped)),
             "Item {ItemNumber} failed to process and was skipped."
         );
+
+
+
+    internal static readonly Action<ILogger, long, Exception?> ItemDeadLetterDropped =
+        LoggerMessage.Define<long>
+        (
+            LogLevel.Warning,
+            new EventId(2, nameof(ItemDeadLetterDropped)),
+            "Item {ItemNumber} failed and its dead-letter could not be recorded because the channel was full; the failure record was dropped."
+        );
 }

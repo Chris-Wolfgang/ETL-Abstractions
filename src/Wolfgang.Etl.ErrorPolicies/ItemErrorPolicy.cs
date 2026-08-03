@@ -162,7 +162,9 @@ public static class ItemErrorPolicy
     /// Writes the failure to <paramref name="deadLetters"/> with
     /// <see cref="ChannelWriter{T}.TryWrite(T)"/> and logs it as a warning through
     /// <paramref name="logger"/>, then discards the item and continues. See
-    /// <see cref="SkipAndDeadLetter(ChannelWriter{ItemErrorContext})"/> for the <c>TryWrite</c> caveat.
+    /// <see cref="SkipAndDeadLetter(ChannelWriter{ItemErrorContext})"/> for the <c>TryWrite</c> caveat —
+    /// but unlike that logger-less overload, when the write is dropped (a bounded channel that is full)
+    /// this policy logs a distinct warning so the lost failure record is never silent.
     /// </summary>
     /// <param name="deadLetters">The caller-owned channel each failed item is written to.</param>
     /// <param name="logger">The logger the returned policy writes each failure to.</param>
@@ -188,8 +190,15 @@ public static class ItemErrorPolicy
 
         return context =>
         {
-            deadLetters.TryWrite(context);
-            ItemErrorPolicyLog.ItemFailedAndSkipped(logger, context.ItemNumber, context.Exception);
+            if (deadLetters.TryWrite(context))
+            {
+                ItemErrorPolicyLog.ItemFailedAndSkipped(logger, context.ItemNumber, context.Exception);
+            }
+            else
+            {
+                ItemErrorPolicyLog.ItemDeadLetterDropped(logger, context.ItemNumber, context.Exception);
+            }
+
             return ItemErrorAction.Skip;
         };
     }

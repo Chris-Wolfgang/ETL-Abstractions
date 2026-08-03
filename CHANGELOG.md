@@ -27,7 +27,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `System.Threading.Channels.ChannelWriter<ItemErrorContext>`. Ships from this repo so the shared
   policy set is defined once for the whole ETL family; the core `Wolfgang.Etl.Abstractions` assembly
   keeps its minimal dependency set — only this package takes `Microsoft.Extensions.Logging.Abstractions`
-  and `System.Threading.Channels`.
+  and `System.Threading.Channels`. The channel dead-letter overloads use the non-blocking `TryWrite`
+  (the hook is synchronous); `SkipDeadLetterAndLog(ChannelWriter, ILogger)` logs a distinct warning when
+  a full bounded channel drops the failure record, so the loss is never silent.
 
 ### Changed
 
