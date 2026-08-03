@@ -69,6 +69,8 @@ public class ListLoader : LoaderBase<string, EtlProgress>
         var skipped = 0;
         var loaded = 0;
 
+        token.ThrowIfCancellationRequested();
+
         await foreach (var item in items.WithCancellation(token))
         {
             token.ThrowIfCancellationRequested();

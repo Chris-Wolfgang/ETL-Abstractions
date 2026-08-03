@@ -92,6 +92,8 @@ public class IdentityTransformer : TransformerBase<string, string, EtlProgress>
         var skipped = 0;
         var transformed = 0;
 
+        token.ThrowIfCancellationRequested();
+
         await foreach (var item in items.WithCancellation(token))
         {
             token.ThrowIfCancellationRequested();
@@ -103,9 +105,9 @@ public class IdentityTransformer : TransformerBase<string, string, EtlProgress>
                 continue;
             }
 
-            yield return item;
             IncrementCurrentItemCount();
             transformed++;
+            yield return item;
 
             if (transformed >= MaximumItemCount)
             {
