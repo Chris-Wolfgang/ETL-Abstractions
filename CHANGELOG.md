@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.21.0] - 2026-08-03
+
+Minor release: convenience base classes, an assignable per-item `ErrorPolicy` on the three base stages,
+and a new companion package `Wolfgang.Etl.ErrorPolicies` of ready-made policies. Purely additive — no
+breaking change (validates against the 0.20.0 baseline).
+
+### Added
+
 - **Convenience base classes (#344):** `ExtractorBase<TSource>`, `LoaderBase<TDestination>`, and
   `TransformerBase<TSource, TDestination>` fix the progress type to the built-in `Report` and supply a
   default `CreateProgressReport()`, so a component that doesn't need a custom progress-report type

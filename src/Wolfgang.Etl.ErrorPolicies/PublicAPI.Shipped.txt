@@ -1,1 +1,9 @@
 #nullable enable
+Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy
+static Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
+static Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
+static Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Collections.Generic.ICollection<Wolfgang.Etl.Abstractions.ItemErrorContext!>! deadLetters) -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
+static Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Threading.Channels.ChannelWriter<Wolfgang.Etl.Abstractions.ItemErrorContext!>! deadLetters) -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
+static Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog(Microsoft.Extensions.Logging.ILogger! logger) -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
+static Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Collections.Generic.ICollection<Wolfgang.Etl.Abstractions.ItemErrorContext!>! deadLetters, Microsoft.Extensions.Logging.ILogger! logger) -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
+static Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Threading.Channels.ChannelWriter<Wolfgang.Etl.Abstractions.ItemErrorContext!>! deadLetters, Microsoft.Extensions.Logging.ILogger! logger) -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
