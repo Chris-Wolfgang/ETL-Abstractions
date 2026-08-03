@@ -474,30 +474,49 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
+    private static readonly Func<ItemErrorContext, ItemErrorAction> AbortPolicy =
+        static _ => ItemErrorAction.Abort;
+
+    private readonly Func<ItemErrorContext, ItemErrorAction> _errorPolicy = AbortPolicy;
+
+
+
     /// <summary>
-    /// Decides what to do when an item fails to process. Override in a derived stage to record the
-    /// failure and return <see cref="ItemErrorAction.Skip"/> to discard the item and continue, or
-    /// <see cref="ItemErrorAction.Abort"/> to re-throw and stop the run. The base implementation
-    /// always returns <see cref="ItemErrorAction.Abort"/>, so a stage that does not opt in keeps its
-    /// fail-fast behaviour.
+    /// Gets the policy invoked when an item fails to process. Return <see cref="ItemErrorAction.Skip"/>
+    /// to discard the item and continue, or <see cref="ItemErrorAction.Abort"/> to re-throw and stop
+    /// the run. Defaults to fail-fast: every failed item aborts the run until a policy is assigned.
+    /// Ready-made policies are provided by <c>Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy</c>.
+    /// Assigned once, at construction (init-only), so the policy cannot change during a run.
+    /// </summary>
+    /// <exception cref="ArgumentNullException">The assigned value is <see langword="null"/>.</exception>
+    public Func<ItemErrorContext, ItemErrorAction> ErrorPolicy
+    {
+        get => _errorPolicy;
+        init => _errorPolicy = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+
+
+    /// <summary>
+    /// Decides what to do when an item fails to process. The base implementation delegates to
+    /// <see cref="ErrorPolicy"/> (fail-fast by default). Override in a derived stage instead only when
+    /// the decision needs stage-internal state; a worker does not call this directly.
     /// </summary>
     /// <param name="context">
     /// Describes the failed item — its ordinal, the exception, and optional raw content.
     /// </param>
     /// <returns>Whether to skip the item or abort the run.</returns>
     /// <remarks>
-    /// This is the policy hook a derived stage overrides; a worker does not call it directly. A worker
-    /// calls <see cref="HandleItemError"/>, which invokes this method and performs the skip
-    /// bookkeeping. The base classes deliberately expose no public error-handling property: a base
-    /// class cannot catch a per-item failure on the worker's behalf — a C# async iterator cannot
-    /// resume after it throws — so the worker owns the <c>try</c>/<c>catch</c>, and only a format that
-    /// can genuinely resume after a bad record overrides this and surfaces its own public knob.
+    /// A worker calls <see cref="HandleItemError"/>, which invokes this method and performs the skip
+    /// bookkeeping. The worker still owns the <c>try</c>/<c>catch</c> — a C# async iterator cannot
+    /// resume after it throws — and calls <see cref="HandleItemError"/> from it. On a format that
+    /// cannot genuinely resume after a bad record, <see cref="ItemErrorAction.Skip"/> means "swallow
+    /// the failure and stop at that point" rather than "skip and continue"; such a stage documents
+    /// that on its own type.
     /// </remarks>
     protected virtual ItemErrorAction OnItemError(ItemErrorContext context)
-    // Stryker disable once all: equivalent — Abort is the enum's default (0), so removing the body
-    // (which makes it return default) yields the identical value; no test can distinguish them.
     {
-        return ItemErrorAction.Abort;
+        return ErrorPolicy(context);
     }
 
 

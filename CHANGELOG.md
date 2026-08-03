@@ -19,6 +19,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.21.0] - 2026-08-03
+
+Minor release: convenience base classes, an assignable per-item `ErrorPolicy` on the three base stages,
+and a new companion package `Wolfgang.Etl.ErrorPolicies` of ready-made policies. Purely additive — no
+breaking change (validates against the 0.20.0 baseline).
+
+### Added
+
+- **Convenience base classes (#344):** `ExtractorBase<TSource>`, `LoaderBase<TDestination>`, and
+  `TransformerBase<TSource, TDestination>` fix the progress type to the built-in `Report` and supply a
+  default `CreateProgressReport()`, so a component that doesn't need a custom progress-report type
+  implements only its worker method — no progress record and no `CreateProgressReport` override.
+  Override it to enrich the report (for example a known total). The existing two/three-type-parameter
+  bases are unchanged. Additive.
+- **`ErrorPolicy` on the base stages (#344 follow-up):** `ExtractorBase`, `LoaderBase`, and
+  `TransformerBase` gained an `ErrorPolicy` (`Func<ItemErrorContext, ItemErrorAction>`, non-null,
+  default fail-fast, **init-only** — set at construction) that the base `OnItemError` consults, so a
+  stage gets a configurable error policy with no per-type property or override — assign one (e.g. from
+  `Wolfgang.Etl.ErrorPolicies`) or override `OnItemError` for stage-internal logic. Additive; unset
+  behaviour is unchanged fail-fast.
+- **`Wolfgang.Etl.ErrorPolicies` package (new, lockstep-versioned with `Wolfgang.Etl.Abstractions`):**
+  a static `ItemErrorPolicy` factory of ready-made policies assignable to a stage's `ErrorPolicy`
+  property — `Skip`, `Abort`, `SkipAndLog(ILogger)`, and dead-letter families `SkipAndDeadLetter` /
+  `SkipDeadLetterAndLog`, each overloaded for a caller-owned `ICollection<ItemErrorContext>` or a
+  `System.Threading.Channels.ChannelWriter<ItemErrorContext>`. Ships from this repo so the shared
+  policy set is defined once for the whole ETL family; the core `Wolfgang.Etl.Abstractions` assembly
+  keeps its minimal dependency set — only this package takes `Microsoft.Extensions.Logging.Abstractions`
+  and `System.Threading.Channels`. The channel dead-letter overloads use the non-blocking `TryWrite`
+  (the hook is synchronous); `SkipDeadLetterAndLog(ChannelWriter, ILogger)` logs a distinct warning when
+  a full bounded channel drops the failure record, so the loss is never silent.
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
 ## [0.20.0] - 2026-07-30
 
 Minor release: a dependency-free retry seam, composable per-item middleware, and pipeline-wide

@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	<TargetFrameworks>net462;net472;net48;net481;netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
+	<LangVersion>latest</LangVersion>
+	<!-- Lockstep with Wolfgang.Etl.Abstractions: this package is built and released from the same
+	     repo under the same version and tag (like Wolfgang.Etl.TestKit + Wolfgang.Etl.TestKit.Xunit). -->
+	<Version>0.21.0</Version>
+	<AssemblyVersion>1.0.0.0</AssemblyVersion>
+	<FileVersion>$([System.Text.RegularExpressions.Regex]::Replace("$(Version)", "[-+].*$", "")).0</FileVersion>
+    <!-- No EnablePackageValidation on the FIRST release: there is no previously-published baseline to
+         compare against. Enable it next cycle with PackageValidationBaselineVersion set to 0.21.0. -->
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>$(AssemblyName)</Title>
+    <Description>Ready-made item-error policies — skip, log, and dead-letter (to a collection or a channel) — assignable to the ErrorPolicy property of Wolfgang.Etl extractors, loaders, and transformers. Built on Wolfgang.Etl.Abstractions.</Description>
+    <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageIcon>ETL-Abstractions.png</PackageIcon>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <SignAssembly>False</SignAssembly>
+    <!-- The 10.0.10 logging packages drop net5.0/net7.0 from their tested TFM list; they resolve the
+         netstandard2.0 asset there and work. Silence the NETSDK TFM-support warnings on those TFMs. -->
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+    <PackageTags>ETL;Extract-Transform-Load;error-handling;dead-letter</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Wolfgang.Etl.ErrorPolicies.Tests.Unit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\ETL-Abstractions.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
+  </ItemGroup>
+
+  <!-- Logging.Abstractions is always a package reference (never in-box). -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10" />
+  </ItemGroup>
+
+  <!-- System.Threading.Channels is in-box on net5.0+; only the netFx / netstandard2.0 TFMs need the package. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Threading.Channels" Version="10.0.10" />
+  </ItemGroup>
+
+  <!-- Analyzer PackageReferences are centralized in Directory.Build.props -->
+
+
+</Project>
