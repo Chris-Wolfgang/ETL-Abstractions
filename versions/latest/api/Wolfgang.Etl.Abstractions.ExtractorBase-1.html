@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ExtractorBase&lt;TSource&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ExtractorBase&lt;TSource&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="A convenience  that reports progress with the built-in  type and supplies a default , so a derived extractor only has to implement ExtractWorkerAsync. Use this instead of the two-type-parameter base when you don&#39;t need a custom progress-report type — it removes the progress-record and CreateProgressReport boilerplate. Override  if you want to enrich the report (for example set a known total).">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.21.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_ExtractorBase_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.ExtractorBase%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`1">
+
+
+
+  <h1 id="Wolfgang_Etl_Abstractions_ExtractorBase_1" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`1" class="text-break">
+Class ExtractorBase&lt;TSource&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.Abstractions/ExtractorBase{TSource}.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.Abstractions.html">Abstractions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.Abstractions.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A convenience <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase&lt;TSource, TProgress&gt;</a> that reports progress with the
+built-in <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a> type and supplies a default <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport">CreateProgressReport()</a>, so a
+derived extractor only has to implement <code>ExtractWorkerAsync</code>. Use this instead of the
+two-type-parameter base when you don't need a custom progress-report type — it removes the
+progress-record and <code>CreateProgressReport</code> boilerplate. Override
+<a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport">CreateProgressReport()</a> if you want to enrich the report (for example set a known total).</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ExtractorBase&lt;TSource&gt; : ExtractorBase&lt;TSource, Report&gt;, IExtractWithProgressAndCancellationAsync&lt;TSource, Report&gt;, IExtractWithCancellationAsync&lt;TSource&gt;, IExtractWithProgressAsync&lt;TSource, Report&gt;, IExtractAsync&lt;TSource&gt;, IReportsItemErrors, IAsyncDisposable, IDisposable where TSource : notnull</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSource</code></dt>
+    <dd><p>The type of the object being extracted.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase</a>&lt;TSource, <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a>&gt;</div>
+      <div><span class="xref">ExtractorBase&lt;TSource&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync-2.html">IExtractWithProgressAndCancellationAsync</a>&lt;TSource, <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a>&gt;</div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.html">IExtractWithCancellationAsync</a>&lt;TSource&gt;</div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.html">IExtractWithProgressAsync</a>&lt;TSource, <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a>&gt;</div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractAsync-1.html">IExtractAsync</a>&lt;TSource&gt;</div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.IReportsItemErrors.html">IReportsItemErrors</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_StartedAt">ExtractorBase&lt;TSource, Report&gt;.StartedAt</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_Elapsed">ExtractorBase&lt;TSource, Report&gt;.Elapsed</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ReportingInterval">ExtractorBase&lt;TSource, Report&gt;.ReportingInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentItemCount">ExtractorBase&lt;TSource, Report&gt;.CurrentItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentSkippedItemCount">ExtractorBase&lt;TSource, Report&gt;.CurrentSkippedItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CurrentErrorItemCount">ExtractorBase&lt;TSource, Report&gt;.CurrentErrorItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_MaximumItemCount">ExtractorBase&lt;TSource, Report&gt;.MaximumItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_SkipItemCount">ExtractorBase&lt;TSource, Report&gt;.SkipItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync">ExtractorBase&lt;TSource, Report&gt;.ExtractAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync_System_Threading_CancellationToken_">ExtractorBase&lt;TSource, Report&gt;.ExtractAsync(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync_System_IProgress__1__">ExtractorBase&lt;TSource, Report&gt;.ExtractAsync(IProgress&lt;Report&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync_System_IProgress__1__System_Threading_CancellationToken_">ExtractorBase&lt;TSource, Report&gt;.ExtractAsync(IProgress&lt;Report&gt;, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CreateProgressTimer_System_IProgress__1__">ExtractorBase&lt;TSource, Report&gt;.CreateProgressTimer(IProgress&lt;Report&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractWorkerAsync_System_Threading_CancellationToken_">ExtractorBase&lt;TSource, Report&gt;.ExtractWorkerAsync(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable__0___System_Threading_CancellationToken_">ExtractorBase&lt;TSource, Report&gt;.WrapWorkerExecution(Func&lt;CancellationToken, IAsyncEnumerable&lt;TSource&gt;&gt;, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CreateProgressReport">ExtractorBase&lt;TSource, Report&gt;.CreateProgressReport()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentItemCount">ExtractorBase&lt;TSource, Report&gt;.IncrementCurrentItemCount()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentSkippedItemCount">ExtractorBase&lt;TSource, Report&gt;.IncrementCurrentSkippedItemCount()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ErrorPolicy">ExtractorBase&lt;TSource, Report&gt;.ErrorPolicy</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_">ExtractorBase&lt;TSource, Report&gt;.OnItemError(ItemErrorContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_">ExtractorBase&lt;TSource, Report&gt;.HandleItemError(ItemErrorContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_DisposeAsync">ExtractorBase&lt;TSource, Report&gt;.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_Dispose">ExtractorBase&lt;TSource, Report&gt;.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_Dispose_System_Boolean_">ExtractorBase&lt;TSource, Report&gt;.Dispose(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport_" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`1.CreateProgressReport*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport" data-uid="Wolfgang.Etl.Abstractions.ExtractorBase`1.CreateProgressReport">
+  CreateProgressReport()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.Abstractions/ExtractorBase{TSource}.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Builds a <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a> snapshot from the current item count and timing. Override to add
+more detail (for example a known <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html#Wolfgang_Etl_Abstractions_Report_TotalItemCount">TotalItemCount</a>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Report CreateProgressReport()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a></dt>
+    <dd><p>A <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a> for the current run.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.Abstractions/ExtractorBase{TSource}.cs/#L12" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

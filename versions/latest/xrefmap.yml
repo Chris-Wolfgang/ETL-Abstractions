@@ -156,6 +156,32 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From(Of T, TProgress)(Wolfgang.Etl.Abstractions.EtlPipeline, Wolfgang.Etl.Abstractions.ExtractorBase(Of T, TProgress))
   nameWithType: EtlPipelineSourceExtensions.From<T, TProgress>(EtlPipeline, ExtractorBase<T, TProgress>)
   nameWithType.vb: EtlPipelineSourceExtensions.From(Of T, TProgress)(EtlPipeline, ExtractorBase(Of T, TProgress))
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`1
+  name: ExtractorBase<TSource>
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-1.html
+  commentId: T:Wolfgang.Etl.Abstractions.ExtractorBase`1
+  name.vb: ExtractorBase(Of TSource)
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource>
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource)
+  nameWithType: ExtractorBase<TSource>
+  nameWithType.vb: ExtractorBase(Of TSource)
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`1.CreateProgressReport
+  name: CreateProgressReport()
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`1.CreateProgressReport
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.CreateProgressReport()
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource).CreateProgressReport()
+  nameWithType: ExtractorBase<TSource>.CreateProgressReport()
+  nameWithType.vb: ExtractorBase(Of TSource).CreateProgressReport()
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`1.CreateProgressReport*
+  name: CreateProgressReport
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`1.CreateProgressReport
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.CreateProgressReport
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource).CreateProgressReport
+  nameWithType: ExtractorBase<TSource>.CreateProgressReport
+  nameWithType.vb: ExtractorBase(Of TSource).CreateProgressReport
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2
   name: ExtractorBase<TSource, TProgress>
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html
@@ -311,6 +337,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).Elapsed
   nameWithType: ExtractorBase<TSource, TProgress>.Elapsed
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).Elapsed
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.ErrorPolicy
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ErrorPolicy
+  commentId: P:Wolfgang.Etl.Abstractions.ExtractorBase`2.ErrorPolicy
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ErrorPolicy
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).ErrorPolicy
+  nameWithType: ExtractorBase<TSource, TProgress>.ErrorPolicy
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).ErrorPolicy
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.ErrorPolicy*
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ErrorPolicy_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.ErrorPolicy
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ErrorPolicy
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).ErrorPolicy
+  nameWithType: ExtractorBase<TSource, TProgress>.ErrorPolicy
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).ErrorPolicy
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.ExtractAsync
   name: ExtractAsync()
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ExtractAsync
@@ -1491,6 +1534,32 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.Abstractions.ItemErrorContext.RawContent
   nameWithType: ItemErrorContext.RawContent
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`1
+  name: LoaderBase<TDestination>
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-1.html
+  commentId: T:Wolfgang.Etl.Abstractions.LoaderBase`1
+  name.vb: LoaderBase(Of TDestination)
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination>
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination)
+  nameWithType: LoaderBase<TDestination>
+  nameWithType.vb: LoaderBase(Of TDestination)
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`1.CreateProgressReport
+  name: CreateProgressReport()
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-1.html#Wolfgang_Etl_Abstractions_LoaderBase_1_CreateProgressReport
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`1.CreateProgressReport
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination>.CreateProgressReport()
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination).CreateProgressReport()
+  nameWithType: LoaderBase<TDestination>.CreateProgressReport()
+  nameWithType.vb: LoaderBase(Of TDestination).CreateProgressReport()
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`1.CreateProgressReport*
+  name: CreateProgressReport
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-1.html#Wolfgang_Etl_Abstractions_LoaderBase_1_CreateProgressReport_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`1.CreateProgressReport
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination>.CreateProgressReport
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination).CreateProgressReport
+  nameWithType: LoaderBase<TDestination>.CreateProgressReport
+  nameWithType.vb: LoaderBase(Of TDestination).CreateProgressReport
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2
   name: LoaderBase<TDestination, TProgress>
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html
@@ -1646,6 +1715,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).Elapsed
   nameWithType: LoaderBase<TDestination, TProgress>.Elapsed
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).Elapsed
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.ErrorPolicy
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_ErrorPolicy
+  commentId: P:Wolfgang.Etl.Abstractions.LoaderBase`2.ErrorPolicy
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ErrorPolicy
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).ErrorPolicy
+  nameWithType: LoaderBase<TDestination, TProgress>.ErrorPolicy
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).ErrorPolicy
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.ErrorPolicy*
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_ErrorPolicy_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.ErrorPolicy
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ErrorPolicy
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).ErrorPolicy
+  nameWithType: LoaderBase<TDestination, TProgress>.ErrorPolicy
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).ErrorPolicy
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
   name: HandleItemError(ItemErrorContext)
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_
@@ -2231,6 +2317,32 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.Abstractions.Report.TotalItemCount
   nameWithType: Report.TotalItemCount
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`2
+  name: TransformerBase<TSource, TDestination>
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-2.html
+  commentId: T:Wolfgang.Etl.Abstractions.TransformerBase`2
+  name.vb: TransformerBase(Of TSource, TDestination)
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination)
+  nameWithType: TransformerBase<TSource, TDestination>
+  nameWithType.vb: TransformerBase(Of TSource, TDestination)
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`2.CreateProgressReport
+  name: CreateProgressReport()
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-2.html#Wolfgang_Etl_Abstractions_TransformerBase_2_CreateProgressReport
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`2.CreateProgressReport
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.CreateProgressReport()
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination).CreateProgressReport()
+  nameWithType: TransformerBase<TSource, TDestination>.CreateProgressReport()
+  nameWithType.vb: TransformerBase(Of TSource, TDestination).CreateProgressReport()
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`2.CreateProgressReport*
+  name: CreateProgressReport
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-2.html#Wolfgang_Etl_Abstractions_TransformerBase_2_CreateProgressReport_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`2.CreateProgressReport
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.CreateProgressReport
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination).CreateProgressReport
+  nameWithType: TransformerBase<TSource, TDestination>.CreateProgressReport
+  nameWithType.vb: TransformerBase(Of TSource, TDestination).CreateProgressReport
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3
   name: TransformerBase<TSource, TDestination, TProgress>
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html
@@ -2386,6 +2498,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).Elapsed
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.Elapsed
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).Elapsed
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.ErrorPolicy
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_ErrorPolicy
+  commentId: P:Wolfgang.Etl.Abstractions.TransformerBase`3.ErrorPolicy
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ErrorPolicy
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).ErrorPolicy
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.ErrorPolicy
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).ErrorPolicy
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.ErrorPolicy*
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_ErrorPolicy_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.ErrorPolicy
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ErrorPolicy
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).ErrorPolicy
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.ErrorPolicy
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).ErrorPolicy
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)
   name: HandleItemError(ItemErrorContext)
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_
@@ -2603,3 +2732,104 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).WrapWorkerExecution
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.WrapWorkerExecution
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).WrapWorkerExecution
+- uid: Wolfgang.Etl.ErrorPolicies
+  name: Wolfgang.Etl.ErrorPolicies
+  href: api/Wolfgang.Etl.ErrorPolicies.html
+  commentId: N:Wolfgang.Etl.ErrorPolicies
+  fullName: Wolfgang.Etl.ErrorPolicies
+  nameWithType: Wolfgang.Etl.ErrorPolicies
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy
+  name: ItemErrorPolicy
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html
+  commentId: T:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy
+  nameWithType: ItemErrorPolicy
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort
+  name: Abort
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Abort
+  commentId: P:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort
+  nameWithType: ItemErrorPolicy.Abort
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort*
+  name: Abort
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Abort_
+  commentId: Overload:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort
+  isSpec: "True"
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort
+  nameWithType: ItemErrorPolicy.Abort
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip
+  name: Skip
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Skip
+  commentId: P:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip
+  nameWithType: ItemErrorPolicy.Skip
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip*
+  name: Skip
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Skip_
+  commentId: Overload:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip
+  isSpec: "True"
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip
+  nameWithType: ItemErrorPolicy.Skip
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Collections.Generic.ICollection{Wolfgang.Etl.Abstractions.ItemErrorContext})
+  name: SkipAndDeadLetter(ICollection<ItemErrorContext>)
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_System_Collections_Generic_ICollection_Wolfgang_Etl_Abstractions_ItemErrorContext__
+  commentId: M:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Collections.Generic.ICollection{Wolfgang.Etl.Abstractions.ItemErrorContext})
+  name.vb: SkipAndDeadLetter(ICollection(Of ItemErrorContext))
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Collections.Generic.ICollection<Wolfgang.Etl.Abstractions.ItemErrorContext>)
+  fullName.vb: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Collections.Generic.ICollection(Of Wolfgang.Etl.Abstractions.ItemErrorContext))
+  nameWithType: ItemErrorPolicy.SkipAndDeadLetter(ICollection<ItemErrorContext>)
+  nameWithType.vb: ItemErrorPolicy.SkipAndDeadLetter(ICollection(Of ItemErrorContext))
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Threading.Channels.ChannelWriter{Wolfgang.Etl.Abstractions.ItemErrorContext})
+  name: SkipAndDeadLetter(ChannelWriter<ItemErrorContext>)
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_System_Threading_Channels_ChannelWriter_Wolfgang_Etl_Abstractions_ItemErrorContext__
+  commentId: M:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Threading.Channels.ChannelWriter{Wolfgang.Etl.Abstractions.ItemErrorContext})
+  name.vb: SkipAndDeadLetter(ChannelWriter(Of ItemErrorContext))
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Threading.Channels.ChannelWriter<Wolfgang.Etl.Abstractions.ItemErrorContext>)
+  fullName.vb: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Threading.Channels.ChannelWriter(Of Wolfgang.Etl.Abstractions.ItemErrorContext))
+  nameWithType: ItemErrorPolicy.SkipAndDeadLetter(ChannelWriter<ItemErrorContext>)
+  nameWithType.vb: ItemErrorPolicy.SkipAndDeadLetter(ChannelWriter(Of ItemErrorContext))
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter*
+  name: SkipAndDeadLetter
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_
+  commentId: Overload:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter
+  isSpec: "True"
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter
+  nameWithType: ItemErrorPolicy.SkipAndDeadLetter
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog(Microsoft.Extensions.Logging.ILogger)
+  name: SkipAndLog(ILogger)
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndLog_Microsoft_Extensions_Logging_ILogger_
+  commentId: M:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog(Microsoft.Extensions.Logging.ILogger)
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog(Microsoft.Extensions.Logging.ILogger)
+  nameWithType: ItemErrorPolicy.SkipAndLog(ILogger)
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog*
+  name: SkipAndLog
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndLog_
+  commentId: Overload:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog
+  isSpec: "True"
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog
+  nameWithType: ItemErrorPolicy.SkipAndLog
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Collections.Generic.ICollection{Wolfgang.Etl.Abstractions.ItemErrorContext},Microsoft.Extensions.Logging.ILogger)
+  name: SkipDeadLetterAndLog(ICollection<ItemErrorContext>, ILogger)
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_System_Collections_Generic_ICollection_Wolfgang_Etl_Abstractions_ItemErrorContext__Microsoft_Extensions_Logging_ILogger_
+  commentId: M:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Collections.Generic.ICollection{Wolfgang.Etl.Abstractions.ItemErrorContext},Microsoft.Extensions.Logging.ILogger)
+  name.vb: SkipDeadLetterAndLog(ICollection(Of ItemErrorContext), ILogger)
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Collections.Generic.ICollection<Wolfgang.Etl.Abstractions.ItemErrorContext>, Microsoft.Extensions.Logging.ILogger)
+  fullName.vb: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Collections.Generic.ICollection(Of Wolfgang.Etl.Abstractions.ItemErrorContext), Microsoft.Extensions.Logging.ILogger)
+  nameWithType: ItemErrorPolicy.SkipDeadLetterAndLog(ICollection<ItemErrorContext>, ILogger)
+  nameWithType.vb: ItemErrorPolicy.SkipDeadLetterAndLog(ICollection(Of ItemErrorContext), ILogger)
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Threading.Channels.ChannelWriter{Wolfgang.Etl.Abstractions.ItemErrorContext},Microsoft.Extensions.Logging.ILogger)
+  name: SkipDeadLetterAndLog(ChannelWriter<ItemErrorContext>, ILogger)
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_System_Threading_Channels_ChannelWriter_Wolfgang_Etl_Abstractions_ItemErrorContext__Microsoft_Extensions_Logging_ILogger_
+  commentId: M:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Threading.Channels.ChannelWriter{Wolfgang.Etl.Abstractions.ItemErrorContext},Microsoft.Extensions.Logging.ILogger)
+  name.vb: SkipDeadLetterAndLog(ChannelWriter(Of ItemErrorContext), ILogger)
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Threading.Channels.ChannelWriter<Wolfgang.Etl.Abstractions.ItemErrorContext>, Microsoft.Extensions.Logging.ILogger)
+  fullName.vb: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Threading.Channels.ChannelWriter(Of Wolfgang.Etl.Abstractions.ItemErrorContext), Microsoft.Extensions.Logging.ILogger)
+  nameWithType: ItemErrorPolicy.SkipDeadLetterAndLog(ChannelWriter<ItemErrorContext>, ILogger)
+  nameWithType.vb: ItemErrorPolicy.SkipDeadLetterAndLog(ChannelWriter(Of ItemErrorContext), ILogger)
+- uid: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog*
+  name: SkipDeadLetterAndLog
+  href: api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_
+  commentId: Overload:Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog
+  isSpec: "True"
+  fullName: Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog
+  nameWithType: ItemErrorPolicy.SkipDeadLetterAndLog

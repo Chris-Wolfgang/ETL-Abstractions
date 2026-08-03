@@ -111,6 +111,16 @@ source reads the same way: <code>EtlPipeline.Create().Xxx(...)</code>.</p>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-1.html">ExtractorBase&lt;TSource&gt;</a></dt>
+      <dd><p>A convenience <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase&lt;TSource, TProgress&gt;</a> that reports progress with the
+built-in <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a> type and supplies a default <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport">CreateProgressReport()</a>, so a
+derived extractor only has to implement <code>ExtractWorkerAsync</code>. Use this instead of the
+two-type-parameter base when you don't need a custom progress-report type — it removes the
+progress-record and <code>CreateProgressReport</code> boilerplate. Override
+<a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport">CreateProgressReport()</a> if you want to enrich the report (for example set a known total).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase&lt;TSource, TProgress&gt;</a></dt>
       <dd><p>Provides a basic implementation for data extractors that extract data of type TSource.
 Library authors can use this base class to create custom extractors by inheriting from it and implementing
@@ -122,6 +132,16 @@ ExtractWorkerAsync and CreateProgressReport methods.</p>
       <dd><p>Describes a single item that failed to process. It is passed to a stage's <code>OnItemError</code>
 policy so the policy can record the failure (a &quot;dead letter&quot;) and decide whether to
 <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip">Skip</a> the item or <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Abort">Abort</a> the run.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-1.html">LoaderBase&lt;TDestination&gt;</a></dt>
+      <dd><p>A convenience <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a> that reports progress with the
+built-in <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a> type and supplies a default <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-1.html#Wolfgang_Etl_Abstractions_LoaderBase_1_CreateProgressReport">CreateProgressReport()</a>, so a
+derived loader only has to implement <code>LoadWorkerAsync</code>. Use this instead of the
+two-type-parameter base when you don't need a custom progress-report type — it removes the
+progress-record and <code>CreateProgressReport</code> boilerplate. Override
+<a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-1.html#Wolfgang_Etl_Abstractions_LoaderBase_1_CreateProgressReport">CreateProgressReport()</a> if you want to enrich the report (for example set a known total).</p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -157,6 +177,16 @@ invoke <a class="xref" href="Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_E
       <dd><p>Provides a point-in-time snapshot of the progress of an ETL process — how many
 items have been processed, how long it has been running, and (when the total is
 known) how far along it is and how much longer it is expected to take.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-2.html">TransformerBase&lt;TSource, TDestination&gt;</a></dt>
+      <dd><p>A convenience <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase&lt;TSource, TDestination, TProgress&gt;</a> that reports progress
+with the built-in <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a> type and supplies a default <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-2.html#Wolfgang_Etl_Abstractions_TransformerBase_2_CreateProgressReport">CreateProgressReport()</a>,
+so a derived transformer only has to implement <code>TransformWorkerAsync</code>. Use this instead of the
+three-type-parameter base when you don't need a custom progress-report type — it removes the
+progress-record and <code>CreateProgressReport</code> boilerplate. Override
+<a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-2.html#Wolfgang_Etl_Abstractions_TransformerBase_2_CreateProgressReport">CreateProgressReport()</a> if you want to enrich the report (for example set a known total).</p>
 </dd>
     </dl>
     <dl class="jumplist">

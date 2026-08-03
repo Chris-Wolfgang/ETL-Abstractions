@@ -1,23 +1,23 @@
 Summary
-  Generated on: 7/30/2026 - 1:15:44 AM
-  Coverage date: 7/30/2026 - 1:15:40 AM
-  Parser: MultiReport (2x Cobertura)
-  Assemblies: 1
-  Classes: 25
-  Files: 25
+  Generated on: 8/3/2026 - 6:28:52 PM
+  Coverage date: 8/3/2026 - 6:28:41 PM - 8/3/2026 - 6:28:48 PM
+  Parser: MultiReport (3x Cobertura)
+  Assemblies: 2
+  Classes: 30
+  Files: 30
   Line coverage: 99.7%
-  Covered lines: 835
+  Covered lines: 917
   Uncovered lines: 2
-  Coverable lines: 837
-  Total lines: 4212
-  Branch coverage: 92.5% (261 of 282)
-  Covered branches: 261
-  Total branches: 282
-  Method coverage: 99.5% (220 of 221)
-  Full method coverage: 99% (219 of 221)
-  Covered methods: 220
-  Fully covered methods: 219
-  Total methods: 221
+  Coverable lines: 919
+  Total lines: 4568
+  Branch coverage: 93% (283 of 304)
+  Covered branches: 283
+  Total branches: 304
+  Method coverage: 99.5% (240 of 241)
+  Full method coverage: 99.1% (239 of 241)
+  Covered methods: 240
+  Fully covered methods: 239
+  Total methods: 241
 
 Wolfgang.Etl.Abstractions                                            99.7%
   Wolfgang.Etl.Abstractions.EtlPipeline                               100%
@@ -27,10 +27,12 @@ Wolfgang.Etl.Abstractions                                            99.7%
   Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions                 100%
   Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions               100%
   Wolfgang.Etl.Abstractions.EtlRunState                               100%
+  Wolfgang.Etl.Abstractions.ExtractorBase<T>                          100%
   Wolfgang.Etl.Abstractions.ExtractorBase<T1, T2>                     100%
   Wolfgang.Etl.Abstractions.ExtractStage<T>                           100%
   Wolfgang.Etl.Abstractions.ExtractStageWithProgress<T1, T2>          100%
   Wolfgang.Etl.Abstractions.ItemErrorContext                          100%
+  Wolfgang.Etl.Abstractions.LoaderBase<T>                             100%
   Wolfgang.Etl.Abstractions.LoaderBase<T1, T2>                        100%
   Wolfgang.Etl.Abstractions.MiddlewareExtensions                      100%
   Wolfgang.Etl.Abstractions.MiddlewareResult                          100%
@@ -42,6 +44,11 @@ Wolfgang.Etl.Abstractions                                            99.7%
   Wolfgang.Etl.Abstractions.StageList                                 100%
   Wolfgang.Etl.Abstractions.SystemProgressTimer                       100%
   Wolfgang.Etl.Abstractions.SystemTimeSource                          100%
-  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2, T3>              98.9%
+  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2>                   100%
+  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2, T3>                99%
   Wolfgang.Etl.Abstractions.TransformStage<T>                         100%
   Wolfgang.Etl.Abstractions.TransformStageWithProgress<T1, T2, T3>    100%
+
+Wolfgang.Etl.ErrorPolicies                                            100%
+  Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy                          100%
+  Wolfgang.Etl.ErrorPolicies.ItemErrorPolicyLog                       100%

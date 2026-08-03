@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ItemErrorPolicy | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ItemErrorPolicy | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Ready-made policies for an ETL stage&#39;s error handling. Each is a &amp;lt;xref href=&amp;quot;System.Func%602&amp;quot; data-throw-if-not-resolved=&amp;quot;false&amp;quot;&amp;gt;&amp;lt;/xref&amp;gt; from an &amp;lt;xref href=&amp;quot;Wolfgang.Etl.Abstractions.ItemErrorContext&amp;quot; data-throw-if-not-resolved=&amp;quot;false&amp;quot;&amp;gt;&amp;lt;/xref&amp;gt; to an &amp;lt;xref href=&amp;quot;Wolfgang.Etl.Abstractions.ItemErrorAction&amp;quot; data-throw-if-not-resolved=&amp;quot;false&amp;quot;&amp;gt;&amp;lt;/xref&amp;gt;, so it can be assigned directly to a stage&#39;s &amp;lt;code&amp;gt;ErrorPolicy&amp;lt;/code&amp;gt; property (on &amp;lt;code&amp;gt;ExtractorBase&amp;lt;/code&amp;gt; / &amp;lt;code&amp;gt;LoaderBase&amp;lt;/code&amp;gt; / &amp;lt;code&amp;gt;TransformerBase&amp;lt;/code&amp;gt;):  &amp;lt;example&amp;gt;&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;lang-csharp&amp;quot;&amp;gt;var deadLetters = new List&amp;lt;ItemErrorContext&amp;gt;();  var extractor = new SomeExtractor&amp;lt;Record&amp;gt;(source) { ErrorPolicy = ItemErrorPolicy.SkipDeadLetterAndLog(deadLetters, logger) }; The dead-letter overloads write to a caller-owned sink (a collection or a channel), so its size — and therefore the memory a bad feed can consume — stays under the caller&#39;s control.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.21.0/apiSpec/new?filename=Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy">
+
+
+
+  <h1 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy" class="text-break">
+Class ItemErrorPolicy  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.ErrorPolicies.html">ErrorPolicies</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.ErrorPolicies.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><pre><code>Ready-made policies for an ETL stage's error handling. Each is a
+&lt;xref href=&quot;System.Func%602&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; from an &lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorContext&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; to an
+&lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorAction&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt;, so it can be assigned directly to a stage's &lt;code&gt;ErrorPolicy&lt;/code&gt;
+property (on &lt;code&gt;ExtractorBase&lt;/code&gt; / &lt;code&gt;LoaderBase&lt;/code&gt; / &lt;code&gt;TransformerBase&lt;/code&gt;):
+
+&lt;example&gt;&lt;pre&gt;&lt;code class=&quot;lang-csharp&quot;&gt;var deadLetters = new List&lt;ItemErrorContext&gt;();
+</code></pre>
+<p>var extractor = new SomeExtractor&lt;Record&gt;(source)
+{
+ErrorPolicy = ItemErrorPolicy.SkipDeadLetterAndLog(deadLetters, logger)
+};</p>
+<pre><code>The dead-letter overloads write to a caller-owned sink (a collection or a channel), so its size —
+and therefore the memory a bad feed can consume — stays under the caller's control.
+</code></pre>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class ItemErrorPolicy</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ItemErrorPolicy</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Abort_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort*"></a>
+
+  <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Abort" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort">
+  Abort
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A policy that re-throws the failure and stops the run. Equivalent to leaving a stage's
+<code>ErrorPolicy</code> unset (which defaults to fail-fast); provided for symmetry and explicitness.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Func&lt;ItemErrorContext, ItemErrorAction&gt; Abort { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Skip_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip*"></a>
+
+  <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Skip" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip">
+  Skip
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A policy that discards the failed item and continues with the next one. The stage increments
+its error-item count (<code>CurrentErrorItemCount</code>) so the skip is never silent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Func&lt;ItemErrorContext, ItemErrorAction&gt; Skip { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter*"></a>
+
+  <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_System_Collections_Generic_ICollection_Wolfgang_Etl_Abstractions_ItemErrorContext__" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Collections.Generic.ICollection{Wolfgang.Etl.Abstractions.ItemErrorContext})">
+  SkipAndDeadLetter(ICollection&lt;ItemErrorContext&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Records the failure in <code class="paramref">deadLetters</code> (a &quot;dead-letter&quot; queue the caller owns),
+then discards the item and continues.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Func&lt;ItemErrorContext, ItemErrorAction&gt; SkipAndDeadLetter(ICollection&lt;ItemErrorContext&gt; deadLetters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>deadLetters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>&gt;</dt>
+    <dd><p>The caller-owned collection each failed item is added to.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>&gt;</dt>
+    <dd><p>A policy that dead-letters and returns <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip">Skip</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_System_Collections_Generic_ICollection_Wolfgang_Etl_Abstractions_ItemErrorContext___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>A single stage invokes this policy serially, so a plain <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List&lt;T&gt;</a> is safe. If you
+share one collection across stages running concurrently, either supply a thread-safe collection
+or use the <a class="xref" href="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_System_Threading_Channels_ChannelWriter_Wolfgang_Etl_Abstractions_ItemErrorContext__">SkipAndDeadLetter(ChannelWriter&lt;ItemErrorContext&gt;)</a> overload — the policy
+adds to the collection without locking.</p>
+</div>
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">deadLetters</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter*"></a>
+
+  <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_System_Threading_Channels_ChannelWriter_Wolfgang_Etl_Abstractions_ItemErrorContext__" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Threading.Channels.ChannelWriter{Wolfgang.Etl.Abstractions.ItemErrorContext})">
+  SkipAndDeadLetter(ChannelWriter&lt;ItemErrorContext&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes the failure to <code class="paramref">deadLetters</code> (a caller-owned channel) with
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.channels.channelwriter-1.trywrite">TryWrite(T)</a>, then discards the item and continues. Because the
+hook is synchronous the non-blocking <code>TryWrite</code> is used, so a bounded channel that is full
+drops the failure — size the channel, or use <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.channels.boundedchannelfullmode">BoundedChannelFullMode</a>, accordingly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Func&lt;ItemErrorContext, ItemErrorAction&gt; SkipAndDeadLetter(ChannelWriter&lt;ItemErrorContext&gt; deadLetters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>deadLetters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.channels.channelwriter-1">ChannelWriter</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>&gt;</dt>
+    <dd><p>The caller-owned channel each failed item is written to.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>&gt;</dt>
+    <dd><p>A policy that dead-letters and returns <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip">Skip</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">deadLetters</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndLog_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog*"></a>
+
+  <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndLog_Microsoft_Extensions_Logging_ILogger_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog(Microsoft.Extensions.Logging.ILogger)">
+  SkipAndLog(ILogger)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Logs the failure as a warning through <code class="paramref">logger</code>, then discards the item and
+continues.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Func&lt;ItemErrorContext, ItemErrorAction&gt; SkipAndLog(ILogger logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
+    <dd><p>The logger the returned policy writes each failure to.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>&gt;</dt>
+    <dd><p>A policy that logs and returns <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip">Skip</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">logger</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog*"></a>
+
+  <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_System_Collections_Generic_ICollection_Wolfgang_Etl_Abstractions_ItemErrorContext__Microsoft_Extensions_Logging_ILogger_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Collections.Generic.ICollection{Wolfgang.Etl.Abstractions.ItemErrorContext},Microsoft.Extensions.Logging.ILogger)">
+  SkipDeadLetterAndLog(ICollection&lt;ItemErrorContext&gt;, ILogger)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L135"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Records the failure in <code class="paramref">deadLetters</code> and logs it as a warning through
+<code class="paramref">logger</code>, then discards the item and continues.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Func&lt;ItemErrorContext, ItemErrorAction&gt; SkipDeadLetterAndLog(ICollection&lt;ItemErrorContext&gt; deadLetters, ILogger logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>deadLetters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>&gt;</dt>
+    <dd><p>The caller-owned collection each failed item is added to.</p>
+</dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
+    <dd><p>The logger the returned policy writes each failure to.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>&gt;</dt>
+    <dd><p>A policy that dead-letters, logs, and returns <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip">Skip</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_System_Collections_Generic_ICollection_Wolfgang_Etl_Abstractions_ItemErrorContext__Microsoft_Extensions_Logging_ILogger__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>A single stage invokes this policy serially, so a plain <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List&lt;T&gt;</a> is safe. If you
+share one collection across stages running concurrently, either supply a thread-safe collection
+or use the <a class="xref" href="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_System_Threading_Channels_ChannelWriter_Wolfgang_Etl_Abstractions_ItemErrorContext__Microsoft_Extensions_Logging_ILogger_">SkipDeadLetterAndLog(ChannelWriter&lt;ItemErrorContext&gt;, ILogger)</a> overload —
+the policy adds to the collection without locking.</p>
+</div>
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">deadLetters</code> or <code class="paramref">logger</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog*"></a>
+
+  <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_System_Threading_Channels_ChannelWriter_Wolfgang_Etl_Abstractions_ItemErrorContext__Microsoft_Extensions_Logging_ILogger_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Threading.Channels.ChannelWriter{Wolfgang.Etl.Abstractions.ItemErrorContext},Microsoft.Extensions.Logging.ILogger)">
+  SkipDeadLetterAndLog(ChannelWriter&lt;ItemErrorContext&gt;, ILogger)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L175"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes the failure to <code class="paramref">deadLetters</code> with
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.channels.channelwriter-1.trywrite">TryWrite(T)</a> and logs it as a warning through
+<code class="paramref">logger</code>, then discards the item and continues. See
+<a class="xref" href="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html#Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_System_Threading_Channels_ChannelWriter_Wolfgang_Etl_Abstractions_ItemErrorContext__">SkipAndDeadLetter(ChannelWriter&lt;ItemErrorContext&gt;)</a> for the <code>TryWrite</code> caveat —
+but unlike that logger-less overload, when the write is dropped (a bounded channel that is full)
+this policy logs a distinct warning so the lost failure record is never silent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Func&lt;ItemErrorContext, ItemErrorAction&gt; SkipDeadLetterAndLog(ChannelWriter&lt;ItemErrorContext&gt; deadLetters, ILogger logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>deadLetters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.channels.channelwriter-1">ChannelWriter</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>&gt;</dt>
+    <dd><p>The caller-owned channel each failed item is written to.</p>
+</dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
+    <dd><p>The logger the returned policy writes each failure to.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>&gt;</dt>
+    <dd><p>A policy that dead-letters, logs, and returns <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip">Skip</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">deadLetters</code> or <code class="paramref">logger</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.21.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L24" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

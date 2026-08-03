@@ -78,6 +78,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorBase-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ExtractorBase<TSource>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ExtractorBase-1.yml\" sourcestartlinenumber=\"1\">A convenience <xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%602\" data-throw-if-not-resolved=\"false\"></xref> that reports progress with the\nbuilt-in <xref href=\"Wolfgang.Etl.Abstractions.Report\" data-throw-if-not-resolved=\"false\"></xref> type and supplies a default <xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%601.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref>, so a\nderived extractor only has to implement <code>ExtractWorkerAsync</code>. Use this instead of the\ntwo-type-parameter base when you don't need a custom progress-report type — it removes the\nprogress-record and <code>CreateProgressReport</code> boilerplate. Override\n<xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%601.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref> if you want to enrich the report (for example set a known total).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorBase-2.yml",
       "output": {
         ".html": {
@@ -456,6 +470,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.LoaderBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.LoaderBase-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.LoaderBase<TDestination>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.LoaderBase-1.yml\" sourcestartlinenumber=\"1\">A convenience <xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%602\" data-throw-if-not-resolved=\"false\"></xref> that reports progress with the\nbuilt-in <xref href=\"Wolfgang.Etl.Abstractions.Report\" data-throw-if-not-resolved=\"false\"></xref> type and supplies a default <xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%601.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref>, so a\nderived loader only has to implement <code>LoadWorkerAsync</code>. Use this instead of the\ntwo-type-parameter base when you don't need a custom progress-report type — it removes the\nprogress-record and <code>CreateProgressReport</code> boilerplate. Override\n<xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%601.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref> if you want to enrich the report (for example set a known total).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.LoaderBase-2.yml",
       "output": {
         ".html": {
@@ -540,6 +568,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.TransformerBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.TransformerBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.TransformerBase-2.yml\" sourcestartlinenumber=\"1\">A convenience <xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%603\" data-throw-if-not-resolved=\"false\"></xref> that reports progress\nwith the built-in <xref href=\"Wolfgang.Etl.Abstractions.Report\" data-throw-if-not-resolved=\"false\"></xref> type and supplies a default <xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%602.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref>,\nso a derived transformer only has to implement <code>TransformWorkerAsync</code>. Use this instead of the\nthree-type-parameter base when you don't need a custom progress-report type — it removes the\nprogress-record and <code>CreateProgressReport</code> boilerplate. Override\n<xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%602.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref> if you want to enrich the report (for example set a known total).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.TransformerBase-3.yml",
       "output": {
         ".html": {
@@ -564,6 +606,34 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy",
+      "Summary": "<pre><code sourcefile=\"api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.yml\" sourcestartlinenumber=\"1\">Ready-made policies for an ETL stage's error handling. Each is a\n&lt;xref href=&quot;System.Func%602&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; from an &lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorContext&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; to an\n&lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorAction&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt;, so it can be assigned directly to a stage's &lt;code&gt;ErrorPolicy&lt;/code&gt;\nproperty (on &lt;code&gt;ExtractorBase&lt;/code&gt; / &lt;code&gt;LoaderBase&lt;/code&gt; / &lt;code&gt;TransformerBase&lt;/code&gt;):\n\n&lt;example&gt;&lt;pre&gt;&lt;code class=&quot;lang-csharp&quot;&gt;var deadLetters = new List&lt;ItemErrorContext&gt;();\n</code></pre>\n<p sourcefile=\"api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.yml\" sourcestartlinenumber=\"7\">var extractor = new SomeExtractor&lt;Record&gt;(source)\n{\nErrorPolicy = ItemErrorPolicy.SkipDeadLetterAndLog(deadLetters, logger)\n};</p>\n<pre><code sourcefile=\"api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.yml\" sourcestartlinenumber=\"12\">The dead-letter overloads write to a caller-owned sink (a collection or a channel), so its size —\nand therefore the memory a bad feed can consume — stays under the caller's control.\n</code></pre>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.ErrorPolicies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.ErrorPolicies.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.ErrorPolicies",
       "Summary": null
     },
     {
