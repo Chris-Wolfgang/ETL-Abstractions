@@ -420,7 +420,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
 
-    private Func<Func<CancellationToken, IAsyncEnumerable<TSource>>, CancellationToken, IAsyncEnumerable<TSource>> _workerResilience =
+    private readonly Func<Func<CancellationToken, IAsyncEnumerable<TSource>>, CancellationToken, IAsyncEnumerable<TSource>> _workerResilience =
         static (workerFactory, token) => workerFactory(token);
 
 

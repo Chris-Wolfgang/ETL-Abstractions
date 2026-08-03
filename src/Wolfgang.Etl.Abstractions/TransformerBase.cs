@@ -428,7 +428,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
-    private Func<Func<CancellationToken, IAsyncEnumerable<TDestination>>, CancellationToken, IAsyncEnumerable<TDestination>> _workerResilience =
+    private readonly Func<Func<CancellationToken, IAsyncEnumerable<TDestination>>, CancellationToken, IAsyncEnumerable<TDestination>> _workerResilience =
         static (workerFactory, token) => workerFactory(token);
 
 

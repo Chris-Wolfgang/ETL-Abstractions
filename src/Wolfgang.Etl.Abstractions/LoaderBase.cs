@@ -418,7 +418,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
-    private Func<Func<CancellationToken, Task>, CancellationToken, Task> _workerResilience =
+    private readonly Func<Func<CancellationToken, Task>, CancellationToken, Task> _workerResilience =
         static (workerFactory, token) => workerFactory(token);
 
 
