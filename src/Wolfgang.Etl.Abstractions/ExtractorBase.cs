@@ -488,6 +488,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// to discard the item and continue, or <see cref="ItemErrorAction.Abort"/> to re-throw and stop
     /// the run. Defaults to fail-fast: every failed item aborts the run until a policy is assigned.
     /// Ready-made policies are provided by <c>Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy</c>.
+    /// Assigned once, at construction (init-only), so the policy cannot change during a run.
     /// </summary>
     /// <exception cref="ArgumentNullException">The assigned value is <see langword="null"/>.</exception>
     public Func<ItemErrorContext, ItemErrorAction> ErrorPolicy

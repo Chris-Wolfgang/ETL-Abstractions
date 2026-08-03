@@ -34,10 +34,11 @@ breaking change (validates against the 0.20.0 baseline).
   Override it to enrich the report (for example a known total). The existing two/three-type-parameter
   bases are unchanged. Additive.
 - **`ErrorPolicy` on the base stages (#344 follow-up):** `ExtractorBase`, `LoaderBase`, and
-  `TransformerBase` gained a settable `ErrorPolicy` (`Func<ItemErrorContext, ItemErrorAction>`,
-  non-null, default fail-fast) that the base `OnItemError` consults, so a stage gets a configurable
-  error policy with no per-type property or override — assign one (e.g. from `Wolfgang.Etl.ErrorPolicies`)
-  or override `OnItemError` for stage-internal logic. Additive; unset behaviour is unchanged fail-fast.
+  `TransformerBase` gained an `ErrorPolicy` (`Func<ItemErrorContext, ItemErrorAction>`, non-null,
+  default fail-fast, **init-only** — set at construction) that the base `OnItemError` consults, so a
+  stage gets a configurable error policy with no per-type property or override — assign one (e.g. from
+  `Wolfgang.Etl.ErrorPolicies`) or override `OnItemError` for stage-internal logic. Additive; unset
+  behaviour is unchanged fail-fast.
 - **`Wolfgang.Etl.ErrorPolicies` package (new, lockstep-versioned with `Wolfgang.Etl.Abstractions`):**
   a static `ItemErrorPolicy` factory of ready-made policies assignable to a stage's `ErrorPolicy`
   property — `Skip`, `Abort`, `SkipAndLog(ILogger)`, and dead-letter families `SkipAndDeadLetter` /
