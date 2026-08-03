@@ -7,15 +7,17 @@ using Wolfgang.Etl.Abstractions;
 namespace Wolfgang.Etl.ErrorPolicies;
 
 /// <summary>
-/// Ready-made policies for an ETL stage's <c>OnError</c> hook. Each is a
+/// Ready-made policies for an ETL stage's per-item error hook. Each is a
 /// <see cref="Func{T, TResult}"/> from an <see cref="ItemErrorContext"/> to an
-/// <see cref="ItemErrorAction"/>, so it can be assigned directly to a stage's <c>OnError</c>:
+/// <see cref="ItemErrorAction"/>, so it can be stored and invoked from a stage's overridden
+/// <c>OnItemError(ItemErrorContext)</c> (the <c>protected virtual</c> policy hook on
+/// <c>ExtractorBase</c> / <c>LoaderBase</c> / <c>TransformerBase</c>):
 /// <example><code>
-/// var deadLetters = new List&lt;ItemErrorContext&gt;();
-/// var extractor = new SomeExtractor&lt;Record&gt;(source)
-/// {
-///     OnError = ItemErrorPolicy.SkipDeadLetterAndLog(deadLetters, logger)
-/// };
+/// // in your extractor / loader / transformer:
+/// private readonly Func&lt;ItemErrorContext, ItemErrorAction&gt; _onError =
+///     ItemErrorPolicy.SkipDeadLetterAndLog(deadLetters, logger);
+///
+/// protected override ItemErrorAction OnItemError(ItemErrorContext context) =&gt; _onError(context);
 /// </code></example>
 /// The dead-letter overloads write to a caller-owned sink (a collection or a channel), so its size —
 /// and therefore the memory a bad feed can consume — stays under the caller's control.
@@ -31,8 +33,9 @@ public static class ItemErrorPolicy
 
 
     /// <summary>
-    /// A policy that re-throws the failure and stops the run. Equivalent to leaving <c>OnError</c>
-    /// unset, provided for symmetry and explicitness.
+    /// A policy that re-throws the failure and stops the run. Equivalent to not overriding
+    /// <c>OnItemError</c> (whose default returns <see cref="ItemErrorAction.Abort"/>); provided for
+    /// symmetry and explicitness.
     /// </summary>
     public static Func<ItemErrorContext, ItemErrorAction> Abort { get; } = _ => ItemErrorAction.Abort;
 

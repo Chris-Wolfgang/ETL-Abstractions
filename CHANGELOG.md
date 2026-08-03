@@ -9,9 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Convenience base classes (#344):** `ExtractorBase<TSource>`, `LoaderBase<TDestination>`, and
+  `TransformerBase<TSource, TDestination>` fix the progress type to the built-in `Report` and supply a
+  default `CreateProgressReport()`, so a component that doesn't need a custom progress-report type
+  implements only its worker method — no progress record and no `CreateProgressReport` override.
+  Override it to enrich the report (for example a known total). The existing two/three-type-parameter
+  bases are unchanged. Additive.
 - **`Wolfgang.Etl.ErrorPolicies` package (new, lockstep-versioned with `Wolfgang.Etl.Abstractions`):**
-  a static `ItemErrorPolicy` factory of ready-made policies for a stage's `OnError` hook —
-  `Skip`, `Abort`, `SkipAndLog(ILogger)`, and dead-letter families `SkipAndDeadLetter` /
+  a static `ItemErrorPolicy` factory of ready-made policies to invoke from a stage's `OnItemError`
+  hook — `Skip`, `Abort`, `SkipAndLog(ILogger)`, and dead-letter families `SkipAndDeadLetter` /
   `SkipDeadLetterAndLog`, each overloaded for a caller-owned `ICollection<ItemErrorContext>` or a
   `System.Threading.Channels.ChannelWriter<ItemErrorContext>`. Ships from this repo so the shared
   policy set is defined once for the whole ETL family; the core `Wolfgang.Etl.Abstractions` assembly
