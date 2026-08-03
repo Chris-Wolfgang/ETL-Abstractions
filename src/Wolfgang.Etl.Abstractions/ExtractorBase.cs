@@ -479,12 +479,12 @@ public abstract class ExtractorBase<TSource, TProgress>
     private static readonly Func<ItemErrorContext, ItemErrorAction> AbortPolicy =
         static _ => ItemErrorAction.Abort;
 
-    private readonly Func<ItemErrorContext, ItemErrorAction> _errorPolicy = AbortPolicy;
+    private Func<ItemErrorContext, ItemErrorAction> _errorPolicy = AbortPolicy;
 
 
 
     /// <summary>
-    /// Gets the policy invoked when an item fails to process. Return <see cref="ItemErrorAction.Skip"/>
+    /// Gets or sets the policy invoked when an item fails to process. Return <see cref="ItemErrorAction.Skip"/>
     /// to discard the item and continue, or <see cref="ItemErrorAction.Abort"/> to re-throw and stop
     /// the run. Defaults to fail-fast: every failed item aborts the run until a policy is assigned.
     /// Ready-made policies are provided by <c>Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy</c>.
@@ -493,7 +493,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     public Func<ItemErrorContext, ItemErrorAction> ErrorPolicy
     {
         get => _errorPolicy;
-        init => _errorPolicy = value ?? throw new ArgumentNullException(nameof(value));
+        set => _errorPolicy = value ?? throw new ArgumentNullException(nameof(value));
     }
 
 

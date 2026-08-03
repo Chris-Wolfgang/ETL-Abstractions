@@ -19,7 +19,7 @@ Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentSkippedItemCo
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Dispose() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ErrorPolicy.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ErrorPolicy.init -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ErrorPolicy.set -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount() -> void
@@ -122,7 +122,7 @@ Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CurrentSkippedItem
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Dispose() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ErrorPolicy.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ErrorPolicy.init -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ErrorPolicy.set -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
@@ -164,7 +164,7 @@ Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Curr
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Dispose() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ErrorPolicy.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ErrorPolicy.init -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ErrorPolicy.set -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void

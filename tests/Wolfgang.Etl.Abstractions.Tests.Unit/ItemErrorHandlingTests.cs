@@ -408,6 +408,21 @@ public sealed class ItemErrorHandlingTests
 
 
     [Fact]
+    public void ErrorPolicy_can_be_reassigned_after_construction()
+    {
+        // The stages are reusable across runs, so ErrorPolicy is a settable property (not init-only),
+        // changeable between runs — consistent with the other config properties (MaximumItemCount etc.).
+        var sut = new DefaultPolicyExtractor { ErrorPolicy = _ => ItemErrorAction.Abort };
+
+        sut.ErrorPolicy = _ => ItemErrorAction.Skip;
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Skip, action);
+        Assert.Equal(1, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
     public void Loader_ErrorPolicy_when_assigned_is_used_by_the_base_OnItemError()
     {
         var sut = new DefaultPolicyLoader { ErrorPolicy = _ => ItemErrorAction.Skip };
