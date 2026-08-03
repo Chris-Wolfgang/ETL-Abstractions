@@ -11,7 +11,7 @@
          compare against. Enable it next cycle with PackageValidationBaselineVersion set to 0.21.0. -->
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
-    <Description>Ready-made item-error policies — skip, log, and dead-letter (to a collection or a channel) — to invoke from the OnItemError hook of Wolfgang.Etl extractors, loaders, and transformers. Built on Wolfgang.Etl.Abstractions.</Description>
+    <Description>Ready-made item-error policies — skip, log, and dead-letter (to a collection or a channel) — assignable to the ErrorPolicy property of Wolfgang.Etl extractors, loaders, and transformers. Built on Wolfgang.Etl.Abstractions.</Description>
     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>

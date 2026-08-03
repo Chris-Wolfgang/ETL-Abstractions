@@ -15,9 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   implements only its worker method — no progress record and no `CreateProgressReport` override.
   Override it to enrich the report (for example a known total). The existing two/three-type-parameter
   bases are unchanged. Additive.
+- **`ErrorPolicy` on the base stages (#344 follow-up):** `ExtractorBase`, `LoaderBase`, and
+  `TransformerBase` gained a settable `ErrorPolicy` (`Func<ItemErrorContext, ItemErrorAction>`,
+  non-null, default fail-fast) that the base `OnItemError` consults, so a stage gets a configurable
+  error policy with no per-type property or override — assign one (e.g. from `Wolfgang.Etl.ErrorPolicies`)
+  or override `OnItemError` for stage-internal logic. Additive; unset behaviour is unchanged fail-fast.
 - **`Wolfgang.Etl.ErrorPolicies` package (new, lockstep-versioned with `Wolfgang.Etl.Abstractions`):**
-  a static `ItemErrorPolicy` factory of ready-made policies to invoke from a stage's `OnItemError`
-  hook — `Skip`, `Abort`, `SkipAndLog(ILogger)`, and dead-letter families `SkipAndDeadLetter` /
+  a static `ItemErrorPolicy` factory of ready-made policies assignable to a stage's `ErrorPolicy`
+  property — `Skip`, `Abort`, `SkipAndLog(ILogger)`, and dead-letter families `SkipAndDeadLetter` /
   `SkipDeadLetterAndLog`, each overloaded for a caller-owned `ICollection<ItemErrorContext>` or a
   `System.Threading.Channels.ChannelWriter<ItemErrorContext>`. Ships from this repo so the shared
   policy set is defined once for the whole ETL family; the core `Wolfgang.Etl.Abstractions` assembly

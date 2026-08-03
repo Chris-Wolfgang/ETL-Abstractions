@@ -376,6 +376,77 @@ public sealed class ItemErrorHandlingTests
     }
 
 
+    // ---- ErrorPolicy property: the base OnItemError delegates to it (no override needed) ----
+
+    [Fact]
+    public void ErrorPolicy_defaults_to_fail_fast()
+    {
+        var sut = new DefaultPolicyExtractor();
+
+        Assert.Equal(ItemErrorAction.Abort, sut.ErrorPolicy(new ItemErrorContext(1, new Exception())));
+    }
+
+
+    [Fact]
+    public void ErrorPolicy_when_assigned_is_used_by_the_base_OnItemError()
+    {
+        var sut = new DefaultPolicyExtractor { ErrorPolicy = _ => ItemErrorAction.Skip };
+
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Skip, action);
+        Assert.Equal(1, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public void ErrorPolicy_when_assigned_null_throws()
+    {
+        var ex = Assert.Throws<ArgumentNullException>(() => new DefaultPolicyExtractor { ErrorPolicy = null! });
+        Assert.Equal("value", ex.ParamName);
+    }
+
+
+    [Fact]
+    public void Loader_ErrorPolicy_when_assigned_is_used_by_the_base_OnItemError()
+    {
+        var sut = new DefaultPolicyLoader { ErrorPolicy = _ => ItemErrorAction.Skip };
+
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Skip, action);
+        Assert.Equal(1, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public void Loader_ErrorPolicy_when_assigned_null_throws()
+    {
+        var ex = Assert.Throws<ArgumentNullException>(() => new DefaultPolicyLoader { ErrorPolicy = null! });
+        Assert.Equal("value", ex.ParamName);
+    }
+
+
+    [Fact]
+    public void Transformer_ErrorPolicy_when_assigned_is_used_by_the_base_OnItemError()
+    {
+        var sut = new DefaultPolicyTransformer { ErrorPolicy = _ => ItemErrorAction.Skip };
+
+        var action = sut.Handle(new ItemErrorContext(1, new Exception()));
+
+        Assert.Equal(ItemErrorAction.Skip, action);
+        Assert.Equal(1, sut.CurrentErrorItemCount);
+    }
+
+
+    [Fact]
+    public void Transformer_ErrorPolicy_when_assigned_null_throws()
+    {
+        var ex = Assert.Throws<ArgumentNullException>(() => new DefaultPolicyTransformer { ErrorPolicy = null! });
+        Assert.Equal("value", ex.ParamName);
+    }
+
+
     // ---- helpers / doubles ----
 
     private static async IAsyncEnumerable<int> AsyncSource(params int[] items)
