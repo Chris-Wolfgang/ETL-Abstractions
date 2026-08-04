@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Repository consolidation (#356): `Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit` now build
+  and release from this repository** (previously the separate `ETL-Test-Kit` repo). **No public API
+  change** — the four packages' IDs and public surfaces are unchanged; only the publish source moved,
+  so no downstream change is required. Consolidating replaces the cross-repo package dependency
+  (`Abstractions.Tests.Unit` → `TestKit.Xunit` → `Abstractions`) with in-solution project references,
+  removing the circular dependency so a change to Abstractions is verified against the TestKit contract
+  base in a single build. All four packages are lockstep-versioned with this repo (TestKit moves to
+  0.22.0). TestKit's prior release history remains in the archived `ETL-Test-Kit` repository.
+
 ### Deprecated
 
 ### Removed
