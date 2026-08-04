@@ -1,14 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
 	<TargetFrameworks>net462;net472;net48;net481;netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
-	<LangVersion>latest</LangVersion>
-	<!-- Pin AssemblyVersion to a fixed binding-stability baseline so consumers
-	     do not need to recompile / add binding redirects on every minor/patch
-	     bump. Bump only on a deliberate breaking API change. FileVersion +
-	     InformationalVersion (the latter auto-derived from <Version>) carry
-	     the actual release version. -->
-	<AssemblyVersion>1.0.0.0</AssemblyVersion>
-	<FileVersion>$([System.Text.RegularExpressions.Regex]::Replace("$(Version)", "[-+].*$", "")).0</FileVersion>
     <!-- API/ABI compatibility gate (#206). Package Validation compares the packed
          package against the last published version on NuGet and fails the pack if a
          non-major change breaks binary/API compatibility (default-value changes,
@@ -23,15 +15,12 @@
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>
-    <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageIcon>ETL-Abstractions.png</PackageIcon>
     <ApplicationIcon>ETL-Abstractions.ico</ApplicationIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <SignAssembly>False</SignAssembly>
     <PackageTags>ETL;Extract-Transform-Load;</PackageTags>
   </PropertyGroup>
 

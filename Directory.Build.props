@@ -94,9 +94,20 @@
          with the repository; bump this one value per release. (Per-csproj <Version> is intentionally
          absent so the versions can never drift out of sync.) -->
     <Version>0.22.0</Version>
+    <!-- AssemblyVersion is pinned to a fixed binding-stability baseline so consumers do not need to
+         recompile / add binding redirects on every minor/patch bump — bump only on a deliberate
+         breaking API change. FileVersion (and the auto-derived InformationalVersion) carry the actual
+         release version. Centralized here so all four packages stay in lockstep. -->
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>$([System.Text.RegularExpressions.Regex]::Replace("$(Version)", "[-+].*$", "")).0</FileVersion>
     <Authors>Chris Wolfgang</Authors>
     <Company>Chris Wolfgang</Company>
     <Copyright>Copyright (c) Chris Wolfgang</Copyright>
+    <!-- Repo-uniform now that all four packages ship from this repo. RepositoryUrl is intentionally
+         NOT set here — SourceLink derives it from the git remote via PublishRepositoryUrl below. -->
+    <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
+    <SignAssembly>False</SignAssembly>
+    <LangVersion>latest</LangVersion>
     <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
