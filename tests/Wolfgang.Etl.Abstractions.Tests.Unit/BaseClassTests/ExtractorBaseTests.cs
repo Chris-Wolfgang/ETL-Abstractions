@@ -75,8 +75,8 @@ public class SequenceExtractor : ExtractorBase<int, EtlProgress>
 
             if (i > SkipItemCount)
             {
-                yield return i;
                 IncrementCurrentItemCount();
+                yield return i;
 
                 if (CurrentItemCount >= MaximumItemCount)
                 {

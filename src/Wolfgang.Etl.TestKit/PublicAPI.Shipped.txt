@@ -1,0 +1,116 @@
+#nullable enable
+Wolfgang.Etl.TestKit.DelayingExtractor<T>
+Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>! items, System.Func<int, System.TimeSpan>! delaySelector) -> void
+Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>! items, System.TimeSpan delay) -> void
+Wolfgang.Etl.TestKit.FaultyExtractor<T>
+Wolfgang.Etl.TestKit.FaultyExtractor<T>.CapturedErrors.get -> System.Collections.Generic.IReadOnlyList<Wolfgang.Etl.Abstractions.ItemErrorContext!>!
+Wolfgang.Etl.TestKit.FaultyExtractor<T>.DuplicateAt(int index) -> Wolfgang.Etl.TestKit.FaultyExtractor<T>!
+Wolfgang.Etl.TestKit.FaultyExtractor<T>.FaultyExtractor(System.Collections.Generic.IEnumerable<T>! items) -> void
+Wolfgang.Etl.TestKit.FaultyExtractor<T>.FaultyExtractor(System.Collections.Generic.IEnumerable<T>! items, Wolfgang.Etl.Abstractions.IProgressTimer! timer) -> void
+Wolfgang.Etl.TestKit.FaultyExtractor<T>.HandleErrorsWith(System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>! policy) -> Wolfgang.Etl.TestKit.FaultyExtractor<T>!
+Wolfgang.Etl.TestKit.FaultyExtractor<T>.SkipErrors() -> Wolfgang.Etl.TestKit.FaultyExtractor<T>!
+Wolfgang.Etl.TestKit.FaultyExtractor<T>.ThrowAfterCompletion(System.Exception! exception) -> Wolfgang.Etl.TestKit.FaultyExtractor<T>!
+Wolfgang.Etl.TestKit.FaultyExtractor<T>.ThrowAt(int index, System.Exception! exception) -> Wolfgang.Etl.TestKit.FaultyExtractor<T>!
+Wolfgang.Etl.TestKit.FaultyLoader<T>
+Wolfgang.Etl.TestKit.FaultyLoader<T>.CapturedErrors.get -> System.Collections.Generic.IReadOnlyList<Wolfgang.Etl.Abstractions.ItemErrorContext!>!
+Wolfgang.Etl.TestKit.FaultyLoader<T>.DuplicateAt(int index) -> Wolfgang.Etl.TestKit.FaultyLoader<T>!
+Wolfgang.Etl.TestKit.FaultyLoader<T>.FaultyLoader(bool collectItems) -> void
+Wolfgang.Etl.TestKit.FaultyLoader<T>.FaultyLoader(bool collectItems, Wolfgang.Etl.Abstractions.IProgressTimer! timer) -> void
+Wolfgang.Etl.TestKit.FaultyLoader<T>.GetCollectedItems() -> System.Collections.Generic.IReadOnlyList<T>?
+Wolfgang.Etl.TestKit.FaultyLoader<T>.HandleErrorsWith(System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>! policy) -> Wolfgang.Etl.TestKit.FaultyLoader<T>!
+Wolfgang.Etl.TestKit.FaultyLoader<T>.SkipErrors() -> Wolfgang.Etl.TestKit.FaultyLoader<T>!
+Wolfgang.Etl.TestKit.FaultyLoader<T>.ThrowAfterCompletion(System.Exception! exception) -> Wolfgang.Etl.TestKit.FaultyLoader<T>!
+Wolfgang.Etl.TestKit.FaultyLoader<T>.ThrowAt(int index, System.Exception! exception) -> Wolfgang.Etl.TestKit.FaultyLoader<T>!
+Wolfgang.Etl.TestKit.FaultyTransformer<T>
+Wolfgang.Etl.TestKit.FaultyTransformer<T>.CapturedErrors.get -> System.Collections.Generic.IReadOnlyList<Wolfgang.Etl.Abstractions.ItemErrorContext!>!
+Wolfgang.Etl.TestKit.FaultyTransformer<T>.DuplicateAt(int index) -> Wolfgang.Etl.TestKit.FaultyTransformer<T>!
+Wolfgang.Etl.TestKit.FaultyTransformer<T>.FaultyTransformer() -> void
+Wolfgang.Etl.TestKit.FaultyTransformer<T>.FaultyTransformer(Wolfgang.Etl.Abstractions.IProgressTimer! timer) -> void
+Wolfgang.Etl.TestKit.FaultyTransformer<T>.HandleErrorsWith(System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>! policy) -> Wolfgang.Etl.TestKit.FaultyTransformer<T>!
+Wolfgang.Etl.TestKit.FaultyTransformer<T>.SkipErrors() -> Wolfgang.Etl.TestKit.FaultyTransformer<T>!
+Wolfgang.Etl.TestKit.FaultyTransformer<T>.ThrowAfterCompletion(System.Exception! exception) -> Wolfgang.Etl.TestKit.FaultyTransformer<T>!
+Wolfgang.Etl.TestKit.FaultyTransformer<T>.ThrowAt(int index, System.Exception! exception) -> Wolfgang.Etl.TestKit.FaultyTransformer<T>!
+Wolfgang.Etl.TestKit.ManualProgressTimerCore
+Wolfgang.Etl.TestKit.ManualProgressTimerCore.ManualProgressTimerCore() -> void
+Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick() -> void
+Wolfgang.Etl.TestKit.ManualTimeSource
+Wolfgang.Etl.TestKit.ManualTimeSource.Advance(System.TimeSpan delta) -> void
+Wolfgang.Etl.TestKit.ManualTimeSource.ManualTimeSource() -> void
+Wolfgang.Etl.TestKit.ManualTimeSource.ManualTimeSource(System.DateTimeOffset start) -> void
+Wolfgang.Etl.TestKit.ProgressTimerExtensions
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.Observed.get -> System.Collections.Generic.IReadOnlyList<T>!
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.OnItemAsync(T item, System.Threading.CancellationToken token) -> System.Threading.Tasks.ValueTask<Wolfgang.Etl.Abstractions.MiddlewareResult<T>>
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.RecordingMiddleware() -> void
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.RecordingMiddleware(System.Func<T, Wolfgang.Etl.Abstractions.MiddlewareResult<T>>! policy) -> void
+Wolfgang.Etl.TestKit.RetryingExtractor<T>
+Wolfgang.Etl.TestKit.RetryingExtractor<T>.AttemptCount.get -> int
+Wolfgang.Etl.TestKit.RetryingExtractor<T>.RetryingExtractor(System.Collections.Generic.IEnumerable<T>! items, int failFirstAttempts, int maxAttempts) -> void
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadedItems.get -> System.Collections.Generic.IReadOnlyList<T>!
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.Snapshot.get -> string!
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader() -> void
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader(System.Func<T, string!>! formatter) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerable<T> items) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerable<T> items, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerator<T> enumerator) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerator<T> enumerator, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory, int count) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory, int count, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, int count) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, int count, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestLoader<T>
+Wolfgang.Etl.TestKit.TestLoader<T>.GetCollectedItems() -> System.Collections.Generic.IReadOnlyList<T>?
+Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun.get -> bool
+Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun.set -> void
+Wolfgang.Etl.TestKit.TestLoader<T>.TestLoader(bool collectItems) -> void
+Wolfgang.Etl.TestKit.TestLoader<T>.TestLoader(bool collectItems, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestTransformer<T>
+Wolfgang.Etl.TestKit.TestTransformer<T>.TestTransformer() -> void
+Wolfgang.Etl.TestKit.TestTransformer<T>.TestTransformer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TimeSourceExtensions
+override Wolfgang.Etl.TestKit.DelayingExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.DelayingExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+override Wolfgang.Etl.TestKit.FaultyExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.FaultyExtractor<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report!>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
+override Wolfgang.Etl.TestKit.FaultyExtractor<T>.Dispose(bool disposing) -> void
+override Wolfgang.Etl.TestKit.FaultyExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+override Wolfgang.Etl.TestKit.FaultyExtractor<T>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
+override Wolfgang.Etl.TestKit.FaultyLoader<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.FaultyLoader<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report!>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
+override Wolfgang.Etl.TestKit.FaultyLoader<T>.Dispose(bool disposing) -> void
+override Wolfgang.Etl.TestKit.FaultyLoader<T>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
+override Wolfgang.Etl.TestKit.FaultyLoader<T>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
+override Wolfgang.Etl.TestKit.FaultyTransformer<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.FaultyTransformer<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report!>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
+override Wolfgang.Etl.TestKit.FaultyTransformer<T>.Dispose(bool disposing) -> void
+override Wolfgang.Etl.TestKit.FaultyTransformer<T>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
+override Wolfgang.Etl.TestKit.FaultyTransformer<T>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T>! items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+override Wolfgang.Etl.TestKit.RetryingExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.RetryingExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+override Wolfgang.Etl.TestKit.RetryingExtractor<T>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<T>!>! workerFactory, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+override Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
+override Wolfgang.Etl.TestKit.TestExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report
+override Wolfgang.Etl.TestKit.TestExtractor<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report> progress) -> Wolfgang.Etl.Abstractions.IProgressTimer
+override Wolfgang.Etl.TestKit.TestExtractor<T>.Dispose(bool disposing) -> void
+override Wolfgang.Etl.TestKit.TestExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>
+override Wolfgang.Etl.TestKit.TestLoader<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report
+override Wolfgang.Etl.TestKit.TestLoader<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report> progress) -> Wolfgang.Etl.Abstractions.IProgressTimer
+override Wolfgang.Etl.TestKit.TestLoader<T>.Dispose(bool disposing) -> void
+override Wolfgang.Etl.TestKit.TestLoader<T>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T> items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+override Wolfgang.Etl.TestKit.TestTransformer<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report
+override Wolfgang.Etl.TestKit.TestTransformer<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report> progress) -> Wolfgang.Etl.Abstractions.IProgressTimer
+override Wolfgang.Etl.TestKit.TestTransformer<T>.Dispose(bool disposing) -> void
+override Wolfgang.Etl.TestKit.TestTransformer<T>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T> items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>
+static Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer<TDestination, TProgress>(this Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>! loader, Wolfgang.Etl.TestKit.ManualProgressTimerCore! timer) -> Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>!
+static Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer<TSource, TDestination, TProgress>(this Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>! transformer, Wolfgang.Etl.TestKit.ManualProgressTimerCore! timer) -> Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>!
+static Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer<TSource, TProgress>(this Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>! extractor, Wolfgang.Etl.TestKit.ManualProgressTimerCore! timer) -> Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>!
+static Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TDestination, TProgress>(this Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>! loader, Wolfgang.Etl.TestKit.ManualTimeSource! timeSource) -> Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>!
+static Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TSource, TDestination, TProgress>(this Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>! transformer, Wolfgang.Etl.TestKit.ManualTimeSource! timeSource) -> Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>!
+static Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TSource, TProgress>(this Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>! extractor, Wolfgang.Etl.TestKit.ManualTimeSource! timeSource) -> Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>!
