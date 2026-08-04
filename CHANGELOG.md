@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.22.0] - 2026-08-04
+
+Repository consolidation only — the `Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit` packages now
+build and release from this repository. **No public API change** to any of the four packages; a
+release-source move, not a behavioural change.
+
+### Changed
+
 - **Repository consolidation (#356): `Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit` now build
   and release from this repository** (previously the separate `ETL-Test-Kit` repo). **No public API
   change** — the four packages' IDs and public surfaces are unchanged; only the publish source moved,
