@@ -90,7 +90,13 @@ public sealed class DocExampleCompilationTests
         var failures = new List<string>();
         var examplesChecked = 0;
 
-        foreach (var file in Directory.EnumerateFiles(sourceRoot, "*.cs", SearchOption.AllDirectories))
+        // Only this repo's TestKit packages — Abstractions/ErrorPolicies examples are validated by
+        // their own DocExamples test (they now share the folded repo's src/ root).
+        var files = new[] { "Wolfgang.Etl.TestKit", "Wolfgang.Etl.TestKit.Xunit" }
+            .Select(name => Path.Combine(sourceRoot, name))
+            .SelectMany(dir => Directory.EnumerateFiles(dir, "*.cs", SearchOption.AllDirectories));
+
+        foreach (var file in files)
         {
             if (IsGeneratedOrBuildOutput(file))
             {
