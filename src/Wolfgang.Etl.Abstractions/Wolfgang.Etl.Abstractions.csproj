@@ -16,8 +16,6 @@
     <Title>$(AssemblyName)</Title>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageIcon>ETL-Abstractions.png</PackageIcon>
     <ApplicationIcon>ETL-Abstractions.ico</ApplicationIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>

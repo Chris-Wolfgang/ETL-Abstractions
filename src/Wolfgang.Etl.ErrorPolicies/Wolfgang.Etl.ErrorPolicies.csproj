@@ -9,8 +9,6 @@
     <Title>$(AssemblyName)</Title>
     <Description>Ready-made item-error policies — skip, log, and dead-letter (to a collection or a channel) — assignable to the ErrorPolicy property of Wolfgang.Etl extractors, loaders, and transformers. Built on Wolfgang.Etl.Abstractions.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageIcon>ETL-Abstractions.png</PackageIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <!-- The 10.0.10 logging packages drop net5.0/net7.0 from their tested TFM list; they resolve the

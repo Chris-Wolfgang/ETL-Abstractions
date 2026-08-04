@@ -15,8 +15,6 @@
     <PackageValidationBaselineVersion>0.13.0</PackageValidationBaselineVersion>
     <Title>Wolfgang.Etl.TestKit.Xunit</Title>
     <Description>Abstract xUnit contract test base classes for verifying custom ETL extractors, transformers, and loaders built on Wolfgang.Etl.Abstractions.</Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <IsTestProject>false</IsTestProject>
     <PackageTags>ETL;Extract-Transform-Load;TestKit;Testing;xUnit;ContractTests</PackageTags>

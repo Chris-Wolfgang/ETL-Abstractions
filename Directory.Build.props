@@ -106,6 +106,9 @@
     <!-- Repo-uniform now that all four packages ship from this repo. RepositoryUrl is intentionally
          NOT set here — SourceLink derives it from the git remote via PublishRepositoryUrl below. -->
     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <!-- MIT does not require explicit acceptance; standardized to False for all packages. -->
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <SignAssembly>False</SignAssembly>
     <LangVersion>latest</LangVersion>
     <RepositoryType>git</RepositoryType>
