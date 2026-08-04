@@ -51,12 +51,20 @@ jobs:
           }
 
           [xml]$props = Get-Content $propsPath -Raw
-          $version = @($props.SelectNodes('//Version') | ForEach-Object { $_.InnerText.Trim() } | Where-Object { $_ }) | Select-Object -First 1
+          # Scope to PropertyGroup-level <Version> (the package version) — NOT a
+          # <PackageReference><Version> child element — and require exactly one distinct value.
+          $versions = @($props.SelectNodes('/Project/PropertyGroup/Version') | ForEach-Object { $_.InnerText.Trim() } | Where-Object { $_ } | Sort-Object -Unique)
 
-          if (-not $version) {
-            Write-Error "No <Version> found in Directory.Build.props"
+          if ($versions.Count -eq 0) {
+            Write-Error "No <Version> property found in Directory.Build.props"
             exit 1
           }
+          if ($versions.Count -gt 1) {
+            Write-Error "Multiple distinct <Version> values in Directory.Build.props: $($versions -join ', '). There must be exactly one."
+            exit 1
+          }
+
+          $version = $versions[0]
 
           Write-Host "Repository version (Directory.Build.props): $version" -ForegroundColor Cyan
           Write-Host ""
