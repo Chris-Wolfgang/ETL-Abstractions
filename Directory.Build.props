@@ -90,6 +90,10 @@
          (Description, PackageTags, PackageProjectUrl, RepositoryUrl,
          PackageLicenseExpression, PackageReadmeFile) stay in each src
          csproj where they are repo-specific. -->
+    <!-- Single source of truth for the package version. All four packages are lockstep-versioned
+         with the repository; bump this one value per release. (Per-csproj <Version> is intentionally
+         absent so the versions can never drift out of sync.) -->
+    <Version>0.22.0</Version>
     <Authors>Chris Wolfgang</Authors>
     <Company>Chris Wolfgang</Company>
     <Copyright>Copyright (c) Chris Wolfgang</Copyright>

@@ -42,45 +42,29 @@ jobs:
           Write-Host "Expected version: $tagVersion" -ForegroundColor Cyan
           Write-Host ""
 
-          $srcCsprojs = @(Get-ChildItem -Path './src' -Recurse -Filter '*.csproj' -ErrorAction SilentlyContinue)
-          if ($srcCsprojs.Count -eq 0) {
-            Write-Warning "No src csprojs found - skipping version validation"
-            exit 0
-          }
-
-          # Collect <Version> and <PackageVersion> values from every src csproj
-          $found = @()
-          foreach ($proj in $srcCsprojs) {
-            try {
-              [xml]$xml = Get-Content $proj.FullName -Raw
-              $nodes = $xml.SelectNodes('//Version | //PackageVersion')
-              foreach ($node in $nodes) {
-                $v = $node.InnerText.Trim()
-                if ($v) {
-                  $found += [pscustomobject]@{ Project = $proj.Name; Version = $v }
-                }
-              }
-            } catch {
-              Write-Warning "Failed to parse $($proj.Name): $($_.Exception.Message)"
-            }
-          }
-
-          Write-Host "Versions found in src csprojs:" -ForegroundColor Cyan
-          foreach ($f in $found) {
-            Write-Host "  $($f.Project): $($f.Version)" -ForegroundColor DarkGray
-          }
-          Write-Host ""
-
-          if ($found.Count -eq 0) {
-            Write-Error "No <Version> or <PackageVersion> found in any src csproj"
+          # The four packages are lockstep-versioned; <Version> is the single source of truth in
+          # Directory.Build.props (no per-csproj <Version>). Read it there.
+          $propsPath = './Directory.Build.props'
+          if (-not (Test-Path $propsPath)) {
+            Write-Error "Directory.Build.props not found - cannot resolve the package version"
             exit 1
           }
 
-          if ($found.Version -contains $tagVersion) {
-            Write-Host "Release tag matches at least one src csproj version" -ForegroundColor Green
+          [xml]$props = Get-Content $propsPath -Raw
+          $version = @($props.SelectNodes('//Version') | ForEach-Object { $_.InnerText.Trim() } | Where-Object { $_ }) | Select-Object -First 1
+
+          if (-not $version) {
+            Write-Error "No <Version> found in Directory.Build.props"
+            exit 1
+          }
+
+          Write-Host "Repository version (Directory.Build.props): $version" -ForegroundColor Cyan
+          Write-Host ""
+
+          if ($version -eq $tagVersion) {
+            Write-Host "Release tag matches the repository version" -ForegroundColor Green
           } else {
-            $allVersions = ($found.Version | Sort-Object -Unique) -join ', '
-            Write-Error "Release tag '$tagName' (version '$tagVersion') does not match any src csproj version. Found: $allVersions. Bump the csproj <Version> or correct the release tag before re-running."
+            Write-Error "Release tag '$tagName' (version '$tagVersion') does not match the repository version '$version'. Bump <Version> in Directory.Build.props or correct the release tag before re-running."
             exit 1
           }
 

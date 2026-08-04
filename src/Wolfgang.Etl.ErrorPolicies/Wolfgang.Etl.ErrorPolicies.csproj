@@ -4,7 +4,6 @@
 	<LangVersion>latest</LangVersion>
 	<!-- Lockstep with Wolfgang.Etl.Abstractions: this package is built and released from the same
 	     repo under the same version and tag (like Wolfgang.Etl.TestKit + Wolfgang.Etl.TestKit.Xunit). -->
-	<Version>0.22.0</Version>
 	<AssemblyVersion>1.0.0.0</AssemblyVersion>
 	<FileVersion>$([System.Text.RegularExpressions.Regex]::Replace("$(Version)", "[-+].*$", "")).0</FileVersion>
     <!-- No EnablePackageValidation on the FIRST release: there is no previously-published baseline to
