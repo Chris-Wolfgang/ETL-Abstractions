@@ -1,0 +1,13 @@
+{
+  "stryker-config": {
+    "project": "Wolfgang.Etl.TestKit.csproj",
+    "target-framework": "net10.0",
+    "reporters": ["progress", "json", "html"],
+    "thresholds": {
+      "high": 90,
+      "low": 70,
+      "break": 70
+    },
+    "mutation-level": "Standard"
+  }
+}
