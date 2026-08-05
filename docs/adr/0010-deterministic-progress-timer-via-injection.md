@@ -1,4 +1,4 @@
-# 4. Make progress reporting deterministic via an injectable timer
+# 10. Make progress reporting deterministic via an injectable timer
 
 ## Status
 

@@ -1,4 +1,4 @@
-# 3. Ship the test doubles and the contract-test base classes as two packages
+# 9. Ship the test doubles and the contract-test base classes as two packages
 
 ## Status
 

@@ -1,7 +1,8 @@
 # Architecture Decision Records
 
-This folder records the non-obvious design decisions behind
-`Wolfgang.Etl.Abstractions` — the *why* that the code and type signatures can't
+This folder records the non-obvious design decisions behind the **Wolfgang.Etl**
+packages built in this repository (`Wolfgang.Etl.Abstractions`, `.ErrorPolicies`,
+`.TestKit`, `.TestKit.Xunit`) — the *why* that the code and type signatures can't
 carry on their own. See [ADR-0001](0001-record-architecture-decisions.md) for the
 practice itself, and [`TEMPLATE.md`](TEMPLATE.md) to add a new one.
 
@@ -19,6 +20,9 @@ its status updated, so the history of the thinking is preserved.
 | [0006](0006-sequential-reverse-order-stage-disposal.md) | Dispose stages sequentially, in reverse construction order | Accepted |
 | [0007](0007-pin-assemblyversion.md) | Pin `<AssemblyVersion>` at `1.0.0.0` | Accepted |
 | [0008](0008-ban-synchronous-parallel-apis.md) | Ban synchronous `Parallel.For`/`Parallel.ForEach` | Accepted |
+| [0009](0009-split-doubles-and-contract-tests-into-two-packages.md) | Ship the test doubles and contract-test base classes as two packages | Accepted |
+| [0010](0010-deterministic-progress-timer-via-injection.md) | Make progress reporting deterministic via an injectable timer | Accepted |
+| [0011](0011-assemblyversion-policy-across-1.0-boundary.md) | `<AssemblyVersion>` policy across the 1.0 boundary and for new libraries | Accepted |
 
 ## Status legend
 
