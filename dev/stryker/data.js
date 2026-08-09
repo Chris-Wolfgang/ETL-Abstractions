@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1785653940105,
+  "lastUpdate": 1786256513759,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "Mutation score": [
@@ -48,6 +48,33 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/5e5e9585b917785988ace8354c41942e02477cf0"
         },
         "date": 1785653936961,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 100,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "0b4e021245d0e9a77325da1f4927d080778529f0",
+          "message": "Merge pull request #349 from Chris-Wolfgang/vNext\n\nRelease 0.21.0",
+          "timestamp": "2026-08-03T18:13:29Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/0b4e021245d0e9a77325da1f4927d080778529f0"
+        },
+        "date": 1786256510861,
         "tool": "customBiggerIsBetter",
         "benches": [
           {
