@@ -10,8 +10,19 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles;
 /// </summary>
 internal sealed class WrongOverloadCalledException : Exception
 {
+    public WrongOverloadCalledException()
+    {
+    }
+
+
     public WrongOverloadCalledException(string overloadSignature)
         : base($"Unexpected call to {overloadSignature}. The pipeline routed through the wrong overload.")
+    {
+    }
+
+
+    public WrongOverloadCalledException(string message, Exception innerException)
+        : base(message, innerException)
     {
     }
 }

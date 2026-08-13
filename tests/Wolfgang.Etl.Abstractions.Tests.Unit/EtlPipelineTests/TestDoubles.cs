@@ -37,7 +37,7 @@ internal sealed class CollectingLoader<T> : LoaderBase<T, EtlProgress>
 
 /// <summary>
 /// Minimal <see cref="ExtractorBase{TSource, TProgress}"/> that yields a fixed sequence, for
-/// exercising <see cref="EtlPipeline.From{T, TProgress}(ExtractorBase{T, TProgress})"/>.
+/// exercising <see cref="EtlPipelineSourceExtensions.From{T, TProgress}(EtlPipeline, ExtractorBase{T, TProgress})"/>.
 /// </summary>
 internal sealed class SeededExtractor<T> : ExtractorBase<T, EtlProgress>
     where T : notnull

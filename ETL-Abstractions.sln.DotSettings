@@ -115,4 +115,51 @@
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=UnusedVariable/@EntryIndexedValue">DO_NOT_SHOW</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NotAccessedVariable/@EntryIndexedValue">DO_NOT_SHOW</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NotAccessedField_002ELocal/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Recurring TestKit / Abstractions patterns that Sonar flags but are
+	     deliberate on this codebase. All confirmed against src/ as intentional
+	     designs, not defects. -->
+
+	<!-- S1994: "for loop stop condition doesn't test the incrementer variable".
+	     Fires on the intentional `for (var i = 0; ; i++)` infinite-generator
+	     pattern in TestExtractor.Generate*, and on the `for (var attempt = 1; ;
+	     attempt++)` retry loops in RetryingExtractor and RetrySeamTests — those
+	     loops break internally on the retry-policy verdict, not on the counter. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S1994/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- S1215: "avoid GC.Collect". AllocationBudgetContractTests calls
+	     GC.Collect + WaitForPendingFinalizers as a settle-the-heap primitive
+	     before measuring hot-path allocations — the whole point of the test is
+	     that the measurement is precise. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S1215/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- MA0158: "use System.Threading.Lock". The type only exists on net9.0+.
+	     The library multi-targets net462;netstandard2.0;netstandard2.1;net8.0;
+	     net10.0, so `new object()` for a lock is required on 4 of the 5 TFMs
+	     and would need a #if NET9_0_OR_GREATER split for a micro-perf gain
+	     that isn't worth the ceremony in a progress-capture test double. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=MA0158/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- S3267: "loop over Where would simplify". MiddlewareExtensions validates
+	     the middleware chain by iterating and throwing ArgumentNullException
+	     on the FIRST null with the right paramName/message — LINQ Where +
+	     Any() would lose the enumeration-position semantics and require two
+	     passes. The loop is the clearer expression here. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S3267/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- S5034: "consume ValueTask only once". Fires on TestKitFuzzTests.Drain,
+	     which sync-drains an IAsyncEnumerable inside a synchronous CsCheck
+	     sampler — the .AsTask().GetAwaiter().GetResult() bridge is the
+	     deliberate sync-over-async pattern for that constraint. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S5034/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- S6966: "await CancelAsync instead of Cancel". Fires inside
+	     ExtractorBaseContractTests and TransformerBaseContractTests where
+	     `cts.Cancel()` is called from INSIDE an `await foreach` loop as the
+	     mid-stream cancellation trigger. CancelAsync() would suspend the loop
+	     while token callbacks complete, which races the assertion that the
+	     enumerator sees the cancellation on the very next MoveNextAsync. Sync
+	     Cancel() is the correct primitive for this scenario (the surrounding
+	     #pragma already disables CA1849/VSTHRD103; add S6966 to the family). -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S6966/@EntryIndexedValue">DO_NOT_SHOW</s:String>
 </wpf:ResourceDictionary>

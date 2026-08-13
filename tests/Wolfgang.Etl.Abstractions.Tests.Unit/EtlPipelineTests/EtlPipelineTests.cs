@@ -294,7 +294,7 @@ public class EtlPipelineCoreTests
             .To(loader)
             .RunAsync(progress);
 
-        var final = reports.Last();
+        var final = reports[reports.Count - 1];
         Assert.Equal(5, final.ExtractedItemCount);
         Assert.Equal(5, final.LoadedItemCount);
 
