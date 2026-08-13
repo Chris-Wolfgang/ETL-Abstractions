@@ -1,0 +1,402 @@
+#nullable enable
+Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<TSut, TItem>.ExtractAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<TSut, TItem>.ExtractAsync_returns_non_null_sequence() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<TSut, TItem>.ExtractAsync_yields_expected_items_in_order_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<TSut, TItem>.ExtractAsync_with_already_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<TSut, TItem>.ExtractAsync_with_cancellation_token_stops_when_token_is_cancelled_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<TSut, TItem>.ExtractAsync_with_cancellation_token_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<TSut, TItem>.ExtractWithCancellationAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_returns_non_null_sequence() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_already_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_cancellation_token_stops_when_token_is_cancelled_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_cancellation_token_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_null_progress_and_token_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_null_progress_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_cancelled_token_stops_enumeration_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_token_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_token_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_yields_expected_items_in_order_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.ExtractWithProgressAndCancellationAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_null_progress_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>.ExtractWithProgressAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_CurrentItemCount_tracks_each_yielded_item_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_increments_CurrentItemCount_for_each_item_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_returns_non_null_sequence() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_skips_items_up_to_SkipItemCount_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_stops_at_MaximumItemCount_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_already_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_empty_source_yields_no_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_null_progress_and_token_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_null_progress_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_cancelled_token_stops_enumeration_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_empty_source_yields_no_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_token_and_empty_source_yields_no_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_token_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_and_token_yields_all_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_invokes_callback_when_timer_fires_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_progress_yields_all_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_token_and_empty_source_yields_no_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_token_stops_when_token_is_cancelled_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_token_yields_all_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_yields_all_expected_items_in_order_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractorBaseContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_defaults_to_int_MaxValue() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_defaults_to_1000() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.ExtractAsync_when_called_twice_CurrentItemCount_resets_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.ExtractAsync_when_called_twice_with_progress_both_runs_report_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.ExtractAsync_when_called_twice_yields_identical_items_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.IdempotentExtractorContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.IdempotentLoaderContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.LoadAsync_when_called_twice_CurrentItemCount_resets_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.LoadAsync_when_called_twice_no_state_leaks_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.LoadAsync_when_called_twice_processes_all_items_both_times_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.IdempotentTransformerContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.TransformAsync_when_called_twice_CurrentItemCount_resets_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.TransformAsync_when_called_twice_no_accumulated_side_effects_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.TransformAsync_when_called_twice_yields_identical_items_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<TSut, TItem>.LoadAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<TSut, TItem>.LoadAsync_completes_without_throwing_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<TSut, TItem>.LoadAsync_with_empty_sequence_completes_without_throwing_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<TSut, TItem>.LoadAsync_with_already_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<TSut, TItem>.LoadAsync_with_cancellation_token_completes_without_throwing_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<TSut, TItem>.LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<TSut, TItem>.LoadWithCancellationAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_completes_without_throwing_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_already_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_cancellation_token_completes_without_throwing_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_empty_sequence_completes_without_throwing_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_null_progress_and_token_throws_ArgumentNullException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_null_progress_throws_ArgumentNullException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_cancelled_token_stops_loading_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_completes_without_throwing_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_completes_without_throwing_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.LoadWithProgressAndCancellationAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_null_progress_throws_ArgumentNullException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_completes_without_throwing_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>.LoadWithProgressAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_completes_successfully_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_increments_CurrentItemCount_for_each_item_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_loads_all_items_when_MaximumItemCount_exceeds_sequence_length_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_skips_items_up_to_SkipItemCount_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_stops_at_MaximumItemCount_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_stops_reading_source_at_MaximumItemCount_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_empty_source_completes_without_error_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_null_items_throws_ArgumentNullException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_null_progress_throws_ArgumentNullException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_empty_source_completes_without_error_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_null_items_throws_ArgumentNullException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_and_empty_source_completes_without_error_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_completes_successfully_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_completes_successfully_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_progress_invokes_callback_when_timer_fires_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_token_and_empty_source_completes_without_error_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_token_and_null_items_throws_ArgumentNullException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_token_completes_successfully_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoaderBaseContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_defaults_to_int_MaxValue() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_defaults_to_1000() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer
+Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.Dispose() -> void
+Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.Elapsed -> System.Action?
+Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.Fire() -> void
+Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.ManualProgressTimer() -> void
+Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.Start(int intervalMilliseconds) -> void
+Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.StopTimer() -> void
+Wolfgang.Etl.TestKit.Xunit.ProgressAssert
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>.Count.get -> int
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>.FinalReport.get -> T?
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>.ProgressCapture() -> void
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>.Reports.get -> System.Collections.Generic.IReadOnlyList<T>!
+Wolfgang.Etl.TestKit.Xunit.SynchronousProgress<T>
+Wolfgang.Etl.TestKit.Xunit.SynchronousProgress<T>.Report(T value) -> void
+Wolfgang.Etl.TestKit.Xunit.SynchronousProgress<T>.SynchronousProgress(System.Action<T> handler) -> void
+Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>.TransformAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>.TransformAsync_returns_non_null_sequence() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>.TransformAsync_yields_expected_items_in_order_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>.TransformAsync_with_already_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>.TransformAsync_with_cancellation_token_stops_when_token_is_cancelled_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>.TransformAsync_with_cancellation_token_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>.TransformWithCancellationAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_returns_non_null_sequence() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_already_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_cancellation_token_stops_when_token_is_cancelled_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_cancellation_token_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_null_progress_and_token_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_null_progress_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_cancelled_token_stops_enumeration_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_yields_expected_items_in_order_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.TransformWithProgressAndCancellationAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_null_progress_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_yields_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>.TransformWithProgressAsyncContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_defaults_to_int_MaxValue() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_defaults_to_1000() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_CurrentItemCount_tracks_each_yielded_item_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_increments_CurrentItemCount_for_each_item_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_returns_non_null_sequence() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_skips_items_up_to_SkipItemCount_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_stops_at_MaximumItemCount_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_stops_reading_source_at_MaximumItemCount_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_already_cancelled_token_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_empty_source_yields_no_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_null_items_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_null_progress_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_cancelled_token_stops_enumeration_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_empty_source_yields_no_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_null_items_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_and_empty_source_yields_no_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_and_token_yields_all_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_invokes_callback_at_least_once_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_invokes_callback_when_timer_fires_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_progress_yields_all_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_token_and_empty_source_yields_no_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_token_and_null_items_throws_ArgumentNullException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_token_stops_when_token_is_cancelled_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_token_yields_all_expected_items_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_yields_all_expected_items_in_order_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length_Async() -> System.Threading.Tasks.Task
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformerBaseContractTests() -> void
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<TSut, TItem>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<TSut, TItem>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+virtual Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.TryGetLoadedItems(TSut sut) -> System.Collections.Generic.IReadOnlyList<TItem>?
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<TSut, TItem>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<TSut, TItem>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+virtual Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
+abstract Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+virtual Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> TSut
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.AllReportsSatisfy<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, System.Func<T, bool>! predicate) -> void
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.FinalReportSatisfies<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, System.Func<T, bool>! predicate) -> void
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.HasExactly<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, int count) -> void
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.HasReports<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture) -> void
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.IsMonotonicallyIncreasing<T, TKey>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, System.Func<T, TKey>! selector) -> void
+virtual Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.GetCurrentItemCount(TSut sut) -> int
+virtual Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.GetCurrentItemCount(TSut sut) -> int
+Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.SupportsDryRunContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false() -> void
+Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true() -> void
+Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false() -> void
+Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.CreateSut() -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync(bool isDryRun) -> System.Threading.Tasks.Task<bool>!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.ErrorHandlingContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Skip_policy_completes_the_run_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Skip_policy_counts_the_failure_as_an_error_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Skip_policy_does_not_count_the_failure_as_an_intentional_skip_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Skip_policy_processes_the_surviving_items_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Abort_policy_rethrows_and_aborts_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Abort_policy_does_not_count_an_error_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.RunSingleFaultScenarioAsync(Wolfgang.Etl.Abstractions.ItemErrorAction policy) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome!>!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.ErrorHandlingOutcome(bool aborted, int itemCount, int errorItemCount, int skippedItemCount) -> void
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.Aborted.get -> bool
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.ItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.ErrorItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.SkippedItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.DisposableStageContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.DisposeAsync_is_idempotent_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Dispose_is_idempotent() -> void
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_after_DisposeAsync_throws_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_after_Dispose_throws_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.CreateSut() -> TSut!
+abstract Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.InvokeReportsObjectDisposedAsync(bool disposeFirst, bool useAsyncDispose) -> System.Threading.Tasks.Task<bool>!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CurrentErrorItemCount_defaults_to_zero() -> void
+virtual Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutOverSource(System.Collections.Generic.IEnumerable<TItem>! source) -> TSut?
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CurrentErrorItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentErrorItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.AllocationBudgetContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Hot_path_stays_within_the_allocation_budget_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Sut.get -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.ExerciseHotPathAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Attempts.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.BaseItemCount.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.MaxBytesPerItem.get -> double
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.CancellationContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_stops_promptly_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Pre_cancelled_token_processes_nothing_and_throws_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunAndCancelMidStreamAsync(int itemCount, int cancelAfter) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.CancellationOutcome!>!
+abstract Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunWithPreCancelledTokenAsync(int itemCount) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.CancellationOutcome!>!
+virtual Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.CancelAfter.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.ItemCount.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.PromptStopSlack.get -> int
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.CancellationOutcome(bool canceled, int processedItemCount) -> void
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.Canceled.get -> bool
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.ProcessedItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.EtlPipelineContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_delivers_all_source_items_to_the_sink_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_progress_counts_all_records_extracted_and_loaded_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Sink.get -> Wolfgang.Etl.Abstractions.LoaderBase<TItem, TProgress>!
+abstract Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSink() -> Wolfgang.Etl.Abstractions.LoaderBase<TItem, TProgress>!
+abstract Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
+abstract Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.GetLoadedItems() -> System.Collections.Generic.IReadOnlyList<TItem>?
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RetryContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Permanent_fault_fails_after_max_attempts_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Transient_fault_causes_more_than_one_attempt_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Transient_fault_within_budget_eventually_succeeds_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RunWithPermanentFaultAsync(int maxAttempts) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.RetryOutcome!>!
+abstract Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RunWithTransientFaultAsync(int failFirstAttempts, int maxAttempts) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.RetryOutcome!>!
+virtual Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.FailFirstAttempts.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.MaxAttempts.get -> int
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome.RetryOutcome(bool succeeded, int attemptCount, int itemCount) -> void
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome.AttemptCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome.ItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded.get -> bool
+Wolfgang.Etl.TestKit.Xunit.EtlScenario
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.RunAndAssertAsync(System.Collections.Generic.IReadOnlyList<T>! expectedLoaded, int expectedErrors = 0) -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.RunAndAssertThrowsAsync<TException>() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.Through(Wolfgang.Etl.Abstractions.TransformerBase<T, T, Wolfgang.Etl.Abstractions.Report!>! transformer) -> Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>!
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.WithExtractorFault(int index, System.Exception! exception, bool skip = true) -> Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>!
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.WithLoaderFault(int index, System.Exception! exception, bool skip = true) -> Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>!
+static Wolfgang.Etl.TestKit.Xunit.EtlScenario.From<T>(params T[]! items) -> Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>!

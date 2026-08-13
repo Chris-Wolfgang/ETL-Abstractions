@@ -331,7 +331,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     {
         ResetRunState();
 
-        await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token))
+        await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
         {
             yield return item;
         }
@@ -349,7 +349,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
         try
         {
-            await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token))
+            await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
             {
                 yield return item;
             }

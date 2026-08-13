@@ -1,0 +1,7 @@
+{
+  "AssembliesPath": "bin/Release/net10.0",
+  "Assemblies": [
+    "Wolfgang.Etl.TestKit.Tests.Concurrency.dll",
+    "Wolfgang.Etl.TestKit.dll"
+  ]
+}

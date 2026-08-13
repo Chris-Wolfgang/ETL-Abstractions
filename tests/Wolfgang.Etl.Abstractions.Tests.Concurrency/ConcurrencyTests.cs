@@ -55,6 +55,13 @@ public static class ConcurrencyTests
     /// terminate — no deadlock, and no unobserved exception other than the expected
     /// cancellation/disposal signals.
     /// </summary>
+    /// <remarks>
+    /// NOT currently executed in CI — this method is commented out of the
+    /// <c>methods</c> array in <c>.github/workflows/coyote.yaml</c>. Coyote 1.7.11
+    /// crashes inside its own runtime on the <c>ConfiguredCancelableAsyncEnumerable</c>
+    /// awaiter this test reaches through <c>ExtractAsync</c>. The test is kept intact
+    /// so restoring it is a one-line change; see #364.
+    /// </remarks>
     [Microsoft.Coyote.SystematicTesting.Test]
     public static async Task Dispose_racing_enumeration_never_deadlocks()
     {

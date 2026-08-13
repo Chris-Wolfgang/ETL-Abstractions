@@ -323,7 +323,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     {
         ResetRunState();
 
-        await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token))
+        await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token).ConfigureAwait(false))
         {
             yield return item;
         }
@@ -341,7 +341,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
         try
         {
-            await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token))
+            await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token).ConfigureAwait(false))
             {
                 yield return item;
             }
