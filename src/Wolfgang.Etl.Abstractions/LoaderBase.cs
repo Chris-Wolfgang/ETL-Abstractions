@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
@@ -312,7 +311,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
     // Test seam: when set, CreateProgressTimer builds its SystemProgressTimer over this timer core
     // (a deterministic fake) instead of a real System.Threading.Timer.
-    internal Func<System.Threading.TimerCallback, ITimerCore>? TimerCoreFactory;
+    internal Func<TimerCallback, ITimerCore>? TimerCoreFactory;
 
 
 
