@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using CsCheck;
-using Wolfgang.Etl.TestKit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Fuzz;

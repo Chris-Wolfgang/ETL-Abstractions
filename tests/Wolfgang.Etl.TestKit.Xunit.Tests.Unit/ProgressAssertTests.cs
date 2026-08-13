@@ -2,8 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
-using Wolfgang.Etl.TestKit;
-using Wolfgang.Etl.TestKit.Xunit;
 using Xunit;
 using Xunit.Sdk;
 
