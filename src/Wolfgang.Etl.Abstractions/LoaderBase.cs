@@ -503,10 +503,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
-    private static readonly Func<ItemErrorContext, ItemErrorAction> AbortPolicy =
-        static _ => ItemErrorAction.Abort;
-
-    private readonly Func<ItemErrorContext, ItemErrorAction> _errorPolicy = AbortPolicy;
+    private readonly Func<ItemErrorContext, ItemErrorAction> _errorPolicy = DefaultItemErrorPolicy.Abort;
 
 
 
