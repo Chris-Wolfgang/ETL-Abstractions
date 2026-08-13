@@ -21,9 +21,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.22.0] - 2026-08-04
 
-Repository consolidation only — the `Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit` packages now
-build and release from this repository. **No public API change** to any of the four packages; a
-release-source move, not a behavioural change.
+Repository consolidation — the `Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit` packages now
+build and release from this repository. **No public API change** to any of the four packages. The
+consolidation itself is a release-source move; it ships alongside one behavioural fix, noted below.
+
+### Fixed
+
+- **`await foreach` in `ExtractorBase` and `TransformerBase` now uses `ConfigureAwait(false)`.** Four
+  sites (`ExtractorBase.ExtractAsync` / `ExtractWithProgressAsync`, `TransformerBase.TransformAsync` /
+  `TransformWithProgressAsync`) resumed on the captured synchronization context, a deadlock risk for
+  consumers calling sync-over-async on the `net462` and `netstandard2.0` targets. `CA2007` does not
+  analyse `await foreach`, so this was invisible to the analyzer gate; the rest of the package already
+  used `ConfigureAwait(false)` at every other `await foreach`.
 
 ### Changed
 
