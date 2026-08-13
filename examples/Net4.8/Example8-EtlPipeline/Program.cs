@@ -6,7 +6,7 @@ using Wolfgang.Etl.Abstractions;
 
 namespace Example8_EtlPipeline
 {
-    internal class Program
+    internal static class Program
     {
         private static async Task Main()
         {

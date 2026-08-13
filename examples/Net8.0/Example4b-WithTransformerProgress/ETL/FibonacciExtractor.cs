@@ -2,7 +2,7 @@ using Wolfgang.Etl.Abstractions;
 
 namespace Example4b_WithTransformerProgress.ETL;
 
-internal class FibonacciExtractor : IExtractAsync<int>, IExtractWithProgressAsync<int, EtlProgress>
+internal class FibonacciExtractor : IExtractWithProgressAsync<int, EtlProgress>
 {
     private int _progressInterval = 1_000;
 
