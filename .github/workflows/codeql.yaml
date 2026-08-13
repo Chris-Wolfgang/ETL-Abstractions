@@ -27,7 +27,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp' ]
+        # 'csharp' analyses the compiled library (needs a build); 'actions'
+        # analyses the workflow files themselves (build-mode none, no build).
+        language: [ 'csharp', 'actions' ]
 
     steps:
     - name: Checkout repository
@@ -37,6 +39,7 @@ jobs:
 
     - name: Check for C# source code
       id: check-csharp
+      if: matrix.language == 'csharp'
       shell: pwsh
       run: |
         Write-Host "=== CodeQL C# Source Code Detection ===" -ForegroundColor Cyan
@@ -76,7 +79,7 @@ jobs:
         Write-Host "========================================" -ForegroundColor Cyan
 
     - name: Initialize CodeQL
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      if: matrix.language == 'actions' || steps.check-csharp.outputs.has-csharp == 'true'
       uses: github/codeql-action/init@e4c79b4e9ebfe577d446333c2e31ed81079e7b03 # v4
       with:
         languages: ${{ matrix.language }}
@@ -85,13 +88,13 @@ jobs:
         queries: security-extended
 
     - name: Setup .NET
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      if: matrix.language == 'csharp' && steps.check-csharp.outputs.has-csharp == 'true'
       uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
       with:
         dotnet-version: '10.0.x'
 
     - name: Restore .NET workloads
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      if: matrix.language == 'csharp' && steps.check-csharp.outputs.has-csharp == 'true'
       shell: pwsh
       run: |
         # Skip entirely if no csproj declares a workload-bearing TFM (android/ios/
@@ -120,7 +123,7 @@ jobs:
 
     - name: Build for CodeQL Analysis
       id: build
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      if: matrix.language == 'csharp' && steps.check-csharp.outputs.has-csharp == 'true'
       shell: pwsh
       run: |
         Write-Host "Building solution for CodeQL analysis..."
@@ -158,7 +161,7 @@ jobs:
 
     - name: Perform CodeQL Analysis
       id: perform-codeql-analysis
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      if: matrix.language == 'actions' || steps.check-csharp.outputs.has-csharp == 'true'
       uses: github/codeql-action/analyze@e4c79b4e9ebfe577d446333c2e31ed81079e7b03 # v4
       with:
         category: "/language:${{matrix.language}}"
@@ -167,36 +170,37 @@ jobs:
       if: always()
       shell: pwsh
       run: |
-        Write-Host "=== CodeQL Security Scan Complete ===" -ForegroundColor Cyan
-        
+        Write-Host "=== CodeQL Security Scan Complete ($env:MATRIX_LANGUAGE) ===" -ForegroundColor Cyan
+
         # Check the outcome of previous steps
+        $language = "$env:MATRIX_LANGUAGE"
         $checkCsharpOutcome = "${{ steps.check-csharp.outcome }}"
         $hasCsharp = "${{ steps.check-csharp.outputs.has-csharp }}"
         $buildOutcome = "${{ steps.build.outcome }}"
         $codeqlOutcome = "${{ steps.perform-codeql-analysis.outcome }}"
-        
+
         # Determine overall status
         $hasFailure = $false
         $failureMessages = @()
-        
-        # Check if check-csharp step failed
+
+        # Check if check-csharp step failed (csharp leg only)
         if ($checkCsharpOutcome -eq "failure") {
           $hasFailure = $true
           $failureMessages += "❌ C# source code detection failed"
         }
-        
+
         # Check if build step failed (only relevant if C# code exists)
         if ($hasCsharp -eq "true" -and $buildOutcome -eq "failure") {
           $hasFailure = $true
           $failureMessages += "❌ Build failed during CodeQL analysis"
         }
-        
-        # Check if CodeQL analysis step failed (only relevant if C# code exists)
-        if ($hasCsharp -eq "true" -and $codeqlOutcome -eq "failure") {
+
+        # Check if CodeQL analysis step failed (either language leg)
+        if ($codeqlOutcome -eq "failure") {
           $hasFailure = $true
-          $failureMessages += "❌ CodeQL analysis failed"
+          $failureMessages += "❌ CodeQL analysis failed ($language)"
         }
-        
+
         # Display results based on actual step outcomes
         if ($hasFailure) {
           Write-Host "❌ Security scan completed with errors:" -ForegroundColor Red
@@ -204,14 +208,16 @@ jobs:
             Write-Host "   $msg" -ForegroundColor Red
           }
           exit 1
-        } elseif ($hasCsharp -eq "true") {
-          Write-Host "✅ CodeQL analysis completed successfully." -ForegroundColor Green
+        } elseif ($codeqlOutcome -eq "success") {
+          Write-Host "✅ CodeQL analysis completed successfully ($language)." -ForegroundColor Green
           Write-Host "   Results have been uploaded to GitHub Security." -ForegroundColor Green
         } elseif ($hasCsharp -eq "false") {
           Write-Host "✅ Security scan completed successfully (no C# code to analyze)." -ForegroundColor Green
           Write-Host "   This job ran successfully and reports a passing status to branch protection." -ForegroundColor Green
         } else {
-          Write-Host "✅ Security scan job completed." -ForegroundColor Green
+          Write-Host "✅ Security scan job completed ($language)." -ForegroundColor Green
           Write-Host "   Job status reported to branch protection." -ForegroundColor Green
         }
         Write-Host "========================================" -ForegroundColor Cyan
+      env:
+        MATRIX_LANGUAGE: ${{ matrix.language }}
