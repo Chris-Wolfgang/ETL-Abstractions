@@ -1,0 +1,118 @@
+<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<!--
+	  ReSharper InspectCode noise-floor (see issue #361).
+
+	  Purpose: silence InspectCode inspections that are either (a) already covered
+	  and gated by the build's Roslyn analyzer stack (Meziantou, SonarAnalyzer,
+	  Roslynator, AsyncFixer, VS.Threading, BannedApiAnalyzers, .NET SDK analyzers,
+	  PublicApiAnalyzers) — double-reporting them here adds no signal — or (b) known
+	  false positives on this repo's multi-TFM layout / example-project scope.
+
+	  ETL-Abstractions is the base library of the ETL fleet, so this file is
+	  intentionally more conservative than a leaf-repo profile: only inspections
+	  with a demonstrable false-positive pattern or a redundant Roslyn-analyzer
+	  equivalent are silenced. Real findings (StaticMemberInGenericType, MA0158,
+	  S6966, S5034, S2699, S6608, S4487, S1994, S3267, RCS1194, InvalidXmlDocComment,
+	  …) stay visible.
+
+	  Only error-severity findings gate merge (pr.yaml `inspectcode` job); these
+	  entries drop the corresponding warnings from Code Scanning entirely.
+	-->
+
+	<!-- PublicAPI false positive: InspectCode runs Roslyn analyzers WITHOUT
+	     PublicAPI.Shipped.txt / PublicAPI.Unshipped.txt as AdditionalFiles, so
+	     the analyzer thinks nothing is declared and flags every public member
+	     with RS0016 ("add to declared API"), RS0036 ("annotate nullability"),
+	     and RS0037 ("enable nullability tracking"). The in-build analyzer gates
+	     these correctly via Directory.Build.props `Exists()` conditions; the
+	     InspectCode fire is pure duplicate. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RS0016/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RS0036/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RS0037/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Redundant-code style rules — covered in-build by Roslynator / IDE00xx and
+	     .editorconfig. RedundantUsingDirective in particular is a FALSE POSITIVE:
+	     src projects multi-target net462;netstandard2.0;netstandard2.1;net8.0;
+	     net10.0 with <ImplicitUsings> only enabled for net10.0 (in the
+	     conditional PropertyGroup); explicit System usings are REQUIRED on
+	     net462/netstandard/net8 but look redundant to InspectCode which analyses
+	     a single TFM. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantUsingDirective/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantNameQualifier/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantCast/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantExtendsListEntry/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantSuppressNullableWarningExpression/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantTypeArgumentsOfMethod/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantNullableDirective/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantWithCancellation/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantAssignment/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantArgumentDefaultValue/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Nullability — owned by the Roslyn nullable reference-type analysis, not R#.
+	     The *AccordingTo(Nullable)APIContract rules flag defensive null-checks on
+	     non-null-annotated parameters; those checks are INTENTIONAL in a base
+	     library that is called from nullable-oblivious / older-TFM code where
+	     callers can still pass null despite the annotation. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ReturnTypeCanBeNotNullable/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantNullableFlowAttribute/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NullnessAnnotationConflictWithJetBrainsAnnotations/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NullCoalescingConditionIsAlwaysNotNullAccordingToAPIContract/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ConditionalAccessQualifierIsNonNullableAccordingToAPIContract/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=AssignNullToNotNullAttribute/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Public-API false positive: R# cannot see external consumers of a library's
+	     public auto-properties, so it reports them as unused (.Global variant).
+	     PublicApiAnalyzers governs the actual public surface. Dots in the ID are
+	     escaped as _002E. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=UnusedAutoPropertyAccessor_002EGlobal/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Test-project analyzer-policy conflicts. `.editorconfig` sets CA2007=none
+	     under `tests/` (test bodies don't need `.ConfigureAwait(false)`) but the
+	     src stack mandates it; xUnit1030 disagrees with that settled policy. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=xUnit1030/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Roslyn / Sonar analyzer diagnostics re-run by InspectCode. These are
+	     already enforced (or the equivalent Roslynator RCSxxxx rule fires) by
+	     the in-build analyzer stack; suppress the InspectCode double-report. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=MA0009/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S1939/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S3220/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S2068/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Example / demo projects intentionally use patterns that InspectCode
+	     dislikes but are pedagogically correct or not worth polishing on demo
+	     code. AccessToModifiedClosure: examples read a counter from a Timer
+	     callback via Volatile.Read(ref count) — the correct pattern for reading
+	     a modified captured variable. RCS1102 ("Make class static") fires on
+	     entry-point Program classes. S125 flags illustrative `// ...` comments
+	     showing alternative patterns. S2930 flags short-lived CancellationTokenSource
+	     in demo Program.cs cleanup that runs to process exit. S4456 asks
+	     iterator methods to split arg validation — pedantic in library code
+	     and unnecessary in examples. S108 flags nested blocks that clarify
+	     lexical scope in the tutorial code. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=AccessToModifiedClosure/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RCS1102/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S125/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S2930/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S4456/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S108/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S2326/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Test-code intentional patterns. FinalizationSuppressionTests deliberately
+	     defines types with finalizers to exercise Dispose/finalizer suppression
+	     (MA0055). DisposeStagesTests uses throwing test doubles to exercise
+	     pipeline error handling (S3877). WrongOverloadCalledException is an
+	     internal test-only exception whose visibility is deliberate (S3871).
+	     S4487 flags an unread private field that is a documentation seam in a
+	     timer test. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=MA0055/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S3877/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=S3871/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Roslynator / IDE00xx also fires on unused-variable patterns; suppress
+	     the InspectCode duplicate. Dots escape as _002E. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=UnusedVariable/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NotAccessedVariable/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NotAccessedField_002ELocal/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+</wpf:ResourceDictionary>
