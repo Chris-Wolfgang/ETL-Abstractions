@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class RecordingMiddleware&lt;T&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class RecordingMiddleware&lt;T&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="A test  that records every item passed through it and, by default, keeps each item flowing. Supply a policy to transform or drop items, and inspect  to assert exactly what the middleware saw, in order.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_RecordingMiddleware_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.RecordingMiddleware%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_RecordingMiddleware_1" data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1" class="text-break">
+Class RecordingMiddleware&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/RecordingMiddleware.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A test <a class="xref" href="Wolfgang.Etl.Abstractions.IItemMiddleware-1.html">IItemMiddleware&lt;T&gt;</a> that records every item passed through it and, by default,
+keeps each item flowing. Supply a policy to transform or drop items, and inspect
+<a class="xref" href="Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1_Observed">Observed</a> to assert exactly what the middleware saw, in order.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class RecordingMiddleware&lt;T&gt; : IItemMiddleware&lt;T&gt;</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of item flowing through the middleware.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">RecordingMiddleware&lt;T&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.IItemMiddleware-1.html">IItemMiddleware</a>&lt;T&gt;</div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="Wolfgang_Etl_TestKit_RecordingMiddleware_1_examples">Examples</h2>
+  <pre><code class="lang-csharp">// Record and pass through:
+var recorder = new RecordingMiddleware&lt;int&gt;();
+await foreach (var item in source.WithMiddleware(recorder)) { /* item = one the middleware let through */ }
+// recorder.Observed lists every item the middleware saw.
+
+// Drop odds, double evens:
+var shaping = new RecordingMiddleware&lt;int&gt;(i =&gt;
+    i % 2 == 0 ? MiddlewareResult.Continue(i * 2) : MiddlewareResult.Drop&lt;int&gt;());</code></pre>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_RecordingMiddleware_1_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Apply it to a stream with the <code>Wolfgang.Etl.Abstractions</code> 0.20
+<a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareExtensions.html#Wolfgang_Etl_Abstractions_MiddlewareExtensions_WithMiddleware__1_System_Collections_Generic_IAsyncEnumerable___0__Wolfgang_Etl_Abstractions_IItemMiddleware___0__System_Threading_CancellationToken_">WithMiddleware&lt;T&gt;(IAsyncEnumerable&lt;T&gt;, IItemMiddleware&lt;T&gt;, CancellationToken)</a>
+extension. <a class="xref" href="Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1_Observed">Observed</a> reflects every item the middleware was handed (including ones a
+policy later drops), so it is a faithful record of what reached this stage of the pipeline.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_RecordingMiddleware_1__ctor_" data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_RecordingMiddleware_1__ctor" data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor">
+  RecordingMiddleware()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/RecordingMiddleware.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.RecordingMiddleware-1.html">RecordingMiddleware&lt;T&gt;</a> that records each item and keeps it flowing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RecordingMiddleware()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_RecordingMiddleware_1__ctor_" data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_RecordingMiddleware_1__ctor_System_Func__0_Wolfgang_Etl_Abstractions_MiddlewareResult__0___" data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor(System.Func{`0,Wolfgang.Etl.Abstractions.MiddlewareResult{`0}})">
+  RecordingMiddleware(Func&lt;T, MiddlewareResult&lt;T&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/RecordingMiddleware.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.RecordingMiddleware-1.html">RecordingMiddleware&lt;T&gt;</a> that records each item and then applies
+<code class="paramref">policy</code> to transform or drop it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RecordingMiddleware(Func&lt;T, MiddlewareResult&lt;T&gt;&gt; policy)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>policy</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html">MiddlewareResult</a>&lt;T&gt;&gt;</dt>
+    <dd><p>Maps a recorded item to a <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html">MiddlewareResult&lt;T&gt;</a> — use
+<a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Continue__1___0_">Continue&lt;T&gt;(T)</a> to keep (optionally transformed) or
+<a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Drop__1">Drop&lt;T&gt;()</a> to discard it.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">policy</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_RecordingMiddleware_1_Observed_" data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1.Observed*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_RecordingMiddleware_1_Observed" data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1.Observed">
+  Observed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/RecordingMiddleware.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets every item this middleware was handed, in order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;T&gt; Observed { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_RecordingMiddleware_1_OnItemAsync_" data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1.OnItemAsync*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_RecordingMiddleware_1_OnItemAsync__0_System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.TestKit.RecordingMiddleware`1.OnItemAsync(`0,System.Threading.CancellationToken)">
+  OnItemAsync(T, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/RecordingMiddleware.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invoked once per item. Return <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Continue__1___0_">Continue&lt;T&gt;(T)</a> to keep the item
+flowing (optionally replacing it), or <a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult.html#Wolfgang_Etl_Abstractions_MiddlewareResult_Drop__1">Drop&lt;T&gt;()</a> to remove it from
+the stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ValueTask&lt;MiddlewareResult&lt;T&gt;&gt; OnItemAsync(T item, CancellationToken token)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>item</code> <span class="xref">T</span></dt>
+    <dd><p>The item to process.</p>
+</dd>
+    <dt><code>token</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> to observe.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.MiddlewareResult-1.html">MiddlewareResult</a>&lt;T&gt;&gt;</dt>
+    <dd><p>The outcome describing whether to keep or drop the item.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/RecordingMiddleware.cs/#L34" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

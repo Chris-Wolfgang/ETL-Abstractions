@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class IdempotentLoaderContractTests&lt;TSut, TItem&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class IdempotentLoaderContractTests&lt;TSut, TItem&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Abstract base class providing opt-in xUnit idempotency contract tests for any type that implements .">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2" class="text-break">
+Class IdempotentLoaderContractTests&lt;TSut, TItem&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/IdempotentLoaderContractTests.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a>.<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.html">Xunit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.Xunit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Abstract base class providing opt-in xUnit idempotency contract tests for any type that
+implements <a class="xref" href="Wolfgang.Etl.Abstractions.ILoadAsync-1.html">ILoadAsync&lt;TDestination&gt;</a>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class IdempotentLoaderContractTests&lt;TSut, TItem&gt; where TSut : ILoadAsync&lt;TItem&gt; where TItem : notnull</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSut</code></dt>
+    <dd><p>The type under test. Must implement <a class="xref" href="Wolfgang.Etl.Abstractions.ILoadAsync-1.html">ILoadAsync&lt;TDestination&gt;</a>.</p>
+</dd>
+    <dt><code>TItem</code></dt>
+    <dd><p>The type of item the loader consumes.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">IdempotentLoaderContractTests&lt;TSut, TItem&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_examples">Examples</h2>
+  <pre><code class="lang-csharp">public class MyLoaderIdempotencyTests
+    : IdempotentLoaderContractTests&lt;MyLoader, MyRecord&gt;
+{
+    protected override MyLoader CreateSut(int itemCount) =&gt;
+        new MyLoader(collectItems: true);
+
+    protected override IReadOnlyList&lt;MyRecord&gt; CreateSourceItems() =&gt;
+        new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
+
+    protected override IReadOnlyList&lt;MyRecord&gt;? TryGetLoadedItems(MyLoader sut) =&gt;
+        sut.GetCollectedItems();
+}</code></pre>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+<b>This base class is opt-in.</b> Inherit from it <em>only</em> if your loader supports
+being run more than once on the <em>same</em> instance, processing the full input each time
+and carrying no state over from a previous run. Single-use components — for example a loader
+that opens a destination stream once and disposes it after the first load — must <em>not</em>
+inherit this class.
+</p>
+<p>
+Each test calls <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_CreateSut_System_Int32_">CreateSut(int)</a> exactly once and then loads
+<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_CreateSourceItems">CreateSourceItems()</a> twice, asserting that the second run is unaffected by the
+first.
+</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_CreateSourceItems_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.CreateSourceItems*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_CreateSourceItems" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.CreateSourceItems">
+  CreateSourceItems()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/IdempotentLoaderContractTests.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the source items used to feed the loader. Must return at least 5 items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract IReadOnlyList&lt;TItem&gt; CreateSourceItems()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_CreateSut_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.CreateSut*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_CreateSut_System_Int32_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.CreateSut(System.Int32)">
+  CreateSut(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/IdempotentLoaderContractTests.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the system under test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract TSut CreateSut(int itemCount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>itemCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of items the SUT is sized for. Pass 0 for an empty source.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TSut</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_GetCurrentItemCount_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.GetCurrentItemCount*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_GetCurrentItemCount__0_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.GetCurrentItemCount(`0)">
+  GetCurrentItemCount(TSut)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/IdempotentLoaderContractTests.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of <code class="paramref">sut</code>'s <code>CurrentItemCount</code> after a load.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual int GetCurrentItemCount(TSut sut)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sut</code> <span class="xref">TSut</span></dt>
+    <dd><p>The system under test, after a load has completed.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_GetCurrentItemCount__0__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The default implementation reads <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_CurrentItemCount">CurrentItemCount</a>
+assuming the loader derives from <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a> with a
+<a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a> progress type, which is the convention for ETL loaders. Override this
+when the loader exposes its progress count through a different progress type or member.</p>
+</div>
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_LoadAsync_when_called_twice_CurrentItemCount_resets_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.LoadAsync_when_called_twice_CurrentItemCount_resets_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_LoadAsync_when_called_twice_CurrentItemCount_resets_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.LoadAsync_when_called_twice_CurrentItemCount_resets_Async">
+  LoadAsync_when_called_twice_CurrentItemCount_resets_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/IdempotentLoaderContractTests.cs/#L184"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>CurrentItemCount</code> reflects only the most recent run: after loading the
+same source twice into the same instance, the count equals the number of items in a single
+run, not the cumulative total across both runs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_when_called_twice_CurrentItemCount_resets_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_LoadAsync_when_called_twice_CurrentItemCount_resets_Async_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This verifies the per-run reset contract introduced in
+<code>Wolfgang.Etl.Abstractions</code> 0.14.0 (ETL-Abstractions#246), where
+<code>CurrentItemCount</code> and <code>CurrentSkippedItemCount</code> reset at the start of each run.</p>
+</div>
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_LoadAsync_when_called_twice_no_state_leaks_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.LoadAsync_when_called_twice_no_state_leaks_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_LoadAsync_when_called_twice_no_state_leaks_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.LoadAsync_when_called_twice_no_state_leaks_Async">
+  LoadAsync_when_called_twice_no_state_leaks_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/IdempotentLoaderContractTests.cs/#L149"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that a collecting loader carries no state across runs: after a second load, the
+collected snapshot contains only the second run's items, with no carryover from the first.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_when_called_twice_no_state_leaks_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_LoadAsync_when_called_twice_processes_all_items_both_times_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.LoadAsync_when_called_twice_processes_all_items_both_times_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_LoadAsync_when_called_twice_processes_all_items_both_times_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.LoadAsync_when_called_twice_processes_all_items_both_times_Async">
+  LoadAsync_when_called_twice_processes_all_items_both_times_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/IdempotentLoaderContractTests.cs/#L110"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that loading the same source twice into the same instance processes all input
+items on both runs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_when_called_twice_processes_all_items_both_times_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_TryGetLoadedItems_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.TryGetLoadedItems*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_TryGetLoadedItems__0_" data-uid="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`2.TryGetLoadedItems(`0)">
+  TryGetLoadedItems(TSut)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/IdempotentLoaderContractTests.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the items collected by <code class="paramref">sut</code> during the most recent load, or
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if the loader does not collect items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract IReadOnlyList&lt;TItem&gt;? TryGetLoadedItems(TSut sut)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sut</code> <span class="xref">TSut</span></dt>
+    <dd><p>The system under test, after a load has completed.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_2_TryGetLoadedItems__0__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Override to return the loader's collected snapshot (for example
+<code>sut.GetCollectedItems()</code>). When this returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> the
+no-state-leak test treats the loader as non-collecting and skips its collection check.</p>
+</div>
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/IdempotentLoaderContractTests.cs/#L47" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

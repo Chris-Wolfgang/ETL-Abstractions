@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class CancellationContractTests&lt;TSut&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CancellationContractTests&lt;TSut&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Abstract base class providing xUnit contract tests that verify a stage honours cancellation promptly — it stops shortly after the token is cancelled rather than draining its source, throws , and processes nothing when handed an already-cancelled token.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.Xunit.CancellationContractTests%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1" class="text-break">
+Class CancellationContractTests&lt;TSut&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a>.<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.html">Xunit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.Xunit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Abstract base class providing xUnit contract tests that verify a stage honours cancellation
+<em>promptly</em> — it stops shortly after the token is cancelled rather than draining its source,
+throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a>, and processes nothing when handed an
+already-cancelled token.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class CancellationContractTests&lt;TSut&gt;</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSut</code></dt>
+    <dd><p>The system under test (an extractor, loader, or transformer).</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">CancellationContractTests&lt;TSut&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_examples">Examples</h2>
+  <pre><code class="lang-csharp">public sealed class MyExtractorCancellationTests
+    : CancellationContractTests&lt;MyExtractor&gt;
+{
+    protected override async Task&lt;CancellationOutcome&gt; RunAndCancelMidStreamAsync(int itemCount, int cancelAfter)
+    {
+        var sut = new MyExtractor(source, count: itemCount);
+        using var cts = new CancellationTokenSource();
+        var processed = 0;
+        var canceled = false;
+        try
+        {
+            await foreach (var _ in sut.ExtractAsync(cts.Token))
+            {
+                processed++;
+                if (processed == cancelAfter) cts.Cancel();
+            }
+        }
+        catch (OperationCanceledException) { canceled = true; }
+        return new CancellationOutcome(canceled, processed);
+    }
+    // ... RunWithPreCancelledTokenAsync ...
+}</code></pre>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+This complements the per-overload cancellation checks on the extractor/loader/transformer contract
+bases (which assert that cancellation eventually throws) by asserting the stronger property that a
+mid-stream cancel takes effect <em>quickly</em> and leaves the processed-item count consistent.
+Pair it with a latent source such as <code>DelayingExtractor&lt;T&gt;</code> so a cancel interrupts an
+in-flight wait.
+</p>
+<p>
+The derived class owns and drives its stage — the base never receives the SUT, so overrides need
+no null-argument validation. Implement <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunAndCancelMidStreamAsync_System_Int32_System_Int32_">RunAndCancelMidStreamAsync(int, int)</a> (drive the stage
+over <code>itemCount</code> items, cancel once <code>cancelAfter</code> items have been
+processed, and report the <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html">CancellationOutcome</a>) and
+<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunWithPreCancelledTokenAsync_System_Int32_">RunWithPreCancelledTokenAsync(int)</a> (drive the stage with an already-cancelled token).
+Both must let <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a> propagate out of the run so the
+harness can observe it via the reported outcome.
+</p>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_CancelAfter_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.CancelAfter*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_CancelAfter" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.CancelAfter">
+  CancelAfter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The number of processed items after which the mid-stream run cancels its token.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual int CancelAfter { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_ItemCount_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.ItemCount*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_ItemCount" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.ItemCount">
+  ItemCount
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The number of items the stage's source should make available for the run.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual int ItemCount { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_PromptStopSlack_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.PromptStopSlack*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_PromptStopSlack" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.PromptStopSlack">
+  PromptStopSlack
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The tolerance, in items, allowed between the cancel signal and the stage actually stopping. The
+default of 1 permits the item whose processing was already in flight when the token was cancelled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual int PromptStopSlack { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Mid_stream_cancellation_stops_promptly_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_stops_promptly_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Mid_stream_cancellation_stops_promptly_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_stops_promptly_Async">
+  Mid_stream_cancellation_stops_promptly_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L117"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that the stage stops promptly after cancellation — within
+<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_PromptStopSlack">PromptStopSlack</a> items of the cancel signal, and well before the source is drained.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task Mid_stream_cancellation_stops_promptly_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Mid_stream_cancellation_throws_OperationCanceledException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_throws_OperationCanceledException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Mid_stream_cancellation_throws_OperationCanceledException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_throws_OperationCanceledException_Async">
+  Mid_stream_cancellation_throws_OperationCanceledException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that cancelling mid-stream surfaces <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task Mid_stream_cancellation_throws_OperationCanceledException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Pre_cancelled_token_processes_nothing_and_throws_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Pre_cancelled_token_processes_nothing_and_throws_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Pre_cancelled_token_processes_nothing_and_throws_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Pre_cancelled_token_processes_nothing_and_throws_Async">
+  Pre_cancelled_token_processes_nothing_and_throws_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L144"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that an already-cancelled token makes the stage process nothing and throw
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task Pre_cancelled_token_processes_nothing_and_throws_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunAndCancelMidStreamAsync_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunAndCancelMidStreamAsync*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunAndCancelMidStreamAsync_System_Int32_System_Int32_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunAndCancelMidStreamAsync(System.Int32,System.Int32)">
+  RunAndCancelMidStreamAsync(int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Drives the stage over <code class="paramref">itemCount</code> items and cancels the token once
+<code class="paramref">cancelAfter</code> items have been fully processed, letting
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a> propagate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Task&lt;CancellationOutcome&gt; RunAndCancelMidStreamAsync(int itemCount, int cancelAfter)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>itemCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>cancelAfter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html">CancellationOutcome</a>&gt;</dt>
+    <dd><p>The observed outcome — whether cancellation threw and how many items were processed.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunWithPreCancelledTokenAsync_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunWithPreCancelledTokenAsync*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunWithPreCancelledTokenAsync_System_Int32_" data-uid="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunWithPreCancelledTokenAsync(System.Int32)">
+  RunWithPreCancelledTokenAsync(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Drives the stage over <code class="paramref">itemCount</code> items with an already-cancelled token,
+letting <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a> propagate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Task&lt;CancellationOutcome&gt; RunWithPreCancelledTokenAsync(int itemCount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>itemCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html">CancellationOutcome</a>&gt;</dt>
+    <dd><p>The observed outcome — whether cancellation threw and how many items were processed.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/CancellationContractTests.cs/#L57" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

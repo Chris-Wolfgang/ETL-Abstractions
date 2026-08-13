@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ProgressTimerExtensions | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ProgressTimerExtensions | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Extension methods that attach a  to a stage so its progress callback fires deterministically (on ) instead of on a real timer interval.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_ProgressTimerExtensions.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.ProgressTimerExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.ProgressTimerExtensions">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_ProgressTimerExtensions" data-uid="Wolfgang.Etl.TestKit.ProgressTimerExtensions" class="text-break">
+Class ProgressTimerExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/ProgressTimerExtensions.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Extension methods that attach a <a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html">ManualProgressTimerCore</a> to a stage so its progress
+callback fires deterministically (on <a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html#Wolfgang_Etl_TestKit_ManualProgressTimerCore_Tick">Tick()</a>) instead of on a
+real timer interval.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class ProgressTimerExtensions</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ProgressTimerExtensions</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="Wolfgang_Etl_TestKit_ProgressTimerExtensions_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>These reach the internal timer-core seam on the base classes via the friend relationship between
+<code>Wolfgang.Etl.TestKit</code> and <code>Wolfgang.Etl.Abstractions</code>, so a component needs no
+per-type timer-injection plumbing. Attach the timer before the run starts; the stage builds its
+progress timer when the run begins.</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer_" data-uid="Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer__2_Wolfgang_Etl_Abstractions_ExtractorBase___0___1__Wolfgang_Etl_TestKit_ManualProgressTimerCore_" data-uid="Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer``2(Wolfgang.Etl.Abstractions.ExtractorBase{``0,``1},Wolfgang.Etl.TestKit.ManualProgressTimerCore)">
+  WithManualProgressTimer&lt;TSource, TProgress&gt;(ExtractorBase&lt;TSource, TProgress&gt;, ManualProgressTimerCore)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/ProgressTimerExtensions.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attaches <code class="paramref">timer</code> to <code class="paramref">extractor</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ExtractorBase&lt;TSource, TProgress&gt; WithManualProgressTimer&lt;TSource, TProgress&gt;(this ExtractorBase&lt;TSource, TProgress&gt; extractor, ManualProgressTimerCore timer) where TSource : notnull where TProgress : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>extractor</code> <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase</a>&lt;TSource, TProgress&gt;</dt>
+    <dd></dd>
+    <dt><code>timer</code> <a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html">ManualProgressTimerCore</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase</a>&lt;TSource, TProgress&gt;</dt>
+    <dd><p><code class="paramref">extractor</code>, for chaining.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSource</code></dt>
+    <dd></dd>
+    <dt><code>TProgress</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Either argument is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer_" data-uid="Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer__2_Wolfgang_Etl_Abstractions_LoaderBase___0___1__Wolfgang_Etl_TestKit_ManualProgressTimerCore_" data-uid="Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer``2(Wolfgang.Etl.Abstractions.LoaderBase{``0,``1},Wolfgang.Etl.TestKit.ManualProgressTimerCore)">
+  WithManualProgressTimer&lt;TDestination, TProgress&gt;(LoaderBase&lt;TDestination, TProgress&gt;, ManualProgressTimerCore)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/ProgressTimerExtensions.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attaches <code class="paramref">timer</code> to <code class="paramref">loader</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static LoaderBase&lt;TDestination, TProgress&gt; WithManualProgressTimer&lt;TDestination, TProgress&gt;(this LoaderBase&lt;TDestination, TProgress&gt; loader, ManualProgressTimerCore timer) where TDestination : notnull where TProgress : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>loader</code> <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase</a>&lt;TDestination, TProgress&gt;</dt>
+    <dd></dd>
+    <dt><code>timer</code> <a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html">ManualProgressTimerCore</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase</a>&lt;TDestination, TProgress&gt;</dt>
+    <dd><p><code class="paramref">loader</code>, for chaining.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TDestination</code></dt>
+    <dd></dd>
+    <dt><code>TProgress</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Either argument is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer_" data-uid="Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer__3_Wolfgang_Etl_Abstractions_TransformerBase___0___1___2__Wolfgang_Etl_TestKit_ManualProgressTimerCore_" data-uid="Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer``3(Wolfgang.Etl.Abstractions.TransformerBase{``0,``1,``2},Wolfgang.Etl.TestKit.ManualProgressTimerCore)">
+  WithManualProgressTimer&lt;TSource, TDestination, TProgress&gt;(TransformerBase&lt;TSource, TDestination, TProgress&gt;, ManualProgressTimerCore)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/ProgressTimerExtensions.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attaches <code class="paramref">timer</code> to <code class="paramref">transformer</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TransformerBase&lt;TSource, TDestination, TProgress&gt; WithManualProgressTimer&lt;TSource, TDestination, TProgress&gt;(this TransformerBase&lt;TSource, TDestination, TProgress&gt; transformer, ManualProgressTimerCore timer) where TSource : notnull where TDestination : notnull where TProgress : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>transformer</code> <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase</a>&lt;TSource, TDestination, TProgress&gt;</dt>
+    <dd></dd>
+    <dt><code>timer</code> <a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html">ManualProgressTimerCore</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase</a>&lt;TSource, TDestination, TProgress&gt;</dt>
+    <dd><p><code class="paramref">transformer</code>, for chaining.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSource</code></dt>
+    <dd></dd>
+    <dt><code>TDestination</code></dt>
+    <dd></dd>
+    <dt><code>TProgress</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Either argument is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/ProgressTimerExtensions.cs/#L17" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class FaultyTransformer&lt;T&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class FaultyTransformer&lt;T&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="A pass-through transformer for testing error-handling paths. It returns each item unchanged like a normal transformer, but can be configured to inject deterministic faults — throwing at a given item, throwing after completion, or duplicating an item — so consumers can exercise mid-stream failure, finalization failure, and de-duplication logic without hand-rolling broken fakes.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_FaultyTransformer_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.FaultyTransformer%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_FaultyTransformer_1" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1" class="text-break">
+Class FaultyTransformer&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A pass-through transformer for testing error-handling paths. It returns each item
+unchanged like a normal transformer, but can be configured to inject deterministic
+faults — throwing at a given item, throwing after completion, or duplicating an item —
+so consumers can exercise mid-stream failure, finalization failure, and de-duplication
+logic without hand-rolling broken fakes.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class FaultyTransformer&lt;T&gt; : TransformerBase&lt;T, T, Report&gt;, ITransformWithProgressAndCancellationAsync&lt;T, T, Report&gt;, ITransformWithCancellationAsync&lt;T, T&gt;, ITransformWithProgressAsync&lt;T, T, Report&gt;, ITransformAsync&lt;T, T&gt;, IReportsItemErrors, IAsyncDisposable, IDisposable where T : notnull</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of item to transform.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase</a>&lt;T, T, <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a>&gt;</div>
+      <div><span class="xref">FaultyTransformer&lt;T&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync-3.html">ITransformWithProgressAndCancellationAsync</a>&lt;T, T, <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a>&gt;</div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.html">ITransformWithCancellationAsync</a>&lt;T, T&gt;</div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithProgressAsync-3.html">ITransformWithProgressAsync</a>&lt;T, T, <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a>&gt;</div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformAsync-2.html">ITransformAsync</a>&lt;T, T&gt;</div>
+      <div><a class="xref" href="Wolfgang.Etl.Abstractions.IReportsItemErrors.html">IReportsItemErrors</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_StartedAt">TransformerBase&lt;T, T, Report&gt;.StartedAt</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_Elapsed">TransformerBase&lt;T, T, Report&gt;.Elapsed</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_ReportingInterval">TransformerBase&lt;T, T, Report&gt;.ReportingInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentItemCount">TransformerBase&lt;T, T, Report&gt;.CurrentItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentSkippedItemCount">TransformerBase&lt;T, T, Report&gt;.CurrentSkippedItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentErrorItemCount">TransformerBase&lt;T, T, Report&gt;.CurrentErrorItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_MaximumItemCount">TransformerBase&lt;T, T, Report&gt;.MaximumItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_SkipItemCount">TransformerBase&lt;T, T, Report&gt;.SkipItemCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__">TransformerBase&lt;T, T, Report&gt;.TransformAsync(IAsyncEnumerable&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_">TransformerBase&lt;T, T, Report&gt;.TransformAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__System_IProgress__2__">TransformerBase&lt;T, T, Report&gt;.TransformAsync(IAsyncEnumerable&lt;T&gt;, IProgress&lt;Report&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_TransformAsync_System_Collections_Generic_IAsyncEnumerable__0__System_IProgress__2__System_Threading_CancellationToken_">TransformerBase&lt;T, T, Report&gt;.TransformAsync(IAsyncEnumerable&lt;T&gt;, IProgress&lt;Report&gt;, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CreateProgressTimer_System_IProgress__2__">TransformerBase&lt;T, T, Report&gt;.CreateProgressTimer(IProgress&lt;Report&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_TransformWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_">TransformerBase&lt;T, T, Report&gt;.TransformWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable__1___System_Threading_CancellationToken_">TransformerBase&lt;T, T, Report&gt;.WrapWorkerExecution(Func&lt;CancellationToken, IAsyncEnumerable&lt;T&gt;&gt;, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CreateProgressReport">TransformerBase&lt;T, T, Report&gt;.CreateProgressReport()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentItemCount">TransformerBase&lt;T, T, Report&gt;.IncrementCurrentItemCount()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentSkippedItemCount">TransformerBase&lt;T, T, Report&gt;.IncrementCurrentSkippedItemCount()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_ErrorPolicy">TransformerBase&lt;T, T, Report&gt;.ErrorPolicy</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_">TransformerBase&lt;T, T, Report&gt;.OnItemError(ItemErrorContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_">TransformerBase&lt;T, T, Report&gt;.HandleItemError(ItemErrorContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_DisposeAsync">TransformerBase&lt;T, T, Report&gt;.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_Dispose">TransformerBase&lt;T, T, Report&gt;.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_Dispose_System_Boolean_">TransformerBase&lt;T, T, Report&gt;.Dispose(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Wolfgang.Etl.TestKit.ProgressTimerExtensions.html#Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer__3_Wolfgang_Etl_Abstractions_TransformerBase___0___1___2__Wolfgang_Etl_TestKit_ManualProgressTimerCore_">ProgressTimerExtensions.WithManualProgressTimer&lt;TSource, TDestination, TProgress&gt;(TransformerBase&lt;TSource, TDestination, TProgress&gt;, ManualProgressTimerCore)</a>
+  </div>
+  <div>
+      <a class="xref" href="Wolfgang.Etl.TestKit.TimeSourceExtensions.html#Wolfgang_Etl_TestKit_TimeSourceExtensions_WithTimeSource__3_Wolfgang_Etl_Abstractions_TransformerBase___0___1___2__Wolfgang_Etl_TestKit_ManualTimeSource_">TimeSourceExtensions.WithTimeSource&lt;TSource, TDestination, TProgress&gt;(TransformerBase&lt;TSource, TDestination, TProgress&gt;, ManualTimeSource)</a>
+  </div>
+  </dd></dl>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_examples">Examples</h2>
+  <pre><code class="lang-csharp">var transformer = new FaultyTransformer&lt;int&gt;()
+    .ThrowAt(index: 50, new System.InvalidOperationException("bad record"))
+    .DuplicateAt(index: 10);
+
+await loader.LoadAsync(transformer.TransformAsync(extractor.ExtractAsync()));</code></pre>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+Faults are configured through the fluent <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a>,
+<a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAfterCompletion_System_Exception_">ThrowAfterCompletion(Exception)</a>, and <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1_DuplicateAt_System_Int32_">DuplicateAt(int)</a> methods, each of which
+returns the same instance so calls can be chained. Multiple faults stack on a single
+instance.
+</p>
+<p>
+Fault indices are zero-based and refer to the position in the emitted (post-skip)
+sequence. A configured fault fires <em>after</em>
+<a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentItemCount">IncrementCurrentItemCount()</a>
+for that item, so a progress report reflects the item that caused the failure. When a
+<a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a> and a <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1_DuplicateAt_System_Int32_">DuplicateAt(int)</a> are configured for the same index,
+the throw takes precedence and the duplicate is not emitted. Calling <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a>
+twice for the same index replaces the earlier exception (last-wins).
+</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1__ctor_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.#ctor*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1__ctor" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.#ctor">
+  FaultyTransformer()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer&lt;T&gt;</a> using the default
+base-class progress timer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FaultyTransformer()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1__ctor_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.#ctor*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1__ctor_Wolfgang_Etl_Abstractions_IProgressTimer_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.#ctor(Wolfgang.Etl.Abstractions.IProgressTimer)">
+  FaultyTransformer(IProgressTimer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer&lt;T&gt;</a> with the supplied
+<a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> to drive progress callbacks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected FaultyTransformer(IProgressTimer timer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>timer</code> <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a></dt>
+    <dd><p>The timer used to drive progress callbacks. Inject a
+<code>ManualProgressTimer</code> in tests to fire callbacks on demand.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">timer</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_CapturedErrors_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.CapturedErrors*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_CapturedErrors" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.CapturedErrors">
+  CapturedErrors
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L240"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a> for every item whose injected fault was routed
+through the error hook, in the order they occurred. Empty when no error policy is
+configured (faults propagate) or when no fault has fired.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;ItemErrorContext&gt; CapturedErrors { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_CreateProgressReport_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.CreateProgressReport*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_CreateProgressReport" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.CreateProgressReport">
+  CreateProgressReport()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L330"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a progress report object of type TProgress.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Report CreateProgressReport()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a></dt>
+    <dd><p>TProgress - A new instance of the progress report object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_CreateProgressTimer_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.CreateProgressTimer*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_CreateProgressTimer_System_IProgress_Wolfgang_Etl_Abstractions_Report__" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.CreateProgressTimer(System.IProgress{Wolfgang.Etl.Abstractions.Report})">
+  CreateProgressTimer(IProgress&lt;Report&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L289"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> used to drive progress callbacks.
+Override this method in a derived class to inject a custom timer
+(for example, a custom implementation that allows manual control in unit tests).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IProgressTimer CreateProgressTimer(IProgress&lt;Report&gt; progress)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>progress</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a>&gt;</dt>
+    <dd><p>The progress sink that will receive callbacks.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a></dt>
+    <dd><p>A started <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> instance.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_Dispose_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.Dispose*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_Dispose_System_Boolean_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.Dispose(System.Boolean)">
+  Dispose(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L316"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Unsubscribes the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_Elapsed">Elapsed</a> handler from an injected
+timer. The injected timer is owned by the caller and is therefore not disposed here.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>disposing</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> when called from <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a>;
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a> when called from the finalizer.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_DuplicateAt_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.DuplicateAt*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_DuplicateAt_System_Int32_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.DuplicateAt(System.Int32)">
+  DuplicateAt(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L173"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Configures the transformer to emit the item at the specified zero-based
+<code class="paramref">index</code> twice. The duplicate is a real second emission and is
+counted, so the total number of emitted items grows by one per configured duplicate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FaultyTransformer&lt;T&gt; DuplicateAt(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The zero-based index of the item to duplicate.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer</a>&lt;T&gt;</dt>
+    <dd><p>The same <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer&lt;T&gt;</a> instance, to allow chaining.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_TestKit_FaultyTransformer_1_DuplicateAt_System_Int32__examples">Examples</h4>
+  <pre><code class="lang-csharp">var transformer = new FaultyTransformer&lt;int&gt;()
+    .DuplicateAt(10);</code></pre>
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></dt>
+    <dd><p><code class="paramref">index</code> is negative.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_HandleErrorsWith_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.HandleErrorsWith*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_HandleErrorsWith_System_Func_Wolfgang_Etl_Abstractions_ItemErrorContext_Wolfgang_Etl_Abstractions_ItemErrorAction__" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.HandleErrorsWith(System.Func{Wolfgang.Etl.Abstractions.ItemErrorContext,Wolfgang.Etl.Abstractions.ItemErrorAction})">
+  HandleErrorsWith(Func&lt;ItemErrorContext, ItemErrorAction&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L226"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Configures a custom per-item error policy. When an injected <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a> fault
+fires, <code class="paramref">policy</code> is invoked with the failing item's
+<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a> and decides whether to
+<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip">Skip</a> the item (counting it as an error and continuing) or
+<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Abort">Abort</a> the run (re-throwing).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FaultyTransformer&lt;T&gt; HandleErrorsWith(Func&lt;ItemErrorContext, ItemErrorAction&gt; policy)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>policy</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>&gt;</dt>
+    <dd><p>The policy invoked for each failed item.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer</a>&lt;T&gt;</dt>
+    <dd><p>The same <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer&lt;T&gt;</a> instance, to allow chaining.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">policy</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_OnItemError_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.OnItemError*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)">
+  OnItemError(ItemErrorContext)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L256"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Records the failed item and applies the configured error policy. Invoked by the base
+<a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_">HandleItemError(ItemErrorContext)</a> when a
+fault is routed through the hook; falls back to the base
+(<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Abort">Abort</a>) when no policy is configured.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override ItemErrorAction OnItemError(ItemErrorContext context)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a></dt>
+    <dd><p>Describes the failed item.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a></dt>
+    <dd><p>The action to take for the failed item.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_SkipErrors_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.SkipErrors*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_SkipErrors" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.SkipErrors">
+  SkipErrors()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L205"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Configures the transformer to route every injected <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a> fault through
+the base <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_HandleItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_">HandleItemError(ItemErrorContext)</a>
+hook with a policy of <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Skip">Skip</a>, so the failing item is
+discarded and counted as an error
+(<a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CurrentErrorItemCount">CurrentErrorItemCount</a>)
+rather than propagating. Use this to exercise a resumable stage's skip-and-continue path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FaultyTransformer&lt;T&gt; SkipErrors()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer</a>&lt;T&gt;</dt>
+    <dd><p>The same <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer&lt;T&gt;</a> instance, to allow chaining.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_TestKit_FaultyTransformer_1_SkipErrors_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Without an error policy an injected fault propagates (fail-fast), preserving the
+default behaviour. The failing item is not emitted, and its
+<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a> is recorded in <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1_CapturedErrors">CapturedErrors</a>.</p>
+</div>
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAfterCompletion_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.ThrowAfterCompletion*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAfterCompletion_System_Exception_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.ThrowAfterCompletion(System.Exception)">
+  ThrowAfterCompletion(Exception)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L148"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Configures the transformer to throw <code class="paramref">exception</code> after all items have
+been emitted successfully, simulating a cleanup or finalization failure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FaultyTransformer&lt;T&gt; ThrowAfterCompletion(Exception exception)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>exception</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd><p>The exception to throw after completion.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer</a>&lt;T&gt;</dt>
+    <dd><p>The same <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer&lt;T&gt;</a> instance, to allow chaining.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAfterCompletion_System_Exception__examples">Examples</h4>
+  <pre><code class="lang-csharp">var transformer = new FaultyTransformer&lt;int&gt;()
+    .ThrowAfterCompletion(new System.InvalidOperationException("flush failed"));</code></pre>
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">exception</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAt_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.ThrowAt*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAt_System_Int32_System_Exception_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.ThrowAt(System.Int32,System.Exception)">
+  ThrowAt(int, Exception)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Configures the transformer to throw <code class="paramref">exception</code> when it reaches the
+item at the specified zero-based <code class="paramref">index</code> in the emitted sequence.
+The failing item is counted (its
+<a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentItemCount">IncrementCurrentItemCount()</a>
+runs) before the exception is thrown, so progress reflects the item that caused the
+failure, but the item itself is not emitted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FaultyTransformer&lt;T&gt; ThrowAt(int index, Exception exception)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The zero-based index of the item to fail on.</p>
+</dd>
+    <dt><code>exception</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd><p>The exception to throw.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer</a>&lt;T&gt;</dt>
+    <dd><p>The same <a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer&lt;T&gt;</a> instance, to allow chaining.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_TestKit_FaultyTransformer_1_ThrowAt_System_Int32_System_Exception__examples">Examples</h4>
+  <pre><code class="lang-csharp">var transformer = new FaultyTransformer&lt;int&gt;()
+    .ThrowAt(50, new System.InvalidOperationException("bad record"));</code></pre>
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></dt>
+    <dd><p><code class="paramref">index</code> is negative.</p>
+</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">exception</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyTransformer_1_TransformWorkerAsync_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.TransformWorkerAsync*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyTransformer_1_TransformWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.TestKit.FaultyTransformer`1.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
+  TransformWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L336"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The worker method that performs the actual transformation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IAsyncEnumerable&lt;T&gt; TransformWorkerAsync(IAsyncEnumerable&lt;T&gt; items, CancellationToken token)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>IAsyncEnumerable&lt;TSource&gt; - A list of 0 or more items to be transformed</p>
+</dd>
+    <dt><code>token</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A CancellationToken to observe while waiting for the task to complete.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit/FaultyTransformer.cs/#L44" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

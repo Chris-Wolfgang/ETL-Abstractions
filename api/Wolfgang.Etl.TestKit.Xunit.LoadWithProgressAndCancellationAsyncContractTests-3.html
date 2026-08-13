@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class LoadWithProgressAndCancellationAsyncContractTests&lt;TSut, TItem, TProgress&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class LoadWithProgressAndCancellationAsyncContractTests&lt;TSut, TItem, TProgress&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Abstract base class providing xUnit contract tests for any type that implements .">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests%603%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3" class="text-break">
+Class LoadWithProgressAndCancellationAsyncContractTests&lt;TSut, TItem, TProgress&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a>.<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.html">Xunit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.Xunit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.html">ILoadWithProgressAndCancellationAsync&lt;TDestination, TProgress&gt;</a>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class LoadWithProgressAndCancellationAsyncContractTests&lt;TSut, TItem, TProgress&gt; where TSut : ILoadWithProgressAndCancellationAsync&lt;TItem, TProgress&gt; where TItem : notnull where TProgress : notnull</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSut</code></dt>
+    <dd><p>The type under test. Must implement
+<a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.html">ILoadWithProgressAndCancellationAsync&lt;TDestination, TProgress&gt;</a>.</p>
+</dd>
+    <dt><code>TItem</code></dt>
+    <dd><p>The type of item the loader consumes.</p>
+</dd>
+    <dt><code>TProgress</code></dt>
+    <dd><p>The type of the progress report.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">LoadWithProgressAndCancellationAsyncContractTests&lt;TSut, TItem, TProgress&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_examples">Examples</h2>
+  <pre><code class="lang-csharp">public class MyLoaderFullContractTests
+    : LoadWithProgressAndCancellationAsyncContractTests&lt;MyLoader, MyRecord, MyProgress&gt;
+{
+    protected override MyLoader CreateSut(int itemCount) =&gt;
+        new MyLoader(connectionString);
+
+    protected override IReadOnlyList&lt;MyRecord&gt; CreateSourceItems() =&gt;
+        new List&lt;MyRecord&gt; { new("a"), new("b"), new("c") };
+}</code></pre>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Inherit from this class to verify that your loader satisfies the full
+<a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.html">ILoadWithProgressAndCancellationAsync&lt;TDestination, TProgress&gt;</a>
+contract — covering all four loader interfaces in the hierarchy.</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_CreateSourceItems_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.CreateSourceItems*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_CreateSourceItems" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.CreateSourceItems">
+  CreateSourceItems()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the source items used to feed the loader. Must return at least 5 items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract IReadOnlyList&lt;TItem&gt; CreateSourceItems()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_CreateSut_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.CreateSut*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_CreateSut_System_Int32_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.CreateSut(System.Int32)">
+  CreateSut(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the system under test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract TSut CreateSut(int itemCount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>itemCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of items the SUT should yield. Pass 0 for an empty source.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TSut</span></dt>
+    <dd><p>A new, fully initialised instance of <code class="typeparamref">TSut</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_completes_without_throwing_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_completes_without_throwing_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_completes_without_throwing_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_completes_without_throwing_Async">
+  LoadAsync_completes_without_throwing_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;)</code> completes without
+throwing when supplied a valid sequence.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_completes_without_throwing_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_already_cancelled_token_throws_OperationCanceledException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_already_cancelled_token_throws_OperationCanceledException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_already_cancelled_token_throws_OperationCanceledException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_already_cancelled_token_throws_OperationCanceledException_Async">
+  LoadAsync_with_already_cancelled_token_throws_OperationCanceledException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, CancellationToken)</code>
+throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a> immediately when passed an
+already-cancelled token.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_already_cancelled_token_throws_OperationCanceledException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_cancellation_token_completes_without_throwing_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_cancellation_token_completes_without_throwing_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_cancellation_token_completes_without_throwing_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_cancellation_token_completes_without_throwing_Async">
+  LoadAsync_with_cancellation_token_completes_without_throwing_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L120"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, CancellationToken)</code>
+completes without throwing when passed <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">None</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_cancellation_token_completes_without_throwing_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async">
+  LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L140"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, CancellationToken)</code>
+throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a> when the token is cancelled
+mid-sequence.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_empty_sequence_completes_without_throwing_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_empty_sequence_completes_without_throwing_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_empty_sequence_completes_without_throwing_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_empty_sequence_completes_without_throwing_Async">
+  LoadAsync_with_empty_sequence_completes_without_throwing_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;)</code> completes without
+throwing when supplied an empty sequence.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_empty_sequence_completes_without_throwing_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_null_progress_and_token_throws_ArgumentNullException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_null_progress_and_token_throws_ArgumentNullException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_null_progress_and_token_throws_ArgumentNullException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_null_progress_and_token_throws_ArgumentNullException_Async">
+  LoadAsync_with_null_progress_and_token_throws_ArgumentNullException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L288"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, IProgress&lt;TProgress&gt;, CancellationToken)</code>
+throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a> when <code>progress</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_null_progress_and_token_throws_ArgumentNullException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_null_progress_throws_ArgumentNullException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_null_progress_throws_ArgumentNullException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_null_progress_throws_ArgumentNullException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_null_progress_throws_ArgumentNullException_Async">
+  LoadAsync_with_null_progress_throws_ArgumentNullException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L209"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, IProgress&lt;TProgress&gt;)</code>
+throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a> when <code>progress</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_null_progress_throws_ArgumentNullException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_cancelled_token_stops_loading_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_cancelled_token_stops_loading_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_cancelled_token_stops_loading_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_cancelled_token_stops_loading_Async">
+  LoadAsync_with_progress_and_cancelled_token_stops_loading_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L364"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, IProgress&lt;TProgress&gt;, CancellationToken)</code>
+throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a> and stops loading when the token
+is cancelled mid-sequence.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_cancelled_token_stops_loading_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async">
+  LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L266"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, IProgress&lt;TProgress&gt;)</code> invokes the
+progress callback at least once even when the source is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async">
+  LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L345"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, IProgress&lt;TProgress&gt;, CancellationToken)</code>
+invokes the progress callback at least once even when the source is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_token_completes_without_throwing_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_token_completes_without_throwing_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_token_completes_without_throwing_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_token_completes_without_throwing_Async">
+  LoadAsync_with_progress_and_token_completes_without_throwing_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L307"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, IProgress&lt;TProgress&gt;, CancellationToken)</code>
+completes without throwing when supplied valid arguments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_completes_without_throwing_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async">
+  LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L327"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, IProgress&lt;TProgress&gt;, CancellationToken)</code>
+invokes the progress callback at least once during loading.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_completes_without_throwing_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_completes_without_throwing_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_completes_without_throwing_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_completes_without_throwing_Async">
+  LoadAsync_with_progress_completes_without_throwing_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L228"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, IProgress&lt;TProgress&gt;)</code>
+completes without throwing when supplied valid arguments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_completes_without_throwing_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_invokes_callback_at_least_once_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_invokes_callback_at_least_once_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoadWithProgressAndCancellationAsyncContractTests_3_LoadAsync_with_progress_invokes_callback_at_least_once_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests`3.LoadAsync_with_progress_invokes_callback_at_least_once_Async">
+  LoadAsync_with_progress_invokes_callback_at_least_once_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L248"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(IAsyncEnumerable&lt;TItem&gt;, IProgress&lt;TProgress&gt;)</code>
+invokes the progress callback at least once during loading.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_invokes_callback_at_least_once_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoadWithProgressAndCancellationAsyncContractTests.cs/#L39" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class DisposableStageContractTests&lt;TSut&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class DisposableStageContractTests&lt;TSut&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Abstract base class providing xUnit contract tests for the disposability guarantees the ETL base classes gained in Wolfgang.Etl.Abstractions 0.14.0 ( / ) and 0.17.0 (using a disposed stage throws ).">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1" class="text-break">
+Class DisposableStageContractTests&lt;TSut&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/DisposableStageContractTests.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a>.<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.html">Xunit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.Xunit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Abstract base class providing xUnit contract tests for the disposability guarantees the ETL
+base classes gained in <code>Wolfgang.Etl.Abstractions</code> 0.14.0 (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a> /
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a>) and 0.17.0 (using a disposed stage throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a>).</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class DisposableStageContractTests&lt;TSut&gt; where TSut : class, IDisposable, IAsyncDisposable</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSut</code></dt>
+    <dd><p>The stage type under test. Must be an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a> and
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a> — every <code>ExtractorBase</code>/<code>LoaderBase</code>/
+<code>TransformerBase</code> is.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">DisposableStageContractTests&lt;TSut&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_examples">Examples</h2>
+  <pre><code class="lang-csharp">public class MyExtractorDisposableTests
+    : DisposableStageContractTests&lt;MyExtractor&gt;
+{
+    protected override MyExtractor CreateSut() =&gt; new MyExtractor(source);
+
+    protected override async Task&lt;bool&gt; InvokeReportsObjectDisposedAsync(bool disposeFirst, bool useAsyncDispose)
+    {
+        var sut = CreateSut();
+        if (disposeFirst)
+        {
+            if (useAsyncDispose) await sut.DisposeAsync(); else sut.Dispose();
+        }
+        try { await foreach (var _ in sut.ExtractAsync()) { } return false; }
+        catch (System.ObjectDisposedException) { return true; }
+    }
+}</code></pre>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+Inherit from this class to verify that your stage honours the dispose contract: that its
+public operation throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a> once the stage has been
+disposed (via either <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a> or
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable.disposeasync">DisposeAsync()</a>), and that disposing twice is a harmless no-op.
+</p>
+<p>
+Implement <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_CreateSut">CreateSut()</a> to construct a fresh stage (used by the idempotent-dispose
+tests), and <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_InvokeReportsObjectDisposedAsync_System_Boolean_System_Boolean_">InvokeReportsObjectDisposedAsync(bool, bool)</a> to construct a stage, optionally
+dispose it, drive one public operation to completion, and report whether it threw
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a>. The operation lives in the derived class — rather than
+receiving the stage as a parameter — so the contract stays stage-agnostic without forcing
+null-argument validation on the override.
+</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_CreateSut_" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.CreateSut*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_CreateSut" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.CreateSut">
+  CreateSut()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/DisposableStageContractTests.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a fresh, undisposed stage under test. Used by the idempotent-dispose tests.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract TSut CreateSut()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TSut</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_DisposeAsync_is_idempotent_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.DisposeAsync_is_idempotent_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_DisposeAsync_is_idempotent_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.DisposeAsync_is_idempotent_Async">
+  DisposeAsync_is_idempotent_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/DisposableStageContractTests.cs/#L148"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that calling <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable.disposeasync">DisposeAsync()</a> twice is a harmless
+no-op.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task DisposeAsync_is_idempotent_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_Dispose_is_idempotent_" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.Dispose_is_idempotent*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_Dispose_is_idempotent" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.Dispose_is_idempotent">
+  Dispose_is_idempotent()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/DisposableStageContractTests.cs/#L136"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that calling <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a> twice is a harmless no-op.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Dispose_is_idempotent()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_InvokeReportsObjectDisposedAsync_" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.InvokeReportsObjectDisposedAsync*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_InvokeReportsObjectDisposedAsync_System_Boolean_System_Boolean_" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.InvokeReportsObjectDisposedAsync(System.Boolean,System.Boolean)">
+  InvokeReportsObjectDisposedAsync(bool, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/DisposableStageContractTests.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a fresh stage, optionally disposes it, drives one public operation to completion,
+and reports whether the operation threw <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Task&lt;bool&gt; InvokeReportsObjectDisposedAsync(bool disposeFirst, bool useAsyncDispose)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>disposeFirst</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, dispose the stage before invoking the operation.</p>
+</dd>
+    <dt><code>useAsyncDispose</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>When disposing, use <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable.disposeasync">DisposeAsync()</a> if <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>,
+otherwise <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a>. Ignored when <code class="paramref">disposeFirst</code>
+is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the operation threw <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a>;
+otherwise <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_Public_operation_after_DisposeAsync_throws_ObjectDisposedException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.Public_operation_after_DisposeAsync_throws_ObjectDisposedException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_Public_operation_after_DisposeAsync_throws_ObjectDisposedException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.Public_operation_after_DisposeAsync_throws_ObjectDisposedException_Async">
+  Public_operation_after_DisposeAsync_throws_ObjectDisposedException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/DisposableStageContractTests.cs/#L123"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies the public operation throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a> after
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable.disposeasync">DisposeAsync()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task Public_operation_after_DisposeAsync_throws_ObjectDisposedException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_Public_operation_after_Dispose_throws_ObjectDisposedException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.Public_operation_after_Dispose_throws_ObjectDisposedException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_Public_operation_after_Dispose_throws_ObjectDisposedException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.Public_operation_after_Dispose_throws_ObjectDisposedException_Async">
+  Public_operation_after_Dispose_throws_ObjectDisposedException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/DisposableStageContractTests.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies the public operation throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a> after
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task Public_operation_after_Dispose_throws_ObjectDisposedException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_DisposableStageContractTests_1_Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1.Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async">
+  Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/DisposableStageContractTests.cs/#L95"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Control case: verifies the public operation does <em>not</em> throw
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a> on an undisposed stage, so the after-dispose tests
+are not passing vacuously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/DisposableStageContractTests.cs/#L54" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

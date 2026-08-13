@@ -1,54 +1,107 @@
 Summary
-  Generated on: 8/3/2026 - 6:28:52 PM
-  Coverage date: 8/3/2026 - 6:28:41 PM - 8/3/2026 - 6:28:48 PM
-  Parser: MultiReport (3x Cobertura)
-  Assemblies: 2
-  Classes: 30
-  Files: 30
-  Line coverage: 99.7%
-  Covered lines: 917
-  Uncovered lines: 2
-  Coverable lines: 919
-  Total lines: 4568
-  Branch coverage: 93% (283 of 304)
-  Covered branches: 283
-  Total branches: 304
-  Method coverage: 99.5% (240 of 241)
-  Full method coverage: 99.1% (239 of 241)
-  Covered methods: 240
-  Fully covered methods: 239
-  Total methods: 241
+  Generated on: 8/13/2026 - 1:58:50 PM
+  Coverage date: 8/13/2026 - 1:58:27 PM - 8/13/2026 - 1:58:38 PM
+  Parser: MultiReport (5x Cobertura)
+  Assemblies: 4
+  Classes: 79
+  Files: 79
+  Line coverage: 98.9%
+  Covered lines: 3465
+  Uncovered lines: 37
+  Coverable lines: 3502
+  Total lines: 15401
+  Branch coverage: 82.8% (887 of 1070)
+  Covered branches: 887
+  Total branches: 1070
+  Method coverage: 98.8% (699 of 707)
+  Full method coverage: 94.4% (668 of 707)
+  Covered methods: 699
+  Fully covered methods: 668
+  Total methods: 707
 
-Wolfgang.Etl.Abstractions                                            99.7%
-  Wolfgang.Etl.Abstractions.EtlPipeline                               100%
-  Wolfgang.Etl.Abstractions.EtlPipelineImpl<T>                        100%
-  Wolfgang.Etl.Abstractions.EtlPipelineProgress                       100%
-  Wolfgang.Etl.Abstractions.EtlPipelineSink<T1, T2>                   100%
-  Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions                 100%
-  Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions               100%
-  Wolfgang.Etl.Abstractions.EtlRunState                               100%
-  Wolfgang.Etl.Abstractions.ExtractorBase<T>                          100%
-  Wolfgang.Etl.Abstractions.ExtractorBase<T1, T2>                     100%
-  Wolfgang.Etl.Abstractions.ExtractStage<T>                           100%
-  Wolfgang.Etl.Abstractions.ExtractStageWithProgress<T1, T2>          100%
-  Wolfgang.Etl.Abstractions.ItemErrorContext                          100%
-  Wolfgang.Etl.Abstractions.LoaderBase<T>                             100%
-  Wolfgang.Etl.Abstractions.LoaderBase<T1, T2>                        100%
-  Wolfgang.Etl.Abstractions.MiddlewareExtensions                      100%
-  Wolfgang.Etl.Abstractions.MiddlewareResult                          100%
-  Wolfgang.Etl.Abstractions.MiddlewareResult<T>                        90%
-  Wolfgang.Etl.Abstractions.Pipeline                                  100%
-  Wolfgang.Etl.Abstractions.PipelineImpl                              100%
-  Wolfgang.Etl.Abstractions.PipelineWithLoadProgress<T1, T2>          100%
-  Wolfgang.Etl.Abstractions.Report                                    100%
-  Wolfgang.Etl.Abstractions.StageList                                 100%
-  Wolfgang.Etl.Abstractions.SystemProgressTimer                       100%
-  Wolfgang.Etl.Abstractions.SystemTimeSource                          100%
-  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2>                   100%
-  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2, T3>                99%
-  Wolfgang.Etl.Abstractions.TransformStage<T>                         100%
-  Wolfgang.Etl.Abstractions.TransformStageWithProgress<T1, T2, T3>    100%
+Wolfgang.Etl.Abstractions                                                                         99.8%
+  Wolfgang.Etl.Abstractions.EtlPipeline                                                            100%
+  Wolfgang.Etl.Abstractions.EtlPipelineImpl<T>                                                     100%
+  Wolfgang.Etl.Abstractions.EtlPipelineProgress                                                    100%
+  Wolfgang.Etl.Abstractions.EtlPipelineSink<T1, T2>                                                100%
+  Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions                                              100%
+  Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions                                            100%
+  Wolfgang.Etl.Abstractions.EtlRunState                                                            100%
+  Wolfgang.Etl.Abstractions.ExtractorBase<T>                                                       100%
+  Wolfgang.Etl.Abstractions.ExtractorBase<T1, T2>                                                  100%
+  Wolfgang.Etl.Abstractions.ExtractStage<T>                                                        100%
+  Wolfgang.Etl.Abstractions.ExtractStageWithProgress<T1, T2>                                       100%
+  Wolfgang.Etl.Abstractions.ItemErrorContext                                                       100%
+  Wolfgang.Etl.Abstractions.LoaderBase<T>                                                          100%
+  Wolfgang.Etl.Abstractions.LoaderBase<T1, T2>                                                     100%
+  Wolfgang.Etl.Abstractions.MiddlewareExtensions                                                   100%
+  Wolfgang.Etl.Abstractions.MiddlewareResult                                                       100%
+  Wolfgang.Etl.Abstractions.MiddlewareResult<T>                                                     90%
+  Wolfgang.Etl.Abstractions.Pipeline                                                               100%
+  Wolfgang.Etl.Abstractions.PipelineImpl                                                           100%
+  Wolfgang.Etl.Abstractions.PipelineWithLoadProgress<T1, T2>                                       100%
+  Wolfgang.Etl.Abstractions.Report                                                                 100%
+  Wolfgang.Etl.Abstractions.StageList                                                              100%
+  Wolfgang.Etl.Abstractions.SystemProgressTimer                                                    100%
+  Wolfgang.Etl.Abstractions.SystemTimeSource                                                       100%
+  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2>                                                100%
+  Wolfgang.Etl.Abstractions.TransformerBase<T1, T2, T3>                                            100%
+  Wolfgang.Etl.Abstractions.TransformStage<T>                                                      100%
+  Wolfgang.Etl.Abstractions.TransformStageWithProgress<T1, T2, T3>                                 100%
 
-Wolfgang.Etl.ErrorPolicies                                            100%
-  Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy                          100%
-  Wolfgang.Etl.ErrorPolicies.ItemErrorPolicyLog                       100%
+Wolfgang.Etl.ErrorPolicies                                                                         100%
+  Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy                                                       100%
+  Wolfgang.Etl.ErrorPolicies.ItemErrorPolicyLog                                                    100%
+
+Wolfgang.Etl.TestKit                                                                              99.3%
+  Wolfgang.Etl.TestKit.DelayingExtractor<T>                                                       96.1%
+  Wolfgang.Etl.TestKit.FaultyExtractor<T>                                                          100%
+  Wolfgang.Etl.TestKit.FaultyLoader<T>                                                             100%
+  Wolfgang.Etl.TestKit.FaultyTransformer<T>                                                        100%
+  Wolfgang.Etl.TestKit.ManualProgressTimerCore                                                     100%
+  Wolfgang.Etl.TestKit.ManualTimeSource                                                            100%
+  Wolfgang.Etl.TestKit.ProgressTimerExtensions                                                     100%
+  Wolfgang.Etl.TestKit.RecordingMiddleware<T>                                                      100%
+  Wolfgang.Etl.TestKit.RetryingExtractor<T>                                                         96%
+  Wolfgang.Etl.TestKit.SnapshotTestLoader<T>                                                        95%
+  Wolfgang.Etl.TestKit.TestExtractor<T>                                                            100%
+  Wolfgang.Etl.TestKit.TestLoader<T>                                                               100%
+  Wolfgang.Etl.TestKit.TestTransformer<T>                                                          100%
+  Wolfgang.Etl.TestKit.TimeSourceExtensions                                                        100%
+
+Wolfgang.Etl.TestKit.Xunit                                                                        98.4%
+  Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<T>                                     93.7%
+  Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<T>                                          100%
+  Wolfgang.Etl.TestKit.Xunit.CancellationOutcome                                                   100%
+  Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<T>                                       100%
+  Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<T>                                         100%
+  Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome                                                  100%
+  Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<T1, T2>                                      100%
+  Wolfgang.Etl.TestKit.Xunit.EtlScenario                                                           100%
+  Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>                                                        100%
+  Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<T1, T2>                                     100%
+  Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<T1, T2, T3>                               97.6%
+  Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<T1, T2>                    97.5%
+  Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<T1, T2, T3>     99.1%
+  Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<T1, T2, T3>                     100%
+  Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<T1, T2, T3>                          100%
+  Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<T1, T2>                                97.3%
+  Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<T1, T2>                            100%
+  Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<T1, T2>                                        100%
+  Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<T1, T2, T3>                                  97.8%
+  Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<T1, T2>                       97.7%
+  Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<T1, T2, T3>        98.5%
+  Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<T1, T2, T3>                        100%
+  Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer                                                   100%
+  Wolfgang.Etl.TestKit.Xunit.ProgressAssert                                                        100%
+  Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>                                                    100%
+  Wolfgang.Etl.TestKit.Xunit.PullCounter                                                            90%
+  Wolfgang.Etl.TestKit.Xunit.RetryContractTests<T>                                                 100%
+  Wolfgang.Etl.TestKit.Xunit.RetryOutcome                                                          100%
+  Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<T>                                        100%
+  Wolfgang.Etl.TestKit.Xunit.SynchronousProgress<T>                                                100%
+  Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<T1, T2>                                   100%
+  Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<T1, T2, T3>                             97.9%
+  Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<T1, T2>                  97.6%
+  Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<T1, T2, T3>   99.1%
+  Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<T1, T2, T3>                   100%

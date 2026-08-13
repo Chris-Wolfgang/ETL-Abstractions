@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class AllocationBudgetContractTests&lt;TSut&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class AllocationBudgetContractTests&lt;TSut&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Opt-in xUnit contract-test base asserting that a repeatable operation&#39;s hot path stays within a declared per-item allocation budget — so a downstream author can lock in that their own extractor / loader / transformer keeps an allocation-free (or below-a-declared-N) hot path.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1" class="text-break">
+Class AllocationBudgetContractTests&lt;TSut&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/AllocationBudgetContractTests.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a>.<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.html">Xunit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.Xunit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Opt-in xUnit contract-test base asserting that a repeatable operation's hot path stays
+within a declared per-item allocation budget — so a downstream author can lock in that
+<em>their own</em> extractor / loader / transformer keeps an allocation-free (or
+below-a-declared-N) hot path.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AllocationBudgetContractTests&lt;TSut&gt;</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSut</code></dt>
+    <dd><p>The type whose hot path is measured.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">AllocationBudgetContractTests&lt;TSut&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_examples">Examples</h2>
+  <pre><code class="lang-csharp">[Collection("Allocation")] // serialize — the counter is process-wide
+public sealed class MyExtractorAllocationTests
+    : AllocationBudgetContractTests&lt;MyExtractor&gt;
+{
+    protected override MyExtractor CreateSut(int itemCount) =&gt; new MyExtractor(itemCount);
+
+    protected override async Task ExerciseHotPathAsync(CancellationToken ct)
+    {
+        await foreach (var _ in Sut.ExtractAsync(ct)) { }
+    }
+
+    // A record-materializing extractor would instead declare, say:
+    // protected override double MaxBytesPerItem =&gt; 48;
+}</code></pre>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+This generalizes the internal per-record allocation guard the kit uses on its own doubles
+into a reusable base, alongside the opt-in <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.html">IdempotentExtractorContractTests&lt;TSut, TItem, TProgress&gt;</a>
+/ <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html">SupportsDryRunContractTests&lt;TSut&gt;</a> family. Zero-allocation is <em>not</em>
+universal — a real CSV/JSON extractor legitimately materializes a record per row — so this
+is <b>opt-in</b> and the consumer <b>declares</b> the budget via <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_MaxBytesPerItem">MaxBytesPerItem</a>
+(<code>0</code> for a truly allocation-free path, or a small documented N).
+</p>
+<p>
+The harness measures the <b>marginal</b> allocation per item —
+<code>(alloc(10N) - alloc(N)) / (9N)</code> — so a one-time setup cost (buffers, the async state
+machine) cancels out and only genuine per-item allocation counts. The cost of
+<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_CreateSut_System_Int32_">CreateSut(int)</a> is excluded (it runs before the measurement window); exercise the
+current stage via <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Sut">Sut</a> from <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_ExerciseHotPathAsync_System_Threading_CancellationToken_">ExerciseHotPathAsync(CancellationToken)</a>. It settles the
+GC before each reading and takes the minimum across <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Attempts">Attempts</a> runs to shed
+transient background-allocation noise.
+</p>
+<p>
+<b>IMPORTANT — serialization.</b> The measurement uses the process-wide
+<code>GC.GetTotalAllocatedBytes</code> counter, so a test allocating on another thread
+<em>at the same time</em> pollutes the reading. Derived allocation tests <b>must run
+serialized</b> — put them in a shared xUnit collection (a
+<code>[CollectionDefinition("Allocation")]</code> in your test assembly plus
+<code>[Collection("Allocation")]</code> on each), or disable test parallelization.
+</p>
+<p>
+<b>Framework support.</b> <code>GC.GetTotalAllocatedBytes</code> exists on
+.NET 6.0+ (net-core-app 3.0 / netstandard 2.1) only. On the kit's older target frameworks
+(net462 / netstandard2.0) the budget test skips (passes without measuring).
+</p>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Attempts_" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Attempts*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Attempts" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Attempts">
+  Attempts
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/AllocationBudgetContractTests.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The number of measurement attempts. The minimum marginal reading is used, which sheds
+transient background-allocation noise.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual int Attempts { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_BaseItemCount_" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.BaseItemCount*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_BaseItemCount" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.BaseItemCount">
+  BaseItemCount
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/AllocationBudgetContractTests.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The baseline item count; the harness also measures 10× this. A large denominator
+amortizes any fixed background-allocation spike inside a measurement window.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual int BaseItemCount { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_MaxBytesPerItem_" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.MaxBytesPerItem*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_MaxBytesPerItem" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.MaxBytesPerItem">
+  MaxBytesPerItem
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/AllocationBudgetContractTests.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The maximum marginal allocation per item, in bytes. Defaults to <code>0</code>
+(allocation-free). Override to declare a per-item budget for a path that legitimately
+materializes state per item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual double MaxBytesPerItem { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Sut_" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Sut*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Sut" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Sut">
+  Sut
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/AllocationBudgetContractTests.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The stage the current <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_ExerciseHotPathAsync_System_Threading_CancellationToken_">ExerciseHotPathAsync(CancellationToken)</a> call should exercise. The harness
+creates it (via <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_CreateSut_System_Int32_">CreateSut(int)</a>) before the measurement window opens — outside it,
+so its construction cost is not measured — and disposes it afterwards.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected TSut Sut { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TSut</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_CreateSut_" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.CreateSut*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_CreateSut_System_Int32_" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.CreateSut(System.Int32)">
+  CreateSut(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/AllocationBudgetContractTests.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a system under test sized to produce or process exactly
+<code class="paramref">itemCount</code> items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract TSut CreateSut(int itemCount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>itemCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of items the hot path should run over.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TSut</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_ExerciseHotPathAsync_" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.ExerciseHotPathAsync*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_ExerciseHotPathAsync_System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.ExerciseHotPathAsync(System.Threading.CancellationToken)">
+  ExerciseHotPathAsync(CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/AllocationBudgetContractTests.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Fully exercises <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Sut">Sut</a>'s hot path — drain the enumeration, run the load, and so
+on. Only work done here is measured.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Task ExerciseHotPathAsync(CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A cancellation token.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Hot_path_stays_within_the_allocation_budget_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Hot_path_stays_within_the_allocation_budget_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Hot_path_stays_within_the_allocation_budget_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Hot_path_stays_within_the_allocation_budget_Async">
+  Hot_path_stays_within_the_allocation_budget_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/AllocationBudgetContractTests.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that the SUT's hot path stays within <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_MaxBytesPerItem">MaxBytesPerItem</a> of marginal
+allocation per item. Skips (passes) on target frameworks without
+<code>GC.GetTotalAllocatedBytes</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task Hot_path_stays_within_the_allocation_budget_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/AllocationBudgetContractTests.cs/#L65" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

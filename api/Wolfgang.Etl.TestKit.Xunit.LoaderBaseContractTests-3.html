@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class LoaderBaseContractTests&lt;TSut, TItem, TProgress&gt; | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class LoaderBaseContractTests&lt;TSut, TItem, TProgress&gt; | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Abstract base class providing xUnit contract tests for any type that inherits from .">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests%603%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3" class="text-break">
+Class LoaderBaseContractTests&lt;TSut, TItem, TProgress&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a>.<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.html">Xunit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.Xunit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Abstract base class providing xUnit contract tests for any type that inherits
+from <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class LoaderBaseContractTests&lt;TSut, TItem, TProgress&gt; where TSut : LoaderBase&lt;TItem, TProgress&gt; where TItem : notnull where TProgress : notnull</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSut</code></dt>
+    <dd><p>The type under test. Must inherit from
+<a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a>.</p>
+</dd>
+    <dt><code>TItem</code></dt>
+    <dd><p>The type of item the loader consumes.</p>
+</dd>
+    <dt><code>TProgress</code></dt>
+    <dd><p>The type of the progress report.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">LoaderBaseContractTests&lt;TSut, TItem, TProgress&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_examples">Examples</h2>
+  <pre><code class="lang-csharp">public class MyLoaderContractTests
+    : LoaderBaseContractTests&lt;MyLoader, MyRecord, MyProgress&gt;
+{
+    protected override MyLoader CreateSut(int itemCount) =&gt;
+        new MyLoader(connectionString);
+
+    protected override IReadOnlyList&lt;MyRecord&gt; CreateSourceItems() =&gt;
+        new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
+}</code></pre>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+Inherit from this class to get a comprehensive suite of contract tests covering all
+public behaviour defined by <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a>:
+</p>
+<ul><li>All four <code>LoadAsync</code> overloads complete successfully.</li><li>Null guards on <code>items</code> and <code>progress</code> arguments.</li><li>Cancellation is honoured on all cancellable overloads.</li><li><code>CurrentItemCount</code> is incremented as items are loaded.</li><li><code>ReportingInterval</code> rejects values less than 1.</li><li><code>MaximumItemCount</code> stops loading at the specified limit.</li><li><code>MaximumItemCount</code> rejects values less than 1.</li><li><code>SkipItemCount</code> skips the specified number of items.</li><li><code>SkipItemCount</code> rejects values less than 0.</li><li>Progress callbacks fire when the timer fires.</li></ul>
+<p>
+You are responsible for implementing <code>MaximumItemCount</code> and
+<code>SkipItemCount</code> behaviour in your <code>LoadWorkerAsync</code> override.
+</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CreateSourceItems_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CreateSourceItems*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CreateSourceItems" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CreateSourceItems">
+  CreateSourceItems()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the source items used to feed the loader. Must return at least 5 items.
+The first <code>itemCount</code> items from this list are fed when
+<code>CreateSut(itemCount)</code> is called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract IReadOnlyList&lt;TItem&gt; CreateSourceItems()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CreateSut_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CreateSut*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CreateSut_System_Int32_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CreateSut(System.Int32)">
+  CreateSut(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the system under test configured to handle exactly <code class="paramref">itemCount</code> items.
+The items fed to the loader must match the first <code class="paramref">itemCount</code> items
+returned by <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CreateSourceItems">CreateSourceItems()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract TSut CreateSut(int itemCount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>itemCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of items the SUT should handle. Pass 0 for an empty source.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TSut</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CreateSutWithTimer_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CreateSutWithTimer*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CreateSutWithTimer_Wolfgang_Etl_Abstractions_IProgressTimer_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer)">
+  CreateSutWithTimer(IProgressTimer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><b>Deprecated.</b> The contract now drives progress timing via
+<a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html">ManualProgressTimerCore</a> and <code>WithManualProgressTimer</code>, which need no
+per-component timer plumbing — so overriding this is no longer required. Retained for source
+compatibility with existing overrides; remove your override (and the component's
+<code>IProgressTimer</code>-injection ctor) and it will be dropped in a future major version.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual TSut CreateSutWithTimer(IProgressTimer timer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>timer</code> <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a></dt>
+    <dd><p>Unused by the contract.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TSut</span></dt>
+    <dd><p>A new instance of <code class="typeparamref">TSut</code> (in existing overrides only).</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.notsupportedexception">NotSupportedException</a></dt>
+    <dd><p>Always, if the base (non-overridden) implementation is invoked — the contract no longer calls it.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CurrentErrorItemCount_defaults_to_zero_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CurrentErrorItemCount_defaults_to_zero*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CurrentErrorItemCount_defaults_to_zero" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CurrentErrorItemCount_defaults_to_zero">
+  CurrentErrorItemCount_defaults_to_zero()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L893"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>CurrentErrorItemCount</code> is zero on a freshly created loader, before any
+item has failed (Abstractions 0.18.0 error hook).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void CurrentErrorItemCount_defaults_to_zero()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CurrentItemCount_defaults_to_zero_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CurrentItemCount_defaults_to_zero*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CurrentItemCount_defaults_to_zero" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CurrentItemCount_defaults_to_zero">
+  CurrentItemCount_defaults_to_zero()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L851"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>CurrentItemCount</code> is zero on a freshly created loader, before any load
+has run.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void CurrentItemCount_defaults_to_zero()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CurrentSkippedItemCount_defaults_to_zero_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CurrentSkippedItemCount_defaults_to_zero*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CurrentSkippedItemCount_defaults_to_zero" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CurrentSkippedItemCount_defaults_to_zero">
+  CurrentSkippedItemCount_defaults_to_zero()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L863"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>CurrentSkippedItemCount</code> is zero on a freshly created loader, before any
+load has run.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void CurrentSkippedItemCount_defaults_to_zero()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async">
+  LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L875"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>CurrentSkippedItemCount</code> reflects the exact number of items skipped by
+<code>SkipItemCount</code> after a run.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_completes_successfully_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_completes_successfully_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_completes_successfully_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_completes_successfully_Async">
+  LoadAsync_completes_successfully_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L156"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items)</code> completes without error when valid
+items are supplied.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_completes_successfully_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_does_not_over_read_past_MaximumItemCount_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_does_not_over_read_past_MaximumItemCount_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_does_not_over_read_past_MaximumItemCount_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_does_not_over_read_past_MaximumItemCount_Async">
+  LoadAsync_does_not_over_read_past_MaximumItemCount_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L911"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that once <code>MaximumItemCount</code> is reached the loader stops pulling from its
+source rather than draining it — at most M+1 reads (the +1 discovers the limit).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_does_not_over_read_past_MaximumItemCount_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_increments_CurrentItemCount_for_each_item_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_increments_CurrentItemCount_for_each_item_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_increments_CurrentItemCount_for_each_item_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_increments_CurrentItemCount_for_each_item_Async">
+  LoadAsync_increments_CurrentItemCount_for_each_item_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>CurrentItemCount</code> equals the number of items loaded
+after a full load via <code>LoadAsync(items)</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_increments_CurrentItemCount_for_each_item_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_loads_all_items_when_MaximumItemCount_exceeds_sequence_length_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_loads_all_items_when_MaximumItemCount_exceeds_sequence_length_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_loads_all_items_when_MaximumItemCount_exceeds_sequence_length_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_loads_all_items_when_MaximumItemCount_exceeds_sequence_length_Async">
+  LoadAsync_loads_all_items_when_MaximumItemCount_exceeds_sequence_length_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L779"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that when <code>MaximumItemCount</code> exceeds the sequence length, all items
+are still loaded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_loads_all_items_when_MaximumItemCount_exceeds_sequence_length_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_skips_items_up_to_SkipItemCount_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_skips_items_up_to_SkipItemCount_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_skips_items_up_to_SkipItemCount_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_skips_items_up_to_SkipItemCount_Async">
+  LoadAsync_skips_items_up_to_SkipItemCount_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L832"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that the loader skips the specified number of items before loading.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_skips_items_up_to_SkipItemCount_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_stops_at_MaximumItemCount_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_stops_at_MaximumItemCount_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_stops_at_MaximumItemCount_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_stops_at_MaximumItemCount_Async">
+  LoadAsync_stops_at_MaximumItemCount_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L718"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that the loader stops consuming items once <code>MaximumItemCount</code>
+is reached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_stops_at_MaximumItemCount_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_stops_reading_on_cancellation_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_stops_reading_on_cancellation_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_stops_reading_on_cancellation_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_stops_reading_on_cancellation_Async">
+  LoadAsync_stops_reading_on_cancellation_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L930"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that cancelling mid-run stops the loader pulling from its source at the next
+check, rather than draining the already-available items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_stops_reading_on_cancellation_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_stops_reading_source_at_MaximumItemCount_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_stops_reading_source_at_MaximumItemCount_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_stops_reading_source_at_MaximumItemCount_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_stops_reading_source_at_MaximumItemCount_Async">
+  LoadAsync_stops_reading_source_at_MaximumItemCount_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L744"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that the loader stops pulling items from its source once
+<code>MaximumItemCount</code> is reached, rather than draining the whole source
+and discarding the surplus. A loader that over-reads holds upstream
+resources (connections, cursors) far longer than necessary.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_stops_reading_source_at_MaximumItemCount_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_stops_reading_source_at_MaximumItemCount_Async_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The source is wrapped in a counter. Once the load completes with a limit
+of <code>M</code>, the wrapper must have observed at most <code>M + 1</code> pulls —
+the <code>+1</code> allows for the single read that discovers the limit has
+been reached.</p>
+</div>
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async">
+  LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L959"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that a pre-cancelled token short-circuits the loader before it pulls any item
+from its source.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async">
+  LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L290"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, CancellationToken)</code> throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a> and stops loading when the token is
+cancelled mid-sequence.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_cancelled_token_throws_OperationCanceledException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_cancelled_token_throws_OperationCanceledException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_cancelled_token_throws_OperationCanceledException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_cancelled_token_throws_OperationCanceledException_Async">
+  LoadAsync_with_cancelled_token_throws_OperationCanceledException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L268"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, CancellationToken)</code> throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a> when the token is already cancelled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_cancelled_token_throws_OperationCanceledException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_empty_source_completes_without_error_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_empty_source_completes_without_error_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_empty_source_completes_without_error_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_empty_source_completes_without_error_Async">
+  LoadAsync_with_empty_source_completes_without_error_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L175"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items)</code> completes without error when the source
+contains no items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_empty_source_completes_without_error_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_null_items_throws_ArgumentNullException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_null_items_throws_ArgumentNullException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_null_items_throws_ArgumentNullException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_null_items_throws_ArgumentNullException_Async">
+  LoadAsync_with_null_items_throws_ArgumentNullException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L141"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items)</code> throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a>
+when <code>items</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_null_items_throws_ArgumentNullException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_null_progress_throws_ArgumentNullException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_null_progress_throws_ArgumentNullException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_null_progress_throws_ArgumentNullException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_null_progress_throws_ArgumentNullException_Async">
+  LoadAsync_with_null_progress_throws_ArgumentNullException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L351"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress)</code> throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a> when <code>progress</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_null_progress_throws_ArgumentNullException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException_Async">
+  LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L541"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress, CancellationToken)</code> throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a> when the token is already cancelled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_empty_source_completes_without_error_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_empty_source_completes_without_error_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_empty_source_completes_without_error_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_empty_source_completes_without_error_Async">
+  LoadAsync_with_progress_and_empty_source_completes_without_error_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L386"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress)</code> completes without error when
+the source contains no items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_empty_source_completes_without_error_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async">
+  LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L448"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, IProgress&lt;TProgress&gt;)</code> invokes the
+progress callback at least once even when the source is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_null_items_throws_ArgumentNullException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_null_items_throws_ArgumentNullException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_null_items_throws_ArgumentNullException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_null_items_throws_ArgumentNullException_Async">
+  LoadAsync_with_progress_and_null_items_throws_ArgumentNullException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L335"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress)</code> throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a> when <code>items</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_null_items_throws_ArgumentNullException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_and_empty_source_completes_without_error_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_and_empty_source_completes_without_error_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_and_empty_source_completes_without_error_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_and_empty_source_completes_without_error_Async">
+  LoadAsync_with_progress_and_token_and_empty_source_completes_without_error_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L521"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress, CancellationToken)</code> completes
+without error when the source contains no items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_and_empty_source_completes_without_error_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async">
+  LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L604"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, IProgress&lt;TProgress&gt;, CancellationToken)</code>
+invokes the progress callback at least once even when the source is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException_Async">
+  LoadAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L470"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress, CancellationToken)</code> throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a> when <code>items</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException_Async">
+  LoadAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L486"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress, CancellationToken)</code> throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a> when <code>progress</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_completes_successfully_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_completes_successfully_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_completes_successfully_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_completes_successfully_Async">
+  LoadAsync_with_progress_and_token_completes_successfully_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L501"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress, CancellationToken)</code> completes
+when valid arguments are supplied.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_completes_successfully_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async">
+  LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L586"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, IProgress&lt;TProgress&gt;, CancellationToken)</code>
+invokes the progress callback at least once during loading when using a standard
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.progress-1">Progress&lt;T&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_invokes_callback_at_least_once_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async">
+  LoadAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L561"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress, CancellationToken)</code> invokes the
+progress callback when the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> fires.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_completes_successfully_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_completes_successfully_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_completes_successfully_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_completes_successfully_Async">
+  LoadAsync_with_progress_completes_successfully_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L366"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress)</code> completes when valid arguments
+are supplied.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_completes_successfully_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_invokes_callback_at_least_once_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_invokes_callback_at_least_once_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_invokes_callback_at_least_once_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_invokes_callback_at_least_once_Async">
+  LoadAsync_with_progress_invokes_callback_at_least_once_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L430"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, IProgress&lt;TProgress&gt;)</code> invokes the progress
+callback at least once during loading when using a standard <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.progress-1">Progress&lt;T&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_invokes_callback_at_least_once_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_invokes_callback_when_timer_fires_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_invokes_callback_when_timer_fires_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_progress_invokes_callback_when_timer_fires_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_progress_invokes_callback_when_timer_fires_Async">
+  LoadAsync_with_progress_invokes_callback_when_timer_fires_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L406"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, progress)</code> invokes the progress callback
+when the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> fires.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_progress_invokes_callback_when_timer_fires_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_token_and_empty_source_completes_without_error_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_token_and_empty_source_completes_without_error_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_token_and_empty_source_completes_without_error_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_token_and_empty_source_completes_without_error_Async">
+  LoadAsync_with_token_and_empty_source_completes_without_error_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L249"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, CancellationToken)</code> completes without error
+when the source contains no items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_token_and_empty_source_completes_without_error_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_token_and_null_items_throws_ArgumentNullException_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_token_and_null_items_throws_ArgumentNullException_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_token_and_null_items_throws_ArgumentNullException_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_token_and_null_items_throws_ArgumentNullException_Async">
+  LoadAsync_with_token_and_null_items_throws_ArgumentNullException_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L215"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, CancellationToken)</code> throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a> when <code>items</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_token_and_null_items_throws_ArgumentNullException_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_token_completes_successfully_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_token_completes_successfully_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_LoadAsync_with_token_completes_successfully_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.LoadAsync_with_token_completes_successfully_Async">
+  LoadAsync_with_token_completes_successfully_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L230"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>LoadAsync(items, CancellationToken)</code> completes when passed
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">None</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task LoadAsync_with_token_completes_successfully_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_can_be_set_to_positive_value_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_can_be_set_to_positive_value" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value">
+  MaximumItemCount_can_be_set_to_positive_value()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L684"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that setting <code>MaximumItemCount</code> to a positive value succeeds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void MaximumItemCount_can_be_set_to_positive_value()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_defaults_to_int_MaxValue_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_defaults_to_int_MaxValue*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_defaults_to_int_MaxValue" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_defaults_to_int_MaxValue">
+  MaximumItemCount_defaults_to_int_MaxValue()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L674"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>MaximumItemCount</code> defaults to <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32.maxvalue">MaxValue</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void MaximumItemCount_defaults_to_int_MaxValue()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException">
+  MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L707"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that setting <code>MaximumItemCount</code> to a negative value throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException">
+  MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L696"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that setting <code>MaximumItemCount</code> to zero throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a> — the minimum for a loader is 1.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_can_be_set_to_positive_value_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_can_be_set_to_positive_value" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value">
+  ReportingInterval_can_be_set_to_positive_value()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L635"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that setting <code>ReportingInterval</code> to a positive value succeeds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void ReportingInterval_can_be_set_to_positive_value()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_defaults_to_1000_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_defaults_to_1000*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_defaults_to_1000" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_defaults_to_1000">
+  ReportingInterval_defaults_to_1000()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L625"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>ReportingInterval</code> defaults to 1000.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void ReportingInterval_defaults_to_1000()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException">
+  ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L658"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that setting <code>ReportingInterval</code> to a negative value throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException">
+  ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L647"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that setting <code>ReportingInterval</code> to zero throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_can_be_set_to_positive_value_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_can_be_set_to_positive_value" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value">
+  SkipItemCount_can_be_set_to_positive_value()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L810"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that setting <code>SkipItemCount</code> to a positive value succeeds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void SkipItemCount_can_be_set_to_positive_value()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_defaults_to_zero_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_defaults_to_zero*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_defaults_to_zero" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_defaults_to_zero">
+  SkipItemCount_defaults_to_zero()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L800"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that <code>SkipItemCount</code> defaults to zero.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void SkipItemCount_defaults_to_zero()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException_" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException" data-uid="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException">
+  SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L822"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that setting <code>SkipItemCount</code> to a negative value throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.TestKit.Xunit/LoaderBaseContractTests.cs/#L57" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
