@@ -103,7 +103,7 @@ public sealed class DocExampleCompilationTests
                 continue;
             }
 
-            var source = await File.ReadAllTextAsync(file).ConfigureAwait(false);
+            var source = await File.ReadAllTextAsync(file);
 
             foreach (var (line, code) in ExtractExampleCode(source))
             {

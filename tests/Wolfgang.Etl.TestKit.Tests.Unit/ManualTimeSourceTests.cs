@@ -43,7 +43,7 @@ public class ManualTimeSourceTests
         var sut   = new ExposedExtractor<int>(Enumerable.Range(0, 50).ToArray());
         sut.WithTimeSource(clock);
 
-        await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        await sut.ExtractAsync(CancellationToken.None).ToListAsync();
         clock.Advance(TimeSpan.FromSeconds(10));
 
         var report = sut.GetProgressReport();
@@ -60,7 +60,7 @@ public class ManualTimeSourceTests
         var sut   = new ExposedExtractor<int>(new[] { 1, 2, 3 });
         sut.WithTimeSource(clock);
 
-        await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
         var report = sut.GetProgressReport();
 
@@ -76,7 +76,7 @@ public class ManualTimeSourceTests
         var sut   = new ExposedExtractor<int>(Enumerable.Range(0, 50).ToArray());
         sut.WithTimeSource(clock);
 
-        await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        await sut.ExtractAsync(CancellationToken.None).ToListAsync();
         clock.Advance(TimeSpan.FromSeconds(10));
 
         var report = sut.GetProgressReport();

@@ -12,7 +12,7 @@ public class EtlScenarioTests
         await EtlScenario
             .From(1, 2, 3)
             .RunAndAssertAsync(new[] { 1, 2, 3 }, expectedErrors: 0)
-            .ConfigureAwait(false);
+            ;
     }
 
 
@@ -24,7 +24,7 @@ public class EtlScenarioTests
             .From(1, 2, 3, 4)
             .WithExtractorFault(index: 2, new FormatException("bad row"))
             .RunAndAssertAsync(new[] { 1, 2, 4 }, expectedErrors: 1)
-            .ConfigureAwait(false);
+            ;
     }
 
 
@@ -36,7 +36,7 @@ public class EtlScenarioTests
             .From(1, 2, 3, 4)
             .WithLoaderFault(index: 1, new FormatException("bad write"))
             .RunAndAssertAsync(new[] { 1, 3, 4 }, expectedErrors: 1)
-            .ConfigureAwait(false);
+            ;
     }
 
 
@@ -48,7 +48,7 @@ public class EtlScenarioTests
             .From(1, 2, 3)
             .Through(new TestTransformer<int>())
             .RunAndAssertAsync(new[] { 1, 2, 3 }, expectedErrors: 0)
-            .ConfigureAwait(false);
+            ;
     }
 
 
@@ -60,6 +60,6 @@ public class EtlScenarioTests
             .From(1, 2, 3)
             .WithExtractorFault(index: 1, new InvalidOperationException("boom"), skip: false)
             .RunAndAssertThrowsAsync<InvalidOperationException>()
-            .ConfigureAwait(false);
+            ;
     }
 }

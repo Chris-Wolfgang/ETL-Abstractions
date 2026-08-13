@@ -353,7 +353,7 @@ public class ProgressAssertTests
         var extractor = new TestExtractor<int>(items);
         var capture = new ProgressCapture<Report>();
 
-        var extracted = await extractor.ExtractAsync(capture).ToListAsync().ConfigureAwait(false);
+        var extracted = await extractor.ExtractAsync(capture).ToListAsync();
 
         Assert.Equal(items, extracted);
         ProgressAssert.HasReports(capture);
