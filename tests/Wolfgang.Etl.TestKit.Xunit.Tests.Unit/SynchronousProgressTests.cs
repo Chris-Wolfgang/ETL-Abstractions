@@ -1,5 +1,4 @@
 using System;
-using Wolfgang.Etl.TestKit.Xunit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Xunit.Tests.Unit;

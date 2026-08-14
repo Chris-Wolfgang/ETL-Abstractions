@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Wolfgang.Etl.Abstractions;
 using Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests;
