@@ -3,8 +3,11 @@
 	<TargetFrameworks>net462;net472;net48;net481;netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
 	<!-- Lockstep with Wolfgang.Etl.Abstractions: this package is built and released from the same
 	     repo under the same version and tag (like Wolfgang.Etl.TestKit + Wolfgang.Etl.TestKit.Xunit). -->
-    <!-- No EnablePackageValidation on the FIRST release: there is no previously-published baseline to
-         compare against. Enable it next cycle with PackageValidationBaselineVersion set to 0.21.0. -->
+    <!-- ABI / binary-compatibility gate. Skipped for the FIRST release (0.21.0) because there was no
+         previously-published baseline to compare against; enabled from 0.22.0 onward now that the
+         package has published history. Baseline tracks the last PUBLISHED version. -->
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <PackageValidationBaselineVersion>0.22.0</PackageValidationBaselineVersion>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Description>Ready-made item-error policies — skip, log, and dead-letter (to a collection or a channel) — assignable to the ErrorPolicy property of Wolfgang.Etl extractors, loaders, and transformers. Built on Wolfgang.Etl.Abstractions.</Description>
