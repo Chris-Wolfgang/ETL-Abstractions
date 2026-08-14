@@ -1,0 +1,57 @@
+<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<!--
+	  ReSharper InspectCode noise-floor (issue #361).
+
+	  SCOPE: this file ONLY silences inspections that are STRUCTURALLY always
+	  false-positive for this repo — cases where InspectCode can NEVER be right
+	  given the project layout, so there is no per-instance judgement to make and
+	  nothing fixable to hide. Everything else is deliberately left VISIBLE:
+	  genuinely-fixable findings (RCS1102, S2930, S1939, xUnit1030, the Redundant*
+	  family, unused-variable/dead-field rules, S4456, S125, …) are FIXED in code,
+	  and location-specific intentional patterns (S1994, S1215, S5034, S3267,
+	  MA0158-on-lock, S6966, AccessToModifiedClosure, …) are dismissed PER INSTANCE
+	  in Code Scanning with a reason — not blanket-suppressed, so a future genuine
+	  occurrence still surfaces.
+
+	  Deliberately NOT here (would over-suppress): any style/correctness rule with
+	  a code fix, and S2068 (hard-coded credentials) — a security rule must not be
+	  blanket-silenced.
+	-->
+
+	<!-- PublicAPI: InspectCode runs Microsoft.CodeAnalysis.PublicApiAnalyzers
+	     WITHOUT the PublicAPI.Shipped.txt / PublicAPI.Unshipped.txt AdditionalFiles,
+	     so it thinks nothing is declared and flags every public member. The
+	     in-build analyzer is gated correctly (Directory.Build.props Exists()
+	     condition) and emits ZERO of these — the InspectCode fire is a pure
+	     structural artifact of the CLI not loading the baseline files. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RS0016/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RS0036/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RS0037/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Nullability "…AccordingToAPIContract" family: ReSharper's nullable
+	     inference flags the base library's DELIBERATE defensive null-checks on
+	     non-null-annotated parameters as redundant. They are intentional: this is
+	     the fleet's base library, called from nullable-oblivious and older-TFM
+	     code that can still pass null despite the annotation. The Roslyn nullable
+	     analysis owns this, not R#. Structurally FP for a defensively-coded lib. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ReturnTypeCanBeNotNullable/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantNullableFlowAttribute/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NullnessAnnotationConflictWithJetBrainsAnnotations/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NullCoalescingConditionIsAlwaysNotNullAccordingToAPIContract/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ConditionalAccessQualifierIsNonNullableAccordingToAPIContract/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=AssignNullToNotNullAttribute/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- Public auto-properties reported as unused: R# cannot see external
+	     consumers of a shipped library, so every public auto-property looks
+	     unused (.Global variant). PublicApiAnalyzers governs the real surface.
+	     Structurally FP for a library. Dots in the ID escape as _002E. -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=UnusedAutoPropertyAccessor_002EGlobal/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+
+	<!-- MA0158 "use System.Threading.Lock": the Lock type only exists on net9.0+.
+	     The library multi-targets net462;netstandard2.0;netstandard2.1;net8.0;
+	     net10.0, so `new object()` for a lock is required on 4 of 5 TFMs. This is a
+	     structural multi-TFM FP (would need a #if NET9_0_OR_GREATER for a micro
+	     perf gain not worth the ceremony). -->
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=MA0158/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+</wpf:ResourceDictionary>

@@ -242,7 +242,6 @@ public class SystemProgressTimerTests
     private sealed class CapturingExtractor : ExtractorBase<int, EtlProgress>
     {
         private readonly Action<IProgressTimer> _onTimerCreated;
-        private readonly int _intervalMs;
         private readonly int _workerDelayMs;
 
         public CapturingExtractor(
@@ -251,7 +250,6 @@ public class SystemProgressTimerTests
             int workerDelayMs = 0)
         {
             _onTimerCreated = onTimerCreated;
-            _intervalMs = intervalMs;
             _workerDelayMs = workerDelayMs > 0 ? workerDelayMs : intervalMs * 2;
             ReportingInterval = intervalMs;
         }
