@@ -1,6 +1,6 @@
 namespace Example7_FluentPipeline;
 
-internal class ConsoleColors
+internal static class ConsoleColors
 {
     public const string Green = "\e[32m";
     public const string Yellow = "\e[33m";

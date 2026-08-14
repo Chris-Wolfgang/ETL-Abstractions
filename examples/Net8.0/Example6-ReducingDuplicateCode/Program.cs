@@ -57,7 +57,7 @@ internal class Program
         Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process wit cancellation...{ConsoleColors.Reset}\n\n");
 
         // Set a cancellation token to cancel the extraction after 1 second
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
         var token = cts.Token;
 
         var extractor = new FibonacciExtractor();
@@ -108,7 +108,7 @@ internal class Program
         Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process wit cancellation...{ConsoleColors.Reset}\n\n");
 
         // Set a cancellation token to cancel the extraction after 1 second
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
         var token = cts.Token;
 
         var progress = new Progress<EtlProgress>(p =>
