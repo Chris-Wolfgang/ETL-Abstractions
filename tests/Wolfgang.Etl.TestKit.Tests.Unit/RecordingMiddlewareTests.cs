@@ -26,7 +26,7 @@ public class RecordingMiddlewareTests
         var recorder = new RecordingMiddleware<int>();
         var source   = new[] { 1, 2, 3 }.ToAsyncEnumerable();
 
-        var kept = await source.WithMiddleware(recorder, CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var kept = await source.WithMiddleware(recorder, CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 1, 2, 3 }, kept);
         Assert.Equal(new[] { 1, 2, 3 }, recorder.Observed);
@@ -40,7 +40,7 @@ public class RecordingMiddlewareTests
         var shaping = new RecordingMiddleware<int>(i => MiddlewareResult.Continue(i * 10));
         var source  = new[] { 1, 2, 3 }.ToAsyncEnumerable();
 
-        var kept = await source.WithMiddleware(shaping, CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var kept = await source.WithMiddleware(shaping, CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 10, 20, 30 }, kept);
         // Observed reflects the items as received, before transformation.
@@ -58,7 +58,7 @@ public class RecordingMiddlewareTests
         );
         var source = new[] { 1, 2, 3, 4, 5, 6 }.ToAsyncEnumerable();
 
-        var kept = await source.WithMiddleware(evensOnly, CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var kept = await source.WithMiddleware(evensOnly, CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 2, 4, 6 }, kept);
         Assert.Equal(new[] { 1, 2, 3, 4, 5, 6 }, evensOnly.Observed);
@@ -76,7 +76,7 @@ public class RecordingMiddlewareTests
         var kept = await source
             .WithMiddleware(new IItemMiddleware<int>[] { first, second }, CancellationToken.None)
             .ToListAsync()
-            .ConfigureAwait(false);
+            ;
 
         Assert.Equal(new[] { 2, 3, 4 }, kept);
         // `second` sees the output of `first`.

@@ -78,7 +78,7 @@ public class TimeSourceExtensionsTests
         var same   = loader.WithTimeSource(clock);
         Assert.Same(loader, same);
 
-        await loader.LoadAsync(new[] { 1, 2, 3, 4, 5 }.ToAsyncEnumerable(), CancellationToken.None).ConfigureAwait(false);
+        await loader.LoadAsync(new[] { 1, 2, 3, 4, 5 }.ToAsyncEnumerable(), CancellationToken.None);
         clock.Advance(TimeSpan.FromSeconds(5));
 
         Assert.Equal(TimeSpan.FromSeconds(5), loader.GetProgressReport().Elapsed);
@@ -94,7 +94,7 @@ public class TimeSourceExtensionsTests
         var same        = transformer.WithTimeSource(clock);
         Assert.Same(transformer, same);
 
-        await transformer.TransformAsync(new[] { 1, 2, 3 }.ToAsyncEnumerable(), CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        await transformer.TransformAsync(new[] { 1, 2, 3 }.ToAsyncEnumerable(), CancellationToken.None).ToListAsync();
         clock.Advance(TimeSpan.FromSeconds(2));
 
         Assert.Equal(TimeSpan.FromSeconds(2), transformer.GetProgressReport().Elapsed);

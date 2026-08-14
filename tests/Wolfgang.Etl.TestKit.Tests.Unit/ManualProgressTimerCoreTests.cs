@@ -31,7 +31,7 @@ public class ManualProgressTimerCoreTests
         var progress = new SyncProgress<Report>(r => captured = r);
 
         await using var enumerator = sut.ExtractAsync(progress).GetAsyncEnumerator();
-        await enumerator.MoveNextAsync().ConfigureAwait(false);   // starts the run; builds the progress timer
+        await enumerator.MoveNextAsync();   // starts the run; builds the progress timer
         timer.Tick();                                            // fires the callback exactly once
 
         Assert.NotNull(captured);

@@ -29,7 +29,7 @@ public class EtlPipelineErrorAggregationTests
             .From(source)
             .To(sink)
             .RunAsync(capture)
-            .ConfigureAwait(false);
+            ;
 
         var final = capture.FinalReport;
         Assert.NotNull(final);
@@ -59,7 +59,7 @@ public class EtlPipelineErrorAggregationTests
             .Through(transformer)
             .To(sink)
             .RunAsync(capture)
-            .ConfigureAwait(false);
+            ;
 
         var final = capture.FinalReport;
         Assert.NotNull(final);
