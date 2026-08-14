@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Wolfgang.Etl.TestKit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
@@ -55,7 +54,7 @@ public class DelayingExtractorTests
     {
         var sut = new DelayingExtractor<int>(new[] { 1, 2, 3 }, TimeSpan.Zero);
 
-        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 1, 2, 3 }, actual);
     }
@@ -67,7 +66,7 @@ public class DelayingExtractorTests
     {
         var sut = new DelayingExtractor<int>(new[] { 1, 2, 3, 4, 5 }, TimeSpan.Zero) { MaximumItemCount = 2 };
 
-        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 1, 2 }, actual);
     }
@@ -79,7 +78,7 @@ public class DelayingExtractorTests
     {
         var sut = new DelayingExtractor<int>(new[] { 1, 2, 3, 4 }, TimeSpan.Zero) { SkipItemCount = 2 };
 
-        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 3, 4 }, actual);
     }
@@ -91,7 +90,7 @@ public class DelayingExtractorTests
     {
         var sut = new DelayingExtractor<int>(new[] { 10, 20, 30 }, i => TimeSpan.FromMilliseconds(i));
 
-        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 10, 20, 30 }, actual);
     }
@@ -112,11 +111,11 @@ public class DelayingExtractorTests
         (
             async () =>
             {
-                await foreach (var _ in sut.ExtractAsync(token).ConfigureAwait(false))
+                await foreach (var _ in sut.ExtractAsync(token))
                 {
                 }
             }
-        ).ConfigureAwait(false);
+        );
 
         Assert.Equal(0, sut.CurrentItemCount);
     }
@@ -135,7 +134,7 @@ public class DelayingExtractorTests
         (
             async () =>
             {
-                await foreach (var _ in sut.ExtractAsync(cts.Token).ConfigureAwait(false))
+                await foreach (var _ in sut.ExtractAsync(cts.Token))
                 {
                     processed++;
                     if (processed == 3)
@@ -146,7 +145,7 @@ public class DelayingExtractorTests
                     }
                 }
             }
-        ).ConfigureAwait(false);
+        );
 
         // Stopped near the cancel point rather than draining all 100.
         Assert.True(processed <= 4, $"Expected a prompt stop (≤ 4), but processed {processed}.");

@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Assignable `WorkerResilience` on the base stages (#348):** `ExtractorBase`, `LoaderBase`, and
+  `TransformerBase` gained an `init`-only `WorkerResilience` wrapper (`Func<workerFactory, token, result>`,
+  non-null, default no-op passthrough) that the default `WrapWorkerExecution` consults — so a stage can
+  run its worker through a retry / circuit-breaker / timeout strategy by **assignment** (e.g. from a
+  ready-made `Wolfgang.Etl.*` resilience package) instead of subclassing, mirroring the assignable
+  `ErrorPolicy`. Overriding `WrapWorkerExecution` still works and takes precedence. Stream-level scope
+  (a retry re-runs the whole worker); per-item retry belongs inside the worker. Additive — default
+  behaviour unchanged. Unblocks the Polly package (#332).
+
 ### Changed
 
 ### Deprecated

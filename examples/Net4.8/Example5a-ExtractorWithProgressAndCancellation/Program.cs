@@ -31,7 +31,7 @@ internal class Program
         });
 
         // Set a cancellation token to cancel the extraction after 1 second
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
         var token = cts.Token;
 
         // Best practice is to only use one progress reporter per ETL process. Using multiple progress reporters

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Wolfgang.Etl.TestKit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;

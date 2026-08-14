@@ -2,7 +2,7 @@ using Wolfgang.Etl.Abstractions;
 
 namespace Example4c_WithLoaderProgress.ETL;
 
-internal class ConsoleLoader : ILoadAsync<string>, ILoadWithProgressAsync<string, EtlProgress>
+internal class ConsoleLoader : ILoadWithProgressAsync<string, EtlProgress>
 {
 
 

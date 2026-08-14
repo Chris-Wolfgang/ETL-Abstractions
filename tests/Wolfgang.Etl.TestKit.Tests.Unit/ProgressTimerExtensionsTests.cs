@@ -1,6 +1,5 @@
 using System;
 using Wolfgang.Etl.Abstractions;
-using Wolfgang.Etl.TestKit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;

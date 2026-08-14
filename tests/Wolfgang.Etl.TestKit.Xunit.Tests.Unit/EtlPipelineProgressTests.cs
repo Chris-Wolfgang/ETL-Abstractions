@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
-using Wolfgang.Etl.TestKit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Xunit.Tests.Unit;
@@ -29,7 +27,7 @@ public class EtlPipelineProgressTests
             .From(source)
             .To(sink)
             .RunAsync(capture)
-            .ConfigureAwait(false);
+            ;
 
         var final = capture.FinalReport;
         Assert.NotNull(final);
@@ -51,7 +49,7 @@ public class EtlPipelineProgressTests
             .To(sink)
             .DisposingOwned(owned)
             .RunAsync()
-            .ConfigureAwait(false);
+            ;
 
         Assert.True(owned.WasDisposed);
     }

@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Wolfgang.Etl.TestKit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
@@ -18,7 +17,7 @@ public class RetryingExtractorBranchesTests
             MaximumItemCount = 2,
         };
 
-        var items = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var items = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 2, 3 }, items);
     }
@@ -35,11 +34,11 @@ public class RetryingExtractorBranchesTests
         (
             async () =>
             {
-                await foreach (var _ in sut.ExtractAsync(token).ConfigureAwait(false))
+                await foreach (var _ in sut.ExtractAsync(token))
                 {
                 }
             }
-        ).ConfigureAwait(false);
+        );
 
         // Cancellation is not a retryable fault — only the single attempt ran.
         Assert.Equal(1, sut.AttemptCount);

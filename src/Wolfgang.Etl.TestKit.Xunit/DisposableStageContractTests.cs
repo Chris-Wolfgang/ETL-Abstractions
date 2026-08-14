@@ -138,6 +138,7 @@ public abstract class DisposableStageContractTests<TSut>
     {
         var sut = CreateSut();
         sut.Dispose();
+
         var secondDispose = Record.Exception(() => sut.Dispose());
 
         Assert.Null(secondDispose);
@@ -152,8 +153,11 @@ public abstract class DisposableStageContractTests<TSut>
     {
         var sut = CreateSut();
         await sut.DisposeAsync().ConfigureAwait(false);
-        var secondDisposeAsync = await Record.ExceptionAsync(async () => await sut.DisposeAsync().ConfigureAwait(false)).ConfigureAwait(false);
 
-        Assert.Null(secondDisposeAsync);
+        var secondDispose = await Record
+            .ExceptionAsync(async () => await sut.DisposeAsync().ConfigureAwait(false))
+            .ConfigureAwait(false);
+
+        Assert.Null(secondDispose);
     }
 }
