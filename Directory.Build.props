@@ -65,14 +65,17 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- A1: PublicApiAnalyzers — track public API surface for breaking-change
-         detection. AdditionalFiles below are opt-in PER PROJECT via Exists():
-         drop PublicAPI.Shipped.txt + PublicAPI.Unshipped.txt into a src
-         project directory and the analyzer activates for that project only.
-         Library projects under src/ should opt in; test / example /
-         benchmark projects should not. Per-repo enablement is tracked as a
-         follow-up maintenance issue. -->
+  <!-- A1: PublicApiAnalyzers — track public API surface for breaking-change
+       detection. Both the analyzer package AND its AdditionalFiles baseline are
+       gated on Exists('PublicAPI.Shipped.txt'), so the analyzer only runs in a
+       project that actually tracks a public-API baseline (the packable src
+       libraries). Without this gate the analyzer loads everywhere but finds no
+       baseline in test / example / benchmark projects, emitting RS0016 / RS0037
+       / RS0036 for every public symbol as (non-error) warnings — invisible in
+       the build but flooding the code-scanning dashboard. Gating the reference
+       is the correct fix: PublicAPI tracking does not apply to non-shipped
+       assemblies. -->
+  <ItemGroup Condition="Exists('PublicAPI.Shipped.txt')">
     <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
