@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -352,8 +353,8 @@ public class TestExtractorTests
     {
         var enumerator = new TrackingEnumerator<int>(new[] { 1, 2, 3 });
 
-        Assert.Same(enumerator, ((System.Collections.Generic.IEnumerable<int>)enumerator).GetEnumerator());
-        Assert.Same(enumerator, ((System.Collections.IEnumerable)enumerator).GetEnumerator());
+        Assert.Same(enumerator, ((IEnumerable<int>)enumerator).GetEnumerator());
+        Assert.Same(enumerator, ((IEnumerable)enumerator).GetEnumerator());
     }
 
     [Fact]
@@ -366,7 +367,7 @@ public class TestExtractorTests
         enumerator.MoveNext();
 
         Assert.Equal(1, enumerator.Current);
-        Assert.Equal(1, ((System.Collections.IEnumerator)enumerator).Current);
+        Assert.Equal(1, ((IEnumerator)enumerator).Current);
     }
 
 
@@ -910,10 +911,10 @@ public class TestExtractorTests
         // Returns this so TestExtractor disposes the TrackingEnumerator itself,
         // not a compiler-generated wrapper, enabling the ownership tests above.
         public IEnumerator<T> GetEnumerator() => this;
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this;
+        IEnumerator IEnumerable.GetEnumerator() => this;
 
         public T Current => _inner.Current;
-        object? System.Collections.IEnumerator.Current => ((System.Collections.IEnumerator)_inner).Current;
+        object? IEnumerator.Current => ((IEnumerator)_inner).Current;
         public bool MoveNext() => _inner.MoveNext();
         public void Reset() => _inner.Reset();
 

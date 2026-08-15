@@ -8,7 +8,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 
 /// <summary>
 /// Abstract base class providing opt-in xUnit idempotency contract tests for any type that
-/// implements <see cref="ITransformAsync{TSource, TDestination}"/>.
+/// implements <see cref="ITransformAsync{TSource,TDestination}"/>.
 /// </summary>
 /// <typeparam name="TSut">
 /// The type under test. Must implement <see cref="ITransformAsync{TSource, TDestination}"/>.

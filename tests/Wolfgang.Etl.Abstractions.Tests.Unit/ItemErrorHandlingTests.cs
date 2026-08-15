@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
@@ -477,7 +478,7 @@ public sealed class ItemErrorHandlingTests
 
         public int OnItemErrorCallCount { get; private set; }
 
-        public System.DateTimeOffset? StartedAtForTest => StartedAt;
+        public DateTimeOffset? StartedAtForTest => StartedAt;
 
         public ItemErrorAction Handle(ItemErrorContext context) => HandleItemError(context);
 
@@ -540,7 +541,7 @@ public sealed class ItemErrorHandlingTests
                 int value;
                 try
                 {
-                    value = int.Parse(line, System.Globalization.CultureInfo.InvariantCulture);
+                    value = int.Parse(line, CultureInfo.InvariantCulture);
                 }
                 catch (FormatException ex)
                 {
@@ -599,7 +600,7 @@ public sealed class ItemErrorHandlingTests
 
         protected override ItemErrorAction OnItemError(ItemErrorContext context) => Policy;
 
-        public System.DateTimeOffset? StartedAtForTest => StartedAt;
+        public DateTimeOffset? StartedAtForTest => StartedAt;
 
         protected override async Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
         {
@@ -652,7 +653,7 @@ public sealed class ItemErrorHandlingTests
 
         protected override ItemErrorAction OnItemError(ItemErrorContext context) => Policy;
 
-        public System.DateTimeOffset? StartedAtForTest => StartedAt;
+        public DateTimeOffset? StartedAtForTest => StartedAt;
 
         protected override async IAsyncEnumerable<int> TransformWorkerAsync(
             IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)

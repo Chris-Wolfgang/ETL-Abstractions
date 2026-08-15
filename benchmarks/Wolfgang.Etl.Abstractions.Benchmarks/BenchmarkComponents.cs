@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Wolfgang.Etl.Abstractions;
 
 namespace Wolfgang.Etl.Abstractions.Benchmarks;
 
@@ -156,6 +155,7 @@ internal sealed class SinkLoader : ILoadAsync<int>
     {
         await foreach (var _ in items)
         {
+            // Drain the stream — the benchmark measures throughput, not per-item work.
         }
     }
 }

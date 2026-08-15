@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
-using Wolfgang.Etl.Abstractions;
 
 namespace Wolfgang.Etl.Abstractions.Benchmarks;
 
