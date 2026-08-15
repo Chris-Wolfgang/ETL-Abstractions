@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.22.0/apiSpec/new?filename=Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.23.0/apiSpec/new?filename=Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy" class="text-break">
-Class ItemErrorPolicy  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L24"><i class="bi bi-code-slash"></i></a>
+Class ItemErrorPolicy  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.23.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -156,7 +156,7 @@ and therefore the memory a bad feed can consume — stays under the caller's con
 
   <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Abort" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Abort">
   Abort
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.23.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>A policy that re-throws the failure and stops the run. Equivalent to leaving a stage's
@@ -189,7 +189,7 @@ and therefore the memory a bad feed can consume — stays under the caller's con
 
   <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_Skip" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.Skip">
   Skip
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.23.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>A policy that discards the failed item and continues with the next one. The stage increments
@@ -226,7 +226,7 @@ its error-item count (<code>CurrentErrorItemCount</code>) so the skip is never s
 
   <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_System_Collections_Generic_ICollection_Wolfgang_Etl_Abstractions_ItemErrorContext__" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Collections.Generic.ICollection{Wolfgang.Etl.Abstractions.ItemErrorContext})">
   SkipAndDeadLetter(ICollection&lt;ItemErrorContext&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.23.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L78"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Records the failure in <code class="paramref">deadLetters</code> (a &quot;dead-letter&quot; queue the caller owns),
@@ -278,7 +278,7 @@ adds to the collection without locking.</p>
 
   <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndDeadLetter_System_Threading_Channels_ChannelWriter_Wolfgang_Etl_Abstractions_ItemErrorContext__" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndDeadLetter(System.Threading.Channels.ChannelWriter{Wolfgang.Etl.Abstractions.ItemErrorContext})">
   SkipAndDeadLetter(ChannelWriter&lt;ItemErrorContext&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.23.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L103"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Writes the failure to <code class="paramref">deadLetters</code> (a caller-owned channel) with
@@ -326,7 +326,7 @@ drops the failure — size the channel, or use <a class="xref" href="https://lea
 
   <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipAndLog_Microsoft_Extensions_Logging_ILogger_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipAndLog(Microsoft.Extensions.Logging.ILogger)">
   SkipAndLog(ILogger)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.23.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Logs the failure as a warning through <code class="paramref">logger</code>, then discards the item and
@@ -372,7 +372,7 @@ continues.</p>
 
   <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_System_Collections_Generic_ICollection_Wolfgang_Etl_Abstractions_ItemErrorContext__Microsoft_Extensions_Logging_ILogger_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Collections.Generic.ICollection{Wolfgang.Etl.Abstractions.ItemErrorContext},Microsoft.Extensions.Logging.ILogger)">
   SkipDeadLetterAndLog(ICollection&lt;ItemErrorContext&gt;, ILogger)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L135"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.23.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L135"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Records the failure in <code class="paramref">deadLetters</code> and logs it as a warning through
@@ -427,7 +427,7 @@ the policy adds to the collection without locking.</p>
 
   <h3 id="Wolfgang_Etl_ErrorPolicies_ItemErrorPolicy_SkipDeadLetterAndLog_System_Threading_Channels_ChannelWriter_Wolfgang_Etl_Abstractions_ItemErrorContext__Microsoft_Extensions_Logging_ILogger_" data-uid="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.SkipDeadLetterAndLog(System.Threading.Channels.ChannelWriter{Wolfgang.Etl.Abstractions.ItemErrorContext},Microsoft.Extensions.Logging.ILogger)">
   SkipDeadLetterAndLog(ChannelWriter&lt;ItemErrorContext&gt;, ILogger)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L175"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.23.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L175"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Writes the failure to <code class="paramref">deadLetters</code> with
@@ -480,7 +480,7 @@ this policy logs a distinct warning so the lost failure record is never silent.<
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.22.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L24" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.23.0/src/Wolfgang.Etl.ErrorPolicies/ItemErrorPolicy.cs/#L24" class="edit-link">Edit this page</a>
         </div>
 
 

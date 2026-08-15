@@ -550,6 +550,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).StartedAt
   nameWithType: ExtractorBase<TSource, TProgress>.StartedAt
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).StartedAt
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.WorkerResilience
+  name: WorkerResilience
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_WorkerResilience
+  commentId: P:Wolfgang.Etl.Abstractions.ExtractorBase`2.WorkerResilience
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WorkerResilience
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).WorkerResilience
+  nameWithType: ExtractorBase<TSource, TProgress>.WorkerResilience
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).WorkerResilience
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.WorkerResilience*
+  name: WorkerResilience
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_WorkerResilience_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.WorkerResilience
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WorkerResilience
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).WorkerResilience
+  nameWithType: ExtractorBase<TSource, TProgress>.WorkerResilience
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).WorkerResilience
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{`0}},System.Threading.CancellationToken)
   name: WrapWorkerExecution(Func<CancellationToken, IAsyncEnumerable<TSource>>, CancellationToken)
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable__0___System_Threading_CancellationToken_
@@ -1931,6 +1948,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).StartedAt
   nameWithType: LoaderBase<TDestination, TProgress>.StartedAt
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).StartedAt
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.WorkerResilience
+  name: WorkerResilience
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_WorkerResilience
+  commentId: P:Wolfgang.Etl.Abstractions.LoaderBase`2.WorkerResilience
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WorkerResilience
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).WorkerResilience
+  nameWithType: LoaderBase<TDestination, TProgress>.WorkerResilience
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).WorkerResilience
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.WorkerResilience*
+  name: WorkerResilience
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_WorkerResilience_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.WorkerResilience
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WorkerResilience
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).WorkerResilience
+  nameWithType: LoaderBase<TDestination, TProgress>.WorkerResilience
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).WorkerResilience
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task},System.Threading.CancellationToken)
   name: WrapWorkerExecution(Func<CancellationToken, Task>, CancellationToken)
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Threading_Tasks_Task__System_Threading_CancellationToken_
@@ -2714,6 +2748,23 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).TransformWorkerAsync
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.TransformWorkerAsync
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).TransformWorkerAsync
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.WorkerResilience
+  name: WorkerResilience
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_WorkerResilience
+  commentId: P:Wolfgang.Etl.Abstractions.TransformerBase`3.WorkerResilience
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.WorkerResilience
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).WorkerResilience
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.WorkerResilience
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).WorkerResilience
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.WorkerResilience*
+  name: WorkerResilience
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_WorkerResilience_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.WorkerResilience
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.WorkerResilience
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).WorkerResilience
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.WorkerResilience
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).WorkerResilience
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{`1}},System.Threading.CancellationToken)
   name: WrapWorkerExecution(Func<CancellationToken, IAsyncEnumerable<TDestination>>, CancellationToken)
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable__1___System_Threading_CancellationToken_

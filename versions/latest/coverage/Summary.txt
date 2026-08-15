@@ -1,25 +1,26 @@
 Summary
-  Generated on: 8/13/2026 - 1:58:50 PM
-  Coverage date: 8/13/2026 - 1:58:27 PM - 8/13/2026 - 1:58:38 PM
+  Generated on: 8/15/2026 - 7:40:38 PM
+  Coverage date: 8/15/2026 - 7:40:15 PM - 8/15/2026 - 7:40:26 PM
   Parser: MultiReport (5x Cobertura)
   Assemblies: 4
-  Classes: 79
-  Files: 79
+  Classes: 80
+  Files: 80
   Line coverage: 98.9%
-  Covered lines: 3465
+  Covered lines: 3478
   Uncovered lines: 37
-  Coverable lines: 3502
-  Total lines: 15401
-  Branch coverage: 82.8% (887 of 1070)
-  Covered branches: 887
-  Total branches: 1070
-  Method coverage: 98.8% (699 of 707)
-  Full method coverage: 94.4% (668 of 707)
-  Covered methods: 699
-  Fully covered methods: 668
-  Total methods: 707
+  Coverable lines: 3515
+  Total lines: 15510
+  Branch coverage: 83% (899 of 1082)
+  Covered branches: 899
+  Total branches: 1082
+  Method coverage: 98.8% (705 of 713)
+  Full method coverage: 94.5% (674 of 713)
+  Covered methods: 705
+  Fully covered methods: 674
+  Total methods: 713
 
 Wolfgang.Etl.Abstractions                                                                         99.8%
+  Wolfgang.Etl.Abstractions.DefaultItemErrorPolicy                                                 100%
   Wolfgang.Etl.Abstractions.EtlPipeline                                                            100%
   Wolfgang.Etl.Abstractions.EtlPipelineImpl<T>                                                     100%
   Wolfgang.Etl.Abstractions.EtlPipelineProgress                                                    100%
@@ -62,7 +63,7 @@ Wolfgang.Etl.TestKit                                                            
   Wolfgang.Etl.TestKit.ManualTimeSource                                                            100%
   Wolfgang.Etl.TestKit.ProgressTimerExtensions                                                     100%
   Wolfgang.Etl.TestKit.RecordingMiddleware<T>                                                      100%
-  Wolfgang.Etl.TestKit.RetryingExtractor<T>                                                         96%
+  Wolfgang.Etl.TestKit.RetryingExtractor<T>                                                       96.1%
   Wolfgang.Etl.TestKit.SnapshotTestLoader<T>                                                        95%
   Wolfgang.Etl.TestKit.TestExtractor<T>                                                            100%
   Wolfgang.Etl.TestKit.TestLoader<T>                                                               100%
