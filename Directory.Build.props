@@ -96,7 +96,7 @@
     <!-- Single source of truth for the package version. All four packages are lockstep-versioned
          with the repository; bump this one value per release. (Per-csproj <Version> is intentionally
          absent so the versions can never drift out of sync.) -->
-    <Version>0.22.0</Version>
+    <Version>0.23.0</Version>
     <!-- AssemblyVersion is pinned to a fixed binding-stability baseline so consumers do not need to
          recompile / add binding redirects on every minor/patch bump — bump only on a deliberate
          breaking API change. FileVersion (and the auto-derived InformationalVersion) carry the actual
