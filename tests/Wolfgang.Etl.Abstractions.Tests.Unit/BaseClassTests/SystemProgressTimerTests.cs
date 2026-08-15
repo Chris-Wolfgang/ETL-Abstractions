@@ -97,12 +97,10 @@ public class SystemProgressTimerTests
     public async Task Timer_callback_fires_during_extraction()
     {
         var elapsedCount = 0;
-        IProgressTimer? capturedTimer = null;
 
         var sut = new CapturingExtractor(
             onTimerCreated: t =>
             {
-                capturedTimer = t;
                 t.Elapsed += () => Interlocked.Increment(ref elapsedCount);
             },
             intervalMs: 30,

@@ -70,7 +70,7 @@ public class NullGuardOnChainedStagesTests
     {
         Assert.Throws<ArgumentNullException>
         (
-            () => MidChainStage().Load((ILoadWithCancellationAsync<int>)null!)
+            () => MidChainStage().Load(null!)
         );
     }
 

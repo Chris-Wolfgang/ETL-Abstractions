@@ -757,7 +757,7 @@ public class TestExtractorTests
     {
         var ex = Assert.Throws<ArgumentNullException>
         (
-            () => new TestExtractorWithTimer((Func<int, int>)(i => i), null!)
+            () => new TestExtractorWithTimer(i => i, null!)
         );
 
         Assert.Equal("timer", ex.ParamName);
@@ -785,7 +785,7 @@ public class TestExtractorTests
         using var timer = new ManualProgressTimer();
         var ex = Assert.Throws<ArgumentOutOfRangeException>
         (
-            () => new TestExtractorWithTimer((Func<int, int>)(i => i), -1, timer)
+            () => new TestExtractorWithTimer(i => i, -1, timer)
         );
 
         Assert.Equal("count", ex.ParamName);
@@ -798,7 +798,7 @@ public class TestExtractorTests
     {
         var ex = Assert.Throws<ArgumentNullException>
         (
-            () => new TestExtractorWithTimer((Func<int, int>)(i => i), 3, null!)
+            () => new TestExtractorWithTimer(i => i, 3, null!)
         );
 
         Assert.Equal("timer", ex.ParamName);

@@ -28,7 +28,7 @@ public class DelayingExtractorTests
     {
         Assert.Throws<ArgumentNullException>
         (
-            () => new DelayingExtractor<int>(new[] { 1 }, (Func<int, TimeSpan>)null!)
+            () => new DelayingExtractor<int>(new[] { 1 }, null!)
         );
     }
 

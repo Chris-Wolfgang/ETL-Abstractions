@@ -228,7 +228,7 @@ public sealed class DocExampleCompilationTests
         var tree = CSharpSyntaxTree.ParseText
         (
             source,
-            new CSharpParseOptions(LanguageVersion.Latest, DocumentationMode.Parse)
+            new CSharpParseOptions(LanguageVersion.Latest)
         );
 
         var docComments = tree.GetRoot()

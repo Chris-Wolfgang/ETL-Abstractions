@@ -213,7 +213,7 @@ public abstract class LoadWithProgressAndCancellationAsyncContractTests<TSut, TI
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>
         (
-            () => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!)
+            () => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), null!)
         ).ConfigureAwait(false);
 
         Assert.Equal("progress", ex.ParamName);
@@ -292,7 +292,7 @@ public abstract class LoadWithProgressAndCancellationAsyncContractTests<TSut, TI
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>
         (
-            () => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!, CancellationToken.None)
+            () => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), null!, CancellationToken.None)
         ).ConfigureAwait(false);
 
         Assert.Equal("progress", ex.ParamName);

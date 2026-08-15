@@ -113,7 +113,7 @@ public class PipelineBehaviorTests
     public void CancelOnly_Load_when_loader_is_null_throws()
     {
         var stage = Pipeline.Extract(new BareExtractor<int>(new[] { 1 }));
-        Assert.Throws<ArgumentNullException>(() => stage.Load((ILoadWithCancellationAsync<int>)null!));
+        Assert.Throws<ArgumentNullException>(() => stage.Load(null!));
     }
 
 

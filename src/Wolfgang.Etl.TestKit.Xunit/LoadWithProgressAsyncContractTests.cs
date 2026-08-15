@@ -76,7 +76,7 @@ public abstract class LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>
         (
-            () => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!)
+            () => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), null!)
         ).ConfigureAwait(false);
 
         Assert.Equal("progress", ex.ParamName);

@@ -219,7 +219,7 @@ public class AggregateErrorsTests
 
         protected override async Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
         {
-            await foreach (var item in items.WithCancellation(token))
+            await foreach (var _ in items.WithCancellation(token))
             {
                 IncrementCurrentItemCount();
             }
