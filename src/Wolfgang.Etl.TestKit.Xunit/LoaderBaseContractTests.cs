@@ -945,6 +945,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         }
         catch (OperationCanceledException)
         {
+            // Expected: cancellation is the scenario under test; the assertion below verifies the pull count.
         }
 
         Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");

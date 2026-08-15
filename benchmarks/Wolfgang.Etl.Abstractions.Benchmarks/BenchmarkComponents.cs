@@ -155,6 +155,7 @@ internal sealed class SinkLoader : ILoadAsync<int>
     {
         await foreach (var _ in items)
         {
+            // Drain the stream — the benchmark measures throughput, not per-item work.
         }
     }
 }
