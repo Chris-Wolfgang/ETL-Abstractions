@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Wolfgang.Etl.TestKit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
@@ -55,7 +54,7 @@ public class RetryingExtractorTests
     {
         var sut = new RetryingExtractor<int>(new[] { 1, 2, 3 }, failFirstAttempts: 0, maxAttempts: 5);
 
-        var items = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var items = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 1, 2, 3 }, items);
         Assert.Equal(1, sut.AttemptCount);
@@ -68,7 +67,7 @@ public class RetryingExtractorTests
     {
         var sut = new RetryingExtractor<int>(new[] { 1, 2, 3 }, failFirstAttempts: 2, maxAttempts: 5);
 
-        var items = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var items = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
         Assert.Equal(new[] { 1, 2, 3 }, items);
         Assert.Equal(3, sut.AttemptCount);
@@ -85,11 +84,11 @@ public class RetryingExtractorTests
         (
             async () =>
             {
-                await foreach (var _ in sut.ExtractAsync(CancellationToken.None).ConfigureAwait(false))
+                await foreach (var _ in sut.ExtractAsync(CancellationToken.None))
                 {
                 }
             }
-        ).ConfigureAwait(false);
+        );
 
         Assert.Equal(3, sut.AttemptCount);
     }

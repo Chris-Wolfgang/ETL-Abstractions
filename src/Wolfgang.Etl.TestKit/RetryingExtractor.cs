@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Threading;
@@ -152,10 +151,10 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
     /// <param name="token">A token to observe.</param>
     /// <returns>The retried stream of extracted items.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="workerFactory"/> is <see langword="null"/>.</exception>
-    protected override async IAsyncEnumerable<T> WrapWorkerExecution
+    protected override IAsyncEnumerable<T> WrapWorkerExecution
     (
         Func<CancellationToken, IAsyncEnumerable<T>> workerFactory,
-        [EnumeratorCancellation] CancellationToken token
+        CancellationToken token
     )
     {
         if (workerFactory is null)
@@ -163,6 +162,19 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
             throw new ArgumentNullException(nameof(workerFactory));
         }
 
+        // Split so the null check runs eagerly at call time rather than being
+        // deferred to the first MoveNextAsync of the iterator (S4456).
+        return WrapWorkerExecutionCore(workerFactory, token);
+    }
+
+
+
+    private async IAsyncEnumerable<T> WrapWorkerExecutionCore
+    (
+        Func<CancellationToken, IAsyncEnumerable<T>> workerFactory,
+        [EnumeratorCancellation] CancellationToken token
+    )
+    {
         for (var attempt = 1; ; attempt++)
         {
             var buffer  = new List<T>();

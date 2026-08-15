@@ -2,8 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
-using Wolfgang.Etl.TestKit;
-using Wolfgang.Etl.TestKit.Xunit;
 using Xunit;
 using Xunit.Sdk;
 
@@ -355,7 +353,7 @@ public class ProgressAssertTests
         var extractor = new TestExtractor<int>(items);
         var capture = new ProgressCapture<Report>();
 
-        var extracted = await extractor.ExtractAsync(capture).ToListAsync().ConfigureAwait(false);
+        var extracted = await extractor.ExtractAsync(capture).ToListAsync();
 
         Assert.Equal(items, extracted);
         ProgressAssert.HasReports(capture);

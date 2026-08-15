@@ -4,14 +4,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
-using Wolfgang.Etl.TestKit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Xunit;
 
 /// <summary>
 /// Abstract base class providing xUnit contract tests for any type that inherits
-/// from <see cref="LoaderBase{TDestination, TProgress}"/>.
+/// from <see cref="LoaderBase{TDestination,TProgress}"/>.
 /// </summary>
 /// <typeparam name="TSut">
 /// The type under test. Must inherit from
@@ -946,6 +945,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         }
         catch (OperationCanceledException)
         {
+            // Expected: cancellation is the scenario under test; the assertion below verifies the pull count.
         }
 
         Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");

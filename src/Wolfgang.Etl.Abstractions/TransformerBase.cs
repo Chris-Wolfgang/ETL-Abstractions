@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-
-
 
 namespace Wolfgang.Etl.Abstractions;
 
@@ -318,7 +315,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
     // Test seam: when set, CreateProgressTimer builds its SystemProgressTimer over this timer core
     // (a deterministic fake) instead of a real System.Threading.Timer.
-    internal Func<System.Threading.TimerCallback, ITimerCore>? TimerCoreFactory;
+    internal Func<TimerCallback, ITimerCore>? TimerCoreFactory;
 
 
 
@@ -423,7 +420,37 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
             throw new ArgumentNullException(nameof(workerFactory));
         }
 
-        return workerFactory(token);
+        return WorkerResilience(workerFactory, token);
+    }
+
+
+
+    private readonly Func<Func<CancellationToken, IAsyncEnumerable<TDestination>>, CancellationToken, IAsyncEnumerable<TDestination>> _workerResilience =
+        static (workerFactory, token) => workerFactory(token);
+
+
+
+    /// <summary>
+    /// Gets a resilience wrapper applied around the worker's execution — for example a retry /
+    /// circuit-breaker / timeout strategy. The default is a no-op passthrough (the worker runs once), so
+    /// behaviour is unchanged until a wrapper is assigned. Assign one — e.g. from a ready-made
+    /// <c>Wolfgang.Etl.*</c> resilience package — to run the worker through a resilience pipeline without
+    /// subclassing; the default <see cref="WrapWorkerExecution"/> consults it. The wrapper receives a
+    /// re-invocable worker factory (call it again to retry) and the run's <see cref="CancellationToken"/>,
+    /// and returns the (possibly resilience-wrapped) item stream.
+    /// </summary>
+    /// <remarks>
+    /// Assigned once, at construction (init-only); it cannot change during a run. This is
+    /// <b>stream-level</b> resilience: the wrapper spans the whole worker, so a retry re-runs the entire
+    /// transformation — per-item transient-fault retry belongs inside the worker. Overriding
+    /// <see cref="WrapWorkerExecution"/> is still available for stage-internal logic and takes precedence
+    /// over this property unless the override calls <c>base</c>.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">The assigned value is <see langword="null"/>.</exception>
+    public Func<Func<CancellationToken, IAsyncEnumerable<TDestination>>, CancellationToken, IAsyncEnumerable<TDestination>> WorkerResilience
+    {
+        get => _workerResilience;
+        init => _workerResilience = value ?? throw new ArgumentNullException(nameof(value));
     }
 
 
@@ -485,10 +512,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
 
 
-    private static readonly Func<ItemErrorContext, ItemErrorAction> AbortPolicy =
-        static _ => ItemErrorAction.Abort;
-
-    private readonly Func<ItemErrorContext, ItemErrorAction> _errorPolicy = AbortPolicy;
+    private readonly Func<ItemErrorContext, ItemErrorAction> _errorPolicy = DefaultItemErrorPolicy.Abort;
 
 
 

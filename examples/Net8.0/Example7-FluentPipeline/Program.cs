@@ -3,7 +3,7 @@ using Wolfgang.Etl.Abstractions;
 
 namespace Example7_FluentPipeline;
 
-internal class Program
+internal static class Program
 {
     private static async Task Main()
     {

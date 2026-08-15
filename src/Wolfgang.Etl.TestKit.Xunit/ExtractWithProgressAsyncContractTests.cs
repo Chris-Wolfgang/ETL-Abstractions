@@ -9,7 +9,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 
 /// <summary>
 /// Abstract base class providing xUnit contract tests for any type that implements
-/// <see cref="IExtractWithProgressAsync{TSource, TProgress}"/>.
+/// <see cref="IExtractWithProgressAsync{TSource,TProgress}"/>.
 /// </summary>
 /// <typeparam name="TSut">
 /// The type under test. Must implement

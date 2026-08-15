@@ -7,7 +7,7 @@ using Wolfgang.Etl.Abstractions;
 namespace Example4b_WithTransformerProgress.ETL;
 
 internal class IntToStringTransformer
-    : ITransformAsync<int, string>, ITransformWithProgressAsync<int, string, EtlProgress>
+    : ITransformWithProgressAsync<int, string, EtlProgress>
 {
 
     private int _progressInterval = 1_000;

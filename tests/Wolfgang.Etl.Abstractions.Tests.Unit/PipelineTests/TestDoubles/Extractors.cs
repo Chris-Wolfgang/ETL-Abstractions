@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using Wolfgang.Etl.Abstractions;
+
+using System.Runtime.CompilerServices;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles;
 
@@ -28,7 +26,7 @@ internal sealed class BareExtractor<T> : IExtractAsync<T>
         foreach (var item in _items)
         {
             yield return item;
-            await System.Threading.Tasks.Task.Yield();
+            await Task.Yield();
         }
     }
 }
@@ -61,7 +59,7 @@ internal sealed class CancelOnlyExtractor<T> : IExtractWithCancellationAsync<T>
 
     public async IAsyncEnumerable<T> ExtractAsync
     (
-        [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken token
+        [EnumeratorCancellation] CancellationToken token
     )
     {
         TokenOverloadWasCalled = true;
@@ -70,7 +68,7 @@ internal sealed class CancelOnlyExtractor<T> : IExtractWithCancellationAsync<T>
         {
             token.ThrowIfCancellationRequested();
             yield return item;
-            await System.Threading.Tasks.Task.Yield();
+            await Task.Yield();
         }
     }
 }
@@ -105,7 +103,7 @@ internal sealed class ProgressOnlyExtractor<T, TProgress> : IExtractWithProgress
         foreach (var item in _items)
         {
             yield return item;
-            await System.Threading.Tasks.Task.Yield();
+            await Task.Yield();
         }
     }
 
@@ -123,7 +121,7 @@ internal sealed class ProgressOnlyExtractor<T, TProgress> : IExtractWithProgress
         {
             progress.Report(_reportValue);
             yield return item;
-            await System.Threading.Tasks.Task.Yield();
+            await Task.Yield();
         }
     }
 }
@@ -162,14 +160,14 @@ internal sealed class FullExtractor<T, TProgress> : IExtractWithProgressAndCance
         foreach (var item in _items)
         {
             yield return item;
-            await System.Threading.Tasks.Task.Yield();
+            await Task.Yield();
         }
     }
 
 
     public async IAsyncEnumerable<T> ExtractAsync
     (
-        [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken token
+        [EnumeratorCancellation] CancellationToken token
     )
     {
         TokenOnlyOverloadWasCalled = true;
@@ -178,7 +176,7 @@ internal sealed class FullExtractor<T, TProgress> : IExtractWithProgressAndCance
         {
             token.ThrowIfCancellationRequested();
             yield return item;
-            await System.Threading.Tasks.Task.Yield();
+            await Task.Yield();
         }
     }
 
@@ -196,7 +194,7 @@ internal sealed class FullExtractor<T, TProgress> : IExtractWithProgressAndCance
         {
             progress.Report(_reportValue);
             yield return item;
-            await System.Threading.Tasks.Task.Yield();
+            await Task.Yield();
         }
     }
 
@@ -204,7 +202,7 @@ internal sealed class FullExtractor<T, TProgress> : IExtractWithProgressAndCance
     public async IAsyncEnumerable<T> ExtractAsync
     (
         IProgress<TProgress> progress,
-        [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken token
+        [EnumeratorCancellation] CancellationToken token
     )
     {
         if (progress is null)
@@ -220,7 +218,7 @@ internal sealed class FullExtractor<T, TProgress> : IExtractWithProgressAndCance
             token.ThrowIfCancellationRequested();
             progress.Report(_reportValue);
             yield return item;
-            await System.Threading.Tasks.Task.Yield();
+            await Task.Yield();
         }
     }
 }

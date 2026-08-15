@@ -2,10 +2,7 @@
 // suite compiles on net48+ / netcoreapp3.1+ / net5.0+ but not net462/net472. The
 // allocation behaviour under test is TFM-agnostic, so the modern targets cover it.
 #if !NET462 && !NET472
-using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.Performance;
 
