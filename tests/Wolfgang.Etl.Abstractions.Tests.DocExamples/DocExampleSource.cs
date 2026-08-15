@@ -91,7 +91,7 @@ public static class DocExampleSource
 
     private static IEnumerable<DocExample> ExtractFromFile(string file, string relative)
     {
-        var lines = System.IO.File.ReadAllLines(file);
+        var lines = File.ReadAllLines(file);
 
         var inExample = false;
         var inCode = false;
@@ -186,7 +186,7 @@ public static class DocExampleSource
         {
             var candidate = Path.Combine(directory.FullName, "src", "Wolfgang.Etl.Abstractions");
             if (Directory.Exists(candidate)
-                && System.IO.File.Exists(Path.Combine(candidate, "Wolfgang.Etl.Abstractions.csproj")))
+                && File.Exists(Path.Combine(candidate, "Wolfgang.Etl.Abstractions.csproj")))
             {
                 return candidate;
             }

@@ -5,8 +5,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-
-
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
@@ -317,7 +315,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
     // Test seam: when set, CreateProgressTimer builds its SystemProgressTimer over this timer core
     // (a deterministic fake) instead of a real System.Threading.Timer.
-    internal Func<System.Threading.TimerCallback, ITimerCore>? TimerCoreFactory;
+    internal Func<TimerCallback, ITimerCore>? TimerCoreFactory;
 
 
 

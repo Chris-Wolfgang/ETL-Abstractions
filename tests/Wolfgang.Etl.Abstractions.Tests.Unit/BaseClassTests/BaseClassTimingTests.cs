@@ -24,9 +24,9 @@ public class BaseClassTimingTests
 
 
 
-        public System.DateTimeOffset? StartedAtForTest => StartedAt;
+        public DateTimeOffset? StartedAtForTest => StartedAt;
 
-        public System.TimeSpan ElapsedForTest => Elapsed;
+        public TimeSpan ElapsedForTest => Elapsed;
 
 
 
@@ -60,7 +60,7 @@ public class BaseClassTimingTests
         var sut = new TimedExtractor(3);
 
         Assert.Null(sut.StartedAtForTest);
-        Assert.Equal(System.TimeSpan.Zero, sut.ElapsedForTest);
+        Assert.Equal(TimeSpan.Zero, sut.ElapsedForTest);
     }
 
 
@@ -75,7 +75,7 @@ public class BaseClassTimingTests
         }
 
         Assert.NotNull(sut.StartedAtForTest);
-        Assert.True(sut.ElapsedForTest >= System.TimeSpan.Zero);
+        Assert.True(sut.ElapsedForTest >= TimeSpan.Zero);
     }
 
 
@@ -93,9 +93,9 @@ public class BaseClassTimingTests
 
     private sealed class TimedLoader : LoaderBase<int, EtlProgress>
     {
-        public System.DateTimeOffset? StartedAtForTest => StartedAt;
+        public DateTimeOffset? StartedAtForTest => StartedAt;
 
-        public System.TimeSpan ElapsedForTest => Elapsed;
+        public TimeSpan ElapsedForTest => Elapsed;
 
         protected override async Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
         {
@@ -111,9 +111,9 @@ public class BaseClassTimingTests
 
     private sealed class TimedTransformer : TransformerBase<int, int, EtlProgress>
     {
-        public System.DateTimeOffset? StartedAtForTest => StartedAt;
+        public DateTimeOffset? StartedAtForTest => StartedAt;
 
-        public System.TimeSpan ElapsedForTest => Elapsed;
+        public TimeSpan ElapsedForTest => Elapsed;
 
         protected override async IAsyncEnumerable<int> TransformWorkerAsync(IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)
         {
@@ -134,7 +134,7 @@ public class BaseClassTimingTests
         var sut = new TimedLoader();
 
         Assert.Null(sut.StartedAtForTest);
-        Assert.Equal(System.TimeSpan.Zero, sut.ElapsedForTest);
+        Assert.Equal(TimeSpan.Zero, sut.ElapsedForTest);
     }
 
 
@@ -146,7 +146,7 @@ public class BaseClassTimingTests
         await sut.LoadAsync(Range(5));
 
         Assert.NotNull(sut.StartedAtForTest);
-        Assert.True(sut.ElapsedForTest >= System.TimeSpan.Zero);
+        Assert.True(sut.ElapsedForTest >= TimeSpan.Zero);
     }
 
 
@@ -156,7 +156,7 @@ public class BaseClassTimingTests
         var sut = new TimedTransformer();
 
         Assert.Null(sut.StartedAtForTest);
-        Assert.Equal(System.TimeSpan.Zero, sut.ElapsedForTest);
+        Assert.Equal(TimeSpan.Zero, sut.ElapsedForTest);
     }
 
 
@@ -170,6 +170,6 @@ public class BaseClassTimingTests
         }
 
         Assert.NotNull(sut.StartedAtForTest);
-        Assert.True(sut.ElapsedForTest >= System.TimeSpan.Zero);
+        Assert.True(sut.ElapsedForTest >= TimeSpan.Zero);
     }
 }
