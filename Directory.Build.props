@@ -20,6 +20,12 @@
     
     <!-- Treat warnings as errors in Release builds -->
     <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+
+    <!-- Reproducible, hash-pinned NuGet restore (OSSF Scorecard: "nugetCommand not pinned by hash").
+         packages.lock.json is committed per project; CI restores in locked mode so a drifted
+         lockfile fails the build rather than silently resolving different package versions. -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition="'$(CI)' == 'true'">true</RestoreLockedMode>
   </PropertyGroup>
 
   <ItemGroup>
