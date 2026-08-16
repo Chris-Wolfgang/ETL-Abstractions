@@ -54,7 +54,8 @@ jobs:
           python-version: '3.13'
 
       - name: Install zizmor
-        run: pip install zizmor==1.26.1
+        # Hash-pinned install (OSSF Scorecard Pinned-Dependencies: pip not pinned by hash).
+        run: pip install --require-hashes -r .github/zizmor-requirements.txt
 
       - name: Run zizmor
         # --format=github emits inline PR annotations; a high-severity finding
