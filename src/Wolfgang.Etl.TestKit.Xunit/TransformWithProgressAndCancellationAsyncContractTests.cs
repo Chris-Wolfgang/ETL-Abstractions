@@ -205,7 +205,7 @@ public abstract class TransformWithProgressAndCancellationAsyncContractTests<TSu
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!);
+            _ = sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), null!);
         });
 
         Assert.Equal("progress", ex.ParamName);
@@ -282,7 +282,7 @@ public abstract class TransformWithProgressAndCancellationAsyncContractTests<TSu
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!, CancellationToken.None);
+            _ = sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), null!, CancellationToken.None);
         });
 
         Assert.Equal("progress", ex.ParamName);

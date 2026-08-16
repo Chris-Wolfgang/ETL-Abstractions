@@ -164,7 +164,7 @@ public class ClockSeamTests
 
         protected override async Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
         {
-            await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
+            await foreach (var _ in items.WithCancellation(token).ConfigureAwait(false))
             {
                 IncrementCurrentItemCount();
             }

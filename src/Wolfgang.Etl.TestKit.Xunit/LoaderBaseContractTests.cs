@@ -143,7 +143,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-            sut.LoadAsync((IAsyncEnumerable<TItem>)null!)).ConfigureAwait(false);
+            sut.LoadAsync(null!)).ConfigureAwait(false);
 
         Assert.Equal("items", ex.ParamName);
     }
@@ -217,7 +217,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-            sut.LoadAsync((IAsyncEnumerable<TItem>)null!, CancellationToken.None)).ConfigureAwait(false);
+            sut.LoadAsync(null!, CancellationToken.None)).ConfigureAwait(false);
 
         Assert.Equal("items", ex.ParamName);
     }
@@ -338,7 +338,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-            sut.LoadAsync((IAsyncEnumerable<TItem>)null!, progress)).ConfigureAwait(false);
+            sut.LoadAsync(null!, progress)).ConfigureAwait(false);
 
         Assert.Equal("items", ex.ParamName);
     }
@@ -353,7 +353,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-            sut.LoadAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!)).ConfigureAwait(false);
+            sut.LoadAsync(CreateInputItemsAsync(), null!)).ConfigureAwait(false);
 
         Assert.Equal("progress", ex.ParamName);
     }
@@ -473,7 +473,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-            sut.LoadAsync((IAsyncEnumerable<TItem>)null!, progress, CancellationToken.None)).ConfigureAwait(false);
+            sut.LoadAsync(null!, progress, CancellationToken.None)).ConfigureAwait(false);
 
         Assert.Equal("items", ex.ParamName);
     }
@@ -488,7 +488,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-            sut.LoadAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!, CancellationToken.None)).ConfigureAwait(false);
+            sut.LoadAsync(CreateInputItemsAsync(), null!, CancellationToken.None)).ConfigureAwait(false);
 
         Assert.Equal("progress", ex.ParamName);
     }

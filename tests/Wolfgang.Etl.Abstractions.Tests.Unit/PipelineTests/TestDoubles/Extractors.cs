@@ -199,10 +199,10 @@ internal sealed class FullExtractor<T, TProgress> : IExtractWithProgressAndCance
     }
 
 
-    public async IAsyncEnumerable<T> ExtractAsync
+    public IAsyncEnumerable<T> ExtractAsync
     (
         IProgress<TProgress> progress,
-        [EnumeratorCancellation] CancellationToken token
+        CancellationToken token
     )
     {
         if (progress is null)
@@ -210,6 +210,18 @@ internal sealed class FullExtractor<T, TProgress> : IExtractWithProgressAndCance
             throw new ArgumentNullException(nameof(progress));
         }
 
+        // Split so the null check runs eagerly at call time rather than being
+        // deferred to the first MoveNextAsync of the iterator (S4456).
+        return ExtractFullCoreAsync(progress, token);
+    }
+
+
+    private async IAsyncEnumerable<T> ExtractFullCoreAsync
+    (
+        IProgress<TProgress> progress,
+        [EnumeratorCancellation] CancellationToken token
+    )
+    {
         FullOverloadWasCalled = true;
         LastReceivedProgress = progress;
         LastReceivedToken = token;

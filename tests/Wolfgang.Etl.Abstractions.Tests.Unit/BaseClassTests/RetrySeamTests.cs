@@ -240,7 +240,7 @@ public class RetrySeamTests
             SeamCallCount++;
             if (WorkerRuns == 1)
             {
-                await foreach (var item in base.WrapWorkerExecution(workerFactory, token).WithCancellation(token))
+                await foreach (var item in base.WrapWorkerExecution(workerFactory, token))
                 {
                     yield return item;
                 }
@@ -427,7 +427,7 @@ public class RetrySeamTests
             SeamCallCount++;
             if (WorkerRuns == 1)
             {
-                await foreach (var item in base.WrapWorkerExecution(workerFactory, token).WithCancellation(token))
+                await foreach (var item in base.WrapWorkerExecution(workerFactory, token))
                 {
                     yield return item;
                 }
