@@ -25,6 +25,7 @@ on:
     paths:
       - 'src/**/*.cs'
       - 'tests/Wolfgang.Etl.Abstractions.Tests.Concurrency/**'
+      - 'tests/Wolfgang.Etl.TestKit.Tests.Concurrency/**'
       - '.github/workflows/coyote.yaml'
   schedule:
     - cron: '0 5 * * 1' # weekly Monday 05:00 UTC
@@ -78,18 +79,34 @@ jobs:
           dll="bin/Release/net8.0/Wolfgang.Etl.Abstractions.Tests.Concurrency.dll"
           methods=(
             Concurrent_item_count_increments_never_lose_an_update
-            # Dispose_racing_enumeration_never_deadlocks is DISABLED (#364).
-            # Coyote 1.7.11 throws a NullReferenceException inside its own
-            # CoyoteRuntime.IsTaskUncontrolled when it meets the
-            # ConfiguredCancelableAsyncEnumerable awaiter that the ConfigureAwait(false)
-            # fix (#363) introduced in ExtractorBase.ExtractWithResetAsync. It is an
-            # instrumentation crash, not a race we found: "Found 1 bug" on iteration #1,
-            # 1 execution path explored, 0.096 sec. Coyote is dormant (1.7.11 is the
-            # newest on nuget.org; last upstream commit 2024-12-11), so there is no
-            # version to upgrade to. Re-enable via #364.
+            # Re-enabled (#364): the ExtractorBase/TransformerBase base classes now use a
+            # manual enumerator loop instead of `await foreach (... .ConfigureAwait(false))`,
+            # so the awaited type is a ConfiguredValueTaskAwaitable that Coyote 1.7.11 can
+            # classify — no more NullReferenceException in CoyoteRuntime.IsTaskUncontrolled.
+            Dispose_racing_enumeration_never_deadlocks
           )
           for m in "${methods[@]}"; do
             echo "::group::coyote test $m ($iterations iterations)"
             coyote test "$dll" --method "$m" --iterations "$iterations"
             echo "::endgroup::"
           done
+
+      # --- TestKit concurrency project (#365) ------------------------------------
+      # Unlike the Abstractions project (which exposes [Coyote Test] entry points run
+      # via `coyote test --method`), the TestKit scenarios run Coyote's TestingEngine
+      # programmatically inside xunit [Fact]s that early-return unless COYOTE_REWRITTEN=1.
+      # So the flow is: build -> `coyote rewrite` the assembly -> `dotnet test` with the
+      # env var set, which executes the engine against the rewritten scenarios. These
+      # only pass because of the base-class fix in #364.
+      - name: Build the TestKit concurrency project (Release)
+        run: dotnet build "tests/Wolfgang.Etl.TestKit.Tests.Concurrency/Wolfgang.Etl.TestKit.Tests.Concurrency.csproj" -c Release
+
+      - name: Rewrite the TestKit concurrency assembly
+        working-directory: tests/Wolfgang.Etl.TestKit.Tests.Concurrency
+        run: coyote rewrite rewrite.coyote.json
+
+      - name: Run the TestKit concurrency tests (rewritten)
+        working-directory: tests/Wolfgang.Etl.TestKit.Tests.Concurrency
+        env:
+          COYOTE_REWRITTEN: "1"
+        run: dotnet test -c Release --no-build

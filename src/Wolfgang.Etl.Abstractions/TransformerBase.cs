@@ -328,9 +328,20 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     {
         ResetRunState();
 
-        await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
+        // Manual enumerator loop rather than `await foreach` (#364): keeps the ConfigureAwait(false)
+        // semantics while producing a ConfiguredValueTaskAwaitable that Microsoft.Coyote 1.7.11 can
+        // control (it cannot classify the ConfiguredCancelableAsyncEnumerable the foreach awaits).
+        var enumerator = WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).GetAsyncEnumerator(token);
+        try
         {
-            yield return item;
+            while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+            {
+                yield return enumerator.Current;
+            }
+        }
+        finally
+        {
+            await enumerator.DisposeAsync().ConfigureAwait(false);
         }
     }
 
@@ -346,9 +357,18 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
         try
         {
-            await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
+            // Manual enumerator loop rather than `await foreach` — see TransformWithResetAsync (#364).
+            var enumerator = WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).GetAsyncEnumerator(token);
+            try
             {
-                yield return item;
+                while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+                {
+                    yield return enumerator.Current;
+                }
+            }
+            finally
+            {
+                await enumerator.DisposeAsync().ConfigureAwait(false);
             }
         }
         finally

@@ -320,9 +320,22 @@ public abstract class ExtractorBase<TSource, TProgress>
     {
         ResetRunState();
 
-        await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token).ConfigureAwait(false))
+        // Manual enumerator loop rather than `await foreach` (#364): the awaited type here is a
+        // ConfiguredCancelableAsyncEnumerable, which Microsoft.Coyote 1.7.11 cannot classify and
+        // which derails the controlled scheduler. Awaiting MoveNextAsync().ConfigureAwait(false)
+        // produces a ConfiguredValueTaskAwaitable the scheduler does control. Behaviour is
+        // identical to the foreach.
+        var enumerator = WrapWorkerExecution(ExtractWorkerAsync, token).GetAsyncEnumerator(token);
+        try
         {
-            yield return item;
+            while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+            {
+                yield return enumerator.Current;
+            }
+        }
+        finally
+        {
+            await enumerator.DisposeAsync().ConfigureAwait(false);
         }
     }
 
@@ -338,9 +351,18 @@ public abstract class ExtractorBase<TSource, TProgress>
 
         try
         {
-            await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token).ConfigureAwait(false))
+            // Manual enumerator loop rather than `await foreach` — see ExtractWithResetAsync (#364).
+            var enumerator = WrapWorkerExecution(ExtractWorkerAsync, token).GetAsyncEnumerator(token);
+            try
             {
-                yield return item;
+                while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+                {
+                    yield return enumerator.Current;
+                }
+            }
+            finally
+            {
+                await enumerator.DisposeAsync().ConfigureAwait(false);
             }
         }
         finally
