@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1786256513759,
+  "lastUpdate": 1786861162426,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "Mutation score": [
@@ -80,6 +80,33 @@ window.BENCHMARK_DATA = {
           {
             "name": "Mutation score",
             "value": 100,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "23c2c320c65c6abc5d5bc11c1b4272a82404c967",
+          "message": "Merge pull request #392 from Chris-Wolfgang/vNext\n\nchore: bump PackageValidation baselines to 0.23.0 (main)",
+          "timestamp": "2026-08-15T20:58:03Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/23c2c320c65c6abc5d5bc11c1b4272a82404c967"
+        },
+        "date": 1786861158115,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 76.13,
             "unit": "%"
           }
         ]
