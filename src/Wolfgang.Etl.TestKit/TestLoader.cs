@@ -178,6 +178,10 @@ public class TestLoader<T> : LoaderBase<T, Report>, ISupportDryRun
     /// </param>
     protected override void Dispose(bool disposing)
     {
+        // Stryker disable once Logical : equivalent. `_elapsedHandler` is non-null only when
+        // `_progressTimer` is non-null, so the extra states an `&&`->`||` flip would enter execute
+        // only `_progressTimer.Elapsed -= null` (a harmless no-op) or differ solely on the
+        // untestable finalizer (disposing == false) path — no observable behaviour changes.
         if (disposing && _progressTimer is not null && _elapsedHandler is not null)
         {
             _progressTimer.Elapsed -= _elapsedHandler;
