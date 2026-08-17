@@ -70,7 +70,7 @@ public class BaseClassTimingTests
     {
         var sut = new TimedExtractor(5);
 
-        await foreach (var _ in sut.ExtractAsync())
+        await foreach (var _ in sut.ExtractAsync(new Progress<EtlProgress>()))
         {
         }
 
@@ -143,7 +143,7 @@ public class BaseClassTimingTests
     {
         var sut = new TimedLoader();
 
-        await sut.LoadAsync(Range(5));
+        await sut.LoadAsync(Range(5), new Progress<EtlProgress>());
 
         Assert.NotNull(sut.StartedAtForTest);
         Assert.True(sut.ElapsedForTest >= TimeSpan.Zero);
@@ -165,7 +165,7 @@ public class BaseClassTimingTests
     {
         var sut = new TimedTransformer();
 
-        await foreach (var _ in sut.TransformAsync(Range(5)))
+        await foreach (var _ in sut.TransformAsync(Range(5), new Progress<EtlProgress>()))
         {
         }
 

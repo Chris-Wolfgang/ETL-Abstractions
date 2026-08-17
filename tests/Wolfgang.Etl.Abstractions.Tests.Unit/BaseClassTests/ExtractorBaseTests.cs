@@ -22,13 +22,6 @@ public class ExtractorBaseTests
 
 
 
-    protected override SequenceExtractor CreateSutWithTimer(IProgressTimer timer)
-    {
-        return new SequenceExtractor(5, timer);
-    }
-
-
-
     [Fact]
     public void ReportingInterval_default_value_is_1000()
     {

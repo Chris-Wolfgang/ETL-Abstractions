@@ -22,13 +22,6 @@ public class TransformerBaseTests
 
 
 
-    protected override IdentityTransformer CreateSutWithTimer(IProgressTimer timer)
-    {
-        return new IdentityTransformer(timer);
-    }
-
-
-
     [Fact]
     public void ReportingInterval_default_value_is_1000()
     {

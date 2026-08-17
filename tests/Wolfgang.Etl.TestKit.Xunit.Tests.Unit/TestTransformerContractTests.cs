@@ -22,16 +22,4 @@ public class TestTransformerContractTests
     /// <inheritdoc/>
     protected override IReadOnlyList<int> CreateExpectedItems() =>
         Enumerable.Range(1, 5).ToList();
-
-    /// <inheritdoc/>
-    protected override TestTransformer<int> CreateSutWithTimer(IProgressTimer timer) =>
-        new TestTransformerWithTimer(timer);
-
-
-
-    // Exposes the protected timer constructor of TestTransformer<T> for contract testing.
-    private sealed class TestTransformerWithTimer : TestTransformer<int>
-    {
-        public TestTransformerWithTimer(IProgressTimer timer) : base(timer) { }
-    }
 }
