@@ -132,6 +132,9 @@ public class DelayingExtractor<T> : ExtractorBase<T, Report>
                 yield break;
             }
 
+            // Stryker disable once Boolean : ConfigureAwait(false) is required on
+            // net462/netstandard2.0; (true) is behaviourally identical under the test host
+            // (no synchronization context), so that mutant is equivalent and unkillable.
             await Task.Delay(_delaySelector(index), token).ConfigureAwait(false);
 
             IncrementCurrentItemCount();
