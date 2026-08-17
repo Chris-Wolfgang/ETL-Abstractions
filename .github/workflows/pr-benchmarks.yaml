@@ -86,6 +86,13 @@ jobs:
           }' "${reports[@]}" > benchmarks-result.json
           echo "report=benchmarks/Wolfgang.Etl.Abstractions.Benchmarks/benchmarks-result.json" >> "$GITHUB_OUTPUT"
 
+      - name: Reset build-time lockfile churn before the gh-pages switch
+        # `dotnet restore`/`build` above can rewrite packages.lock.json (RestorePackagesWithLockFile,
+        # #394). The compare action below runs `git switch gh-pages`, which aborts on a dirty tree.
+        # Revert tracked-file churn; the untracked benchmark outputs (benchmarks-result.json,
+        # BenchmarkDotNet.Artifacts/) are preserved.
+        run: git checkout -- .
+
       - name: Compare against baseline & comment
         # Same action + SHA pin as benchmarks.yaml. Compares the PR result against
         # the gh-pages baseline (latest main data point) WITHOUT pushing:

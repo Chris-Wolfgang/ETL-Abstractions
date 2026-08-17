@@ -85,6 +85,12 @@ jobs:
           }' "${reports[@]}" > benchmarks-result.json
           echo "report=benchmarks/Wolfgang.Etl.Abstractions.Benchmarks/benchmarks-result.json" >> "$GITHUB_OUTPUT"
 
+      - name: Reset build-time lockfile churn before the gh-pages switch
+        # `dotnet restore`/`build` above can rewrite packages.lock.json (RestorePackagesWithLockFile,
+        # #394). The publish action below runs `git switch gh-pages`, which aborts on a dirty tree.
+        # Revert tracked-file churn; the untracked benchmark outputs are preserved.
+        run: git checkout -- .
+
       - name: Publish chart to gh-pages
         # Pinned to v1.22.1 commit per repo convention (third-party actions
         # publishing to gh-pages are pinned by SHA, not mutable tag).
