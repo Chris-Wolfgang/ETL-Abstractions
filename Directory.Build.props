@@ -20,6 +20,10 @@
     
     <!-- Treat warnings as errors in Release builds -->
     <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+
+    <!-- Pin NuGet dependencies by content hash via committed packages.lock.json
+         (OSSF Scorecard Pinned-Dependencies: "nugetCommand not pinned by hash"). -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -46,22 +46,19 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      # Run Semgrep from the official image pinned by digest instead of an
+      # unpinned `pip install semgrep` (Scorecard Pinned-Dependencies #980, #395).
+      # A step-level `uses: docker://` (not a job-level `container:`) keeps the
+      # JS actions above/below on the host — the semgrep image is Alpine/musl and
+      # cannot run the glibc node20 that checkout / upload-sarif need. The image
+      # has no ENTRYPOINT (Cmd is `semgrep`), so we set entrypoint explicitly.
+      # 1.173.0 digest resolved 2026-08-16; bump the tag+digest together on update.
+      - name: Run Semgrep (digest-pinned container)
+        uses: docker://semgrep/semgrep@sha256:67319956da3dcb58baf5b322899c15458e3963e7018a86aeeb5cd224e69cb77a
+        continue-on-error: true  # report-only (baseline is clean); SARIF still uploads
         with:
-          python-version: '3.x'
-
-      - name: Install Semgrep
-        run: pip install semgrep
-
-      - name: Run Semgrep
-        run: |
-          semgrep scan \
-            --config p/csharp \
-            --config p/security-audit \
-            --config p/secrets \
-            --sarif --output semgrep.sarif \
-            --error src/ || true
+          entrypoint: semgrep
+          args: scan --config p/csharp --config p/security-audit --config p/secrets --sarif --output semgrep.sarif src/
 
       - name: Upload Semgrep SARIF
         uses: github/codeql-action/upload-sarif@e4c79b4e9ebfe577d446333c2e31ed81079e7b03 # v4
