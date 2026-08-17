@@ -80,7 +80,7 @@ jobs:
 
     - name: Initialize CodeQL
       if: matrix.language == 'actions' || steps.check-csharp.outputs.has-csharp == 'true'
-      uses: github/codeql-action/init@e4c79b4e9ebfe577d446333c2e31ed81079e7b03 # v4
+      uses: github/codeql-action/init@e0647621c2984b5ed2f768cb892365bf2a616ad1 # v4
       with:
         languages: ${{ matrix.language }}
         # security-extended adds the broader security query pack on top of the
@@ -162,7 +162,7 @@ jobs:
     - name: Perform CodeQL Analysis
       id: perform-codeql-analysis
       if: matrix.language == 'actions' || steps.check-csharp.outputs.has-csharp == 'true'
-      uses: github/codeql-action/analyze@e4c79b4e9ebfe577d446333c2e31ed81079e7b03 # v4
+      uses: github/codeql-action/analyze@e0647621c2984b5ed2f768cb892365bf2a616ad1 # v4
       with:
         category: "/language:${{matrix.language}}"
 
