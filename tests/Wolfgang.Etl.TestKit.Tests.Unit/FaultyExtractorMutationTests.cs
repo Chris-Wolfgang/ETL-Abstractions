@@ -374,4 +374,20 @@ public class FaultyExtractorMutationTests
             }
         }
     }
+
+
+
+    [Fact]
+    public async Task Dispose_marks_the_extractor_disposed_so_a_later_ExtractAsync_throws()
+    {
+        // Removing base.Dispose(disposing) leaves _disposed unset, so the use-after-dispose
+        // guard on ExtractAsync would no longer fire.
+        var extractor = new FaultyExtractor<int>(new[] { 1 });
+        extractor.Dispose();
+
+        await Assert.ThrowsAsync<ObjectDisposedException>
+        (
+            async () => await extractor.ExtractAsync().ToListAsync()
+        );
+    }
 }

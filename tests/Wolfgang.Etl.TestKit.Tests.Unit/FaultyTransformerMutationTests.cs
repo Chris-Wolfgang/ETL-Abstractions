@@ -298,4 +298,20 @@ public class FaultyTransformerMutationTests
         {
         }
     }
+
+
+
+    [Fact]
+    public async Task Dispose_marks_the_transformer_disposed_so_a_later_TransformAsync_throws()
+    {
+        // Removing base.Dispose(disposing) leaves _disposed unset, so the use-after-dispose
+        // guard on TransformAsync would no longer fire.
+        var transformer = new FaultyTransformer<int>();
+        transformer.Dispose();
+
+        await Assert.ThrowsAsync<ObjectDisposedException>
+        (
+            async () => await transformer.TransformAsync(new[] { 1 }.ToAsyncEnumerable()).ToListAsync()
+        );
+    }
 }
