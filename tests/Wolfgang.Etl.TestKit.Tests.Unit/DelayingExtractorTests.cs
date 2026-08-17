@@ -247,4 +247,57 @@ public class DelayingExtractorTests
             $"Expected the extractor to actually delay; elapsed only {sw.ElapsedMilliseconds} ms."
         );
     }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_cancelling_during_skip_stops_at_the_in_loop_check()
+    {
+        // With a large SkipItemCount, the per-item ThrowIfCancellationRequested is the ONLY
+        // cancellation check reached while skipping — the Task.Delay (which also observes the token)
+        // runs only for non-skipped items. The source cancels the token as its 6th item is pulled;
+        // the in-loop check must throw right then, having skipped only a handful of items. Without
+        // that check, skipping would race ahead to the full SkipItemCount before the delay finally
+        // noticed cancellation — so a small skipped count proves the in-loop check fired.
+        using var cts = new CancellationTokenSource();
+        var sut = new DelayingExtractor<int>
+        (
+            CancelAt(cts, cancelIndex: 5, total: 5000),
+            TimeSpan.FromMilliseconds(20)
+        )
+        { SkipItemCount = 1000 };
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>
+        (
+            async () =>
+            {
+                await foreach (var _ in sut.ExtractAsync(cts.Token))
+                {
+                }
+            }
+        );
+
+        Assert.True
+        (
+            sut.CurrentSkippedItemCount < 100,
+            $"Expected a prompt in-loop cancel while skipping, but skipped {sut.CurrentSkippedItemCount} items."
+        );
+    }
+
+
+
+    // A sequence that cancels the supplied source as a chosen item is produced, letting the token
+    // flip mid-skip so only the in-loop cancellation check can catch it.
+    private static IEnumerable<int> CancelAt(CancellationTokenSource cts, int cancelIndex, int total)
+    {
+        for (var i = 0; i < total; i++)
+        {
+            if (i == cancelIndex)
+            {
+                cts.Cancel();
+            }
+
+            yield return i;
+        }
+    }
 }

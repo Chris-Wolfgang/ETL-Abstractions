@@ -138,6 +138,8 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
 
         try
         {
+            // Stryker disable once Boolean : equivalent — ConfigureAwait(false) vs (true) has no
+            // observable effect on the transformed sequence in these single-threaded tests.
             await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
             {
                 token.ThrowIfCancellationRequested();

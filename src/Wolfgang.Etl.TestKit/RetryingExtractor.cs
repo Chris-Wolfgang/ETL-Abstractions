@@ -112,6 +112,9 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
 
         token.ThrowIfCancellationRequested();
 
+        // Stryker disable once Statement : Task.Yield only forces the continuation to run
+        // asynchronously; removing it changes scheduling, not observable behaviour, so the
+        // statement-removal mutant is equivalent and unkillable.
         await Task.Yield();
 
         if (attempt <= _failFirstAttempts)
@@ -187,6 +190,7 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
                 {
                     try
                     {
+                        // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host.
                         if (!await enumerator.MoveNextAsync().ConfigureAwait(false))
                         {
                             break;
@@ -200,6 +204,8 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
                     catch (Exception ex)
                     {
                         failure = ExceptionDispatchInfo.Capture(ex);
+                        // Stryker disable once Statement : the worker only faults at stream start, so its iterator is
+                        // already done here; dropping this break just costs one MoveNextAsync that returns false.
                         break;
                     }
 #pragma warning restore CA1031
@@ -209,6 +215,8 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
             }
             finally
             {
+                // Stryker disable once Statement,Boolean : the iterator is always completed here so DisposeAsync
+                // is a no-op; ConfigureAwait(false) vs (true) is equivalent under the test host. Both unkillable.
                 await enumerator.DisposeAsync().ConfigureAwait(false);
             }
 
