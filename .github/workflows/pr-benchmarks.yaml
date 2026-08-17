@@ -104,6 +104,28 @@ jobs:
           comment-always: true
           comment-on-alert: true
           # 150% = a metric 1.5x worse than baseline. Deliberately loose because
-          # GitHub-hosted runners are noisy; tighten once the noise floor settles.
+          # GitHub-hosted runners are noisy. The action posts the comparison comment
+          # but does NOT fail the job (fail-on-alert:false) — a ratio-only gate
+          # false-positives on sub-millisecond benchmarks (#367). The absolute-floor
+          # gate below is the real pass/fail signal.
           alert-threshold: '150%'
-          fail-on-alert: true
+          fail-on-alert: false
+
+      - name: Fetch the gh-pages benchmark baseline
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin gh-pages
+          git show FETCH_HEAD:dev/bench/data.js > "$RUNNER_TEMP/baseline-data.js"
+
+      - name: Absolute-floor regression gate (#367)
+        # A ratio-only gate false-positives on sub-millisecond benchmarks on noisy
+        # shared runners (it blocked 0.22.0 on a 17 us blip). Fail only when a
+        # benchmark grew by BOTH >= 1.50x AND >= 50,000 ns (50 us): runner noise on
+        # a ~30 us benchmark clears the floor, but a genuine per-item regression —
+        # which also moves the 100,000-record cases by well over 50 us — still fails.
+        run: |
+          python3 benchmarks/Wolfgang.Etl.Abstractions.Benchmarks/scripts/regression-gate.py \
+            "${{ steps.locate.outputs.report }}" \
+            "$RUNNER_TEMP/baseline-data.js" \
+            1.50 \
+            50000
