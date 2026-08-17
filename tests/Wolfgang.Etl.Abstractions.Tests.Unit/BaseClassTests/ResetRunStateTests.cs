@@ -87,7 +87,7 @@ public class ResetRunStateTests
         await DrainAsync(sut.ExtractAsync());
         Assert.Equal(5, sut.CurrentItemCount);
 
-        await DrainAsync(sut.ExtractAsync());
+        await DrainAsync(sut.ExtractAsync(new Progress<EtlProgress>()));
         Assert.Equal(5, sut.CurrentItemCount);
     }
 
@@ -100,7 +100,7 @@ public class ResetRunStateTests
         await sut.LoadAsync(Range(5));
         Assert.Equal(5, sut.CurrentItemCount);
 
-        await sut.LoadAsync(Range(5));
+        await sut.LoadAsync(Range(5), new Progress<EtlProgress>());
         Assert.Equal(5, sut.CurrentItemCount);
     }
 
@@ -113,7 +113,7 @@ public class ResetRunStateTests
         await DrainAsync(sut.TransformAsync(Range(5)));
         Assert.Equal(5, sut.CurrentItemCount);
 
-        await DrainAsync(sut.TransformAsync(Range(5)));
+        await DrainAsync(sut.TransformAsync(Range(5), new Progress<EtlProgress>()));
         Assert.Equal(5, sut.CurrentItemCount);
     }
 }

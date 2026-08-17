@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Channels;
 using Microsoft.Extensions.Logging;
 using Wolfgang.Etl.Abstractions;
@@ -192,6 +193,8 @@ public sealed class ItemErrorPolicyTests
 
         public EventId LastEventId { get; private set; }
 
+        // ILogger-required member; the policies under test log warnings but never open a scope, so this is never called.
+        [ExcludeFromCodeCoverage]
         public IDisposable BeginScope<TState>(TState state) where TState : notnull => NullScope.Instance;
 
         public bool IsEnabled(LogLevel logLevel) => true;
@@ -214,6 +217,8 @@ public sealed class ItemErrorPolicyTests
 
 
 
+        // Only ever returned by the never-called BeginScope above, so its members are unreachable in tests.
+        [ExcludeFromCodeCoverage]
         private sealed class NullScope : IDisposable
         {
             public static readonly NullScope Instance = new();

@@ -42,6 +42,16 @@ public class AsyncDisposableTests
     }
 
 
+    // Synchronous progress sink so the final CreateProgressReport() report is captured
+    // deterministically (Progress<T> would dispatch asynchronously).
+    private sealed class ListProgress : IProgress<EtlProgress>
+    {
+        public List<EtlProgress> Reports { get; } = new();
+
+        public void Report(EtlProgress value) => Reports.Add(value);
+    }
+
+
     [Fact]
     public void Base_classes_implement_the_disposal_interfaces()
     {
@@ -203,5 +213,59 @@ public class AsyncDisposableTests
         await sut.DisposeAsync();
 
         Assert.Equal(1, sut.DisposeCount);
+    }
+
+
+    [Fact]
+    public async Task PlainExtractor_runs_and_reports_progress()
+    {
+        var sut = new PlainExtractor();
+        var progress = new ListProgress();
+
+        await foreach (var _ in sut.ExtractAsync(progress))
+        {
+        }
+
+        Assert.NotEmpty(progress.Reports);
+    }
+
+
+    [Fact]
+    public async Task ResourceOwningExtractor_runs_and_reports_progress()
+    {
+        var sut = new ResourceOwningExtractor();
+        var progress = new ListProgress();
+
+        await foreach (var _ in sut.ExtractAsync(progress))
+        {
+        }
+
+        Assert.NotEmpty(progress.Reports);
+    }
+
+
+    [Fact]
+    public async Task ResourceOwningLoader_runs_and_reports_progress()
+    {
+        var sut = new ResourceOwningLoader();
+        var progress = new ListProgress();
+
+        await sut.LoadAsync(AsyncEnumerable.Empty<int>(), progress);
+
+        Assert.NotEmpty(progress.Reports);
+    }
+
+
+    [Fact]
+    public async Task ResourceOwningTransformer_runs_and_reports_progress()
+    {
+        var sut = new ResourceOwningTransformer();
+        var progress = new ListProgress();
+
+        await foreach (var _ in sut.TransformAsync(AsyncEnumerable.Empty<int>(), progress))
+        {
+        }
+
+        Assert.NotEmpty(progress.Reports);
     }
 }

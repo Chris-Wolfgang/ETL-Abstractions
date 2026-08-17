@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles;
@@ -51,6 +52,9 @@ internal sealed class CancelOnlyTransformer<TSource, TDestination>
     }
 
 
+    // Negative-routing guard: throws to prove the pipeline never binds the parameterless overload
+    // for a cancellation-only transformer. Never executed on a green run, so it cannot be covered.
+    [ExcludeFromCodeCoverage]
     public IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items)
         => throw new WrongOverloadCalledException("CancelOnlyTransformer<TSource, TDestination>.TransformAsync(items)");
 

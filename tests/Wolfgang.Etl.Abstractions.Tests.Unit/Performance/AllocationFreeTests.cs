@@ -2,6 +2,7 @@
 // suite compiles on net48+ / netcoreapp3.1+ / net5.0+ but not net462/net472. The
 // allocation behaviour under test is TFM-agnostic, so the modern targets cover it.
 #if !NET462 && !NET472
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.Performance;
@@ -122,9 +123,14 @@ public sealed class AllocationFreeTests
 
         public void IncrementSkipped() => IncrementCurrentSkippedItemCount();
 
+        // The harness only surfaces the protected counter increments; extraction is never run,
+        // so this required override cannot execute.
+        [ExcludeFromCodeCoverage]
         protected override IAsyncEnumerable<int> ExtractWorkerAsync(CancellationToken token)
             => throw new NotSupportedException();
 
+        // Required override to instantiate the harness; progress is never reported in the probes.
+        [ExcludeFromCodeCoverage]
         protected override Report CreateProgressReport() => new(CurrentItemCount);
     }
 }

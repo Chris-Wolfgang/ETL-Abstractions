@@ -182,6 +182,26 @@ public class SystemProgressTimerTests
 
 
 
+    /// <summary>
+    /// Directly exercises <see cref="WaitUntilStable"/>'s reset branch: while the observed value
+    /// keeps changing, the stability window must restart rather than return early. The value
+    /// climbs for the first few reads, then settles, so the method returns the settled value.
+    /// </summary>
+    [Fact]
+    public async Task WaitUntilStable_restarts_the_window_while_the_value_keeps_changing()
+    {
+        var reads = 0;
+
+        // Returns 1, 2, 3, then a constant 3 — the changing reads drive the window reset.
+        int Read() => Math.Min(++reads, 3);
+
+        var result = await WaitUntilStable(Read, stableForMs: 100, pollMs: 5);
+
+        Assert.Equal(3, result);
+    }
+
+
+
     // ------------------------------------------------------------------
     // Helpers
     // ------------------------------------------------------------------
