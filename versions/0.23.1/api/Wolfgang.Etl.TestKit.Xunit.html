@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace Wolfgang.Etl.TestKit.Xunit | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace Wolfgang.Etl.TestKit.Xunit | Wolfgang.Etl.Abstractions Documentation ">
+      
+      
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.Xunit">
+
+  <h1 id="Wolfgang_Etl_TestKit_Xunit" data-uid="Wolfgang.Etl.TestKit.Xunit" class="text-break">Namespace Wolfgang.Etl.TestKit.Xunit</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html">AllocationBudgetContractTests&lt;TSut&gt;</a></dt>
+      <dd><p>Opt-in xUnit contract-test base asserting that a repeatable operation's hot path stays
+within a declared per-item allocation budget — so a downstream author can lock in that
+<em>their own</em> extractor / loader / transformer keeps an allocation-free (or
+below-a-declared-N) hot path.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html">CancellationContractTests&lt;TSut&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests that verify a stage honours cancellation
+<em>promptly</em> — it stops shortly after the token is cancelled rather than draining its source,
+throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a>, and processes nothing when handed an
+already-cancelled token.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html">CancellationOutcome</a></dt>
+      <dd><p>The result a derived <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html">CancellationContractTests&lt;TSut&gt;</a> reports back to the base after
+driving its stage under cancellation.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.html">DisposableStageContractTests&lt;TSut&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for the disposability guarantees the ETL
+base classes gained in <code>Wolfgang.Etl.Abstractions</code> 0.14.0 (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a> /
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a>) and 0.17.0 (using a disposed stage throws
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a>).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests-1.html">ErrorHandlingContractTests&lt;TSut&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for a stage that opts into the
+per-item error hook introduced in <code>Wolfgang.Etl.Abstractions</code> 0.18.0
+(<code>OnItemError</code> / <code>HandleItemError</code> / <code>CurrentErrorItemCount</code>,
+<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>, <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a>).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.html">ErrorHandlingOutcome</a></dt>
+      <dd><p>The observable outcome of running a stage over a scenario containing exactly one failing
+item, used by <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests-1.html">ErrorHandlingContractTests&lt;TSut&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html">EtlPipelineContractTests&lt;TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for composing a source and a sink into the
+<code>Wolfgang.Etl.Abstractions</code> 0.16 <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a>
+(<code>EtlPipeline.Create().From(...).To(...).RunAsync()</code>) and for the
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineProgress.html">EtlPipelineProgress</a> it reports.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.EtlScenario.html">EtlScenario</a></dt>
+      <dd><p>Entry point for building a fluent end-to-end ETL scenario over the <code>Wolfgang.Etl.TestKit</code>
+doubles and asserting its final state in a single expression. See <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html">EtlScenario&lt;T&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html">EtlScenario&lt;T&gt;</a></dt>
+      <dd><p>A fluent builder that composes an extract → (transform) → load pipeline from the
+<code>Wolfgang.Etl.TestKit</code> doubles — optionally injecting a fault into the extractor or loader —
+runs it through the <code>Wolfgang.Etl.Abstractions</code> <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a>, and asserts the
+final state (loaded items, aggregate error count, or a terminal exception) in one call.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.html">ExtractAsyncContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.IExtractAsync-1.html">IExtractAsync&lt;TSource&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests-2.html">ExtractWithCancellationAsyncContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.html">IExtractWithCancellationAsync&lt;TSource&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests-3.html">ExtractWithProgressAndCancellationAsyncContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync-2.html">IExtractWithProgressAndCancellationAsync&lt;TSource, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests-3.html">ExtractWithProgressAsyncContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.html">IExtractWithProgressAsync&lt;TSource, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html">ExtractorBaseContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that inherits
+from <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase&lt;TSource, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.html">IdempotentExtractorContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing opt-in xUnit idempotency contract tests for any type that
+implements <a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.html">IExtractWithProgressAsync&lt;TSource, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.html">IdempotentLoaderContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing opt-in xUnit idempotency contract tests for any type that
+implements <a class="xref" href="Wolfgang.Etl.Abstractions.ILoadAsync-1.html">ILoadAsync&lt;TDestination&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-2.html">IdempotentTransformerContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing opt-in xUnit idempotency contract tests for any type that
+implements <a class="xref" href="Wolfgang.Etl.Abstractions.ITransformAsync-2.html">ITransformAsync&lt;TSource, TDestination&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests-2.html">LoadAsyncContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ILoadAsync-1.html">ILoadAsync&lt;TDestination&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests-2.html">LoadWithCancellationAsyncContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync-1.html">ILoadWithCancellationAsync&lt;TDestination&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests-3.html">LoadWithProgressAndCancellationAsyncContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.html">ILoadWithProgressAndCancellationAsync&lt;TDestination, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests-3.html">LoadWithProgressAsyncContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAsync-2.html">ILoadWithProgressAsync&lt;TDestination, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html">LoaderBaseContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that inherits
+from <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.html">ManualProgressTimer</a></dt>
+      <dd><p>A controllable implementation of <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> for use in unit tests.
+Fires <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_Elapsed">Elapsed</a> synchronously on demand via <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.html#Wolfgang_Etl_TestKit_Xunit_ManualProgressTimer_Fire">Fire()</a>,
+rather than on a background thread-pool thread after a real time interval.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ProgressAssert.html">ProgressAssert</a></dt>
+      <dd><p>Provides xUnit-style assertions for validating sequences of progress reports captured by
+a <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.html">ProgressCapture&lt;T&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.html">ProgressCapture&lt;T&gt;</a></dt>
+      <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> implementation that captures every reported value,
+synchronously, on the calling thread.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html">RetryContractTests&lt;TSut&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for a stage whose
+<a class="xref" href="Wolfgang.Etl.Abstractions.html">Wolfgang.Etl.Abstractions</a> 0.20 <code>WrapWorkerExecution</code> override adds a retry /
+resilience strategy: a transient fault that clears within the retry budget completes the run, and a
+fault that never clears fails after the maximum number of attempts (no infinite loop).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html">RetryOutcome</a></dt>
+      <dd><p>The result a derived <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html">RetryContractTests&lt;TSut&gt;</a> reports back to the base after driving
+its stage under a fault with a retry policy.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html">SupportsDryRunContractTests&lt;TSut&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ISupportDryRun.html">ISupportDryRun</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.SynchronousProgress-1.html">SynchronousProgress&lt;T&gt;</a></dt>
+      <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> implementation that invokes its callback synchronously
+on the calling thread, rather than posting to a synchronisation context.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests-2.html">TransformAsyncContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ITransformAsync-2.html">ITransformAsync&lt;TSource, TDestination&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests-2.html">TransformWithCancellationAsyncContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.html">ITransformWithCancellationAsync&lt;TSource, TDestination&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests-3.html">TransformWithProgressAndCancellationAsyncContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync-3.html">ITransformWithProgressAndCancellationAsync&lt;TSource, TDestination, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests-3.html">TransformWithProgressAsyncContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that implements
+<a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithProgressAsync-3.html">ITransformWithProgressAsync&lt;TSource, TDestination, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html">TransformerBaseContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for any type that inherits
+from <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase&lt;TSource, TDestination, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
