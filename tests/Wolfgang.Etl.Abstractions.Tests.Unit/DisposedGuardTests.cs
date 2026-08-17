@@ -13,13 +13,6 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit;
 /// </summary>
 public sealed class DisposedGuardTests
 {
-    private static async IAsyncEnumerable<int> Empty()
-    {
-        await Task.CompletedTask;
-        yield break;
-    }
-
-
     private static readonly IProgress<EtlProgress> Progress = new NoOpProgress();
 
 
@@ -29,10 +22,10 @@ public sealed class DisposedGuardTests
         var loader = new NoOpLoader();
         loader.Dispose();
 
-        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(Empty()); });
-        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(Empty(), CancellationToken.None); });
-        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(Empty(), Progress); });
-        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(Empty(), Progress, CancellationToken.None); });
+        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(AsyncEnumerable.Empty<int>()); });
+        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(AsyncEnumerable.Empty<int>(), CancellationToken.None); });
+        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(AsyncEnumerable.Empty<int>(), Progress); });
+        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(AsyncEnumerable.Empty<int>(), Progress, CancellationToken.None); });
     }
 
 
@@ -42,7 +35,7 @@ public sealed class DisposedGuardTests
         var loader = new NoOpLoader();
         await loader.DisposeAsync();
 
-        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(Empty()); });
+        Assert.Throws<ObjectDisposedException>(() => { _ = loader.LoadAsync(AsyncEnumerable.Empty<int>()); });
     }
 
 
@@ -75,10 +68,10 @@ public sealed class DisposedGuardTests
         var transformer = new NoOpTransformer();
         transformer.Dispose();
 
-        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(Empty()));
-        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(Empty(), CancellationToken.None));
-        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(Empty(), Progress));
-        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(Empty(), Progress, CancellationToken.None));
+        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(AsyncEnumerable.Empty<int>()));
+        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(AsyncEnumerable.Empty<int>(), CancellationToken.None));
+        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(AsyncEnumerable.Empty<int>(), Progress));
+        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(AsyncEnumerable.Empty<int>(), Progress, CancellationToken.None));
     }
 
 
@@ -88,7 +81,7 @@ public sealed class DisposedGuardTests
         var transformer = new NoOpTransformer();
         await transformer.DisposeAsync();
 
-        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(Empty()));
+        Assert.Throws<ObjectDisposedException>(() => transformer.TransformAsync(AsyncEnumerable.Empty<int>()));
     }
 
 
@@ -111,7 +104,7 @@ public sealed class DisposedGuardTests
         // inverted): a freshly-constructed, undisposed loader must accept a call.
         var loader = new NoOpLoader();
 
-        var exception = Record.Exception(() => { _ = loader.LoadAsync(Empty()); });
+        var exception = Record.Exception(() => { _ = loader.LoadAsync(AsyncEnumerable.Empty<int>()); });
 
         Assert.Null(exception);
     }

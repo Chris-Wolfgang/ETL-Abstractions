@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests;
 
@@ -68,6 +69,9 @@ public class DisposeStagesTests
             }
         }
 
+        // The async disposal path is always preferred, so this IDisposable member is asserted
+        // never-called (see DisposeStagesOnCompletion_prefers_DisposeAsync_over_Dispose).
+        [ExcludeFromCodeCoverage]
         public void Dispose() => DisposeCalled = true;
 
         public ValueTask DisposeAsync()
@@ -401,6 +405,24 @@ public class DisposeStagesTests
         Assert.Equal(2, ex.InnerExceptions.Count);
         Assert.Contains(ex.InnerExceptions, e => string.Equals(e.Message, "extractor dispose failed", StringComparison.Ordinal));
         Assert.Contains(ex.InnerExceptions, e => string.Equals(e.Message, "dispose failed", StringComparison.Ordinal));
+    }
+
+
+    [Fact]
+    public async Task Tracking_extractor_doubles_yield_the_sequence_from_the_overloads_the_pipeline_skips()
+    {
+        // The pipeline binds one overload per extractor interface; the remaining interface-required
+        // overloads must still produce the sequence. Exercises the overloads the disposal path skips.
+        var expected = new[] { 0, 1 };
+
+        Assert.Equal(expected, await new TrackingCancellableExtractor(2).ExtractAsync().ToListAsync());
+
+        Assert.Equal(expected, await new TrackingProgressExtractor(2).ExtractAsync(new Progress<string>()).ToListAsync());
+
+        var pc = new TrackingProgressCancellableExtractor(2);
+        Assert.Equal(expected, await pc.ExtractAsync().ToListAsync());
+        Assert.Equal(expected, await pc.ExtractAsync(new Progress<string>()).ToListAsync());
+        Assert.Equal(expected, await pc.ExtractAsync(new Progress<string>(), CancellationToken.None).ToListAsync());
     }
 
 

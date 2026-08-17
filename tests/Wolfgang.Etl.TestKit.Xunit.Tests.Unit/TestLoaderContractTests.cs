@@ -22,17 +22,4 @@ public class TestLoaderContractTests
     /// <inheritdoc/>
     protected override IReadOnlyList<int> CreateSourceItems() =>
         Enumerable.Range(1, 5).ToList();
-
-    /// <inheritdoc/>
-    protected override TestLoader<int> CreateSutWithTimer(IProgressTimer timer) =>
-        new TestLoaderWithTimer(collectItems: false, timer);
-
-
-
-    // Exposes the protected timer constructor of TestLoader<T> for contract testing.
-    private sealed class TestLoaderWithTimer : TestLoader<int>
-    {
-        public TestLoaderWithTimer(bool collectItems, IProgressTimer timer)
-            : base(collectItems, timer) { }
-    }
 }

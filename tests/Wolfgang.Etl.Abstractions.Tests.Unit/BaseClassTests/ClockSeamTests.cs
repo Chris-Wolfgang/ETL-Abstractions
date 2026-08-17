@@ -20,7 +20,7 @@ public class ClockSeamTests
         var clock = new FakeTimeSource();
         var sut = new ClockExtractor { TimeSource = clock };
 
-        await Drain(sut.ExtractAsync(CancellationToken.None));   // first item captures start
+        await Drain(sut.ExtractAsync(new Progress<EtlProgress>(), CancellationToken.None));   // first item captures start
 
         Assert.Equal(Start, sut.PeekStartedAt);
         Assert.Equal(TimeSpan.Zero, sut.PeekElapsed);
@@ -38,7 +38,7 @@ public class ClockSeamTests
         var clock = new FakeTimeSource();
         var sut = new ClockLoader { TimeSource = clock };
 
-        await sut.LoadAsync(AsyncSource(1), CancellationToken.None);
+        await sut.LoadAsync(AsyncSource(1), new Progress<EtlProgress>(), CancellationToken.None);
         clock.Advance(TimeSpan.FromSeconds(2));
 
         Assert.Equal(Start, sut.PeekStartedAt);
@@ -52,7 +52,7 @@ public class ClockSeamTests
         var clock = new FakeTimeSource();
         var sut = new ClockTransformer { TimeSource = clock };
 
-        await Drain(sut.TransformAsync(AsyncSource(1), CancellationToken.None));
+        await Drain(sut.TransformAsync(AsyncSource(1), new Progress<EtlProgress>(), CancellationToken.None));
         clock.Advance(TimeSpan.FromSeconds(9));
 
         Assert.Equal(Start, sut.PeekStartedAt);
@@ -164,7 +164,7 @@ public class ClockSeamTests
 
         protected override async Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
         {
-            await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
+            await foreach (var _ in items.WithCancellation(token).ConfigureAwait(false))
             {
                 IncrementCurrentItemCount();
             }

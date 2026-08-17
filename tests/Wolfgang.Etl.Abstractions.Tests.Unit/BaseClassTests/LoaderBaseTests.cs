@@ -21,13 +21,6 @@ public class LoaderBaseTests
 
 
 
-    protected override ListLoader CreateSutWithTimer(IProgressTimer timer)
-    {
-        return new ListLoader(timer);
-    }
-
-
-
     [Fact]
     public void ReportingInterval_default_value_is_1000()
     {

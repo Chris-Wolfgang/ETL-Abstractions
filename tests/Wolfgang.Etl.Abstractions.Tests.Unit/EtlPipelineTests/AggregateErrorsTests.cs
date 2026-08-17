@@ -96,6 +96,43 @@ public class AggregateErrorsTests
     }
 
 
+    [Fact]
+    public async Task ErroringExtractor_reports_component_progress_when_run_standalone()
+    {
+        var sut = new ErroringExtractor(good: 3, errors: 0);
+
+        await foreach (var _ in sut.ExtractAsync(new Progress<EtlProgress>()))
+        {
+        }
+
+        Assert.Equal(3, sut.CurrentItemCount);
+    }
+
+
+    [Fact]
+    public async Task ErroringTransformer_reports_component_progress_when_run_standalone()
+    {
+        var sut = new ErroringTransformer(errors: 0);
+
+        await foreach (var _ in sut.TransformAsync(AsyncSource(1, 2), new Progress<EtlProgress>()))
+        {
+        }
+
+        Assert.Equal(2, sut.CurrentItemCount);
+    }
+
+
+    [Fact]
+    public async Task ErroringLoader_reports_component_progress_when_run_standalone()
+    {
+        var sut = new ErroringLoader(errors: 0);
+
+        await sut.LoadAsync(AsyncSource(1, 2, 3), new Progress<EtlProgress>());
+
+        Assert.Equal(3, sut.CurrentItemCount);
+    }
+
+
     // ---------- helpers ----------
 
     private static async IAsyncEnumerable<int> AsyncSource(params int[] items)
@@ -219,7 +256,7 @@ public class AggregateErrorsTests
 
         protected override async Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
         {
-            await foreach (var item in items.WithCancellation(token))
+            await foreach (var _ in items.WithCancellation(token))
             {
                 IncrementCurrentItemCount();
             }

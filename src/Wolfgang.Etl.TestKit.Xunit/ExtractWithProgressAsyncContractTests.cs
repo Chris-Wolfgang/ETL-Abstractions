@@ -91,7 +91,7 @@ public abstract class ExtractWithProgressAsyncContractTests<TSut, TItem, TProgre
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             // The exception is thrown when the method is called, before enumeration starts.
-            _ = sut.ExtractAsync((IProgress<TProgress>)null!);
+            _ = sut.ExtractAsync(null!);
         });
 
         Assert.Equal("progress", ex.ParamName);

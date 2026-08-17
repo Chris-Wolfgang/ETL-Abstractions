@@ -314,7 +314,7 @@ public class EtlPipelineCoreTests
     {
         Assert.Throws<ArgumentNullException>(() => EtlPipeline
             .Create()
-            .From<int>((IAsyncEnumerable<int>)null!));
+            .From<int>(null!));
     }
 
 

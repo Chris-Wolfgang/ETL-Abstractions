@@ -1,4 +1,6 @@
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles;
 
 /// <summary>
@@ -33,6 +35,9 @@ internal sealed class CancelOnlyLoader<T> : ILoadWithCancellationAsync<T>
     public bool TokenOverloadWasCalled { get; private set; }
 
 
+    // Negative-routing guard: throws to prove the pipeline never binds the parameterless overload
+    // for a cancellation-only loader. Never executed on a green run, so it cannot be covered.
+    [ExcludeFromCodeCoverage]
     public Task LoadAsync(IAsyncEnumerable<T> items)
         => throw new WrongOverloadCalledException("CancelOnlyLoader<T>.LoadAsync(items)");
 

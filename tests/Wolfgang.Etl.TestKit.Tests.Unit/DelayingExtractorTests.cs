@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +30,7 @@ public class DelayingExtractorTests
     {
         Assert.Throws<ArgumentNullException>
         (
-            () => new DelayingExtractor<int>(new[] { 1 }, (Func<int, TimeSpan>)null!)
+            () => new DelayingExtractor<int>(new[] { 1 }, null!)
         );
     }
 
@@ -37,10 +39,12 @@ public class DelayingExtractorTests
     [Fact]
     public void Constructor_when_delay_is_negative_throws_ArgumentOutOfRangeException()
     {
-        Assert.Throws<ArgumentOutOfRangeException>
+        var ex = Assert.Throws<ArgumentOutOfRangeException>
         (
             () => new DelayingExtractor<int>(new[] { 1 }, TimeSpan.FromMilliseconds(-1))
         );
+
+        Assert.Contains("must not be negative", ex.Message);
     }
 
 
@@ -149,5 +153,151 @@ public class DelayingExtractorTests
 
         // Stopped near the cancel point rather than draining all 100.
         Assert.True(processed <= 4, $"Expected a prompt stop (≤ 4), but processed {processed}.");
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Mutation-hardening (#346)
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task ExtractAsync_with_no_items_and_a_pre_cancelled_token_still_throws()
+    {
+        // The pre-loop ThrowIfCancellationRequested is the only cancellation check that
+        // runs when the source is empty (the in-loop check never executes), so an empty
+        // source with an already-cancelled token must still throw.
+        var sut = new DelayingExtractor<int>(Array.Empty<int>(), TimeSpan.Zero);
+        using var cts = new CancellationTokenSource();
+        cts.Cancel();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>
+        (
+            async () =>
+            {
+                await foreach (var _ in sut.ExtractAsync(cts.Token))
+                {
+                }
+            }
+        );
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_advances_the_delay_index_across_skipped_items()
+    {
+        // The zero-based index handed to the delay selector must keep advancing through
+        // skipped items, so a yielded item is delayed for its true position — not 0.
+        var seen = new List<int>();
+        var sut = new DelayingExtractor<int>
+        (
+            new[] { 1, 2, 3, 4 },
+            i => { seen.Add(i); return TimeSpan.Zero; }
+        )
+        { SkipItemCount = 2 };
+
+        await foreach (var _ in sut.ExtractAsync())
+        {
+        }
+
+        // Items 0 and 1 are skipped (the selector is only consulted for yielded items);
+        // the two yielded items are queried at their real indices 2 and 3.
+        Assert.Equal(new[] { 2, 3 }, seen);
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_advances_the_delay_index_for_each_yielded_item()
+    {
+        var seen = new List<int>();
+        var sut = new DelayingExtractor<int>
+        (
+            new[] { 10, 20, 30 },
+            i => { seen.Add(i); return TimeSpan.Zero; }
+        );
+
+        await foreach (var _ in sut.ExtractAsync())
+        {
+        }
+
+        Assert.Equal(new[] { 0, 1, 2 }, seen);
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_actually_waits_the_delay_before_yielding()
+    {
+        // Dropping the Task.Delay would make extraction effectively instantaneous.
+        var sut = new DelayingExtractor<int>(new[] { 1, 2, 3 }, TimeSpan.FromMilliseconds(30));
+
+        var sw = Stopwatch.StartNew();
+        await foreach (var _ in sut.ExtractAsync())
+        {
+        }
+        sw.Stop();
+
+        // 3 items x 30 ms = ~90 ms nominal; a 45 ms floor is far above the no-delay case
+        // (~0 ms) yet loose enough to stay reliable on shared CI runners.
+        Assert.True
+        (
+            sw.ElapsedMilliseconds >= 45,
+            $"Expected the extractor to actually delay; elapsed only {sw.ElapsedMilliseconds} ms."
+        );
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_cancelling_during_skip_stops_at_the_in_loop_check()
+    {
+        // With a large SkipItemCount, the per-item ThrowIfCancellationRequested is the ONLY
+        // cancellation check reached while skipping — the Task.Delay (which also observes the token)
+        // runs only for non-skipped items. The source cancels the token as its 6th item is pulled;
+        // the in-loop check must throw right then, having skipped only a handful of items. Without
+        // that check, skipping would race ahead to the full SkipItemCount before the delay finally
+        // noticed cancellation — so a small skipped count proves the in-loop check fired.
+        using var cts = new CancellationTokenSource();
+        var sut = new DelayingExtractor<int>
+        (
+            CancelAt(cts, cancelIndex: 5, total: 5000),
+            TimeSpan.FromMilliseconds(20)
+        )
+        { SkipItemCount = 1000 };
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>
+        (
+            async () =>
+            {
+                await foreach (var _ in sut.ExtractAsync(cts.Token))
+                {
+                }
+            }
+        );
+
+        Assert.True
+        (
+            sut.CurrentSkippedItemCount < 100,
+            $"Expected a prompt in-loop cancel while skipping, but skipped {sut.CurrentSkippedItemCount} items."
+        );
+    }
+
+
+
+    // A sequence that cancels the supplied source as a chosen item is produced, letting the token
+    // flip mid-skip so only the in-loop cancellation check can catch it.
+    private static IEnumerable<int> CancelAt(CancellationTokenSource cts, int cancelIndex, int total)
+    {
+        for (var i = 0; i < total; i++)
+        {
+            if (i == cancelIndex)
+            {
+                cts.Cancel();
+            }
+
+            yield return i;
+        }
     }
 }

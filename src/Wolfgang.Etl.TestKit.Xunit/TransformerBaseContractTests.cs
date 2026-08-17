@@ -170,7 +170,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync((IAsyncEnumerable<TItem>)null!);
+            _ = sut.TransformAsync(null!);
         });
 
         Assert.Equal("items", ex.ParamName);
@@ -244,7 +244,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync((IAsyncEnumerable<TItem>)null!, CancellationToken.None);
+            _ = sut.TransformAsync(null!, CancellationToken.None);
         });
 
         Assert.Equal("items", ex.ParamName);
@@ -363,7 +363,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync((IAsyncEnumerable<TItem>)null!, progress);
+            _ = sut.TransformAsync(null!, progress);
         });
 
         Assert.Equal("items", ex.ParamName);
@@ -380,7 +380,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!);
+            _ = sut.TransformAsync(CreateInputItemsAsync(), null!);
         });
 
         Assert.Equal("progress", ex.ParamName);
@@ -496,7 +496,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync((IAsyncEnumerable<TItem>)null!, progress, CancellationToken.None);
+            _ = sut.TransformAsync(null!, progress, CancellationToken.None);
         });
 
         Assert.Equal("items", ex.ParamName);
@@ -513,7 +513,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!, CancellationToken.None);
+            _ = sut.TransformAsync(CreateInputItemsAsync(), null!, CancellationToken.None);
         });
 
         Assert.Equal("progress", ex.ParamName);

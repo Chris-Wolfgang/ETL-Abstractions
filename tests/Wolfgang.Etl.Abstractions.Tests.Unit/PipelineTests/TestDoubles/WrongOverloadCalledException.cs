@@ -1,4 +1,6 @@
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles;
 
 /// <summary>
@@ -7,6 +9,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles;
 /// dedicated type instead of a plain <see cref="InvalidOperationException"/> makes accidental
 /// routing regressions easy to diagnose in test failure output.
 /// </summary>
+// Only constructed by the never-executed negative-routing guards, so it cannot be covered.
+[ExcludeFromCodeCoverage]
 internal sealed class WrongOverloadCalledException : Exception
 {
     public WrongOverloadCalledException(string overloadSignature)

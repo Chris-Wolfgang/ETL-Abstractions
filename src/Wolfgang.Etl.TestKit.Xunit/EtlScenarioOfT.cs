@@ -23,8 +23,8 @@ public sealed class EtlScenario<T>
     where T : notnull
 {
     private readonly T[] _items;
-    private (int Index, System.Exception Exception, bool Skip)? _extractorFault;
-    private (int Index, System.Exception Exception, bool Skip)? _loaderFault;
+    private (int Index, Exception Exception, bool Skip)? _extractorFault;
+    private (int Index, Exception Exception, bool Skip)? _loaderFault;
     private TransformerBase<T, T, Report>? _transformer;
 
 

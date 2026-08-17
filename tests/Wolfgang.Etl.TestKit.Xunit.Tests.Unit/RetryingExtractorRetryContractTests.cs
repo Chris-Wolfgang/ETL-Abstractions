@@ -25,7 +25,7 @@ public sealed class RetryingExtractorRetryContractTests
     private static async Task<RetryOutcome> DriveAsync(RetryingExtractor<int> sut)
     {
         var itemCount = 0;
-        var succeeded = false;
+        bool succeeded;
 
         try
         {

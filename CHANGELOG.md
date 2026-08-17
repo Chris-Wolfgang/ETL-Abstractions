@@ -19,6 +19,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.23.1] - 2026-08-16
+
+### Changed
+
+- `dotnet pack` on the solution no longer emits demo/benchmark packages (`Example*.nupkg`,
+  `Wolfgang.Etl.Abstractions.Benchmarks.nupkg`) — the `examples/` and `benchmarks/` trees are marked
+  non-packable (#362). No change to the four shipped packages.
+
+### Security
+
+- **Reproducible, hash-pinned dependency restore (#394):** `RestorePackagesWithLockFile` is enabled and
+  `packages.lock.json` is committed for every project, so `dotnet restore` validates the full dependency
+  graph by content hash (CI restores in locked mode). Clears the OSSF Scorecard "nugetCommand not pinned
+  by hash" findings.
+- **Pinned SAST/lint tooling (#395):** the Semgrep workflow runs from a digest-pinned container and the
+  workflow-security lint installs zizmor via `--require-hashes`, removing unpinned `pip install`s.
+
+### Internal
+
+- Test-code hardening: test assemblies are now instrumented for coverage (all unit projects at 100% line
+  coverage, #386), the TestKit fault-injection doubles' mutation score raised from 76% to ~99% (#346),
+  the per-PR benchmark gate gained an absolute-delta floor to stop sub-millisecond false positives (#367),
+  and redundant-code analyzer findings were cleared across the test/contract-base code (#393). No change
+  to the shipped public API.
+
 ## [0.23.0] - 2026-08-15
 
 ### Added

@@ -261,7 +261,7 @@ public class ProgressAssertTests
         var capture = new ProgressCapture<int>();
 
         Assert.Throws<ArgumentNullException>(() =>
-            ProgressAssert.FinalReportSatisfies<int>(capture, null!));
+            ProgressAssert.FinalReportSatisfies(capture, null!));
     }
 
 
@@ -331,7 +331,7 @@ public class ProgressAssertTests
         var capture = new ProgressCapture<int>();
 
         Assert.Throws<ArgumentNullException>(() =>
-            ProgressAssert.AllReportsSatisfy<int>(capture, null!));
+            ProgressAssert.AllReportsSatisfy(capture, null!));
     }
 
 

@@ -5,7 +5,12 @@
       <DataCollector friendlyName="XPlat Code Coverage">
         <Configuration>
           <Format>cobertura</Format>
-          <ExcludeByFile>**/bin/**/*.cs;**/obj/**/*.cs</ExcludeByFile>
+          <IncludeTestAssembly>true</IncludeTestAssembly>
+          <!-- Exclude the SDK-injected test-host entry point (Microsoft.NET.Test.Sdk's
+               generated Main). It lives in the NuGet cache, is regenerated each build,
+               is never executed under the VSTest host, and can't carry an attribute —
+               so it's a permanent 1-line gap in every test assembly (#386). -->
+          <ExcludeByFile>**/bin/**/*.cs;**/obj/**/*.cs;**/Microsoft.NET.Test.Sdk.Program.cs</ExcludeByFile>
           <ExcludeByAttribute>ExcludeFromCodeCoverageAttribute</ExcludeByAttribute>
         </Configuration>
       </DataCollector>

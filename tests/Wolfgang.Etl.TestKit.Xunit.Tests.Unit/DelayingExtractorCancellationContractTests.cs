@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ public sealed class DelayingExtractorCancellationContractTests
 
 
 
+    // The await-foreach normal-completion path is unreachable: this run always cancels mid-stream
+    // (the contract asserts the stream never drains), so the loop only ever exits via the thrown
+    // OperationCanceledException — never by the enumerator completing.
+    [ExcludeFromCodeCoverage]
     protected override async Task<CancellationOutcome> RunAndCancelMidStreamAsync(int itemCount, int cancelAfter)
     {
         var sut = new DelayingExtractor<int>(Enumerable.Range(0, itemCount).ToArray(), PerItemDelay);
@@ -48,6 +53,10 @@ public sealed class DelayingExtractorCancellationContractTests
 
 
 
+    // The loop body and normal-completion path are unreachable: an already-cancelled token makes the
+    // extractor throw before yielding any item (the contract asserts zero items are processed), so
+    // execution goes straight to the catch.
+    [ExcludeFromCodeCoverage]
     protected override async Task<CancellationOutcome> RunWithPreCancelledTokenAsync(int itemCount)
     {
         var sut   = new DelayingExtractor<int>(Enumerable.Range(0, itemCount).ToArray(), PerItemDelay);

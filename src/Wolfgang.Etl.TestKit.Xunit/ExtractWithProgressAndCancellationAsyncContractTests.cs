@@ -204,7 +204,7 @@ public abstract class ExtractWithProgressAndCancellationAsyncContractTests<TSut,
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.ExtractAsync((IProgress<TProgress>)null!);
+            _ = sut.ExtractAsync(null!);
         });
 
         Assert.Equal("progress", ex.ParamName);
@@ -282,7 +282,7 @@ public abstract class ExtractWithProgressAndCancellationAsyncContractTests<TSut,
 
         var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.ExtractAsync((IProgress<TProgress>)null!, CancellationToken.None);
+            _ = sut.ExtractAsync(null!, CancellationToken.None);
         });
 
         Assert.Equal("progress", ex.ParamName);

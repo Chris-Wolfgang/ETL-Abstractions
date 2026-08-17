@@ -1,0 +1,12 @@
+<Project>
+
+  <!-- Chain to the repo-root Directory.Build.props (analyzers, nullable, etc.),
+       then mark this whole tree non-packable so `dotnet pack` on the solution
+       never emits demo/benchmark nupkgs alongside the four real packages (#362). -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+</Project>
