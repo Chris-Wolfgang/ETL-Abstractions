@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -211,10 +212,12 @@ public class TestTransformerMutationTests
         public event Action? Elapsed;
 #pragma warning restore CS0067
 
+        [ExcludeFromCodeCoverage]
         public void Start(int intervalMilliseconds) { }
 
         public void StopTimer() => StopTimerCallCount++;
 
+        [ExcludeFromCodeCoverage]
         public void Dispose() { }
     }
 }

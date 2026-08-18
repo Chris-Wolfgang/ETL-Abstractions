@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Wolfgang.Etl.Abstractions;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
@@ -37,6 +38,7 @@ internal sealed class CountingProgressTimer : IProgressTimer
 
 
 
+    [ExcludeFromCodeCoverage]
     public void Start(int intervalMilliseconds)
     {
     }
