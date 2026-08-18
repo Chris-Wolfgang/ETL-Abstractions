@@ -207,14 +207,21 @@ if (-not $SkipTests -and -not $SkipCoverage -and $failed.Count -eq 0) {
             foreach ($line in (Get-Content "CoverageReport/Summary.txt")) {
                 if ($line -match '^\s*(\S+)\s+(\d+(?:\.\d+)?)%\s*$' -and $line -notmatch '^\s*Summary') {
                     $module = $Matches[1]
-                    $percent = [int][math]::Floor([double]$Matches[2])
+                    # Raw decimal percent, compared as a float (see the pr.yaml gate).
+                    $raw = [double]$Matches[2]
 
-                    if ($percent -lt $CoverageThreshold) {
-                        Write-Fail "  $module — ${percent}% (below ${CoverageThreshold}%)"
-                        $failedProjects += "$module (${percent}%)"
+                    # Per-module threshold (#386): unit-test assemblies must reach
+                    # >= 99%; everything else keeps CoverageThreshold. Only the
+                    # assembly row ends in ".Tests.Unit" — class rows never do.
+                    if ($module -like '*.Tests.Unit') { $modThreshold = 99; $modLabel = '99%' }
+                    else                              { $modThreshold = [double]$CoverageThreshold; $modLabel = "${CoverageThreshold}%" }
+
+                    if ($raw -lt $modThreshold) {
+                        Write-Fail "  $module — ${raw}% (below ${modLabel})"
+                        $failedProjects += "$module (${raw}%)"
                     }
                     else {
-                        Write-Pass "  $module — ${percent}%"
+                        Write-Pass "  $module — ${raw}%"
                     }
                 }
             }

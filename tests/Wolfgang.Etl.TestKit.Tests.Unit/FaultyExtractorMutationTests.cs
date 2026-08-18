@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -314,12 +315,14 @@ public class FaultyExtractorMutationTests
 #pragma warning restore CS0067
 
 
+        [ExcludeFromCodeCoverage]
         public void Start(int intervalMilliseconds) { }
 
 
         public void StopTimer() => StopTimerCallCount++;
 
 
+        [ExcludeFromCodeCoverage]
         public void Dispose() { }
     }
 
@@ -339,6 +342,7 @@ public class FaultyExtractorMutationTests
         public IEnumerator<T> GetEnumerator() => new TrackingEnumerator(this, _inner.GetEnumerator());
 
 
+        [ExcludeFromCodeCoverage]
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
 
@@ -358,12 +362,14 @@ public class FaultyExtractorMutationTests
             public T Current => _inner.Current;
 
 
+            [ExcludeFromCodeCoverage]
             object? IEnumerator.Current => Current;
 
 
             public bool MoveNext() => _inner.MoveNext();
 
 
+            [ExcludeFromCodeCoverage]
             public void Reset() => _inner.Reset();
 
 

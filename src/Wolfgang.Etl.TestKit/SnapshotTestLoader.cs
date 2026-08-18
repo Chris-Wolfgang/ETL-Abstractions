@@ -140,9 +140,9 @@ public class SnapshotTestLoader<T> : LoaderBase<T, Report>
 
         _buffer.Clear();
 
-        // Stryker disable once Boolean : ConfigureAwait(false) is required on net462/netstandard2.0;
-        // (true) is behaviourally identical under the test host (no synchronization context), so the
-        // mutant is equivalent and unkillable.
+        // Stryker disable once Boolean : the false argument to ConfigureAwait is required on net462
+        // and netstandard2.0, and passing true instead is behaviourally identical under the test host
+        // with no synchronization context, so the mutant is equivalent and unkillable.
         await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
         {
             token.ThrowIfCancellationRequested();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
@@ -213,6 +214,7 @@ public class TestLoaderMutationTests
     // Helpers
     // ------------------------------------------------------------------
 
+    [ExcludeFromCodeCoverage]
     private static async IAsyncEnumerable<int> EmptyIgnoringCancellationAsync()
     {
         await Task.CompletedTask.ConfigureAwait(false);

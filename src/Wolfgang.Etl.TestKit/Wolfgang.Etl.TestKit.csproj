@@ -12,7 +12,7 @@
          is live on NuGet (otherwise pack fails NU1102). Intentional breaks in a
          MAJOR bump are recorded via a generated CompatibilitySuppressions.xml. -->
     <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>0.23.0</PackageValidationBaselineVersion>
+    <PackageValidationBaselineVersion>0.23.1</PackageValidationBaselineVersion>
     <Title>Wolfgang.Etl.TestKit</Title>
     <Description>An implementation of Extractor, Transformer and Loader for use in ETL examples and benchmarks. Built on Wolfgang.Etl.Abstractions.</Description>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -50,15 +50,15 @@
     prevent NuGet from resolving an older transitive version — no runtime assembly is copied.
   -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.11" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.10" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.11" ExcludeAssets="runtime" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.11" />
     <ProjectReference Include="..\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
     <PackageReference Include="System.Linq.Async" Version="7.0.1" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -104,7 +105,7 @@ public class TestExtractorMutationTests
     [Fact]
     public void Dispose_when_not_disposing_leaves_the_Elapsed_subscription_intact()
     {
-        // L505: `disposing && _progressTimer is not null && _elapsedHandler is not null` (both &&).
+        // L505: the Dispose guard requires disposing plus progressTimer-not-null plus elapsedHandler-not-null, all three together.
         // On the finalizer path (disposing == false) the original leaves the caller-owned timer
         // untouched, so a subsequent Fire() still reports. Either `&&`->`||` mutant would
         // unsubscribe here, producing zero reports.
@@ -197,7 +198,7 @@ public class TestExtractorMutationTests
         public ExposedTimerExtractor(Func<int, int> factory, int count, IProgressTimer timer)
             : base(factory, count, timer) { }
 
-        public IProgressTimer CallCreateProgressTimer(IProgress<Report> progress) =>
+        public void CallCreateProgressTimer(IProgress<Report> progress) =>
             CreateProgressTimer(progress);
 
         public void CallDispose(bool disposing) => Dispose(disposing);
@@ -214,10 +215,12 @@ public class TestExtractorMutationTests
         public event Action? Elapsed;
 #pragma warning restore CS0067
 
+        [ExcludeFromCodeCoverage]
         public void Start(int intervalMilliseconds) { }
 
         public void StopTimer() => StopTimerCallCount++;
 
+        [ExcludeFromCodeCoverage]
         public void Dispose() { }
     }
 }

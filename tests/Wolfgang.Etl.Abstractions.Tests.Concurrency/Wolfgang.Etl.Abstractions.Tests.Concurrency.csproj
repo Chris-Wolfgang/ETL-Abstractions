@@ -19,6 +19,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Coyote" Version="1.7.11" />
     <PackageReference Include="Microsoft.Coyote.Test" Version="1.7.11" />
+    <!-- Force the patched System.Text.Json over Microsoft.Coyote's transitive 8.0.0, which is
+         vulnerable to CVE-2024-30105 and CVE-2024-43485 (.NET DoS). Test-only and never shipped,
+         but it is the sole remaining Scorecard Vulnerabilities finding. 8.0.5 patches both. -->
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>
