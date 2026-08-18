@@ -201,7 +201,7 @@ public class DelayingExtractorTests
         {
         }
 
-        // Items 0 and 1 are skipped (the selector is only consulted for yielded items);
+        // Items 0 and 1 are skipped — the selector is only consulted for yielded items.
         // the two yielded items are queried at their real indices 2 and 3.
         Assert.Equal(new[] { 2, 3 }, seen);
     }
@@ -255,7 +255,7 @@ public class DelayingExtractorTests
     {
         // With a large SkipItemCount, the per-item ThrowIfCancellationRequested is the ONLY
         // cancellation check reached while skipping — the Task.Delay (which also observes the token)
-        // runs only for non-skipped items. The source cancels the token as its 6th item is pulled;
+        // runs only for non-skipped items. The source cancels the token as its 6th item is pulled,
         // the in-loop check must throw right then, having skipped only a handful of items. Without
         // that check, skipping would race ahead to the full SkipItemCount before the delay finally
         // noticed cancellation — so a small skipped count proves the in-loop check fired.
