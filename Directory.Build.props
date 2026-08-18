@@ -45,19 +45,19 @@
     </PackageReference>
     
     <!-- Microsoft Threading Analyzers - Thread safety -->
-    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     
     <!-- BannedApiAnalyzers - Prevent usage of specific APIs -->
-    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="4.14.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="5.6.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     
     <!-- Meziantou - Comprehensive code quality -->
-    <PackageReference Include="Meziantou.Analyzer" Version="3.0.58">
+    <PackageReference Include="Meziantou.Analyzer" Version="3.0.163">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -80,7 +80,7 @@
        is the correct fix: PublicAPI tracking does not apply to non-shipped
        assemblies. -->
   <ItemGroup Condition="Exists('PublicAPI.Shipped.txt')">
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" Condition="Exists('PublicAPI.Shipped.txt') or Exists('PublicAPI.Unshipped.txt')">
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="5.6.0" Condition="Exists('PublicAPI.Shipped.txt') or Exists('PublicAPI.Unshipped.txt')">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
