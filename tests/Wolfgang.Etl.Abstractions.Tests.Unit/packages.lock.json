@@ -16,9 +16,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ==",
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg==",
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.1.2"
         }
@@ -219,7 +219,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -228,8 +228,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -251,9 +251,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ==",
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg==",
         "dependencies": {
           "System.Memory": "4.6.3",
           "System.Runtime.CompilerServices.Unsafe": "6.1.2",
@@ -498,7 +498,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -507,8 +507,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -530,9 +530,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ==",
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg==",
         "dependencies": {
           "System.Memory": "4.6.3",
           "System.Runtime.CompilerServices.Unsafe": "6.1.2",
@@ -777,7 +777,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -786,8 +786,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -809,9 +809,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ==",
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg==",
         "dependencies": {
           "System.Memory": "4.6.3",
           "System.Runtime.CompilerServices.Unsafe": "6.1.2",
@@ -1056,7 +1056,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -1065,8 +1065,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -1088,9 +1088,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ==",
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg==",
         "dependencies": {
           "System.Memory": "4.6.3",
           "System.Runtime.CompilerServices.Unsafe": "6.1.2",
@@ -1335,7 +1335,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -1344,8 +1344,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -1373,9 +1373,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ=="
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg=="
       },
       "Microsoft.CodeAnalysis.BannedApiAnalyzers": {
         "type": "Direct",
@@ -1385,12 +1385,12 @@
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
-        "requested": "[18.3.0, )",
-        "resolved": "18.3.0",
-        "contentHash": "xW3kXuWRQtgoxJp4J+gdhHSQyK+6Wb/AZDSd7lMvuMRYlZ1tnpkojyfZlWilB5G4dmZ0Y0ZxU/M23TlubndNkw==",
+        "requested": "[18.7.0, )",
+        "resolved": "18.7.0",
+        "contentHash": "49xH9j4UzCh2hMohJp53g3wUTvyycECw7CtVht4gfCz5ykudB1uBcF6D0TtgJPjCtP76UPW53bQElKdCeX+dUg==",
         "dependencies": {
-          "Microsoft.CodeCoverage": "18.3.0",
-          "Microsoft.TestPlatform.TestHost": "18.3.0"
+          "Microsoft.CodeCoverage": "18.7.0",
+          "Microsoft.TestPlatform.TestHost": "18.7.0"
         }
       },
       "Microsoft.SourceLink.GitHub": {
@@ -1423,9 +1423,9 @@
       },
       "System.Linq.AsyncEnumerable": {
         "type": "Direct",
-        "requested": "[10.0.6, )",
-        "resolved": "10.0.6",
-        "contentHash": "1Ttf7dyLoKXks2bVBVULmDPOSjxaMEE3JRTe/KGEJl3rfepCc4ipUEGMIKa/iBKLSN8rjEedF8Qv3UCtiwaDBw=="
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "vn8GVFHsTXAwrz4y1rSmVO3BP3E1/IiK5Lg4KBDJDYNTKBXzhCgU4FUR0tu2sRqXJjTTUMdVuyBuWVAXusFGOg=="
       },
       "xunit": {
         "type": "Direct",
@@ -1462,8 +1462,8 @@
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
-        "resolved": "18.3.0",
-        "contentHash": "23BNy/vziREC20Wwhb50K7+kZe0m07KlLWDQv4qjJ9tt3QjpDpDIqJFrhYHmMEo9xDkuSp55U/8h4bMF7MiB+g=="
+        "resolved": "18.7.0",
+        "contentHash": "+wFfx9s7D9wegM0RziXMj2kvYDT4qcqXXtyjiQwSZOGQ2wwcOAJQcD6eQXk02jt0MvRNawtp8TJxTrV+wD8X1g=="
       },
       "Microsoft.SourceLink.Common": {
         "type": "Transitive",
@@ -1472,15 +1472,15 @@
       },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
-        "resolved": "18.3.0",
-        "contentHash": "AEIEX2aWdPO9XbtR96eBaJxmXRD9vaI9uQ1T/JbPEKlTAZwYx0ZrMzKyULMdh/HH9Sg03kXCoN7LszQ90o6nPQ=="
+        "resolved": "18.7.0",
+        "contentHash": "6rmgU4q3/WOpOPcncI0YW0Q/QpcQtwR2TTEXDR5+4TfSimPBAk6Z/BgKLeGgp1SOun0ROVUCCafXhRLwsHaPpA=="
       },
       "Microsoft.TestPlatform.TestHost": {
         "type": "Transitive",
-        "resolved": "18.3.0",
-        "contentHash": "twmsoelXnp1uWMU3VGip9f0Jr1mZ0PZqgJdF35CIrdYgYrkHIJMV1m8uKyhcdjLdsQDESHAgkR7KhS9i1qpJag==",
+        "resolved": "18.7.0",
+        "contentHash": "kYwfmebCs8992zaxEDkvG7S+YEouTeKfYVKUFEkwh1W2dIoOaevBt80XSKVXCUFEhusjOIm1sFfHBnoJgygrRA==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "18.3.0",
+          "Microsoft.TestPlatform.ObjectModel": "18.7.0",
           "Newtonsoft.Json": "13.0.3"
         }
       },
@@ -1560,7 +1560,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -1569,8 +1569,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -1598,9 +1598,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ==",
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg==",
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.1.2"
         }
@@ -1795,7 +1795,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -1804,8 +1804,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -1833,9 +1833,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ=="
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg=="
       },
       "Microsoft.CodeAnalysis.BannedApiAnalyzers": {
         "type": "Direct",
@@ -2022,7 +2022,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -2031,8 +2031,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -2060,9 +2060,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ=="
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg=="
       },
       "Microsoft.CodeAnalysis.BannedApiAnalyzers": {
         "type": "Direct",
@@ -2249,7 +2249,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -2258,8 +2258,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -2287,9 +2287,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ=="
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg=="
       },
       "Microsoft.CodeAnalysis.BannedApiAnalyzers": {
         "type": "Direct",
@@ -2299,12 +2299,12 @@
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
-        "requested": "[18.3.0, )",
-        "resolved": "18.3.0",
-        "contentHash": "xW3kXuWRQtgoxJp4J+gdhHSQyK+6Wb/AZDSd7lMvuMRYlZ1tnpkojyfZlWilB5G4dmZ0Y0ZxU/M23TlubndNkw==",
+        "requested": "[18.7.0, )",
+        "resolved": "18.7.0",
+        "contentHash": "49xH9j4UzCh2hMohJp53g3wUTvyycECw7CtVht4gfCz5ykudB1uBcF6D0TtgJPjCtP76UPW53bQElKdCeX+dUg==",
         "dependencies": {
-          "Microsoft.CodeCoverage": "18.3.0",
-          "Microsoft.TestPlatform.TestHost": "18.3.0"
+          "Microsoft.CodeCoverage": "18.7.0",
+          "Microsoft.TestPlatform.TestHost": "18.7.0"
         }
       },
       "Microsoft.SourceLink.GitHub": {
@@ -2337,9 +2337,9 @@
       },
       "System.Linq.AsyncEnumerable": {
         "type": "Direct",
-        "requested": "[10.0.6, )",
-        "resolved": "10.0.6",
-        "contentHash": "1Ttf7dyLoKXks2bVBVULmDPOSjxaMEE3JRTe/KGEJl3rfepCc4ipUEGMIKa/iBKLSN8rjEedF8Qv3UCtiwaDBw=="
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "vn8GVFHsTXAwrz4y1rSmVO3BP3E1/IiK5Lg4KBDJDYNTKBXzhCgU4FUR0tu2sRqXJjTTUMdVuyBuWVAXusFGOg=="
       },
       "xunit": {
         "type": "Direct",
@@ -2376,8 +2376,8 @@
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
-        "resolved": "18.3.0",
-        "contentHash": "23BNy/vziREC20Wwhb50K7+kZe0m07KlLWDQv4qjJ9tt3QjpDpDIqJFrhYHmMEo9xDkuSp55U/8h4bMF7MiB+g=="
+        "resolved": "18.7.0",
+        "contentHash": "+wFfx9s7D9wegM0RziXMj2kvYDT4qcqXXtyjiQwSZOGQ2wwcOAJQcD6eQXk02jt0MvRNawtp8TJxTrV+wD8X1g=="
       },
       "Microsoft.SourceLink.Common": {
         "type": "Transitive",
@@ -2386,15 +2386,15 @@
       },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
-        "resolved": "18.3.0",
-        "contentHash": "AEIEX2aWdPO9XbtR96eBaJxmXRD9vaI9uQ1T/JbPEKlTAZwYx0ZrMzKyULMdh/HH9Sg03kXCoN7LszQ90o6nPQ=="
+        "resolved": "18.7.0",
+        "contentHash": "6rmgU4q3/WOpOPcncI0YW0Q/QpcQtwR2TTEXDR5+4TfSimPBAk6Z/BgKLeGgp1SOun0ROVUCCafXhRLwsHaPpA=="
       },
       "Microsoft.TestPlatform.TestHost": {
         "type": "Transitive",
-        "resolved": "18.3.0",
-        "contentHash": "twmsoelXnp1uWMU3VGip9f0Jr1mZ0PZqgJdF35CIrdYgYrkHIJMV1m8uKyhcdjLdsQDESHAgkR7KhS9i1qpJag==",
+        "resolved": "18.7.0",
+        "contentHash": "kYwfmebCs8992zaxEDkvG7S+YEouTeKfYVKUFEkwh1W2dIoOaevBt80XSKVXCUFEhusjOIm1sFfHBnoJgygrRA==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "18.3.0",
+          "Microsoft.TestPlatform.ObjectModel": "18.7.0",
           "Newtonsoft.Json": "13.0.3"
         }
       },
@@ -2472,7 +2472,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -2481,8 +2481,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
@@ -2510,9 +2510,9 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "/PxGfVdy8P15x9TUyAyWfzR92DcRVRCMs4nMnVS6bldRaDTJJPG9ECJPlF0lbkeZdqwM5eSkOQ214YwvcimAWQ=="
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "gOK5j94niQhCvUXA5sXn/h4khL0ZHPlKZx//SJ9pwuydpWSDIPBpduLWty5MYMEJkWs/ewYbG1LAqfPLOprDgg=="
       },
       "Microsoft.CodeAnalysis.BannedApiAnalyzers": {
         "type": "Direct",
@@ -2522,12 +2522,12 @@
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
-        "requested": "[18.3.0, )",
-        "resolved": "18.3.0",
-        "contentHash": "xW3kXuWRQtgoxJp4J+gdhHSQyK+6Wb/AZDSd7lMvuMRYlZ1tnpkojyfZlWilB5G4dmZ0Y0ZxU/M23TlubndNkw==",
+        "requested": "[18.7.0, )",
+        "resolved": "18.7.0",
+        "contentHash": "49xH9j4UzCh2hMohJp53g3wUTvyycECw7CtVht4gfCz5ykudB1uBcF6D0TtgJPjCtP76UPW53bQElKdCeX+dUg==",
         "dependencies": {
-          "Microsoft.CodeCoverage": "18.3.0",
-          "Microsoft.TestPlatform.TestHost": "18.3.0"
+          "Microsoft.CodeCoverage": "18.7.0",
+          "Microsoft.TestPlatform.TestHost": "18.7.0"
         }
       },
       "Microsoft.SourceLink.GitHub": {
@@ -2560,9 +2560,9 @@
       },
       "System.Linq.AsyncEnumerable": {
         "type": "Direct",
-        "requested": "[10.0.6, )",
-        "resolved": "10.0.6",
-        "contentHash": "1Ttf7dyLoKXks2bVBVULmDPOSjxaMEE3JRTe/KGEJl3rfepCc4ipUEGMIKa/iBKLSN8rjEedF8Qv3UCtiwaDBw=="
+        "requested": "[10.0.11, )",
+        "resolved": "10.0.11",
+        "contentHash": "vn8GVFHsTXAwrz4y1rSmVO3BP3E1/IiK5Lg4KBDJDYNTKBXzhCgU4FUR0tu2sRqXJjTTUMdVuyBuWVAXusFGOg=="
       },
       "xunit": {
         "type": "Direct",
@@ -2599,8 +2599,8 @@
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
-        "resolved": "18.3.0",
-        "contentHash": "23BNy/vziREC20Wwhb50K7+kZe0m07KlLWDQv4qjJ9tt3QjpDpDIqJFrhYHmMEo9xDkuSp55U/8h4bMF7MiB+g=="
+        "resolved": "18.7.0",
+        "contentHash": "+wFfx9s7D9wegM0RziXMj2kvYDT4qcqXXtyjiQwSZOGQ2wwcOAJQcD6eQXk02jt0MvRNawtp8TJxTrV+wD8X1g=="
       },
       "Microsoft.SourceLink.Common": {
         "type": "Transitive",
@@ -2609,15 +2609,15 @@
       },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
-        "resolved": "18.3.0",
-        "contentHash": "AEIEX2aWdPO9XbtR96eBaJxmXRD9vaI9uQ1T/JbPEKlTAZwYx0ZrMzKyULMdh/HH9Sg03kXCoN7LszQ90o6nPQ=="
+        "resolved": "18.7.0",
+        "contentHash": "6rmgU4q3/WOpOPcncI0YW0Q/QpcQtwR2TTEXDR5+4TfSimPBAk6Z/BgKLeGgp1SOun0ROVUCCafXhRLwsHaPpA=="
       },
       "Microsoft.TestPlatform.TestHost": {
         "type": "Transitive",
-        "resolved": "18.3.0",
-        "contentHash": "twmsoelXnp1uWMU3VGip9f0Jr1mZ0PZqgJdF35CIrdYgYrkHIJMV1m8uKyhcdjLdsQDESHAgkR7KhS9i1qpJag==",
+        "resolved": "18.7.0",
+        "contentHash": "kYwfmebCs8992zaxEDkvG7S+YEouTeKfYVKUFEkwh1W2dIoOaevBt80XSKVXCUFEhusjOIm1sFfHBnoJgygrRA==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "18.3.0",
+          "Microsoft.TestPlatform.ObjectModel": "18.7.0",
           "Newtonsoft.Json": "13.0.3"
         }
       },
@@ -2695,7 +2695,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )"
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )"
         }
       },
       "wolfgang.etl.testkit.xunit": {
@@ -2704,8 +2704,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "[10.0.10, )",
           "Microsoft.Bcl.Memory": "[10.0.10, )",
           "System.Linq.Async": "[7.0.1, )",
-          "Wolfgang.Etl.Abstractions": "[0.23.0, )",
-          "Wolfgang.Etl.TestKit": "[0.23.0, )",
+          "Wolfgang.Etl.Abstractions": "[0.23.1, )",
+          "Wolfgang.Etl.TestKit": "[0.23.1, )",
           "xunit.abstractions": "[2.0.3, )",
           "xunit.assert": "[2.9.3, )",
           "xunit.core": "[2.9.3, )"
