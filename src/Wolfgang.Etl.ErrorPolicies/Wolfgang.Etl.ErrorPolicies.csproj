@@ -41,12 +41,12 @@
 
   <!-- Logging.Abstractions is always a package reference (never in-box). -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.11" />
   </ItemGroup>
 
   <!-- System.Threading.Channels is in-box on net5.0+; only the netFx / netstandard2.0 TFMs need the package. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Threading.Channels" Version="10.0.10" />
+    <PackageReference Include="System.Threading.Channels" Version="10.0.11" />
   </ItemGroup>
 
   <!-- Analyzer PackageReferences are centralized in Directory.Build.props -->
