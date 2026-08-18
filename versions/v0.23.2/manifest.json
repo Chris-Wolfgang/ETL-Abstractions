@@ -1,0 +1,1494 @@
+{
+  "source_base_path": "D:/a/ETL-Abstractions/ETL-Abstractions/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipeline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.EtlPipeline",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.EtlPipeline.yml\" sourcestartlinenumber=\"1\">Entry point for building a generic, format-agnostic ETL pipeline. Obtain a fresh builder with\n<xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline.Create\" data-throw-if-not-resolved=\"false\"></xref>, start from a source — either a built-in <code>From</code> factory (see\n<xref href=\"Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions\" data-throw-if-not-resolved=\"false\"></xref>) or a format-specific factory hung off the\n<xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref> instance by a format package — append transformer stages on\n<xref href=\"Wolfgang.Etl.Abstractions.IEtlPipeline%601\" data-throw-if-not-resolved=\"false\"></xref>, terminate with a sink, then call\n<xref href=\"Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress%7bWolfgang.Etl.Abstractions.EtlPipelineProgress%7d%2cSystem.Threading.CancellationToken)\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.EtlPipelineProgress",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.EtlPipelineProgress.yml\" sourcestartlinenumber=\"1\">An immutable snapshot of a generic <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref> run's throughput, reported through\nthe <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref> sink passed to\n<xref href=\"Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress%7bWolfgang.Etl.Abstractions.EtlPipelineProgress%7d%2cSystem.Threading.CancellationToken)\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.yml\" sourcestartlinenumber=\"1\">Extensions for terminal <xref href=\"Wolfgang.Etl.Abstractions.IEtlPipelineSink\" data-throw-if-not-resolved=\"false\"></xref> pipelines.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.yml\" sourcestartlinenumber=\"1\">Built-in source factories for <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref>. They begin a pipeline from a raw stream or\nan extractor. Format packages add their own class-named source factories (for example\n<code>CsvExtractor</code>) as extension methods on <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref> alongside these, so every\nsource reads the same way: <code>EtlPipeline.Create().Xxx(...)</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorBase-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ExtractorBase<TSource>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ExtractorBase-1.yml\" sourcestartlinenumber=\"1\">A convenience <xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%602\" data-throw-if-not-resolved=\"false\"></xref> that reports progress with the\nbuilt-in <xref href=\"Wolfgang.Etl.Abstractions.Report\" data-throw-if-not-resolved=\"false\"></xref> type and supplies a default <xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%601.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref>, so a\nderived extractor only has to implement <code>ExtractWorkerAsync</code>. Use this instead of the\ntwo-type-parameter base when you don't need a custom progress-report type — it removes the\nprogress-record and <code>CreateProgressReport</code> boilerplate. Override\n<xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%601.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref> if you want to enrich the report (for example set a known total).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ExtractorBase-2.yml\" sourcestartlinenumber=\"1\">Provides a basic implementation for data extractors that extract data of type TSource.\nLibrary authors can use this base class to create custom extractors by inheriting from it and implementing\nExtractWorkerAsync and CreateProgressReport methods.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IEtlPipeline<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.yml\" sourcestartlinenumber=\"1\">A generic, format-agnostic ETL pipeline carrying a stream of items of type\n<code class=\"typeparamref\">T</code>. Append transformer stages with <xref href=\"Wolfgang.Etl.Abstractions.IEtlPipeline%601.Through%60%601(Wolfgang.Etl.Abstractions.ITransformAsync%7b%600%2c%60%600%7d)\" data-throw-if-not-resolved=\"false\"></xref>,\nthen terminate with <xref href=\"Wolfgang.Etl.Abstractions.IEtlPipeline%601.To%60%601(Wolfgang.Etl.Abstractions.LoaderBase%7b%600%2c%60%600%7d)\" data-throw-if-not-resolved=\"false\"></xref> (or a format-specific\nsink terminator) to obtain a runnable <xref href=\"Wolfgang.Etl.Abstractions.IEtlPipelineSink\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IEtlPipelineSink",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.yml\" sourcestartlinenumber=\"1\">A terminated, runnable generic ETL pipeline. Obtained from\n<xref href=\"Wolfgang.Etl.Abstractions.IEtlPipeline%601.To%60%601(Wolfgang.Etl.Abstractions.LoaderBase%7b%600%2c%60%600%7d)\" data-throw-if-not-resolved=\"false\"></xref> or a format-specific sink\nterminator (for example a <code>CsvLoader</code> extension shipped by a format package).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IExtractAsync-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IExtractAsync-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IExtractAsync<TSource>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type T.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IExtractStage-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IExtractStage-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IExtractStage<TSource>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractStage-1.yml\" sourcestartlinenumber=\"1\">Represents the extractor stage of a fluent ETL pipeline for items of type\n<code class=\"typeparamref\">TSource</code>. Call one of the <code>Transform</code> overloads to append a\ntransformer, or one of the <code>Load</code> overloads to terminate the chain with a loader.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractStageWithProgress-2.yml\" sourcestartlinenumber=\"1\">An <xref href=\"Wolfgang.Etl.Abstractions.IExtractStage%601\" data-throw-if-not-resolved=\"false\"></xref> whose underlying extractor also supports progress\nreporting. Call <xref href=\"Wolfgang.Etl.Abstractions.IExtractStageWithProgress%602.WithProgress(System.IProgress%7b%601%7d)\" data-throw-if-not-resolved=\"false\"></xref> to supply an <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref>\nsink that will be forwarded to the extractor's <code>ExtractAsync</code> overload when the\npipeline runs.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync<TSource>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type T.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync<TSource, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type T.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IExtractWithProgressAsync<TSource, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type T.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IItemMiddleware-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IItemMiddleware-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IItemMiddleware<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IItemMiddleware-1.yml\" sourcestartlinenumber=\"1\">A composable, reusable hook for cross-cutting per-item behaviour (logging, validation, metrics,\nthrottling, deduplication) that can be attached to any stream without modifying the extractor,\ntransformer, or loader that produced it. Attach one or more with\n<xref href=\"Wolfgang.Etl.Abstractions.MiddlewareExtensions.WithMiddleware%60%601(System.Collections.Generic.IAsyncEnumerable%7b%60%600%7d%2cWolfgang.Etl.Abstractions.IItemMiddleware%7b%60%600%7d%2cSystem.Threading.CancellationToken)\" data-throw-if-not-resolved=\"false\"></xref>;\nthey run in the order attached, each seeing the item the previous one passed on.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ILoadAsync-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ILoadAsync-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ILoadAsync<TDestination>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type T.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync<TDestination>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type T.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync<TDestination, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type T.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ILoadWithProgressAsync-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ILoadWithProgressAsync-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ILoadWithProgressAsync<TDestination, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadWithProgressAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type T.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IPipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IPipeline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IPipeline",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IPipeline.yml\" sourcestartlinenumber=\"1\">A terminated, runnable ETL pipeline. Obtained from an <xref href=\"Wolfgang.Etl.Abstractions.IExtractStage%601\" data-throw-if-not-resolved=\"false\"></xref> or\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformStage%601\" data-throw-if-not-resolved=\"false\"></xref> <code>Load</code> overload.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress<TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress-1.yml\" sourcestartlinenumber=\"1\">An <xref href=\"Wolfgang.Etl.Abstractions.IPipeline\" data-throw-if-not-resolved=\"false\"></xref> whose loader supports progress reporting. Call\n<xref href=\"Wolfgang.Etl.Abstractions.IPipelineWithLoadProgress%601.WithProgress(System.IProgress%7b%600%7d)\" data-throw-if-not-resolved=\"false\"></xref> to supply an <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref> sink that will be\nforwarded to the loader's <code>LoadAsync</code> overload when the pipeline runs.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IProgressTimer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IProgressTimer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IProgressTimer",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IProgressTimer.yml\" sourcestartlinenumber=\"1\">Represents a timer that raises <xref href=\"Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed\" data-throw-if-not-resolved=\"false\"></xref> at a regular interval,\nused by extractor, transformer, and loader base classes to drive progress callbacks.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.IReportsItemErrors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.IReportsItemErrors.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.IReportsItemErrors",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IReportsItemErrors.yml\" sourcestartlinenumber=\"1\">Implemented by an ETL stage that counts items its error policy discarded, so a pipeline can read\nthat count uniformly regardless of the stage's concrete type. <xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%602\" data-throw-if-not-resolved=\"false\"></xref>,\n<xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%602\" data-throw-if-not-resolved=\"false\"></xref>, and <xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%603\" data-throw-if-not-resolved=\"false\"></xref>\nall implement it, and <code>EtlPipeline</code> sums <xref href=\"Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount\" data-throw-if-not-resolved=\"false\"></xref> across every stage\nthat reports it into <xref href=\"Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ISupportDryRun.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ISupportDryRun.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ISupportDryRun",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ISupportDryRun.yml\" sourcestartlinenumber=\"1\">Implemented by ETL stages that support a <em>dry run</em> — a mode in which the\nfull pipeline is exercised but the external side effect that mutates a destination\nor source is skipped.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformAsync-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ITransformAsync-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ITransformAsync<TSource, TDestination>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type T to TResult.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformStage-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ITransformStage-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ITransformStage<TSource>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformStage-1.yml\" sourcestartlinenumber=\"1\">Represents a mid-chain stage of a fluent ETL pipeline whose current item type is\n<code class=\"typeparamref\">TSource</code>. Call one of the <code>Transform</code> overloads to append another\ntransformer, or one of the <code>Load</code> overloads to terminate the chain.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ITransformStageWithProgress<TSource, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformStageWithProgress-2.yml\" sourcestartlinenumber=\"1\">An <xref href=\"Wolfgang.Etl.Abstractions.ITransformStage%601\" data-throw-if-not-resolved=\"false\"></xref> whose underlying transformer also supports progress\nreporting. Call <xref href=\"Wolfgang.Etl.Abstractions.ITransformStageWithProgress%602.WithProgress(System.IProgress%7b%601%7d)\" data-throw-if-not-resolved=\"false\"></xref> to supply an <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref>\nsink that will be forwarded to the transformer's <code>TransformAsync</code> overload when the\npipeline runs.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync<TSource, TDestination>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type T to TResult.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync-3.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type T to TResult.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformWithProgressAsync-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ITransformWithProgressAsync-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ITransformWithProgressAsync<TSource, TDestination, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformWithProgressAsync-3.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type T to TResult.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ItemErrorAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ItemErrorAction.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ItemErrorAction",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ItemErrorAction.yml\" sourcestartlinenumber=\"1\">The action a stage takes for an item that failed to process — returned by a stage's\n<code>OnItemError</code> policy and applied by the worker that called <code>HandleItemError</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ItemErrorContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ItemErrorContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ItemErrorContext",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ItemErrorContext.yml\" sourcestartlinenumber=\"1\">Describes a single item that failed to process. It is passed to a stage's <code>OnItemError</code>\npolicy so the policy can record the failure (a &quot;dead letter&quot;) and decide whether to\n<xref href=\"Wolfgang.Etl.Abstractions.ItemErrorAction.Skip\" data-throw-if-not-resolved=\"false\"></xref> the item or <xref href=\"Wolfgang.Etl.Abstractions.ItemErrorAction.Abort\" data-throw-if-not-resolved=\"false\"></xref> the run.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.LoaderBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.LoaderBase-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.LoaderBase<TDestination>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.LoaderBase-1.yml\" sourcestartlinenumber=\"1\">A convenience <xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%602\" data-throw-if-not-resolved=\"false\"></xref> that reports progress with the\nbuilt-in <xref href=\"Wolfgang.Etl.Abstractions.Report\" data-throw-if-not-resolved=\"false\"></xref> type and supplies a default <xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%601.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref>, so a\nderived loader only has to implement <code>LoadWorkerAsync</code>. Use this instead of the\ntwo-type-parameter base when you don't need a custom progress-report type — it removes the\nprogress-record and <code>CreateProgressReport</code> boilerplate. Override\n<xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%601.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref> if you want to enrich the report (for example set a known total).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.LoaderBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.LoaderBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.LoaderBase-2.yml\" sourcestartlinenumber=\"1\">Provides a basic implementation for data loaders that write data of type TDestination to a target destination.\nLibrary authors can use this base class to create custom loaders by inheriting from it and implementing\nLoadWorkerAsync and CreateProgressReport methods.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.MiddlewareExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods that attach <xref href=\"Wolfgang.Etl.Abstractions.IItemMiddleware%601\" data-throw-if-not-resolved=\"false\"></xref> to an\n<xref href=\"System.Collections.Generic.IAsyncEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref> stream, so cross-cutting per-item behaviour composes onto any\nextractor / transformer output or loader input — and inside an <code>EtlPipeline</code> via\n<code>Through(stream =&gt; stream.WithMiddleware(...))</code> — without changing the component itself.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.MiddlewareResult<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.MiddlewareResult-1.yml\" sourcestartlinenumber=\"1\">The outcome of running a single item through an <xref href=\"Wolfgang.Etl.Abstractions.IItemMiddleware%601\" data-throw-if-not-resolved=\"false\"></xref>: the\n(possibly replaced) item to pass on, and whether the item should be dropped from the stream.\nCreate one with <xref href=\"Wolfgang.Etl.Abstractions.MiddlewareResult.Continue%60%601(%60%600)\" data-throw-if-not-resolved=\"false\"></xref> to keep an item flowing or\n<xref href=\"Wolfgang.Etl.Abstractions.MiddlewareResult.Drop%60%601\" data-throw-if-not-resolved=\"false\"></xref> to discard it.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.MiddlewareResult",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.MiddlewareResult.yml\" sourcestartlinenumber=\"1\">Factory methods for creating <xref href=\"Wolfgang.Etl.Abstractions.MiddlewareResult%601\" data-throw-if-not-resolved=\"false\"></xref> values from an\n<xref href=\"Wolfgang.Etl.Abstractions.IItemMiddleware%601\" data-throw-if-not-resolved=\"false\"></xref> implementation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.Pipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.Pipeline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.Pipeline",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.Pipeline.yml\" sourcestartlinenumber=\"1\">Entry point for building a fluent ETL pipeline. Start with one of the <code>Extract</code> overloads,\nchain zero or more <code>Transform</code> calls, terminate with one of the <code>Load</code> overloads, then\ninvoke <xref href=\"Wolfgang.Etl.Abstractions.IPipeline.RunAsync\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.Report.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.Report.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.Report",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.Report.yml\" sourcestartlinenumber=\"1\">Provides a point-in-time snapshot of the progress of an ETL process — how many\nitems have been processed, how long it has been running, and (when the total is\nknown) how far along it is and how much longer it is expected to take.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.TransformerBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.TransformerBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.TransformerBase-2.yml\" sourcestartlinenumber=\"1\">A convenience <xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%603\" data-throw-if-not-resolved=\"false\"></xref> that reports progress\nwith the built-in <xref href=\"Wolfgang.Etl.Abstractions.Report\" data-throw-if-not-resolved=\"false\"></xref> type and supplies a default <xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%602.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref>,\nso a derived transformer only has to implement <code>TransformWorkerAsync</code>. Use this instead of the\nthree-type-parameter base when you don't need a custom progress-report type — it removes the\nprogress-record and <code>CreateProgressReport</code> boilerplate. Override\n<xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%602.CreateProgressReport\" data-throw-if-not-resolved=\"false\"></xref> if you want to enrich the report (for example set a known total).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.TransformerBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.TransformerBase-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.TransformerBase-3.yml\" sourcestartlinenumber=\"1\">Provides a basic implementation for data transformers that convert data from TSource to TDestination.\nLibrary authors can use this base class to create custom transformers by inheriting from it and implementing\nTransformWorkerAsync and CreateProgressReport methods.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy",
+      "Summary": "<pre><code sourcefile=\"api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.yml\" sourcestartlinenumber=\"1\">Ready-made policies for an ETL stage's error handling. Each is a\n&lt;xref href=&quot;System.Func%602&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; from an &lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorContext&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; to an\n&lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorAction&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt;, so it can be assigned directly to a stage's &lt;code&gt;ErrorPolicy&lt;/code&gt;\nproperty (on &lt;code&gt;ExtractorBase&lt;/code&gt; / &lt;code&gt;LoaderBase&lt;/code&gt; / &lt;code&gt;TransformerBase&lt;/code&gt;):\n\n&lt;example&gt;&lt;pre&gt;&lt;code class=&quot;lang-csharp&quot;&gt;var deadLetters = new List&lt;ItemErrorContext&gt;();\n</code></pre>\n<p sourcefile=\"api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.yml\" sourcestartlinenumber=\"7\">var extractor = new SomeExtractor&lt;Record&gt;(source)\n{\nErrorPolicy = ItemErrorPolicy.SkipDeadLetterAndLog(deadLetters, logger)\n};</p>\n<pre><code sourcefile=\"api/Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.yml\" sourcestartlinenumber=\"12\">The dead-letter overloads write to a caller-owned sink (a collection or a channel), so its size —\nand therefore the memory a bad feed can consume — stays under the caller's control.\n</code></pre>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.ErrorPolicies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.ErrorPolicies.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.ErrorPolicies",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.DelayingExtractor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.DelayingExtractor<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.DelayingExtractor-1.yml\" sourcestartlinenumber=\"1\">An extractor double that waits a configurable delay before yielding each item, simulating a\nlatent / backpressured source. Useful for exercising timeout, cancellation-promptness, and\nprogress-cadence behaviour that an instantaneous in-memory source cannot.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.FaultyExtractor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.FaultyExtractor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.FaultyExtractor<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.FaultyExtractor-1.yml\" sourcestartlinenumber=\"1\">An in-memory extractor for testing error-handling paths. It yields items from an\n<xref href=\"System.Collections.Generic.IEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref> like a normal extractor, but can be configured to inject\ndeterministic faults — throwing at a given item, throwing after completion, or\nduplicating an item — so consumers can exercise mid-stream failure, finalization\nfailure, and de-duplication logic without hand-rolling broken fakes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.FaultyLoader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.FaultyLoader-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.FaultyLoader<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.FaultyLoader-1.yml\" sourcestartlinenumber=\"1\">An in-memory loader for testing error-handling paths. It consumes the source stream\nlike a normal loader, but can be configured to inject deterministic faults — throwing\nat a given item, throwing after completion, or duplicating an item — so consumers can\nexercise mid-stream failure, finalization failure, and idempotency logic without\nhand-rolling broken fakes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.FaultyTransformer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.FaultyTransformer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.FaultyTransformer<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.FaultyTransformer-1.yml\" sourcestartlinenumber=\"1\">A pass-through transformer for testing error-handling paths. It returns each item\nunchanged like a normal transformer, but can be configured to inject deterministic\nfaults — throwing at a given item, throwing after completion, or duplicating an item —\nso consumers can exercise mid-stream failure, finalization failure, and de-duplication\nlogic without hand-rolling broken fakes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.ManualProgressTimerCore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.ManualProgressTimerCore.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.ManualProgressTimerCore",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.ManualProgressTimerCore.yml\" sourcestartlinenumber=\"1\">A manually-driven progress timer for tests: instead of a real <xref href=\"System.Threading.Timer\" data-throw-if-not-resolved=\"false\"></xref>\nfiring on an interval, the stage's progress callback fires only when <xref href=\"Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick\" data-throw-if-not-resolved=\"false\"></xref> is called,\nmaking progress-callback assertions deterministic. Attach it to a stage with\n<xref href=\"Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer%60%602(Wolfgang.Etl.Abstractions.ExtractorBase%7b%60%600%2c%60%601%7d%2cWolfgang.Etl.TestKit.ManualProgressTimerCore)\" data-throw-if-not-resolved=\"false\"></xref>\n(and the loader / transformer overloads).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.ManualTimeSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.ManualTimeSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.ManualTimeSource",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.ManualTimeSource.yml\" sourcestartlinenumber=\"1\">A controllable time source for tests: time stands still until <xref href=\"Wolfgang.Etl.TestKit.ManualTimeSource.Advance(System.TimeSpan)\" data-throw-if-not-resolved=\"false\"></xref> is called,\nmaking a stage's <xref href=\"Wolfgang.Etl.Abstractions.Report\" data-throw-if-not-resolved=\"false\"></xref> timing metrics — <xref href=\"Wolfgang.Etl.Abstractions.Report.Elapsed\" data-throw-if-not-resolved=\"false\"></xref>,\n<xref href=\"Wolfgang.Etl.Abstractions.Report.ItemsPerSecond\" data-throw-if-not-resolved=\"false\"></xref>, <xref href=\"Wolfgang.Etl.Abstractions.Report.PercentComplete\" data-throw-if-not-resolved=\"false\"></xref>, and\n<xref href=\"Wolfgang.Etl.Abstractions.Report.EstimatedRemaining\" data-throw-if-not-resolved=\"false\"></xref> — deterministic rather than wall-clock-dependent.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.ProgressTimerExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods that attach a <xref href=\"Wolfgang.Etl.TestKit.ManualProgressTimerCore\" data-throw-if-not-resolved=\"false\"></xref> to a stage so its progress\ncallback fires deterministically (on <xref href=\"Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick\" data-throw-if-not-resolved=\"false\"></xref>) instead of on a\nreal timer interval.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.RecordingMiddleware<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.yml\" sourcestartlinenumber=\"1\">A test <xref href=\"Wolfgang.Etl.Abstractions.IItemMiddleware%601\" data-throw-if-not-resolved=\"false\"></xref> that records every item passed through it and, by default,\nkeeps each item flowing. Supply a policy to transform or drop items, and inspect\n<xref href=\"Wolfgang.Etl.TestKit.RecordingMiddleware%601.Observed\" data-throw-if-not-resolved=\"false\"></xref> to assert exactly what the middleware saw, in order.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.RetryingExtractor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.RetryingExtractor<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.RetryingExtractor-1.yml\" sourcestartlinenumber=\"1\">An extractor double that throws a transient fault on its first <code>failFirstAttempts</code> worker\ninvocations and then succeeds, driven through a retry override of the\n<xref href=\"Wolfgang.Etl.Abstractions\" data-throw-if-not-resolved=\"false\"></xref> 0.20 <code>WrapWorkerExecution</code> resilience seam. It both\ndemonstrates how to build stream-level retry on a stage and serves as the reference component\nexercised by <code>RetryContractTests</code> (in <code>Wolfgang.Etl.TestKit.Xunit</code>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.SnapshotTestLoader<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.yml\" sourcestartlinenumber=\"1\">An in-memory loader that captures every item it receives and renders them as a single,\ndeterministic, diff-friendly <xref href=\"Wolfgang.Etl.TestKit.SnapshotTestLoader%601.Snapshot\" data-throw-if-not-resolved=\"false\"></xref> string — ready to hand to an approval /\nsnapshot-testing framework such as <a href=\"https://github.com/VerifyTests/Verify\">Verify</a>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TestExtractor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TestExtractor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TestExtractor<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TestExtractor-1.yml\" sourcestartlinenumber=\"1\">An in-memory extractor for use in tests, examples, and benchmarks.\nYields items from an <xref href=\"System.Collections.Generic.IEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref>, an\n<xref href=\"System.Collections.Generic.IEnumerator%601\" data-throw-if-not-resolved=\"false\"></xref>, or a factory delegate, depending on which\nconstructor is used.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TestLoader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TestLoader-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TestLoader<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TestLoader-1.yml\" sourcestartlinenumber=\"1\">A simple in-memory loader for use in tests, examples, and benchmarks.\nIterates all items from the source stream and, when constructed with\n<code>collectItems: true</code>, makes them available via <xref href=\"Wolfgang.Etl.TestKit.TestLoader%601.GetCollectedItems\" data-throw-if-not-resolved=\"false\"></xref>\nafter the load completes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TestTransformer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TestTransformer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TestTransformer<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TestTransformer-1.yml\" sourcestartlinenumber=\"1\">A pass-through transformer for use in tests, examples, and benchmarks.\nReturns each item unchanged, with no transformation applied.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TimeSourceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TimeSourceExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TimeSourceExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TimeSourceExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods that attach a <xref href=\"Wolfgang.Etl.TestKit.ManualTimeSource\" data-throw-if-not-resolved=\"false\"></xref> to a stage so its\n<xref href=\"Wolfgang.Etl.Abstractions.Report\" data-throw-if-not-resolved=\"false\"></xref> timing metrics can be driven deterministically in tests.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.yml\" sourcestartlinenumber=\"1\">Opt-in xUnit contract-test base asserting that a repeatable operation's hot path stays\nwithin a declared per-item allocation budget — so a downstream author can lock in that\n<em>their own</em> extractor / loader / transformer keeps an allocation-free (or\nbelow-a-declared-N) hot path.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests that verify a stage honours cancellation\n<em>promptly</em> — it stops shortly after the token is cancelled rather than draining its source,\nthrows <xref href=\"System.OperationCanceledException\" data-throw-if-not-resolved=\"false\"></xref>, and processes nothing when handed an\nalready-cancelled token.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.CancellationOutcome",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.yml\" sourcestartlinenumber=\"1\">The result a derived <xref href=\"Wolfgang.Etl.TestKit.Xunit.CancellationContractTests%601\" data-throw-if-not-resolved=\"false\"></xref> reports back to the base after\ndriving its stage under cancellation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for the disposability guarantees the ETL\nbase classes gained in <code>Wolfgang.Etl.Abstractions</code> 0.14.0 (<xref href=\"System.IDisposable\" data-throw-if-not-resolved=\"false\"></xref> /\n<xref href=\"System.IAsyncDisposable\" data-throw-if-not-resolved=\"false\"></xref>) and 0.17.0 (using a disposed stage throws\n<xref href=\"System.ObjectDisposedException\" data-throw-if-not-resolved=\"false\"></xref>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for a stage that opts into the\nper-item error hook introduced in <code>Wolfgang.Etl.Abstractions</code> 0.18.0\n(<code>OnItemError</code> / <code>HandleItemError</code> / <code>CurrentErrorItemCount</code>,\n<xref href=\"Wolfgang.Etl.Abstractions.ItemErrorAction\" data-throw-if-not-resolved=\"false\"></xref>, <xref href=\"Wolfgang.Etl.Abstractions.ItemErrorContext\" data-throw-if-not-resolved=\"false\"></xref>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.yml\" sourcestartlinenumber=\"1\">The observable outcome of running a stage over a scenario containing exactly one failing\nitem, used by <xref href=\"Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for composing a source and a sink into the\n<code>Wolfgang.Etl.Abstractions</code> 0.16 <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref>\n(<code>EtlPipeline.Create().From(...).To(...).RunAsync()</code>) and for the\n<xref href=\"Wolfgang.Etl.Abstractions.EtlPipelineProgress\" data-throw-if-not-resolved=\"false\"></xref> it reports.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.yml\" sourcestartlinenumber=\"1\">A fluent builder that composes an extract → (transform) → load pipeline from the\n<code>Wolfgang.Etl.TestKit</code> doubles — optionally injecting a fault into the extractor or loader —\nruns it through the <code>Wolfgang.Etl.Abstractions</code> <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref>, and asserts the\nfinal state (loaded items, aggregate error count, or a terminal exception) in one call.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.EtlScenario.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.EtlScenario.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.EtlScenario",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.EtlScenario.yml\" sourcestartlinenumber=\"1\">Entry point for building a fluent end-to-end ETL scenario over the <code>Wolfgang.Etl.TestKit</code>\ndoubles and asserting its final state in a single expression. See <xref href=\"Wolfgang.Etl.TestKit.Xunit.EtlScenario%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.IExtractAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.IExtractWithProgressAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that inherits\nfrom <xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing opt-in xUnit idempotency contract tests for any type that\nimplements <xref href=\"Wolfgang.Etl.Abstractions.IExtractWithProgressAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing opt-in xUnit idempotency contract tests for any type that\nimplements <xref href=\"Wolfgang.Etl.Abstractions.ILoadAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing opt-in xUnit idempotency contract tests for any type that\nimplements <xref href=\"Wolfgang.Etl.Abstractions.ITransformAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ILoadAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ILoadWithProgressAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that inherits\nfrom <xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.yml\" sourcestartlinenumber=\"1\">A controllable implementation of <xref href=\"Wolfgang.Etl.Abstractions.IProgressTimer\" data-throw-if-not-resolved=\"false\"></xref> for use in unit tests.\nFires <xref href=\"Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed\" data-throw-if-not-resolved=\"false\"></xref> synchronously on demand via <xref href=\"Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.Fire\" data-throw-if-not-resolved=\"false\"></xref>,\nrather than on a background thread-pool thread after a real time interval.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ProgressAssert.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ProgressAssert.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ProgressAssert",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ProgressAssert.yml\" sourcestartlinenumber=\"1\">Provides xUnit-style assertions for validating sequences of progress reports captured by\na <xref href=\"Wolfgang.Etl.TestKit.Xunit.ProgressCapture%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.yml\" sourcestartlinenumber=\"1\">An <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref> implementation that captures every reported value,\nsynchronously, on the calling thread.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for a stage whose\n<xref href=\"Wolfgang.Etl.Abstractions\" data-throw-if-not-resolved=\"false\"></xref> 0.20 <code>WrapWorkerExecution</code> override adds a retry /\nresilience strategy: a transient fault that clears within the retry budget completes the run, and a\nfault that never clears fails after the maximum number of attempts (no infinite loop).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.RetryOutcome",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.yml\" sourcestartlinenumber=\"1\">The result a derived <xref href=\"Wolfgang.Etl.TestKit.Xunit.RetryContractTests%601\" data-throw-if-not-resolved=\"false\"></xref> reports back to the base after driving\nits stage under a fault with a retry policy.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ISupportDryRun\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SynchronousProgress-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SynchronousProgress-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.SynchronousProgress<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.SynchronousProgress-1.yml\" sourcestartlinenumber=\"1\">An <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref> implementation that invokes its callback synchronously\non the calling thread, rather than posting to a synchronisation context.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync%603\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformWithProgressAsync%603\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that inherits\nfrom <xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%603\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit",
+      "Summary": null
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "apple-touch-icon.png",
+      "output": {
+        "resource": {
+          "relative_path": "apple-touch-icon.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/introduction.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "favicon.svg",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "public/version-picker.js",
+      "output": {
+        "resource": {
+          "relative_path": "public/version-picker.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "versions.json",
+      "output": {
+        "resource": {
+          "relative_path": "versions.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
