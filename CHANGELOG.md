@@ -19,6 +19,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.23.2] - 2026-08-18
+
+### Changed
+
+- Raised the floor on the first-party Microsoft runtime dependencies to **10.0.11**
+  (`Microsoft.Bcl.AsyncInterfaces`, `Microsoft.Bcl.Memory`,
+  `Microsoft.Extensions.Logging.Abstractions`, `System.Threading.Channels`), and reconciled the
+  previous drift (Abstractions was on 10.0.5 while TestKit/TestKit.Xunit were on 10.0.10) (#415).
+  On net8.0+ these assemblies are framework-provided (`ExcludeAssets="runtime"`), so the change
+  only affects **down-level** (net462 / netstandard2.0) consumers, who now resolve the latest
+  serviced patch — carrying the current security and bug fixes — by default. No public API change.
+
+### Internal
+
+- Bumped every bundled analyzer to its current release — Roslynator 4.16.1, SonarAnalyzer 10.32,
+  Meziantou 3.0.163, BannedApiAnalyzers 5.6.0, PublicApiAnalyzers 5.6.0, and
+  VS.Threading.Analyzers 18.7.23 (#416, #417). No new diagnostics and no PublicAPI baseline change.
+- The PR/release coverage gate now holds unit-test assemblies to **≥ 99%** line coverage (src
+  stays at 90%), and `release.yaml` collects coverage through the shared `coverlet.runsettings`
+  so release-time coverage instruments the same code as PR-time (#386, #418).
+- Forced `System.Text.Json` 8.0.5 in the Coyote concurrency test project to clear a test-only
+  transitive advisory (CVE-2024-30105 / CVE-2024-43485); not shipped in any package (#412).
+
 ## [0.23.1] - 2026-08-16
 
 ### Changed
