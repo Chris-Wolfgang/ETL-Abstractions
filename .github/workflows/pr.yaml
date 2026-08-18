@@ -771,19 +771,28 @@ jobs:
             # end-of-line.
             if echo "$line" | grep -qE '^[^ ].*[0-9]+(\.[0-9]+)?%$' && ! echo "$line" | grep -q '^Summary'; then
               module=$(echo "$line" | awk '{print $1}')
-              # Floor the percent to int (matches Stage 2 pwsh's [int][math]::Floor)
-              # so we can use bash's integer -lt comparator below without
-              # erroring on decimals like "90.4".
-              percent=$(echo "$line" | awk '{print $NF}' | tr -d '%' | awk '{print int($1)}')
+              # Raw decimal percent (last %-suffixed number on the row). Kept as a
+              # decimal and compared as a float below so the per-module threshold
+              # can be fractional.
+              raw=$(echo "$line" | awk '{print $NF}' | tr -d '%')
               matched_count=$((matched_count + 1))
 
-              echo "Checking module: '$module' - Coverage: ${percent}%"
+              # Per-module threshold (#386): unit-test assemblies must reach
+              # >= 99%, src assemblies keep CODECOV_MINIMUM. floor(x) >= N <=>
+              # x >= N, so the single raw >= threshold float comparison below
+              # leaves src behaviour identical to the previous floor+integer check.
+              case "$module" in
+                *.Tests.Unit) mod_threshold=99; mod_label="99%" ;;
+                *)            mod_threshold=$threshold; mod_label="${threshold}%" ;;
+              esac
 
-              if [ "$percent" -lt "$threshold" ]; then
-                echo "  ❌ FAIL: Below ${threshold}% threshold"
-                failed_projects="$failed_projects $module (${percent}%)"
+              echo "Checking module: '$module' - Coverage: ${raw}%"
+
+              if awk -v p="$raw" -v t="$mod_threshold" 'BEGIN { exit !(p+0 >= t+0) }'; then
+                echo "  ✅ PASS: Meets ${mod_label} threshold"
               else
-                echo "  ✅ PASS: Meets ${threshold}% threshold"
+                echo "  ❌ FAIL: Below ${mod_label} threshold"
+                failed_projects="$failed_projects $module (${raw}%)"
               fi
             fi
           done < CoverageReport/Summary.txt
@@ -1093,16 +1102,24 @@ jobs:
             #    the line to be captured intact.
             if ($line -match '^(\S+).*\s(\d+(?:\.\d+)?)%\s*$' -and $line -notmatch '^Summary') {
               $module  = $Matches[1]
-              $percent = [int][math]::Floor([double]$Matches[2])
+              # Raw decimal percent, compared as a float so the per-module
+              # threshold can be fractional (see Stage 1 for the rationale).
+              $raw     = [double]$Matches[2]
               $matchedCount++
 
-              Write-Host "Checking module: '$module' - Coverage: ${percent}%"
+              # Per-module threshold (#386): unit-test assemblies must reach
+              # >= 99%; src assemblies keep CODECOV_MINIMUM. floor(x) >= N <=>
+              # x >= N, so the single float comparison leaves src unchanged.
+              if ($module -like '*.Tests.Unit') { $modThreshold = 99; $modLabel = '99%' }
+              else                              { $modThreshold = [double]$threshold; $modLabel = "${threshold}%" }
 
-              if ($percent -lt $threshold) {
-                Write-Host "  ❌ FAIL: Below ${threshold}% threshold" -ForegroundColor Red
-                $failedProjects += "$module (${percent}%)"
+              Write-Host "Checking module: '$module' - Coverage: ${raw}%"
+
+              if ($raw -lt $modThreshold) {
+                Write-Host "  ❌ FAIL: Below ${modLabel} threshold" -ForegroundColor Red
+                $failedProjects += "$module (${raw}%)"
               } else {
-                Write-Host "  ✅ PASS: Meets ${threshold}% threshold" -ForegroundColor Green
+                Write-Host "  ✅ PASS: Meets ${modLabel} threshold" -ForegroundColor Green
               }
             }
           }
@@ -1462,13 +1479,20 @@ jobs:
           while IFS= read -r line; do
             if echo "$line" | grep -qE '^[^ ]+.*[0-9]+%$' && ! echo "$line" | grep -q '^Summary'; then
               MODULE=$(echo "$line" | awk '{print $1}')
-              PERCENT=$(echo "$line" | grep -oE '[0-9]+(\.[0-9]+)?%' | tail -1 | grep -oE '^[0-9]+')
-              echo "Checking module: '$MODULE' - Coverage: ${PERCENT}%"
-              if [ "$PERCENT" -lt "$THRESHOLD" ]; then
-                echo "  ❌ FAIL: Below ${THRESHOLD}% threshold"
-                FAILED=1
+              # Raw decimal percent (last %-suffixed number), compared as a float.
+              RAW=$(echo "$line" | grep -oE '[0-9]+(\.[0-9]+)?%' | tail -1 | tr -d '%')
+              # Per-module threshold (#386): unit-test assemblies must reach >= 99%;
+              # src assemblies keep CODECOV_MINIMUM (see Stage 1).
+              case "$MODULE" in
+                *.Tests.Unit) MOD_THRESHOLD=99; MOD_LABEL="99%" ;;
+                *)            MOD_THRESHOLD=$THRESHOLD; MOD_LABEL="${THRESHOLD}%" ;;
+              esac
+              echo "Checking module: '$MODULE' - Coverage: ${RAW}%"
+              if awk -v p="$RAW" -v t="$MOD_THRESHOLD" 'BEGIN { exit !(p+0 >= t+0) }'; then
+                echo "  ✅ PASS: Meets ${MOD_LABEL} threshold"
               else
-                echo "  ✅ PASS: Meets ${THRESHOLD}% threshold"
+                echo "  ❌ FAIL: Below ${MOD_LABEL} threshold"
+                FAILED=1
               fi
             fi
           done < CoverageReport/Summary.txt
