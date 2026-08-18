@@ -61,7 +61,7 @@ public class TestTransformerMutationTests
     [Fact]
     public void Dispose_when_not_disposing_leaves_the_Elapsed_subscription_intact()
     {
-        // L113: `disposing && _progressTimer is not null && _elapsedHandler is not null` (both &&).
+        // L113: the Dispose guard requires disposing plus progressTimer-not-null plus elapsedHandler-not-null, all three together.
         // On the finalizer path (disposing == false) the original must not touch the caller-owned
         // timer, so a subsequent Fire() still reports. Either `&&`->`||` mutant unsubscribes here.
         using var timer = new ManualProgressTimer();

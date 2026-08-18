@@ -37,10 +37,10 @@ public class OverloadDoubleCoverageTests
         var sut = new FullExtractor<int, string>(Items, "p");
 
         await Assert.ThrowsAsync<ArgumentNullException>(
-            async () => await sut.ExtractAsync((IProgress<string>)null!).ToListAsync());
+            async () => await sut.ExtractAsync(null!).ToListAsync());
 
         await Assert.ThrowsAsync<ArgumentNullException>(
-            async () => await sut.ExtractAsync((IProgress<string>)null!, CancellationToken.None).ToListAsync());
+            async () => await sut.ExtractAsync(null!, CancellationToken.None).ToListAsync());
     }
 
 
@@ -50,7 +50,7 @@ public class OverloadDoubleCoverageTests
         var sut = new ProgressOnlyExtractor<int, string>(Items, "p");
 
         await Assert.ThrowsAsync<ArgumentNullException>(
-            async () => await sut.ExtractAsync((IProgress<string>)null!).ToListAsync());
+            async () => await sut.ExtractAsync(null!).ToListAsync());
     }
 
 
@@ -78,10 +78,10 @@ public class OverloadDoubleCoverageTests
         var sut = new FullLoader<int, string>("p");
 
         await Assert.ThrowsAsync<ArgumentNullException>(
-            async () => await sut.LoadAsync(Source(), (IProgress<string>)null!));
+            async () => await sut.LoadAsync(Source(), null!));
 
         await Assert.ThrowsAsync<ArgumentNullException>(
-            async () => await sut.LoadAsync(Source(), (IProgress<string>)null!, CancellationToken.None));
+            async () => await sut.LoadAsync(Source(), null!, CancellationToken.None));
     }
 
 
@@ -91,7 +91,7 @@ public class OverloadDoubleCoverageTests
         var sut = new ProgressOnlyLoader<int, string>("p");
 
         await Assert.ThrowsAsync<ArgumentNullException>(
-            async () => await sut.LoadAsync(Source(), (IProgress<string>)null!));
+            async () => await sut.LoadAsync(Source(), null!));
     }
 
 
@@ -118,10 +118,10 @@ public class OverloadDoubleCoverageTests
         var sut = new FullTransformer<int, int, string>(x => x, "p");
 
         await Assert.ThrowsAsync<ArgumentNullException>(
-            async () => await sut.TransformAsync(Source(), (IProgress<string>)null!).ToListAsync());
+            async () => await sut.TransformAsync(Source(), null!).ToListAsync());
 
         await Assert.ThrowsAsync<ArgumentNullException>(
-            async () => await sut.TransformAsync(Source(), (IProgress<string>)null!, CancellationToken.None).ToListAsync());
+            async () => await sut.TransformAsync(Source(), null!, CancellationToken.None).ToListAsync());
     }
 
 
@@ -131,6 +131,6 @@ public class OverloadDoubleCoverageTests
         var sut = new ProgressOnlyTransformer<int, int, string>(x => x, "p");
 
         await Assert.ThrowsAsync<ArgumentNullException>(
-            async () => await sut.TransformAsync(Source(), (IProgress<string>)null!).ToListAsync());
+            async () => await sut.TransformAsync(Source(), null!).ToListAsync());
     }
 }
