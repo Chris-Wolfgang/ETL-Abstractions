@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -317,6 +318,7 @@ public class FaultyLoaderMutationTests
 
 
 
+    [ExcludeFromCodeCoverage]
     private static async IAsyncEnumerable<int> EmptyIgnoringTokenAsync
     (
         [EnumeratorCancellation] CancellationToken token = default
@@ -382,12 +384,14 @@ public class FaultyLoaderMutationTests
 #pragma warning restore CS0067
 
 
+        [ExcludeFromCodeCoverage]
         public void Start(int intervalMilliseconds) { }
 
 
         public void StopTimer() => StopTimerCallCount++;
 
 
+        [ExcludeFromCodeCoverage]
         public void Dispose() { }
     }
 }

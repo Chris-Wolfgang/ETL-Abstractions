@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -51,6 +52,7 @@ public class SnapshotTestLoaderMutationTests
 
 
 
+    [ExcludeFromCodeCoverage]
     private static async IAsyncEnumerable<int> EmptyIgnoringCancellation()
     {
         await Task.CompletedTask;
