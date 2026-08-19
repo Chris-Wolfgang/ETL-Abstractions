@@ -19,6 +19,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.23.3] - 2026-08-19
+
+### Internal
+
+- Removed 20 redundant null-forgiving (`!`) operators flagged by SonarAnalyzer 10.32's new
+  `S8969` rule (e.g. `final!.ErrorItemCount`, `PeekStartedAt!.Value`) across the test and shipped
+  contract-base / test-double code, and suppressed one intentional test-gate `VSTHRD003` with a
+  narrow inline pragma (#426). No behaviour or public-API change.
+- Bumped the CI `github-actions` dependency group (#424).
+
 ## [0.23.2] - 2026-08-18
 
 ### Changed
