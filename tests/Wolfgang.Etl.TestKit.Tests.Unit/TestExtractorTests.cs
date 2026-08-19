@@ -824,7 +824,7 @@ public class TestExtractorTests
         while (await enumerator.MoveNextAsync()) { }
 
         Assert.NotNull(captured);
-        Assert.True(captured!.CurrentItemCount >= 1);
+        Assert.True(captured.CurrentItemCount >= 1);
     }
 
 

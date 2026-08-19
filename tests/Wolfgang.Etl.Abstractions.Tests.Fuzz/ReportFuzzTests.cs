@@ -57,7 +57,7 @@ public class ReportFuzzTests
                 {
                     // Percentage is always clamped to [0, 100].
                     Assert.NotNull(report.PercentComplete);
-                    Assert.InRange(report.PercentComplete!.Value, 0d, 100d);
+                    Assert.InRange(report.PercentComplete.Value, 0d, 100d);
 
                     // Once the count reaches the total, nothing remains.
                     if (current >= total.Value)
