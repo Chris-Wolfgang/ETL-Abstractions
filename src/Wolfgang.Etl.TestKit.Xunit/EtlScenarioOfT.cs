@@ -94,7 +94,7 @@ public sealed class EtlScenario<T>
 
         Assert.Equal(expectedLoaded, loader.GetCollectedItems());
         Assert.NotNull(capture.FinalReport);
-        Assert.Equal(expectedErrors, capture.FinalReport!.ErrorItemCount);
+        Assert.Equal(expectedErrors, capture.FinalReport.ErrorItemCount);
     }
 
 

@@ -81,7 +81,7 @@ public abstract class IdempotentTransformerContractTests<TSut, TItem>
     /// </remarks>
     /// <param name="sut">The system under test, after a transform has completed.</param>
     protected virtual int GetCurrentItemCount(TSut sut) =>
-        ((TransformerBase<TItem, TItem, Report>)(object)sut!).CurrentItemCount;
+        ((TransformerBase<TItem, TItem, Report>)(object)sut).CurrentItemCount;
 
 
 

@@ -542,7 +542,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
         // it changes no observable extraction result (the source is synchronous).
         await Task.Yield();
 
-        var enumerator     = (_enumerator ?? _enumerable!.GetEnumerator())!;
+        var enumerator     = (_enumerator ?? _enumerable!.GetEnumerator());
         var ownsEnumerator = _enumerator == null;
 
         try

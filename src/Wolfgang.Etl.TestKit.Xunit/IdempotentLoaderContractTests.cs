@@ -95,7 +95,7 @@ public abstract class IdempotentLoaderContractTests<TSut, TItem>
     /// </remarks>
     /// <param name="sut">The system under test, after a load has completed.</param>
     protected virtual int GetCurrentItemCount(TSut sut) =>
-        ((LoaderBase<TItem, Report>)(object)sut!).CurrentItemCount;
+        ((LoaderBase<TItem, Report>)(object)sut).CurrentItemCount;
 
 
 
