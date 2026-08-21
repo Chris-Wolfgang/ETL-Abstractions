@@ -34,7 +34,7 @@ public class EtlPipelineErrorAggregationTests
         var final = capture.FinalReport;
         Assert.NotNull(final);
         // One error skipped in the extractor + one in the loader.
-        Assert.Equal(2, final!.ErrorItemCount);
+        Assert.Equal(2, final.ErrorItemCount);
     }
 
 
@@ -64,6 +64,6 @@ public class EtlPipelineErrorAggregationTests
         var final = capture.FinalReport;
         Assert.NotNull(final);
         // One error skipped in each of the extractor, transformer, and loader.
-        Assert.Equal(3, final!.ErrorItemCount);
+        Assert.Equal(3, final.ErrorItemCount);
     }
 }

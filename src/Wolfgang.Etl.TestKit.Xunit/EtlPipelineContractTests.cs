@@ -101,7 +101,7 @@ public abstract class EtlPipelineContractTests<TItem, TProgress>
 
         var final = capture.FinalReport;
         Assert.NotNull(final);
-        Assert.Equal(source.Count, final!.ExtractedItemCount);
+        Assert.Equal(source.Count, final.ExtractedItemCount);
         Assert.Equal(source.Count, final.LoadedItemCount);
         Assert.Equal(0, final.ErrorItemCount);
     }

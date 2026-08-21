@@ -123,7 +123,7 @@ public class TimerSeamTests
         using var timer = loader.CallCreateProgressTimer();
 
         Assert.NotNull(core);
-        Assert.Equal(321, core!.LastDueTime); // CreateProgressTimer called Start(ReportingInterval)
+        Assert.Equal(321, core.LastDueTime); // CreateProgressTimer called Start(ReportingInterval)
         Assert.Equal(321, core.LastPeriod);
     }
 
@@ -137,7 +137,7 @@ public class TimerSeamTests
         using var timer = transformer.CallCreateProgressTimer();
 
         Assert.NotNull(core);
-        Assert.Equal(654, core!.LastDueTime);
+        Assert.Equal(654, core.LastDueTime);
         Assert.Equal(654, core.LastPeriod);
     }
 
@@ -151,7 +151,7 @@ public class TimerSeamTests
         using var timer = extractor.CallCreateProgressTimer();
 
         Assert.NotNull(core);
-        Assert.Equal(111, core!.LastDueTime);
+        Assert.Equal(111, core.LastDueTime);
         Assert.Equal(111, core.LastPeriod);
     }
 

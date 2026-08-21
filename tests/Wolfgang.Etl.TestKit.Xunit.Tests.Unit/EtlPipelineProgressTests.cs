@@ -31,7 +31,7 @@ public class EtlPipelineProgressTests
 
         var final = capture.FinalReport;
         Assert.NotNull(final);
-        Assert.Equal(1, final!.ErrorItemCount);
+        Assert.Equal(1, final.ErrorItemCount);
         Assert.Equal(4, final.LoadedItemCount);
     }
 

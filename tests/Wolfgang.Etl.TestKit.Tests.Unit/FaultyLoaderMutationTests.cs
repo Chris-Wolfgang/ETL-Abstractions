@@ -311,7 +311,9 @@ public class FaultyLoaderMutationTests
     private static async IAsyncEnumerable<int> GatedSourceAsync(TaskCompletionSource<bool> gate)
     {
         yield return 1;
+#pragma warning disable VSTHRD003 // awaiting a test-gate TaskCompletionSource is intentional
         await gate.Task.ConfigureAwait(false);
+#pragma warning restore VSTHRD003
         yield return 2;
         yield return 3;
     }
