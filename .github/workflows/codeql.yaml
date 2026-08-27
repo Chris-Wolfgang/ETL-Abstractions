@@ -19,6 +19,7 @@ jobs:
   analyze:
     name: "Security Scan (CodeQL)"
     runs-on: windows-latest
+    timeout-minutes: 30
     permissions:
       actions: read
       contents: read
