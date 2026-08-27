@@ -31,6 +31,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+### Internal
+
+- Annotated 4 of the 5 Stryker mutation survivors flagged in #434
+  (`FaultyTransformer.TransformWorkerAsync`, `TestLoader.LoadWorkerAsync`'s `ConfigureAwait(false)`
+  booleans, and `RetryingExtractor`'s `finally`-block DisposeAsync) as genuinely-equivalent mutants
+  with `// Stryker disable once` comments, consistent with the same pattern already documented
+  elsewhere in `RetryingExtractor.cs` and the fleet convention of not chasing unkillable
+  `ConfigureAwait`/`Task.Yield` mutants. The 5th (`FaultyExtractor.ExtractWorkerAsync`'s
+  `Task.Yield()`) is left undocumented because that method already exceeds the MA0051 60-line cap
+  and a disable comment would break the Release build — same precedent as `FaultyLoader`. No
+  behaviour change; mutation score unaffected (already 98.30%, floor 70).
+
 ## [0.23.3] - 2026-08-19
 
 ### Internal
