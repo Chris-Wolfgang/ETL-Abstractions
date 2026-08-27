@@ -17,6 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed `Wolfgang.Etl.TestKit.Tests.Unit` and `Wolfgang.Etl.TestKit.Xunit.Tests.Unit` silently
+  running **zero tests** on the `netcoreapp3.1` and `net5.0` target frameworks: `netcoreapp3.1`
+  had no `xunit.runner.visualstudio` reference at all (build succeeded, no tests ever ran, CI
+  exited 0), and `net5.0` was bundled with `net6.0`/`net7.0` on runner 2.8.2, which has no
+  discovery adapter for that slot. Split both into their own TFM blocks pinned to runner 2.4.5
+  `(,2.5.0)`, matching the existing pattern in `Wolfgang.Etl.Abstractions.Tests.Unit` (#437).
+
 ### Security
 
 ## [0.23.3] - 2026-08-19
