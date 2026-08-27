@@ -31,6 +31,8 @@ Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ReportingInterval.se
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.SkipItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.SkipItemCount.set -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.StartedAt.get -> System.DateTimeOffset?
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WorkerResilience.get -> System.Func<System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TSource>!>!, System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TSource>!>!
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WorkerResilience.init -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource>
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.ExtractorBase() -> void
 Wolfgang.Etl.Abstractions.IEtlPipeline<T>
@@ -134,6 +136,8 @@ Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ReportingInterval.
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.SkipItemCount.get -> int
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.SkipItemCount.set -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.StartedAt.get -> System.DateTimeOffset?
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WorkerResilience.get -> System.Func<System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task!>!, System.Threading.CancellationToken, System.Threading.Tasks.Task!>!
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WorkerResilience.init -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination>
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination>.LoaderBase() -> void
 Wolfgang.Etl.Abstractions.MiddlewareExtensions
@@ -176,6 +180,8 @@ Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Skip
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.SkipItemCount.set -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.StartedAt.get -> System.DateTimeOffset?
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase() -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.WorkerResilience.get -> System.Func<System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TDestination>!>!, System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TDestination>!>!
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.WorkerResilience.init -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.TransformerBase() -> void
 abstract Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CreateProgressReport() -> TProgress

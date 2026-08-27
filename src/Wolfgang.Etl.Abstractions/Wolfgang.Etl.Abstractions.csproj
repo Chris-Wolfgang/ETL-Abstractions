@@ -11,7 +11,7 @@
          recorded in CompatibilitySuppressions.xml, regenerated with
          `dotnet pack /p:GenerateCompatibilitySuppressionFile=true`. -->
     <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>0.23.2</PackageValidationBaselineVersion>
+    <PackageValidationBaselineVersion>0.23.3</PackageValidationBaselineVersion>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Description>Contains interfaces and base classes used to build ETL applications</Description>
