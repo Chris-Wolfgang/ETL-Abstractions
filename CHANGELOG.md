@@ -47,6 +47,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Task.Yield()`) is left undocumented because that method already exceeds the MA0051 60-line cap
   and a disable comment would break the Release build — same precedent as `FaultyLoader`. No
   behaviour change; mutation score unaffected (already 98.30%, floor 70).
+- Added `coverlet.collector` to `Wolfgang.Etl.Abstractions.Tests.Fuzz` and
+  `Wolfgang.Etl.TestKit.Tests.Fuzz` so they emit coverage data like the rest of the suite instead
+  of silently contributing nothing to the src-coverage figure (#386). Verified both clear the
+  coverage gate (97.8% / 100% test-assembly line coverage) before adding.
 
 ## [0.23.3] - 2026-08-19
 
