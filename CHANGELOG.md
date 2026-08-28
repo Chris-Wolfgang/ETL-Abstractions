@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added `THIRD-PARTY-NOTICES.md` at the repo root, generated from the existing license-audit
+  gate's `nuget-license` output, and packed it into all four shipped NuGet packages
+  (`Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies`, `Wolfgang.Etl.TestKit`,
+  `Wolfgang.Etl.TestKit.Xunit`) (#436).
+
 ### Changed
 
 ### Deprecated
