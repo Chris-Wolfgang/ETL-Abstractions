@@ -23,6 +23,7 @@ jobs:
   validate-release:
     name: Validate Release Build
     runs-on: windows-latest
+    timeout-minutes: 30
     if: github.repository != 'Chris-Wolfgang/repo-template'
     steps:
       - name: Checkout code
@@ -344,6 +345,7 @@ jobs:
     name: Pack & Validate NuGet
     needs: validate-release
     runs-on: windows-latest
+    timeout-minutes: 30
     outputs:
       has-packages: ${{ steps.check-packages.outputs.has-packages }}
     steps:
@@ -569,6 +571,7 @@ jobs:
   verify-docs-build:
     name: Verify Documentation Builds
     runs-on: windows-latest
+    timeout-minutes: 30
     # Gate on the prior validation jobs so we don't burn ~5-10 min of Windows
     # runner time on a release that's already failing earlier in the pipeline.
     needs: [validate-release, pack-and-validate]
@@ -666,6 +669,7 @@ jobs:
     needs: [pack-and-validate, verify-docs-build]
     if: needs.pack-and-validate.outputs.has-packages == 'true'
     runs-on: windows-latest
+    timeout-minutes: 30
     permissions:
       id-token: write  # OIDC token for NuGet trusted publishing (no stored API key)
       contents: read
@@ -745,6 +749,7 @@ jobs:
     needs: [validate-release, pack-and-validate, publish-nuget]
     if: needs.pack-and-validate.outputs.has-packages == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write       # Required to upload assets to the GitHub Release
       id-token: write       # OIDC token for the SLSA build-provenance attestation (#208)

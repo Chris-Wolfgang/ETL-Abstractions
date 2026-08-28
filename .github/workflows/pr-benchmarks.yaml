@@ -34,6 +34,7 @@ jobs:
   benchmark:
     name: BDN delta vs base
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     permissions:
       contents: read
