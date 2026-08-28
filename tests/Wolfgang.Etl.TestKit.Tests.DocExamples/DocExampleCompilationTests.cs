@@ -137,6 +137,43 @@ public sealed class DocExampleCompilationTests
         );
     }
 
+    [Fact]
+    public void FindSourceRoot_when_no_src_root_exists_above_starting_directory_throws()
+    {
+        var isolated = Path.Combine(Path.GetTempPath(), "docexamples-root-test-" + Guid.NewGuid().ToString("N"));
+
+        var ex = Assert.Throws<DirectoryNotFoundException>(() => FindSourceRoot(isolated));
+
+        Assert.Contains(isolated, ex.Message, StringComparison.Ordinal);
+    }
+
+
+
+    [Fact]
+    public void FormatFailure_when_given_file_line_code_and_diagnostics_formats_all_of_them()
+    {
+        var descriptor = new DiagnosticDescriptor
+        (
+            "TEST0001",
+            "Test diagnostic",
+            "something is wrong",
+            "Test",
+            DiagnosticSeverity.Error,
+            isEnabledByDefault: true
+        );
+        var diagnostics = new[] { Diagnostic.Create(descriptor, Location.None) };
+
+        var formatted = FormatFailure(@"C:\repo\Example.cs", 42, "var x = 1;", diagnostics);
+
+        Assert.Contains("Example.cs", formatted, StringComparison.Ordinal);
+        Assert.Contains("line 42", formatted, StringComparison.Ordinal);
+        Assert.Contains("var x = 1;", formatted, StringComparison.Ordinal);
+        Assert.Contains("TEST0001", formatted, StringComparison.Ordinal);
+        Assert.Contains("something is wrong", formatted, StringComparison.Ordinal);
+    }
+
+
+
     // Compile the snippet in three contexts and return the smallest set of
     // real-rot diagnostics across them — a snippet is only rot if it fails to
     // compile cleanly in EVERY context it could plausibly belong to.
@@ -297,9 +334,9 @@ public sealed class DocExampleCompilationTests
             || path.EndsWith(".Designer.cs", StringComparison.OrdinalIgnoreCase);
     }
 
-    private static string FindSourceRoot()
+    private static string FindSourceRoot(string? startDirectory = null)
     {
-        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        var directory = new DirectoryInfo(startDirectory ?? AppContext.BaseDirectory);
 
         while (directory is not null)
         {
@@ -314,7 +351,7 @@ public sealed class DocExampleCompilationTests
 
         throw new DirectoryNotFoundException
         (
-            "Could not locate the 'src' root by walking up from " + AppContext.BaseDirectory
+            "Could not locate the 'src' root by walking up from " + (startDirectory ?? AppContext.BaseDirectory)
         );
     }
 

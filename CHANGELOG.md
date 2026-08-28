@@ -51,6 +51,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Wolfgang.Etl.TestKit.Tests.Fuzz` so they emit coverage data like the rest of the suite instead
   of silently contributing nothing to the src-coverage figure (#386). Verified both clear the
   coverage gate (97.8% / 100% test-assembly line coverage) before adding.
+- Raised `Wolfgang.Etl.TestKit.Tests.DocExamples` from 88.8% to 98.3% line coverage and added its
+  `coverlet.collector` (#386): `FindSourceRoot` gained an injectable `startDirectory` parameter
+  (default unchanged) so its "no src root found" failure path is directly testable instead of
+  only reachable by breaking the real build layout, and `FormatFailure`'s failure-report format
+  is now covered by a direct assertion on its output.
 
 ## [0.23.3] - 2026-08-19
 
