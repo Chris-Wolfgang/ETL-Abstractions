@@ -349,6 +349,7 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
 
         try
         {
+            // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host.
             await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
             {
                 token.ThrowIfCancellationRequested();

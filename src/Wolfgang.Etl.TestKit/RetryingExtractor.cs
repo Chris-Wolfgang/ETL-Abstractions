@@ -215,8 +215,10 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
             }
             finally
             {
-                // Stryker disable once Statement,Boolean : the iterator is always completed here so DisposeAsync
-                // is a no-op; ConfigureAwait(false) vs (true) is equivalent under the test host. Both unkillable.
+                // Stryker disable once Statement,Boolean,Block : the iterator is always completed here (MoveNextAsync
+                // already returned false or threw) so a compiler-generated enumerator's DisposeAsync is a no-op;
+                // removing the whole finally block costs nothing observable. ConfigureAwait(false) vs (true) is
+                // equivalent under the test host. All three mutant categories are unkillable (#434).
                 await enumerator.DisposeAsync().ConfigureAwait(false);
             }
 
