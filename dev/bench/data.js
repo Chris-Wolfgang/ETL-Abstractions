@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1787280040734,
+  "lastUpdate": 1787923180725,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -2520,6 +2520,90 @@ window.BENCHMARK_DATA = {
             "value": 8305891.96875,
             "unit": "ns",
             "range": "± 6335.406558614803"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a6987f4cae434922e189c0d0d1bcf713343a39b5",
+          "message": "Merge pull request #439 from Chris-Wolfgang/chore/baseline-0.23.3\n\nchore(pack): advance PackageValidation baseline to 0.23.3",
+          "timestamp": "2026-08-28T09:17:29-04:00",
+          "tree_id": "36b7341fa8650901422b8a753d6130ab3ec82229",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/a6987f4cae434922e189c0d0d1bcf713343a39b5"
+        },
+        "date": 1787923176444,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 32405.371083577473,
+            "unit": "ns",
+            "range": "± 105.3064308353556"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35510.485107421875,
+            "unit": "ns",
+            "range": "± 152.8583812973163"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3200594.2122395835,
+            "unit": "ns",
+            "range": "± 3615.8032911276573"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3551832.28515625,
+            "unit": "ns",
+            "range": "± 3053.2579160516007"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29770.02052307129,
+            "unit": "ns",
+            "range": "± 68.8173078574188"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29147.501200358074,
+            "unit": "ns",
+            "range": "± 67.10825606912064"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 82903.7920735677,
+            "unit": "ns",
+            "range": "± 208.6027206506947"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2843321.8802083335,
+            "unit": "ns",
+            "range": "± 1721.7832741027366"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2884368.9479166665,
+            "unit": "ns",
+            "range": "± 10026.268405142719"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8161874.380208333,
+            "unit": "ns",
+            "range": "± 61661.71536463339"
           }
         ]
       }
