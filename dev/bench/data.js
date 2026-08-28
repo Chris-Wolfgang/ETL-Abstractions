@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1787923180725,
+  "lastUpdate": 1787960623103,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -2604,6 +2604,90 @@ window.BENCHMARK_DATA = {
             "value": 8161874.380208333,
             "unit": "ns",
             "range": "± 61661.71536463339"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2a8dcc9e50d5d5495449a9b731c4497f74fca808",
+          "message": "Merge pull request #446 from Chris-Wolfgang/protected/423-workflow-timeouts\n\nmaint(ci): add fail-fast timeout-minutes to 11 workflows — protected-only",
+          "timestamp": "2026-08-28T19:41:48-04:00",
+          "tree_id": "4f89399a76a09db06cd2c75cb05c11de01884e8e",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/2a8dcc9e50d5d5495449a9b731c4497f74fca808"
+        },
+        "date": 1787960619012,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 33152.15584309896,
+            "unit": "ns",
+            "range": "± 74.42253095545618"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 34883.86951700846,
+            "unit": "ns",
+            "range": "± 270.63914765271215"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3311788.1315104165,
+            "unit": "ns",
+            "range": "± 16195.801878302338"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3353642.3404947915,
+            "unit": "ns",
+            "range": "± 4964.934733314425"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 32737.667622884113,
+            "unit": "ns",
+            "range": "± 99.61515510201956"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 32530.289510091145,
+            "unit": "ns",
+            "range": "± 176.80798570955477"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 83308.96950276692,
+            "unit": "ns",
+            "range": "± 272.8580502981411"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 3208386.046875,
+            "unit": "ns",
+            "range": "± 8818.216003460584"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 3493050.4427083335,
+            "unit": "ns",
+            "range": "± 3205.84455295388"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8063269.708333333,
+            "unit": "ns",
+            "range": "± 6942.753565050598"
           }
         ]
       }
