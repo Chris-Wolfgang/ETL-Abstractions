@@ -22,6 +22,7 @@ jobs:
   analysis:
     name: Scorecard analysis
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       security-events: write   # upload the SARIF result to code-scanning
       id-token: write          # publish to the OpenSSF API (badge + transparency log)

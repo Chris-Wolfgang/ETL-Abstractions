@@ -54,6 +54,7 @@ jobs:
   build-and-deploy:
     name: Build & Deploy Documentation
     runs-on: windows-latest
+    timeout-minutes: 15
 
     permissions:
       contents: write # Allow write access for gh-pages branch
