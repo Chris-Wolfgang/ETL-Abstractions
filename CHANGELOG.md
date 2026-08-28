@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Added `timeout-minutes` to every job in the 11 workflows that lacked one (`aot.yaml`,
+  `benchmarks.yaml`, `build-all-versions.yaml`, `codeql.yaml`, `docfx.yaml`, `fuzz.yaml`,
+  `license-audit.yaml`, `pr-benchmarks.yaml`, `release.yaml`, `scorecard.yaml`,
+  `workflow-security.yaml`) so an infra stall fails fast instead of hanging for hours — the AOT
+  job hung ~76 minutes during the 0.23.2 release with no timeout set (#423)
 - Fixed `Wolfgang.Etl.TestKit.Tests.Unit` and `Wolfgang.Etl.TestKit.Xunit.Tests.Unit` silently
   running **zero tests** on the `netcoreapp3.1` and `net5.0` target frameworks: `netcoreapp3.1`
   had no `xunit.runner.visualstudio` reference at all (build succeeded, no tests ever ran, CI
