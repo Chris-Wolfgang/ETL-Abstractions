@@ -19,6 +19,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.23.4] - 2026-08-29
+
+PATCH release — no public API or shipped-behaviour changes. Bug fixes, CI hardening, and test
+coverage work only (validated: empty `PublicAPI.Shipped/Unshipped.txt` diff against 0.23.3).
+
+### Added
+
+- Added `THIRD-PARTY-NOTICES.md` at the repo root, generated from the existing license-audit
+  gate's `nuget-license` output, and packed it into all four shipped NuGet packages
+  (`Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies`, `Wolfgang.Etl.TestKit`,
+  `Wolfgang.Etl.TestKit.Xunit`) (#436).
+
+### Fixed
+
+- Added `timeout-minutes` to every job in the 11 workflows that lacked one (`aot.yaml`,
+  `benchmarks.yaml`, `build-all-versions.yaml`, `codeql.yaml`, `docfx.yaml`, `fuzz.yaml`,
+  `license-audit.yaml`, `pr-benchmarks.yaml`, `release.yaml`, `scorecard.yaml`,
+  `workflow-security.yaml`) so an infra stall fails fast instead of hanging for hours — the AOT
+  job hung ~76 minutes during the 0.23.2 release with no timeout set (#423)
+- Fixed `Wolfgang.Etl.TestKit.Tests.Unit` and `Wolfgang.Etl.TestKit.Xunit.Tests.Unit` silently
+  running **zero tests** on the `netcoreapp3.1` and `net5.0` target frameworks: `netcoreapp3.1`
+  had no `xunit.runner.visualstudio` reference at all (build succeeded, no tests ever ran, CI
+  exited 0), and `net5.0` was bundled with `net6.0`/`net7.0` on runner 2.8.2, which has no
+  discovery adapter for that slot. Split both into their own TFM blocks pinned to runner 2.4.5
+  `(,2.5.0)`, matching the existing pattern in `Wolfgang.Etl.Abstractions.Tests.Unit` (#437).
+
+### Internal
+
+- Aligned every modern-slot (net8.0+) test project's `xunit.runner.visualstudio` to 3.0.1
+  uncapped, settling the policy tension between the stale "not 3.x" note and the fact that
+  runner 3.x already ran xunit v2 tests fine on several projects; older TFM slots stay on
+  2.4.5/2.8.2 capped `(,3.0.0)` (#414).
+- Annotated 4 of the 5 Stryker mutation survivors flagged in #434
+  (`FaultyTransformer.TransformWorkerAsync`, `TestLoader.LoadWorkerAsync`'s `ConfigureAwait(false)`
+  booleans, and `RetryingExtractor`'s `finally`-block DisposeAsync) as genuinely-equivalent mutants
+  with `// Stryker disable once` comments, consistent with the same pattern already documented
+  elsewhere in `RetryingExtractor.cs` and the fleet convention of not chasing unkillable
+  `ConfigureAwait`/`Task.Yield` mutants. The 5th (`FaultyExtractor.ExtractWorkerAsync`'s
+  `Task.Yield()`) is left undocumented because that method already exceeds the MA0051 60-line cap
+  and a disable comment would break the Release build — same precedent as `FaultyLoader`. No
+  behaviour change; mutation score unaffected (already 98.30%, floor 70).
+- Added `coverlet.collector` to `Wolfgang.Etl.Abstractions.Tests.Fuzz` and
+  `Wolfgang.Etl.TestKit.Tests.Fuzz` so they emit coverage data like the rest of the suite instead
+  of silently contributing nothing to the src-coverage figure (#386). Verified both clear the
+  coverage gate (97.8% / 100% test-assembly line coverage) before adding.
+- Raised `Wolfgang.Etl.TestKit.Tests.DocExamples` from 88.8% to 98.3% line coverage and added its
+  `coverlet.collector` (#386): `FindSourceRoot` gained an injectable `startDirectory` parameter
+  (default unchanged) so its "no src root found" failure path is directly testable instead of
+  only reachable by breaking the real build layout, and `FormatFailure`'s failure-report format
+  is now covered by a direct assertion on its output.
+- Investigated #427 (reported 2-4x file-write benchmark regression in downstream consumers):
+  confirmed via IL-level diff that the compiled `Wolfgang.Etl.Abstractions.dll` is byte-identical
+  across all 11 shipped TFMs between 0.23.1 and 0.23.2, and that the reported regression does not
+  reproduce on fresh re-runs — root cause was a noisy GitHub-hosted runner reported as two
+  "independent" samples that were actually two attempts of the same workflow run. No code change;
+  documented on the issue for downstream (ETL-FixedWidth#347) to revert its precautionary pin.
+
 ## [0.23.3] - 2026-08-19
 
 ### Internal
