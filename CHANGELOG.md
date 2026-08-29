@@ -9,16 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added `THIRD-PARTY-NOTICES.md` at the repo root, generated from the existing license-audit
-  gate's `nuget-license` output, and packed it into all four shipped NuGet packages
-  (`Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies`, `Wolfgang.Etl.TestKit`,
-  `Wolfgang.Etl.TestKit.Xunit`) (#436).
-
 ### Changed
 
 ### Deprecated
 
 ### Removed
+
+### Fixed
+
+### Security
+
+## [0.23.4] - 2026-08-29
+
+PATCH release — no public API or shipped-behaviour changes. Bug fixes, CI hardening, and test
+coverage work only (validated: empty `PublicAPI.Shipped/Unshipped.txt` diff against 0.23.3).
+
+### Added
+
+- Added `THIRD-PARTY-NOTICES.md` at the repo root, generated from the existing license-audit
+  gate's `nuget-license` output, and packed it into all four shipped NuGet packages
+  (`Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies`, `Wolfgang.Etl.TestKit`,
+  `Wolfgang.Etl.TestKit.Xunit`) (#436).
 
 ### Fixed
 
@@ -34,10 +45,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   discovery adapter for that slot. Split both into their own TFM blocks pinned to runner 2.4.5
   `(,2.5.0)`, matching the existing pattern in `Wolfgang.Etl.Abstractions.Tests.Unit` (#437).
 
-### Security
-
 ### Internal
 
+- Aligned every modern-slot (net8.0+) test project's `xunit.runner.visualstudio` to 3.0.1
+  uncapped, settling the policy tension between the stale "not 3.x" note and the fact that
+  runner 3.x already ran xunit v2 tests fine on several projects; older TFM slots stay on
+  2.4.5/2.8.2 capped `(,3.0.0)` (#414).
 - Annotated 4 of the 5 Stryker mutation survivors flagged in #434
   (`FaultyTransformer.TransformWorkerAsync`, `TestLoader.LoadWorkerAsync`'s `ConfigureAwait(false)`
   booleans, and `RetryingExtractor`'s `finally`-block DisposeAsync) as genuinely-equivalent mutants
@@ -56,6 +69,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (default unchanged) so its "no src root found" failure path is directly testable instead of
   only reachable by breaking the real build layout, and `FormatFailure`'s failure-report format
   is now covered by a direct assertion on its output.
+- Investigated #427 (reported 2-4x file-write benchmark regression in downstream consumers):
+  confirmed via IL-level diff that the compiled `Wolfgang.Etl.Abstractions.dll` is byte-identical
+  across all 11 shipped TFMs between 0.23.1 and 0.23.2, and that the reported regression does not
+  reproduce on fresh re-runs — root cause was a noisy GitHub-hosted runner reported as two
+  "independent" samples that were actually two attempts of the same workflow run. No code change;
+  documented on the issue for downstream (ETL-FixedWidth#347) to revert its precautionary pin.
 
 ## [0.23.3] - 2026-08-19
 
