@@ -1,23 +1,23 @@
 Summary
-  Generated on: 8/21/2026 - 3:09:02 AM
-  Coverage date: 8/21/2026 - 3:08:38 AM - 8/21/2026 - 3:08:51 AM
-  Parser: MultiReport (5x Cobertura)
-  Assemblies: 9
-  Classes: 212
-  Files: 198
+  Generated on: 8/29/2026 - 10:46:02 PM
+  Coverage date: 8/29/2026 - 10:45:26 PM - 8/29/2026 - 10:45:56 PM
+  Parser: MultiReport (8x Cobertura)
+  Assemblies: 12
+  Classes: 219
+  Files: 203
   Line coverage: 99.5%
-  Covered lines: 10075
-  Uncovered lines: 48
-  Coverable lines: 10123
-  Total lines: 34189
-  Branch coverage: 82.7% (1618 of 1956)
-  Covered branches: 1618
-  Total branches: 1956
-  Method coverage: 99.6% (2022 of 2030)
-  Full method coverage: 97.6% (1982 of 2030)
-  Covered methods: 2022
-  Fully covered methods: 1982
-  Total methods: 2030
+  Covered lines: 10452
+  Uncovered lines: 51
+  Coverable lines: 10503
+  Total lines: 34950
+  Branch coverage: 82.9% (1692 of 2040)
+  Covered branches: 1692
+  Total branches: 2040
+  Method coverage: 99.5% (2059 of 2068)
+  Full method coverage: 97.5% (2017 of 2068)
+  Covered methods: 2059
+  Fully covered methods: 2017
+  Total methods: 2068
 
 Wolfgang.Etl.Abstractions                                                                              99.8%
   Wolfgang.Etl.Abstractions.DefaultItemErrorPolicy                                                      100%
@@ -55,6 +55,13 @@ Wolfgang.Etl.Abstractions.Tests.DocExamples                                     
   Wolfgang.Etl.Abstractions.Tests.DocExamples.DocExampleCompilationTests                                100%
   Wolfgang.Etl.Abstractions.Tests.DocExamples.DocExampleCompiler                                       97.9%
   Wolfgang.Etl.Abstractions.Tests.DocExamples.DocExampleSource                                         96.4%
+
+Wolfgang.Etl.Abstractions.Tests.Fuzz                                                                   99.1%
+  Wolfgang.Etl.Abstractions.Tests.Fuzz.CollectingLoader<T>                                             83.3%
+  Wolfgang.Etl.Abstractions.Tests.Fuzz.EtlPipelineFuzzTests                                             100%
+  Wolfgang.Etl.Abstractions.Tests.Fuzz.InlineProgress<T>                                                100%
+  Wolfgang.Etl.Abstractions.Tests.Fuzz.MapTransformer<T1, T2>                                           100%
+  Wolfgang.Etl.Abstractions.Tests.Fuzz.ReportFuzzTests                                                  100%
 
 Wolfgang.Etl.Abstractions.Tests.Unit                                                                    100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.AsyncDisposableTests                              100%
@@ -138,6 +145,12 @@ Wolfgang.Etl.TestKit                                                            
   Wolfgang.Etl.TestKit.TestLoader<T>                                                                    100%
   Wolfgang.Etl.TestKit.TestTransformer<T>                                                               100%
   Wolfgang.Etl.TestKit.TimeSourceExtensions                                                             100%
+
+Wolfgang.Etl.TestKit.Tests.DocExamples                                                                   99%
+  Wolfgang.Etl.TestKit.Tests.DocExamples.DocExampleCompilationTests                                      99%
+
+Wolfgang.Etl.TestKit.Tests.Fuzz                                                                         100%
+  Wolfgang.Etl.TestKit.Tests.Fuzz.TestKitFuzzTests                                                      100%
 
 Wolfgang.Etl.TestKit.Tests.Unit                                                                        99.7%
   Wolfgang.Etl.TestKit.Tests.Unit.AllocationRegressionTests                                             100%
