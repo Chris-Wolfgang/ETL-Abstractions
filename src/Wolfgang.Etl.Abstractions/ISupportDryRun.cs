@@ -31,12 +31,23 @@ namespace Wolfgang.Etl.Abstractions;
 public interface ISupportDryRun
 {
     /// <summary>
-    /// Gets or sets a value indicating whether the stage runs in dry-run mode.
+    /// Gets a value indicating whether the stage runs in dry-run mode.
     /// </summary>
     /// <value>
     /// When <see langword="true"/>, the stage runs the full pipeline but skips the
     /// external side effect that mutates the destination or source. Defaults to
     /// <see langword="false"/>.
     /// </value>
-    bool IsDryRun { get; set; }
+    /// <remarks>
+    /// The property is read-only by contract: dry-run mode is configuration, fixed when the
+    /// stage is constructed, and must not change while a pipeline is enumerating. Implementers
+    /// supply the value through their own constructor — normally from an options record, per
+    /// ADR-0009 — rather than exposing it for post-construction assignment.
+    /// <para>
+    /// An implementer may still declare a settable property to satisfy this member; widening a
+    /// read-only interface member is legal. Doing so reintroduces the mid-run mutation this
+    /// contract exists to prevent, so prefer a get-only implementation.
+    /// </para>
+    /// </remarks>
+    bool IsDryRun { get; }
 }

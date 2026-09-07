@@ -89,29 +89,12 @@ public abstract class SupportsDryRunContractTests<TSut>
         Assert.False(sut.IsDryRun);
     }
 
-    /// <summary>
-    /// Verifies that <see cref="ISupportDryRun.IsDryRun"/> can be set to <see langword="true"/>.
-    /// </summary>
-    [Fact]
-    public void IsDryRun_can_be_set_to_true()
-    {
-        var sut = CreateSut();
-        sut.IsDryRun = true;
-        Assert.True(sut.IsDryRun);
-    }
-
-    /// <summary>
-    /// Verifies that <see cref="ISupportDryRun.IsDryRun"/> can be set back to
-    /// <see langword="false"/> after being set to <see langword="true"/>.
-    /// </summary>
-    [Fact]
-    public void IsDryRun_can_be_set_back_to_false()
-    {
-        var sut = CreateSut();
-        sut.IsDryRun = true;
-        sut.IsDryRun = false;
-        Assert.False(sut.IsDryRun);
-    }
+    // IsDryRun_can_be_set_to_true and IsDryRun_can_be_set_back_to_false were removed when
+    // ISupportDryRun.IsDryRun narrowed to { get; } (ETL-Abstractions #456). They asserted that
+    // the property was writable, which is precisely the contract that no longer holds. The
+    // behaviour they were standing in for — that a stage configured for dry run skips its side
+    // effect, and one configured normally performs it — is covered directly by the two
+    // RunAndReportSideEffectAsync tests below, which configure the value at construction.
 
 
 

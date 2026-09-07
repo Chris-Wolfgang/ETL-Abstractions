@@ -1,1 +1,2 @@
 #nullable enable
+*REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.set -> void

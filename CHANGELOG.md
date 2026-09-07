@@ -11,9 +11,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **BREAKING —** `ISupportDryRun.IsDryRun` is now `{ get; }` instead of `{ get; set; }`. Dry-run
+  mode is configuration: it is fixed when the stage is constructed and must not change while a
+  pipeline is enumerating. The settable member forced one mutable knob onto every loader in the
+  family, because an `init` accessor cannot implement a `set` interface member (CS8854). Per
+  [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md), implementers now supply
+  the value through their own constructor — normally from an options record — and expose
+  `IsDryRun` as a read-only projection (#456).
+
+  **Impact is narrower than it looks.** Widening a read-only interface member is legal, so an
+  implementer that still declares `bool IsDryRun { get; set; }` continues to satisfy the
+  interface and keeps compiling unchanged; every loader in the family does exactly that today.
+  What breaks is assignment *through the interface* (`((ISupportDryRun)stage).IsDryRun = true`),
+  for which a fleet-wide search found no occurrence in any production code path.
+
 ### Deprecated
 
 ### Removed
+
+- **BREAKING —** `SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true()` and
+  `SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false()` were removed from
+  `Wolfgang.Etl.TestKit.Xunit`. They asserted that `IsDryRun` was writable, which is precisely
+  the contract that no longer holds. Derived suites inherit the removal and need no edit. The
+  behaviour they stood in for is covered directly by
+  `When_IsDryRun_is_true_side_effect_is_skipped_Async` and
+  `When_IsDryRun_is_false_side_effect_occurs_Async`, which configure the value at construction
+  through the existing `RunAndReportSideEffectAsync` harness, and `IsDryRun_defaults_to_false`
+  is unchanged (#456).
 
 ### Fixed
 
