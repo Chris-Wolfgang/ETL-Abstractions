@@ -14,9 +14,9 @@ new work kept having to pick one without a recorded reason.
 | `Etl-DbClient` | Options record (`DbExtractorOptions` — 8 init props, `DbLoaderOptions` — 9), mid-migration: 18 setters and 7 ctors already `[Obsolete]` |
 | `ETL-FixedWidth` | Options records (7 types); loose-parameter ctors `[Obsolete]` |
 | `ETL-Xml` | Options records (2 types); 3 ctors still take options positionally-required |
-| `ETL-Json` | BCL `JsonSerializerOptions` threaded through; no repo-authored record |
-| `Etl-Csv` | Mutable properties on the stage — chosen deliberately in Etl-Csv#200 |
-| `ETL-SqlBulkCopy` | Mutable properties on the stage |
+| `ETL-Json` | BCL `JsonSerializerOptions` threaded through; no repo-authored record; 7 live setters |
+| `Etl-Csv` | Options records (`CsvExtractorOptions` 17 props, `CsvLoaderOptions` 15); all 37 setters already `[Obsolete]`, none live |
+| `ETL-SqlBulkCopy` | Mutable properties on the stage — 13 live setters, none deprecated |
 | `ETL-Transformers`, `ETL-Abstractions` | No stage-level configuration |
 
 Three open ETL-FixedWidth issues proposed *different* answers to the same
@@ -71,6 +71,13 @@ builder targeting stage-level init-only properties must assign *every* property
 the builder silently override the stage's. Both models require the existing
 fluent builders to be rewritten; only this one has a sound target.
 
+**Where a stage already threads a third-party options type** — `ETL-Json` and its
+`JsonSerializerOptions` — the repo-authored record **carries** that type as one of
+its properties rather than sitting beside it as a second constructor parameter. A
+constructor taking two different options objects is a confusing signature and
+leaves the caller guessing which one owns a given setting. One options parameter
+per stage, always.
+
 We will also **narrow `ISupportDryRun.IsDryRun` to `{ get; }`**. It is declared
 `{ get; set; }` today, and an `init` accessor cannot implement a `set` interface
 member (CS8854), so the interface currently forces one mutable knob onto every
@@ -82,9 +89,9 @@ loader. Narrowing it lets `IsDryRun` become a read-only projection of
 - **Init-only properties on the stage** — rejected on the three points above. It
   is genuinely better on ergonomics: one concept instead of two, no extra type per
   stage (ETL-FixedWidth would go from 7 options types toward ~11 under its split
-  design), full IntelliSense discoverability from the stage itself, no property
-  duplication between record and stage, and `Etl-Csv` would need no migration at
-  all. Those costs are accepted deliberately: shape-validity and
+  design), full IntelliSense discoverability from the stage itself, and no
+  property duplication between record and stage. Those costs are accepted
+  deliberately: shape-validity and
   construction-time validation are correctness problems in code that already
   exists, whereas the ergonomic losses are friction.
 - **Keep both idioms, per repo** — rejected explicitly. It is the zero-cost option
@@ -99,9 +106,12 @@ loader. Narrowing it lets `IsDryRun` become a read-only projection of
 
 **Obligations this creates**
 
-- Every stage gains a companion options record. `Etl-Csv` and `ETL-SqlBulkCopy`,
-  which have no records today, need them — reversing the deliberate decision in
-  Etl-Csv#200 to keep property-based configuration.
+- Every stage gains a companion options record. `ETL-SqlBulkCopy` is the only
+  repo with no record at all (13 live setters). `Etl-Csv` already completed this
+  migration in 0.7.x — records exist and all 37 setters are `[Obsolete]` — so it
+  needs only the removal stage, not adoption. `Etl-Csv#200`, which kept
+  property-based configuration, was already superseded by that work and is not
+  reversed by this ADR.
 - The fluent builders must be rewritten to accumulate into a record and construct
   once. ETL-FixedWidth #342 records that this is where a prototype silently lost
   an `IsDryRun` assignment: it compiled clean under warnings-as-errors and only a
