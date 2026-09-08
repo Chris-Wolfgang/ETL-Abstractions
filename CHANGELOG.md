@@ -15,9 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   mode is configuration: it is fixed when the stage is constructed and must not change while a
   pipeline is enumerating. The settable member forced one mutable knob onto every loader in the
   family, because an `init` accessor cannot implement a `set` interface member (CS8854). Per
-  [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md), implementers now supply
-  the value through their own constructor — normally from an options record — and expose
-  `IsDryRun` as a read-only projection (#456).
+  [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md), implementers now declare
+  `IsDryRun` as `{ get; init; }`, so the value is supplied either by an object initializer or
+  from an options record passed to the constructor, and cannot be reassigned afterwards (#456).
 
   **Impact is narrower than it looks.** Widening a read-only interface member is legal, so an
   implementer that still declares `bool IsDryRun { get; set; }` continues to satisfy the
@@ -35,9 +35,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the contract that no longer holds. Derived suites inherit the removal and need no edit. The
   behaviour they stood in for is covered directly by
   `When_IsDryRun_is_true_side_effect_is_skipped_Async` and
-  `When_IsDryRun_is_false_side_effect_occurs_Async`, which configure the value at construction
-  through the existing `RunAndReportSideEffectAsync` harness, and `IsDryRun_defaults_to_false`
-  is unchanged (#456).
+  `When_IsDryRun_is_false_side_effect_occurs_Async`, which pass the desired value through the
+  existing `RunAndReportSideEffectAsync` harness and assert the resulting behaviour, leaving the
+  implementer free to apply it however its type allows. `IsDryRun_defaults_to_false` is
+  unchanged (#456).
 
 ### Fixed
 

@@ -39,14 +39,15 @@ public interface ISupportDryRun
     /// <see langword="false"/>.
     /// </value>
     /// <remarks>
-    /// The property is read-only by contract: dry-run mode is configuration, fixed when the
-    /// stage is constructed, and must not change while a pipeline is enumerating. Implementers
-    /// supply the value through their own constructor — normally from an options record, per
-    /// ADR-0009 — rather than exposing it for post-construction assignment.
+    /// The property is read-only by contract: dry-run mode is configuration, fixed once the stage
+    /// exists, and must not change while a pipeline is enumerating. Per ADR-0009 an implementer
+    /// declares it <c>{ get; init; }</c>, so the value can be supplied either by an object
+    /// initializer or from an options record passed to the constructor, and cannot be reassigned
+    /// afterwards. This interface does not constrain which of those an implementer offers.
     /// <para>
     /// An implementer may still declare a settable property to satisfy this member; widening a
     /// read-only interface member is legal. Doing so reintroduces the mid-run mutation this
-    /// contract exists to prevent, so prefer a get-only implementation.
+    /// contract exists to prevent, so prefer <c>{ get; init; }</c>.
     /// </para>
     /// </remarks>
     bool IsDryRun { get; }

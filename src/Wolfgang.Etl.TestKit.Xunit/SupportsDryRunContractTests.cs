@@ -94,7 +94,9 @@ public abstract class SupportsDryRunContractTests<TSut>
     // the property was writable, which is precisely the contract that no longer holds. The
     // behaviour they were standing in for — that a stage configured for dry run skips its side
     // effect, and one configured normally performs it — is covered directly by the two
-    // RunAndReportSideEffectAsync tests below, which configure the value at construction.
+    // RunAndReportSideEffectAsync tests below. Those assert behaviour only: the implementer is
+    // handed the value its stage should run with and applies it however its own type allows, so
+    // this base deliberately makes no claim about the configuration mechanism.
 
 
 
