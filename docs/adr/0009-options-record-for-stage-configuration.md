@@ -13,7 +13,7 @@ new work kept having to pick one without a recorded reason.
 |---|---|
 | `Etl-DbClient` | Options record (`DbExtractorOptions` — 8 init props, `DbLoaderOptions` — 9), mid-migration: 18 setters and 7 ctors already `[Obsolete]` |
 | `ETL-FixedWidth` | Options records (7 types); loose-parameter ctors `[Obsolete]` |
-| `ETL-Xml` | Options records (2 types); 3 ctors still take options positionally-required |
+| `ETL-Xml` | Options records (2 types); on 3 ctors the options parameter is still positional and required |
 | `ETL-Json` | BCL `JsonSerializerOptions` threaded through; no repo-authored record; 7 live setters |
 | `Etl-Csv` | Options records (`CsvExtractorOptions` 17 props, `CsvLoaderOptions` 15); all 37 setters already `[Obsolete]`, none live |
 | `ETL-SqlBulkCopy` | Mutable properties on the stage — 13 live setters, none deprecated |
