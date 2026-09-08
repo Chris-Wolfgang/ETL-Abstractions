@@ -37,9 +37,31 @@ Two forces shaped it:
 
 ## Decision
 
-We will configure every extractor, loader, and transformer with a **`sealed record`
-of `{ get; init; }` properties passed to the constructor**, rather than with
-init-only properties declared on the stage itself.
+We will configure every extractor, loader, and transformer with a **record of
+`{ get; init; }` properties passed to the constructor**, rather than with init-only
+properties declared on the stage itself.
+
+**Seal at the leaves; leave open any record meant to be inherited.** Sealing a record
+nothing derives from is worth doing — a record's synthesized `Equals` compares
+`EqualityContract`, so an unsealed record has subtler equality semantics than most
+readers expect. But `sealed` blocks a record from being *derived from*, not from
+*deriving*: `public sealed record DbExtractorOptions : ExtractorOptions` is both legal
+and the shape we want, so the existing sealed records across the fleet need no change
+to adopt a base.
+
+Two kinds of record are therefore open rather than sealed:
+
+- the per-stage-kind base records (`ExtractorOptions`, `LoaderOptions`,
+  `TransformerOptions`) that carry the members every stage shares; and
+- any record a shape-specific variant derives from — ETL-FixedWidth's
+  `FixedWidthExtractorOptions` must be unsealed so `FixedWidthExtractorStreamOptions`
+  can add `Encoding` on the `Stream` path only. That is the mechanism reason 1 below
+  depends on, so it is not optional.
+
+That makes ETL-FixedWidth a three-level chain (`ExtractorOptions` →
+`FixedWidthExtractorOptions` → `FixedWidthExtractorStreamOptions`). Deliberate, but
+worth knowing: record equality and `with` across three levels are where the sharp
+edges live.
 
 Three reasons, none of which depend on backward compatibility:
 
