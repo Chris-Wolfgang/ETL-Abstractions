@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
@@ -36,6 +36,42 @@ public abstract class ExtractorBase<TSource, TProgress>
     // in production (real clock). Internal + InternalsVisibleTo, mirroring the IProgressTimer
     // injection pattern, so Test-Kit doubles can advance a fake clock.
     internal ITimeSource? TimeSource;
+
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExtractorBase{TSource, TProgress}"/> class with the documented
+    /// default configuration.
+    /// </summary>
+    protected ExtractorBase()
+    {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExtractorBase{TSource, TProgress}"/> class with the supplied
+    /// configuration.
+    /// </summary>
+    /// <param name="options">
+    /// Construction-time configuration. When <see langword="null"/>, the documented defaults
+    /// apply, exactly as for the parameterless constructor.
+    /// </param>
+    /// <remarks>
+    /// Values supplied here are fixed for the life of the stage and cannot change while a
+    /// pipeline is enumerating. See ADR-0009.
+    /// </remarks>
+    protected ExtractorBase(ExtractorOptions? options)
+    {
+        if (options is null)
+        {
+            return;
+        }
+
+        ReportingInterval = options.ReportingInterval;
+        MaximumItemCount  = options.MaximumItemCount;
+        SkipItemCount     = options.SkipItemCount;
+        ErrorPolicy       = options.ErrorPolicy;
+    }
 
 
 
