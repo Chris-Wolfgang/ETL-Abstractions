@@ -30,10 +30,11 @@ Two forces shaped it:
   that; the disagreement was about *where* the knobs live.
 - **Pre-1.0 breaking changes are acceptable.** The migration-cost asymmetry
   between the two models — flipping a shipped `{ get; set; }` to `{ get; init; }`
-  is an unavoidable binary break with no possible shim, whereas adding an
-  options-record constructor is purely additive — was explicitly **set aside** as
-  a deciding factor. It is recorded here because it still governs *sequencing*,
-  not because it chose the model.
+  is an unavoidable binary break with no possible shim, whereas an options-record
+  constructor *can* be added without breaking anything, provided the parameterless
+  constructor is kept explicitly (see "Two constructors" under Decision) — was
+  explicitly **set aside** as a deciding factor. It is recorded here because it
+  still governs *sequencing*, not because it chose the model.
 
 ## Decision
 
@@ -99,6 +100,47 @@ its properties rather than sitting beside it as a second constructor parameter. 
 constructor taking two different options objects is a confusing signature and
 leaves the caller guessing which one owns a given setting. One options parameter
 per stage, always.
+
+### The base stages get their own records, one per stage kind
+
+`ExtractorBase`, `LoaderBase` and `TransformerBase` each carry the same four
+configuration members (`ReportingInterval`, `MaximumItemCount`, `SkipItemCount`,
+`ErrorPolicy`). They move into `ExtractorOptions`, `LoaderOptions` and
+`TransformerOptions` respectively, with their validation moved into the records'
+`init` accessors, and each base class gains a constructor that accepts its record.
+A derived record inherits the matching base record, so a caller configures the whole
+stage — base members included — through one object.
+
+**One record per stage kind, not a shared `StageOptions`.** The type system forces
+this; it is not a preference. `WorkerResilience` has a different type on every base:
+generic over `TSource` on `ExtractorBase`, non-generic on `LoaderBase`, generic over
+`TDestination` on `TransformerBase`. No single record can carry it.
+
+**`WorkerResilience` stays on the stage.** It is the only generic member. Putting it
+in the records would make every base record generic, and therefore every derived
+record in the fleet — `DbExtractorOptions<TRecord>` — reversing Etl-DbClient's
+documented decision that its records are not generic, and costing callers an
+explicit type argument at every construction, since record creation cannot infer
+one. It is a resilience strategy rather than a setting, the same category as
+`ILogger`, and it is already `{ get; init; }`, so it has none of the mid-run-mutation
+problem this ADR exists to remove. It remains an init-only property on the stage.
+
+**Two constructors, not one with an optional parameter.** The obvious shape,
+`protected ExtractorBase(ExtractorOptions? options = null)`, is wrong. Any explicit
+constructor removes the implicit parameterless one, and `ExtractorBase() -> void` is
+a *shipped* API member. Source still compiles — an implicit `base()` binds to the
+optional-parameter form — but every precompiled derived assembly in the fleet calls
+`ExtractorBase::.ctor()` and would throw `MissingMethodException`. `RS0017` catches
+it. The correct shape keeps the shipped member explicitly and makes the options
+parameter required:
+
+```csharp
+protected ExtractorBase() { }
+protected ExtractorBase(ExtractorOptions? options) { … }
+```
+
+This is what "additive" means in the Context above: additive *because* the
+parameterless constructor is retained, not additive by nature.
 
 ### `IsDryRun` is a deliberate exception: an init property on the stage
 
@@ -222,11 +264,18 @@ Two consequences to hold onto:
 
 **Explicitly out of scope**
 
-This ADR governs **stage-level** configuration on derived types. The base-stage
-properties on `ExtractorBase` / `LoaderBase` / `TransformerBase`
-(`SkipItemCount`, `MaximumItemCount`, `ReportingInterval`, `ErrorPolicy`) are
-`{ get; set; }` and remain so for now — see #351 and #438, deferred until the
-derived-type work settles. Note that a derived constructor *can* assign a base
-`init` property, so the two decisions compose when that work resumes;
-`ReportingInterval` additionally has a live defect (read once at `timer.Start`,
-silently inert thereafter) that argues for taking it up before long.
+The base-stage properties (`SkipItemCount`, `MaximumItemCount`, `ReportingInterval`,
+`ErrorPolicy`) gain a record-based construction path under this ADR, but their
+existing `{ get; set; }` accessors are **not** deprecated or removed here. That
+follow-on — deprecate, then remove, on the same staged schedule as the derived
+types — is tracked in #351 and #438.
+
+With the records in place, #438's hardest problem largely dissolves. Its blocker was
+that the shipped contract tests assert validation by *assigning* to the property,
+and could not be rewritten against `init` without a generic `new()` constraint that
+cannot be added. A concrete record needs no such constraint: a test can write
+`Assert.Throws<ArgumentOutOfRangeException>(() => new ExtractorOptions { ReportingInterval = 0 })`
+directly, with no factory change and no threading of values through an abstract
+`CreateSut`. And `ReportingInterval`'s live defect — read once at `timer.Start`,
+silently inert thereafter — stops being a defect once the property is
+construction-only, which argues for not letting that follow-on sit.
