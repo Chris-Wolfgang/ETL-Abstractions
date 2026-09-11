@@ -68,8 +68,10 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// documented defaults apply.
     /// </param>
     /// <remarks>
-    /// Values supplied here are fixed for the life of the stage and cannot change while a
-    /// pipeline is enumerating. See ADR-0009.
+    /// Values supplied here are the stage's initial configuration. <c>ErrorPolicy</c> is
+    /// init-only and cannot change afterwards; <c>ReportingInterval</c>, <c>MaximumItemCount</c>
+    /// and <c>SkipItemCount</c> remain assignable on the stage until their setters are retired
+    /// (#351 / #438), at which point construction becomes the only way to set them. See ADR-0009.
     /// </remarks>
     protected LoaderBase(LoaderOptions? options = null)
     {

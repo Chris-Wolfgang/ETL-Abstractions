@@ -65,3 +65,6 @@ virtual Wolfgang.Etl.Abstractions.TransformerOptions.<Clone>$() -> Wolfgang.Etl.
 virtual Wolfgang.Etl.Abstractions.TransformerOptions.EqualityContract.get -> System.Type!
 virtual Wolfgang.Etl.Abstractions.TransformerOptions.Equals(Wolfgang.Etl.Abstractions.TransformerOptions? other) -> bool
 virtual Wolfgang.Etl.Abstractions.TransformerOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options = null) -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options = null) -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options = null) -> void

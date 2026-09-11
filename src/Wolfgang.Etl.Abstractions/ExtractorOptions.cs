@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace Wolfgang.Etl.Abstractions;
 
@@ -8,8 +8,8 @@ namespace Wolfgang.Etl.Abstractions;
 /// <remarks>
 /// <para>
 /// Per ADR-0009, stage configuration is supplied as a record passed to the constructor rather
-/// than assigned to properties after construction, so it cannot change while a pipeline is
-/// enumerating.
+/// than assigned to properties after construction, so that it is settled before a run
+/// rather than mutated during one.
 /// </para>
 /// <para>
 /// A derived extractor inherits this record to add its own settings — for example a

@@ -14,8 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `LoaderOptions` and `TransformerOptions` — one record per stage kind — carry the four settings
   every base stage shares (`ReportingInterval`, `MaximumItemCount`, `SkipItemCount`, `ErrorPolicy`)
   as `{ get; init; }` with the same validation the existing properties enforce, and
-  `ExtractorBase`, `LoaderBase` and `TransformerBase` each gain a constructor accepting their
-  record. A derived options record inherits the matching base record, so a caller configures the
+  `ExtractorBase`, `LoaderBase` and `TransformerBase` — and the single-progress-type convenience
+  bases `ExtractorBase<TSource>`, `LoaderBase<TDestination>` and
+  `TransformerBase<TSource, TDestination>`, since constructors are not inherited — each gain a
+  constructor accepting their record. A derived options record inherits the matching base record, so a caller configures the
   whole stage — base members included — through one object. The `options` parameter is
   optional; omitting it takes the documented defaults. **Additive for one release:** the
   parameterless constructors are retained explicitly — any explicit constructor removes the
