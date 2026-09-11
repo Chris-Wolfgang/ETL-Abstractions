@@ -1,1 +1,4 @@
-#nullable enable
+﻿#nullable enable
+*REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun
+*REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.get -> bool
+*REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.set -> void

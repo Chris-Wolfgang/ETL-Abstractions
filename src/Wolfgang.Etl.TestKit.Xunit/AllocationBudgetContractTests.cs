@@ -16,7 +16,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// <para>
 /// This generalizes the internal per-record allocation guard the kit uses on its own doubles
 /// into a reusable base, alongside the opt-in <see cref="IdempotentExtractorContractTests{TSut,TItem,TProgress}"/>
-/// / <see cref="SupportsDryRunContractTests{TSut}"/> family. Zero-allocation is <em>not</em>
+/// / <see cref="SupportsDryRunContractTests"/> family. Zero-allocation is <em>not</em>
 /// universal — a real CSV/JSON extractor legitimately materializes a record per row — so this
 /// is <b>opt-in</b> and the consumer <b>declares</b> the budget via <see cref="MaxBytesPerItem"/>
 /// (<c>0</c> for a truly allocation-free path, or a small documented N).
