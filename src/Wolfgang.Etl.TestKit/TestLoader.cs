@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,7 +48,7 @@ namespace Wolfgang.Etl.TestKit;
 /// // loader.GetCollectedItems() returns null in this mode
 /// </code>
 /// </example>
-public class TestLoader<T> : LoaderBase<T, Report>, ISupportDryRun
+public class TestLoader<T> : LoaderBase<T, Report>
     where T : notnull
 {
     // ------------------------------------------------------------------
