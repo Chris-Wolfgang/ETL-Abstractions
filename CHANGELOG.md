@@ -1,4 +1,4 @@
-# Changelog
+﻿# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -15,9 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   mode is configuration: it is fixed when the stage is constructed and must not change while a
   pipeline is enumerating. The settable member forced one mutable knob onto every loader in the
   family, because an `init` accessor cannot implement a `set` interface member (CS8854). Per
-  [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md), implementers now declare
-  `IsDryRun` as `{ get; init; }`, so the value is supplied either by an object initializer or
-  from an options record passed to the constructor, and cannot be reassigned afterwards (#456).
+  [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md), implementers now expose
+  `IsDryRun` as `{ get; }`, assigned once in the constructor from the `IsDryRun` member of the
+  stage's options record, and it cannot be reassigned afterwards (#456).
 
   **Impact is narrower than it looks.** Widening a read-only interface member is legal, so an
   implementer that still declares `bool IsDryRun { get; set; }` continues to satisfy the

@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 using Xunit;
 
@@ -43,7 +43,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///
 ///     protected override async Task&lt;bool&gt; RunAndReportSideEffectAsync(bool isDryRun)
 ///     {
-///         var loader = new MyLoader(connectionString) { IsDryRun = isDryRun };
+///         var loader = new MyLoader(connectionString, new MyLoaderOptions { IsDryRun = isDryRun });
 ///         await loader.LoadAsync(CreateSourceItems().ToAsyncEnumerable());
 ///         return await CountRowsAsync(connectionString) &gt; 0;
 ///     }

@@ -1,4 +1,4 @@
-namespace Wolfgang.Etl.Abstractions;
+﻿namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Implemented by ETL stages that support a <em>dry run</em> — a mode in which the
@@ -39,15 +39,14 @@ public interface ISupportDryRun
     /// <see langword="false"/>.
     /// </value>
     /// <remarks>
-    /// The property is read-only by contract: dry-run mode is configuration, fixed once the stage
-    /// exists, and must not change while a pipeline is enumerating. Per ADR-0009 an implementer
-    /// declares it <c>{ get; init; }</c>, so the value can be supplied either by an object
-    /// initializer or from an options record passed to the constructor, and cannot be reassigned
-    /// afterwards. This interface does not constrain which of those an implementer offers.
+    /// The property is read-only by contract: dry-run mode is configuration, fixed when the stage
+    /// is constructed, and must not change while a pipeline is enumerating. Per ADR-0009 an
+    /// implementer exposes it as <c>{ get; }</c>, assigned once in its constructor from the
+    /// <c>IsDryRun</c> member of its options record — the same place every other setting lives.
     /// <para>
     /// An implementer may still declare a settable property to satisfy this member; widening a
     /// read-only interface member is legal. Doing so reintroduces the mid-run mutation this
-    /// contract exists to prevent, so prefer <c>{ get; init; }</c>.
+    /// contract exists to prevent, so prefer a get-only property fed from the options record.
     /// </para>
     /// </remarks>
     bool IsDryRun { get; }
