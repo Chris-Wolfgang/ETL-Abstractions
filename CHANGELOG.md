@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Construction-time configuration for the base stages** (groundwork for #351 / #438, per
+  [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md)): `ExtractorOptions`,
+  `LoaderOptions` and `TransformerOptions` — one record per stage kind — carry the four settings
+  every base stage shares (`ReportingInterval`, `MaximumItemCount`, `SkipItemCount`, `ErrorPolicy`)
+  as `{ get; init; }` with the same validation the existing properties enforce, and
+  `ExtractorBase`, `LoaderBase` and `TransformerBase` each gain a constructor accepting their
+  record. A derived options record inherits the matching base record, so a caller configures the
+  whole stage — base members included — through one object. **Purely additive:** the
+  parameterless constructors are retained explicitly (an all-optional constructor would have
+  removed the implicit one, a shipped API member), and the existing `{ get; set; }` properties
+  are unchanged — their deprecation is tracked separately. One record per stage kind rather than
+  a shared `StageOptions` is forced by the type system: `WorkerResilience` is generic over
+  `TSource` on `ExtractorBase`, non-generic on `LoaderBase` and generic over `TDestination` on
+  `TransformerBase`, so no single record can carry it. It therefore stays on the stage, where it
+  is already `init`-only.
+
 ### Changed
 
 ### Deprecated
