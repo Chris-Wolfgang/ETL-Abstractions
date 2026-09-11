@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 
 
@@ -43,6 +44,15 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// Initializes a new instance of the <see cref="LoaderBase{TDestination, TProgress}"/> class with the documented
     /// default configuration.
     /// </summary>
+    /// <remarks>
+    /// Retained for binary compatibility with derived assemblies compiled before the
+    /// options-record constructor existed: any explicit constructor removes the implicit
+    /// parameterless one, which those assemblies call. It is hidden from IntelliSense and
+    /// scheduled for removal once every package in the family has rebuilt; new code should
+    /// pass an <see cref="LoaderOptions"/> record, or omit the
+    /// argument to take the defaults. See ADR-0009.
+    /// </remarks>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     protected LoaderBase()
     {
     }
@@ -54,14 +64,14 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// configuration.
     /// </summary>
     /// <param name="options">
-    /// Construction-time configuration. When <see langword="null"/>, the documented defaults
-    /// apply, exactly as for the parameterless constructor.
+    /// Construction-time configuration. When <see langword="null"/> — or omitted — the
+    /// documented defaults apply.
     /// </param>
     /// <remarks>
     /// Values supplied here are fixed for the life of the stage and cannot change while a
     /// pipeline is enumerating. See ADR-0009.
     /// </remarks>
-    protected LoaderBase(LoaderOptions? options)
+    protected LoaderBase(LoaderOptions? options = null)
     {
         if (options is null)
         {

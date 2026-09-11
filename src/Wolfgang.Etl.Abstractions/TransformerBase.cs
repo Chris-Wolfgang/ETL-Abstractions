@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Wolfgang.Etl.Abstractions;
 
@@ -44,6 +45,15 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// Initializes a new instance of the <see cref="TransformerBase{TSource, TDestination, TProgress}"/> class with the documented
     /// default configuration.
     /// </summary>
+    /// <remarks>
+    /// Retained for binary compatibility with derived assemblies compiled before the
+    /// options-record constructor existed: any explicit constructor removes the implicit
+    /// parameterless one, which those assemblies call. It is hidden from IntelliSense and
+    /// scheduled for removal once every package in the family has rebuilt; new code should
+    /// pass an <see cref="TransformerOptions"/> record, or omit the
+    /// argument to take the defaults. See ADR-0009.
+    /// </remarks>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     protected TransformerBase()
     {
     }
@@ -55,14 +65,14 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// configuration.
     /// </summary>
     /// <param name="options">
-    /// Construction-time configuration. When <see langword="null"/>, the documented defaults
-    /// apply, exactly as for the parameterless constructor.
+    /// Construction-time configuration. When <see langword="null"/> — or omitted — the
+    /// documented defaults apply.
     /// </param>
     /// <remarks>
     /// Values supplied here are fixed for the life of the stage and cannot change while a
     /// pipeline is enumerating. See ADR-0009.
     /// </remarks>
-    protected TransformerBase(TransformerOptions? options)
+    protected TransformerBase(TransformerOptions? options = null)
     {
         if (options is null)
         {

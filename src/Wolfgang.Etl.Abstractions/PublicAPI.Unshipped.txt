@@ -2,7 +2,7 @@
 *REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun
 *REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.get -> bool
 *REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.set -> void
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options) -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options = null) -> void
 Wolfgang.Etl.Abstractions.ExtractorOptions
 Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
 Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy.init -> void
@@ -14,7 +14,7 @@ Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval.get -> int
 Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval.init -> void
 Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount.init -> void
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options) -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options = null) -> void
 Wolfgang.Etl.Abstractions.LoaderOptions
 Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
 Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy.init -> void
@@ -26,7 +26,7 @@ Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval.get -> int
 Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval.init -> void
 Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount.get -> int
 Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount.init -> void
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options) -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options = null) -> void
 Wolfgang.Etl.Abstractions.TransformerOptions
 Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
 Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy.init -> void
