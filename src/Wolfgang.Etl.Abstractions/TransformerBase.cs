@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Wolfgang.Etl.Abstractions;
 
@@ -38,6 +39,53 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     // in production (real clock). Internal + InternalsVisibleTo, mirroring the IProgressTimer
     // injection pattern, so Test-Kit doubles can advance a fake clock.
     internal ITimeSource? TimeSource;
+
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TransformerBase{TSource, TDestination, TProgress}"/> class with the documented
+    /// default configuration.
+    /// </summary>
+    /// <remarks>
+    /// Retained for binary compatibility with derived assemblies compiled before the
+    /// options-record constructor existed: any explicit constructor removes the implicit
+    /// parameterless one, which those assemblies call. It is hidden from IntelliSense and
+    /// scheduled for removal once every package in the family has rebuilt; new code should
+    /// pass an <see cref="TransformerOptions"/> record, or omit the
+    /// argument to take the defaults. See ADR-0009.
+    /// </remarks>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    protected TransformerBase()
+    {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TransformerBase{TSource, TDestination, TProgress}"/> class with the supplied
+    /// configuration.
+    /// </summary>
+    /// <param name="options">
+    /// Construction-time configuration. When <see langword="null"/> — or omitted — the
+    /// documented defaults apply.
+    /// </param>
+    /// <remarks>
+    /// Values supplied here are the stage's initial configuration. <c>ErrorPolicy</c> is
+    /// init-only and cannot change afterwards; <c>ReportingInterval</c>, <c>MaximumItemCount</c>
+    /// and <c>SkipItemCount</c> remain assignable on the stage until their setters are retired
+    /// (#351 / #438), at which point construction becomes the only way to set them. See ADR-0009.
+    /// </remarks>
+    protected TransformerBase(TransformerOptions? options = null)
+    {
+        if (options is null)
+        {
+            return;
+        }
+
+        ReportingInterval = options.ReportingInterval;
+        MaximumItemCount  = options.MaximumItemCount;
+        SkipItemCount     = options.SkipItemCount;
+        ErrorPolicy       = options.ErrorPolicy;
+    }
 
 
 
