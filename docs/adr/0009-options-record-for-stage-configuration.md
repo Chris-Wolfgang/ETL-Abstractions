@@ -195,8 +195,13 @@ The second narrowed the interface to `{ get; }` and kept it; that would have shi
 narrowing and then a removal — two recompile-forcing breaks for one member — for a
 type with no consumers. The `IsExternalInit` hazard itself is a property of **every
 `init` record in the fleet**, pre-existing, bites only a `netstandard2.0`-compiled
-consumer resolving the net6.0/net7.0 assembly (both out of support), and is fixable
-only by a parameterised record constructor — a separate decision.
+consumer resolving the net6.0/net7.0 assembly (both out of support), and is not worth
+a parameterised record constructor. #460 tried one and dropped it: a constructor covers
+construction of the base members only — `with` and every derived record's own `init`
+members still carry the modreq — so a `netstandard2.0`-only consumer using it gets a
+false sense of safety, and an optional-parameter list does not scale to 12–19-member
+derived records. The records stay init-only; a consumer that must run on a modern
+runtime multi-targets, as every library in the family already does (#462, closed).
 
 ## Alternatives considered
 
@@ -253,6 +258,10 @@ only by a parameterised record constructor — a separate decision.
 
 **Costs to expect**
 
+- **Known limitation.** A consumer that ships only a `netstandard2.0` asset and runs on
+  a runtime for which this package ships a modern asset throws `MissingMethodException`
+  on any `init` setter, `with` included. The fix is to multi-target the consumer; the
+  records deliberately offer no constructor escape hatch (see the `IsDryRun` section).
 - Deprecating the existing setters makes every internal use a build error
   immediately, because this fleet builds Release with `TreatWarningsAsErrors`.
   ETL-FixedWidth #341 estimates ~240 call sites in that repo alone, and that cost
