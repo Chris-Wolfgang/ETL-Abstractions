@@ -11,34 +11,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **BREAKING —** `ISupportDryRun.IsDryRun` is now `{ get; }` instead of `{ get; set; }`. Dry-run
-  mode is configuration: it is fixed when the stage is constructed and must not change while a
-  pipeline is enumerating. The settable member forced one mutable knob onto every loader in the
-  family, because an `init` accessor cannot implement a `set` interface member (CS8854). Per
-  [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md), implementers now expose
-  `IsDryRun` as `{ get; }`, assigned once in the constructor from the `IsDryRun` member of the
-  stage's options record, and it cannot be reassigned afterwards (#456).
-
-  **Impact is narrower than it looks.** Widening a read-only interface member is legal, so an
-  implementer that still declares `bool IsDryRun { get; set; }` continues to satisfy the
-  interface and keeps compiling unchanged; every loader in the family does exactly that today.
-  What breaks is assignment *through the interface* (`((ISupportDryRun)stage).IsDryRun = true`),
-  for which a fleet-wide search found no occurrence in any production code path.
-
 ### Deprecated
 
 ### Removed
 
-- **BREAKING —** `SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true()` and
-  `SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false()` were removed from
-  `Wolfgang.Etl.TestKit.Xunit`. They asserted that `IsDryRun` was writable, which is precisely
-  the contract that no longer holds. Derived suites inherit the removal and need no edit. The
-  behaviour they stood in for is covered directly by
+- **BREAKING —** `ISupportDryRun` is removed from `Wolfgang.Etl.Abstractions`. It existed to
+  configure dry-run mode without knowing a stage's concrete type; once dry run became
+  construction-time configuration supplied through the stage's options record
+  ([ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md)), an interface can no
+  longer configure anything, and a fleet-wide search of every repo's `src`, `tests` and
+  `examples` found **no consumer** beyond a generic constraint in the contract-test base and one
+  `IsAssignableFrom` unit test. Stages that support dry run carry `IsDryRun { get; init; }` on
+  their options record and may expose a plain `public bool IsDryRun { get; }`; nothing binds
+  them to it. Implementers drop `, ISupportDryRun` from their declaration (#456).
+- **BREAKING —** `SupportsDryRunContractTests<TSut>` in `Wolfgang.Etl.TestKit.Xunit` is now the
+  non-generic `SupportsDryRunContractTests`, and `CreateSut()`, `IsDryRun_defaults_to_false()`,
+  `IsDryRun_can_be_set_to_true()` and `IsDryRun_can_be_set_back_to_false()` are removed. The
+  type parameter and factory existed only to reach `ISupportDryRun.IsDryRun`; the three property
+  tests asserted a value round-trip. The contract that matters — a stage configured for dry run
+  skips its side effect, and one configured normally performs it — is unchanged:
   `When_IsDryRun_is_true_side_effect_is_skipped_Async` and
-  `When_IsDryRun_is_false_side_effect_occurs_Async`, which pass the desired value through the
-  existing `RunAndReportSideEffectAsync` harness and assert the resulting behaviour, leaving the
-  implementer free to apply it however its type allows. `IsDryRun_defaults_to_false` is
-  unchanged (#456).
+  `When_IsDryRun_is_false_side_effect_occurs_Async` pass the setting through the existing
+  `RunAndReportSideEffectAsync(bool)` harness and assert the resulting behaviour, leaving the
+  implementer free to apply it however its type allows. Derived suites change their base to
+  `SupportsDryRunContractTests` and delete their `CreateSut()` override (#456).
 
 ### Fixed
 
