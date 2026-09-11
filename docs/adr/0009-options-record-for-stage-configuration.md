@@ -142,51 +142,48 @@ protected ExtractorBase(ExtractorOptions? options) { … }
 This is what "additive" means in the Context above: additive *because* the
 parameterless constructor is retained, not additive by nature.
 
-### `IsDryRun` is a deliberate exception: an init property on the stage
+### `IsDryRun` follows the rule: it lives in the options record
 
 We will **narrow `ISupportDryRun.IsDryRun` to `{ get; }`**. It is declared
-`{ get; set; }` today, and an `init` accessor cannot implement a `set` interface
-member (CS8854), so the interface currently forces one mutable knob onto every
-loader — the single member that cannot follow the rule above.
+`{ get; set; }` today, which forces every implementer to expose a setter — the one
+mutable knob the rule above could not remove, because neither a get-only property
+nor an `init` accessor can satisfy a `set` interface member (CS8854).
 
-Implementers will then declare it **`public bool IsDryRun { get; init; }`**, and the
-options record will **also** carry an `IsDryRun { get; init; }` that the constructor
-assigns. Both spellings are therefore available:
+With the interface narrowed, `IsDryRun` is configured exactly like every other
+setting: the **derived options record** of each stage that implements
+`ISupportDryRun` carries `IsDryRun { get; init; }`, and the stage exposes
+`public bool IsDryRun { get; }`, assigned once in its constructor from that record.
 
 ```csharp
-new JsonLineLoader<T>(stream) { IsDryRun = true }                       // object initializer
-new JsonLineLoader<T>(stream, new JsonLineLoaderOptions { IsDryRun = true })  // options record
-loader.IsDryRun = true;                                                  // no longer compiles
+new DbLoader<T>(conn, sql, new DbLoaderOptions { IsDryRun = true })
+loader.IsDryRun = true;   // does not compile
 ```
 
-This is a considered exception to "one options parameter per stage", not an
-oversight. `IsDryRun` is interface-mandated, a single `bool`, has no
-shape-specific validity and participates in no cross-property rule, so none of the
-three arguments above apply to it. What does apply is that `init` preserves the
-familiar object-initializer spelling while still removing mid-run mutation, which
-is the entire point of the change.
+**On the derived record, not the base.** `ISupportDryRun` is opt-in. A member on
+`LoaderOptions` would give every loader the knob whether or not it honours it —
+the settable-but-inert footgun reason 1 exists to prevent. Today all six loaders
+implement the interface and no extractor or transformer does.
 
-Keeping it in the record as well is a **safety requirement, not duplication**. An
-`init` accessor emits `set_IsDryRun` carrying a `modreq(IsExternalInit)`. Because
-these packages multi-target `netstandard2.0` *and* `net5+`, a consumer compiled
-against the `netstandard2.0` assembly but resolving the `net6.0`/`net7.0` assembly
-at runtime sees a polyfilled modreq where the BCL one is expected and throws
-`MissingMethodException` — this is not hypothetical, it shipped as a real defect in
-`Wolfgang.Etl.TestKit` 0.11.0. A constructor carries no modreq, so the options-record
-path is the safe route for exactly that combination.
+**One write path.** An earlier revision of this ADR also kept `{ get; init; }` on the
+stage, so the value could be set by an object initializer on the loader as well as
+through the record, and justified the duplication as a "modreq-free path" around
+the `IsExternalInit` cross-TFM hazard. That justification was mistaken: a record's
+`init` accessor emits `set_IsDryRun` with the same `modreq(IsExternalInit)`, so
+`new DbLoaderOptions { IsDryRun = true }` is exposed identically. The only
+modreq-free route is a constructor *parameter*, which the fleet's records do not
+offer. With no safety argument left, the second path bought nothing but a
+precedence rule ("the object initializer wins because it runs after the
+constructor") that every reader would have had to carry. It is withdrawn. The
+object-initializer spelling survives — on the record, where every other setting's
+already is.
 
-Two consequences to hold onto:
-
-- **The object initializer wins when both are used**, because it runs after the
-  constructor. That is the *reverse* of the precedence ETL-FixedWidth adopted for
-  `Encoding` ("options win when supplied"), so it must be documented on the property
-  and pinned with a test rather than left to be discovered.
-- Flipping a shipped `{ get; set; }` to `{ get; init; }` is a **binary break for every
-  precompiled consumer, object-initializer users included**, since `{ IsDryRun = v }`
-  compiles to `set_IsDryRun`. Acceptable pre-1.0 (see Context), but it requires a
-  recompile, not just a package bump. Every repo in the fleet already ships an
-  `IsExternalInit` polyfill, so the sibling compile-time hazard (CS0518 on
-  net462–net481 and netcoreapp3.1) is already covered.
+The `IsExternalInit` hazard itself is worth stating plainly, since the withdrawn
+argument mis-described it. It is a property of **every `init` record in the fleet**
+— all eleven existing ones ship this way — not of `IsDryRun`. It bites a
+`netstandard2.0`-compiled consumer that resolves the net6.0/net7.0 assembly at
+runtime (both out of support), it shipped as a real defect in
+`Wolfgang.Etl.TestKit` 0.11.0, and it is pre-existing: this ADR neither introduces
+nor fixes it. A parameterised record constructor would, and is a separate decision.
 
 ## Alternatives considered
 
@@ -203,16 +200,13 @@ Two consequences to hold onto:
   ETL-FixedWidth #299/#341/#342 unresolved indefinitely.
 - **Leave `ISupportDryRun` as `{ get; set; }`** and seed it from the record while
   keeping the interface-mandated setter — rejected once narrowing was on the
-  table. The decision above also leaves `IsDryRun` reachable two ways, so the
-  objection is not "two write paths" as such: it is that a `set` accessor permits
-  assignment *at any time*, preserving mid-run mutation for this one member.
-  `init` admits both spellings while confining each to construction.
-- **Make `IsDryRun` reachable only through the options record**, with `{ get; }` on
-  the stage — rejected as needlessly strict. It buys a single configuration
-  mechanism, but discards the object-initializer spelling that every existing
-  consumer uses, for a member with no shape-specific validity and no
-  cross-property rule to enforce. It would also remove the ergonomic path without
-  removing the need for the record one.
+  table. A `set` accessor permits assignment *at any time*, preserving mid-run
+  mutation for this one member, which is the very thing this ADR exists to remove.
+- **`{ get; init; }` on the stage as well as in the record** — adopted in an earlier
+  revision of this ADR to keep an object-initializer spelling on the loader, then
+  withdrawn. Its "modreq-free path" justification was mistaken (see the `IsDryRun`
+  section), leaving two write paths and a precedence rule with no safety gain. The
+  record's own object initializer provides the same ergonomics.
 
 ## Consequences
 
@@ -235,15 +229,15 @@ Two consequences to hold onto:
   concrete type, a fluent builder, or `SupportsDryRunContractTests`, which asserts
   the setter in two tests.
 - Narrowing the interface **enables** the fix; it does not deliver it. Until each
-  repo moves `IsDryRun` to `{ get; init; }` and into its options record, the
+  repo moves `IsDryRun` into its options record and exposes it as `{ get; }`, the
   interface documents a read-only contract that every implementation still
   contradicts with a live `set` accessor. That transitional state is what makes the
   interface change non-breaking for implementers, but it is not a resting place: if
   the adopting issues stall, the fleet has paid for a breaking change and received a
-  documentation promise. Each loader's flip to `init` is the real deliverable.
-- Each loader's flip is itself a second break, distinct from the interface change
-  and larger in reach — it invalidates precompiled consumers that use the object
-  initializer, which is the *recommended* spelling. Sequence it into the same
+  documentation promise. Each loader's move to `{ get; }` is the real deliverable.
+- Each loader's move to `{ get; }` is itself a second break, distinct from the
+  interface change and wider in reach — it removes the setter that precompiled
+  consumers call, object-initializer users included. Sequence it into the same
   release as that repo's options-record adoption rather than shipping two
   recompile-forcing releases.
 
