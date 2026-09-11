@@ -41,6 +41,14 @@ public class GuardParityTests
         protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
     }
 
+    /// <summary>
+    /// The runtime formats the values in its message with the current culture; the expectation must too.
+    /// </summary>
+    private static string ExpectedMessagePrefix(int actual, int floor) =>
+        string.Format(CultureInfo.CurrentCulture, "value ('{0}') must be greater than or equal to '{1}'.", actual, floor);
+
+
+
     private static async IAsyncEnumerable<int> EmptyAsync()
     {
         await Task.CompletedTask.ConfigureAwait(false);
@@ -74,7 +82,7 @@ public class GuardParityTests
         Assert.Equal(actual, ex.ActualValue);
         Assert.StartsWith
         (
-            string.Format(CultureInfo.InvariantCulture, "value ('{0}') must be greater than or equal to '{1}'.", actual, floor),
+            ExpectedMessagePrefix(actual, floor),
             ex.Message,
             StringComparison.Ordinal
         );
@@ -91,7 +99,7 @@ public class GuardParityTests
 
         Assert.Equal("value", ex.ParamName);
         Assert.Equal(0, ex.ActualValue);
-        Assert.StartsWith("value ('0') must be greater than or equal to '1'.", ex.Message, StringComparison.Ordinal);
+        Assert.StartsWith(ExpectedMessagePrefix(0, 1), ex.Message, StringComparison.Ordinal);
     }
 
 
@@ -105,7 +113,7 @@ public class GuardParityTests
 
         Assert.Equal("value", ex.ParamName);
         Assert.Equal(0, ex.ActualValue);
-        Assert.StartsWith("value ('0') must be greater than or equal to '1'.", ex.Message, StringComparison.Ordinal);
+        Assert.StartsWith(ExpectedMessagePrefix(0, 1), ex.Message, StringComparison.Ordinal);
     }
 
 
@@ -119,7 +127,28 @@ public class GuardParityTests
 
         Assert.Equal("value", ex.ParamName);
         Assert.Equal(-1, ex.ActualValue);
-        Assert.StartsWith("value ('-1') must be greater than or equal to '0'.", ex.Message, StringComparison.Ordinal);
+        Assert.StartsWith(ExpectedMessagePrefix(-1, 0), ex.Message, StringComparison.Ordinal);
+    }
+
+
+
+    [Fact]
+    public void Range_guard_when_the_current_culture_has_a_different_negative_sign_formats_the_message_with_that_culture()
+    {
+        var culture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+        culture.NumberFormat.NegativeSign = "−";
+        var original = CultureInfo.CurrentCulture;
+        CultureInfo.CurrentCulture = culture;
+        try
+        {
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new ExtractorOptions { SkipItemCount = -1 });
+
+            Assert.StartsWith("value ('−1') must be greater than or equal to '0'.", ex.Message, StringComparison.Ordinal);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = original;
+        }
     }
 
 

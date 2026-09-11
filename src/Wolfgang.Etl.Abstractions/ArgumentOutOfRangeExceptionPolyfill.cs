@@ -1,4 +1,4 @@
-#if !NET8_0_OR_GREATER
+﻿#if !NET8_0_OR_GREATER
 
 using System;
 using System.ComponentModel;
@@ -11,6 +11,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// Polyfill for <c>ArgumentOutOfRangeException.ThrowIfLessThan</c> on target frameworks older than
 /// .NET 8.0, so every range guard in this assembly is written once, in the built-in spelling, and
 /// throws the same exception — <c>ParamName</c>, <c>ActualValue</c> and message — on every target.
+/// The message formats its values with <see cref="CultureInfo.CurrentCulture"/>, as the runtime does.
 /// Compiled out where the runtime provides the real method.
 /// </summary>
 [EditorBrowsable(EditorBrowsableState.Never)]
@@ -39,7 +40,7 @@ internal static class ArgumentOutOfRangeExceptionPolyfill
                 (
                     paramName,
                     value,
-                    string.Format(CultureInfo.InvariantCulture, "{0} ('{1}') must be greater than or equal to '{2}'.", paramName, value, other)
+                    string.Format(CultureInfo.CurrentCulture, "{0} ('{1}') must be greater than or equal to '{2}'.", paramName, value, other)
                 );
             }
         }
