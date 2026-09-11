@@ -32,7 +32,7 @@ Two forces shaped it:
   between the two models — flipping a shipped `{ get; set; }` to `{ get; init; }`
   is an unavoidable binary break with no possible shim, whereas an options-record
   constructor *can* be added without breaking anything, provided the parameterless
-  constructor is kept explicitly (see "Two constructors" under Decision) — was
+  constructor is kept explicitly (see "One optional-parameter constructor" under Decision) — was
   explicitly **set aside** as a deciding factor. It is recorded here because it
   still governs *sequencing*, not because it chose the model.
 
@@ -125,22 +125,36 @@ one. It is a resilience strategy rather than a setting, the same category as
 `ILogger`, and it is already `{ get; init; }`, so it has none of the mid-run-mutation
 problem this ADR exists to remove. It remains an init-only property on the stage.
 
-**Two constructors, not one with an optional parameter.** The obvious shape,
-`protected ExtractorBase(ExtractorOptions? options = null)`, is wrong. Any explicit
-constructor removes the implicit parameterless one, and `ExtractorBase() -> void` is
-a *shipped* API member. Source still compiles — an implicit `base()` binds to the
-optional-parameter form — but every precompiled derived assembly in the fleet calls
-`ExtractorBase::.ctor()` and would throw `MissingMethodException`. `RS0017` catches
-it. The correct shape keeps the shipped member explicitly and makes the options
-parameter required:
+**One optional-parameter constructor, plus a hidden parameterless one for a single
+release.** The natural shape is `protected ExtractorBase(ExtractorOptions? options = null)`,
+matching every derived stage's `(source, TOptions? options = null, ILogger? logger = null)`.
+But any explicit constructor removes the implicit parameterless one, and
+`ExtractorBase() -> void` is a *shipped* API member: source still compiles — an implicit
+`base()` binds to the optional-parameter form — yet every precompiled derived assembly in
+the fleet calls `ExtractorBase::.ctor()` and would throw `MissingMethodException` until
+rebuilt. `RS0017` catches it. Three ways out were measured, not reasoned:
+
+- **Remove it now.** Zero source churn, but a silent *runtime* break for every un-rebuilt
+  derived package, closed only by a lockstep release.
+- **Mark it `[Obsolete]`.** It compiles — an implicit `base()` prefers the parameterless
+  candidate over default-argument substitution, so there is no `CS0121` — but under
+  `TreatWarningsAsErrors` every implicit `base()` becomes a hard error: **109 constructors
+  in this repo alone**, most of them test doubles that would write `: base(null)` purely
+  to silence a warning about a constructor that behaves identically. Unactionable noise.
+- **Keep it, hidden.** `[EditorBrowsable(EditorBrowsableState.Never)]`: no warning, binary
+  compatible, zero churn, invisible in IntelliSense; removed in the release after every
+  package has rebuilt.
+
+The third is adopted:
 
 ```csharp
-protected ExtractorBase() { }
-protected ExtractorBase(ExtractorOptions? options) { … }
+[EditorBrowsable(EditorBrowsableState.Never)]
+protected ExtractorBase() { }                                    // one release, then removed
+protected ExtractorBase(ExtractorOptions? options = null) { … }
 ```
 
-This is what "additive" means in the Context above: additive *because* the
-parameterless constructor is retained, not additive by nature.
+This is what "additive" means in the Context above: additive *because* the parameterless
+constructor is retained for one release, not additive by nature.
 
 ### `IsDryRun` follows the rule — and `ISupportDryRun` goes
 
