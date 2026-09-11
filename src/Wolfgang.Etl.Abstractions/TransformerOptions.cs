@@ -29,14 +29,7 @@ public record TransformerOptions
         get;
         init
         {
-#if NET8_0_OR_GREATER
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-#else
-            if (value < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Reporting interval must be greater than 0.");
-            }
-#endif
             field = value;
         }
     } = 1_000;
@@ -52,14 +45,7 @@ public record TransformerOptions
         get;
         init
         {
-#if NET8_0_OR_GREATER
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-#else
-            if (value < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
-            }
-#endif
             field = value;
         }
     } = int.MaxValue;
@@ -75,14 +61,7 @@ public record TransformerOptions
         get;
         init
         {
-#if NET8_0_OR_GREATER
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
-#else
-            if (value < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Skip item count cannot be less than 0.");
-            }
-#endif
             field = value;
         }
     }
