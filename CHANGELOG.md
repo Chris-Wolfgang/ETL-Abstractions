@@ -17,7 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `ExtractorBase`, `LoaderBase` and `TransformerBase` — and the single-progress-type convenience
   bases `ExtractorBase<TSource>`, `LoaderBase<TDestination>` and
   `TransformerBase<TSource, TDestination>`, since constructors are not inherited — each gain a
-  constructor accepting their record. A derived options record inherits the matching base record, so a caller configures the
+  constructor accepting their record. Each record also offers a plain-parameter constructor (`new ExtractorOptions(reportingInterval: 25)`)
+  as a cross-target-safe alternative to the object initializer: an `init` accessor's `IsExternalInit`
+  modifier differs between the `netstandard2.0` and modern assemblies, so a caller shipping only a
+  `netstandard2.0` asset can hit `MissingMethodException` on `new ExtractorOptions { … }` — the same
+  hazard `Report` gained a constructor for in 0.18.1. Constructor parameters carry no modifier.
+  A derived options record inherits the matching base record, so a caller configures the
   whole stage — base members included — through one object. The `options` parameter is
   optional; omitting it takes the documented defaults. **Additive for one release:** the
   parameterless constructors are retained explicitly — any explicit constructor removes the
