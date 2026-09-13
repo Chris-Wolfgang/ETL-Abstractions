@@ -32,6 +32,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Argument guards in `ExtractorBase`, `LoaderBase`, `TransformerBase` and the three options records
+  now throw the same exception on every target framework. Before, targets older than .NET 8.0
+  threw `ArgumentOutOfRangeException` with a bespoke message and no `ActualValue`, while .NET 8.0+
+  used the runtime's `ThrowIfLessThan`; now every target reports `ParamName`, `ActualValue` and the
+  runtime's message format (`value ('0') must be greater than or equal to '1'.`). Internally the 28
+  `#if NET6_0_OR_GREATER` / `#if NET8_0_OR_GREATER` guard blocks are gone: `ThrowIfNull` and
+  `ThrowIfLessThan` are polyfilled as C# 14 static extension members on the targets that lack
+  them, so each guard is written once in the built-in spelling. No public API change.
+
 ### Deprecated
 
 ### Removed

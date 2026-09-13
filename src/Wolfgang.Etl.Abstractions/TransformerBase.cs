@@ -135,14 +135,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         get;
         set
         {
-#if NET8_0_OR_GREATER
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-#else
-            if (value < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Reporting interval must be greater than 0.");
-            }
-#endif
             field = value;
         }
     } = 1_000;
@@ -205,14 +198,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         get;
         set
         {
-#if NET8_0_OR_GREATER
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-#else
-            if (value < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
-            }
-#endif
             field = value;
         }
     } = int.MaxValue;
@@ -241,14 +227,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         get;
         set
         {
-#if NET8_0_OR_GREATER
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
-#else
-            if (value < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Skip item count cannot be less than 0.");
-            }
-#endif
             field = value;
         }
     }
@@ -259,16 +238,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items)
     {
         ThrowIfDisposed();
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-#pragma warning restore RCS1140
-#endif
         return TransformWithResetAsync(items, CancellationToken.None);
     }
 
@@ -278,16 +248,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, CancellationToken token)
     {
         ThrowIfDisposed();
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-#pragma warning restore RCS1140
-#endif
         return TransformWithResetAsync(items, token);
     }
 
@@ -297,21 +258,8 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress)
     {
         ThrowIfDisposed();
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-        if (progress == null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
-#pragma warning restore RCS1140
-#endif
 
         return TransformWithProgressAsync(items, progress, CancellationToken.None);
     }
@@ -322,21 +270,8 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress, CancellationToken token)
     {
         ThrowIfDisposed();
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-        if (progress == null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
-#pragma warning restore RCS1140
-#endif
 
         return TransformWithProgressAsync(items, progress, token);
     }
