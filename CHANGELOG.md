@@ -9,7 +9,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Construction-time configuration for the base stages** (groundwork for #351 / #438, per
+  [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md)): `ExtractorOptions`,
+  `LoaderOptions` and `TransformerOptions` — one record per stage kind — carry the four settings
+  every base stage shares (`ReportingInterval`, `MaximumItemCount`, `SkipItemCount`, `ErrorPolicy`)
+  as `{ get; init; }` with the same validation the existing properties enforce, and
+  `ExtractorBase`, `LoaderBase` and `TransformerBase` — and the single-progress-type convenience
+  bases `ExtractorBase<TSource>`, `LoaderBase<TDestination>` and
+  `TransformerBase<TSource, TDestination>`, since constructors are not inherited — each gain a
+  constructor accepting their record. A derived options record inherits the matching base record, so a caller configures the
+  whole stage — base members included — through one object. The `options` parameter is
+  optional; omitting it takes the documented defaults. **Additive for one release:** the
+  parameterless constructors are retained explicitly — any explicit constructor removes the
+  implicit one, a shipped API member that every derived assembly compiled before this
+  release calls — but hidden from IntelliSense with `[EditorBrowsable(Never)]` and scheduled
+  for removal once every package in the family has rebuilt. The existing `{ get; set; }`
+  properties are unchanged — their deprecation is tracked separately. One record per stage kind rather than
+  a shared `StageOptions` is forced by the type system: `WorkerResilience` is generic over
+  `TSource` on `ExtractorBase`, non-generic on `LoaderBase` and generic over `TDestination` on
+  `TransformerBase`, so no single record can carry it. It therefore stays on the stage, where it
+  is already `init`-only.
+
 ### Changed
+
+- Argument guards in `ExtractorBase`, `LoaderBase`, `TransformerBase` and the three options records
+  now throw the same exception on every target framework. Before, targets older than .NET 8.0
+  threw `ArgumentOutOfRangeException` with a bespoke message and no `ActualValue`, while .NET 8.0+
+  used the runtime's `ThrowIfLessThan`; now every target reports `ParamName`, `ActualValue` and the
+  runtime's message format (`value ('0') must be greater than or equal to '1'.`). Internally the 28
+  `#if NET6_0_OR_GREATER` / `#if NET8_0_OR_GREATER` guard blocks are gone: `ThrowIfNull` and
+  `ThrowIfLessThan` are polyfilled as C# 14 static extension members on the targets that lack
+  them, so each guard is written once in the built-in spelling. No public API change.
 
 ### Deprecated
 

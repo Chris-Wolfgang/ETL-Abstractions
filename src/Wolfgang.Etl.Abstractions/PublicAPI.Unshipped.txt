@@ -1,4 +1,70 @@
-﻿#nullable enable
+#nullable enable
 *REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun
 *REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.get -> bool
 *REMOVED*Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun.set -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options = null) -> void
+Wolfgang.Etl.Abstractions.ExtractorOptions
+Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
+Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy.init -> void
+Wolfgang.Etl.Abstractions.ExtractorOptions.ExtractorOptions() -> void
+Wolfgang.Etl.Abstractions.ExtractorOptions.ExtractorOptions(Wolfgang.Etl.Abstractions.ExtractorOptions! original) -> void
+Wolfgang.Etl.Abstractions.ExtractorOptions.MaximumItemCount.get -> int
+Wolfgang.Etl.Abstractions.ExtractorOptions.MaximumItemCount.init -> void
+Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval.get -> int
+Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval.init -> void
+Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount.get -> int
+Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount.init -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options = null) -> void
+Wolfgang.Etl.Abstractions.LoaderOptions
+Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
+Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy.init -> void
+Wolfgang.Etl.Abstractions.LoaderOptions.LoaderOptions() -> void
+Wolfgang.Etl.Abstractions.LoaderOptions.LoaderOptions(Wolfgang.Etl.Abstractions.LoaderOptions! original) -> void
+Wolfgang.Etl.Abstractions.LoaderOptions.MaximumItemCount.get -> int
+Wolfgang.Etl.Abstractions.LoaderOptions.MaximumItemCount.init -> void
+Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval.get -> int
+Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval.init -> void
+Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount.get -> int
+Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount.init -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options = null) -> void
+Wolfgang.Etl.Abstractions.TransformerOptions
+Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy.get -> System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>!
+Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy.init -> void
+Wolfgang.Etl.Abstractions.TransformerOptions.MaximumItemCount.get -> int
+Wolfgang.Etl.Abstractions.TransformerOptions.MaximumItemCount.init -> void
+Wolfgang.Etl.Abstractions.TransformerOptions.ReportingInterval.get -> int
+Wolfgang.Etl.Abstractions.TransformerOptions.ReportingInterval.init -> void
+Wolfgang.Etl.Abstractions.TransformerOptions.SkipItemCount.get -> int
+Wolfgang.Etl.Abstractions.TransformerOptions.SkipItemCount.init -> void
+Wolfgang.Etl.Abstractions.TransformerOptions.TransformerOptions() -> void
+Wolfgang.Etl.Abstractions.TransformerOptions.TransformerOptions(Wolfgang.Etl.Abstractions.TransformerOptions! original) -> void
+override Wolfgang.Etl.Abstractions.ExtractorOptions.Equals(object? obj) -> bool
+override Wolfgang.Etl.Abstractions.ExtractorOptions.GetHashCode() -> int
+override Wolfgang.Etl.Abstractions.ExtractorOptions.ToString() -> string!
+override Wolfgang.Etl.Abstractions.LoaderOptions.Equals(object? obj) -> bool
+override Wolfgang.Etl.Abstractions.LoaderOptions.GetHashCode() -> int
+override Wolfgang.Etl.Abstractions.LoaderOptions.ToString() -> string!
+override Wolfgang.Etl.Abstractions.TransformerOptions.Equals(object? obj) -> bool
+override Wolfgang.Etl.Abstractions.TransformerOptions.GetHashCode() -> int
+override Wolfgang.Etl.Abstractions.TransformerOptions.ToString() -> string!
+static Wolfgang.Etl.Abstractions.ExtractorOptions.operator !=(Wolfgang.Etl.Abstractions.ExtractorOptions? left, Wolfgang.Etl.Abstractions.ExtractorOptions? right) -> bool
+static Wolfgang.Etl.Abstractions.ExtractorOptions.operator ==(Wolfgang.Etl.Abstractions.ExtractorOptions? left, Wolfgang.Etl.Abstractions.ExtractorOptions? right) -> bool
+static Wolfgang.Etl.Abstractions.LoaderOptions.operator !=(Wolfgang.Etl.Abstractions.LoaderOptions? left, Wolfgang.Etl.Abstractions.LoaderOptions? right) -> bool
+static Wolfgang.Etl.Abstractions.LoaderOptions.operator ==(Wolfgang.Etl.Abstractions.LoaderOptions? left, Wolfgang.Etl.Abstractions.LoaderOptions? right) -> bool
+static Wolfgang.Etl.Abstractions.TransformerOptions.operator !=(Wolfgang.Etl.Abstractions.TransformerOptions? left, Wolfgang.Etl.Abstractions.TransformerOptions? right) -> bool
+static Wolfgang.Etl.Abstractions.TransformerOptions.operator ==(Wolfgang.Etl.Abstractions.TransformerOptions? left, Wolfgang.Etl.Abstractions.TransformerOptions? right) -> bool
+virtual Wolfgang.Etl.Abstractions.ExtractorOptions.<Clone>$() -> Wolfgang.Etl.Abstractions.ExtractorOptions!
+virtual Wolfgang.Etl.Abstractions.ExtractorOptions.EqualityContract.get -> System.Type!
+virtual Wolfgang.Etl.Abstractions.ExtractorOptions.Equals(Wolfgang.Etl.Abstractions.ExtractorOptions? other) -> bool
+virtual Wolfgang.Etl.Abstractions.ExtractorOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Wolfgang.Etl.Abstractions.LoaderOptions.<Clone>$() -> Wolfgang.Etl.Abstractions.LoaderOptions!
+virtual Wolfgang.Etl.Abstractions.LoaderOptions.EqualityContract.get -> System.Type!
+virtual Wolfgang.Etl.Abstractions.LoaderOptions.Equals(Wolfgang.Etl.Abstractions.LoaderOptions? other) -> bool
+virtual Wolfgang.Etl.Abstractions.LoaderOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Wolfgang.Etl.Abstractions.TransformerOptions.<Clone>$() -> Wolfgang.Etl.Abstractions.TransformerOptions!
+virtual Wolfgang.Etl.Abstractions.TransformerOptions.EqualityContract.get -> System.Type!
+virtual Wolfgang.Etl.Abstractions.TransformerOptions.Equals(Wolfgang.Etl.Abstractions.TransformerOptions? other) -> bool
+virtual Wolfgang.Etl.Abstractions.TransformerOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options = null) -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options = null) -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options = null) -> void

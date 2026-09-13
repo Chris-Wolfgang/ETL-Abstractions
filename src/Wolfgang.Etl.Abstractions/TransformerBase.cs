@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Wolfgang.Etl.Abstractions;
 
@@ -38,6 +39,53 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     // in production (real clock). Internal + InternalsVisibleTo, mirroring the IProgressTimer
     // injection pattern, so Test-Kit doubles can advance a fake clock.
     internal ITimeSource? TimeSource;
+
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TransformerBase{TSource, TDestination, TProgress}"/> class with the documented
+    /// default configuration.
+    /// </summary>
+    /// <remarks>
+    /// Retained for binary compatibility with derived assemblies compiled before the
+    /// options-record constructor existed: any explicit constructor removes the implicit
+    /// parameterless one, which those assemblies call. It is hidden from IntelliSense and
+    /// scheduled for removal once every package in the family has rebuilt; new code should
+    /// pass an <see cref="TransformerOptions"/> record, or omit the
+    /// argument to take the defaults. See ADR-0009.
+    /// </remarks>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    protected TransformerBase()
+    {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TransformerBase{TSource, TDestination, TProgress}"/> class with the supplied
+    /// configuration.
+    /// </summary>
+    /// <param name="options">
+    /// Construction-time configuration. When <see langword="null"/> — or omitted — the
+    /// documented defaults apply.
+    /// </param>
+    /// <remarks>
+    /// Values supplied here are the stage's initial configuration. <c>ErrorPolicy</c> is
+    /// init-only and cannot change afterwards; <c>ReportingInterval</c>, <c>MaximumItemCount</c>
+    /// and <c>SkipItemCount</c> remain assignable on the stage until their setters are retired
+    /// (#351 / #438), at which point construction becomes the only way to set them. See ADR-0009.
+    /// </remarks>
+    protected TransformerBase(TransformerOptions? options = null)
+    {
+        if (options is null)
+        {
+            return;
+        }
+
+        ReportingInterval = options.ReportingInterval;
+        MaximumItemCount  = options.MaximumItemCount;
+        SkipItemCount     = options.SkipItemCount;
+        ErrorPolicy       = options.ErrorPolicy;
+    }
 
 
 
@@ -87,14 +135,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         get;
         set
         {
-#if NET8_0_OR_GREATER
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-#else
-            if (value < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Reporting interval must be greater than 0.");
-            }
-#endif
             field = value;
         }
     } = 1_000;
@@ -157,14 +198,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         get;
         set
         {
-#if NET8_0_OR_GREATER
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-#else
-            if (value < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Maximum item count cannot be less than 1.");
-            }
-#endif
             field = value;
         }
     } = int.MaxValue;
@@ -193,14 +227,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         get;
         set
         {
-#if NET8_0_OR_GREATER
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
-#else
-            if (value < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Skip item count cannot be less than 0.");
-            }
-#endif
             field = value;
         }
     }
@@ -211,16 +238,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items)
     {
         ThrowIfDisposed();
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-#pragma warning restore RCS1140
-#endif
         return TransformWithResetAsync(items, CancellationToken.None);
     }
 
@@ -230,16 +248,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, CancellationToken token)
     {
         ThrowIfDisposed();
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-#pragma warning restore RCS1140
-#endif
         return TransformWithResetAsync(items, token);
     }
 
@@ -249,21 +258,8 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress)
     {
         ThrowIfDisposed();
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-        if (progress == null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
-#pragma warning restore RCS1140
-#endif
 
         return TransformWithProgressAsync(items, progress, CancellationToken.None);
     }
@@ -274,21 +270,8 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     public virtual IAsyncEnumerable<TDestination> TransformAsync(IAsyncEnumerable<TSource> items, IProgress<TProgress> progress, CancellationToken token)
     {
         ThrowIfDisposed();
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(items);
         ArgumentNullException.ThrowIfNull(progress);
-#else
-#pragma warning disable RCS1140 // Roslynator does not associate throw inside #else block with method XML doc
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-        if (progress == null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
-#pragma warning restore RCS1140
-#endif
 
         return TransformWithProgressAsync(items, progress, token);
     }
