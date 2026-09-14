@@ -125,8 +125,7 @@ one. It is a resilience strategy rather than a setting, the same category as
 `ILogger`, and it is already `{ get; init; }`, so it has none of the mid-run-mutation
 problem this ADR exists to remove. It remains an init-only property on the stage.
 
-**One optional-parameter constructor, plus a hidden parameterless one for a single
-release.** The natural shape is `protected ExtractorBase(ExtractorOptions? options = null)`,
+**One optional-parameter constructor, plus a hidden parameterless one, kept permanently.** The natural shape is `protected ExtractorBase(ExtractorOptions? options = null)`,
 matching every derived stage's `(source, TOptions? options = null, ILogger? logger = null)`.
 But any explicit constructor removes the implicit parameterless one, and
 `ExtractorBase() -> void` is a *shipped* API member: source still compiles — an implicit
@@ -142,19 +141,33 @@ rebuilt. `RS0017` catches it. Three ways out were measured, not reasoned:
   in this repo alone**, most of them test doubles that would write `: base(null)` purely
   to silence a warning about a constructor that behaves identically. Unactionable noise.
 - **Keep it, hidden.** `[EditorBrowsable(EditorBrowsableState.Never)]`: no warning, binary
-  compatible, zero churn, invisible in IntelliSense; removed in the release after every
-  package has rebuilt.
+  compatible, zero churn, invisible in IntelliSense; kept permanently.
 
 The third is adopted:
 
 ```csharp
 [EditorBrowsable(EditorBrowsableState.Never)]
-protected ExtractorBase() { }                                    // one release, then removed
+protected ExtractorBase() : this(options: null) { }                                    // retained permanently
 protected ExtractorBase(ExtractorOptions? options = null) { … }
 ```
 
 This is what "additive" means in the Context above: additive *because* the parameterless
-constructor is retained for one release, not additive by nature.
+constructor is retained, not additive by nature.
+
+**Why permanently, not for one release.** A first draft scheduled removal once every
+package in the family had rebuilt (#461). That was withdrawn: removal can only ever hurt an
+audience no compile-time signal reaches — assemblies compiled against the old package and
+unified onto the new one at runtime, typically transitively, through two `Wolfgang.Etl.*`
+packages built against different Abstractions versions. Their implicit `base()` calls
+`.ctor()` by signature and throws `MissingMethodException` at construction, at a build
+nobody ran. `[Obsolete]` warns only whoever is recompiling, who is exactly whoever has no
+problem; NuGet upper bounds cannot be added to already-published packages; nothing of ours
+runs before the failure. Against that, the permanent cost is six hidden members that behave
+identically to passing `null` — held by construction (each chains to the options
+constructor with `null`, so there is one constructor body; a first draft with two empty
+bodies gave each its own copy of the field initialisers, and the `WorkerResilience`
+default lambda a different method per path) and by test (reflection over every public
+property of each base, so a setting added later cannot drift between them).
 
 ### `IsDryRun` follows the rule — and `ISupportDryRun` goes
 
