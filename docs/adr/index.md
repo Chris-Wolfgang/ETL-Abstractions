@@ -19,6 +19,7 @@ its status updated, so the history of the thinking is preserved.
 | [0006](0006-sequential-reverse-order-stage-disposal.md) | Dispose stages sequentially, in reverse construction order | Accepted |
 | [0007](0007-pin-assemblyversion.md) | Pin `<AssemblyVersion>` at `1.0.0.0` | Accepted |
 | [0008](0008-ban-synchronous-parallel-apis.md) | Ban synchronous `Parallel.For`/`Parallel.ForEach` | Accepted |
+| [0009](0009-options-record-for-stage-configuration.md) | Configure stages with an options record, not properties on the stage | Accepted |
 
 ## Status legend
 
