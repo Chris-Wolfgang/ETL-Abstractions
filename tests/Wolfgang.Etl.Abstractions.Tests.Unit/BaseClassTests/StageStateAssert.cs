@@ -51,7 +51,7 @@ internal static class StageStateAssert
         {
             Assert.True
             (
-                Same(property.GetValue(expected), property.GetValue(actual)),
+                Same(property.GetValue(expected), property.GetValue(actual), expected, actual),
                 $"{typeof(T).Name}.{property.Name} differs between the two constructors."
             );
         }
@@ -60,12 +60,22 @@ internal static class StageStateAssert
 
 
     /// <summary>
-    /// Delegates compare by the method they invoke: a default policy may be a shared static
-    /// instance or a per-instance method group, and either way "same behaviour" means the same
-    /// method. Everything else uses <see cref="object.Equals(object?, object?)"/>.
+    /// Delegates are the same when they invoke the same method and their targets are either equal
+    /// (a shared static default, or two targets that compare equal) or each delegate's own owner
+    /// (a per-instance method group, which is necessarily bound to a different instance on each
+    /// side). A delegate bound to some other stateful object that differs between the two paths
+    /// therefore fails. Everything else uses <see cref="object.Equals(object?, object?)"/>.
     /// </summary>
-    private static bool Same(object? expected, object? actual) =>
-        expected is Delegate expectedDelegate && actual is Delegate actualDelegate
-            ? expectedDelegate.Method == actualDelegate.Method
-            : Equals(expected, actual);
+    private static bool Same(object? expected, object? actual, object expectedOwner, object actualOwner)
+    {
+        if (expected is Delegate expectedDelegate && actual is Delegate actualDelegate)
+        {
+            var sameMethod = expectedDelegate.Method == actualDelegate.Method;
+            var sameTarget = Equals(expectedDelegate.Target, actualDelegate.Target)
+                || (ReferenceEquals(expectedDelegate.Target, expectedOwner) && ReferenceEquals(actualDelegate.Target, actualOwner));
+            return sameMethod && sameTarget;
+        }
+
+        return Equals(expected, actual);
+    }
 }
