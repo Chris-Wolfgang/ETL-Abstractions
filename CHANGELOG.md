@@ -19,11 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `TransformerBase<TSource, TDestination>`, since constructors are not inherited — each gain a
   constructor accepting their record. A derived options record inherits the matching base record, so a caller configures the
   whole stage — base members included — through one object. The `options` parameter is
-  optional; omitting it takes the documented defaults. **Additive for one release:** the
+  optional; omitting it takes the documented defaults. **Additive:** the
   parameterless constructors are retained explicitly — any explicit constructor removes the
   implicit one, a shipped API member that every derived assembly compiled before this
-  release calls — but hidden from IntelliSense with `[EditorBrowsable(Never)]` and scheduled
-  for removal once every package in the family has rebuilt. The existing `{ get; set; }`
+  release calls — hidden from IntelliSense with `[EditorBrowsable(Never)]` and kept
+  permanently — removing them would fail those un-rebuilt assemblies at runtime with
+  `MissingMethodException`, and no compile-time signal can reach them. Tests prove the two
+  constructors observably identical over every public property. The existing `{ get; set; }`
   properties are unchanged — their deprecation is tracked separately. One record per stage kind rather than
   a shared `StageOptions` is forced by the type system: `WorkerResilience` is generic over
   `TSource` on `ExtractorBase`, non-generic on `LoaderBase` and generic over `TDestination` on

@@ -49,12 +49,14 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// Retained for binary compatibility with derived assemblies compiled before the
     /// options-record constructor existed: any explicit constructor removes the implicit
     /// parameterless one, which those assemblies call. It is hidden from IntelliSense and
-    /// scheduled for removal once every package in the family has rebuilt; new code should
-    /// pass an <see cref="TransformerOptions"/> record, or omit the
-    /// argument to take the defaults. See ADR-0009.
+    /// retained permanently: removing it would fail those assemblies at runtime with
+    /// <see cref="System.MissingMethodException"/>, and no compile-time signal can reach
+    /// them. It chains to the options constructor with <see langword="null"/>, so the two
+    /// paths are one. New code should pass an <see cref="TransformerOptions"/> record, or omit the argument to
+    /// take the defaults. See ADR-0009.
     /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    protected TransformerBase()
+    protected TransformerBase() : this(options: null)
     {
     }
 
