@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.24.0] - 2026-09-15
+
+### Added
+
 - **Construction-time configuration for the base stages** (groundwork for #351 / #438, per
   [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md)): `ExtractorOptions`,
   `LoaderOptions` and `TransformerOptions` — one record per stage kind — carry the four settings
@@ -43,8 +57,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `ThrowIfLessThan` are polyfilled as C# 14 static extension members on the targets that lack
   them, so each guard is written once in the built-in spelling. No public API change.
 
-### Deprecated
-
 ### Removed
 
 - **BREAKING —** `ISupportDryRun` is removed from `Wolfgang.Etl.Abstractions`. It existed to
@@ -67,10 +79,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `RunAndReportSideEffectAsync(bool)` harness and assert the resulting behaviour, leaving the
   implementer free to apply it however its type allows. Derived suites change their base to
   `SupportsDryRunContractTests` and delete their `CreateSut()` override (#456).
-
-### Fixed
-
-### Security
 
 ## [0.23.4] - 2026-08-29
 
