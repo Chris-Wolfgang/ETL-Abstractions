@@ -21,12 +21,14 @@ public abstract class ExtractorBase<TSource> : ExtractorBase<TSource, Report>
     /// <remarks>
     /// Retained for binary compatibility with derived assemblies compiled before the
     /// options-record constructor existed — constructors are not inherited, so this convenience
-    /// base needs its own. Hidden from IntelliSense and scheduled for removal once every package
-    /// in the family has rebuilt; new code should pass an <see cref="ExtractorOptions"/> record, or omit
-    /// the argument to take the defaults. See ADR-0009.
+    /// base needs its own. Hidden from IntelliSense and retained permanently: removing it would
+    /// fail those assemblies at runtime with <see cref="System.MissingMethodException"/>, and no
+    /// compile-time signal can reach them. It chains to the options constructor with <see langword="null"/>, so the two
+    /// paths are one. New code should pass an <see cref="ExtractorOptions"/> record,
+    /// or omit the argument to take the defaults. See ADR-0009.
     /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    protected ExtractorBase()
+    protected ExtractorBase() : this(options: null)
     {
     }
 

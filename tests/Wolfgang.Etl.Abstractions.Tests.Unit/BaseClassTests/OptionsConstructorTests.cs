@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit;
@@ -112,15 +112,12 @@ public class OptionsConstructorTests
 
 
     [Fact]
-    public void ExtractorBase_when_constructed_parameterless_matches_null_options()
+    public void ExtractorBase_when_constructed_parameterless_is_observably_identical_to_null_options()
     {
         using var parameterless = new OptionsExtractor();
         using var nullOptions   = new OptionsExtractor(null);
 
-        Assert.Equal(nullOptions.ReportingInterval, parameterless.ReportingInterval);
-        Assert.Equal(nullOptions.MaximumItemCount, parameterless.MaximumItemCount);
-        Assert.Equal(nullOptions.SkipItemCount, parameterless.SkipItemCount);
-        Assert.Same(nullOptions.ErrorPolicy, parameterless.ErrorPolicy);
+        StageStateAssert.Identical(nullOptions, parameterless);
     }
 
 
@@ -164,15 +161,12 @@ public class OptionsConstructorTests
 
 
     [Fact]
-    public void LoaderBase_when_constructed_parameterless_matches_null_options()
+    public void LoaderBase_when_constructed_parameterless_is_observably_identical_to_null_options()
     {
         using var parameterless = new OptionsLoader();
         using var nullOptions   = new OptionsLoader(null);
 
-        Assert.Equal(nullOptions.ReportingInterval, parameterless.ReportingInterval);
-        Assert.Equal(nullOptions.MaximumItemCount, parameterless.MaximumItemCount);
-        Assert.Equal(nullOptions.SkipItemCount, parameterless.SkipItemCount);
-        Assert.Same(nullOptions.ErrorPolicy, parameterless.ErrorPolicy);
+        StageStateAssert.Identical(nullOptions, parameterless);
     }
 
 
@@ -216,14 +210,11 @@ public class OptionsConstructorTests
 
 
     [Fact]
-    public void TransformerBase_when_constructed_parameterless_matches_null_options()
+    public void TransformerBase_when_constructed_parameterless_is_observably_identical_to_null_options()
     {
         using var parameterless = new OptionsTransformer();
         using var nullOptions   = new OptionsTransformer(null);
 
-        Assert.Equal(nullOptions.ReportingInterval, parameterless.ReportingInterval);
-        Assert.Equal(nullOptions.MaximumItemCount, parameterless.MaximumItemCount);
-        Assert.Equal(nullOptions.SkipItemCount, parameterless.SkipItemCount);
-        Assert.Same(nullOptions.ErrorPolicy, parameterless.ErrorPolicy);
+        StageStateAssert.Identical(nullOptions, parameterless);
     }
 }

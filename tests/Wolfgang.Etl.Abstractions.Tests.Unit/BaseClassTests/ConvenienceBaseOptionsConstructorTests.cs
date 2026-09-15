@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit;
 
@@ -78,15 +78,25 @@ public class ConvenienceBaseOptionsConstructorTests
 
 
     [Fact]
-    public void ExtractorBase_convenience_when_constructed_parameterless_matches_null_options()
+    public void ExtractorBase_convenience_when_constructed_parameterless_keeps_the_defaults()
+    {
+        using var sut = new ConvenienceExtractor();
+
+        Assert.Equal(1_000, sut.ReportingInterval);
+        Assert.Equal(int.MaxValue, sut.MaximumItemCount);
+        Assert.Equal(0, sut.SkipItemCount);
+        Assert.Same(DefaultItemErrorPolicy.Abort, sut.ErrorPolicy);
+    }
+
+
+
+    [Fact]
+    public void ExtractorBase_convenience_when_constructed_parameterless_is_observably_identical_to_null_options()
     {
         using var parameterless = new ConvenienceExtractor();
         using var nullOptions   = new ConvenienceExtractor(null);
 
-        Assert.Equal(nullOptions.ReportingInterval, parameterless.ReportingInterval);
-        Assert.Equal(nullOptions.MaximumItemCount, parameterless.MaximumItemCount);
-        Assert.Equal(nullOptions.SkipItemCount, parameterless.SkipItemCount);
-        Assert.Same(nullOptions.ErrorPolicy, parameterless.ErrorPolicy);
+        StageStateAssert.Identical(nullOptions, parameterless);
     }
 
 
@@ -107,15 +117,25 @@ public class ConvenienceBaseOptionsConstructorTests
 
 
     [Fact]
-    public void LoaderBase_convenience_when_constructed_parameterless_matches_null_options()
+    public void LoaderBase_convenience_when_constructed_parameterless_keeps_the_defaults()
+    {
+        using var sut = new ConvenienceLoader();
+
+        Assert.Equal(1_000, sut.ReportingInterval);
+        Assert.Equal(int.MaxValue, sut.MaximumItemCount);
+        Assert.Equal(0, sut.SkipItemCount);
+        Assert.Same(DefaultItemErrorPolicy.Abort, sut.ErrorPolicy);
+    }
+
+
+
+    [Fact]
+    public void LoaderBase_convenience_when_constructed_parameterless_is_observably_identical_to_null_options()
     {
         using var parameterless = new ConvenienceLoader();
         using var nullOptions   = new ConvenienceLoader(null);
 
-        Assert.Equal(nullOptions.ReportingInterval, parameterless.ReportingInterval);
-        Assert.Equal(nullOptions.MaximumItemCount, parameterless.MaximumItemCount);
-        Assert.Equal(nullOptions.SkipItemCount, parameterless.SkipItemCount);
-        Assert.Same(nullOptions.ErrorPolicy, parameterless.ErrorPolicy);
+        StageStateAssert.Identical(nullOptions, parameterless);
     }
 
 
@@ -136,14 +156,24 @@ public class ConvenienceBaseOptionsConstructorTests
 
 
     [Fact]
-    public void TransformerBase_convenience_when_constructed_parameterless_matches_null_options()
+    public void TransformerBase_convenience_when_constructed_parameterless_keeps_the_defaults()
+    {
+        using var sut = new ConvenienceTransformer();
+
+        Assert.Equal(1_000, sut.ReportingInterval);
+        Assert.Equal(int.MaxValue, sut.MaximumItemCount);
+        Assert.Equal(0, sut.SkipItemCount);
+        Assert.Same(DefaultItemErrorPolicy.Abort, sut.ErrorPolicy);
+    }
+
+
+
+    [Fact]
+    public void TransformerBase_convenience_when_constructed_parameterless_is_observably_identical_to_null_options()
     {
         using var parameterless = new ConvenienceTransformer();
         using var nullOptions   = new ConvenienceTransformer(null);
 
-        Assert.Equal(nullOptions.ReportingInterval, parameterless.ReportingInterval);
-        Assert.Equal(nullOptions.MaximumItemCount, parameterless.MaximumItemCount);
-        Assert.Equal(nullOptions.SkipItemCount, parameterless.SkipItemCount);
-        Assert.Same(nullOptions.ErrorPolicy, parameterless.ErrorPolicy);
+        StageStateAssert.Identical(nullOptions, parameterless);
     }
 }
