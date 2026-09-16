@@ -106,6 +106,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.ExtractorOptions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ExtractorOptions.yml\" sourcestartlinenumber=\"1\">Construction-time configuration for an <xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.IEtlPipeline-1.yml",
       "output": {
         ".html": {
@@ -344,20 +358,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wolfgang.Etl.Abstractions.ISupportDryRun.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wolfgang.Etl.Abstractions.ISupportDryRun.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Wolfgang.Etl.Abstractions.ISupportDryRun",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ISupportDryRun.yml\" sourcestartlinenumber=\"1\">Implemented by ETL stages that support a <em>dry run</em> — a mode in which the\nfull pipeline is exercised but the external side effect that mutates a destination\nor source is skipped.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.ITransformAsync-2.yml",
       "output": {
         ".html": {
@@ -498,6 +498,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.LoaderOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.LoaderOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.LoaderOptions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.LoaderOptions.yml\" sourcestartlinenumber=\"1\">Construction-time configuration for a <xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.yml",
       "output": {
         ".html": {
@@ -593,6 +607,20 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.TransformerBase-3.yml\" sourcestartlinenumber=\"1\">Provides a basic implementation for data transformers that convert data from TSource to TDestination.\nLibrary authors can use this base class to create custom transformers by inheriting from it and implementing\nTransformWorkerAsync and CreateProgressReport methods.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.TransformerOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.TransformerOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.TransformerOptions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.TransformerOptions.yml\" sourcestartlinenumber=\"1\">Construction-time configuration for a\n<xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%603\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1212,17 +1240,17 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.yml",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html"
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ISupportDryRun\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+      "Title": "Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any stage that supports dry-run\nmode — one that can be configured to run its full pipeline while skipping the external\nside effect that would otherwise mutate its destination or source.</p>\n"
     },
     {
       "type": "ManagedReference",

@@ -165,6 +165,25 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource)
   nameWithType: ExtractorBase<TSource>
   nameWithType.vb: ExtractorBase(Of TSource)
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`1.#ctor(Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: ExtractorBase(ExtractorOptions?)
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1__ctor_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`1.#ctor(Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(ExtractorOptions)
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource).New(Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: ExtractorBase<TSource>.ExtractorBase(ExtractorOptions?)
+  nameWithType.vb: ExtractorBase(Of TSource).New(ExtractorOptions)
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`1.#ctor*
+  name: ExtractorBase
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1__ctor_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`1.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.ExtractorBase
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource).New
+  nameWithType: ExtractorBase<TSource>.ExtractorBase
+  nameWithType.vb: ExtractorBase(Of TSource).New
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`1.CreateProgressReport
   name: CreateProgressReport()
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport
@@ -191,6 +210,25 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress)
   nameWithType: ExtractorBase<TSource, TProgress>
   nameWithType.vb: ExtractorBase(Of TSource, TProgress)
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.#ctor(Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: ExtractorBase(ExtractorOptions?)
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2__ctor_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.#ctor(Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(ExtractorOptions)
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).New(Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: ExtractorBase<TSource, TProgress>.ExtractorBase(ExtractorOptions?)
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).New(ExtractorOptions)
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.#ctor*
+  name: ExtractorBase
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2__ctor_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorBase`2.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).New
+  nameWithType: ExtractorBase<TSource, TProgress>.ExtractorBase
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).New
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.CreateProgressReport
   name: CreateProgressReport()
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_CreateProgressReport
@@ -585,6 +623,64 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).WrapWorkerExecution
   nameWithType: ExtractorBase<TSource, TProgress>.WrapWorkerExecution
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).WrapWorkerExecution
+- uid: Wolfgang.Etl.Abstractions.ExtractorOptions
+  name: ExtractorOptions
+  href: api/Wolfgang.Etl.Abstractions.ExtractorOptions.html
+  commentId: T:Wolfgang.Etl.Abstractions.ExtractorOptions
+  fullName: Wolfgang.Etl.Abstractions.ExtractorOptions
+  nameWithType: ExtractorOptions
+- uid: Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.ExtractorOptions.html#Wolfgang_Etl_Abstractions_ExtractorOptions_ErrorPolicy
+  commentId: P:Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy
+  fullName: Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy
+  nameWithType: ExtractorOptions.ErrorPolicy
+- uid: Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy*
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.ExtractorOptions.html#Wolfgang_Etl_Abstractions_ExtractorOptions_ErrorPolicy_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorOptions.ErrorPolicy
+  nameWithType: ExtractorOptions.ErrorPolicy
+- uid: Wolfgang.Etl.Abstractions.ExtractorOptions.MaximumItemCount
+  name: MaximumItemCount
+  href: api/Wolfgang.Etl.Abstractions.ExtractorOptions.html#Wolfgang_Etl_Abstractions_ExtractorOptions_MaximumItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.ExtractorOptions.MaximumItemCount
+  fullName: Wolfgang.Etl.Abstractions.ExtractorOptions.MaximumItemCount
+  nameWithType: ExtractorOptions.MaximumItemCount
+- uid: Wolfgang.Etl.Abstractions.ExtractorOptions.MaximumItemCount*
+  name: MaximumItemCount
+  href: api/Wolfgang.Etl.Abstractions.ExtractorOptions.html#Wolfgang_Etl_Abstractions_ExtractorOptions_MaximumItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorOptions.MaximumItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorOptions.MaximumItemCount
+  nameWithType: ExtractorOptions.MaximumItemCount
+- uid: Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval
+  name: ReportingInterval
+  href: api/Wolfgang.Etl.Abstractions.ExtractorOptions.html#Wolfgang_Etl_Abstractions_ExtractorOptions_ReportingInterval
+  commentId: P:Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval
+  fullName: Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval
+  nameWithType: ExtractorOptions.ReportingInterval
+- uid: Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval*
+  name: ReportingInterval
+  href: api/Wolfgang.Etl.Abstractions.ExtractorOptions.html#Wolfgang_Etl_Abstractions_ExtractorOptions_ReportingInterval_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorOptions.ReportingInterval
+  nameWithType: ExtractorOptions.ReportingInterval
+- uid: Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount
+  name: SkipItemCount
+  href: api/Wolfgang.Etl.Abstractions.ExtractorOptions.html#Wolfgang_Etl_Abstractions_ExtractorOptions_SkipItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount
+  fullName: Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount
+  nameWithType: ExtractorOptions.SkipItemCount
+- uid: Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount*
+  name: SkipItemCount
+  href: api/Wolfgang.Etl.Abstractions.ExtractorOptions.html#Wolfgang_Etl_Abstractions_ExtractorOptions_SkipItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.ExtractorOptions.SkipItemCount
+  nameWithType: ExtractorOptions.SkipItemCount
 - uid: Wolfgang.Etl.Abstractions.IEtlPipelineSink
   name: IEtlPipelineSink
   href: api/Wolfgang.Etl.Abstractions.IEtlPipelineSink.html
@@ -1216,25 +1312,6 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.Abstractions.IReportsItemErrors.CurrentErrorItemCount
   nameWithType: IReportsItemErrors.CurrentErrorItemCount
-- uid: Wolfgang.Etl.Abstractions.ISupportDryRun
-  name: ISupportDryRun
-  href: api/Wolfgang.Etl.Abstractions.ISupportDryRun.html
-  commentId: T:Wolfgang.Etl.Abstractions.ISupportDryRun
-  fullName: Wolfgang.Etl.Abstractions.ISupportDryRun
-  nameWithType: ISupportDryRun
-- uid: Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
-  name: IsDryRun
-  href: api/Wolfgang.Etl.Abstractions.ISupportDryRun.html#Wolfgang_Etl_Abstractions_ISupportDryRun_IsDryRun
-  commentId: P:Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
-  fullName: Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
-  nameWithType: ISupportDryRun.IsDryRun
-- uid: Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun*
-  name: IsDryRun
-  href: api/Wolfgang.Etl.Abstractions.ISupportDryRun.html#Wolfgang_Etl_Abstractions_ISupportDryRun_IsDryRun_
-  commentId: Overload:Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
-  isSpec: "True"
-  fullName: Wolfgang.Etl.Abstractions.ISupportDryRun.IsDryRun
-  nameWithType: ISupportDryRun.IsDryRun
 - uid: Wolfgang.Etl.Abstractions.ITransformAsync`2
   name: ITransformAsync<TSource, TDestination>
   href: api/Wolfgang.Etl.Abstractions.ITransformAsync-2.html
@@ -1560,6 +1637,25 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination)
   nameWithType: LoaderBase<TDestination>
   nameWithType.vb: LoaderBase(Of TDestination)
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`1.#ctor(Wolfgang.Etl.Abstractions.LoaderOptions)
+  name: LoaderBase(LoaderOptions?)
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-1.html#Wolfgang_Etl_Abstractions_LoaderBase_1__ctor_Wolfgang_Etl_Abstractions_LoaderOptions_
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`1.#ctor(Wolfgang.Etl.Abstractions.LoaderOptions)
+  name.vb: New(LoaderOptions)
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions?)
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination).New(Wolfgang.Etl.Abstractions.LoaderOptions)
+  nameWithType: LoaderBase<TDestination>.LoaderBase(LoaderOptions?)
+  nameWithType.vb: LoaderBase(Of TDestination).New(LoaderOptions)
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`1.#ctor*
+  name: LoaderBase
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-1.html#Wolfgang_Etl_Abstractions_LoaderBase_1__ctor_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`1.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination>.LoaderBase
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination).New
+  nameWithType: LoaderBase<TDestination>.LoaderBase
+  nameWithType.vb: LoaderBase(Of TDestination).New
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`1.CreateProgressReport
   name: CreateProgressReport()
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-1.html#Wolfgang_Etl_Abstractions_LoaderBase_1_CreateProgressReport
@@ -1586,6 +1682,25 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress)
   nameWithType: LoaderBase<TDestination, TProgress>
   nameWithType.vb: LoaderBase(Of TDestination, TProgress)
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.#ctor(Wolfgang.Etl.Abstractions.LoaderOptions)
+  name: LoaderBase(LoaderOptions?)
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2__ctor_Wolfgang_Etl_Abstractions_LoaderOptions_
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.#ctor(Wolfgang.Etl.Abstractions.LoaderOptions)
+  name.vb: New(LoaderOptions)
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions?)
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).New(Wolfgang.Etl.Abstractions.LoaderOptions)
+  nameWithType: LoaderBase<TDestination, TProgress>.LoaderBase(LoaderOptions?)
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).New(LoaderOptions)
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.#ctor*
+  name: LoaderBase
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2__ctor_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderBase`2.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).New
+  nameWithType: LoaderBase<TDestination, TProgress>.LoaderBase
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).New
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.CreateProgressReport
   name: CreateProgressReport()
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_CreateProgressReport
@@ -1983,6 +2098,64 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).WrapWorkerExecution
   nameWithType: LoaderBase<TDestination, TProgress>.WrapWorkerExecution
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).WrapWorkerExecution
+- uid: Wolfgang.Etl.Abstractions.LoaderOptions
+  name: LoaderOptions
+  href: api/Wolfgang.Etl.Abstractions.LoaderOptions.html
+  commentId: T:Wolfgang.Etl.Abstractions.LoaderOptions
+  fullName: Wolfgang.Etl.Abstractions.LoaderOptions
+  nameWithType: LoaderOptions
+- uid: Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.LoaderOptions.html#Wolfgang_Etl_Abstractions_LoaderOptions_ErrorPolicy
+  commentId: P:Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy
+  fullName: Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy
+  nameWithType: LoaderOptions.ErrorPolicy
+- uid: Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy*
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.LoaderOptions.html#Wolfgang_Etl_Abstractions_LoaderOptions_ErrorPolicy_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderOptions.ErrorPolicy
+  nameWithType: LoaderOptions.ErrorPolicy
+- uid: Wolfgang.Etl.Abstractions.LoaderOptions.MaximumItemCount
+  name: MaximumItemCount
+  href: api/Wolfgang.Etl.Abstractions.LoaderOptions.html#Wolfgang_Etl_Abstractions_LoaderOptions_MaximumItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.LoaderOptions.MaximumItemCount
+  fullName: Wolfgang.Etl.Abstractions.LoaderOptions.MaximumItemCount
+  nameWithType: LoaderOptions.MaximumItemCount
+- uid: Wolfgang.Etl.Abstractions.LoaderOptions.MaximumItemCount*
+  name: MaximumItemCount
+  href: api/Wolfgang.Etl.Abstractions.LoaderOptions.html#Wolfgang_Etl_Abstractions_LoaderOptions_MaximumItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderOptions.MaximumItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderOptions.MaximumItemCount
+  nameWithType: LoaderOptions.MaximumItemCount
+- uid: Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval
+  name: ReportingInterval
+  href: api/Wolfgang.Etl.Abstractions.LoaderOptions.html#Wolfgang_Etl_Abstractions_LoaderOptions_ReportingInterval
+  commentId: P:Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval
+  fullName: Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval
+  nameWithType: LoaderOptions.ReportingInterval
+- uid: Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval*
+  name: ReportingInterval
+  href: api/Wolfgang.Etl.Abstractions.LoaderOptions.html#Wolfgang_Etl_Abstractions_LoaderOptions_ReportingInterval_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderOptions.ReportingInterval
+  nameWithType: LoaderOptions.ReportingInterval
+- uid: Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount
+  name: SkipItemCount
+  href: api/Wolfgang.Etl.Abstractions.LoaderOptions.html#Wolfgang_Etl_Abstractions_LoaderOptions_SkipItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount
+  fullName: Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount
+  nameWithType: LoaderOptions.SkipItemCount
+- uid: Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount*
+  name: SkipItemCount
+  href: api/Wolfgang.Etl.Abstractions.LoaderOptions.html#Wolfgang_Etl_Abstractions_LoaderOptions_SkipItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.LoaderOptions.SkipItemCount
+  nameWithType: LoaderOptions.SkipItemCount
 - uid: Wolfgang.Etl.Abstractions.MiddlewareExtensions
   name: MiddlewareExtensions
   href: api/Wolfgang.Etl.Abstractions.MiddlewareExtensions.html
@@ -2360,6 +2533,25 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination)
   nameWithType: TransformerBase<TSource, TDestination>
   nameWithType.vb: TransformerBase(Of TSource, TDestination)
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`2.#ctor(Wolfgang.Etl.Abstractions.TransformerOptions)
+  name: TransformerBase(TransformerOptions?)
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-2.html#Wolfgang_Etl_Abstractions_TransformerBase_2__ctor_Wolfgang_Etl_Abstractions_TransformerOptions_
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`2.#ctor(Wolfgang.Etl.Abstractions.TransformerOptions)
+  name.vb: New(TransformerOptions)
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions?)
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination).New(Wolfgang.Etl.Abstractions.TransformerOptions)
+  nameWithType: TransformerBase<TSource, TDestination>.TransformerBase(TransformerOptions?)
+  nameWithType.vb: TransformerBase(Of TSource, TDestination).New(TransformerOptions)
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`2.#ctor*
+  name: TransformerBase
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-2.html#Wolfgang_Etl_Abstractions_TransformerBase_2__ctor_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`2.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.TransformerBase
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination).New
+  nameWithType: TransformerBase<TSource, TDestination>.TransformerBase
+  nameWithType.vb: TransformerBase(Of TSource, TDestination).New
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`2.CreateProgressReport
   name: CreateProgressReport()
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-2.html#Wolfgang_Etl_Abstractions_TransformerBase_2_CreateProgressReport
@@ -2386,6 +2578,25 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress)
   nameWithType: TransformerBase<TSource, TDestination, TProgress>
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress)
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.#ctor(Wolfgang.Etl.Abstractions.TransformerOptions)
+  name: TransformerBase(TransformerOptions?)
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3__ctor_Wolfgang_Etl_Abstractions_TransformerOptions_
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.#ctor(Wolfgang.Etl.Abstractions.TransformerOptions)
+  name.vb: New(TransformerOptions)
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions?)
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).New(Wolfgang.Etl.Abstractions.TransformerOptions)
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.TransformerBase(TransformerOptions?)
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).New(TransformerOptions)
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.#ctor*
+  name: TransformerBase
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3__ctor_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerBase`3.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).New
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.TransformerBase
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).New
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.CreateProgressReport
   name: CreateProgressReport()
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_CreateProgressReport
@@ -2783,6 +2994,64 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).WrapWorkerExecution
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.WrapWorkerExecution
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).WrapWorkerExecution
+- uid: Wolfgang.Etl.Abstractions.TransformerOptions
+  name: TransformerOptions
+  href: api/Wolfgang.Etl.Abstractions.TransformerOptions.html
+  commentId: T:Wolfgang.Etl.Abstractions.TransformerOptions
+  fullName: Wolfgang.Etl.Abstractions.TransformerOptions
+  nameWithType: TransformerOptions
+- uid: Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.TransformerOptions.html#Wolfgang_Etl_Abstractions_TransformerOptions_ErrorPolicy
+  commentId: P:Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy
+  fullName: Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy
+  nameWithType: TransformerOptions.ErrorPolicy
+- uid: Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy*
+  name: ErrorPolicy
+  href: api/Wolfgang.Etl.Abstractions.TransformerOptions.html#Wolfgang_Etl_Abstractions_TransformerOptions_ErrorPolicy_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerOptions.ErrorPolicy
+  nameWithType: TransformerOptions.ErrorPolicy
+- uid: Wolfgang.Etl.Abstractions.TransformerOptions.MaximumItemCount
+  name: MaximumItemCount
+  href: api/Wolfgang.Etl.Abstractions.TransformerOptions.html#Wolfgang_Etl_Abstractions_TransformerOptions_MaximumItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.TransformerOptions.MaximumItemCount
+  fullName: Wolfgang.Etl.Abstractions.TransformerOptions.MaximumItemCount
+  nameWithType: TransformerOptions.MaximumItemCount
+- uid: Wolfgang.Etl.Abstractions.TransformerOptions.MaximumItemCount*
+  name: MaximumItemCount
+  href: api/Wolfgang.Etl.Abstractions.TransformerOptions.html#Wolfgang_Etl_Abstractions_TransformerOptions_MaximumItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerOptions.MaximumItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerOptions.MaximumItemCount
+  nameWithType: TransformerOptions.MaximumItemCount
+- uid: Wolfgang.Etl.Abstractions.TransformerOptions.ReportingInterval
+  name: ReportingInterval
+  href: api/Wolfgang.Etl.Abstractions.TransformerOptions.html#Wolfgang_Etl_Abstractions_TransformerOptions_ReportingInterval
+  commentId: P:Wolfgang.Etl.Abstractions.TransformerOptions.ReportingInterval
+  fullName: Wolfgang.Etl.Abstractions.TransformerOptions.ReportingInterval
+  nameWithType: TransformerOptions.ReportingInterval
+- uid: Wolfgang.Etl.Abstractions.TransformerOptions.ReportingInterval*
+  name: ReportingInterval
+  href: api/Wolfgang.Etl.Abstractions.TransformerOptions.html#Wolfgang_Etl_Abstractions_TransformerOptions_ReportingInterval_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerOptions.ReportingInterval
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerOptions.ReportingInterval
+  nameWithType: TransformerOptions.ReportingInterval
+- uid: Wolfgang.Etl.Abstractions.TransformerOptions.SkipItemCount
+  name: SkipItemCount
+  href: api/Wolfgang.Etl.Abstractions.TransformerOptions.html#Wolfgang_Etl_Abstractions_TransformerOptions_SkipItemCount
+  commentId: P:Wolfgang.Etl.Abstractions.TransformerOptions.SkipItemCount
+  fullName: Wolfgang.Etl.Abstractions.TransformerOptions.SkipItemCount
+  nameWithType: TransformerOptions.SkipItemCount
+- uid: Wolfgang.Etl.Abstractions.TransformerOptions.SkipItemCount*
+  name: SkipItemCount
+  href: api/Wolfgang.Etl.Abstractions.TransformerOptions.html#Wolfgang_Etl_Abstractions_TransformerOptions_SkipItemCount_
+  commentId: Overload:Wolfgang.Etl.Abstractions.TransformerOptions.SkipItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.TransformerOptions.SkipItemCount
+  nameWithType: TransformerOptions.SkipItemCount
 - uid: Wolfgang.Etl.ErrorPolicies
   name: Wolfgang.Etl.ErrorPolicies
   href: api/Wolfgang.Etl.ErrorPolicies.html
@@ -8963,135 +9232,54 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded
   nameWithType: RetryOutcome.Succeeded
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1
-  name: SupportsDryRunContractTests<TSut>
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html
-  commentId: T:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1
-  name.vb: SupportsDryRunContractTests(Of TSut)
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut)
-  nameWithType: SupportsDryRunContractTests<TSut>
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut)
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.CreateSut
-  name: CreateSut()
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_CreateSut
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.CreateSut
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.CreateSut()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).CreateSut()
-  nameWithType: SupportsDryRunContractTests<TSut>.CreateSut()
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).CreateSut()
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.CreateSut*
-  name: CreateSut
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_CreateSut_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.CreateSut
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.CreateSut
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).CreateSut
-  nameWithType: SupportsDryRunContractTests<TSut>.CreateSut
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).CreateSut
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_back_to_false
-  name: IsDryRun_can_be_set_back_to_false()
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_can_be_set_back_to_false
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_back_to_false
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_back_to_false()
-  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false()
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_back_to_false()
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_back_to_false*
-  name: IsDryRun_can_be_set_back_to_false
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_can_be_set_back_to_false_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_back_to_false
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_back_to_false
-  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_back_to_false
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_to_true
-  name: IsDryRun_can_be_set_to_true()
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_can_be_set_to_true
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_to_true
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_to_true()
-  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true()
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_to_true()
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_to_true*
-  name: IsDryRun_can_be_set_to_true
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_can_be_set_to_true_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_to_true
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_to_true
-  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_to_true
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_defaults_to_false
-  name: IsDryRun_defaults_to_false()
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_defaults_to_false
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_defaults_to_false
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_defaults_to_false()
-  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false()
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_defaults_to_false()
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_defaults_to_false*
-  name: IsDryRun_defaults_to_false
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_defaults_to_false_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_defaults_to_false
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_defaults_to_false
-  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_defaults_to_false
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.RunAndReportSideEffectAsync(System.Boolean)
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests
+  name: SupportsDryRunContractTests
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests
+  nameWithType: SupportsDryRunContractTests
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.RunAndReportSideEffectAsync(System.Boolean)
   name: RunAndReportSideEffectAsync(bool)
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_RunAndReportSideEffectAsync_System_Boolean_
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.RunAndReportSideEffectAsync(System.Boolean)
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_RunAndReportSideEffectAsync_System_Boolean_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.RunAndReportSideEffectAsync(System.Boolean)
   name.vb: RunAndReportSideEffectAsync(Boolean)
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync(bool)
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).RunAndReportSideEffectAsync(Boolean)
-  nameWithType: SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync(bool)
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).RunAndReportSideEffectAsync(Boolean)
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.RunAndReportSideEffectAsync*
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.RunAndReportSideEffectAsync(bool)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.RunAndReportSideEffectAsync(Boolean)
+  nameWithType: SupportsDryRunContractTests.RunAndReportSideEffectAsync(bool)
+  nameWithType.vb: SupportsDryRunContractTests.RunAndReportSideEffectAsync(Boolean)
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.RunAndReportSideEffectAsync*
   name: RunAndReportSideEffectAsync
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_RunAndReportSideEffectAsync_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.RunAndReportSideEffectAsync
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_RunAndReportSideEffectAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.RunAndReportSideEffectAsync
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).RunAndReportSideEffectAsync
-  nameWithType: SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).RunAndReportSideEffectAsync
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_false_side_effect_occurs_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.RunAndReportSideEffectAsync
+  nameWithType: SupportsDryRunContractTests.RunAndReportSideEffectAsync
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async
   name: When_IsDryRun_is_false_side_effect_occurs_Async()
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_When_IsDryRun_is_false_side_effect_occurs_Async
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_false_side_effect_occurs_Async
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_false_side_effect_occurs_Async()
-  nameWithType: SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async()
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_false_side_effect_occurs_Async()
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_false_side_effect_occurs_Async*
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_When_IsDryRun_is_false_side_effect_occurs_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async()
+  nameWithType: SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async*
   name: When_IsDryRun_is_false_side_effect_occurs_Async
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_When_IsDryRun_is_false_side_effect_occurs_Async_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_false_side_effect_occurs_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_When_IsDryRun_is_false_side_effect_occurs_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_false_side_effect_occurs_Async
-  nameWithType: SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_false_side_effect_occurs_Async
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_true_side_effect_is_skipped_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async
+  nameWithType: SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async
   name: When_IsDryRun_is_true_side_effect_is_skipped_Async()
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_When_IsDryRun_is_true_side_effect_is_skipped_Async
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_true_side_effect_is_skipped_Async
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_true_side_effect_is_skipped_Async()
-  nameWithType: SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async()
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_true_side_effect_is_skipped_Async()
-- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_true_side_effect_is_skipped_Async*
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_When_IsDryRun_is_true_side_effect_is_skipped_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async()
+  nameWithType: SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async*
   name: When_IsDryRun_is_true_side_effect_is_skipped_Async
-  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_When_IsDryRun_is_true_side_effect_is_skipped_Async_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_true_side_effect_is_skipped_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_When_IsDryRun_is_true_side_effect_is_skipped_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_true_side_effect_is_skipped_Async
-  nameWithType: SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async
-  nameWithType.vb: SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_true_side_effect_is_skipped_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async
+  nameWithType: SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async
 - uid: Wolfgang.Etl.TestKit.Xunit.SynchronousProgress`1
   name: SynchronousProgress<T>
   href: api/Wolfgang.Etl.TestKit.Xunit.SynchronousProgress-1.html

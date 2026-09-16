@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SupportsDryRunContractTests | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SupportsDryRunContractTests | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Abstract base class providing xUnit contract tests for any stage that supports dry-run mode — one that can be configured to run its full pipeline while skipping the external side effect that would otherwise mutate its destination or source.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.24.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests">
+
+
+
+  <h1 id="Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests" data-uid="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests" class="text-break">
+Class SupportsDryRunContractTests  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit.Xunit/SupportsDryRunContractTests.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.TestKit.html">TestKit</a>.<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.html">Xunit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.TestKit.Xunit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Abstract base class providing xUnit contract tests for any stage that supports dry-run
+mode — one that can be configured to run its full pipeline while skipping the external
+side effect that would otherwise mutate its destination or source.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class SupportsDryRunContractTests</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">SupportsDryRunContractTests</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_examples">Examples</h2>
+  <pre><code class="lang-csharp">public class MyLoaderDryRunContractTests : SupportsDryRunContractTests
+{
+    protected override async Task&lt;bool&gt; RunAndReportSideEffectAsync(bool isDryRun)
+    {
+        var loader = new MyLoader(connectionString, new MyLoaderOptions { IsDryRun = isDryRun });
+        await loader.LoadAsync(CreateSourceItems().ToAsyncEnumerable());
+        return await CountRowsAsync(connectionString) &gt; 0;
+    }
+}</code></pre>
+
+
+  <h2 id="Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+Inherit from this class to verify that your stage actually <em>skips its external side
+effect</em> when configured for dry run, rather than merely exposing a setting. The ETL
+base classes have no notion of dry run, so this contract is the only guarantee that a
+stage truly performs no write/acknowledgement in dry-run mode.
+</p>
+<p>
+The contract is behavioural and mechanism-agnostic: implement
+<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_RunAndReportSideEffectAsync_System_Boolean_">RunAndReportSideEffectAsync(bool)</a> to create your stage with the supplied dry-run
+setting — normally through the <code>IsDryRun</code> member of its options record, per ADR-0009 —
+drive it to completion (a loader's <code>LoadAsync</code>, an extractor's enumerated
+<code>ExtractAsync</code>, and so on), and report whether the external side effect occurred.
+How the value is applied is the implementer's business; this base makes no claim about it.
+</p>
+<p>
+That the pipeline still runs fully in dry-run mode (progress counters advancing, items
+enumerated) is covered by the stage's own base-class contract tests — for example
+<a class="xref" href="Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html">LoaderBaseContractTests&lt;TSut, TItem, TProgress&gt;</a> — which a dry-run stage
+should also inherit.
+</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_RunAndReportSideEffectAsync_" data-uid="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.RunAndReportSideEffectAsync*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_RunAndReportSideEffectAsync_System_Boolean_" data-uid="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.RunAndReportSideEffectAsync(System.Boolean)">
+  RunAndReportSideEffectAsync(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit.Xunit/SupportsDryRunContractTests.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a stage configured with the supplied dry-run setting, runs it through a
+complete execution — the same call a consumer would make — and reports whether the
+external side effect occurred (for example rows written, a message acknowledged, or a
+file moved).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Task&lt;bool&gt; RunAndReportSideEffectAsync(bool isDryRun)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>isDryRun</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The dry-run setting to construct the stage with.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the side effect occurred; otherwise <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_When_IsDryRun_is_false_side_effect_occurs_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_When_IsDryRun_is_false_side_effect_occurs_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_false_side_effect_occurs_Async">
+  When_IsDryRun_is_false_side_effect_occurs_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit.Xunit/SupportsDryRunContractTests.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Control case: verifies that when dry run is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>, a full run
+<em>does</em> perform the external side effect. Without this, a stage that never
+produces a side effect could pass the dry-run test vacuously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task When_IsDryRun_is_false_side_effect_occurs_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_When_IsDryRun_is_true_side_effect_is_skipped_Async_" data-uid="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_When_IsDryRun_is_true_side_effect_is_skipped_Async" data-uid="Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests.When_IsDryRun_is_true_side_effect_is_skipped_Async">
+  When_IsDryRun_is_true_side_effect_is_skipped_Async()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit.Xunit/SupportsDryRunContractTests.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifies that when dry run is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, a full run completes but the
+external side effect is <em>skipped</em>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public Task When_IsDryRun_is_true_side_effect_is_skipped_Async()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit.Xunit/SupportsDryRunContractTests.cs/#L46" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

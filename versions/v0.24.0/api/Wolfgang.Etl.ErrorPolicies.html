@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace Wolfgang.Etl.ErrorPolicies | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace Wolfgang.Etl.ErrorPolicies | Wolfgang.Etl.Abstractions Documentation ">
+      
+      
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.ErrorPolicies">
+
+  <h1 id="Wolfgang_Etl_ErrorPolicies" data-uid="Wolfgang.Etl.ErrorPolicies" class="text-break">Namespace Wolfgang.Etl.ErrorPolicies</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html">ItemErrorPolicy</a></dt>
+      <dd><pre><code>Ready-made policies for an ETL stage's error handling. Each is a
+&lt;xref href=&quot;System.Func%602&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; from an &lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorContext&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; to an
+&lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorAction&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt;, so it can be assigned directly to a stage's &lt;code&gt;ErrorPolicy&lt;/code&gt;
+property (on &lt;code&gt;ExtractorBase&lt;/code&gt; / &lt;code&gt;LoaderBase&lt;/code&gt; / &lt;code&gt;TransformerBase&lt;/code&gt;):
+
+&lt;example&gt;&lt;pre&gt;&lt;code class=&quot;lang-csharp&quot;&gt;var deadLetters = new List&lt;ItemErrorContext&gt;();
+</code></pre>
+<p>var extractor = new SomeExtractor&lt;Record&gt;(source)
+{
+ErrorPolicy = ItemErrorPolicy.SkipDeadLetterAndLog(deadLetters, logger)
+};</p>
+<pre><code>The dead-letter overloads write to a caller-owned sink (a collection or a channel), so its size —
+and therefore the memory a bad feed can consume — stays under the caller's control.
+</code></pre>
+</dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

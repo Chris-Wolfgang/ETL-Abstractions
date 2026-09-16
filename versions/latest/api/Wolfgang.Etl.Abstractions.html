@@ -128,6 +128,11 @@ ExtractWorkerAsync and CreateProgressReport methods.</p>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorOptions.html">ExtractorOptions</a></dt>
+      <dd><p>Construction-time configuration for an <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase&lt;TSource, TProgress&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a></dt>
       <dd><p>Describes a single item that failed to process. It is passed to a stage's <code>OnItemError</code>
 policy so the policy can record the failure (a &quot;dead letter&quot;) and decide whether to
@@ -149,6 +154,11 @@ progress-record and <code>CreateProgressReport</code> boilerplate. Override
       <dd><p>Provides a basic implementation for data loaders that write data of type TDestination to a target destination.
 Library authors can use this base class to create custom loaders by inheriting from it and implementing
 LoadWorkerAsync and CreateProgressReport methods.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.LoaderOptions.html">LoaderOptions</a></dt>
+      <dd><p>Construction-time configuration for a <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a>.</p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -194,6 +204,12 @@ progress-record and <code>CreateProgressReport</code> boilerplate. Override
       <dd><p>Provides a basic implementation for data transformers that convert data from TSource to TDestination.
 Library authors can use this base class to create custom transformers by inheriting from it and implementing
 TransformWorkerAsync and CreateProgressReport methods.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.TransformerOptions.html">TransformerOptions</a></dt>
+      <dd><p>Construction-time configuration for a
+<a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase&lt;TSource, TDestination, TProgress&gt;</a>.</p>
 </dd>
     </dl>
     <h3 id="structs">
@@ -331,13 +347,6 @@ that count uniformly regardless of the stage's concrete type. <a class="xref" hr
 <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a>, and <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase&lt;TSource, TDestination, TProgress&gt;</a>
 all implement it, and <code>EtlPipeline</code> sums <a class="xref" href="Wolfgang.Etl.Abstractions.IReportsItemErrors.html#Wolfgang_Etl_Abstractions_IReportsItemErrors_CurrentErrorItemCount">CurrentErrorItemCount</a> across every stage
 that reports it into <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineProgress.html#Wolfgang_Etl_Abstractions_EtlPipelineProgress_ErrorItemCount">ErrorItemCount</a>.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ISupportDryRun.html">ISupportDryRun</a></dt>
-      <dd><p>Implemented by ETL stages that support a <em>dry run</em> — a mode in which the
-full pipeline is exercised but the external side effect that mutates a destination
-or source is skipped.</p>
 </dd>
     </dl>
     <dl class="jumplist">

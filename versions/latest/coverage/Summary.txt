@@ -1,23 +1,23 @@
 Summary
-  Generated on: 8/29/2026 - 10:46:02 PM
-  Coverage date: 8/29/2026 - 10:45:26 PM - 8/29/2026 - 10:45:56 PM
+  Generated on: 9/16/2026 - 9:51:47 PM
+  Coverage date: 9/16/2026 - 9:51:18 PM - 9/16/2026 - 9:51:41 PM
   Parser: MultiReport (8x Cobertura)
   Assemblies: 12
-  Classes: 219
-  Files: 203
-  Line coverage: 99.5%
-  Covered lines: 10452
-  Uncovered lines: 51
-  Coverable lines: 10503
-  Total lines: 34950
-  Branch coverage: 82.9% (1692 of 2040)
-  Covered branches: 1692
-  Total branches: 2040
-  Method coverage: 99.5% (2059 of 2068)
-  Full method coverage: 97.5% (2017 of 2068)
-  Covered methods: 2059
-  Fully covered methods: 2017
-  Total methods: 2068
+  Classes: 229
+  Files: 213
+  Line coverage: 99.2%
+  Covered lines: 10848
+  Uncovered lines: 81
+  Coverable lines: 10929
+  Total lines: 36125
+  Branch coverage: 83.1% (1742 of 2094)
+  Covered branches: 1742
+  Total branches: 2094
+  Method coverage: 98.8% (2155 of 2180)
+  Full method coverage: 96.9% (2113 of 2180)
+  Covered methods: 2155
+  Fully covered methods: 2113
+  Total methods: 2180
 
 Wolfgang.Etl.Abstractions                                                                              99.8%
   Wolfgang.Etl.Abstractions.DefaultItemErrorPolicy                                                      100%
@@ -30,11 +30,13 @@ Wolfgang.Etl.Abstractions                                                       
   Wolfgang.Etl.Abstractions.EtlRunState                                                                 100%
   Wolfgang.Etl.Abstractions.ExtractorBase<T>                                                            100%
   Wolfgang.Etl.Abstractions.ExtractorBase<T1, T2>                                                       100%
+  Wolfgang.Etl.Abstractions.ExtractorOptions                                                            100%
   Wolfgang.Etl.Abstractions.ExtractStage<T>                                                             100%
   Wolfgang.Etl.Abstractions.ExtractStageWithProgress<T1, T2>                                            100%
   Wolfgang.Etl.Abstractions.ItemErrorContext                                                            100%
   Wolfgang.Etl.Abstractions.LoaderBase<T>                                                               100%
   Wolfgang.Etl.Abstractions.LoaderBase<T1, T2>                                                          100%
+  Wolfgang.Etl.Abstractions.LoaderOptions                                                               100%
   Wolfgang.Etl.Abstractions.MiddlewareExtensions                                                        100%
   Wolfgang.Etl.Abstractions.MiddlewareResult                                                            100%
   Wolfgang.Etl.Abstractions.MiddlewareResult<T>                                                          90%
@@ -47,6 +49,7 @@ Wolfgang.Etl.Abstractions                                                       
   Wolfgang.Etl.Abstractions.SystemTimeSource                                                            100%
   Wolfgang.Etl.Abstractions.TransformerBase<T1, T2>                                                     100%
   Wolfgang.Etl.Abstractions.TransformerBase<T1, T2, T3>                                                 100%
+  Wolfgang.Etl.Abstractions.TransformerOptions                                                          100%
   Wolfgang.Etl.Abstractions.TransformStage<T>                                                           100%
   Wolfgang.Etl.Abstractions.TransformStageWithProgress<T1, T2, T3>                                      100%
 
@@ -63,7 +66,7 @@ Wolfgang.Etl.Abstractions.Tests.Fuzz                                            
   Wolfgang.Etl.Abstractions.Tests.Fuzz.MapTransformer<T1, T2>                                           100%
   Wolfgang.Etl.Abstractions.Tests.Fuzz.ReportFuzzTests                                                  100%
 
-Wolfgang.Etl.Abstractions.Tests.Unit                                                                    100%
+Wolfgang.Etl.Abstractions.Tests.Unit                                                                   99.1%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.AsyncDisposableTests                              100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.BaseClassTimingTests                              100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.ClockSeamTests                                    100%
@@ -81,6 +84,7 @@ Wolfgang.Etl.Abstractions.Tests.Unit                                            
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.TransformerBaseTests                              100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.WorkerResilienceTests                             100%
   Wolfgang.Etl.Abstractions.Tests.Unit.ConfigureAwaitContextTests                                       100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.ConvenienceBaseOptionsConstructorTests                          90.1%
   Wolfgang.Etl.Abstractions.Tests.Unit.DisposedGuardTests                                               100%
   Wolfgang.Etl.Abstractions.Tests.Unit.EtlPipelineTests.AggregateErrorsTests                            100%
   Wolfgang.Etl.Abstractions.Tests.Unit.EtlPipelineTests.CancelingTransformer<T>                         100%
@@ -91,12 +95,16 @@ Wolfgang.Etl.Abstractions.Tests.Unit                                            
   Wolfgang.Etl.Abstractions.Tests.Unit.EtlPipelineTests.SeededExtractor<T>                              100%
   Wolfgang.Etl.Abstractions.Tests.Unit.EtlPipelineTests.TestDoubleCoverageTests                         100%
   Wolfgang.Etl.Abstractions.Tests.Unit.EtlPipelineTests.TokenRecordingTransformer<T>                    100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.ExtractorOptionsTests                                            100%
   Wolfgang.Etl.Abstractions.Tests.Unit.FinalizationSuppressionTests                                     100%
   Wolfgang.Etl.Abstractions.Tests.Unit.Globalization.CultureInvarianceTests                             100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.GuardParityTests                                                83.7%
   Wolfgang.Etl.Abstractions.Tests.Unit.ItemErrorHandlingTests                                           100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.LoaderOptionsTests                                               100%
   Wolfgang.Etl.Abstractions.Tests.Unit.MiddlewareTests                                                  100%
   Wolfgang.Etl.Abstractions.Tests.Unit.Models.EtlProgress                                               100%
   Wolfgang.Etl.Abstractions.Tests.Unit.Models.EtlProgressTests                                          100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.OptionsConstructorTests                                         89.1%
   Wolfgang.Etl.Abstractions.Tests.Unit.Performance.AllocationFreeTests                                  100%
   Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.BareTests                                          100%
   Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.CancelOnlyTests                                    100%
@@ -122,6 +130,8 @@ Wolfgang.Etl.Abstractions.Tests.Unit                                            
   Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles.ProgressOnlyTransformer<T1, T2, T3>    100%
   Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.WithProgressSemanticsTests                         100%
   Wolfgang.Etl.Abstractions.Tests.Unit.ReportTests                                                      100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.StageStateAssert                                                 100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.TransformerOptionsTests                                          100%
 
 Wolfgang.Etl.ErrorPolicies                                                                              100%
   Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy                                                            100%
@@ -187,7 +197,7 @@ Wolfgang.Etl.TestKit.Tests.Unit                                                 
   Wolfgang.Etl.TestKit.Tests.Unit.TestTransformerTests                                                  100%
   Wolfgang.Etl.TestKit.Tests.Unit.TimeSourceExtensionsTests                                             100%
 
-Wolfgang.Etl.TestKit.Xunit                                                                             98.4%
+Wolfgang.Etl.TestKit.Xunit                                                                             98.3%
   Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<T>                                          93.7%
   Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<T>                                               100%
   Wolfgang.Etl.TestKit.Xunit.CancellationOutcome                                                        100%
@@ -216,7 +226,7 @@ Wolfgang.Etl.TestKit.Xunit                                                      
   Wolfgang.Etl.TestKit.Xunit.PullCounter                                                                 90%
   Wolfgang.Etl.TestKit.Xunit.RetryContractTests<T>                                                      100%
   Wolfgang.Etl.TestKit.Xunit.RetryOutcome                                                               100%
-  Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<T>                                             100%
+  Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests                                                100%
   Wolfgang.Etl.TestKit.Xunit.SynchronousProgress<T>                                                     100%
   Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<T1, T2>                                        100%
   Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<T1, T2, T3>                                  97.9%
