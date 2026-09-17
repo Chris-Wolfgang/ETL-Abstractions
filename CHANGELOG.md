@@ -9,41 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **`Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit` ship `net5.0`, `net6.0` and `net7.0`
-  assemblies.** Both packages now assign inherited init-only properties (object initializers in the
-  doubles' users and in `CreateSut` implementations), and an `init` accessor's `IsExternalInit` modreq
-  differs between Abstractions' `netstandard2.0` build and its `net5.0`+ builds — a `netstandard2.0`
-  asset loaded beside the `net5.0` Abstractions asset would throw `MissingMethodException`. Each
-  runtime now gets an assembly compiled against its matching Abstractions asset (same shape as
-  `Wolfgang.Etl.Abstractions` itself).
-- `ExtractorBaseContractTests` / `LoaderBaseContractTests` / `TransformerBaseContractTests`:
-  `protected TSut CreateSut(int itemCount)` convenience forwarder (base-class defaults), so derived
-  test classes that call `CreateSut(n)` for their own tests are unaffected by the signature change
-  below.
-
 ### Changed
-
-- **BREAKING (pre-1.0 → MINOR): `ReportingInterval`, `MaximumItemCount` and `SkipItemCount` on
-  `ExtractorBase`, `LoaderBase` and `TransformerBase` are now `{ get; init; }`** (#351 / #438,
-  completing [ADR-0009](docs/adr/0009-options-record-for-stage-configuration.md)). Configuration is
-  fixed at construction — through the options record passed to the constructor, or an object
-  initializer — and can no longer be mutated mid-run (`ReportingInterval` in particular was read
-  once at start-up, so a later assignment was silently inert). The validation and the defaults are
-  unchanged; an out-of-range value throws `ArgumentOutOfRangeException` from the initializer.
-  - *Source break:* `stage.MaximumItemCount = 10;` after construction is CS8852 → move it into the
-    options record / object initializer.
-  - *Binary break:* `set_X` becomes `init`-only (a `modreq(IsExternalInit)` signature), so every
-    consumer that assigned these properties must recompile against this version — no shim is
-    possible for a `set` → `init` change. The ETL-* family republishes against it in lockstep.
-- **BREAKING: `CreateSut` in the three base contract-test classes takes the base configuration:**
-  `protected abstract TSut CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval)`.
-  Implementers forward the three values into the options record (or object initializer) their SUT
-  is built with, unvalidated — the guard tests pass out-of-range values deliberately and expect the
-  construction to throw. `ExtractorBaseContractTests.CreateSutOverSource` likewise gains an
-  `int maximumItemCount = int.MaxValue` parameter. The contract tests that used to assign the
-  properties after construction now construct through these parameters; six of them are renamed
-  (`*_can_be_set_to_positive_value` → `*_can_be_configured_with_a_positive_value`,
-  `*_set_to_{zero,negative}_throws_*` → `*_configured_to_{zero,negative}_throws_*`).
 
 ### Deprecated
 
