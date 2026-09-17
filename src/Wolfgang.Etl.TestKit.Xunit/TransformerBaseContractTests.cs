@@ -213,7 +213,8 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var expected = CreateExpectedItems();
         Assert.True(expected.Count >= 1, "CreateExpectedItems() must return at least 1 item.");
 
-        await using var enumerator = sut.TransformAsync(CreateInputItemsAsync()).GetAsyncEnumerator();
+        var enumerator = sut.TransformAsync(CreateInputItemsAsync()).GetAsyncEnumerator();
+        await using var enumeratorDisposal = enumerator.ConfigureAwait(false);
 
         Assert.Equal(0, sut.CurrentItemCount);
 
@@ -434,7 +435,8 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        await using var enumerator = sut.TransformAsync(CreateInputItemsAsync(), progress).GetAsyncEnumerator();
+        var enumerator = sut.TransformAsync(CreateInputItemsAsync(), progress).GetAsyncEnumerator();
+        await using var enumeratorDisposal = enumerator.ConfigureAwait(false);
         await enumerator.MoveNextAsync().ConfigureAwait(false);
         timer.Tick();
 
@@ -601,7 +603,8 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        await using var enumerator = sut.TransformAsync(CreateInputItemsAsync(), progress, CancellationToken.None).GetAsyncEnumerator();
+        var enumerator = sut.TransformAsync(CreateInputItemsAsync(), progress, CancellationToken.None).GetAsyncEnumerator();
+        await using var enumeratorDisposal = enumerator.ConfigureAwait(false);
         await enumerator.MoveNextAsync().ConfigureAwait(false);
         timer.Tick();
 
