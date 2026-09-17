@@ -299,3 +299,21 @@ virtual Wolfgang.Etl.Abstractions.TransformerOptions.<Clone>$() -> Wolfgang.Etl.
 virtual Wolfgang.Etl.Abstractions.TransformerOptions.EqualityContract.get -> System.Type!
 virtual Wolfgang.Etl.Abstractions.TransformerOptions.Equals(Wolfgang.Etl.Abstractions.TransformerOptions? other) -> bool
 virtual Wolfgang.Etl.Abstractions.TransformerOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.<Clone>$() -> Wolfgang.Etl.Abstractions.EtlPipelineProgress!
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.Deconstruct(out long ExtractedItemCount, out long LoadedItemCount, out System.TimeSpan Elapsed) -> void
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.Equals(Wolfgang.Etl.Abstractions.EtlPipelineProgress? other) -> bool
+Wolfgang.Etl.Abstractions.Report.Report(Wolfgang.Etl.Abstractions.Report! original) -> void
+override Wolfgang.Etl.Abstractions.EtlPipelineProgress.Equals(object? obj) -> bool
+override Wolfgang.Etl.Abstractions.EtlPipelineProgress.GetHashCode() -> int
+override Wolfgang.Etl.Abstractions.EtlPipelineProgress.ToString() -> string!
+override Wolfgang.Etl.Abstractions.Report.Equals(object? obj) -> bool
+override Wolfgang.Etl.Abstractions.Report.GetHashCode() -> int
+override Wolfgang.Etl.Abstractions.Report.ToString() -> string!
+static Wolfgang.Etl.Abstractions.EtlPipelineProgress.operator !=(Wolfgang.Etl.Abstractions.EtlPipelineProgress? left, Wolfgang.Etl.Abstractions.EtlPipelineProgress? right) -> bool
+static Wolfgang.Etl.Abstractions.EtlPipelineProgress.operator ==(Wolfgang.Etl.Abstractions.EtlPipelineProgress? left, Wolfgang.Etl.Abstractions.EtlPipelineProgress? right) -> bool
+static Wolfgang.Etl.Abstractions.Report.operator !=(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
+static Wolfgang.Etl.Abstractions.Report.operator ==(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
+virtual Wolfgang.Etl.Abstractions.Report.<Clone>$() -> Wolfgang.Etl.Abstractions.Report!
+virtual Wolfgang.Etl.Abstractions.Report.EqualityContract.get -> System.Type!
+virtual Wolfgang.Etl.Abstractions.Report.Equals(Wolfgang.Etl.Abstractions.Report? other) -> bool
+virtual Wolfgang.Etl.Abstractions.Report.PrintMembers(System.Text.StringBuilder! builder) -> bool
