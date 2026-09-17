@@ -238,7 +238,7 @@ because we're not on github.io).
 
 For workflow-level issues (failed deploys, stale `versions.json`,
 missing version subtrees), the `docfx.yaml` run's per-step output is
-the canonical place to look. `scripts/Validate-DocsDeploy.sh` runs
+the canonical place to look. `scripts/Validate-DocsDeploy.ps1` runs
 at the end of every deploy and catches structural drift.
 
 ---
