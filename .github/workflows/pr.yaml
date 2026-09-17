@@ -24,6 +24,7 @@ env:
   CODECOV_MINIMUM: 90
   
 on:
+  # zizmor: ignore[dangerous-triggers]
   pull_request_target:  # Runs from the main branch, not from PR branch
     branches:
       - main
