@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789594341331,
+  "lastUpdate": 1789606792616,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -3276,6 +3276,90 @@ window.BENCHMARK_DATA = {
             "value": 8160440.890625,
             "unit": "ns",
             "range": "± 6561.657675238894"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "55a3018429a6dde4678f283258e256fc2dcd1b96",
+          "message": "build: drop NuGet lock files and RestorePackagesWithLockFile (#477)\n\nThe 39 packages.lock.json files were never enforced (RestoreLockedMode was\nnever set), so they were pure restore churn. Fleet decision 2026-09-16: lock\nfiles add only a content hash on exact-pinned nuget.org packages and, where\nenforced, break every PR on each SDK patch (D20-Dice NU1004 on the injected\nMicrosoft.NET.ILLink.Tasks). The Scorecard nugetCommand finding is suppressed\nfleet-wide in repo-template#557.\n\nRemoved the property from Directory.Build.props and deleted the lock files.\nVerified a restore creates none. The \"restore tracked files\" comments in\nbenchmarks.yaml / pr-benchmarks.yaml still mention the lock files; harmless,\nleft for the next workflow PR.\n\nCo-authored-by: Chris Wolfgang <cwolfgan@ptd.net>\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-16T20:57:55-04:00",
+          "tree_id": "ca3ebc68654c8040fb4815d0db10222468714249",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/55a3018429a6dde4678f283258e256fc2dcd1b96"
+        },
+        "date": 1789606787953,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 33240.106282552086,
+            "unit": "ns",
+            "range": "± 120.70627040181812"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 34659.209340413414,
+            "unit": "ns",
+            "range": "± 116.54088676991505"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3256850.77734375,
+            "unit": "ns",
+            "range": "± 1991.1497916640094"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3391937.650390625,
+            "unit": "ns",
+            "range": "± 1783.3050432137204"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 32048.78584798177,
+            "unit": "ns",
+            "range": "± 604.5208294832626"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 31844.447408040363,
+            "unit": "ns",
+            "range": "± 155.87988434140843"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 79208.46779378255,
+            "unit": "ns",
+            "range": "± 262.53913146457336"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 3222946.1497395835,
+            "unit": "ns",
+            "range": "± 7126.934439180095"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 3235754.71875,
+            "unit": "ns",
+            "range": "± 46454.77102661182"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8218857.239583333,
+            "unit": "ns",
+            "range": "± 77241.85214186192"
           }
         ]
       }
