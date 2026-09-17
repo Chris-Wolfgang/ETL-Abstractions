@@ -8,9 +8,9 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 public class ExtractorBaseTests
     : ExtractorBaseContractTests<SequenceExtractor, int, EtlProgress>
 {
-    protected override SequenceExtractor CreateSut(int itemCount)
+    protected override SequenceExtractor CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval)
     {
-        return new SequenceExtractor(itemCount);
+        return new SequenceExtractor(itemCount) { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval };
     }
 
 

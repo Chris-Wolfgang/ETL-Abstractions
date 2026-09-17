@@ -47,7 +47,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// public class MyTransformerContractTests
 ///     : TransformerBaseContractTests&lt;MyTransformer, MyRecord, MyProgress&gt;
 /// {
-///     protected override MyTransformer CreateSut(int itemCount) =>
+///     protected override MyTransformer CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) =>
 ///         new MyTransformer();
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
@@ -68,7 +68,24 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// Creates the system under test configured to yield exactly <paramref name="itemCount"/> items.
     /// </summary>
     /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
-    protected abstract TSut CreateSut(int itemCount);
+    /// <param name="maximumItemCount">The value to configure the SUT's <c>MaximumItemCount</c> with.</param>
+    /// <param name="skipItemCount">The value to configure the SUT's <c>SkipItemCount</c> with.</param>
+    /// <param name="reportingInterval">The value to configure the SUT's <c>ReportingInterval</c> with.</param>
+    /// <remarks>
+    /// The three configuration values are init-only on the base stage, so the contract tests cannot assign them
+    /// after construction; pass each one straight through to the options record (or object initializer) the SUT is
+    /// built with, without validating it — the tests that probe the guards pass out-of-range values deliberately
+    /// and expect the construction itself to throw <see cref="ArgumentOutOfRangeException"/>.
+    /// </remarks>
+    protected abstract TSut CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval);
+
+    /// <summary>
+    /// Creates the system under test configured to yield exactly <paramref name="itemCount"/> items with the
+    /// base-class defaults for <c>MaximumItemCount</c>, <c>SkipItemCount</c> and <c>ReportingInterval</c>.
+    /// Convenience over <see cref="CreateSut(int, int, int, int)"/> for derived test classes.
+    /// </summary>
+    /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
+    protected TSut CreateSut(int itemCount) => CreateSut(itemCount, DefaultMaximumItemCount, DefaultSkipItemCount, DefaultReportingInterval);
 
     /// <summary>
     /// <b>Deprecated.</b> The contract now drives progress timing via
@@ -91,16 +108,23 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
 
     private const int DefaultItemCount = 5;
+    private const int DefaultMaximumItemCount = int.MaxValue;
+    private const int DefaultSkipItemCount = 0;
+    private const int DefaultReportingInterval = 1_000;
 
     /// <summary>Creates the SUT with <see cref="DefaultItemCount"/> items.</summary>
     private TSut CreateSut() => CreateSut(DefaultItemCount);
+
+    /// <summary>Creates the SUT with <see cref="DefaultItemCount"/> items and the given base configuration.</summary>
+    private TSut CreateConfiguredSut(int maximumItemCount = DefaultMaximumItemCount, int skipItemCount = DefaultSkipItemCount, int reportingInterval = DefaultReportingInterval) =>
+        CreateSut(DefaultItemCount, maximumItemCount, skipItemCount, reportingInterval);
 
     /// <summary>Creates the SUT with an empty source.</summary>
     private TSut CreateSutWithNoItems() => CreateSut(0);
 
     /// <summary>
     /// Returns the expected items that the SUT should yield when created with
-    /// <see cref="CreateSut(int)"/>. Must return at least 5 items.
+    /// <see cref="CreateSut(int, int, int, int)"/>. Must return at least 5 items.
     /// </summary>
     protected abstract IReadOnlyList<TItem> CreateExpectedItems();
 
@@ -665,36 +689,33 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     }
 
     /// <summary>
-    /// Verifies that setting <c>ReportingInterval</c> to a positive value succeeds.
+    /// Verifies that configuring <c>ReportingInterval</c> to a positive value succeeds.
     /// </summary>
     [Fact]
-    public void ReportingInterval_can_be_set_to_positive_value()
+    public void ReportingInterval_can_be_configured_with_a_positive_value()
     {
-        var sut = CreateSut();
-        sut.ReportingInterval = 1;
+        var sut = CreateConfiguredSut(reportingInterval: 1);
         Assert.Equal(1, sut.ReportingInterval);
     }
 
     /// <summary>
-    /// Verifies that setting <c>ReportingInterval</c> to zero throws
+    /// Verifies that configuring <c>ReportingInterval</c> to zero throws
     /// <see cref="ArgumentOutOfRangeException"/>.
     /// </summary>
     [Fact]
-    public void ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
+    public void ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
     {
-        var sut = CreateSut();
-        Assert.Throws<ArgumentOutOfRangeException>(() => sut.ReportingInterval = 0);
+        Assert.Throws<ArgumentOutOfRangeException>(() => CreateConfiguredSut(reportingInterval: 0));
     }
 
     /// <summary>
-    /// Verifies that setting <c>ReportingInterval</c> to a negative value throws
+    /// Verifies that configuring <c>ReportingInterval</c> to a negative value throws
     /// <see cref="ArgumentOutOfRangeException"/>.
     /// </summary>
     [Fact]
-    public void ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
+    public void ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
     {
-        var sut = CreateSut();
-        Assert.Throws<ArgumentOutOfRangeException>(() => sut.ReportingInterval = -1);
+        Assert.Throws<ArgumentOutOfRangeException>(() => CreateConfiguredSut(reportingInterval: -1));
     }
 
 
@@ -714,36 +735,33 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     }
 
     /// <summary>
-    /// Verifies that setting <c>MaximumItemCount</c> to a positive value succeeds.
+    /// Verifies that configuring <c>MaximumItemCount</c> to a positive value succeeds.
     /// </summary>
     [Fact]
-    public void MaximumItemCount_can_be_set_to_positive_value()
+    public void MaximumItemCount_can_be_configured_with_a_positive_value()
     {
-        var sut = CreateSut();
-        sut.MaximumItemCount = 10;
+        var sut = CreateConfiguredSut(maximumItemCount: 10);
         Assert.Equal(10, sut.MaximumItemCount);
     }
 
     /// <summary>
-    /// Verifies that setting <c>MaximumItemCount</c> to zero throws
+    /// Verifies that configuring <c>MaximumItemCount</c> to zero throws
     /// <see cref="ArgumentOutOfRangeException"/> — the minimum for a transformer is 1.
     /// </summary>
     [Fact]
-    public void MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
+    public void MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
     {
-        var sut = CreateSut();
-        Assert.Throws<ArgumentOutOfRangeException>(() => sut.MaximumItemCount = 0);
+        Assert.Throws<ArgumentOutOfRangeException>(() => CreateConfiguredSut(maximumItemCount: 0));
     }
 
     /// <summary>
-    /// Verifies that setting <c>MaximumItemCount</c> to a negative value throws
+    /// Verifies that configuring <c>MaximumItemCount</c> to a negative value throws
     /// <see cref="ArgumentOutOfRangeException"/>.
     /// </summary>
     [Fact]
-    public void MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
+    public void MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
     {
-        var sut = CreateSut();
-        Assert.Throws<ArgumentOutOfRangeException>(() => sut.MaximumItemCount = -1);
+        Assert.Throws<ArgumentOutOfRangeException>(() => CreateConfiguredSut(maximumItemCount: -1));
     }
 
     /// <summary>
@@ -753,11 +771,10 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     [Fact]
     public async Task TransformAsync_stops_at_MaximumItemCount_Async()
     {
-        var sut = CreateSut();
         var expected = CreateExpectedItems();
         Assert.True(expected.Count >= 3, "CreateExpectedItems() must return at least 3 items.");
 
-        sut.MaximumItemCount = 1;
+        var sut = CreateConfiguredSut(maximumItemCount: 1);
 
         var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
@@ -780,7 +797,6 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     [Fact]
     public async Task TransformAsync_stops_reading_source_at_MaximumItemCount_Async()
     {
-        var sut = CreateSut();
         var expected = CreateExpectedItems();
         Assert.True(expected.Count >= 3, "CreateExpectedItems() must return at least 3 items.");
 
@@ -796,7 +812,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
             }
         }
 
-        sut.MaximumItemCount = expected.Count - 2;
+        var sut = CreateConfiguredSut(maximumItemCount: expected.Count - 2);
 
         var actual = await sut.TransformAsync(CountingSourceAsync()).ToListAsync().ConfigureAwait(false);
 
@@ -815,9 +831,8 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     [Fact]
     public async Task TransformAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length_Async()
     {
-        var sut = CreateSut();
         var expected = CreateExpectedItems();
-        sut.MaximumItemCount = expected.Count + 100;
+        var sut = CreateConfiguredSut(maximumItemCount: expected.Count + 100);
 
         var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
@@ -841,25 +856,23 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     }
 
     /// <summary>
-    /// Verifies that setting <c>SkipItemCount</c> to a positive value succeeds.
+    /// Verifies that configuring <c>SkipItemCount</c> to a positive value succeeds.
     /// </summary>
     [Fact]
-    public void SkipItemCount_can_be_set_to_positive_value()
+    public void SkipItemCount_can_be_configured_with_a_positive_value()
     {
-        var sut = CreateSut();
-        sut.SkipItemCount = 5;
+        var sut = CreateConfiguredSut(skipItemCount: 5);
         Assert.Equal(5, sut.SkipItemCount);
     }
 
     /// <summary>
-    /// Verifies that setting <c>SkipItemCount</c> to a negative value throws
+    /// Verifies that configuring <c>SkipItemCount</c> to a negative value throws
     /// <see cref="ArgumentOutOfRangeException"/>.
     /// </summary>
     [Fact]
-    public void SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
+    public void SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
     {
-        var sut = CreateSut();
-        Assert.Throws<ArgumentOutOfRangeException>(() => sut.SkipItemCount = -1);
+        Assert.Throws<ArgumentOutOfRangeException>(() => CreateConfiguredSut(skipItemCount: -1));
     }
 
     /// <summary>
@@ -869,11 +882,10 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     [Fact]
     public async Task TransformAsync_skips_items_up_to_SkipItemCount_Async()
     {
-        var sut = CreateSut();
         var expected = CreateExpectedItems();
         Assert.True(expected.Count >= 3, "CreateExpectedItems() must return at least 3 items.");
 
-        sut.SkipItemCount = 1;
+        var sut = CreateConfiguredSut(skipItemCount: 1);
 
         var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
@@ -912,11 +924,10 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     [Fact]
     public async Task TransformAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async()
     {
-        var sut = CreateSut();
         var expected = CreateExpectedItems();
         Assert.True(expected.Count >= 3, "CreateExpectedItems() must return at least 3 items.");
 
-        sut.SkipItemCount = 2;
+        var sut = CreateConfiguredSut(skipItemCount: 2);
 
         await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
@@ -948,8 +959,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     [Fact]
     public async Task TransformAsync_does_not_over_read_past_MaximumItemCount_Async()
     {
-        var sut = CreateSut();
-        sut.MaximumItemCount = 3;
+        var sut = CreateConfiguredSut(maximumItemCount: 3);
         var counter = new PullCounter();
 
         await sut.TransformAsync(counter.CountAsync(CreateInputItemsAsync())).ToListAsync().ConfigureAwait(false);

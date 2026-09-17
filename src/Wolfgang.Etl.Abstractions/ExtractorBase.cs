@@ -130,10 +130,15 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// The number of milliseconds between progress updates.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
+    /// <remarks>
+    /// Init-only: fixed when the stage is constructed. Configure it through
+    /// <see cref="ExtractorOptions.ReportingInterval"/> on the options record passed to the constructor, or in an
+    /// object initializer. It cannot change once a run has started.
+    /// </remarks>
     public int ReportingInterval
     {
         get;
-        set
+        init
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
             field = value;
@@ -203,10 +208,15 @@ public abstract class ExtractorBase<TSource, TProgress>
     ///     }
     /// </code>
     /// </example>
+    /// <remarks>
+    /// Init-only: fixed when the stage is constructed. Configure it through
+    /// <see cref="ExtractorOptions.MaximumItemCount"/> on the options record passed to the constructor, or in an
+    /// object initializer. It cannot change once a run has started.
+    /// </remarks>
     public int MaximumItemCount
     {
         get;
-        set
+        init
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
             field = value;
@@ -248,10 +258,15 @@ public abstract class ExtractorBase<TSource, TProgress>
     ///     }
     /// </code>
     /// </example>
+    /// <remarks>
+    /// Init-only: fixed when the stage is constructed. Configure it through
+    /// <see cref="ExtractorOptions.SkipItemCount"/> on the options record passed to the constructor, or in an
+    /// object initializer. It cannot change once a run has started.
+    /// </remarks>
     public int SkipItemCount
     {
         get;
-        set
+        init
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
             field = value;

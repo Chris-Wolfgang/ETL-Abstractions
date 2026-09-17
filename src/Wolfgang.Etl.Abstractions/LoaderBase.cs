@@ -131,10 +131,15 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// The number of milliseconds between progress updates.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
+    /// <remarks>
+    /// Init-only: fixed when the stage is constructed. Configure it through
+    /// <see cref="LoaderOptions.ReportingInterval"/> on the options record passed to the constructor, or in an
+    /// object initializer. It cannot change once a run has started.
+    /// </remarks>
     public int ReportingInterval
     {
         get;
-        set
+        init
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
             field = value;
@@ -193,10 +198,15 @@ public abstract class LoaderBase<TDestination, TProgress>
     ///     }
     /// </code>
     /// </example>
+    /// <remarks>
+    /// Init-only: fixed when the stage is constructed. Configure it through
+    /// <see cref="LoaderOptions.MaximumItemCount"/> on the options record passed to the constructor, or in an
+    /// object initializer. It cannot change once a run has started.
+    /// </remarks>
     public int MaximumItemCount
     {
         get;
-        set
+        init
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
             field = value;
@@ -221,10 +231,15 @@ public abstract class LoaderBase<TDestination, TProgress>
     ///     }
     /// </code>
     /// </example>
+    /// <remarks>
+    /// Init-only: fixed when the stage is constructed. Configure it through
+    /// <see cref="LoaderOptions.SkipItemCount"/> on the options record passed to the constructor, or in an
+    /// object initializer. It cannot change once a run has started.
+    /// </remarks>
     public int SkipItemCount
     {
         get;
-        set
+        init
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
             field = value;
