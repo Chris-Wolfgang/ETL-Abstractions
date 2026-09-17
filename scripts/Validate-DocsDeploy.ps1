@@ -224,7 +224,17 @@ try {
             }
             $folder = Join-Path $workDir $folderName
             # Belt-and-braces: the resolved full path must still be under the root.
+            # GetFullPath only normalises text; a symlink/junction committed to
+            # gh-pages could still point outside the worktree, so resolve links
+            # (every segment) before comparing - the .sh used realpath for this.
             $realFolder = [System.IO.Path]::GetFullPath($folder)
+            if (Test-Path $folder) {
+                $item = Get-Item -LiteralPath $folder -Force
+                if ($item.LinkType) {
+                    $target = $item.ResolveLinkTarget($true)
+                    $realFolder = if ($target) { $target.FullName } else { '<unresolvable link>' }
+                }
+            }
             if (-not $realFolder.StartsWith($realRoot + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) {
                 $missing += "$ver  (resolved path '$realFolder' is outside gh-pages root - rejected)"
                 continue
@@ -254,11 +264,13 @@ try {
 
     # 'public/' is a DocFX build artifact that should never appear at the
     # gh-pages root; its presence means a previous deploy did not clean up.
+    # A hard failure (the .sh this replaced only warned): a botched deploy
+    # must not validate as good.
     $stalePatterns = @('public')
     $foundStale = $false
     foreach ($p in $stalePatterns) {
         if (Test-Path (Join-Path $workDir $p)) {
-            Write-Warn "Potentially stale artifact found at root: '$p'"
+            Write-Fail "Stale DocFX artifact at the gh-pages root: '$p' - a previous deploy did not clean up"
             $foundStale = $true
         }
     }
