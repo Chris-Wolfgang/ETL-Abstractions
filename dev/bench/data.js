@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789608796131,
+  "lastUpdate": 1789679561971,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -3444,6 +3444,90 @@ window.BENCHMARK_DATA = {
             "value": 8285179.697916667,
             "unit": "ns",
             "range": "± 31904.111304753143"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1e40d76a3fee20e212cd4ef2efeceb629250f186",
+          "message": "chore: take template updates via scripts/upgrade.ps1 (safe bucket) + .template-version (#478)\n\n* chore: take template updates via scripts/upgrade.ps1 (safe bucket) and stamp .template-version\n\nBase = repo-template a5b7a4f7a (last template sync in this repo's history).\nIn sync : 3 file(s);Safe    : 25 file(s);Review  : 18 file(s);Removed : 1 file(s) no longer in the template;\n\nApplied the safe bucket (template changed, local untouched since the base, or\nnew in the template), plus: license-audit.yaml taken from the template where\nthe local allowlist was a subset (old .github/license/ layout removed),\ntfm-parity wired into pr.yaml Stage 2 + build-pr.ps1 where the anchors exist,\nand .template-version stamped with this repo's placeholder values. Review\nbucket (customised here AND changed upstream) untouched; sidecars discarded.\n\nRelease build of the solution after the change: ok (with .editorconfig HELD BACK: template version fails the Release build - see log)\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* ci: inline zizmor ignore for pull_request_target (accepted design) so the new actions-audit gate passes\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* build: take the template .editorconfig (CA2007 enforced in src/); ConfigureAwait(false) on the six await-using enumerator sites in TestKit.Xunit\n\nThe sweep held .editorconfig back because the template's version (CA2007 =\nwarning in src/, TreatWarningsAsErrors in Release) failed on six\n`await using var enumerator = ….GetAsyncEnumerator();` lines in the shipped\nTestKit.Xunit contract-test bases. Split each into `var enumerator = …;` +\n`await using var enumeratorDisposal = enumerator.ConfigureAwait(false);` so\nthe enumerator keeps its type and disposal does not capture the caller's\nsynchronization context — the library-code rule the .editorconfig enforces.\nNo behaviour change for consumers on a context-free test host; correct for\nconsumers that block on a context. Release build clean; Abstractions and\nTestKit unit suites pass on every TFM.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* fix(license-audit): map xunit's license.txt URL to Apache-2.0 (TestKit.Xunit pulls xunit.abstractions; same as repo-template)\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* chore: review follow-ups — Validate-DocsDeploy resolves links (as repo-template#563); doc says the validator is a manual post-deploy check\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* chore: review follow-ups (round 2)\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Chris Wolfgang <cwolfgan@ptd.net>\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-17T17:10:32-04:00",
+          "tree_id": "3ecb8af0bbe2a463791a96c1069ba15f84f6153e",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/1e40d76a3fee20e212cd4ef2efeceb629250f186"
+        },
+        "date": 1789679556752,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 32279.670633951824,
+            "unit": "ns",
+            "range": "± 402.225202155271"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35534.12316894531,
+            "unit": "ns",
+            "range": "± 114.57460445033043"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3167401.578125,
+            "unit": "ns",
+            "range": "± 3480.1351296530343"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3410260.7591145835,
+            "unit": "ns",
+            "range": "± 6140.697683895801"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29644.99819437663,
+            "unit": "ns",
+            "range": "± 116.93136368171547"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29181.739552815754,
+            "unit": "ns",
+            "range": "± 91.3628702829186"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 82610.88431803386,
+            "unit": "ns",
+            "range": "± 354.9310820529048"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2921453.59765625,
+            "unit": "ns",
+            "range": "± 2923.0113285222333"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2886328.6953125,
+            "unit": "ns",
+            "range": "± 1947.3337494626505"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8107503.541666667,
+            "unit": "ns",
+            "range": "± 8254.651883771316"
           }
         ]
       }
