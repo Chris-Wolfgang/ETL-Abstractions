@@ -1,0 +1,15 @@
+{
+  "template": "Chris-Wolfgang/repo-template",
+  "commit": "d0ad558a544f3ab45e199a3311e46951cad19824",
+  "updated": "2026-09-17",
+  "placeholders": {
+    "GITHUB_OWNER": "Chris-Wolfgang",
+    "REPO_NAME": "ETL-Abstractions",
+    "GITHUB_REPO_URL": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
+    "DOCS_URL": "https://chris-wolfgang.github.io/ETL-Abstractions/",
+    "PROJECT_NAME": "Wolfgang.Etl.Abstractions",
+    "PACKAGE_NAME": "Wolfgang.Etl.Abstractions",
+    "LICENSE_TYPE": "MIT"
+  },
+  "note": "Written by scripts/setup.ps1 and scripts/upgrade.ps1; the template commit this repository last took template-managed files from, and the placeholder values setup used."
+}
