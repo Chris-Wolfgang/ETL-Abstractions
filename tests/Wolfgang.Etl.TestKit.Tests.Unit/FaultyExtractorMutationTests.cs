@@ -239,9 +239,8 @@ public class FaultyExtractorMutationTests
         // After yielding item at index 1, CurrentItemCount == MaximumItemCount (2). The guard
         // uses strict "<", so the duplicate is suppressed. The "<="/"off-by-one" mutant would
         // emit a third item.
-        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3 })
+        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3 }) { MaximumItemCount = 2 }
             .DuplicateAt(1);
-        sut.MaximumItemCount = 2;
 
         var results = await sut.ExtractAsync().ToListAsync();
 

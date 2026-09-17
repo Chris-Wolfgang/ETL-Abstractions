@@ -16,8 +16,8 @@ public class TestTransformerContractTests
     : TransformerBaseContractTests<TestTransformer<int>, int, Report>
 {
     /// <inheritdoc/>
-    protected override TestTransformer<int> CreateSut(int itemCount) =>
-        new TestTransformer<int>();
+    protected override TestTransformer<int> CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) =>
+        new TestTransformer<int>() { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval };
 
     /// <inheritdoc/>
     protected override IReadOnlyList<int> CreateExpectedItems() =>

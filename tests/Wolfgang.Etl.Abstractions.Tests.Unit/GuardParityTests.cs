@@ -91,11 +91,9 @@ public class GuardParityTests
 
 
     [Fact]
-    public void GuardExtractor_ReportingInterval_setter_when_value_is_below_the_floor_throws_with_ParamName_ActualValue_and_the_runtime_message()
+    public void GuardExtractor_ReportingInterval_init_when_value_is_below_the_floor_throws_with_ParamName_ActualValue_and_the_runtime_message()
     {
-        using var sut = new GuardExtractor();
-
-        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => sut.ReportingInterval = 0);
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new GuardExtractor { ReportingInterval = 0 });
 
         Assert.Equal("value", ex.ParamName);
         Assert.Equal(0, ex.ActualValue);
@@ -105,11 +103,9 @@ public class GuardParityTests
 
 
     [Fact]
-    public void GuardLoader_MaximumItemCount_setter_when_value_is_below_the_floor_throws_with_ParamName_ActualValue_and_the_runtime_message()
+    public void GuardLoader_MaximumItemCount_init_when_value_is_below_the_floor_throws_with_ParamName_ActualValue_and_the_runtime_message()
     {
-        using var sut = new GuardLoader();
-
-        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => sut.MaximumItemCount = 0);
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new GuardLoader { MaximumItemCount = 0 });
 
         Assert.Equal("value", ex.ParamName);
         Assert.Equal(0, ex.ActualValue);
@@ -119,11 +115,9 @@ public class GuardParityTests
 
 
     [Fact]
-    public void GuardTransformer_SkipItemCount_setter_when_value_is_below_the_floor_throws_with_ParamName_ActualValue_and_the_runtime_message()
+    public void GuardTransformer_SkipItemCount_init_when_value_is_below_the_floor_throws_with_ParamName_ActualValue_and_the_runtime_message()
     {
-        using var sut = new GuardTransformer();
-
-        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => sut.SkipItemCount = -1);
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new GuardTransformer { SkipItemCount = -1 });
 
         Assert.Equal("value", ex.ParamName);
         Assert.Equal(-1, ex.ActualValue);

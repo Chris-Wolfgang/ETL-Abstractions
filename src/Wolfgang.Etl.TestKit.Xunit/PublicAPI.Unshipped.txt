@@ -1,1 +1,60 @@
-﻿#nullable enable
+#nullable enable
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value() -> void
+*REMOVED*Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException() -> void
+*REMOVED*abstract Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+*REMOVED*abstract Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+*REMOVED*abstract Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+*REMOVED*virtual Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutOverSource(System.Collections.Generic.IEnumerable<TItem>! source) -> TSut?
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException() -> void
+abstract Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) -> TSut!
+abstract Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) -> TSut!
+abstract Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) -> TSut!
+virtual Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutOverSource(System.Collections.Generic.IEnumerable<TItem>! source, int maximumItemCount = 2147483647) -> TSut?
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
