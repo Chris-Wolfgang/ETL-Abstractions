@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789606792616,
+  "lastUpdate": 1789608796131,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -3360,6 +3360,90 @@ window.BENCHMARK_DATA = {
             "value": 8218857.239583333,
             "unit": "ns",
             "range": "± 77241.85214186192"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "eedec58d80275de7a32bcedcf959997b04a3156c",
+          "message": "ci: pin every workflow action to a commit SHA with an exact # vX.Y.Z comment (#476)\n\nRan repo-template's scripts/pin-actions.ps1 -PinTags: tag references become\nSHA pins and major-only comments (# v7) become the exact tag on the pinned\ncommit (# v7.0.1), so zizmor's ref-version-mismatch stops firing when the\nmajor tag moves on. Only the ref/comment text changed. Dependabot keeps the\nprecision it finds, so this stays converted.\n\n13 already exact, 71 line(s) rewritten, 0 tag reference(s), 0 pinned SHA(s) with no tag\n\nRefs Chris-Wolfgang/repo-template#447\n\nCo-authored-by: Chris Wolfgang <cwolfgan@ptd.net>\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-16T21:31:09-04:00",
+          "tree_id": "942663bde285f083cc071a7b9bbf761717235fdf",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/eedec58d80275de7a32bcedcf959997b04a3156c"
+        },
+        "date": 1789608791530,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 32280.99863688151,
+            "unit": "ns",
+            "range": "± 100.75668824690568"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 34784.139709472656,
+            "unit": "ns",
+            "range": "± 88.5430422918405"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3161952.2005208335,
+            "unit": "ns",
+            "range": "± 4654.2790647417005"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3386020.0911458335,
+            "unit": "ns",
+            "range": "± 6476.923909596963"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 30244.0239054362,
+            "unit": "ns",
+            "range": "± 141.44041764943236"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29517.173431396484,
+            "unit": "ns",
+            "range": "± 49.878528907423515"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 85846.08439127605,
+            "unit": "ns",
+            "range": "± 185.3444319214805"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2850144.2350260415,
+            "unit": "ns",
+            "range": "± 3474.4232776987537"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2901980.0026041665,
+            "unit": "ns",
+            "range": "± 7316.521670522797"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8285179.697916667,
+            "unit": "ns",
+            "range": "± 31904.111304753143"
           }
         ]
       }
