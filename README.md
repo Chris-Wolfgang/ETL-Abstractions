@@ -75,6 +75,37 @@ The `Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit` packages previously 
 tested, and released together. Their prior release history remains in the archived
 [ETL-Test-Kit](https://github.com/Chris-Wolfgang/ETL-Test-Kit) repo.
 
+## Building from Source
+
+### Prerequisites
+- [.NET SDK](https://dotnet.microsoft.com/download) - the current release (10.0); see *Supported Frameworks* for the targets that are built
+- [PowerShell 7](https://github.com/PowerShell/PowerShell) (`pwsh`) for the scripts under `scripts/`
+
+### Build Steps
+
+```bash
+# Clone the repository
+git clone https://github.com/Chris-Wolfgang/ETL-Abstractions.git
+cd ETL-Abstractions
+
+# Restore dependencies
+dotnet restore
+
+# Build the solution
+dotnet build --configuration Release
+
+# Run tests
+dotnet test --configuration Release
+
+# Run code formatting
+pwsh ./scripts/format.ps1
+
+# Run the PR workflow's Windows stage locally (build, tests on every TFM, coverage gates, DevSkim, gitleaks)
+pwsh ./scripts/build-pr.ps1
+```
+
+
+
 ## Contributing & license
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Licensed under the
