@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789687564076,
+  "lastUpdate": 1789748436755,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -3612,6 +3612,90 @@ window.BENCHMARK_DATA = {
             "value": 8486986.302083334,
             "unit": "ns",
             "range": "± 370882.00087997626"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "64526f48c9b6c8383e660ccacc8556047a961c93",
+          "message": "Release v0.25.0 — base-stage setters deprecated (constructor-only ahead); CreateSut takes the base config; bulk increments; TestKit ships net5–7 (#481)\n\n* feat!: make the base-stage configuration init-only (ReportingInterval / MaximumItemCount / SkipItemCount) (#480)\n\n* feat!: make the base-stage configuration init-only (ReportingInterval / MaximumItemCount / SkipItemCount)\n\nCompletes ADR-0009 for the base classes (#351, #438): the nine configuration properties on ExtractorBase, LoaderBase and TransformerBase become { get; init; }, so a stage's configuration is fixed at construction — through the options record or an object initializer — and can no longer be mutated mid-run. ReportingInterval in particular was read once at start-up, so a later assignment was silently inert. Validation and defaults are unchanged.\n\nset → init is a binary break with no possible shim (the accessor gains a modreq(IsExternalInit) signature); pre-1.0, so a MINOR bump, and the ETL-* family republishes against it in lockstep.\n\nTestKit.Xunit: the three base contract classes can no longer assign the properties after construction, so CreateSut takes the base configuration — CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval), no defaults so overrides stay honest — with a protected CreateSut(int itemCount) forwarder for derived tests and a private CreateConfiguredSut for the 41 contract sites; CreateSutOverSource gains maximumItemCount. Six contract tests renamed (set → configured). Abstractions' own tests and the TestKit doubles' tests fold their 30 post-construction assignments into object initializers; GuardParityTests probe the init accessors through construction.\n\nTestKit and TestKit.Xunit now also ship net5.0/net6.0/net7.0 assets: both assign inherited init properties, and the IsExternalInit modreq differs between Abstractions' netstandard2.0 and net5.0+ builds (the Etl-Csv 0.9.0 defect).\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* chore: changelog fragments instead of a CHANGELOG.md edit; TestKit.Xunit ships net5.0/6.0/7.0 too\n\nThe template upgrade (#478) moved this repo to changelog/unreleased fragments assembled at release time. The TestKit.Xunit TargetFrameworks change the CHANGELOG entry described had not actually been applied (review catch on #480).\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>\n\n* release: v0.25.0\n\nMINOR (pre-1.0) with breaking changes: the base-stage configuration (ReportingInterval / MaximumItemCount / SkipItemCount) is init-only on ExtractorBase, LoaderBase and TransformerBase (#351, #438, completing ADR-0009), and the TestKit.Xunit base contract classes take that configuration through CreateSut. TestKit and TestKit.Xunit ship net5.0/6.0/7.0 assets. PublicAPI folded (Abstractions: 9 set accessors removed, 9 init added; TestKit.Xunit: CreateSut signatures + 28 renamed contract tests); CHANGELOG assembled from the 4 fragments; PackageValidationBaselineVersion 0.23.4 -> 0.24.0 (the post-0.24 bump was never done) and CompatibilitySuppressions.xml regenerated against it: Abstractions 99 x CP0002 (9 accessors x 11 TFMs), TestKit.Xunit CP0002/CP0005/CP0012 for the CreateSut change, TestKit none.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* feat: bulk IncrementCurrentItemCount(int) / IncrementCurrentSkippedItemCount(int) on the three bases (#475)\n\nOne interlocked add for stages whose source skips or batches for them (DbClient's server-side OFFSET paging, a seek past a header block) instead of count per-item calls. Zero is a no-op; a negative count throws ArgumentOutOfRangeException (ThrowIfLessThan, polyfilled on the older targets). Placed beside the parameterless overloads (S4136), and every cref to the parameterless members now names the overload — the same CS0419 will meet consumers that reference them by bare name, noted in the CHANGELOG entry. Rides the 0.25.0 cut (additive; PublicAPI entries added straight to Shipped, no new PackageValidation suppressions).\n\nCloses #475.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* docs: review fixes on the 0.25.0 cut — ctor remarks no longer say the setters remain assignable; contract-test examples forward the base config; 24 renamed tests, not six\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* refactor!: deprecate the base-stage setters instead of flipping them to init (same shape as the consumers)\n\nReverses the set -> init flip in this cut: ReportingInterval / MaximumItemCount / SkipItemCount on the three bases keep their setters with [Obsolete] on the accessor (\"Configure X through ExtractorOptions passed to the constructor\"), backed by explicit fields the constructor writes directly (the record already validated). No binary break in 0.25; the setters — and the configuration properties as public surface — go in the fleet-wide removal wave (not before 2026-12-15), after which the constructor is the only way to configure a stage.\n\nTestKit's own ADR-0009 step: every double gains constructor overloads taking the base options record (public and protected timer-injecting ones; 27 new PublicAPI entries), and every test that configured a double through an object initializer now passes the record. Test-local doubles take an optional record too. GuardParityTests keep probing the deprecated setters' guards under a narrow CS0618 suppression until removal. PublicAPI: the 9 init lines revert to set; CompatibilitySuppressions.xml for Abstractions is empty again.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* docs: the deprecated setters go, the getters stay (read-only after the removal wave)\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* test: run each bulk-increment double once — counts added before a run are cleared at start\n\nAbstractions.Tests.Unit is gated at 99 % and had slipped to 98.9 %: the three doubles in BulkIncrementTests never ran, leaving their worker bodies and CreateProgressReport uncovered. One real test covers them (bulk-added counts reset when a run starts; every stage reports on completion). Assembly back to 99.1 %.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-18T12:18:32-04:00",
+          "tree_id": "6ee4ce1a2d79decfcce3661ce81b9eee24550780",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/64526f48c9b6c8383e660ccacc8556047a961c93"
+        },
+        "date": 1789748432661,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 31988.785247802734,
+            "unit": "ns",
+            "range": "± 190.5340239278981"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35647.11022949219,
+            "unit": "ns",
+            "range": "± 62.668600672917215"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3123230.5026041665,
+            "unit": "ns",
+            "range": "± 1155.9797510289798"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3510482.0247395835,
+            "unit": "ns",
+            "range": "± 2433.1896914586346"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29858.053161621094,
+            "unit": "ns",
+            "range": "± 62.2608864232474"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29153.439127604168,
+            "unit": "ns",
+            "range": "± 119.39431906478522"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 79589.09193929036,
+            "unit": "ns",
+            "range": "± 170.2617222772989"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2849419.10546875,
+            "unit": "ns",
+            "range": "± 7356.3410167182365"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2882699.3854166665,
+            "unit": "ns",
+            "range": "± 1900.3095536260018"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8213344.411458333,
+            "unit": "ns",
+            "range": "± 9193.722245963341"
           }
         ]
       }
