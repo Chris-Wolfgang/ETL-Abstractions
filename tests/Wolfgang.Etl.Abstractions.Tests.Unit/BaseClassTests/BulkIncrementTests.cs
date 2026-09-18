@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -155,5 +156,33 @@ public sealed class BulkIncrementTests
 
         Assert.Equal(64 * 100 * 3, sut.CurrentItemCount);
         Assert.Equal(64 * 100 * 2, sut.CurrentSkippedItemCount);
+    }
+
+
+    [Fact]
+    public async Task Bulk_increments_made_before_a_run_are_cleared_when_the_run_starts()
+    {
+        using var extractor = new CountingExtractor();
+        using var loader = new CountingLoader();
+        using var transformer = new CountingTransformer();
+        var reports = 0;
+        var progress = new SynchronousProgress<EtlProgress>(_ => reports++);
+
+        extractor.AddItems(5);
+        extractor.AddSkipped(5);
+        loader.AddItems(5);
+        loader.AddSkipped(5);
+        transformer.AddItems(5);
+        transformer.AddSkipped(5);
+
+        // Each run resets the counters at start, so counts added beforehand do not leak into the run's totals.
+        _ = await extractor.ExtractAsync(progress).ToListAsync();
+        await loader.LoadAsync(AsyncEnumerable.Empty<int>(), progress);
+        _ = await transformer.TransformAsync(AsyncEnumerable.Empty<int>(), progress).ToListAsync();
+
+        Assert.Equal(0, extractor.CurrentItemCount + extractor.CurrentSkippedItemCount);
+        Assert.Equal(0, loader.CurrentItemCount + loader.CurrentSkippedItemCount);
+        Assert.Equal(0, transformer.CurrentItemCount + transformer.CurrentSkippedItemCount);
+        Assert.True(reports >= 3, $"each stage reports at least once at completion; saw {reports}");
     }
 }
