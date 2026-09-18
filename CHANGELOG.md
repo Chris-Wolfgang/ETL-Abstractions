@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
-- The setters of `ReportingInterval`, `MaximumItemCount` and `SkipItemCount` on `ExtractorBase`, `LoaderBase` and `TransformerBase` are `[Obsolete]` (accessor-level, so reads are unaffected). Configure them through the options record passed to the constructor (`ExtractorOptions` / `LoaderOptions` / `TransformerOptions`). Same deprecation shape as the ETL-* stages; the setters — and, with them, the configuration properties as public surface — are removed in the fleet-wide removal wave (not before 2026-12-15), after which the constructor is the only way to configure a stage (#351 / #438, ADR-0009). No binary break in this release.
+- The setters of `ReportingInterval`, `MaximumItemCount` and `SkipItemCount` on `ExtractorBase`, `LoaderBase` and `TransformerBase` are `[Obsolete]` (accessor-level, so reads are unaffected). Configure them through the options record passed to the constructor (`ExtractorOptions` / `LoaderOptions` / `TransformerOptions`). Same deprecation shape as the ETL-* stages; the setters are removed in the fleet-wide removal wave (not before 2026-12-15), after which the properties are read-only and the constructor is the only way to configure a stage (#351 / #438, ADR-0009). No binary break in this release.
 
 ### Added
 

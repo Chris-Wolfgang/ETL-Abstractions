@@ -138,7 +138,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
     /// <remarks>
     /// Configure it through <see cref="TransformerOptions.ReportingInterval"/> on the options record passed to the
-    /// constructor. The setter is deprecated (ADR-0009) and will be removed, at which point the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
     /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
     /// </remarks>
     public int ReportingInterval
@@ -207,7 +207,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// </example>
     /// <remarks>
     /// Configure it through <see cref="TransformerOptions.MaximumItemCount"/> on the options record passed to the
-    /// constructor. The setter is deprecated (ADR-0009) and will be removed, at which point the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
     /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
     /// </remarks>
     public int MaximumItemCount
@@ -242,7 +242,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// </example>
     /// <remarks>
     /// Configure it through <see cref="TransformerOptions.SkipItemCount"/> on the options record passed to the
-    /// constructor. The setter is deprecated (ADR-0009) and will be removed, at which point the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
     /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
     /// </remarks>
     public int SkipItemCount
