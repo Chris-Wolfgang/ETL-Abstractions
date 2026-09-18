@@ -93,8 +93,8 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <summary>
     /// The UTC time at which the first item was processed (extracted or skipped), or
     /// <c>null</c> if extraction has not produced any items yet. Captured automatically
-    /// the first time <see cref="IncrementCurrentItemCount"/> or
-    /// <see cref="IncrementCurrentSkippedItemCount"/> is called, so derived classes can
+    /// the first time <see cref="IncrementCurrentItemCount()"/> or
+    /// <see cref="IncrementCurrentSkippedItemCount()"/> is called, so derived classes can
     /// surface it on their progress report (see <see cref="Report.StartedAt"/>).
     /// </summary>
     protected DateTimeOffset? StartedAt =>
@@ -151,7 +151,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// The current number of items extracted so far.
     /// </summary>
     /// <remarks>
-    /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
+    /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount()"/>
     /// as each item is extracted. The base class has no way of knowing when an item has been processed.
     /// <para>
     /// This count is <b>per run</b>: it is reset to zero at the start of each run (when enumeration
@@ -512,6 +512,28 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
 
+
+    /// <summary>
+    /// Adds <paramref name="count"/> to the CurrentItemCount in a thread safe manner.
+    /// </summary>
+    /// <remarks>
+    /// For stages that account for a batch of items at once. Equivalent to calling
+    /// <see cref="IncrementCurrentItemCount()"/> <paramref name="count"/> times, in a single
+    /// interlocked operation.
+    /// </remarks>
+    /// <param name="count">The number of items to add. Zero is a no-op.</param>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> is negative.</exception>
+    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
+        Justification = "Interlocked.Add return value intentionally discarded; only the side-effect matters.")]
+    protected void IncrementCurrentItemCount(int count)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(count, 0);
+        EnsureStarted();
+        _ = Interlocked.Add(ref _currentItemCount, count);
+    }
+
+
+
     /// <summary>
     /// Increments the CurrentSkippedItemCount in a thread safe manner.
     /// </summary>
@@ -525,6 +547,29 @@ public abstract class ExtractorBase<TSource, TProgress>
     {
         EnsureStarted();
         _ = Interlocked.Increment(ref _currentSkippedItemCount);
+    }
+
+
+
+
+    /// <summary>
+    /// Adds <paramref name="count"/> to the CurrentSkippedItemCount in a thread safe manner.
+    /// </summary>
+    /// <remarks>
+    /// For stages whose source does the skipping (a server-side OFFSET, a seek past a header block):
+    /// the skipped items still have to be reflected in <c>CurrentSkippedItemCount</c>, and this does it
+    /// in one interlocked operation instead of <paramref name="count"/> calls to
+    /// <see cref="IncrementCurrentSkippedItemCount()"/>.
+    /// </remarks>
+    /// <param name="count">The number of items to add. Zero is a no-op.</param>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> is negative.</exception>
+    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
+        Justification = "Interlocked.Add return value intentionally discarded; only the side-effect matters.")]
+    protected void IncrementCurrentSkippedItemCount(int count)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(count, 0);
+        EnsureStarted();
+        _ = Interlocked.Add(ref _currentSkippedItemCount, count);
     }
 
 

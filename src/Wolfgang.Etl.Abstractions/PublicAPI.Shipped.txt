@@ -27,7 +27,9 @@ Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase() -> v
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options = null) -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount() -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount(int count) -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentSkippedItemCount() -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentSkippedItemCount(int count) -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.MaximumItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.MaximumItemCount.init -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ReportingInterval.get -> int
@@ -140,7 +142,9 @@ Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ErrorPolicy.get ->
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ErrorPolicy.init -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentItemCount() -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentItemCount(int count) -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentSkippedItemCount(int count) -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options = null) -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.MaximumItemCount.get -> int
@@ -198,7 +202,9 @@ Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Erro
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ErrorPolicy.init -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.HandleItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount() -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount(int count) -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount(int count) -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount.get -> int
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount.init -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ReportingInterval.get -> int

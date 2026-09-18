@@ -26,7 +26,7 @@ namespace Wolfgang.Etl.TestKit;
 /// <para>
 /// Fault indices are zero-based and refer to the position in the emitted (post-skip)
 /// sequence. A configured fault fires <em>after</em>
-/// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount"/> for that item,
+/// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount()"/> for that item,
 /// so a progress report reflects the item that caused the failure. When a
 /// <see cref="ThrowAt"/> and a <see cref="DuplicateAt"/> are configured for the same index,
 /// the throw takes precedence and the duplicate is not emitted. Calling <see cref="ThrowAt"/>
@@ -114,7 +114,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     /// Configures the extractor to throw <paramref name="exception"/> when it reaches the
     /// item at the specified zero-based <paramref name="index"/> in the emitted sequence.
     /// The failing item is counted (its
-    /// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount"/> runs) before
+    /// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount()"/> runs) before
     /// the exception is thrown, so progress reflects the item that caused the failure, but
     /// the item itself is not yielded.
     /// </summary>
