@@ -61,7 +61,23 @@ public class DelayingExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException"><paramref name="items"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="delay"/> is negative.</exception>
     public DelayingExtractor(IEnumerable<T> items, TimeSpan delay)
-        : this(items, ValidatedConstantDelay(delay))
+        : this(items, ValidatedConstantDelay(delay), options: null)
+    {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="DelayingExtractor{T}"/> as <see cref="DelayingExtractor(IEnumerable{T}, TimeSpan)"/>
+    /// does, with the base-stage configuration taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="items">The items to extract.</param>
+    /// <param name="delay">The delay to await before each item.</param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="items"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="delay"/> is negative.</exception>
+    public DelayingExtractor(IEnumerable<T> items, TimeSpan delay, ExtractorOptions? options)
+        : this(items, ValidatedConstantDelay(delay), options)
     {
     }
 
@@ -76,8 +92,22 @@ public class DelayingExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="items"/> or <paramref name="delaySelector"/> is <see langword="null"/>.
     /// </exception>
-    public DelayingExtractor(IEnumerable<T> items, Func<int, TimeSpan> delaySelector)
+    public DelayingExtractor(IEnumerable<T> items, Func<int, TimeSpan> delaySelector) : this(items, delaySelector, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="DelayingExtractor{T}"/> as <see cref="DelayingExtractor(IEnumerable{T}, Func{int, TimeSpan})"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="items">The items to extract.</param>
+    /// <param name="delaySelector">Maps a zero-based item index to the delay to await before it.</param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public DelayingExtractor(IEnumerable<T> items, Func<int, TimeSpan> delaySelector, ExtractorOptions? options) : base(options)
+{
         _items         = items ?? throw new ArgumentNullException(nameof(items));
         _delaySelector = delaySelector ?? throw new ArgumentNullException(nameof(delaySelector));
     }

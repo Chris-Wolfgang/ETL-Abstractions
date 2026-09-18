@@ -8,9 +8,9 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 public class TransformerBaseTests
     : TransformerBaseContractTests<IdentityTransformer, string, EtlProgress>
 {
-    protected override IdentityTransformer CreateSut(int itemCount)
+    protected override IdentityTransformer CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval)
     {
-        return new IdentityTransformer();
+        return new IdentityTransformer(new TransformerOptions { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval });
     }
 
 
@@ -41,8 +41,7 @@ public class TransformerBaseTests
     [Fact]
     public async Task CurrentSkippedItemCount_reflects_skipped_items_after_transform()
     {
-        var sut = CreateSut(5);
-        sut.SkipItemCount = 2;
+        var sut = CreateSut(5, int.MaxValue, 2, 1_000);
 
         var source = new[] { "1", "2", "3", "4", "5" }.ToAsyncEnumerable();
         await foreach (var _ in sut.TransformAsync(source))
@@ -63,7 +62,8 @@ public class IdentityTransformer : TransformerBase<string, string, EtlProgress>
 
 
 
-    public IdentityTransformer()
+    public IdentityTransformer(TransformerOptions? options = null)
+        : base(options)
     {
     }
 

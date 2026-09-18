@@ -79,7 +79,7 @@ public sealed class TransformerBaseCoverageTests
     [Fact]
     public async Task CurrentSkippedItemCount_resets_between_runs()
     {
-        var transformer = new TimedTransformer { SkipItemCount = 2 };
+        var transformer = new TimedTransformer(options: new TransformerOptions { SkipItemCount = 2 });
 
         await Drain(transformer.TransformAsync(Items(5)));
         Assert.Equal(2, transformer.CurrentSkippedItemCount);
@@ -92,7 +92,7 @@ public sealed class TransformerBaseCoverageTests
     [Fact]
     public async Task StartedAt_is_set_when_every_item_is_skipped()
     {
-        var transformer = new TimedTransformer { SkipItemCount = 4 };
+        var transformer = new TimedTransformer(options: new TransformerOptions { SkipItemCount = 4 });
 
         await Drain(transformer.TransformAsync(Items(4)));
 
@@ -202,7 +202,7 @@ public sealed class TransformerBaseCoverageTests
         private readonly IProgressTimer? _timer;
         private bool _wired;
 
-        public TimedTransformer(int perItemDelayMs = 0) => _perItemDelayMs = perItemDelayMs;
+        public TimedTransformer(int perItemDelayMs = 0, TransformerOptions? options = null) : base(options) => _perItemDelayMs = perItemDelayMs;
 
         public TimedTransformer(IProgressTimer timer) => _timer = timer;
 

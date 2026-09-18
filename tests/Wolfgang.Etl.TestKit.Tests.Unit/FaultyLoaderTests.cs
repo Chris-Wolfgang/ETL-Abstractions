@@ -345,8 +345,7 @@ public class FaultyLoaderTests
     [Fact]
     public async Task LoadAsync_skips_items_up_to_SkipItemCount()
     {
-        var loader = new FaultyLoader<int>(collectItems: true);
-        loader.SkipItemCount = 2;
+        var loader = new FaultyLoader<int>(collectItems: true, new LoaderOptions { SkipItemCount = 2 });
 
         await loader.LoadAsync(new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 }).ExtractAsync());
 
@@ -359,8 +358,7 @@ public class FaultyLoaderTests
     [Fact]
     public async Task LoadAsync_stops_at_MaximumItemCount()
     {
-        var loader = new FaultyLoader<int>(collectItems: true);
-        loader.MaximumItemCount = 2;
+        var loader = new FaultyLoader<int>(collectItems: true, new LoaderOptions { MaximumItemCount = 2 });
 
         await loader.LoadAsync(new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 }).ExtractAsync());
 

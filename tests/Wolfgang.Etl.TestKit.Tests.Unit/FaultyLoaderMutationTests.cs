@@ -238,8 +238,7 @@ public class FaultyLoaderMutationTests
     public async Task LoadAsync_cancelling_during_the_skip_phase_throws_promptly()
     {
         using var cts = new CancellationTokenSource();
-        var loader = new FaultyLoader<int>(collectItems: false);
-        loader.SkipItemCount = 10;
+        var loader = new FaultyLoader<int>(collectItems: false, new LoaderOptions { SkipItemCount = 10 });
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>
         (
@@ -276,8 +275,7 @@ public class FaultyLoaderMutationTests
     [Fact]
     public async Task LoadAsync_when_duplicate_would_exceed_MaximumItemCount_suppresses_it()
     {
-        var loader = new FaultyLoader<int>(collectItems: true).DuplicateAt(1);
-        loader.MaximumItemCount = 2;
+        var loader = new FaultyLoader<int>(collectItems: true, new LoaderOptions { MaximumItemCount = 2 }).DuplicateAt(1);
 
         await loader.LoadAsync(new[] { 1, 2, 3 }.ToAsyncEnumerable());
 

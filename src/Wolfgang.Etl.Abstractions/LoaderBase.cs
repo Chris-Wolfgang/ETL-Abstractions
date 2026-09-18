@@ -26,6 +26,9 @@ public abstract class LoaderBase<TDestination, TProgress>
 {
     private int _currentItemCount;
     private int _currentSkippedItemCount;
+    private int _reportingInterval = 1_000;
+    private int _maximumItemCount = int.MaxValue;
+    private int _skipItemCount;
     private int _currentErrorItemCount;
     private long _startTimestamp;
     private DateTimeOffset _startedAtUtc;
@@ -70,10 +73,10 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// documented defaults apply.
     /// </param>
     /// <remarks>
-    /// Values supplied here are the stage's initial configuration. <c>ErrorPolicy</c> is
-    /// init-only and cannot change afterwards; <c>ReportingInterval</c>, <c>MaximumItemCount</c>
-    /// and <c>SkipItemCount</c> remain assignable on the stage until their setters are retired
-    /// (#351 / #438), at which point construction becomes the only way to set them. See ADR-0009.
+    /// Values supplied here are the stage's configuration. <c>ErrorPolicy</c> is init-only;
+    /// the setters of <c>ReportingInterval</c>, <c>MaximumItemCount</c> and <c>SkipItemCount</c> are
+    /// deprecated and will be removed (#351 / #438, ADR-0009), at which point this options record
+    /// is the only way to set them.
     /// </remarks>
     protected LoaderBase(LoaderOptions? options = null)
     {
@@ -82,9 +85,10 @@ public abstract class LoaderBase<TDestination, TProgress>
             return;
         }
 
-        ReportingInterval = options.ReportingInterval;
-        MaximumItemCount  = options.MaximumItemCount;
-        SkipItemCount     = options.SkipItemCount;
+        // The record's init accessors already validated these; write the fields, not the deprecated setters.
+        _reportingInterval = options.ReportingInterval;
+        _maximumItemCount  = options.MaximumItemCount;
+        _skipItemCount     = options.SkipItemCount;
         ErrorPolicy       = options.ErrorPolicy;
     }
 
@@ -94,8 +98,8 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <summary>
     /// The UTC time at which the first item was processed (loaded or skipped), or
     /// <c>null</c> if loading has not produced any items yet. Captured automatically
-    /// the first time <see cref="IncrementCurrentItemCount"/> or
-    /// <see cref="IncrementCurrentSkippedItemCount"/> is called, so derived classes can
+    /// the first time <see cref="IncrementCurrentItemCount()"/> or
+    /// <see cref="IncrementCurrentSkippedItemCount()"/> is called, so derived classes can
     /// surface it on their progress report (see <see cref="Report.StartedAt"/>).
     /// </summary>
     protected DateTimeOffset? StartedAt =>
@@ -131,15 +135,21 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// The number of milliseconds between progress updates.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
+    /// <remarks>
+    /// Configure it through <see cref="LoaderOptions.ReportingInterval"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
+    /// </remarks>
     public int ReportingInterval
     {
-        get;
+        get => _reportingInterval;
+        [Obsolete("Configure ReportingInterval through LoaderOptions passed to the constructor instead. This setter will be removed in a future release.")]
         set
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-            field = value;
+            _reportingInterval = value;
         }
-    } = 1_000;
+    }
 
 
 
@@ -147,7 +157,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// The current number of items loaded so far.
     /// </summary>
     /// <remarks>
-    /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount"/>
+    /// It is the responsibility of the derived class to call <see cref="IncrementCurrentItemCount()"/>
     /// as each item is loaded. The base class has no way of knowing when an item has been processed.
     /// <para>
     /// This count is <b>per run</b>: it is reset to zero at the start of each <c>LoadAsync</c> call.
@@ -193,15 +203,21 @@ public abstract class LoaderBase<TDestination, TProgress>
     ///     }
     /// </code>
     /// </example>
+    /// <remarks>
+    /// Configure it through <see cref="LoaderOptions.MaximumItemCount"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
+    /// </remarks>
     public int MaximumItemCount
     {
-        get;
+        get => _maximumItemCount;
+        [Obsolete("Configure MaximumItemCount through LoaderOptions passed to the constructor instead. This setter will be removed in a future release.")]
         set
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-            field = value;
+            _maximumItemCount = value;
         }
-    } = int.MaxValue;
+    }
 
 
 
@@ -221,13 +237,19 @@ public abstract class LoaderBase<TDestination, TProgress>
     ///     }
     /// </code>
     /// </example>
+    /// <remarks>
+    /// Configure it through <see cref="LoaderOptions.SkipItemCount"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
+    /// </remarks>
     public int SkipItemCount
     {
-        get;
+        get => _skipItemCount;
+        [Obsolete("Configure SkipItemCount through LoaderOptions passed to the constructor instead. This setter will be removed in a future release.")]
         set
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
-            field = value;
+            _skipItemCount = value;
         }
     }
 
@@ -471,6 +493,28 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
 
+
+    /// <summary>
+    /// Adds <paramref name="count"/> to the CurrentItemCount in a thread safe manner.
+    /// </summary>
+    /// <remarks>
+    /// For stages that account for a batch of items at once. Equivalent to calling
+    /// <see cref="IncrementCurrentItemCount()"/> <paramref name="count"/> times, in a single
+    /// interlocked operation.
+    /// </remarks>
+    /// <param name="count">The number of items to add. Zero is a no-op.</param>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> is negative.</exception>
+    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
+        Justification = "Interlocked.Add return value intentionally discarded; only the side-effect matters.")]
+    protected void IncrementCurrentItemCount(int count)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(count, 0);
+        EnsureStarted();
+        _ = Interlocked.Add(ref _currentItemCount, count);
+    }
+
+
+
     /// <summary>
     /// Increments the CurrentSkippedItemCount in a thread safe manner.
     /// </summary>
@@ -484,6 +528,29 @@ public abstract class LoaderBase<TDestination, TProgress>
     {
         EnsureStarted();
         _ = Interlocked.Increment(ref _currentSkippedItemCount);
+    }
+
+
+
+
+    /// <summary>
+    /// Adds <paramref name="count"/> to the CurrentSkippedItemCount in a thread safe manner.
+    /// </summary>
+    /// <remarks>
+    /// For stages whose source does the skipping (a server-side OFFSET, a seek past a header block):
+    /// the skipped items still have to be reflected in <c>CurrentSkippedItemCount</c>, and this does it
+    /// in one interlocked operation instead of <paramref name="count"/> calls to
+    /// <see cref="IncrementCurrentSkippedItemCount()"/>.
+    /// </remarks>
+    /// <param name="count">The number of items to add. Zero is a no-op.</param>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> is negative.</exception>
+    [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
+        Justification = "Interlocked.Add return value intentionally discarded; only the side-effect matters.")]
+    protected void IncrementCurrentSkippedItemCount(int count)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(count, 0);
+        EnsureStarted();
+        _ = Interlocked.Add(ref _currentSkippedItemCount, count);
     }
 
 

@@ -28,7 +28,7 @@ namespace Wolfgang.Etl.TestKit;
 /// <para>
 /// Fault indices are zero-based and refer to the position in the loaded (post-skip)
 /// sequence. A configured fault fires <em>after</em>
-/// <see cref="LoaderBase{TDestination,TProgress}.IncrementCurrentItemCount"/> for that item,
+/// <see cref="LoaderBase{TDestination,TProgress}.IncrementCurrentItemCount()"/> for that item,
 /// so a progress report reflects the item that caused the failure. When a
 /// <see cref="ThrowAt"/> and a <see cref="DuplicateAt"/> are configured for the same index,
 /// the throw takes precedence and the duplicate is not loaded. Calling <see cref="ThrowAt"/>
@@ -76,8 +76,26 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
     /// <see cref="GetCollectedItems"/>. When <see langword="false"/>, items are consumed but
     /// not stored — <see cref="GetCollectedItems"/> returns <see langword="null"/>.
     /// </param>
-    public FaultyLoader(bool collectItems)
+    public FaultyLoader(bool collectItems) : this(collectItems, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="FaultyLoader{T}"/> as <see cref="FaultyLoader(bool)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="collectItems">
+    /// When <see langword="true"/>, loaded items (including duplicates) are accumulated in
+    /// an internal buffer during each load operation and made available via
+    /// <see cref="GetCollectedItems"/>. When <see langword="false"/>, items are consumed but
+    /// not stored — <see cref="GetCollectedItems"/> returns <see langword="null"/>.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public FaultyLoader(bool collectItems, LoaderOptions? options) : base(options)
+{
         _collectItems = collectItems;
     }
 
@@ -98,8 +116,28 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="timer"/> is <see langword="null"/>.
     /// </exception>
-    protected FaultyLoader(bool collectItems, IProgressTimer timer)
+    protected FaultyLoader(bool collectItems, IProgressTimer timer) : this(collectItems, timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="FaultyLoader{T}"/> as <see cref="FaultyLoader(bool, IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="collectItems">
+    /// When <see langword="true"/>, loaded items are accumulated and accessible via
+    /// <see cref="GetCollectedItems"/>.
+    /// </param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected FaultyLoader(bool collectItems, IProgressTimer timer, LoaderOptions? options) : base(options)
+{
         _collectItems  = collectItems;
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
@@ -134,7 +172,7 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
     /// Configures the loader to throw <paramref name="exception"/> when it reaches the item
     /// at the specified zero-based <paramref name="index"/> in the loaded sequence. The
     /// failing item is counted (its
-    /// <see cref="LoaderBase{TDestination,TProgress}.IncrementCurrentItemCount"/> runs) before
+    /// <see cref="LoaderBase{TDestination,TProgress}.IncrementCurrentItemCount()"/> runs) before
     /// the exception is thrown, so progress reflects the item that caused the failure, but
     /// the item itself is not stored.
     /// </summary>

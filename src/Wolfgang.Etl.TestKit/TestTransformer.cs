@@ -54,7 +54,20 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
     /// Initializes a new <see cref="TestTransformer{T}"/> using the default
     /// base-class progress timer.
     /// </summary>
-    public TestTransformer() { }
+    public TestTransformer() : this(options: null)
+    {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestTransformer{T}"/> as <see cref="TestTransformer()"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public TestTransformer(TransformerOptions? options) : base(options)
+{ }
 
 
 
@@ -69,8 +82,24 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="timer"/> is <see langword="null"/>.
     /// </exception>
-    protected TestTransformer(IProgressTimer timer)
+    protected TestTransformer(IProgressTimer timer) : this(timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestTransformer{T}"/> as <see cref="TestTransformer(IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected TestTransformer(IProgressTimer timer, TransformerOptions? options) : base(options)
+{
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
 

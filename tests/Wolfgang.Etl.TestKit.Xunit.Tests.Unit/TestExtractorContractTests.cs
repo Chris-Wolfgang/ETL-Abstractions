@@ -16,14 +16,14 @@ public class TestExtractorContractTests
     : ExtractorBaseContractTests<TestExtractor<int>, int, Report>
 {
     /// <inheritdoc/>
-    protected override TestExtractor<int> CreateSut(int itemCount) =>
-        new TestExtractor<int>(Enumerable.Range(1, itemCount).ToList());
+    protected override TestExtractor<int> CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) =>
+        new TestExtractor<int>(Enumerable.Range(1, itemCount).ToList(), new ExtractorOptions { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval });
 
     /// <inheritdoc/>
     protected override IReadOnlyList<int> CreateExpectedItems() =>
         Enumerable.Range(1, 5).ToList();
 
     /// <inheritdoc/>
-    protected override TestExtractor<int> CreateSutOverSource(IEnumerable<int> source) =>
-        new TestExtractor<int>(source);
+    protected override TestExtractor<int> CreateSutOverSource(IEnumerable<int> source, int maximumItemCount) =>
+        new TestExtractor<int>(source, new ExtractorOptions { MaximumItemCount = maximumItemCount });
 }

@@ -26,7 +26,7 @@ namespace Wolfgang.Etl.TestKit;
 /// <para>
 /// Fault indices are zero-based and refer to the position in the emitted (post-skip)
 /// sequence. A configured fault fires <em>after</em>
-/// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount"/> for that item,
+/// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount()"/> for that item,
 /// so a progress report reflects the item that caused the failure. When a
 /// <see cref="ThrowAt"/> and a <see cref="DuplicateAt"/> are configured for the same index,
 /// the throw takes precedence and the duplicate is not emitted. Calling <see cref="ThrowAt"/>
@@ -78,8 +78,24 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="items"/> is <see langword="null"/>.
     /// </exception>
-    public FaultyExtractor(IEnumerable<T> items)
+    public FaultyExtractor(IEnumerable<T> items) : this(items, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="FaultyExtractor{T}"/> as <see cref="FaultyExtractor(IEnumerable{T})"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="items">
+    /// The sequence of items to extract. The enumerable is evaluated on each extraction
+    /// run, so the same extractor instance can be reused.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public FaultyExtractor(IEnumerable<T> items, ExtractorOptions? options) : base(options)
+{
         _items = items ?? throw new ArgumentNullException(nameof(items));
     }
 
@@ -98,8 +114,25 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="items"/> or <paramref name="timer"/> is <see langword="null"/>.
     /// </exception>
-    protected FaultyExtractor(IEnumerable<T> items, IProgressTimer timer)
+    protected FaultyExtractor(IEnumerable<T> items, IProgressTimer timer) : this(items, timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="FaultyExtractor{T}"/> as <see cref="FaultyExtractor(IEnumerable{T}, IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="items">The sequence of items to extract.</param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected FaultyExtractor(IEnumerable<T> items, IProgressTimer timer, ExtractorOptions? options) : base(options)
+{
         _items         = items ?? throw new ArgumentNullException(nameof(items));
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
@@ -114,7 +147,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     /// Configures the extractor to throw <paramref name="exception"/> when it reaches the
     /// item at the specified zero-based <paramref name="index"/> in the emitted sequence.
     /// The failing item is counted (its
-    /// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount"/> runs) before
+    /// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount()"/> runs) before
     /// the exception is thrown, so progress reflects the item that caused the failure, but
     /// the item itself is not yielded.
     /// </summary>

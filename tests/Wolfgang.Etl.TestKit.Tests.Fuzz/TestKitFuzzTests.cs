@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using CsCheck;
+using Wolfgang.Etl.Abstractions;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Fuzz;
@@ -79,11 +80,8 @@ public class TestKitFuzzTests
         Windowed.Sample(
             t =>
             {
-                using var extractor = new TestExtractor<int>(t.Items)
-                {
-                    SkipItemCount = t.Skip,
-                    MaximumItemCount = t.Max,
-                };
+                using var extractor = new TestExtractor<int>(t.Items, new ExtractorOptions { SkipItemCount = t.Skip,
+                    MaximumItemCount = t.Max });
 
                 var expected = t.Items.Skip(t.Skip).Take(t.Max).ToList();
                 Assert.Equal(expected, Drain(extractor.ExtractAsync(CancellationToken.None)));

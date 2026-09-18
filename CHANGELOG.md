@@ -1,4 +1,4 @@
-﻿# Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -18,6 +18,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Security
+
+## [0.25.0] - 2026-09-17
+
+### Breaking changes
+
+- `ExtractorBaseContractTests`, `LoaderBaseContractTests` and `TransformerBaseContractTests` now build the SUT through `CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval)` (forward the three values into the options record unvalidated); `CreateSutOverSource` gains `int maximumItemCount`. A protected `CreateSut(int itemCount)` forwarder keeps derived tests compiling. 24 contract tests (eight per base class) are renamed from `*_set_to_*` to `*_configured_*`. (#480)
+
+### Deprecated
+
+- The setters of `ReportingInterval`, `MaximumItemCount` and `SkipItemCount` on `ExtractorBase`, `LoaderBase` and `TransformerBase` are `[Obsolete]` (accessor-level, so reads are unaffected). Configure them through the options record passed to the constructor (`ExtractorOptions` / `LoaderOptions` / `TransformerOptions`). Same deprecation shape as the ETL-* stages; the setters are removed in the fleet-wide removal wave (not before 2026-12-15), after which the properties are read-only and the constructor is the only way to configure a stage (#351 / #438, ADR-0009). No binary break in this release.
+
+### Added
+
+- Every `Wolfgang.Etl.TestKit` double (`TestExtractor`, `TestLoader`, `TestTransformer`, `FaultyExtractor`, `FaultyLoader`, `FaultyTransformer`, `DelayingExtractor`, `RetryingExtractor`, `SnapshotTestLoader`) gains constructor overloads taking the base options record (`ExtractorOptions` / `LoaderOptions` / `TransformerOptions`), including the protected timer-injecting ones, so tests configure `MaximumItemCount` / `SkipItemCount` / `ReportingInterval` through the constructor instead of the deprecated setters. Additive; the existing constructors chain to them.
+- `IncrementCurrentItemCount(int count)` and `IncrementCurrentSkippedItemCount(int count)` on `ExtractorBase`, `LoaderBase` and `TransformerBase`: one interlocked add for stages whose source skips or batches for them (a server-side `OFFSET`, a seek past a header block) instead of `count` per-item calls. Zero is a no-op; a negative count throws `ArgumentOutOfRangeException`. Note for implementers: an XML doc `cref` that named `IncrementCurrentItemCount` / `IncrementCurrentSkippedItemCount` without a parameter list is now ambiguous (CS0419) — write `IncrementCurrentItemCount()`. (#475)
+- `Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit` ship `net5.0`, `net6.0` and `net7.0` assemblies, so a base options-record property written from either package resolves the `IsExternalInit` modreq against the matching Abstractions asset instead of throwing `MissingMethodException` on .NET 5–7. (#480)
+
+### Internal
+
+- Record the 18 compiler-synthesized members of the shipped `Report` and `EtlPipelineProgress` records in `PublicAPI.Shipped.txt` (they were public all along; no surface change). (#479)
 
 ## [0.24.0] - 2026-09-15
 

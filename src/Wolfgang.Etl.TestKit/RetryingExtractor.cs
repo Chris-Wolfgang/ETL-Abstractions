@@ -63,8 +63,26 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="failFirstAttempts"/> is negative, or <paramref name="maxAttempts"/> is less than 1.
     /// </exception>
-    public RetryingExtractor(IEnumerable<T> items, int failFirstAttempts, int maxAttempts)
+    public RetryingExtractor(IEnumerable<T> items, int failFirstAttempts, int maxAttempts) : this(items, failFirstAttempts, maxAttempts, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="RetryingExtractor{T}"/> as <see cref="RetryingExtractor(IEnumerable{T}, int, int)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="items">The items to extract once a worker invocation succeeds.</param>
+    /// <param name="failFirstAttempts">
+    /// The number of leading worker invocations that throw a transient fault before one succeeds.
+    /// Use a value ≥ <paramref name="maxAttempts"/> to model a permanent fault.
+    /// </param>
+    /// <param name="maxAttempts">The maximum number of worker invocations (initial try plus retries).</param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public RetryingExtractor(IEnumerable<T> items, int failFirstAttempts, int maxAttempts, ExtractorOptions? options) : base(options)
+{
         _items = items ?? throw new ArgumentNullException(nameof(items));
 
         if (failFirstAttempts < 0)

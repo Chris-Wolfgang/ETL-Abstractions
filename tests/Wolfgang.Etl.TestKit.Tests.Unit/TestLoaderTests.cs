@@ -257,8 +257,7 @@ public class TestLoaderTests
     public async Task LoadAsync_skips_items_up_to_SkipItemCount()
     {
         var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
-        var loader    = new TestLoader<int>(collectItems: true);
-        loader.SkipItemCount = 2;
+        var loader    = new TestLoader<int>(collectItems: true, new LoaderOptions { SkipItemCount = 2 });
 
         await loader.LoadAsync(extractor.ExtractAsync());
 
@@ -278,8 +277,7 @@ public class TestLoaderTests
     public async Task LoadAsync_stops_at_MaximumItemCount()
     {
         var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
-        var loader    = new TestLoader<int>(collectItems: true);
-        loader.MaximumItemCount = 2;
+        var loader    = new TestLoader<int>(collectItems: true, new LoaderOptions { MaximumItemCount = 2 });
 
         await loader.LoadAsync(extractor.ExtractAsync());
 

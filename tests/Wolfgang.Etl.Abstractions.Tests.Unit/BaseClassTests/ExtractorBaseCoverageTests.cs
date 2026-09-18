@@ -69,7 +69,7 @@ public sealed class ExtractorBaseCoverageTests
     [Fact]
     public async Task CurrentSkippedItemCount_resets_between_runs()
     {
-        var extractor = new TimedExtractor(count: 5) { SkipItemCount = 2 };
+        var extractor = new TimedExtractor(count: 5, options: new ExtractorOptions { SkipItemCount = 2 });
 
         await Drain(extractor.ExtractAsync());
         Assert.Equal(2, extractor.CurrentSkippedItemCount);
@@ -82,7 +82,7 @@ public sealed class ExtractorBaseCoverageTests
     [Fact]
     public async Task StartedAt_is_set_when_every_item_is_skipped()
     {
-        var extractor = new TimedExtractor(count: 4) { SkipItemCount = 4 };
+        var extractor = new TimedExtractor(count: 4, options: new ExtractorOptions { SkipItemCount = 4 });
 
         await Drain(extractor.ExtractAsync());
 
@@ -193,7 +193,8 @@ public sealed class ExtractorBaseCoverageTests
         private readonly IProgressTimer? _timer;
         private bool _wired;
 
-        public TimedExtractor(int count, int perItemDelayMs = 0)
+        public TimedExtractor(int count, int perItemDelayMs = 0, ExtractorOptions? options = null)
+            : base(options)
         {
             Count = count;
             _perItemDelayMs = perItemDelayMs;

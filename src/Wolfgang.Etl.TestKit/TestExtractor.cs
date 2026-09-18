@@ -80,8 +80,24 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="items"/> is <see langword="null"/>.
     /// </exception>
-    public TestExtractor(IEnumerable<T> items)
+    public TestExtractor(IEnumerable<T> items) : this(items, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(IEnumerable{T})"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="items">
+    /// The sequence of items to extract. The enumerable is evaluated lazily on
+    /// each extraction run, so the same extractor instance can be reused.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public TestExtractor(IEnumerable<T> items, ExtractorOptions? options) : base(options)
+{
         _enumerable = items ?? throw new ArgumentNullException(nameof(items));
     }
 
@@ -100,8 +116,26 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="enumerator"/> is <see langword="null"/>.
     /// </exception>
-    public TestExtractor(IEnumerator<T> enumerator)
+    public TestExtractor(IEnumerator<T> enumerator) : this(enumerator, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(IEnumerator{T})"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="enumerator">
+    /// The enumerator to draw items from. Useful for generator methods that produce
+    /// large volumes of data on demand without allocating a full collection in memory.
+    /// The caller is responsible for the enumerator's lifetime — the extractor does
+    /// not dispose it.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public TestExtractor(IEnumerator<T> enumerator, ExtractorOptions? options) : base(options)
+{
         _enumerator = enumerator ?? throw new ArgumentNullException(nameof(enumerator));
     }
 
@@ -120,8 +154,25 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="items"/> or <paramref name="timer"/> is <see langword="null"/>.
     /// </exception>
-    protected TestExtractor(IEnumerable<T> items, IProgressTimer timer)
+    protected TestExtractor(IEnumerable<T> items, IProgressTimer timer) : this(items, timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(IEnumerable{T}, IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="items">The sequence of items to extract.</param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected TestExtractor(IEnumerable<T> items, IProgressTimer timer, ExtractorOptions? options) : base(options)
+{
         _enumerable    = items ?? throw new ArgumentNullException(nameof(items));
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
@@ -144,8 +195,28 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="enumerator"/> or <paramref name="timer"/> is <see langword="null"/>.
     /// </exception>
-    protected TestExtractor(IEnumerator<T> enumerator, IProgressTimer timer)
+    protected TestExtractor(IEnumerator<T> enumerator, IProgressTimer timer) : this(enumerator, timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(IEnumerator{T}, IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="enumerator">
+    /// The enumerator to draw items from. The caller is responsible for the
+    /// enumerator's lifetime — the extractor does not dispose it.
+    /// </param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected TestExtractor(IEnumerator<T> enumerator, IProgressTimer timer, ExtractorOptions? options) : base(options)
+{
         _enumerator    = enumerator ?? throw new ArgumentNullException(nameof(enumerator));
         _progressTimer = timer      ?? throw new ArgumentNullException(nameof(timer));
     }
@@ -168,8 +239,23 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="factory"/> is <see langword="null"/>.
     /// </exception>
-    public TestExtractor(Func<T> factory)
+    public TestExtractor(Func<T> factory) : this(factory, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{T})"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item to produce the next value to yield.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public TestExtractor(Func<T> factory, ExtractorOptions? options) : base(options)
+{
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -195,8 +281,24 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="count"/> is less than zero.
     /// </exception>
-    public TestExtractor(Func<T> factory, int count)
+    public TestExtractor(Func<T> factory, int count) : this(factory, count, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{T}, int)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item to produce the next value to yield.
+    /// </param>
+    /// <param name="count">The number of items to produce. Must be non-negative.</param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public TestExtractor(Func<T> factory, int count, ExtractorOptions? options) : base(options)
+{
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -230,8 +332,24 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="factory"/> is <see langword="null"/>.
     /// </exception>
-    public TestExtractor(Func<int, T> factory)
+    public TestExtractor(Func<int, T> factory) : this(factory, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{int, T})"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item, receiving the zero-based item index, to
+    /// produce the next value to yield.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public TestExtractor(Func<int, T> factory, ExtractorOptions? options) : base(options)
+{
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -259,8 +377,25 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="count"/> is less than zero.
     /// </exception>
-    public TestExtractor(Func<int, T> factory, int count)
+    public TestExtractor(Func<int, T> factory, int count) : this(factory, count, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{int, T}, int)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item, receiving the zero-based item index, to
+    /// produce the next value to yield.
+    /// </param>
+    /// <param name="count">The number of items to produce. Must be non-negative.</param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public TestExtractor(Func<int, T> factory, int count, ExtractorOptions? options) : base(options)
+{
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -297,8 +432,27 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="factory"/> or <paramref name="timer"/> is <see langword="null"/>.
     /// </exception>
-    protected TestExtractor(Func<T> factory, IProgressTimer timer)
+    protected TestExtractor(Func<T> factory, IProgressTimer timer) : this(factory, timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{T}, IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item to produce the next value to yield.
+    /// </param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected TestExtractor(Func<T> factory, IProgressTimer timer, ExtractorOptions? options) : base(options)
+{
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -330,8 +484,28 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="count"/> is less than zero.
     /// </exception>
-    protected TestExtractor(Func<T> factory, int count, IProgressTimer timer)
+    protected TestExtractor(Func<T> factory, int count, IProgressTimer timer) : this(factory, count, timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{T}, int, IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item to produce the next value to yield.
+    /// </param>
+    /// <param name="count">The number of items to produce. Must be non-negative.</param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected TestExtractor(Func<T> factory, int count, IProgressTimer timer, ExtractorOptions? options) : base(options)
+{
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -371,8 +545,28 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="factory"/> or <paramref name="timer"/> is <see langword="null"/>.
     /// </exception>
-    protected TestExtractor(Func<int, T> factory, IProgressTimer timer)
+    protected TestExtractor(Func<int, T> factory, IProgressTimer timer) : this(factory, timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{int, T}, IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item, receiving the zero-based item index, to
+    /// produce the next value to yield.
+    /// </param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected TestExtractor(Func<int, T> factory, IProgressTimer timer, ExtractorOptions? options) : base(options)
+{
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -406,8 +600,29 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="count"/> is less than zero.
     /// </exception>
-    protected TestExtractor(Func<int, T> factory, int count, IProgressTimer timer)
+    protected TestExtractor(Func<int, T> factory, int count, IProgressTimer timer) : this(factory, count, timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{int, T}, int, IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item, receiving the zero-based item index, to
+    /// produce the next value to yield.
+    /// </param>
+    /// <param name="count">The number of items to produce. Must be non-negative.</param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected TestExtractor(Func<int, T> factory, int count, IProgressTimer timer, ExtractorOptions? options) : base(options)
+{
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));

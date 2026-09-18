@@ -69,7 +69,7 @@ public sealed class LoaderBaseCoverageTests
     [Fact]
     public async Task CurrentSkippedItemCount_resets_between_runs()
     {
-        var loader = new TimedLoader { SkipItemCount = 2 };
+        var loader = new TimedLoader(options: new LoaderOptions { SkipItemCount = 2 });
 
         await loader.LoadAsync(Items(5));
         Assert.Equal(2, loader.CurrentSkippedItemCount);
@@ -82,7 +82,7 @@ public sealed class LoaderBaseCoverageTests
     [Fact]
     public async Task StartedAt_is_set_when_every_item_is_skipped()
     {
-        var loader = new TimedLoader { SkipItemCount = 4 };
+        var loader = new TimedLoader(options: new LoaderOptions { SkipItemCount = 4 });
 
         await loader.LoadAsync(Items(4));
 
@@ -188,7 +188,7 @@ public sealed class LoaderBaseCoverageTests
     [Fact]
     public async Task Skipped_items_increment_the_skipped_counter()
     {
-        var loader = new TimedLoader { SkipItemCount = 2 };
+        var loader = new TimedLoader(options: new LoaderOptions { SkipItemCount = 2 });
 
         await loader.LoadAsync(Items(5));
 
@@ -204,7 +204,7 @@ public sealed class LoaderBaseCoverageTests
         private readonly IProgressTimer? _timer;
         private bool _wired;
 
-        public TimedLoader(int perItemDelayMs = 0) => _perItemDelayMs = perItemDelayMs;
+        public TimedLoader(int perItemDelayMs = 0, LoaderOptions? options = null) : base(options) => _perItemDelayMs = perItemDelayMs;
 
         public TimedLoader(IProgressTimer timer) => _timer = timer;
 
