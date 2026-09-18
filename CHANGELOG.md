@@ -1,4 +1,4 @@
-﻿# Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -18,6 +18,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Security
+
+## [0.25.0] - 2026-09-17
+
+### Breaking changes
+
+- `ReportingInterval`, `MaximumItemCount` and `SkipItemCount` on `ExtractorBase`, `LoaderBase` and `TransformerBase` are now `{ get; init; }`: configuration is fixed at construction (options record or object initializer) and can no longer be mutated mid-run. Source break for post-construction assignment (CS8852); binary break for every assembly that assigned them (`set` → `init` cannot be shimmed), so consumers must recompile. (#480)
+- `ExtractorBaseContractTests`, `LoaderBaseContractTests` and `TransformerBaseContractTests` now build the SUT through `CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval)` (forward the three values into the options record unvalidated); `CreateSutOverSource` gains `int maximumItemCount`. A protected `CreateSut(int itemCount)` forwarder keeps derived tests compiling. Six contract tests are renamed from `*_set_to_*` to `*_configured_*`. (#480)
+
+### Added
+
+- `Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit` ship `net5.0`, `net6.0` and `net7.0` assemblies, so an inherited init-only property written from either package resolves the `IsExternalInit` modreq against the matching Abstractions asset instead of throwing `MissingMethodException` on .NET 5–7. (#480)
+
+### Internal
+
+- Record the 18 compiler-synthesized members of the shipped `Report` and `EtlPipelineProgress` records in `PublicAPI.Shipped.txt` (they were public all along; no surface change). (#479)
 
 ## [0.24.0] - 2026-09-15
 

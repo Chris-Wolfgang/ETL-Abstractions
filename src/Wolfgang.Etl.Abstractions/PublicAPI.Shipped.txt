@@ -1,8 +1,11 @@
 #nullable enable
 Wolfgang.Etl.Abstractions.EtlPipeline
 Wolfgang.Etl.Abstractions.EtlPipelineProgress
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.<Clone>$() -> Wolfgang.Etl.Abstractions.EtlPipelineProgress!
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.Deconstruct(out long ExtractedItemCount, out long LoadedItemCount, out System.TimeSpan Elapsed) -> void
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed.get -> System.TimeSpan
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.Elapsed.init -> void
+Wolfgang.Etl.Abstractions.EtlPipelineProgress.Equals(Wolfgang.Etl.Abstractions.EtlPipelineProgress? other) -> bool
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount.get -> long
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.ErrorItemCount.init -> void
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.EtlPipelineProgress(long ExtractedItemCount, long LoadedItemCount, System.TimeSpan Elapsed) -> void
@@ -26,11 +29,11 @@ Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.HandleItemError(Wolf
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentSkippedItemCount() -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.MaximumItemCount.get -> int
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.MaximumItemCount.set -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.MaximumItemCount.init -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ReportingInterval.get -> int
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ReportingInterval.set -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ReportingInterval.init -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.SkipItemCount.get -> int
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.SkipItemCount.set -> void
+Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.SkipItemCount.init -> void
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.StartedAt.get -> System.DateTimeOffset?
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WorkerResilience.get -> System.Func<System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TSource>!>!, System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<TSource>!>!
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.WorkerResilience.init -> void
@@ -141,11 +144,11 @@ Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentSk
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase() -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options = null) -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.MaximumItemCount.get -> int
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.MaximumItemCount.set -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.MaximumItemCount.init -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ReportingInterval.get -> int
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ReportingInterval.set -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ReportingInterval.init -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.SkipItemCount.get -> int
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.SkipItemCount.set -> void
+Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.SkipItemCount.init -> void
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.StartedAt.get -> System.DateTimeOffset?
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WorkerResilience.get -> System.Func<System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task!>!, System.Threading.CancellationToken, System.Threading.Tasks.Task!>!
 Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.WorkerResilience.init -> void
@@ -178,6 +181,7 @@ Wolfgang.Etl.Abstractions.Report.Elapsed.init -> void
 Wolfgang.Etl.Abstractions.Report.EstimatedRemaining.get -> System.TimeSpan?
 Wolfgang.Etl.Abstractions.Report.ItemsPerSecond.get -> double
 Wolfgang.Etl.Abstractions.Report.PercentComplete.get -> double?
+Wolfgang.Etl.Abstractions.Report.Report(Wolfgang.Etl.Abstractions.Report! original) -> void
 Wolfgang.Etl.Abstractions.Report.Report(int currentItemCount) -> void
 Wolfgang.Etl.Abstractions.Report.Report(int currentItemCount, System.DateTimeOffset? startedAt, System.TimeSpan elapsed, int? totalItemCount = null) -> void
 Wolfgang.Etl.Abstractions.Report.StartedAt.get -> System.DateTimeOffset?
@@ -196,11 +200,11 @@ Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Hand
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount.get -> int
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount.set -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount.init -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ReportingInterval.get -> int
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ReportingInterval.set -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ReportingInterval.init -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.SkipItemCount.get -> int
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.SkipItemCount.set -> void
+Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.SkipItemCount.init -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.StartedAt.get -> System.DateTimeOffset?
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase() -> void
 Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options = null) -> void
@@ -226,6 +230,9 @@ abstract Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.CreatePro
 abstract Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TDestination>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
 abstract Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressReport() -> TProgress
 abstract Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TSource>! items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TDestination>!
+override Wolfgang.Etl.Abstractions.EtlPipelineProgress.Equals(object? obj) -> bool
+override Wolfgang.Etl.Abstractions.EtlPipelineProgress.GetHashCode() -> int
+override Wolfgang.Etl.Abstractions.EtlPipelineProgress.ToString() -> string!
 override Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
 override Wolfgang.Etl.Abstractions.ExtractorOptions.Equals(object? obj) -> bool
 override Wolfgang.Etl.Abstractions.ExtractorOptions.GetHashCode() -> int
@@ -236,11 +243,16 @@ override Wolfgang.Etl.Abstractions.LoaderOptions.GetHashCode() -> int
 override Wolfgang.Etl.Abstractions.LoaderOptions.ToString() -> string!
 override Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Equals(object? obj) -> bool
 override Wolfgang.Etl.Abstractions.MiddlewareResult<T>.GetHashCode() -> int
+override Wolfgang.Etl.Abstractions.Report.Equals(object? obj) -> bool
+override Wolfgang.Etl.Abstractions.Report.GetHashCode() -> int
+override Wolfgang.Etl.Abstractions.Report.ToString() -> string!
 override Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
 override Wolfgang.Etl.Abstractions.TransformerOptions.Equals(object? obj) -> bool
 override Wolfgang.Etl.Abstractions.TransformerOptions.GetHashCode() -> int
 override Wolfgang.Etl.Abstractions.TransformerOptions.ToString() -> string!
 static Wolfgang.Etl.Abstractions.EtlPipeline.Create() -> Wolfgang.Etl.Abstractions.EtlPipeline!
+static Wolfgang.Etl.Abstractions.EtlPipelineProgress.operator !=(Wolfgang.Etl.Abstractions.EtlPipelineProgress? left, Wolfgang.Etl.Abstractions.EtlPipelineProgress? right) -> bool
+static Wolfgang.Etl.Abstractions.EtlPipelineProgress.operator ==(Wolfgang.Etl.Abstractions.EtlPipelineProgress? left, Wolfgang.Etl.Abstractions.EtlPipelineProgress? right) -> bool
 static Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned(this Wolfgang.Etl.Abstractions.IEtlPipelineSink! sink, params object![]! ownedResources) -> Wolfgang.Etl.Abstractions.IEtlPipelineSink!
 static Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T, TProgress>(this Wolfgang.Etl.Abstractions.EtlPipeline! pipeline, Wolfgang.Etl.Abstractions.ExtractorBase<T, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
 static Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T>(this Wolfgang.Etl.Abstractions.EtlPipeline! pipeline, System.Collections.Generic.IAsyncEnumerable<T>! source) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
@@ -258,6 +270,8 @@ static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.E
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync<TSource, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractAsync<TSource>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync<TSource>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>!
+static Wolfgang.Etl.Abstractions.Report.operator !=(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
+static Wolfgang.Etl.Abstractions.Report.operator ==(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
 static Wolfgang.Etl.Abstractions.TransformerOptions.operator !=(Wolfgang.Etl.Abstractions.TransformerOptions? left, Wolfgang.Etl.Abstractions.TransformerOptions? right) -> bool
 static Wolfgang.Etl.Abstractions.TransformerOptions.operator ==(Wolfgang.Etl.Abstractions.TransformerOptions? left, Wolfgang.Etl.Abstractions.TransformerOptions? right) -> bool
 virtual Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CreateProgressTimer(System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
@@ -286,6 +300,10 @@ virtual Wolfgang.Etl.Abstractions.LoaderOptions.<Clone>$() -> Wolfgang.Etl.Abstr
 virtual Wolfgang.Etl.Abstractions.LoaderOptions.EqualityContract.get -> System.Type!
 virtual Wolfgang.Etl.Abstractions.LoaderOptions.Equals(Wolfgang.Etl.Abstractions.LoaderOptions? other) -> bool
 virtual Wolfgang.Etl.Abstractions.LoaderOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Wolfgang.Etl.Abstractions.Report.<Clone>$() -> Wolfgang.Etl.Abstractions.Report!
+virtual Wolfgang.Etl.Abstractions.Report.EqualityContract.get -> System.Type!
+virtual Wolfgang.Etl.Abstractions.Report.Equals(Wolfgang.Etl.Abstractions.Report? other) -> bool
+virtual Wolfgang.Etl.Abstractions.Report.PrintMembers(System.Text.StringBuilder! builder) -> bool
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.CreateProgressTimer(System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.Dispose(bool disposing) -> void
 virtual Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.DisposeAsync() -> System.Threading.Tasks.ValueTask
@@ -299,21 +317,3 @@ virtual Wolfgang.Etl.Abstractions.TransformerOptions.<Clone>$() -> Wolfgang.Etl.
 virtual Wolfgang.Etl.Abstractions.TransformerOptions.EqualityContract.get -> System.Type!
 virtual Wolfgang.Etl.Abstractions.TransformerOptions.Equals(Wolfgang.Etl.Abstractions.TransformerOptions? other) -> bool
 virtual Wolfgang.Etl.Abstractions.TransformerOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool
-Wolfgang.Etl.Abstractions.EtlPipelineProgress.<Clone>$() -> Wolfgang.Etl.Abstractions.EtlPipelineProgress!
-Wolfgang.Etl.Abstractions.EtlPipelineProgress.Deconstruct(out long ExtractedItemCount, out long LoadedItemCount, out System.TimeSpan Elapsed) -> void
-Wolfgang.Etl.Abstractions.EtlPipelineProgress.Equals(Wolfgang.Etl.Abstractions.EtlPipelineProgress? other) -> bool
-Wolfgang.Etl.Abstractions.Report.Report(Wolfgang.Etl.Abstractions.Report! original) -> void
-override Wolfgang.Etl.Abstractions.EtlPipelineProgress.Equals(object? obj) -> bool
-override Wolfgang.Etl.Abstractions.EtlPipelineProgress.GetHashCode() -> int
-override Wolfgang.Etl.Abstractions.EtlPipelineProgress.ToString() -> string!
-override Wolfgang.Etl.Abstractions.Report.Equals(object? obj) -> bool
-override Wolfgang.Etl.Abstractions.Report.GetHashCode() -> int
-override Wolfgang.Etl.Abstractions.Report.ToString() -> string!
-static Wolfgang.Etl.Abstractions.EtlPipelineProgress.operator !=(Wolfgang.Etl.Abstractions.EtlPipelineProgress? left, Wolfgang.Etl.Abstractions.EtlPipelineProgress? right) -> bool
-static Wolfgang.Etl.Abstractions.EtlPipelineProgress.operator ==(Wolfgang.Etl.Abstractions.EtlPipelineProgress? left, Wolfgang.Etl.Abstractions.EtlPipelineProgress? right) -> bool
-static Wolfgang.Etl.Abstractions.Report.operator !=(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
-static Wolfgang.Etl.Abstractions.Report.operator ==(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
-virtual Wolfgang.Etl.Abstractions.Report.<Clone>$() -> Wolfgang.Etl.Abstractions.Report!
-virtual Wolfgang.Etl.Abstractions.Report.EqualityContract.get -> System.Type!
-virtual Wolfgang.Etl.Abstractions.Report.Equals(Wolfgang.Etl.Abstractions.Report? other) -> bool
-virtual Wolfgang.Etl.Abstractions.Report.PrintMembers(System.Text.StringBuilder! builder) -> bool

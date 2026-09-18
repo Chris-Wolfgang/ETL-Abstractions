@@ -1,19 +1,1 @@
 #nullable enable
-*REMOVED*Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.MaximumItemCount.set -> void
-*REMOVED*Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ReportingInterval.set -> void
-*REMOVED*Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.SkipItemCount.set -> void
-*REMOVED*Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.MaximumItemCount.set -> void
-*REMOVED*Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ReportingInterval.set -> void
-*REMOVED*Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.SkipItemCount.set -> void
-*REMOVED*Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount.set -> void
-*REMOVED*Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ReportingInterval.set -> void
-*REMOVED*Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.SkipItemCount.set -> void
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.MaximumItemCount.init -> void
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ReportingInterval.init -> void
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.SkipItemCount.init -> void
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.MaximumItemCount.init -> void
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.ReportingInterval.init -> void
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.SkipItemCount.init -> void
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.MaximumItemCount.init -> void
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.ReportingInterval.init -> void
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.SkipItemCount.init -> void
