@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Breaking changes
 
 - `ReportingInterval`, `MaximumItemCount` and `SkipItemCount` on `ExtractorBase`, `LoaderBase` and `TransformerBase` are now `{ get; init; }`: configuration is fixed at construction (options record or object initializer) and can no longer be mutated mid-run. Source break for post-construction assignment (CS8852); binary break for every assembly that assigned them (`set` → `init` cannot be shimmed), so consumers must recompile. (#480)
-- `ExtractorBaseContractTests`, `LoaderBaseContractTests` and `TransformerBaseContractTests` now build the SUT through `CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval)` (forward the three values into the options record unvalidated); `CreateSutOverSource` gains `int maximumItemCount`. A protected `CreateSut(int itemCount)` forwarder keeps derived tests compiling. Six contract tests are renamed from `*_set_to_*` to `*_configured_*`. (#480)
+- `ExtractorBaseContractTests`, `LoaderBaseContractTests` and `TransformerBaseContractTests` now build the SUT through `CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval)` (forward the three values into the options record unvalidated); `CreateSutOverSource` gains `int maximumItemCount`. A protected `CreateSut(int itemCount)` forwarder keeps derived tests compiling. 24 contract tests (eight per base class) are renamed from `*_set_to_*` to `*_configured_*`. (#480)
 
 ### Added
 

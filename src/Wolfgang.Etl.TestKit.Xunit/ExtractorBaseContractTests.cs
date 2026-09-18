@@ -47,7 +47,12 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///     : ExtractorBaseContractTests&lt;MyExtractor, MyRecord, MyProgress&gt;
 /// {
 ///     protected override MyExtractor CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) =>
-///         new MyExtractor("path/to/test-data.csv", itemCount);
+///         new MyExtractor("path/to/test-data.csv", itemCount, new MyExtractorOptions
+///         {
+///             MaximumItemCount = maximumItemCount,
+///             SkipItemCount = skipItemCount,
+///             ReportingInterval = reportingInterval,
+///         });
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };

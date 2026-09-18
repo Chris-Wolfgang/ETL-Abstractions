@@ -46,7 +46,12 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///     : LoaderBaseContractTests&lt;MyLoader, MyRecord, MyProgress&gt;
 /// {
 ///     protected override MyLoader CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) =>
-///         new MyLoader(connectionString);
+///         new MyLoader(connectionString, new MyLoaderOptions
+///         {
+///             MaximumItemCount = maximumItemCount,
+///             SkipItemCount = skipItemCount,
+///             ReportingInterval = reportingInterval,
+///         });
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateSourceItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };

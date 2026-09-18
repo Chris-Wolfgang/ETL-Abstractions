@@ -69,10 +69,10 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// documented defaults apply.
     /// </param>
     /// <remarks>
-    /// Values supplied here are the stage's initial configuration. <c>ErrorPolicy</c> is
-    /// init-only and cannot change afterwards; <c>ReportingInterval</c>, <c>MaximumItemCount</c>
-    /// and <c>SkipItemCount</c> remain assignable on the stage until their setters are retired
-    /// (#351 / #438), at which point construction becomes the only way to set them. See ADR-0009.
+    /// Values supplied here are the stage's configuration for its whole life: <c>ErrorPolicy</c>,
+    /// <c>ReportingInterval</c>, <c>MaximumItemCount</c> and <c>SkipItemCount</c> are all init-only, so
+    /// the options record passed here (or an object initializer on the derived stage) is the only way
+    /// to set them and nothing can change once a run has started (#351 / #438, ADR-0009).
     /// </remarks>
     protected ExtractorBase(ExtractorOptions? options = null)
     {

@@ -48,7 +48,12 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///     : TransformerBaseContractTests&lt;MyTransformer, MyRecord, MyProgress&gt;
 /// {
 ///     protected override MyTransformer CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) =>
-///         new MyTransformer();
+///         new MyTransformer(new MyTransformerOptions
+///         {
+///             MaximumItemCount = maximumItemCount,
+///             SkipItemCount = skipItemCount,
+///             ReportingInterval = reportingInterval,
+///         });
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
