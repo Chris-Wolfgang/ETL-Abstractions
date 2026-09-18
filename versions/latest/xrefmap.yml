@@ -477,6 +477,15 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).IncrementCurrentItemCount()
   nameWithType: ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount()
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).IncrementCurrentItemCount()
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.IncrementCurrentItemCount(System.Int32)
+  name: IncrementCurrentItemCount(int)
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentItemCount_System_Int32_
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.IncrementCurrentItemCount(System.Int32)
+  name.vb: IncrementCurrentItemCount(Integer)
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount(int)
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).IncrementCurrentItemCount(Integer)
+  nameWithType: ExtractorBase<TSource, TProgress>.IncrementCurrentItemCount(int)
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).IncrementCurrentItemCount(Integer)
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.IncrementCurrentItemCount*
   name: IncrementCurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentItemCount_
@@ -494,6 +503,15 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).IncrementCurrentSkippedItemCount()
   nameWithType: ExtractorBase<TSource, TProgress>.IncrementCurrentSkippedItemCount()
   nameWithType.vb: ExtractorBase(Of TSource, TProgress).IncrementCurrentSkippedItemCount()
+- uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.IncrementCurrentSkippedItemCount(System.Int32)
+  name: IncrementCurrentSkippedItemCount(int)
+  href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentSkippedItemCount_System_Int32_
+  commentId: M:Wolfgang.Etl.Abstractions.ExtractorBase`2.IncrementCurrentSkippedItemCount(System.Int32)
+  name.vb: IncrementCurrentSkippedItemCount(Integer)
+  fullName: Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.IncrementCurrentSkippedItemCount(int)
+  fullName.vb: Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress).IncrementCurrentSkippedItemCount(Integer)
+  nameWithType: ExtractorBase<TSource, TProgress>.IncrementCurrentSkippedItemCount(int)
+  nameWithType.vb: ExtractorBase(Of TSource, TProgress).IncrementCurrentSkippedItemCount(Integer)
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`2.IncrementCurrentSkippedItemCount*
   name: IncrementCurrentSkippedItemCount
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentSkippedItemCount_
@@ -1889,6 +1907,15 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).IncrementCurrentItemCount()
   nameWithType: LoaderBase<TDestination, TProgress>.IncrementCurrentItemCount()
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).IncrementCurrentItemCount()
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentItemCount(System.Int32)
+  name: IncrementCurrentItemCount(int)
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount_System_Int32_
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentItemCount(System.Int32)
+  name.vb: IncrementCurrentItemCount(Integer)
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentItemCount(int)
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).IncrementCurrentItemCount(Integer)
+  nameWithType: LoaderBase<TDestination, TProgress>.IncrementCurrentItemCount(int)
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).IncrementCurrentItemCount(Integer)
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentItemCount*
   name: IncrementCurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount_
@@ -1906,6 +1933,15 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).IncrementCurrentSkippedItemCount()
   nameWithType: LoaderBase<TDestination, TProgress>.IncrementCurrentSkippedItemCount()
   nameWithType.vb: LoaderBase(Of TDestination, TProgress).IncrementCurrentSkippedItemCount()
+- uid: Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentSkippedItemCount(System.Int32)
+  name: IncrementCurrentSkippedItemCount(int)
+  href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentSkippedItemCount_System_Int32_
+  commentId: M:Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentSkippedItemCount(System.Int32)
+  name.vb: IncrementCurrentSkippedItemCount(Integer)
+  fullName: Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.IncrementCurrentSkippedItemCount(int)
+  fullName.vb: Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress).IncrementCurrentSkippedItemCount(Integer)
+  nameWithType: LoaderBase<TDestination, TProgress>.IncrementCurrentSkippedItemCount(int)
+  nameWithType.vb: LoaderBase(Of TDestination, TProgress).IncrementCurrentSkippedItemCount(Integer)
 - uid: Wolfgang.Etl.Abstractions.LoaderBase`2.IncrementCurrentSkippedItemCount*
   name: IncrementCurrentSkippedItemCount
   href: api/Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentSkippedItemCount_
@@ -2785,6 +2821,15 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).IncrementCurrentItemCount()
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount()
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).IncrementCurrentItemCount()
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentItemCount(System.Int32)
+  name: IncrementCurrentItemCount(int)
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentItemCount_System_Int32_
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentItemCount(System.Int32)
+  name.vb: IncrementCurrentItemCount(Integer)
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount(int)
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).IncrementCurrentItemCount(Integer)
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentItemCount(int)
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).IncrementCurrentItemCount(Integer)
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentItemCount*
   name: IncrementCurrentItemCount
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentItemCount_
@@ -2802,6 +2847,15 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).IncrementCurrentSkippedItemCount()
   nameWithType: TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount()
   nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).IncrementCurrentSkippedItemCount()
+- uid: Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentSkippedItemCount(System.Int32)
+  name: IncrementCurrentSkippedItemCount(int)
+  href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentSkippedItemCount_System_Int32_
+  commentId: M:Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentSkippedItemCount(System.Int32)
+  name.vb: IncrementCurrentSkippedItemCount(Integer)
+  fullName: Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount(int)
+  fullName.vb: Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress).IncrementCurrentSkippedItemCount(Integer)
+  nameWithType: TransformerBase<TSource, TDestination, TProgress>.IncrementCurrentSkippedItemCount(int)
+  nameWithType.vb: TransformerBase(Of TSource, TDestination, TProgress).IncrementCurrentSkippedItemCount(Integer)
 - uid: Wolfgang.Etl.Abstractions.TransformerBase`3.IncrementCurrentSkippedItemCount*
   name: IncrementCurrentSkippedItemCount
   href: api/Wolfgang.Etl.Abstractions.TransformerBase-3.html#Wolfgang_Etl_Abstractions_TransformerBase_3_IncrementCurrentSkippedItemCount_
@@ -3177,6 +3231,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), System.Func(Of Integer, System.TimeSpan))
   nameWithType: DelayingExtractor<T>.DelayingExtractor(IEnumerable<T>, Func<int, TimeSpan>)
   nameWithType.vb: DelayingExtractor(Of T).New(IEnumerable(Of T), Func(Of Integer, TimeSpan))
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{System.Int32,System.TimeSpan},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: DelayingExtractor(IEnumerable<T>, Func<int, TimeSpan>, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__System_Func_System_Int32_System_TimeSpan__Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{System.Int32,System.TimeSpan},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(IEnumerable(Of T), Func(Of Integer, TimeSpan), ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>, System.Func<int, System.TimeSpan>, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), System.Func(Of Integer, System.TimeSpan), Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: DelayingExtractor<T>.DelayingExtractor(IEnumerable<T>, Func<int, TimeSpan>, ExtractorOptions?)
+  nameWithType.vb: DelayingExtractor(Of T).New(IEnumerable(Of T), Func(Of Integer, TimeSpan), ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.TimeSpan)
   name: DelayingExtractor(IEnumerable<T>, TimeSpan)
   href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__System_TimeSpan_
@@ -3186,6 +3249,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), System.TimeSpan)
   nameWithType: DelayingExtractor<T>.DelayingExtractor(IEnumerable<T>, TimeSpan)
   nameWithType.vb: DelayingExtractor(Of T).New(IEnumerable(Of T), TimeSpan)
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.TimeSpan,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: DelayingExtractor(IEnumerable<T>, TimeSpan, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__System_TimeSpan_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.TimeSpan,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(IEnumerable(Of T), TimeSpan, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>, System.TimeSpan, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), System.TimeSpan, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: DelayingExtractor<T>.DelayingExtractor(IEnumerable<T>, TimeSpan, ExtractorOptions?)
+  nameWithType.vb: DelayingExtractor(Of T).New(IEnumerable(Of T), TimeSpan, ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor*
   name: DelayingExtractor
   href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1__ctor_
@@ -3248,6 +3320,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.FaultyExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T))
   nameWithType: FaultyExtractor<T>.FaultyExtractor(IEnumerable<T>)
   nameWithType.vb: FaultyExtractor(Of T).New(IEnumerable(Of T))
+- uid: Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: FaultyExtractor(IEnumerable<T>, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.FaultyExtractor-1.html#Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(IEnumerable(Of T), ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.FaultyExtractor<T>.FaultyExtractor(System.Collections.Generic.IEnumerable<T>, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.FaultyExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: FaultyExtractor<T>.FaultyExtractor(IEnumerable<T>, ExtractorOptions?)
+  nameWithType.vb: FaultyExtractor(Of T).New(IEnumerable(Of T), ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.IProgressTimer)
   name: FaultyExtractor(IEnumerable<T>, IProgressTimer)
   href: api/Wolfgang.Etl.TestKit.FaultyExtractor-1.html#Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_IProgressTimer_
@@ -3257,6 +3338,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.FaultyExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: FaultyExtractor<T>.FaultyExtractor(IEnumerable<T>, IProgressTimer)
   nameWithType.vb: FaultyExtractor(Of T).New(IEnumerable(Of T), IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: FaultyExtractor(IEnumerable<T>, IProgressTimer, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.FaultyExtractor-1.html#Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(IEnumerable(Of T), IProgressTimer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.FaultyExtractor<T>.FaultyExtractor(System.Collections.Generic.IEnumerable<T>, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.FaultyExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: FaultyExtractor<T>.FaultyExtractor(IEnumerable<T>, IProgressTimer, ExtractorOptions?)
+  nameWithType.vb: FaultyExtractor(Of T).New(IEnumerable(Of T), IProgressTimer, ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor*
   name: FaultyExtractor
   href: api/Wolfgang.Etl.TestKit.FaultyExtractor-1.html#Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_
@@ -3486,6 +3576,24 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.FaultyLoader(Of T).New(Boolean, Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: FaultyLoader<T>.FaultyLoader(bool, IProgressTimer)
   nameWithType.vb: FaultyLoader(Of T).New(Boolean, IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.FaultyLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.LoaderOptions)
+  name: FaultyLoader(bool, IProgressTimer, LoaderOptions?)
+  href: api/Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_LoaderOptions_
+  commentId: M:Wolfgang.Etl.TestKit.FaultyLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.LoaderOptions)
+  name.vb: New(Boolean, IProgressTimer, LoaderOptions)
+  fullName: Wolfgang.Etl.TestKit.FaultyLoader<T>.FaultyLoader(bool, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.LoaderOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.FaultyLoader(Of T).New(Boolean, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.LoaderOptions)
+  nameWithType: FaultyLoader<T>.FaultyLoader(bool, IProgressTimer, LoaderOptions?)
+  nameWithType.vb: FaultyLoader(Of T).New(Boolean, IProgressTimer, LoaderOptions)
+- uid: Wolfgang.Etl.TestKit.FaultyLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.LoaderOptions)
+  name: FaultyLoader(bool, LoaderOptions?)
+  href: api/Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_LoaderOptions_
+  commentId: M:Wolfgang.Etl.TestKit.FaultyLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.LoaderOptions)
+  name.vb: New(Boolean, LoaderOptions)
+  fullName: Wolfgang.Etl.TestKit.FaultyLoader<T>.FaultyLoader(bool, Wolfgang.Etl.Abstractions.LoaderOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.FaultyLoader(Of T).New(Boolean, Wolfgang.Etl.Abstractions.LoaderOptions)
+  nameWithType: FaultyLoader<T>.FaultyLoader(bool, LoaderOptions?)
+  nameWithType.vb: FaultyLoader(Of T).New(Boolean, LoaderOptions)
 - uid: Wolfgang.Etl.TestKit.FaultyLoader`1.#ctor*
   name: FaultyLoader
   href: api/Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1__ctor_
@@ -3733,6 +3841,24 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.FaultyTransformer(Of T).New(Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: FaultyTransformer<T>.FaultyTransformer(IProgressTimer)
   nameWithType.vb: FaultyTransformer(Of T).New(IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.FaultyTransformer`1.#ctor(Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.TransformerOptions)
+  name: FaultyTransformer(IProgressTimer, TransformerOptions?)
+  href: api/Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1__ctor_Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_TransformerOptions_
+  commentId: M:Wolfgang.Etl.TestKit.FaultyTransformer`1.#ctor(Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.TransformerOptions)
+  name.vb: New(IProgressTimer, TransformerOptions)
+  fullName: Wolfgang.Etl.TestKit.FaultyTransformer<T>.FaultyTransformer(Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.TransformerOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.FaultyTransformer(Of T).New(Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.TransformerOptions)
+  nameWithType: FaultyTransformer<T>.FaultyTransformer(IProgressTimer, TransformerOptions?)
+  nameWithType.vb: FaultyTransformer(Of T).New(IProgressTimer, TransformerOptions)
+- uid: Wolfgang.Etl.TestKit.FaultyTransformer`1.#ctor(Wolfgang.Etl.Abstractions.TransformerOptions)
+  name: FaultyTransformer(TransformerOptions?)
+  href: api/Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1__ctor_Wolfgang_Etl_Abstractions_TransformerOptions_
+  commentId: M:Wolfgang.Etl.TestKit.FaultyTransformer`1.#ctor(Wolfgang.Etl.Abstractions.TransformerOptions)
+  name.vb: New(TransformerOptions)
+  fullName: Wolfgang.Etl.TestKit.FaultyTransformer<T>.FaultyTransformer(Wolfgang.Etl.Abstractions.TransformerOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.FaultyTransformer(Of T).New(Wolfgang.Etl.Abstractions.TransformerOptions)
+  nameWithType: FaultyTransformer<T>.FaultyTransformer(TransformerOptions?)
+  nameWithType.vb: FaultyTransformer(Of T).New(TransformerOptions)
 - uid: Wolfgang.Etl.TestKit.FaultyTransformer`1.#ctor*
   name: FaultyTransformer
   href: api/Wolfgang.Etl.TestKit.FaultyTransformer-1.html#Wolfgang_Etl_TestKit_FaultyTransformer_1__ctor_
@@ -4131,6 +4257,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), Integer, Integer)
   nameWithType: RetryingExtractor<T>.RetryingExtractor(IEnumerable<T>, int, int)
   nameWithType.vb: RetryingExtractor(Of T).New(IEnumerable(Of T), Integer, Integer)
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Int32,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: RetryingExtractor(IEnumerable<T>, int, int, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__System_Int32_System_Int32_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.RetryingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Int32,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(IEnumerable(Of T), Integer, Integer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.RetryingExtractor(System.Collections.Generic.IEnumerable<T>, int, int, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), Integer, Integer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: RetryingExtractor<T>.RetryingExtractor(IEnumerable<T>, int, int, ExtractorOptions?)
+  nameWithType.vb: RetryingExtractor(Of T).New(IEnumerable(Of T), Integer, Integer, ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.#ctor*
   name: RetryingExtractor
   href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1__ctor_
@@ -4237,6 +4372,24 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).New(System.Func(Of T, String))
   nameWithType: SnapshotTestLoader<T>.SnapshotTestLoader(Func<T, string>)
   nameWithType.vb: SnapshotTestLoader(Of T).New(Func(Of T, String))
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor(System.Func{`0,System.String},Wolfgang.Etl.Abstractions.LoaderOptions)
+  name: SnapshotTestLoader(Func<T, string>, LoaderOptions?)
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1__ctor_System_Func__0_System_String__Wolfgang_Etl_Abstractions_LoaderOptions_
+  commentId: M:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor(System.Func{`0,System.String},Wolfgang.Etl.Abstractions.LoaderOptions)
+  name.vb: New(Func(Of T, String), LoaderOptions)
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader(System.Func<T, string>, Wolfgang.Etl.Abstractions.LoaderOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).New(System.Func(Of T, String), Wolfgang.Etl.Abstractions.LoaderOptions)
+  nameWithType: SnapshotTestLoader<T>.SnapshotTestLoader(Func<T, string>, LoaderOptions?)
+  nameWithType.vb: SnapshotTestLoader(Of T).New(Func(Of T, String), LoaderOptions)
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor(Wolfgang.Etl.Abstractions.LoaderOptions)
+  name: SnapshotTestLoader(LoaderOptions?)
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1__ctor_Wolfgang_Etl_Abstractions_LoaderOptions_
+  commentId: M:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor(Wolfgang.Etl.Abstractions.LoaderOptions)
+  name.vb: New(LoaderOptions)
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader(Wolfgang.Etl.Abstractions.LoaderOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).New(Wolfgang.Etl.Abstractions.LoaderOptions)
+  nameWithType: SnapshotTestLoader<T>.SnapshotTestLoader(LoaderOptions?)
+  nameWithType.vb: SnapshotTestLoader(Of T).New(LoaderOptions)
 - uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor*
   name: SnapshotTestLoader
   href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1__ctor_
@@ -4334,6 +4487,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T))
   nameWithType: TestExtractor<T>.TestExtractor(IEnumerable<T>)
   nameWithType.vb: TestExtractor(Of T).New(IEnumerable(Of T))
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(IEnumerable<T>, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(IEnumerable(Of T), ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerable<T>, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(IEnumerable<T>, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(IEnumerable(Of T), ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.IProgressTimer)
   name: TestExtractor(IEnumerable<T>, IProgressTimer)
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_IProgressTimer_
@@ -4343,6 +4505,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: TestExtractor<T>.TestExtractor(IEnumerable<T>, IProgressTimer)
   nameWithType.vb: TestExtractor(Of T).New(IEnumerable(Of T), IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(IEnumerable<T>, IProgressTimer, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(IEnumerable(Of T), IProgressTimer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerable<T>, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(IEnumerable<T>, IProgressTimer, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(IEnumerable(Of T), IProgressTimer, ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerator{`0})
   name: TestExtractor(IEnumerator<T>)
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Collections_Generic_IEnumerator__0__
@@ -4352,6 +4523,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Collections.Generic.IEnumerator(Of T))
   nameWithType: TestExtractor<T>.TestExtractor(IEnumerator<T>)
   nameWithType.vb: TestExtractor(Of T).New(IEnumerator(Of T))
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerator{`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(IEnumerator<T>, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Collections_Generic_IEnumerator__0__Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerator{`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(IEnumerator(Of T), ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerator<T>, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Collections.Generic.IEnumerator(Of T), Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(IEnumerator<T>, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(IEnumerator(Of T), ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerator{`0},Wolfgang.Etl.Abstractions.IProgressTimer)
   name: TestExtractor(IEnumerator<T>, IProgressTimer)
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Collections_Generic_IEnumerator__0__Wolfgang_Etl_Abstractions_IProgressTimer_
@@ -4361,6 +4541,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Collections.Generic.IEnumerator(Of T), Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: TestExtractor<T>.TestExtractor(IEnumerator<T>, IProgressTimer)
   nameWithType.vb: TestExtractor(Of T).New(IEnumerator(Of T), IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerator{`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(IEnumerator<T>, IProgressTimer, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Collections_Generic_IEnumerator__0__Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Collections.Generic.IEnumerator{`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(IEnumerator(Of T), IProgressTimer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerator<T>, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Collections.Generic.IEnumerator(Of T), Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(IEnumerator<T>, IProgressTimer, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(IEnumerator(Of T), IProgressTimer, ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0})
   name: TestExtractor(Func<int, T>)
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func_System_Int32__0__
@@ -4379,6 +4568,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of Integer, T), Integer)
   nameWithType: TestExtractor<T>.TestExtractor(Func<int, T>, int)
   nameWithType.vb: TestExtractor(Of T).New(Func(Of Integer, T), Integer)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},System.Int32,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(Func<int, T>, int, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func_System_Int32__0__System_Int32_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},System.Int32,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(Func(Of Integer, T), Integer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T>, int, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of Integer, T), Integer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(Func<int, T>, int, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(Func(Of Integer, T), Integer, ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},System.Int32,Wolfgang.Etl.Abstractions.IProgressTimer)
   name: TestExtractor(Func<int, T>, int, IProgressTimer)
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func_System_Int32__0__System_Int32_Wolfgang_Etl_Abstractions_IProgressTimer_
@@ -4388,6 +4586,24 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of Integer, T), Integer, Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: TestExtractor<T>.TestExtractor(Func<int, T>, int, IProgressTimer)
   nameWithType.vb: TestExtractor(Of T).New(Func(Of Integer, T), Integer, IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},System.Int32,Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(Func<int, T>, int, IProgressTimer, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func_System_Int32__0__System_Int32_Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},System.Int32,Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(Func(Of Integer, T), Integer, IProgressTimer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T>, int, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of Integer, T), Integer, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(Func<int, T>, int, IProgressTimer, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(Func(Of Integer, T), Integer, IProgressTimer, ExtractorOptions)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(Func<int, T>, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func_System_Int32__0__Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(Func(Of Integer, T), ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T>, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of Integer, T), Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(Func<int, T>, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(Func(Of Integer, T), ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},Wolfgang.Etl.Abstractions.IProgressTimer)
   name: TestExtractor(Func<int, T>, IProgressTimer)
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func_System_Int32__0__Wolfgang_Etl_Abstractions_IProgressTimer_
@@ -4397,6 +4613,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of Integer, T), Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: TestExtractor<T>.TestExtractor(Func<int, T>, IProgressTimer)
   nameWithType.vb: TestExtractor(Of T).New(Func(Of Integer, T), IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(Func<int, T>, IProgressTimer, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func_System_Int32__0__Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{System.Int32,`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(Func(Of Integer, T), IProgressTimer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T>, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of Integer, T), Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(Func<int, T>, IProgressTimer, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(Func(Of Integer, T), IProgressTimer, ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0})
   name: TestExtractor(Func<T>)
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func__0__
@@ -4415,6 +4640,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of T), Integer)
   nameWithType: TestExtractor<T>.TestExtractor(Func<T>, int)
   nameWithType.vb: TestExtractor(Of T).New(Func(Of T), Integer)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},System.Int32,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(Func<T>, int, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func__0__System_Int32_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},System.Int32,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(Func(Of T), Integer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T>, int, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of T), Integer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(Func<T>, int, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(Func(Of T), Integer, ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},System.Int32,Wolfgang.Etl.Abstractions.IProgressTimer)
   name: TestExtractor(Func<T>, int, IProgressTimer)
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func__0__System_Int32_Wolfgang_Etl_Abstractions_IProgressTimer_
@@ -4424,6 +4658,24 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of T), Integer, Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: TestExtractor<T>.TestExtractor(Func<T>, int, IProgressTimer)
   nameWithType.vb: TestExtractor(Of T).New(Func(Of T), Integer, IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},System.Int32,Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(Func<T>, int, IProgressTimer, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func__0__System_Int32_Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},System.Int32,Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(Func(Of T), Integer, IProgressTimer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T>, int, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of T), Integer, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(Func<T>, int, IProgressTimer, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(Func(Of T), Integer, IProgressTimer, ExtractorOptions)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(Func<T>, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func__0__Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(Func(Of T), ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T>, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of T), Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(Func<T>, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(Func(Of T), ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},Wolfgang.Etl.Abstractions.IProgressTimer)
   name: TestExtractor(Func<T>, IProgressTimer)
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func__0__Wolfgang_Etl_Abstractions_IProgressTimer_
@@ -4433,6 +4685,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of T), Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: TestExtractor<T>.TestExtractor(Func<T>, IProgressTimer)
   nameWithType.vb: TestExtractor(Of T).New(Func(Of T), IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name: TestExtractor(Func<T>, IProgressTimer, ExtractorOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_System_Func__0__Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_ExtractorOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestExtractor`1.#ctor(System.Func{`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)
+  name.vb: New(Func(Of T), IProgressTimer, ExtractorOptions)
+  fullName: Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T>, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestExtractor(Of T).New(System.Func(Of T), Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.ExtractorOptions)
+  nameWithType: TestExtractor<T>.TestExtractor(Func<T>, IProgressTimer, ExtractorOptions?)
+  nameWithType.vb: TestExtractor(Of T).New(Func(Of T), IProgressTimer, ExtractorOptions)
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1.#ctor*
   name: TestExtractor
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html#Wolfgang_Etl_TestKit_TestExtractor_1__ctor_
@@ -4540,6 +4801,24 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestLoader(Of T).New(Boolean, Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: TestLoader<T>.TestLoader(bool, IProgressTimer)
   nameWithType.vb: TestLoader(Of T).New(Boolean, IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.TestLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.LoaderOptions)
+  name: TestLoader(bool, IProgressTimer, LoaderOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestLoader-1.html#Wolfgang_Etl_TestKit_TestLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_LoaderOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.LoaderOptions)
+  name.vb: New(Boolean, IProgressTimer, LoaderOptions)
+  fullName: Wolfgang.Etl.TestKit.TestLoader<T>.TestLoader(bool, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.LoaderOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestLoader(Of T).New(Boolean, Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.LoaderOptions)
+  nameWithType: TestLoader<T>.TestLoader(bool, IProgressTimer, LoaderOptions?)
+  nameWithType.vb: TestLoader(Of T).New(Boolean, IProgressTimer, LoaderOptions)
+- uid: Wolfgang.Etl.TestKit.TestLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.LoaderOptions)
+  name: TestLoader(bool, LoaderOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestLoader-1.html#Wolfgang_Etl_TestKit_TestLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_LoaderOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.LoaderOptions)
+  name.vb: New(Boolean, LoaderOptions)
+  fullName: Wolfgang.Etl.TestKit.TestLoader<T>.TestLoader(bool, Wolfgang.Etl.Abstractions.LoaderOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestLoader(Of T).New(Boolean, Wolfgang.Etl.Abstractions.LoaderOptions)
+  nameWithType: TestLoader<T>.TestLoader(bool, LoaderOptions?)
+  nameWithType.vb: TestLoader(Of T).New(Boolean, LoaderOptions)
 - uid: Wolfgang.Etl.TestKit.TestLoader`1.#ctor*
   name: TestLoader
   href: api/Wolfgang.Etl.TestKit.TestLoader-1.html#Wolfgang_Etl_TestKit_TestLoader_1__ctor_
@@ -4682,6 +4961,24 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestTransformer(Of T).New(Wolfgang.Etl.Abstractions.IProgressTimer)
   nameWithType: TestTransformer<T>.TestTransformer(IProgressTimer)
   nameWithType.vb: TestTransformer(Of T).New(IProgressTimer)
+- uid: Wolfgang.Etl.TestKit.TestTransformer`1.#ctor(Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.TransformerOptions)
+  name: TestTransformer(IProgressTimer, TransformerOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestTransformer-1.html#Wolfgang_Etl_TestKit_TestTransformer_1__ctor_Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_TransformerOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestTransformer`1.#ctor(Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.TransformerOptions)
+  name.vb: New(IProgressTimer, TransformerOptions)
+  fullName: Wolfgang.Etl.TestKit.TestTransformer<T>.TestTransformer(Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.TransformerOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestTransformer(Of T).New(Wolfgang.Etl.Abstractions.IProgressTimer, Wolfgang.Etl.Abstractions.TransformerOptions)
+  nameWithType: TestTransformer<T>.TestTransformer(IProgressTimer, TransformerOptions?)
+  nameWithType.vb: TestTransformer(Of T).New(IProgressTimer, TransformerOptions)
+- uid: Wolfgang.Etl.TestKit.TestTransformer`1.#ctor(Wolfgang.Etl.Abstractions.TransformerOptions)
+  name: TestTransformer(TransformerOptions?)
+  href: api/Wolfgang.Etl.TestKit.TestTransformer-1.html#Wolfgang_Etl_TestKit_TestTransformer_1__ctor_Wolfgang_Etl_Abstractions_TransformerOptions_
+  commentId: M:Wolfgang.Etl.TestKit.TestTransformer`1.#ctor(Wolfgang.Etl.Abstractions.TransformerOptions)
+  name.vb: New(TransformerOptions)
+  fullName: Wolfgang.Etl.TestKit.TestTransformer<T>.TestTransformer(Wolfgang.Etl.Abstractions.TransformerOptions?)
+  fullName.vb: Wolfgang.Etl.TestKit.TestTransformer(Of T).New(Wolfgang.Etl.Abstractions.TransformerOptions)
+  nameWithType: TestTransformer<T>.TestTransformer(TransformerOptions?)
+  nameWithType.vb: TestTransformer(Of T).New(TransformerOptions)
 - uid: Wolfgang.Etl.TestKit.TestTransformer`1.#ctor*
   name: TestTransformer
   href: api/Wolfgang.Etl.TestKit.TestTransformer-1.html#Wolfgang_Etl_TestKit_TestTransformer_1__ctor_
@@ -6304,6 +6601,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer)
   nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSut(int)
   nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.CreateSut(System.Int32,System.Int32,System.Int32,System.Int32)
+  name: CreateSut(int, int, int, int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_CreateSut_System_Int32_System_Int32_System_Int32_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.CreateSut(System.Int32,System.Int32,System.Int32,System.Int32)
+  name.vb: CreateSut(Integer, Integer, Integer, Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSut(int, int, int, int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer, Integer, Integer, Integer)
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSut(int, int, int, int)
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer, Integer, Integer, Integer)
 - uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.CreateSut*
   name: CreateSut
   href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_CreateSut_
@@ -6313,15 +6619,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSut
   nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSut
   nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSut
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.CreateSutOverSource(System.Collections.Generic.IEnumerable{`1})
-  name: CreateSutOverSource(IEnumerable<TItem>)
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_CreateSutOverSource_System_Collections_Generic_IEnumerable__1__
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.CreateSutOverSource(System.Collections.Generic.IEnumerable{`1})
-  name.vb: CreateSutOverSource(IEnumerable(Of TItem))
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutOverSource(System.Collections.Generic.IEnumerable<TItem>)
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSutOverSource(System.Collections.Generic.IEnumerable(Of TItem))
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutOverSource(IEnumerable<TItem>)
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSutOverSource(IEnumerable(Of TItem))
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.CreateSutOverSource(System.Collections.Generic.IEnumerable{`1},System.Int32)
+  name: CreateSutOverSource(IEnumerable<TItem>, int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_CreateSutOverSource_System_Collections_Generic_IEnumerable__1__System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.CreateSutOverSource(System.Collections.Generic.IEnumerable{`1},System.Int32)
+  name.vb: CreateSutOverSource(IEnumerable(Of TItem), Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutOverSource(System.Collections.Generic.IEnumerable<TItem>, int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSutOverSource(System.Collections.Generic.IEnumerable(Of TItem), Integer)
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutOverSource(IEnumerable<TItem>, int)
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).CreateSutOverSource(IEnumerable(Of TItem), Integer)
 - uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.CreateSutOverSource*
   name: CreateSutOverSource
   href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_CreateSutOverSource_
@@ -6892,23 +7198,57 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ExtractAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length_Async
   nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length_Async
   nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ExtractAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length_Async
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value
-  name: MaximumItemCount_can_be_set_to_positive_value()
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_can_be_set_to_positive_value
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value()
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value()
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value()
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value*
-  name: MaximumItemCount_can_be_set_to_positive_value
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_can_be_set_to_positive_value_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value
+  name: MaximumItemCount_can_be_configured_with_a_positive_value()
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_can_be_configured_with_a_positive_value
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value()
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value()
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value()
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value*
+  name: MaximumItemCount_can_be_configured_with_a_positive_value
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_can_be_configured_with_a_positive_value_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  name: MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException*
+  name: MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  name: MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException*
+  name: MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_defaults_to_int_MaxValue
   name: MaximumItemCount_defaults_to_int_MaxValue()
   href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_defaults_to_int_MaxValue
@@ -6926,57 +7266,57 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_defaults_to_int_MaxValue
   nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_defaults_to_int_MaxValue
   nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_defaults_to_int_MaxValue
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  name: MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException*
-  name: MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value
+  name: ReportingInterval_can_be_configured_with_a_positive_value()
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_can_be_configured_with_a_positive_value
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value()
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value()
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value()
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value*
+  name: ReportingInterval_can_be_configured_with_a_positive_value
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_can_be_configured_with_a_positive_value_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  name: MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException*
-  name: MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  name: ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException*
+  name: ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value
-  name: ReportingInterval_can_be_set_to_positive_value()
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_can_be_set_to_positive_value
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value()
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value()
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value()
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value*
-  name: ReportingInterval_can_be_set_to_positive_value
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_can_be_set_to_positive_value_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  name: ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException*
+  name: ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_defaults_to_1000
   name: ReportingInterval_defaults_to_1000()
   href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_defaults_to_1000
@@ -6994,57 +7334,40 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_defaults_to_1000
   nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_defaults_to_1000
   nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_defaults_to_1000
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  name: ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException*
-  name: ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value
+  name: SkipItemCount_can_be_configured_with_a_positive_value()
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_SkipItemCount_can_be_configured_with_a_positive_value
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value()
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value()
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value()
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value*
+  name: SkipItemCount_can_be_configured_with_a_positive_value
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_SkipItemCount_can_be_configured_with_a_positive_value_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  name: ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException*
-  name: ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  name: SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException*
+  name: SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value
-  name: SkipItemCount_can_be_set_to_positive_value()
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_SkipItemCount_can_be_set_to_positive_value
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value()
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value()
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value()
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value*
-  name: SkipItemCount_can_be_set_to_positive_value
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_SkipItemCount_can_be_set_to_positive_value_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_defaults_to_zero
   name: SkipItemCount_defaults_to_zero()
   href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_SkipItemCount_defaults_to_zero
@@ -7062,23 +7385,6 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_defaults_to_zero
   nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_defaults_to_zero
   nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_defaults_to_zero
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  name: SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException*
-  name: SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_ExtractorBaseContractTests_3_SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType: ExtractorBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType.vb: ExtractorBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests`3
   name: IdempotentExtractorContractTests<TSut, TItem, TProgress>
   href: api/Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.html
@@ -8017,6 +8323,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer)
   nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSut(int)
   nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CreateSut(System.Int32,System.Int32,System.Int32,System.Int32)
+  name: CreateSut(int, int, int, int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CreateSut_System_Int32_System_Int32_System_Int32_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CreateSut(System.Int32,System.Int32,System.Int32,System.Int32)
+  name.vb: CreateSut(Integer, Integer, Integer, Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSut(int, int, int, int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer, Integer, Integer, Integer)
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSut(int, int, int, int)
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer, Integer, Integer, Integer)
 - uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.CreateSut*
   name: CreateSut
   href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_CreateSut_
@@ -8638,23 +8953,57 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).LoadAsync_with_token_completes_successfully_Async
   nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_token_completes_successfully_Async
   nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).LoadAsync_with_token_completes_successfully_Async
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value
-  name: MaximumItemCount_can_be_set_to_positive_value()
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_can_be_set_to_positive_value
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value()
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value()
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value()
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value*
-  name: MaximumItemCount_can_be_set_to_positive_value
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_can_be_set_to_positive_value_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value
+  name: MaximumItemCount_can_be_configured_with_a_positive_value()
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_can_be_configured_with_a_positive_value
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value()
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value()
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value()
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value*
+  name: MaximumItemCount_can_be_configured_with_a_positive_value
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_can_be_configured_with_a_positive_value_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  name: MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException*
+  name: MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  name: MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException*
+  name: MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_defaults_to_int_MaxValue
   name: MaximumItemCount_defaults_to_int_MaxValue()
   href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_defaults_to_int_MaxValue
@@ -8672,57 +9021,57 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_defaults_to_int_MaxValue
   nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_defaults_to_int_MaxValue
   nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_defaults_to_int_MaxValue
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  name: MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException*
-  name: MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value
+  name: ReportingInterval_can_be_configured_with_a_positive_value()
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_can_be_configured_with_a_positive_value
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value()
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value()
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value()
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value*
+  name: ReportingInterval_can_be_configured_with_a_positive_value
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_can_be_configured_with_a_positive_value_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  name: MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException*
-  name: MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  name: ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException*
+  name: ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value
-  name: ReportingInterval_can_be_set_to_positive_value()
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_can_be_set_to_positive_value
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value()
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value()
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value()
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value*
-  name: ReportingInterval_can_be_set_to_positive_value
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_can_be_set_to_positive_value_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  name: ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException*
+  name: ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_defaults_to_1000
   name: ReportingInterval_defaults_to_1000()
   href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_defaults_to_1000
@@ -8740,57 +9089,40 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_defaults_to_1000
   nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_defaults_to_1000
   nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_defaults_to_1000
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  name: ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException*
-  name: ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value
+  name: SkipItemCount_can_be_configured_with_a_positive_value()
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_can_be_configured_with_a_positive_value
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value()
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value()
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value()
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value*
+  name: SkipItemCount_can_be_configured_with_a_positive_value
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_can_be_configured_with_a_positive_value_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  name: ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException*
-  name: ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  name: SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException*
+  name: SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value
-  name: SkipItemCount_can_be_set_to_positive_value()
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_can_be_set_to_positive_value
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value()
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value()
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value()
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value*
-  name: SkipItemCount_can_be_set_to_positive_value
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_can_be_set_to_positive_value_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_defaults_to_zero
   name: SkipItemCount_defaults_to_zero()
   href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_defaults_to_zero
@@ -8808,23 +9140,6 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_defaults_to_zero
   nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_defaults_to_zero
   nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_defaults_to_zero
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  name: SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException*
-  name: SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_LoaderBaseContractTests_3_SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType: LoaderBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType.vb: LoaderBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer
   name: ManualProgressTimer
   href: api/Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.html
@@ -9927,6 +10242,15 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer)
   nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSut(int)
   nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.CreateSut(System.Int32,System.Int32,System.Int32,System.Int32)
+  name: CreateSut(int, int, int, int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_CreateSut_System_Int32_System_Int32_System_Int32_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.CreateSut(System.Int32,System.Int32,System.Int32,System.Int32)
+  name.vb: CreateSut(Integer, Integer, Integer, Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSut(int, int, int, int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer, Integer, Integer, Integer)
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSut(int, int, int, int)
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).CreateSut(Integer, Integer, Integer, Integer)
 - uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.CreateSut*
   name: CreateSut
   href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_CreateSut_
@@ -10004,23 +10328,57 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).CurrentSkippedItemCount_defaults_to_zero
   nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero
   nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).CurrentSkippedItemCount_defaults_to_zero
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value
-  name: MaximumItemCount_can_be_set_to_positive_value()
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_can_be_set_to_positive_value
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value()
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value()
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value()
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value*
-  name: MaximumItemCount_can_be_set_to_positive_value
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_can_be_set_to_positive_value_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_can_be_set_to_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value
+  name: MaximumItemCount_can_be_configured_with_a_positive_value()
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_can_be_configured_with_a_positive_value
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value()
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value()
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value()
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value*
+  name: MaximumItemCount_can_be_configured_with_a_positive_value
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_can_be_configured_with_a_positive_value_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_can_be_configured_with_a_positive_value
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_set_to_positive_value
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_can_be_configured_with_a_positive_value
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_can_be_configured_with_a_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  name: MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException*
+  name: MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  name: MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException*
+  name: MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_configured_to_zero_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_defaults_to_int_MaxValue
   name: MaximumItemCount_defaults_to_int_MaxValue()
   href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_defaults_to_int_MaxValue
@@ -10038,57 +10396,57 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_defaults_to_int_MaxValue
   nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_defaults_to_int_MaxValue
   nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_defaults_to_int_MaxValue
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  name: MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException*
-  name: MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value
+  name: ReportingInterval_can_be_configured_with_a_positive_value()
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_can_be_configured_with_a_positive_value
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value()
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value()
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value()
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value*
+  name: ReportingInterval_can_be_configured_with_a_positive_value
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_can_be_configured_with_a_positive_value_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_can_be_configured_with_a_positive_value
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  name: MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException*
-  name: MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_configured_with_a_positive_value
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_configured_with_a_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  name: ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException*
+  name: ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).MaximumItemCount_set_to_zero_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value
-  name: ReportingInterval_can_be_set_to_positive_value()
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_can_be_set_to_positive_value
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value()
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value()
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value()
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value*
-  name: ReportingInterval_can_be_set_to_positive_value
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_can_be_set_to_positive_value_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  name: ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException*
+  name: ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_can_be_set_to_positive_value
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_configured_to_zero_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_defaults_to_1000
   name: ReportingInterval_defaults_to_1000()
   href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_defaults_to_1000
@@ -10106,57 +10464,40 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_defaults_to_1000
   nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_defaults_to_1000
   nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_defaults_to_1000
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  name: ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException*
-  name: ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value
+  name: SkipItemCount_can_be_configured_with_a_positive_value()
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_SkipItemCount_can_be_configured_with_a_positive_value
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value()
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value()
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value()
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value*
+  name: SkipItemCount_can_be_configured_with_a_positive_value
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_SkipItemCount_can_be_configured_with_a_positive_value_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_can_be_configured_with_a_positive_value
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_negative_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  name: ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException*
-  name: ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_configured_with_a_positive_value
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_configured_with_a_positive_value
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  name: SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException()
+- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException*
+  name: SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
   isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).ReportingInterval_set_to_zero_throws_ArgumentOutOfRangeException
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value
-  name: SkipItemCount_can_be_set_to_positive_value()
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_SkipItemCount_can_be_set_to_positive_value
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value()
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value()
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value()
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value*
-  name: SkipItemCount_can_be_set_to_positive_value
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_SkipItemCount_can_be_set_to_positive_value_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_can_be_set_to_positive_value
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_can_be_set_to_positive_value
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_can_be_set_to_positive_value
+  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
+  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_configured_to_negative_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_defaults_to_zero
   name: SkipItemCount_defaults_to_zero()
   href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_SkipItemCount_defaults_to_zero
@@ -10174,23 +10515,6 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_defaults_to_zero
   nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_defaults_to_zero
   nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_defaults_to_zero
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  name: SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  commentId: M:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException()
-- uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException*
-  name: SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException_
-  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  isSpec: "True"
-  fullName: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  fullName.vb: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType: TransformerBaseContractTests<TSut, TItem, TProgress>.SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
-  nameWithType.vb: TransformerBaseContractTests(Of TSut, TItem, TProgress).SkipItemCount_set_to_negative_throws_ArgumentOutOfRangeException
 - uid: Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests`3.TransformAsync_CurrentItemCount_tracks_each_yielded_item_Async
   name: TransformAsync_CurrentItemCount_tracks_each_yielded_item_Async()
   href: api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_TransformerBaseContractTests_3_TransformAsync_CurrentItemCount_tracks_each_yielded_item_Async

@@ -82,20 +82,19 @@ Classes
 </h3>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy.html">ItemErrorPolicy</a></dt>
-      <dd><pre><code>Ready-made policies for an ETL stage's error handling. Each is a
-&lt;xref href=&quot;System.Func%602&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; from an &lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorContext&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; to an
-&lt;xref href=&quot;Wolfgang.Etl.Abstractions.ItemErrorAction&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt;, so it can be assigned directly to a stage's &lt;code&gt;ErrorPolicy&lt;/code&gt;
-property (on &lt;code&gt;ExtractorBase&lt;/code&gt; / &lt;code&gt;LoaderBase&lt;/code&gt; / &lt;code&gt;TransformerBase&lt;/code&gt;):
-
-&lt;example&gt;&lt;pre&gt;&lt;code class=&quot;lang-csharp&quot;&gt;var deadLetters = new List&lt;ItemErrorContext&gt;();
-</code></pre>
-<p>var extractor = new SomeExtractor&lt;Record&gt;(source)
+      <dd><p>Ready-made policies for an ETL stage's error handling. Each is a
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func&lt;T, TResult&gt;</a> from an <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a> to an
+<a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html">ItemErrorAction</a>, so it can be assigned directly to a stage's <code>ErrorPolicy</code>
+property (on <code>ExtractorBase</code> / <code>LoaderBase</code> / <code>TransformerBase</code>):</p>
+<example>
+<pre><code class="lang-csharp">var deadLetters = new List&lt;ItemErrorContext&gt;();
+var extractor = new SomeExtractor&lt;Record&gt;(source)
 {
-ErrorPolicy = ItemErrorPolicy.SkipDeadLetterAndLog(deadLetters, logger)
-};</p>
-<pre><code>The dead-letter overloads write to a caller-owned sink (a collection or a channel), so its size —
-and therefore the memory a bad feed can consume — stays under the caller's control.
-</code></pre>
+    ErrorPolicy = ItemErrorPolicy.SkipDeadLetterAndLog(deadLetters, logger)
+};</code></pre>
+</example>
+<p>The dead-letter overloads write to a caller-owned sink (a collection or a channel), so its size —
+and therefore the memory a bad feed can consume — stays under the caller's control.</p>
 </dd>
     </dl>
 

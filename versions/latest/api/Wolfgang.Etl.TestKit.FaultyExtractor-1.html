@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.24.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_FaultyExtractor_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.FaultyExtractor%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.25.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_FaultyExtractor_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.FaultyExtractor%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_TestKit_FaultyExtractor_1" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1" class="text-break">
-Class FaultyExtractor&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L47"><i class="bi bi-code-slash"></i></a>
+Class FaultyExtractor&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -185,7 +185,13 @@ failure, and de-duplication logic without hand-rolling broken fakes.</p>
       <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentItemCount">ExtractorBase&lt;T, Report&gt;.IncrementCurrentItemCount()</a>
     </div>
     <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentItemCount_System_Int32_">ExtractorBase&lt;T, Report&gt;.IncrementCurrentItemCount(int)</a>
+    </div>
+    <div>
       <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentSkippedItemCount">ExtractorBase&lt;T, Report&gt;.IncrementCurrentSkippedItemCount()</a>
+    </div>
+    <div>
+      <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_IncrementCurrentSkippedItemCount_System_Int32_">ExtractorBase&lt;T, Report&gt;.IncrementCurrentSkippedItemCount(int)</a>
     </div>
     <div>
       <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html#Wolfgang_Etl_Abstractions_ExtractorBase_2_ErrorPolicy">ExtractorBase&lt;T, Report&gt;.ErrorPolicy</a>
@@ -278,7 +284,7 @@ twice for the same index replaces the earlier exception (last-wins).
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
   FaultyExtractor(IEnumerable&lt;T&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L81"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html">FaultyExtractor&lt;T&gt;</a> that yields items from the
@@ -317,9 +323,48 @@ run, so the same extractor instance can be reused.</p>
 
   <a id="Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor*"></a>
 
+  <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_ExtractorOptions_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.ExtractorOptions)">
+  FaultyExtractor(IEnumerable&lt;T&gt;, ExtractorOptions?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html">FaultyExtractor&lt;T&gt;</a> as <a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html#Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__">FaultyExtractor(IEnumerable&lt;T&gt;)</a> does, with the
+base-stage configuration (<code>ReportingInterval</code>, <code>MaximumItemCount</code>, <code>SkipItemCount</code>,
+<code>ErrorPolicy</code>) taken from <code class="paramref">options</code> (ADR-0009).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FaultyExtractor(IEnumerable&lt;T&gt; items, ExtractorOptions? options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>The sequence of items to extract. The enumerable is evaluated on each extraction
+run, so the same extractor instance can be reused.</p>
+</dd>
+    <dt><code>options</code> <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorOptions.html">ExtractorOptions</a></dt>
+    <dd><p>The base-stage configuration; <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> keeps the defaults.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor*"></a>
+
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_IProgressTimer_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.IProgressTimer)">
   FaultyExtractor(IEnumerable&lt;T&gt;, IProgressTimer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L117"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html">FaultyExtractor&lt;T&gt;</a> that yields items from the
@@ -360,6 +405,48 @@ specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.co
 
 
 
+  <a id="Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_ExtractorOptions_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.ExtractorOptions)">
+  FaultyExtractor(IEnumerable&lt;T&gt;, IProgressTimer, ExtractorOptions?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L134"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html">FaultyExtractor&lt;T&gt;</a> as <a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html#Wolfgang_Etl_TestKit_FaultyExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__Wolfgang_Etl_Abstractions_IProgressTimer_">FaultyExtractor(IEnumerable&lt;T&gt;, IProgressTimer)</a> does, with the
+base-stage configuration (<code>ReportingInterval</code>, <code>MaximumItemCount</code>, <code>SkipItemCount</code>,
+<code>ErrorPolicy</code>) taken from <code class="paramref">options</code> (ADR-0009).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected FaultyExtractor(IEnumerable&lt;T&gt; items, IProgressTimer timer, ExtractorOptions? options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>The sequence of items to extract.</p>
+</dd>
+    <dt><code>timer</code> <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a></dt>
+    <dd><p>The timer used to drive progress callbacks. Inject a
+<code>ManualProgressTimer</code> in tests to fire callbacks on demand.</p>
+</dd>
+    <dt><code>options</code> <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorOptions.html">ExtractorOptions</a></dt>
+    <dd><p>The base-stage configuration; <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> keeps the defaults.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="properties">Properties
 </h2>
 
@@ -368,7 +455,7 @@ specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.co
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_CapturedErrors" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.CapturedErrors">
   CapturedErrors
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L265"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L298"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a> for every item whose injected fault was routed
@@ -406,7 +493,7 @@ configured (faults propagate) or when no fault has fired.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_CreateProgressReport" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.CreateProgressReport">
   CreateProgressReport()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L355"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L388"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a progress report of type TProgress. This gives the derived class the opportunity to
@@ -440,7 +527,7 @@ implement a custom progress report that is specific to the extraction process.</
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_CreateProgressTimer_System_IProgress_Wolfgang_Etl_Abstractions_Report__" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.CreateProgressTimer(System.IProgress{Wolfgang.Etl.Abstractions.Report})">
   CreateProgressTimer(IProgress&lt;Report&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L314"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L347"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> used to drive progress callbacks.
@@ -481,7 +568,7 @@ Override this method in a derived class to inject a custom timer
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_Dispose_System_Boolean_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.Dispose(System.Boolean)">
   Dispose(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L341"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L374"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Unsubscribes the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_Elapsed">Elapsed</a> handler from an injected
@@ -516,7 +603,7 @@ timer. The injected timer is owned by the caller and is therefore not disposed h
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_DuplicateAt_System_Int32_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.DuplicateAt(System.Int32)">
   DuplicateAt(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L190"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L223"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the extractor to yield the item at the specified zero-based
@@ -567,7 +654,7 @@ counted, so the total number of yielded items grows by one per configured duplic
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_ExtractWorkerAsync_System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.ExtractWorkerAsync(System.Threading.CancellationToken)">
   ExtractWorkerAsync(CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L365"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L398"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>This method is the core implementation of the extraction logic and should be
@@ -608,7 +695,7 @@ The result may be an empty sequence if no data is available or if the extraction
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_HandleErrorsWith_System_Func_Wolfgang_Etl_Abstractions_ItemErrorContext_Wolfgang_Etl_Abstractions_ItemErrorAction__" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.HandleErrorsWith(System.Func{Wolfgang.Etl.Abstractions.ItemErrorContext,Wolfgang.Etl.Abstractions.ItemErrorAction})">
   HandleErrorsWith(Func&lt;ItemErrorContext, ItemErrorAction&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L251"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L284"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures a custom per-item error policy. When an injected <a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html#Wolfgang_Etl_TestKit_FaultyExtractor_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a> fault
@@ -657,7 +744,7 @@ fires, <code class="paramref">policy</code> is invoked with the failing item's
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)">
   OnItemError(ItemErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L281"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L314"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Records the failed item and applies the configured error policy. Invoked by the base
@@ -699,7 +786,7 @@ policy is configured.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_SkipErrors" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.SkipErrors">
   SkipErrors()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L230"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L263"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the extractor to route every injected <a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html#Wolfgang_Etl_TestKit_FaultyExtractor_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a> fault through
@@ -748,7 +835,7 @@ default behaviour. The failing item is not yielded, and its
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_ThrowAfterCompletion_System_Exception_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.ThrowAfterCompletion(System.Exception)">
   ThrowAfterCompletion(Exception)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L165"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L198"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the extractor to throw <code class="paramref">exception</code> after all items have
@@ -798,7 +885,7 @@ been yielded successfully, simulating a cleanup or finalization failure.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyExtractor_1_ThrowAt_System_Int32_System_Exception_" data-uid="Wolfgang.Etl.TestKit.FaultyExtractor`1.ThrowAt(System.Int32,System.Exception)">
   ThrowAt(int, Exception)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L136"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L169"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the extractor to throw <code class="paramref">exception</code> when it reaches the
@@ -858,7 +945,7 @@ the item itself is not yielded.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L47" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/FaultyExtractor.cs/#L47" class="edit-link">Edit this page</a>
         </div>
 
 

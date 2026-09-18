@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.24.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_ManualProgressTimerCore.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.ManualProgressTimerCore%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.25.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_ManualProgressTimerCore.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.ManualProgressTimerCore%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_TestKit_ManualProgressTimerCore" data-uid="Wolfgang.Etl.TestKit.ManualProgressTimerCore" class="text-break">
-Class ManualProgressTimerCore  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/ManualProgressTimerCore.cs/#L29"><i class="bi bi-code-slash"></i></a>
+Class ManualProgressTimerCore  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/ManualProgressTimerCore.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -135,18 +135,19 @@ making progress-callback assertions deterministic. Attach it to a stage with
 
 
   <h2 id="Wolfgang_Etl_TestKit_ManualProgressTimerCore_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><pre><code> This drives the internal timer-core seam on the base classes (the same seam the base's own
- &lt;code&gt;CreateProgressTimer&lt;/code&gt; uses), reachable here because &lt;code&gt;Wolfgang.Etl.TestKit&lt;/code&gt; is an
- internals-visible friend of &lt;code&gt;Wolfgang.Etl.Abstractions&lt;/code&gt; — so a component needs &lt;b&gt;no&lt;/b&gt;
- per-type timer-injection plumbing to be timer-testable. Attach it before the run starts; the stage
- builds its progress timer when the run begins.
+  <div class="markdown level0 remarks"><p>This drives the internal timer-core seam on the base classes (the same seam the base's own
+<code>CreateProgressTimer</code> uses), reachable here because <code>Wolfgang.Etl.TestKit</code> is an
+internals-visible friend of <code>Wolfgang.Etl.Abstractions</code> — so a component needs <b>no</b>
+per-type timer-injection plumbing to be timer-testable. Attach it before the run starts; the stage
+builds its progress timer when the run begins.</p>
+<example>
+<pre><code class="lang-csharp">var timer = new ManualProgressTimerCore();
+var extractor = new TestExtractor&lt;int&gt;(new[] { 1, 2, 3 }).WithManualProgressTimer(timer);
 
- &lt;example&gt;&lt;pre&gt;&lt;code class=&quot;lang-csharp&quot;&gt;var timer = new ManualProgressTimerCore();
-</code></pre>
-<p>var extractor = new TestExtractor&lt;int&gt;(new[] { 1, 2, 3 }).WithManualProgressTimer(timer);</p>
-<p>await using var e = extractor.ExtractAsync(progress).GetAsyncEnumerator();
+await using var e = extractor.ExtractAsync(progress).GetAsyncEnumerator();
 await e.MoveNextAsync();
-timer.Tick();            // fires the progress callback exactly once</p>
+timer.Tick();            // fires the progress callback exactly once</code></pre>
+</example>
 </div>
 
 
@@ -158,7 +159,7 @@ timer.Tick();            // fires the progress callback exactly once</p>
 
   <h3 id="Wolfgang_Etl_TestKit_ManualProgressTimerCore_Tick" data-uid="Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick">
   Tick()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/ManualProgressTimerCore.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/ManualProgressTimerCore.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Fires a single timer tick, synchronously invoking the stage's progress callback exactly once.</p>
@@ -192,7 +193,7 @@ the loader) before calling <a class="xref" href="Wolfgang.Etl.TestKit.ManualProg
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.24.0/src/Wolfgang.Etl.TestKit/ManualProgressTimerCore.cs/#L29" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.25.0/src/Wolfgang.Etl.TestKit/ManualProgressTimerCore.cs/#L29" class="edit-link">Edit this page</a>
         </div>
 
 
