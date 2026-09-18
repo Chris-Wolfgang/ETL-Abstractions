@@ -69,7 +69,20 @@ public class SnapshotTestLoader<T> : LoaderBase<T, Report>
     /// its <see cref="object.ToString"/> representation.
     /// </summary>
     public SnapshotTestLoader()
-        : this(item => item.ToString() ?? string.Empty)
+        : this(item => item.ToString() ?? string.Empty, options: null)
+    {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="SnapshotTestLoader{T}"/> that formats each captured item with
+    /// its <see cref="object.ToString"/> representation, with the base-stage configuration taken
+    /// from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public SnapshotTestLoader(LoaderOptions? options)
+        : this(item => item.ToString() ?? string.Empty, options)
     {
     }
 
@@ -85,8 +98,25 @@ public class SnapshotTestLoader<T> : LoaderBase<T, Report>
     /// auto-increment IDs) so the snapshot stays stable across runs.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="formatter"/> is <see langword="null"/>.</exception>
-    public SnapshotTestLoader(Func<T, string> formatter)
+    public SnapshotTestLoader(Func<T, string> formatter) : this(formatter, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="SnapshotTestLoader{T}"/> as <see cref="SnapshotTestLoader(Func{T, string})"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="formatter">
+    /// Projects a captured item to the single snapshot line that represents it. Use this to select
+    /// only the fields under test and to scrub non-deterministic values (timestamps, GUIDs,
+    /// auto-increment IDs) so the snapshot stays stable across runs.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public SnapshotTestLoader(Func<T, string> formatter, LoaderOptions? options) : base(options)
+{
         _formatter = formatter ?? throw new ArgumentNullException(nameof(formatter));
     }
 

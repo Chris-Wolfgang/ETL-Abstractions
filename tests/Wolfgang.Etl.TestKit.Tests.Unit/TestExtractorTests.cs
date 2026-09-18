@@ -379,7 +379,7 @@ public class TestExtractorTests
     [Fact]
     public async Task ExtractAsync_with_enumerable_skips_items_up_to_SkipItemCount()
     {
-        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 }) { SkipItemCount = 2 };
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 }, new ExtractorOptions { SkipItemCount = 2 });
 
         var results = await extractor.ExtractAsync().ToListAsync();
 
@@ -391,7 +391,7 @@ public class TestExtractorTests
     [Fact]
     public async Task ExtractAsync_with_enumerator_skips_items_up_to_SkipItemCount()
     {
-        var extractor = new TestExtractor<int>(GenerateInts(5)) { SkipItemCount = 2 };
+        var extractor = new TestExtractor<int>(GenerateInts(5), new ExtractorOptions { SkipItemCount = 2 });
 
         var results = await extractor.ExtractAsync().ToListAsync();
 
@@ -403,7 +403,7 @@ public class TestExtractorTests
     [Fact]
     public async Task ExtractAsync_with_enumerable_skips_items_and_CurrentSkippedItemCount_is_correct()
     {
-        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 }) { SkipItemCount = 3 };
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 }, new ExtractorOptions { SkipItemCount = 3 });
 
         await extractor.ExtractAsync().ToListAsync();
 
@@ -419,7 +419,7 @@ public class TestExtractorTests
     [Fact]
     public async Task ExtractAsync_with_enumerable_stops_at_MaximumItemCount()
     {
-        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 }) { MaximumItemCount = 2 };
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 }, new ExtractorOptions { MaximumItemCount = 2 });
 
         var results = await extractor.ExtractAsync().ToListAsync();
 
@@ -431,7 +431,7 @@ public class TestExtractorTests
     [Fact]
     public async Task ExtractAsync_with_enumerator_stops_at_MaximumItemCount()
     {
-        var extractor = new TestExtractor<int>(GenerateInts(10)) { MaximumItemCount = 3 };
+        var extractor = new TestExtractor<int>(GenerateInts(10), new ExtractorOptions { MaximumItemCount = 3 });
 
         var results = await extractor.ExtractAsync().ToListAsync();
 
@@ -443,7 +443,7 @@ public class TestExtractorTests
     [Fact]
     public async Task ExtractAsync_with_enumerator_combines_SkipItemCount_and_MaximumItemCount()
     {
-        var extractor = new TestExtractor<int>(GenerateInts(10)) { SkipItemCount = 2, MaximumItemCount = 3 };
+        var extractor = new TestExtractor<int>(GenerateInts(10), new ExtractorOptions { SkipItemCount = 2, MaximumItemCount = 3 });
 
         var results = await extractor.ExtractAsync().ToListAsync();
 
@@ -523,7 +523,7 @@ public class TestExtractorTests
     [Fact]
     public async Task ExtractAsync_with_indefinite_func_factory_yields_MaximumItemCount_items()
     {
-        var extractor = new TestExtractor<int>(() => 9) { MaximumItemCount = 4 };
+        var extractor = new TestExtractor<int>(() => 9, new ExtractorOptions { MaximumItemCount = 4 });
 
         var results = await extractor.ExtractAsync().ToListAsync();
 
@@ -590,7 +590,7 @@ public class TestExtractorTests
     [Fact]
     public async Task ExtractAsync_with_indefinite_indexed_factory_yields_MaximumItemCount_items()
     {
-        var extractor = new TestExtractor<int>(i => i) { MaximumItemCount = 3 };
+        var extractor = new TestExtractor<int>(i => i, new ExtractorOptions { MaximumItemCount = 3 });
 
         var results = await extractor.ExtractAsync().ToListAsync();
 
@@ -607,7 +607,7 @@ public class TestExtractorTests
     public async Task Constructor_with_func_factory_and_timer_yields_indefinitely_until_bounded()
     {
         using var timer = new ManualProgressTimer();
-        var sut = new TestExtractorWithTimer(() => 5, timer) { MaximumItemCount = 3 };
+        var sut = new TestExtractorWithTimer(() => 5, timer, new ExtractorOptions { MaximumItemCount = 3 });
 
         var results = await sut.ExtractAsync().ToListAsync();
 
@@ -633,7 +633,7 @@ public class TestExtractorTests
     public async Task Constructor_with_indexed_factory_and_timer_yields_indefinitely_until_bounded()
     {
         using var timer = new ManualProgressTimer();
-        var sut = new TestExtractorWithTimer(i => i, timer) { MaximumItemCount = 3 };
+        var sut = new TestExtractorWithTimer(i => i, timer, new ExtractorOptions { MaximumItemCount = 3 });
 
         var results = await sut.ExtractAsync().ToListAsync();
 
@@ -871,14 +871,14 @@ public class TestExtractorTests
         public TestExtractorWithTimer(IEnumerator<int> enumerator, IProgressTimer timer)
             : base(enumerator, timer) { }
 
-        public TestExtractorWithTimer(Func<int> factory, IProgressTimer timer)
-            : base(factory, timer) { }
+        public TestExtractorWithTimer(Func<int> factory, IProgressTimer timer, ExtractorOptions? options = null)
+            : base(factory, timer, options) { }
 
         public TestExtractorWithTimer(Func<int> factory, int count, IProgressTimer timer)
             : base(factory, count, timer) { }
 
-        public TestExtractorWithTimer(Func<int, int> factory, IProgressTimer timer)
-            : base(factory, timer) { }
+        public TestExtractorWithTimer(Func<int, int> factory, IProgressTimer timer, ExtractorOptions? options = null)
+            : base(factory, timer, options) { }
 
         public TestExtractorWithTimer(Func<int, int> factory, int count, IProgressTimer timer)
             : base(factory, count, timer) { }

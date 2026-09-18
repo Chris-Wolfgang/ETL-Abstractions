@@ -17,7 +17,8 @@ public class BaseClassTimingTests
 
 
 
-        public TimedExtractor(int count)
+        public TimedExtractor(int count, ExtractorOptions? options = null)
+            : base(options)
         {
             _count = count;
         }
@@ -93,6 +94,11 @@ public class BaseClassTimingTests
 
     private sealed class TimedLoader : LoaderBase<int, EtlProgress>
     {
+        public TimedLoader(LoaderOptions? options = null)
+            : base(options)
+        {
+        }
+
         public DateTimeOffset? StartedAtForTest => StartedAt;
 
         public TimeSpan ElapsedForTest => Elapsed;
@@ -111,6 +117,11 @@ public class BaseClassTimingTests
 
     private sealed class TimedTransformer : TransformerBase<int, int, EtlProgress>
     {
+        public TimedTransformer(TransformerOptions? options = null)
+            : base(options)
+        {
+        }
+
         public DateTimeOffset? StartedAtForTest => StartedAt;
 
         public TimeSpan ElapsedForTest => Elapsed;

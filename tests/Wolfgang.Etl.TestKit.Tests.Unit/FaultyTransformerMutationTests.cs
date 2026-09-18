@@ -222,7 +222,7 @@ public class FaultyTransformerMutationTests
         // Kills the `CurrentItemCount < MaximumItemCount` guard on the duplicate path: after the
         // first item is counted, count (1) is not < max (1), so no duplicate is emitted.
         var extractor   = new FaultyExtractor<int>(new[] { 5, 6 });
-        var transformer = new FaultyTransformer<int> { MaximumItemCount = 1 }.DuplicateAt(0);
+        var transformer = new FaultyTransformer<int>(new TransformerOptions { MaximumItemCount = 1 }).DuplicateAt(0);
 
         var results = await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync();
 
@@ -236,7 +236,7 @@ public class FaultyTransformerMutationTests
     {
         // Complements the boundary test above: with room under the max, the duplicate IS emitted.
         var extractor   = new FaultyExtractor<int>(new[] { 5, 6 });
-        var transformer = new FaultyTransformer<int> { MaximumItemCount = 2 }.DuplicateAt(0);
+        var transformer = new FaultyTransformer<int>(new TransformerOptions { MaximumItemCount = 2 }).DuplicateAt(0);
 
         var results = await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync();
 

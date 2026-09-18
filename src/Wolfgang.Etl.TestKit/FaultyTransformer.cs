@@ -67,7 +67,20 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
     /// Initializes a new <see cref="FaultyTransformer{T}"/> using the default
     /// base-class progress timer.
     /// </summary>
-    public FaultyTransformer() { }
+    public FaultyTransformer() : this(options: null)
+    {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="FaultyTransformer{T}"/> as <see cref="FaultyTransformer()"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    public FaultyTransformer(TransformerOptions? options) : base(options)
+{ }
 
 
 
@@ -82,8 +95,24 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="timer"/> is <see langword="null"/>.
     /// </exception>
-    protected FaultyTransformer(IProgressTimer timer)
+    protected FaultyTransformer(IProgressTimer timer) : this(timer, options: null)
     {
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="FaultyTransformer{T}"/> as <see cref="FaultyTransformer(IProgressTimer)"/> does, with the
+    /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
+    /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
+    /// </summary>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
+    protected FaultyTransformer(IProgressTimer timer, TransformerOptions? options) : base(options)
+{
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
 

@@ -93,7 +93,9 @@ public class GuardParityTests
     [Fact]
     public void GuardExtractor_ReportingInterval_init_when_value_is_below_the_floor_throws_with_ParamName_ActualValue_and_the_runtime_message()
     {
+#pragma warning disable CS0618 // deliberately exercises the deprecated setter's guard until the setter is removed (2026-12-15)
         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new GuardExtractor { ReportingInterval = 0 });
+#pragma warning restore CS0618
 
         Assert.Equal("value", ex.ParamName);
         Assert.Equal(0, ex.ActualValue);
@@ -105,7 +107,9 @@ public class GuardParityTests
     [Fact]
     public void GuardLoader_MaximumItemCount_init_when_value_is_below_the_floor_throws_with_ParamName_ActualValue_and_the_runtime_message()
     {
+#pragma warning disable CS0618 // deliberately exercises the deprecated setter's guard until the setter is removed (2026-12-15)
         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new GuardLoader { MaximumItemCount = 0 });
+#pragma warning restore CS0618
 
         Assert.Equal("value", ex.ParamName);
         Assert.Equal(0, ex.ActualValue);
@@ -117,7 +121,9 @@ public class GuardParityTests
     [Fact]
     public void GuardTransformer_SkipItemCount_init_when_value_is_below_the_floor_throws_with_ParamName_ActualValue_and_the_runtime_message()
     {
+#pragma warning disable CS0618 // deliberately exercises the deprecated setter's guard until the setter is removed (2026-12-15)
         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new GuardTransformer { SkipItemCount = -1 });
+#pragma warning restore CS0618
 
         Assert.Equal("value", ex.ParamName);
         Assert.Equal(-1, ex.ActualValue);

@@ -118,7 +118,7 @@ public class TimerSeamTests
     public void LoaderBase_CreateProgressTimer_returns_a_started_timer()
     {
         FakeTimerCore? core = null;
-        using var loader = new TimerSeamLoader { ReportingInterval = 321, TimerCoreFactory = onTick => core = new FakeTimerCore(onTick) };
+        using var loader = new TimerSeamLoader(new LoaderOptions { ReportingInterval = 321 }) { TimerCoreFactory = onTick => core = new FakeTimerCore(onTick) };
 
         using var timer = loader.CallCreateProgressTimer();
 
@@ -132,7 +132,7 @@ public class TimerSeamTests
     public void TransformerBase_CreateProgressTimer_returns_a_started_timer()
     {
         FakeTimerCore? core = null;
-        using var transformer = new TimerSeamTransformer { ReportingInterval = 654, TimerCoreFactory = onTick => core = new FakeTimerCore(onTick) };
+        using var transformer = new TimerSeamTransformer(new TransformerOptions { ReportingInterval = 654 }) { TimerCoreFactory = onTick => core = new FakeTimerCore(onTick) };
 
         using var timer = transformer.CallCreateProgressTimer();
 
@@ -146,7 +146,7 @@ public class TimerSeamTests
     public void ExtractorBase_CreateProgressTimer_returns_a_started_timer()
     {
         FakeTimerCore? core = null;
-        using var extractor = new TimerSeamExtractor { ReportingInterval = 111, TimerCoreFactory = onTick => core = new FakeTimerCore(onTick) };
+        using var extractor = new TimerSeamExtractor(new ExtractorOptions { ReportingInterval = 111 }) { TimerCoreFactory = onTick => core = new FakeTimerCore(onTick) };
 
         using var timer = extractor.CallCreateProgressTimer();
 
@@ -195,6 +195,11 @@ public class TimerSeamTests
     [ExcludeFromCodeCoverage]
     private sealed class TimerSeamLoader : LoaderBase<int, EtlProgress>
     {
+        public TimerSeamLoader(LoaderOptions? options = null)
+            : base(options)
+        {
+        }
+
         public IProgressTimer CallCreateProgressTimer() =>
             CreateProgressTimer(new SynchronousProgress<EtlProgress>(_ => { }));
 
@@ -207,6 +212,11 @@ public class TimerSeamTests
     [ExcludeFromCodeCoverage]
     private sealed class TimerSeamTransformer : TransformerBase<int, int, EtlProgress>
     {
+        public TimerSeamTransformer(TransformerOptions? options = null)
+            : base(options)
+        {
+        }
+
         public IProgressTimer CallCreateProgressTimer() =>
             CreateProgressTimer(new SynchronousProgress<EtlProgress>(_ => { }));
 
@@ -224,6 +234,11 @@ public class TimerSeamTests
     [ExcludeFromCodeCoverage]
     private sealed class TimerSeamExtractor : ExtractorBase<int, EtlProgress>
     {
+        public TimerSeamExtractor(ExtractorOptions? options = null)
+            : base(options)
+        {
+        }
+
         public IProgressTimer CallCreateProgressTimer() =>
             CreateProgressTimer(new SynchronousProgress<EtlProgress>(_ => { }));
 

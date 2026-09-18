@@ -97,7 +97,7 @@ public class TestTransformerTests
     public async Task TransformAsync_skips_items_up_to_SkipItemCount()
     {
         var extractor   = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
-        var transformer = new TestTransformer<int>() { SkipItemCount = 2 };
+        var transformer = new TestTransformer<int>(new TransformerOptions { SkipItemCount = 2 });
 
         var results = await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync();
 
@@ -114,7 +114,7 @@ public class TestTransformerTests
     public async Task TransformAsync_stops_at_MaximumItemCount()
     {
         var extractor   = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
-        var transformer = new TestTransformer<int>() { MaximumItemCount = 2 };
+        var transformer = new TestTransformer<int>(new TransformerOptions { MaximumItemCount = 2 });
 
         var results = await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync();
 

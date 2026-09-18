@@ -10,7 +10,7 @@ public class TransformerBaseTests
 {
     protected override IdentityTransformer CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval)
     {
-        return new IdentityTransformer() { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval };
+        return new IdentityTransformer(new TransformerOptions { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval });
     }
 
 
@@ -62,7 +62,8 @@ public class IdentityTransformer : TransformerBase<string, string, EtlProgress>
 
 
 
-    public IdentityTransformer()
+    public IdentityTransformer(TransformerOptions? options = null)
+        : base(options)
     {
     }
 

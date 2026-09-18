@@ -384,7 +384,7 @@ public class FaultyExtractorTests
     [Fact]
     public async Task ExtractAsync_skips_items_up_to_SkipItemCount()
     {
-        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 }) { SkipItemCount = 2 };
+        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 }, new ExtractorOptions { SkipItemCount = 2 });
 
         var results = await sut.ExtractAsync().ToListAsync();
 
@@ -397,7 +397,7 @@ public class FaultyExtractorTests
     [Fact]
     public async Task ExtractAsync_stops_at_MaximumItemCount()
     {
-        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 }) { MaximumItemCount = 2 };
+        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 }, new ExtractorOptions { MaximumItemCount = 2 });
 
         var results = await sut.ExtractAsync().ToListAsync();
 

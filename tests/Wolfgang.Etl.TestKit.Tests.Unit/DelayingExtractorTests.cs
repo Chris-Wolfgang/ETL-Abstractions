@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
@@ -68,7 +69,7 @@ public class DelayingExtractorTests
     [Fact]
     public async Task ExtractAsync_when_MaximumItemCount_is_set_stops_at_the_limit()
     {
-        var sut = new DelayingExtractor<int>(new[] { 1, 2, 3, 4, 5 }, TimeSpan.Zero) { MaximumItemCount = 2 };
+        var sut = new DelayingExtractor<int>(new[] { 1, 2, 3, 4, 5 }, TimeSpan.Zero, new ExtractorOptions { MaximumItemCount = 2 });
 
         var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
@@ -80,7 +81,7 @@ public class DelayingExtractorTests
     [Fact]
     public async Task ExtractAsync_when_SkipItemCount_is_set_skips_the_first_N_items()
     {
-        var sut = new DelayingExtractor<int>(new[] { 1, 2, 3, 4 }, TimeSpan.Zero) { SkipItemCount = 2 };
+        var sut = new DelayingExtractor<int>(new[] { 1, 2, 3, 4 }, TimeSpan.Zero, new ExtractorOptions { SkipItemCount = 2 });
 
         var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 
@@ -193,9 +194,9 @@ public class DelayingExtractorTests
         var sut = new DelayingExtractor<int>
         (
             new[] { 1, 2, 3, 4 },
-            i => { seen.Add(i); return TimeSpan.Zero; }
-        )
-        { SkipItemCount = 2 };
+            i => { seen.Add(i); return TimeSpan.Zero; },
+            new ExtractorOptions { SkipItemCount = 2 }
+        );
 
         await foreach (var _ in sut.ExtractAsync())
         {
@@ -263,9 +264,9 @@ public class DelayingExtractorTests
         var sut = new DelayingExtractor<int>
         (
             CancelAt(cts, cancelIndex: 5, total: 5000),
-            TimeSpan.FromMilliseconds(20)
-        )
-        { SkipItemCount = 1000 };
+            TimeSpan.FromMilliseconds(20),
+            new ExtractorOptions { SkipItemCount = 1000 }
+        );
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>
         (

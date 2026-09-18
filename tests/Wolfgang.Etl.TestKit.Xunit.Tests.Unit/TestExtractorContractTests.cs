@@ -17,7 +17,7 @@ public class TestExtractorContractTests
 {
     /// <inheritdoc/>
     protected override TestExtractor<int> CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) =>
-        new TestExtractor<int>(Enumerable.Range(1, itemCount).ToList()) { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval };
+        new TestExtractor<int>(Enumerable.Range(1, itemCount).ToList(), new ExtractorOptions { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval });
 
     /// <inheritdoc/>
     protected override IReadOnlyList<int> CreateExpectedItems() =>
@@ -25,5 +25,5 @@ public class TestExtractorContractTests
 
     /// <inheritdoc/>
     protected override TestExtractor<int> CreateSutOverSource(IEnumerable<int> source, int maximumItemCount) =>
-        new TestExtractor<int>(source) { MaximumItemCount = maximumItemCount };
+        new TestExtractor<int>(source, new ExtractorOptions { MaximumItemCount = maximumItemCount });
 }

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
@@ -11,11 +12,7 @@ public class RetryingExtractorBranchesTests
     [Fact]
     public async Task ExtractAsync_honours_SkipItemCount_and_MaximumItemCount()
     {
-        var sut = new RetryingExtractor<int>(new[] { 1, 2, 3, 4, 5 }, failFirstAttempts: 0, maxAttempts: 3)
-        {
-            SkipItemCount    = 1,
-            MaximumItemCount = 2,
-        };
+        var sut = new RetryingExtractor<int>(new[] { 1, 2, 3, 4, 5 }, failFirstAttempts: 0, maxAttempts: 3, new ExtractorOptions { SkipItemCount    = 1, MaximumItemCount = 2 });
 
         var items = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
 

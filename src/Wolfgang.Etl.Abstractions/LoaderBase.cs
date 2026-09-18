@@ -26,6 +26,9 @@ public abstract class LoaderBase<TDestination, TProgress>
 {
     private int _currentItemCount;
     private int _currentSkippedItemCount;
+    private int _reportingInterval = 1_000;
+    private int _maximumItemCount = int.MaxValue;
+    private int _skipItemCount;
     private int _currentErrorItemCount;
     private long _startTimestamp;
     private DateTimeOffset _startedAtUtc;
@@ -70,10 +73,10 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// documented defaults apply.
     /// </param>
     /// <remarks>
-    /// Values supplied here are the stage's configuration for its whole life: <c>ErrorPolicy</c>,
-    /// <c>ReportingInterval</c>, <c>MaximumItemCount</c> and <c>SkipItemCount</c> are all init-only, so
-    /// the options record passed here (or an object initializer on the derived stage) is the only way
-    /// to set them and nothing can change once a run has started (#351 / #438, ADR-0009).
+    /// Values supplied here are the stage's configuration. <c>ErrorPolicy</c> is init-only;
+    /// the setters of <c>ReportingInterval</c>, <c>MaximumItemCount</c> and <c>SkipItemCount</c> are
+    /// deprecated and will be removed (#351 / #438, ADR-0009), at which point this options record
+    /// is the only way to set them.
     /// </remarks>
     protected LoaderBase(LoaderOptions? options = null)
     {
@@ -82,9 +85,10 @@ public abstract class LoaderBase<TDestination, TProgress>
             return;
         }
 
-        ReportingInterval = options.ReportingInterval;
-        MaximumItemCount  = options.MaximumItemCount;
-        SkipItemCount     = options.SkipItemCount;
+        // The record's init accessors already validated these; write the fields, not the deprecated setters.
+        _reportingInterval = options.ReportingInterval;
+        _maximumItemCount  = options.MaximumItemCount;
+        _skipItemCount     = options.SkipItemCount;
         ErrorPolicy       = options.ErrorPolicy;
     }
 
@@ -132,19 +136,20 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Value cannot be less than 1.</exception>
     /// <remarks>
-    /// Init-only: fixed when the stage is constructed. Configure it through
-    /// <see cref="LoaderOptions.ReportingInterval"/> on the options record passed to the constructor, or in an
-    /// object initializer. It cannot change once a run has started.
+    /// Configure it through <see cref="LoaderOptions.ReportingInterval"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, at which point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
     /// </remarks>
     public int ReportingInterval
     {
-        get;
-        init
+        get => _reportingInterval;
+        [Obsolete("Configure ReportingInterval through LoaderOptions passed to the constructor instead. This setter will be removed in a future release.")]
+        set
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-            field = value;
+            _reportingInterval = value;
         }
-    } = 1_000;
+    }
 
 
 
@@ -199,19 +204,20 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// </code>
     /// </example>
     /// <remarks>
-    /// Init-only: fixed when the stage is constructed. Configure it through
-    /// <see cref="LoaderOptions.MaximumItemCount"/> on the options record passed to the constructor, or in an
-    /// object initializer. It cannot change once a run has started.
+    /// Configure it through <see cref="LoaderOptions.MaximumItemCount"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, at which point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
     /// </remarks>
     public int MaximumItemCount
     {
-        get;
-        init
+        get => _maximumItemCount;
+        [Obsolete("Configure MaximumItemCount through LoaderOptions passed to the constructor instead. This setter will be removed in a future release.")]
+        set
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 1);
-            field = value;
+            _maximumItemCount = value;
         }
-    } = int.MaxValue;
+    }
 
 
 
@@ -232,17 +238,18 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// </code>
     /// </example>
     /// <remarks>
-    /// Init-only: fixed when the stage is constructed. Configure it through
-    /// <see cref="LoaderOptions.SkipItemCount"/> on the options record passed to the constructor, or in an
-    /// object initializer. It cannot change once a run has started.
+    /// Configure it through <see cref="LoaderOptions.SkipItemCount"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, at which point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
     /// </remarks>
     public int SkipItemCount
     {
-        get;
-        init
+        get => _skipItemCount;
+        [Obsolete("Configure SkipItemCount through LoaderOptions passed to the constructor instead. This setter will be removed in a future release.")]
+        set
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
-            field = value;
+            _skipItemCount = value;
         }
     }
 

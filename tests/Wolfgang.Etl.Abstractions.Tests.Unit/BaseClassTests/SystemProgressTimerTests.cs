@@ -266,10 +266,10 @@ public class SystemProgressTimerTests
             Action<IProgressTimer> onTimerCreated,
             int intervalMs = 100,
             int workerDelayMs = 0)
+            : base(new ExtractorOptions { ReportingInterval = intervalMs })
         {
             _onTimerCreated = onTimerCreated;
             _workerDelayMs = workerDelayMs > 0 ? workerDelayMs : intervalMs * 2;
-            ReportingInterval = intervalMs;
         }
 
         protected override IProgressTimer CreateProgressTimer(IProgress<EtlProgress> progress)

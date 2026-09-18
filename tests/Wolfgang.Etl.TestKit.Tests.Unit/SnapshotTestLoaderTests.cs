@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
@@ -41,7 +42,7 @@ public class SnapshotTestLoaderTests
     {
         Assert.Throws<ArgumentNullException>
         (
-            () => new SnapshotTestLoader<int>(null!)
+            () => new SnapshotTestLoader<int>((Func<int, string>)null!)
         );
     }
 
@@ -159,7 +160,7 @@ public class SnapshotTestLoaderTests
     public async Task LoadAsync_when_SkipItemCount_is_set_skips_the_first_N_items()
     {
         var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4 });
-        var loader    = new SnapshotTestLoader<int> { SkipItemCount = 2 };
+        var loader    = new SnapshotTestLoader<int>(new LoaderOptions { SkipItemCount = 2 });
 
         await loader.LoadAsync(extractor.ExtractAsync());
 
@@ -172,7 +173,7 @@ public class SnapshotTestLoaderTests
     public async Task LoadAsync_when_MaximumItemCount_is_set_captures_at_most_that_many_items()
     {
         var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4 });
-        var loader    = new SnapshotTestLoader<int> { MaximumItemCount = 2 };
+        var loader    = new SnapshotTestLoader<int>(new LoaderOptions { MaximumItemCount = 2 });
 
         await loader.LoadAsync(extractor.ExtractAsync());
 

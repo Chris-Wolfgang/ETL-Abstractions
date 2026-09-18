@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit.Globalization;
@@ -48,11 +49,8 @@ public class CultureInvarianceTests
         using var _ = new CultureSwapper(culture);
 
         var items = Enumerable.Range(0, 20).ToList();
-        using var extractor = new TestExtractor<int>(items)
-        {
-            SkipItemCount = 5,
-            MaximumItemCount = 7,
-        };
+        using var extractor = new TestExtractor<int>(items, new ExtractorOptions { SkipItemCount = 5,
+            MaximumItemCount = 7 });
 
         var results = new List<int>();
         await foreach (var item in extractor.ExtractAsync())

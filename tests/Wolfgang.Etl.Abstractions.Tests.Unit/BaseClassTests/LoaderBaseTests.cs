@@ -9,7 +9,7 @@ public class LoaderBaseTests
 {
     protected override ListLoader CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval)
     {
-        return new ListLoader() { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval };
+        return new ListLoader(new LoaderOptions { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval });
     }
 
 
@@ -40,7 +40,8 @@ public class ListLoader : LoaderBase<string, EtlProgress>
 
 
 
-    public ListLoader()
+    public ListLoader(LoaderOptions? options = null)
+        : base(options)
     {
     }
 

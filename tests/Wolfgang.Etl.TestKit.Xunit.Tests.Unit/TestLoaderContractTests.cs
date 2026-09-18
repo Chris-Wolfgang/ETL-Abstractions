@@ -17,7 +17,7 @@ public class TestLoaderContractTests
 {
     /// <inheritdoc/>
     protected override TestLoader<int> CreateSut(int itemCount, int maximumItemCount, int skipItemCount, int reportingInterval) =>
-        new TestLoader<int>(collectItems: false) { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval };
+        new TestLoader<int>(collectItems: false, new LoaderOptions { MaximumItemCount = maximumItemCount, SkipItemCount = skipItemCount, ReportingInterval = reportingInterval });
 
     /// <inheritdoc/>
     protected override IReadOnlyList<int> CreateSourceItems() =>
