@@ -1,0 +1,8 @@
+# gitleaks finding fingerprints (commit:path:rule:line) that are known false positives.
+# docfx's generated site bundle on gh-pages (docs deploy of v0.25.0): minified vendor
+# code whose identifier lists trip generic-api-key. Future deploys are covered by the
+# public/*.min.js allowlist in .gitleaks.toml; these three pin the commit that landed
+# before that allowlist reached main.
+c2245f6003f69c97a33fd8c85c7fd7f4ea4b20d9:public/chunk-HKAKSKF2.min.js.map:generic-api-key:6
+c2245f6003f69c97a33fd8c85c7fd7f4ea4b20d9:versions/latest/public/chunk-HKAKSKF2.min.js.map:generic-api-key:6
+c2245f6003f69c97a33fd8c85c7fd7f4ea4b20d9:versions/v0.25.0/public/chunk-HKAKSKF2.min.js.map:generic-api-key:6
