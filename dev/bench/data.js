@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789819172188,
+  "lastUpdate": 1789842890650,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -3780,6 +3780,90 @@ window.BENCHMARK_DATA = {
             "value": 8173186.713541667,
             "unit": "ns",
             "range": "± 8434.29203084674"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e7da54fe0dd5a81bc5eeb6141ba3d029928f1859",
+          "message": "docs(testkit): constructor crefs in the Type{T}(…) form InspectCode resolves (#594)\n\nResolves 27 InspectCode alerts in the TestKit doubles — doc comments only.\n\nVerified locally: Release build 0 errors.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-19T14:29:57-04:00",
+          "tree_id": "b32c5020ec9e69905b570968ea8f82a1af48da57",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/e7da54fe0dd5a81bc5eeb6141ba3d029928f1859"
+        },
+        "date": 1789842885246,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 31653.489400227863,
+            "unit": "ns",
+            "range": "± 96.91145079439244"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35212.66280110677,
+            "unit": "ns",
+            "range": "± 100.30714030165832"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3159333.041015625,
+            "unit": "ns",
+            "range": "± 4702.327283263205"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3707703.2265625,
+            "unit": "ns",
+            "range": "± 30964.27846354012"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29780.711029052734,
+            "unit": "ns",
+            "range": "± 136.47427769577652"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29072.24282836914,
+            "unit": "ns",
+            "range": "± 69.86499060013894"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 82045.8427734375,
+            "unit": "ns",
+            "range": "± 216.4969215776102"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2872579.3489583335,
+            "unit": "ns",
+            "range": "± 5231.575677697615"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2837780.6848958335,
+            "unit": "ns",
+            "range": "± 273.8162163716821"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8207637.072916667,
+            "unit": "ns",
+            "range": "± 108970.89801271526"
           }
         ]
       }
