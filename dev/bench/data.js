@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789857043955,
+  "lastUpdate": 1789859191757,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4032,6 +4032,90 @@ window.BENCHMARK_DATA = {
             "value": 8464893.854166666,
             "unit": "ns",
             "range": "± 13310.86454981636"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "57e8ee4672833c8c0284b7a778aff4e83b914ce3",
+          "message": "chore: CheckNamespace — polyfills disabled once, three test files moved to the folder namespace (#597)\n\nResolves the 4 CheckNamespace alerts.\n\nVerified locally: Release build 0 errors; unit suites green on net462 / net10.0.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-19T19:04:32-04:00",
+          "tree_id": "7ee7a4ad6a8301e87e965ad3be232c5ac8120e63",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/57e8ee4672833c8c0284b7a778aff4e83b914ce3"
+        },
+        "date": 1789859186393,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 25814.194478352863,
+            "unit": "ns",
+            "range": "± 41.94079656666468"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 26619.223022460938,
+            "unit": "ns",
+            "range": "± 97.32526638805696"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 2514468.4192708335,
+            "unit": "ns",
+            "range": "± 1543.7726179031538"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 2726815.48046875,
+            "unit": "ns",
+            "range": "± 2390.466429237891"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 24553.623565673828,
+            "unit": "ns",
+            "range": "± 137.68756848804327"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 24518.875615437824,
+            "unit": "ns",
+            "range": "± 57.244657948608385"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 62466.78497314453,
+            "unit": "ns",
+            "range": "± 252.8960418806012"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2471510.4596354165,
+            "unit": "ns",
+            "range": "± 1053.7358508721668"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2496481.6471354165,
+            "unit": "ns",
+            "range": "± 2342.839228183183"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 6307302.940104167,
+            "unit": "ns",
+            "range": "± 2060.7307099471464"
           }
         ]
       }
