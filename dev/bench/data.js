@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789842890650,
+  "lastUpdate": 1789846164344,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -3864,6 +3864,90 @@ window.BENCHMARK_DATA = {
             "value": 8207637.072916667,
             "unit": "ns",
             "range": "± 108970.89801271526"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3dc5941886aa404f3d6d9a350902b8ed2f828752",
+          "message": "refactor: drop the dead `= null` default on the six options constructors (S3427) (#595)\n\nResolves the 6 S3427 alerts on the base stages' options constructors.\n\nVerified locally: Release build 0 errors; unit suites green on net462 / net10.0.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-19T15:27:14-04:00",
+          "tree_id": "84f4e7a3eaab5860e405e4aef9783dafe20e0596",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/3dc5941886aa404f3d6d9a350902b8ed2f828752"
+        },
+        "date": 1789846158446,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 44257.37466430664,
+            "unit": "ns",
+            "range": "± 120.01520668257537"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 45660.46260579427,
+            "unit": "ns",
+            "range": "± 151.47891544704467"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 4370885.231770833,
+            "unit": "ns",
+            "range": "± 9707.433115085481"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 4592653.817708333,
+            "unit": "ns",
+            "range": "± 1951.0093205612395"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 36217.97878011068,
+            "unit": "ns",
+            "range": "± 82.80645915037333"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 36529.26510620117,
+            "unit": "ns",
+            "range": "± 166.29206882365338"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 103448.23838297527,
+            "unit": "ns",
+            "range": "± 483.4903657122217"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 3586988.4765625,
+            "unit": "ns",
+            "range": "± 4176.989877688084"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 3590625.2864583335,
+            "unit": "ns",
+            "range": "± 4156.028943337068"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 10242864.171875,
+            "unit": "ns",
+            "range": "± 23190.124868086867"
           }
         ]
       }
