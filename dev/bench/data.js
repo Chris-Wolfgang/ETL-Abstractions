@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789846164344,
+  "lastUpdate": 1789857043955,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -3948,6 +3948,90 @@ window.BENCHMARK_DATA = {
             "value": 10242864.171875,
             "unit": "ns",
             "range": "± 23190.124868086867"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "225bd062488ad48c4e259a963565cee45a772f8f",
+          "message": "chore(analyzers): S1133 off for the base stages' scheduled [Obsolete] setters (#596)\n\nResolves the 9 S1133 alerts on the deliberate base-stage obsolete setters.\n\nVerified locally: Release build 0 errors.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-19T18:28:34-04:00",
+          "tree_id": "2b2b1fea1d3311366a2c368a4dcc032a5b7b5719",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/225bd062488ad48c4e259a963565cee45a772f8f"
+        },
+        "date": 1789857038147,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 32318.462595621746,
+            "unit": "ns",
+            "range": "± 162.73311563129434"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35525.18418375651,
+            "unit": "ns",
+            "range": "± 82.74727209422836"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3132119.28125,
+            "unit": "ns",
+            "range": "± 20091.06301590814"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3414274.125,
+            "unit": "ns",
+            "range": "± 1979.6389613352046"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29996.60759480794,
+            "unit": "ns",
+            "range": "± 101.98501816322162"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29580.75942484538,
+            "unit": "ns",
+            "range": "± 99.38620880904156"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 83541.12532552083,
+            "unit": "ns",
+            "range": "± 328.8088781119434"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2963248.8958333335,
+            "unit": "ns",
+            "range": "± 1852.3984513318244"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2875435.01953125,
+            "unit": "ns",
+            "range": "± 4380.1624353484"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8464893.854166666,
+            "unit": "ns",
+            "range": "± 13310.86454981636"
           }
         ]
       }
