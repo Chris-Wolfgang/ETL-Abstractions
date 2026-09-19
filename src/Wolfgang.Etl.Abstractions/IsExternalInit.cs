@@ -3,6 +3,7 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
+// ReSharper disable once CheckNamespace -- polyfill; the compiler looks the type up in this exact namespace
 namespace System.Runtime.CompilerServices;
 
 /// <summary>
