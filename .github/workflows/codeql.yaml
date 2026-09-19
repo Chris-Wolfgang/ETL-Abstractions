@@ -170,15 +170,23 @@ jobs:
     - name: Complete Security Scan
       if: always()
       shell: pwsh
+      # Step outcomes/outputs arrive through env rather than template expansion so nothing
+      # attacker-influenced is ever spliced into the script (zizmor template-injection).
+      env:
+        MATRIX_LANGUAGE: ${{ matrix.language }}
+        CHECK_CSHARP_OUTCOME: ${{ steps.check-csharp.outcome }}
+        HAS_CSHARP: ${{ steps.check-csharp.outputs.has-csharp }}
+        BUILD_OUTCOME: ${{ steps.build.outcome }}
+        CODEQL_OUTCOME: ${{ steps.perform-codeql-analysis.outcome }}
       run: |
         Write-Host "=== CodeQL Security Scan Complete ($env:MATRIX_LANGUAGE) ===" -ForegroundColor Cyan
 
         # Check the outcome of previous steps
         $language = "$env:MATRIX_LANGUAGE"
-        $checkCsharpOutcome = "${{ steps.check-csharp.outcome }}"
-        $hasCsharp = "${{ steps.check-csharp.outputs.has-csharp }}"
-        $buildOutcome = "${{ steps.build.outcome }}"
-        $codeqlOutcome = "${{ steps.perform-codeql-analysis.outcome }}"
+        $checkCsharpOutcome = "$env:CHECK_CSHARP_OUTCOME"
+        $hasCsharp = "$env:HAS_CSHARP"
+        $buildOutcome = "$env:BUILD_OUTCOME"
+        $codeqlOutcome = "$env:CODEQL_OUTCOME"
 
         # Determine overall status
         $hasFailure = $false
@@ -220,5 +228,3 @@ jobs:
           Write-Host "   Job status reported to branch protection." -ForegroundColor Green
         }
         Write-Host "========================================" -ForegroundColor Cyan
-      env:
-        MATRIX_LANGUAGE: ${{ matrix.language }}
