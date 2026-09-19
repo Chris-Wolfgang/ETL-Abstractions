@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
-namespace Wolfgang.Etl.Abstractions.Tests.Unit;
+namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 
 /// <summary>
 /// Verifies the options-record constructors added to the three base stages (ADR-0009): a
