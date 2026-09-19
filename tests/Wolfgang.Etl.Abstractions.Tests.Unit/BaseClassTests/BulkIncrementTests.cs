@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
-using Xunit;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 
@@ -145,11 +139,15 @@ public sealed class BulkIncrementTests
     {
         using var sut = new CountingExtractor();
 
+        // Parallel.For runs every iteration to completion before returning, so the captured `sut` is
+        // still alive for the whole lambda; the disposed-closure inspection cannot see that.
         Parallel.For(0, 64, _ =>
         {
             for (var i = 0; i < 100; i++)
             {
+                // ReSharper disable once AccessToDisposedClosure
                 sut.AddItems(3);
+                // ReSharper disable once AccessToDisposedClosure
                 sut.AddSkipped(2);
             }
         });

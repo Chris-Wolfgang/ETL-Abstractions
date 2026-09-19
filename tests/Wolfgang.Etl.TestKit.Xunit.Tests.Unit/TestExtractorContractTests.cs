@@ -24,6 +24,6 @@ public class TestExtractorContractTests
         Enumerable.Range(1, 5).ToList();
 
     /// <inheritdoc/>
-    protected override TestExtractor<int> CreateSutOverSource(IEnumerable<int> source, int maximumItemCount) =>
+    protected override TestExtractor<int> CreateSutOverSource(IEnumerable<int> source, int maximumItemCount = int.MaxValue) =>
         new TestExtractor<int>(source, new ExtractorOptions { MaximumItemCount = maximumItemCount });
 }
