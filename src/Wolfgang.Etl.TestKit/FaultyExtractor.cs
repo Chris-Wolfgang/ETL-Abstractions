@@ -402,8 +402,8 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     {
         token.ThrowIfCancellationRequested();
 
-        // The wrapped source is synchronous; yield once up front to honour the
-        // async-iterator contract on every exit path however the loop terminates.
+        // The wrapped source is synchronous; yield once up front to honour the async-iterator contract.
+        // Stryker disable once Statement : the yield only changes when the first item appears, not what (#452).
         await Task.Yield();
 
         var enumerator = _items.GetEnumerator();

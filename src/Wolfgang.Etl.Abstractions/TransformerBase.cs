@@ -335,6 +335,8 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     {
         ResetRunState();
 
+        // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
+        // synchronization context), so the flipped mutant is unkillable (#452).
         await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
         {
             yield return item;
@@ -353,7 +355,9 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
         try
         {
-            await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
+            // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
+        // synchronization context), so the flipped mutant is unkillable (#452).
+        await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
             {
                 yield return item;
             }

@@ -11,6 +11,8 @@ public sealed class BulkIncrementTests
 {
     private sealed class CountingExtractor : ExtractorBase<int, EtlProgress>
     {
+        public DateTimeOffset? Started => StartedAt;
+
         public void AddItems(int count) => IncrementCurrentItemCount(count);
 
         public void AddSkipped(int count) => IncrementCurrentSkippedItemCount(count);
@@ -26,6 +28,8 @@ public sealed class BulkIncrementTests
 
     private sealed class CountingLoader : LoaderBase<int, EtlProgress>
     {
+        public DateTimeOffset? Started => StartedAt;
+
         public void AddItems(int count) => IncrementCurrentItemCount(count);
 
         public void AddSkipped(int count) => IncrementCurrentSkippedItemCount(count);
@@ -37,6 +41,8 @@ public sealed class BulkIncrementTests
 
     private sealed class CountingTransformer : TransformerBase<int, int, EtlProgress>
     {
+        public DateTimeOffset? Started => StartedAt;
+
         public void AddItems(int count) => IncrementCurrentItemCount(count);
 
         public void AddSkipped(int count) => IncrementCurrentSkippedItemCount(count);
@@ -182,5 +188,80 @@ public sealed class BulkIncrementTests
         Assert.Equal(0, loader.CurrentItemCount + loader.CurrentSkippedItemCount);
         Assert.Equal(0, transformer.CurrentItemCount + transformer.CurrentSkippedItemCount);
         Assert.True(reports >= 3, $"each stage reports at least once at completion; saw {reports}");
+    }
+
+
+    // The bulk overloads must mark the run as started exactly like the single-item ones do (the
+    // progress report's StartedAt / Elapsed derive from it); one test per base per overload.
+
+    [Fact]
+    public void ExtractorBase_bulk_item_increment_records_the_run_start()
+    {
+        using var sut = new CountingExtractor();
+        Assert.Null(sut.Started);
+
+        sut.AddItems(2);
+
+        Assert.NotNull(sut.Started);
+    }
+
+
+    [Fact]
+    public void ExtractorBase_bulk_skipped_increment_records_the_run_start()
+    {
+        using var sut = new CountingExtractor();
+        Assert.Null(sut.Started);
+
+        sut.AddSkipped(2);
+
+        Assert.NotNull(sut.Started);
+    }
+
+
+    [Fact]
+    public void LoaderBase_bulk_item_increment_records_the_run_start()
+    {
+        using var sut = new CountingLoader();
+        Assert.Null(sut.Started);
+
+        sut.AddItems(2);
+
+        Assert.NotNull(sut.Started);
+    }
+
+
+    [Fact]
+    public void LoaderBase_bulk_skipped_increment_records_the_run_start()
+    {
+        using var sut = new CountingLoader();
+        Assert.Null(sut.Started);
+
+        sut.AddSkipped(2);
+
+        Assert.NotNull(sut.Started);
+    }
+
+
+    [Fact]
+    public void TransformerBase_bulk_item_increment_records_the_run_start()
+    {
+        using var sut = new CountingTransformer();
+        Assert.Null(sut.Started);
+
+        sut.AddItems(2);
+
+        Assert.NotNull(sut.Started);
+    }
+
+
+    [Fact]
+    public void TransformerBase_bulk_skipped_increment_records_the_run_start()
+    {
+        using var sut = new CountingTransformer();
+        Assert.Null(sut.Started);
+
+        sut.AddSkipped(2);
+
+        Assert.NotNull(sut.Started);
     }
 }

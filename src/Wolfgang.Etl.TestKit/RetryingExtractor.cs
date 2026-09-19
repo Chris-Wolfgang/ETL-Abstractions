@@ -231,12 +231,12 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
                     buffer.Add(enumerator.Current);
                 }
             }
+            // Stryker disable once Block : the iterator has always completed by the time this finally runs, so
+            // disposing a compiler-generated enumerator is a no-op and dropping the block is unobservable (#434).
             finally
             {
-                // Stryker disable once Statement,Boolean,Block : by the time control reaches this finally block the
-                // iterator has always completed, so disposing a compiler-generated enumerator is a no-op and
-                // dropping the block changes nothing observable; the ConfigureAwait flag is likewise unobservable
-                // under the test host. All three mutant categories are unkillable (#434).
+                // Stryker disable once Statement,Boolean : same for the statement itself; the ConfigureAwait flag
+                // is likewise unobservable under the test host (#434).
                 await enumerator.DisposeAsync().ConfigureAwait(false);
             }
 
