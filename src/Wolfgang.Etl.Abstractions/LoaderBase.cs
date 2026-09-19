@@ -78,7 +78,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// deprecated and will be removed (#351 / #438, ADR-0009), at which point this options record
     /// is the only way to set them.
     /// </remarks>
-    protected LoaderBase(LoaderOptions? options = null)
+    protected LoaderBase(LoaderOptions? options)
     {
         if (options is null)
         {
