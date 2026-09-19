@@ -61,7 +61,7 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestTransformer{T}"/> as <see cref="TestTransformer()"/> does, with the
+    /// Initializes a new <see cref="TestTransformer{T}"/> as <see cref="TestTransformer{T}()"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -89,7 +89,7 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestTransformer{T}"/> as <see cref="TestTransformer(IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="TestTransformer{T}"/> as <see cref="TestTransformer{T}(IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>

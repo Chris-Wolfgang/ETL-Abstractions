@@ -74,7 +74,7 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="FaultyTransformer{T}"/> as <see cref="FaultyTransformer()"/> does, with the
+    /// Initializes a new <see cref="FaultyTransformer{T}"/> as <see cref="FaultyTransformer{T}()"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -102,7 +102,7 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="FaultyTransformer{T}"/> as <see cref="FaultyTransformer(IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="FaultyTransformer{T}"/> as <see cref="FaultyTransformer{T}(IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>

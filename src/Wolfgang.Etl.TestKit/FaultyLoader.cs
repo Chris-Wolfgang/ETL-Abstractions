@@ -83,7 +83,7 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="FaultyLoader{T}"/> as <see cref="FaultyLoader(bool)"/> does, with the
+    /// Initializes a new <see cref="FaultyLoader{T}"/> as <see cref="FaultyLoader{T}(bool)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -123,7 +123,7 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="FaultyLoader{T}"/> as <see cref="FaultyLoader(bool, IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="FaultyLoader{T}"/> as <see cref="FaultyLoader{T}(bool, IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>

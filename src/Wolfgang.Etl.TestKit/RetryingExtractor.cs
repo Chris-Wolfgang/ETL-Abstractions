@@ -70,7 +70,7 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="RetryingExtractor{T}"/> as <see cref="RetryingExtractor(IEnumerable{T}, int, int)"/> does, with the
+    /// Initializes a new <see cref="RetryingExtractor{T}"/> as <see cref="RetryingExtractor{T}(IEnumerable{T}, int, int)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -233,10 +233,10 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
             }
             finally
             {
-                // Stryker disable once Statement,Boolean,Block : the iterator is always completed here (MoveNextAsync
-                // already returned false or threw) so a compiler-generated enumerator's DisposeAsync is a no-op;
-                // removing the whole finally block costs nothing observable. ConfigureAwait(false) vs (true) is
-                // equivalent under the test host. All three mutant categories are unkillable (#434).
+                // Stryker disable once Statement,Boolean,Block : by the time control reaches this finally block the
+                // iterator has always completed, so disposing a compiler-generated enumerator is a no-op and
+                // dropping the block changes nothing observable; the ConfigureAwait flag is likewise unobservable
+                // under the test host. All three mutant categories are unkillable (#434).
                 await enumerator.DisposeAsync().ConfigureAwait(false);
             }
 

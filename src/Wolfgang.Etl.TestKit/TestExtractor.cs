@@ -87,7 +87,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(IEnumerable{T})"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(IEnumerable{T})"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -123,7 +123,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(IEnumerator{T})"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(IEnumerator{T})"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -161,7 +161,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(IEnumerable{T}, IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(IEnumerable{T}, IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -202,7 +202,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(IEnumerator{T}, IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(IEnumerator{T}, IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -246,7 +246,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{T})"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(Func{T})"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -288,7 +288,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{T}, int)"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(Func{T}, int)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -339,7 +339,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{int, T})"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(Func{int, T})"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -384,7 +384,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{int, T}, int)"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(Func{int, T}, int)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -439,7 +439,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{T}, IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(Func{T}, IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -491,7 +491,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{T}, int, IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(Func{T}, int, IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -552,7 +552,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{int, T}, IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(Func{int, T}, IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -607,7 +607,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor(Func{int, T}, int, IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="TestExtractor{T}"/> as <see cref="TestExtractor{T}(Func{int, T}, int, IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
