@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789748436755,
+  "lastUpdate": 1789819172188,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -3696,6 +3696,90 @@ window.BENCHMARK_DATA = {
             "value": 8213344.411458333,
             "unit": "ns",
             "range": "± 9193.722245963341"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9d04577eb39b37ae4e8ac337bb626cc17fdaaaaa",
+          "message": "chore(pack): advance PackageValidation baseline to 0.25.0 (#535)\n\nv0.25.0 is published and indexed on nuget.org; CompatibilitySuppressions.xml regenerated against it (the CreateSut entries were one-release-lived and are now pruned).\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-19T07:57:26-04:00",
+          "tree_id": "bbd68a4d0a9eb938dbaa22515e6c0160d2acd924",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/9d04577eb39b37ae4e8ac337bb626cc17fdaaaaa"
+        },
+        "date": 1789819167393,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 31180.103546142578,
+            "unit": "ns",
+            "range": "± 196.17754625906903"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35573.23967488607,
+            "unit": "ns",
+            "range": "± 87.84085851180481"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3141227.6380208335,
+            "unit": "ns",
+            "range": "± 1241.517830405067"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3430947.14453125,
+            "unit": "ns",
+            "range": "± 20404.736347658727"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29789.39808654785,
+            "unit": "ns",
+            "range": "± 46.340612841869174"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29376.90855407715,
+            "unit": "ns",
+            "range": "± 149.27277966172034"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 100973.73067220052,
+            "unit": "ns",
+            "range": "± 3809.1442735259698"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2945701.9505208335,
+            "unit": "ns",
+            "range": "± 1556.5189644286959"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2853493.5143229165,
+            "unit": "ns",
+            "range": "± 3597.1303357084767"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8173186.713541667,
+            "unit": "ns",
+            "range": "± 8434.29203084674"
           }
         ]
       }
