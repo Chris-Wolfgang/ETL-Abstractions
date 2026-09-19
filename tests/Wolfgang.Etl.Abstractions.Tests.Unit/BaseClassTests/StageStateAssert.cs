@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Wolfgang.Etl.Abstractions.Tests.Unit;
+namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 
 /// <summary>
 /// Asserts that two freshly constructed stages are observably identical: every public, readable,

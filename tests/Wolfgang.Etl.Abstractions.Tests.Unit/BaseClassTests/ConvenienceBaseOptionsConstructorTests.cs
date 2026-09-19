@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Wolfgang.Etl.Abstractions.Tests.Unit;
+namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 
 /// <summary>
 /// Verifies that the single-progress-type convenience bases — <see cref="ExtractorBase{TSource}"/>,
