@@ -13,6 +13,11 @@ name: Concurrency (Coyote)
 #     (1000 iterations/test) gates races before merge.
 #   - schedule (weekly) + workflow_dispatch — the deep run (10000 iterations/test).
 #
+# The TestKit doubles have their own systematic scenarios (tests/Wolfgang.Etl.TestKit.Tests
+# .Concurrency, #126): xunit-hosted Coyote TestingEngine runs that only execute when the
+# assembly was rewritten and COYOTE_REWRITTEN=1 is set (#365). That project targets net10.0;
+# `coyote rewrite` only patches the IL, so the runtime gap above does not apply.
+#
 # NOT implemented: the optional 24h soak (handle/thread/memory-leak hunting via
 # dotnet-counters). It requires a persistent self-hosted runner, which this project
 # does not have; add it here behind a `runs-on: [self-hosted]` job when one exists.
@@ -25,6 +30,7 @@ on:
     paths:
       - 'src/**/*.cs'
       - 'tests/Wolfgang.Etl.Abstractions.Tests.Concurrency/**'
+      - 'tests/Wolfgang.Etl.TestKit.Tests.Concurrency/**'
       - '.github/workflows/coyote.yaml'
   schedule:
     - cron: '0 5 * * 1' # weekly Monday 05:00 UTC
@@ -93,3 +99,42 @@ jobs:
             coyote test "$dll" --method "$m" --iterations "$iterations"
             echo "::endgroup::"
           done
+
+  coyote-testkit:
+    name: Coyote systematic exploration (TestKit doubles)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PROJECT: tests/Wolfgang.Etl.TestKit.Tests.Concurrency
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Build the TestKit concurrency project (Release)
+        run: dotnet build "$PROJECT/Wolfgang.Etl.TestKit.Tests.Concurrency.csproj" -c Release
+
+      - name: Install Coyote CLI
+        run: |
+          dotnet tool install --global Microsoft.Coyote.CLI --version 1.7.11
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
+      - name: Rewrite assemblies for the controlled scheduler
+        working-directory: ${{ env.PROJECT }}
+        run: coyote rewrite rewrite.coyote.json
+
+      - name: Run the systematic tests under the rewritten assemblies
+        # RunSystematic early-returns without this flag (the normal PR sweep must not
+        # run un-rewritten Coyote, which reports false deadlocks); with it, each [Fact]
+        # drives a TestingEngine over 500 controlled interleavings and fails on any bug.
+        env:
+          COYOTE_REWRITTEN: '1'
+        run: dotnet test "$PROJECT/Wolfgang.Etl.TestKit.Tests.Concurrency.csproj" -c Release --no-build --logger "console;verbosity=normal"
