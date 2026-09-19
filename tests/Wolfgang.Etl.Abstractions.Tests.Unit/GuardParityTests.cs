@@ -158,7 +158,7 @@ public class GuardParityTests
     {
         using var sut = new GuardExtractor();
 
-        var ex = Assert.Throws<ArgumentNullException>(() => sut.ExtractAsync((IProgress<EtlProgress>)null!));
+        var ex = Assert.Throws<ArgumentNullException>(() => sut.ExtractAsync(null!));
 
         Assert.Equal("progress", ex.ParamName);
     }
@@ -170,7 +170,7 @@ public class GuardParityTests
     {
         using var sut = new GuardLoader();
 
-        var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => sut.LoadAsync((IAsyncEnumerable<int>)null!));
+        var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => sut.LoadAsync(null!));
 
         Assert.Equal("items", ex.ParamName);
     }
@@ -182,7 +182,7 @@ public class GuardParityTests
     {
         using var sut = new GuardLoader();
 
-        var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => sut.LoadAsync(EmptyAsync(), (IProgress<EtlProgress>)null!));
+        var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => sut.LoadAsync(EmptyAsync(), null!));
 
         Assert.Equal("progress", ex.ParamName);
     }
@@ -194,7 +194,7 @@ public class GuardParityTests
     {
         using var sut = new GuardTransformer();
 
-        var ex = Assert.Throws<ArgumentNullException>(() => sut.TransformAsync((IAsyncEnumerable<int>)null!));
+        var ex = Assert.Throws<ArgumentNullException>(() => sut.TransformAsync(null!));
 
         Assert.Equal("items", ex.ParamName);
     }
