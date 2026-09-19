@@ -1,0 +1,18 @@
+# Per-file analyzer suppressions inside the main src/ project surface.
+# Every entry is documented and scoped to a single file; if the code
+# changes so the warning is no longer a false positive, remove the
+# entry rather than expanding its scope.
+
+# S1133 flags [Obsolete] members as "do not forget to remove someday".
+# The base stages' obsolete setters (ReportingInterval / MaximumItemCount /
+# SkipItemCount) are intentional deprecation markers scheduled for the
+# 2026-12-15 removal wave (#484) — the whole point of `[Obsolete]` is that
+# the deletion is scheduled for a future release, not for the next commit.
+[ExtractorBase.cs]
+dotnet_diagnostic.S1133.severity = none
+
+[LoaderBase.cs]
+dotnet_diagnostic.S1133.severity = none
+
+[TransformerBase.cs]
+dotnet_diagnostic.S1133.severity = none
