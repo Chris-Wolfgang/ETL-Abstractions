@@ -105,7 +105,7 @@ public class SnapshotTestLoader<T> : LoaderBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="SnapshotTestLoader{T}"/> as <see cref="SnapshotTestLoader(Func{T, string})"/> does, with the
+    /// Initializes a new <see cref="SnapshotTestLoader{T}"/> as <see cref="SnapshotTestLoader{T}(Func{T, string})"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>

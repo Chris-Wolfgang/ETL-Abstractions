@@ -85,7 +85,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="FaultyExtractor{T}"/> as <see cref="FaultyExtractor(IEnumerable{T})"/> does, with the
+    /// Initializes a new <see cref="FaultyExtractor{T}"/> as <see cref="FaultyExtractor{T}(IEnumerable{T})"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
@@ -121,7 +121,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="FaultyExtractor{T}"/> as <see cref="FaultyExtractor(IEnumerable{T}, IProgressTimer)"/> does, with the
+    /// Initializes a new <see cref="FaultyExtractor{T}"/> as <see cref="FaultyExtractor{T}(IEnumerable{T}, IProgressTimer)"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>

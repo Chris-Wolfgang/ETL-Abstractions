@@ -68,7 +68,7 @@ public class DelayingExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="DelayingExtractor{T}"/> as <see cref="DelayingExtractor(IEnumerable{T}, TimeSpan)"/>
+    /// Initializes a new <see cref="DelayingExtractor{T}"/> as <see cref="DelayingExtractor{T}(IEnumerable{T}, TimeSpan)"/>
     /// does, with the base-stage configuration taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
     /// <param name="items">The items to extract.</param>
@@ -99,7 +99,7 @@ public class DelayingExtractor<T> : ExtractorBase<T, Report>
 
 
     /// <summary>
-    /// Initializes a new <see cref="DelayingExtractor{T}"/> as <see cref="DelayingExtractor(IEnumerable{T}, Func{int, TimeSpan})"/> does, with the
+    /// Initializes a new <see cref="DelayingExtractor{T}"/> as <see cref="DelayingExtractor{T}(IEnumerable{T}, Func{int, TimeSpan})"/> does, with the
     /// base-stage configuration (<c>ReportingInterval</c>, <c>MaximumItemCount</c>, <c>SkipItemCount</c>,
     /// <c>ErrorPolicy</c>) taken from <paramref name="options"/> (ADR-0009).
     /// </summary>
