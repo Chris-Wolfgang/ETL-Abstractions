@@ -416,11 +416,11 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
         token.ThrowIfCancellationRequested();
 
         _buffer.Clear();
-
         var index = 0;
 
         try
         {
+            // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (#452).
             await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
             {
                 token.ThrowIfCancellationRequested();
