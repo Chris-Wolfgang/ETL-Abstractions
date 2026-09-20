@@ -71,7 +71,7 @@ public static class DocExampleSource
     /// </summary>
     public static IReadOnlyList<DocExample> DiscoverAll()
     {
-        var sourceDirectory = LocateSourceDirectory();
+        var sourceDirectory = LocateSourceDirectory(AppContext.BaseDirectory);
         var examples = new List<DocExample>();
 
         foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*.cs", SearchOption.AllDirectories))
@@ -179,9 +179,9 @@ public static class DocExampleSource
     // Walks up from the test assembly's base directory to the checked-out tree. Deliberately
     // avoids [CallerFilePath], which bakes in the build-machine path and resolves to a
     // non-existent '/_/...' location under CI's deterministic-build settings.
-    private static string LocateSourceDirectory()
+    internal static string LocateSourceDirectory(string startDirectory)
     {
-        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        var directory = new DirectoryInfo(startDirectory);
         while (directory is not null)
         {
             var candidate = Path.Combine(directory.FullName, "src", "Wolfgang.Etl.Abstractions");
@@ -195,6 +195,6 @@ public static class DocExampleSource
         }
 
         throw new DirectoryNotFoundException(
-            $"Could not locate 'src/Wolfgang.Etl.Abstractions' above '{AppContext.BaseDirectory}'.");
+            $"Could not locate 'src/Wolfgang.Etl.Abstractions' above '{startDirectory}'.");
     }
 }

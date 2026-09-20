@@ -129,7 +129,9 @@ public static class DocExampleCompiler
     }
 
 
-    private static bool ContainsWord(string code, string word)
+    // Internal so the boundary-scanning loop (a match inside a longer identifier must be
+    // skipped, and a later whole-word match still found) can be pinned by a test.
+    internal static bool ContainsWord(string code, string word)
     {
         var index = code.IndexOf(word, StringComparison.Ordinal);
         while (index >= 0)
@@ -168,12 +170,20 @@ public static class DocExampleCompiler
 
         // Belt-and-braces: guarantee the library under test is referenced even if it is
         // ever loaded from outside the TPA closure.
-        var abstractionsPath = typeof(EtlPipeline).Assembly.Location;
-        if (!string.IsNullOrEmpty(abstractionsPath) && seen.Add(abstractionsPath))
-        {
-            references.Add(MetadataReference.CreateFromFile(abstractionsPath));
-        }
+        AddIfUnseen(references, seen, typeof(EtlPipeline).Assembly.Location);
 
         return references;
+    }
+
+
+
+    // Adds a reference for `path` unless it is empty or already in `seen`. Split out so the
+    // outside-the-TPA case (never hit under the test host) is exercised directly.
+    internal static void AddIfUnseen(ICollection<MetadataReference> references, ISet<string> seen, string? path)
+    {
+        if (!string.IsNullOrEmpty(path) && seen.Add(path))
+        {
+            references.Add(MetadataReference.CreateFromFile(path));
+        }
     }
 }
