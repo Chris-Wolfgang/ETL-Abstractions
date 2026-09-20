@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1786861162426,
+  "lastUpdate": 1789885578105,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "Mutation score": [
@@ -107,6 +107,33 @@ window.BENCHMARK_DATA = {
           {
             "name": "Mutation score",
             "value": 76.13,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "38779945e6de3cb00f8edefeee05180217eaa63e",
+          "message": "test: InspectCode nits in the unit tests (usings, casts, using-initialisers, closure, override default) (#598)\n\nResolves 18 InspectCode alerts in test code.\n\nVerified locally: Release build 0 errors; unit suites green on net462 / net10.0.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-20T00:52:47Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/38779945e6de3cb00f8edefeee05180217eaa63e"
+        },
+        "date": 1789885572574,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 98.27,
             "unit": "%"
           }
         ]
