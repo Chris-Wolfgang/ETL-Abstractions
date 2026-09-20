@@ -237,10 +237,13 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         shell: pwsh
         run: |
-          $tags = git tag -l 'v*' | Where-Object { $_ -ne '' }
+          # Both tag spellings appear in this repo's history (v0.23.2 and 0.23.1). The docs for a
+          # no-'v' release live under versions/<raw tag>/, so the tag is kept as-is for the URL and
+          # the SemVer parse below simply tolerates the missing prefix (#451).
+          $tags = git tag -l 'v*' '[0-9]*' | Where-Object { $_ -ne '' } | Sort-Object -Unique
 
-          # Strict SemVer pattern: vMAJOR.MINOR.PATCH or vMAJOR.MINOR.PATCH-PRERELEASE
-          $semverRe = '^v(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>[0-9A-Za-z.-]+))?$'
+          # Strict SemVer pattern: [v]MAJOR.MINOR.PATCH or [v]MAJOR.MINOR.PATCH-PRERELEASE
+          $semverRe = '^v?(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>[0-9A-Za-z.-]+))?$'
 
           $taggedVersions = foreach ($t in $tags) {
             if ($t -match $semverRe) {
