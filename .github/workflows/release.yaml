@@ -9,7 +9,11 @@ permissions:
   contents: read  # Default to read-only; individual jobs declare write where required
 
 env:
+  # Minimum line coverage for PRODUCTION assemblies (anything under src/).
   CODECOV_MINIMUM: 90
+  # Minimum line coverage for TEST assemblies (anything under tests/).
+  # Kept in sync with pr.yaml — see the note there (#386).
+  CODECOV_TEST_MINIMUM: 99
 
 concurrency:
   # Serialize releases so a duplicate / re-published Release event can't run two
@@ -276,9 +280,11 @@ jobs:
             exit 1
           }
           
-          dotnet tool install -g dotnet-reportgenerator-globaltool
+          # Pinned in .config/dotnet-tools.json at the tag; never installed unversioned.
+          dotnet tool restore
+          if ($LASTEXITCODE -ne 0) { Write-Error "dotnet tool restore failed"; exit 1 }
           
-          reportgenerator `
+          dotnet reportgenerator `
             -reports:"TestResults/**/coverage.cobertura.xml" `
             -targetdir:"CoverageReport" `
             -reporttypes:"TextSummary;Html"
@@ -291,24 +297,42 @@ jobs:
           
           # Parse coverage and enforce threshold per module (matching pr.yaml)
           $summaryContent = Get-Content CoverageReport/Summary.txt
-          $threshold = if ($env:CODECOV_MINIMUM) { [int]$env:CODECOV_MINIMUM } else { 90 }
+          $threshold     = if ($env:CODECOV_MINIMUM) { [int]$env:CODECOV_MINIMUM } else { 90 }
+          $testThreshold = if ($env:CODECOV_TEST_MINIMUM) { [int]$env:CODECOV_TEST_MINIMUM } else { 100 }
           $failedModules = @()
           $coverageFound = $false
-          
+
+          # Assembly names produced by projects under tests/ — mirrors pr.yaml.
+          # Identify test assemblies by LOCATION, never by name: shipped product
+          # packages such as Wolfgang.Etl.TestKit contain "Test" and live in src/.
+          $testAssemblies = @()
+          if (Test-Path "tests") {
+            Get-ChildItem -Path "tests" -Recurse -File -Include *.csproj,*.vbproj,*.fsproj | ForEach-Object {
+              $m = [regex]::Match((Get-Content $_.FullName -Raw), '<AssemblyName>([^<]+)</AssemblyName>')
+              $testAssemblies += $(if ($m.Success) { $m.Groups[1].Value.Trim() } else { $_.BaseName })
+            }
+          }
+
           foreach ($line in $summaryContent) {
-            # Match lines with module names and percentages (skip Summary line)
+            # Match lines with module names and percentages (skip Summary line).
+            # `^([^ ]+)` keeps indented per-class rows out — only assembly rows
+            # are gated, and an assembly only reaches 100% when every class does.
             if ($line -match '^([^ ]+)\s+.*\s+(\d+(?:\.\d+)?)%$' -and $line -notmatch '^Summary') {
               $coverageFound = $true
               $module = $matches[1]
               $coverage = [decimal]$matches[2]
-              
-              Write-Host "Checking module: '$module' - Coverage: ${coverage}%" -ForegroundColor Cyan
-              
-              if ($coverage -lt $threshold) {
-                Write-Host "  ❌ FAIL: Below ${threshold}% threshold" -ForegroundColor Red
-                $failedModules += "$module (${coverage}%)"
+
+              $isTest  = $testAssemblies -contains $module
+              $applies = if ($isTest) { $testThreshold } else { $threshold }
+              $kind    = if ($isTest) { "test" } else { "src" }
+
+              Write-Host "Checking $kind module: '$module' - Coverage: ${coverage}%" -ForegroundColor Cyan
+
+              if ($coverage -lt $applies) {
+                Write-Host "  ❌ FAIL: Below ${applies}% threshold" -ForegroundColor Red
+                $failedModules += "$module (${coverage}%, needs ${applies}%)"
               } else {
-                Write-Host "  ✅ PASS: Meets ${threshold}% threshold" -ForegroundColor Green
+                Write-Host "  ✅ PASS: Meets ${applies}% threshold" -ForegroundColor Green
               }
             }
           }
@@ -370,6 +394,13 @@ jobs:
         run: |
           dotnet restore
           dotnet build --no-restore --configuration Release
+
+      # Renders each src project's transitive NuGet closure to obj/THIRD-PARTY-NOTICES.md;
+      # Directory.Build.props packs it at the package root. Runs from the tag, after
+      # restore (nuget-license reads project.assets.json) and before pack.
+      - name: Generate third-party notices
+        shell: pwsh
+        run: pwsh ./scripts/third-party-notices.ps1
 
       - name: Pack NuGet packages
         id: check-packages
@@ -532,7 +563,9 @@ jobs:
         if: steps.check-packages.outputs.has-packages == 'true'
         shell: pwsh
         run: |
-          dotnet tool install --global CycloneDX
+          # Pinned in .config/dotnet-tools.json at the tag; never installed unversioned.
+          dotnet tool restore
+          if ($LASTEXITCODE -ne 0) { Write-Error "dotnet tool restore failed"; exit 1 }
 
           $sbomDir = Join-Path $PWD 'nuget-packages'
           $srcProjects = Get-ChildItem -Path 'src' -Filter '*.csproj' -Recurse -ErrorAction SilentlyContinue
@@ -574,8 +607,10 @@ jobs:
     timeout-minutes: 30
     # Gate on the prior validation jobs so we don't burn ~5-10 min of Windows
     # runner time on a release that's already failing earlier in the pipeline.
+    # No repo guard here: validate-release carries it, and a `needs:` on a
+    # skipped job skips this one too. A guard of its own would make this job
+    # skip in a way publish-nuget's `needs:` treats as unmet (#420).
     needs: [validate-release, pack-and-validate]
-    if: github.repository != 'Chris-Wolfgang/repo-template'
     steps:
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -634,19 +669,20 @@ jobs:
         if: steps.check.outputs.found == 'true'
         run: dotnet build --no-restore --configuration Release
 
-      - name: Install DocFX
+      - name: Restore CI tools (DocFX)
         if: steps.check.outputs.found == 'true'
         shell: pwsh
-        run: dotnet tool update docfx --global || dotnet tool install docfx --global
+        # Pinned in .config/dotnet-tools.json at the tag; never installed unversioned.
+        run: dotnet tool restore
 
       - name: Build DocFX metadata
         if: steps.check.outputs.found == 'true'
-        run: docfx metadata
+        run: dotnet docfx metadata
         working-directory: docfx_project
 
       - name: Build documentation (no deploy)
         if: steps.check.outputs.found == 'true'
-        run: docfx build
+        run: dotnet docfx build
         working-directory: docfx_project
 
       - name: Verify documentation output
@@ -739,7 +775,10 @@ jobs:
     needs: validate-release
     permissions:
       contents: write  # Required by docfx.yaml to push to gh-pages branch
-    uses: ./.github/workflows/docfx.yaml
+    # GitHub's `$/` self-repository syntax is preferred here, but actionlint
+    # (a required check) rejects it until rhysd/actionlint#732 ships. Switch
+    # to `$/.github/workflows/docfx.yaml` and drop the ignore when it does.
+    uses: ./.github/workflows/docfx.yaml  # zizmor: ignore[self-repository]
     with:
       version: ${{ github.event.release.tag_name }}
 
@@ -833,7 +872,10 @@ jobs:
           TAG_NAME: ${{ github.event.release.tag_name }}
         run: |
           shopt -s nullglob
-          files=(./nuget-packages/*.nupkg ./nuget-packages/*.snupkg ./nuget-packages/*.bom.json reproducible-build-manifest.json release-coverage.zip)
+          files=(./nuget-packages/*.nupkg ./nuget-packages/*.snupkg ./nuget-packages/*.bom.json reproducible-build-manifest.json)
+          # nullglob only drops unmatched *patterns*; a literal name stays and would make
+          # `gh release upload` fail, so add the coverage zip only when it exists.
+          if [ -f release-coverage.zip ]; then files+=(release-coverage.zip); fi
           echo "Uploading ${#files[@]} asset(s) to release $TAG_NAME"
           gh release upload "$TAG_NAME" "${files[@]}" --clobber
 
