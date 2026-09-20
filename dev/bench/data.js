@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789859191757,
+  "lastUpdate": 1789921432330,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4116,6 +4116,90 @@ window.BENCHMARK_DATA = {
             "value": 6307302.940104167,
             "unit": "ns",
             "range": "± 2060.7307099471464"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a445023137786d7976005e7eb130b374293288e3",
+          "message": "fix(benchmarks): gate against the median of the last five main runs, not the single latest (#606)\n\nThe gate compared a PR run against only the newest gh-pages data point. Identical code on main has measured 2.5-4.4 ms for Extract_NoProgress(100000) across its last eight runs; when the newest happened to be the 2.5 ms outlier, every following PR (three in a row, none touching src/) tripped the 1.5x ratio and the absolute floor. The baseline is now the per-benchmark median of the last BASELINE_RUNS (5) main entries. Checked against the failing run's real numbers: 1.27x -> passes; a synthetic 1.6x over the median still fails.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-20T12:21:46-04:00",
+          "tree_id": "01a451e805eea4b3d72238d0090cf0bbe0617454",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/a445023137786d7976005e7eb130b374293288e3"
+        },
+        "date": 1789921427540,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 31849.83039347331,
+            "unit": "ns",
+            "range": "± 272.90040911017553"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35795.2223815918,
+            "unit": "ns",
+            "range": "± 55.40819382710325"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3130408.1276041665,
+            "unit": "ns",
+            "range": "± 16338.51383938957"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3437195.6223958335,
+            "unit": "ns",
+            "range": "± 4645.004147025489"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29591.8162689209,
+            "unit": "ns",
+            "range": "± 135.2491901731577"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29487.110107421875,
+            "unit": "ns",
+            "range": "± 66.42865405427189"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 84031.43322753906,
+            "unit": "ns",
+            "range": "± 379.54526768367566"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2844778.837890625,
+            "unit": "ns",
+            "range": "± 2153.1248260152493"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2923127.9192708335,
+            "unit": "ns",
+            "range": "± 1932.4256568706255"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8138999.515625,
+            "unit": "ns",
+            "range": "± 11575.377718478108"
           }
         ]
       }
