@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789921432330,
+  "lastUpdate": 1789930352837,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4200,6 +4200,90 @@ window.BENCHMARK_DATA = {
             "value": 8138999.515625,
             "unit": "ns",
             "range": "± 11575.377718478108"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "cafc0b8e42d0e076e3aff56bbbf065911ebd3566",
+          "message": "test: kill or document the 13 Stryker survivors (#452) (#604)\n\nAbstractions (10): six EnsureStarted() statement mutants in the bulk IncrementCurrentItemCount(int) / IncrementCurrentSkippedItemCount(int) overloads are now killed by tests asserting StartedAt flips from null on the first bulk increment (one per base per overload); the four ConfigureAwait(false) boolean mutants on the ExtractAsync / TransformAsync loops are equivalent under the test host and carry a 'Stryker disable once Boolean' with the reason.\nTestKit (3): FaultyExtractor's up-front Task.Yield (Statement) and FaultyLoader's ConfigureAwait (Boolean) are equivalent and documented; RetryingExtractor's finally Block mutant was not covered by the existing disable-once because that comment sat inside the block — it now sits above the finally.\n\nLocal Stryker on the six mutated files: Abstractions 182 killed / 0 survived, TestKit 172 killed / 0 survived.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-20T14:50:23-04:00",
+          "tree_id": "ca9f5eeaa9e5a3188138c4b53c53e05b03451ab5",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/cafc0b8e42d0e076e3aff56bbbf065911ebd3566"
+        },
+        "date": 1789930347313,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 31725.489969889324,
+            "unit": "ns",
+            "range": "± 76.41762938788332"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35253.801137288414,
+            "unit": "ns",
+            "range": "± 116.42850551000663"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3295444.53125,
+            "unit": "ns",
+            "range": "± 4679.930504801316"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3407526.7252604165,
+            "unit": "ns",
+            "range": "± 1978.4997616834337"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29877.24326578776,
+            "unit": "ns",
+            "range": "± 116.98628806174098"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29243.752410888672,
+            "unit": "ns",
+            "range": "± 399.52091800909074"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 82758.24007161458,
+            "unit": "ns",
+            "range": "± 238.74688227838317"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2871473.96484375,
+            "unit": "ns",
+            "range": "± 17526.39132788767"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2947196.1243489585,
+            "unit": "ns",
+            "range": "± 597.8178486892016"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8231340.473958333,
+            "unit": "ns",
+            "range": "± 32814.818197891596"
           }
         ]
       }
