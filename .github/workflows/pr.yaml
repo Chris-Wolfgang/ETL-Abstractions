@@ -210,7 +210,12 @@ jobs:
           protected=(); other=()
           for file in "${all_changed[@]}"; do
             case "$file" in
-              .editorconfig|Directory.Build.props|Directory.Build.targets|BannedSymbols.txt) protected+=("$file") ;;
+              # .config/dotnet-tools.json: the pinned versions of every CI tool - a PR must
+              # not be able to redirect which tool code CI executes. Classified here so the
+              # PR that adopts the pull_request workflow model (which restores its tools
+              # from that manifest and moves this guard to protected-files.yaml) can carry
+              # the manifest as configuration-only.
+              .editorconfig|Directory.Build.props|Directory.Build.targets|BannedSymbols.txt|.config/dotnet-tools.json) protected+=("$file") ;;
               *)
                 if echo "$file" | grep -qiE '(\.(globalconfig|ruleset|DotSettings)|^\.github/workflows/.*\.ya?ml)$'; then protected+=("$file"); else other+=("$file"); fi ;;
             esac
