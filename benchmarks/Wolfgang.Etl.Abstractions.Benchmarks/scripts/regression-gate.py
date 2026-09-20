@@ -10,6 +10,12 @@ nanoseconds. A 17 us noise blip on a 30 us benchmark clears the floor check; a
 genuine per-item regression (which shows up at the large record counts too) does
 not.
 
+The baseline for each benchmark is the MEDIAN of its last `BASELINE_RUNS` main-branch
+values, not the single latest one: identical code on main has measured anywhere from
+2.5 ms to 4.4 ms for the same 100,000-record benchmark on hosted runners, so a lucky
+fast run as the sole baseline made every following PR look 1.5x slower (the
+ratio-and-floor check cannot help when the reference point itself is the outlier).
+
 Usage:
     regression-gate.py <current-bdn-report.json> <baseline-data.js> <ratio> <floor_ns>
 
@@ -17,7 +23,10 @@ Exit codes: 0 = no real regression, 1 = at least one benchmark regressed past bo
 thresholds, 2 = usage/parse error.
 """
 import json
+import statistics
 import sys
+
+BASELINE_RUNS = 5
 
 
 def load_current(path):
@@ -28,7 +37,7 @@ def load_current(path):
 
 
 def load_baseline(path):
-    """gh-pages data.js (window.BENCHMARK_DATA = {...};) -> {name: value_ns} for the latest entry."""
+    """gh-pages data.js (window.BENCHMARK_DATA = {...};) -> {name: median value_ns over the last BASELINE_RUNS entries}."""
     with open(path, encoding="utf-8") as f:
         text = f.read().strip()
     prefix = "window.BENCHMARK_DATA"
@@ -37,8 +46,11 @@ def load_baseline(path):
     text = text.strip().rstrip(";").strip()
     data = json.loads(text)
     entries = data["entries"]["BenchmarkDotNet"]
-    latest = entries[-1]["benches"]
-    return {b["name"]: float(b["value"]) for b in latest}
+    history = {}
+    for entry in entries[-BASELINE_RUNS:]:
+        for b in entry["benches"]:
+            history.setdefault(b["name"], []).append(float(b["value"]))
+    return {name: statistics.median(values) for name, values in history.items()}
 
 
 def main(argv):
@@ -51,7 +63,7 @@ def main(argv):
     floor_ns = float(argv[4])
 
     regressions = []
-    print(f"Gate: fail only if ratio >= {ratio_threshold:.2f}x AND abs delta >= {floor_ns:,.0f} ns\n")
+    print(f"Gate: fail only if ratio >= {ratio_threshold:.2f}x AND abs delta >= {floor_ns:,.0f} ns; baseline = median of the last {BASELINE_RUNS} main runs\n")
     print(f"{'benchmark':<70} {'current':>14} {'baseline':>14} {'ratio':>7} {'delta ns':>14}")
     for name, cur in sorted(current.items()):
         base = baseline.get(name)
