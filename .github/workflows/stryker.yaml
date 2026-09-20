@@ -162,6 +162,7 @@ jobs:
         if: always() && steps.check.outputs.found == 'true' && github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STRYKER_SCORE: ${{ steps.score.outputs.score }}
         shell: bash
         run: |
           set -uo pipefail
@@ -176,7 +177,7 @@ jobs:
                               | select(.status=="Survived")
                               | "- `\($f):\(.location.start.line)` — \(.mutatorName)"' "$report" | sort)
           count=$(printf '%s\n' "$survivors" | grep -c '^- ' || true)
-          score='${{ steps.score.outputs.score }}'
+          score="$STRYKER_SCORE"
 
           {
             echo "## Surviving mutants: ${count}"

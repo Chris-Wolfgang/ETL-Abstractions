@@ -131,9 +131,11 @@ jobs:
         # benchmark grew by BOTH >= 1.50x AND >= 50,000 ns (50 us): runner noise on
         # a ~30 us benchmark clears the floor, but a genuine per-item regression —
         # which also moves the 100,000-record cases by well over 50 us — still fails.
+        env:
+          REPORT: ${{ steps.locate.outputs.report }}
         run: |
           python3 benchmarks/Wolfgang.Etl.Abstractions.Benchmarks/scripts/regression-gate.py \
-            "${{ steps.locate.outputs.report }}" \
+            "$REPORT" \
             "$RUNNER_TEMP/baseline-data.js" \
             1.50 \
             50000
