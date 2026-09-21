@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790004808573,
+  "lastUpdate": 1790015215437,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4368,6 +4368,90 @@ window.BENCHMARK_DATA = {
             "value": 8155616.182291667,
             "unit": "ns",
             "range": "± 13273.994235899409"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "44744013eb19ac8391d7f474fc416ff5793b40c0",
+          "message": "fix(pack): ship the generated per-package THIRD-PARTY-NOTICES.md only (#633)\n\n* fix(pack): ship the generated per-package THIRD-PARTY-NOTICES.md only\n\nThe template sync (#631) packs each project's obj/THIRD-PARTY-NOTICES.md,\nrendered from that package's own NuGet closure by scripts/third-party-notices.ps1,\nwhich release.yaml now runs before packing. The four csprojs still packed the\nrepository-wide THIRD-PARTY-NOTICES.md to the same package path, so\n`dotnet pack` failed with NU5118 (warning-as-error, duplicate file) - the\nrelease would have died at the pack step. Found by packing locally; the PR\npipeline never packs.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* changelog: fragment type is 'fix'\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-21T14:24:42-04:00",
+          "tree_id": "2c5ea1fcfb335662d8e7214eff49539dd274f0d9",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/44744013eb19ac8391d7f474fc416ff5793b40c0"
+        },
+        "date": 1790015210330,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 31168.892873128254,
+            "unit": "ns",
+            "range": "± 104.19965067301725"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35712.21718343099,
+            "unit": "ns",
+            "range": "± 148.114417766669"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3167459.9921875,
+            "unit": "ns",
+            "range": "± 2481.6277697303735"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3456386.5872395835,
+            "unit": "ns",
+            "range": "± 17041.100565892502"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29032.092987060547,
+            "unit": "ns",
+            "range": "± 85.09387981418223"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29549.497136433918,
+            "unit": "ns",
+            "range": "± 141.79344549415364"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 83890.20279947917,
+            "unit": "ns",
+            "range": "± 275.6867655149511"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2851451.8880208335,
+            "unit": "ns",
+            "range": "± 1939.2269988563653"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2959838.7174479165,
+            "unit": "ns",
+            "range": "± 660.1062273523585"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 7912875.106770833,
+            "unit": "ns",
+            "range": "± 13117.178291214412"
           }
         ]
       }
