@@ -42,7 +42,7 @@ public abstract class ExtractorBase<TSource> : ExtractorBase<TSource, Report>
     /// Construction-time configuration. When <see langword="null"/> — or omitted — the
     /// documented defaults apply.
     /// </param>
-    protected ExtractorBase(ExtractorOptions? options) : base(options)
+    protected ExtractorBase(ExtractorOptions? options = null) : base(options)
     {
     }
 
