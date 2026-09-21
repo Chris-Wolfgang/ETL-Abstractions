@@ -41,6 +41,12 @@ dotnet_diagnostic.SA0001.severity = none
 # .NET Code Analysis Rules
 # Enable .NET analyzers with conservative defaults
 dotnet_analyzer_diagnostic.severity = suggestion
+# Trim / native-AOT / single-file analyzers (IL2xxx, IL3xxx) stay at warning - an error in
+# Release - so the IsAotCompatible declaration in Directory.Build.props (baseline item 18)
+# is enforced rather than muzzled by the blanket suggestion severity above (#468).
+dotnet_analyzer_diagnostic.category-Trimming.severity = warning
+dotnet_analyzer_diagnostic.category-SingleFile.severity = warning
+dotnet_analyzer_diagnostic.category-AOT.severity = warning
 
 # IDE (Code Style) Rules
 dotnet_diagnostic.IDE0005.severity = suggestion   # Remove unnecessary usings
