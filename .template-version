@@ -1,7 +1,7 @@
 {
   "template": "Chris-Wolfgang/repo-template",
-  "commit": "ec47f2d4b4030143338c5c489b7e06788734bfc3",
-  "updated": "2026-09-20",
+  "commit": "0b825a8236315ca345090dd7563e000de5d8ecf0",
+  "updated": "2026-09-21",
   "placeholders": {
     "DOCS_URL": "https://chris-wolfgang.github.io/ETL-Abstractions/",
     "GITHUB_OWNER": "Chris-Wolfgang",
