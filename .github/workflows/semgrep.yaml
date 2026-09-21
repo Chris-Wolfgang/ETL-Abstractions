@@ -46,21 +46,47 @@ jobs:
         with:
           persist-credentials: false
 
-      # Run Semgrep from the official image pinned by digest instead of an
-      # unpinned `pip install semgrep` (Scorecard Pinned-Dependencies #980, #395).
-      # A step-level `uses: docker://` (not a job-level `container:`) keeps the
-      # JS actions above/below on the host — the semgrep image is Alpine/musl and
-      # cannot run the glibc node20 that checkout / upload-sarif need. The image
-      # has no ENTRYPOINT (Cmd is `semgrep`), so we set entrypoint explicitly.
-      # 1.173.0 digest resolved 2026-08-16; bump the tag+digest together on update.
-      - name: Run Semgrep (digest-pinned container)
-        uses: docker://semgrep/semgrep@sha256:67319956da3dcb58baf5b322899c15458e3963e7018a86aeeb5cd224e69cb77a
-        continue-on-error: true  # report-only (baseline is clean); SARIF still uploads
+      - name: Setup Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          entrypoint: semgrep
-          args: scan --config p/csharp --config p/security-audit --config p/secrets --sarif --output semgrep.sarif src/
+          python-version: '3.x'
+
+      - name: Install Semgrep
+        # Hash-pinned rather than a bare `pip install semgrep` (OSSF Scorecard
+        # Pinned-Dependencies: "pipCommand not pinned by hash"). --require-hashes
+        # makes pip verify every wheel it downloads and refuse anything not
+        # listed, so the transitive tree is pinned too. Regenerate with the uv
+        # command recorded in the header of the requirements file; the resolution
+        # is universal, so it covers every runner platform and Python version.
+        run: pip install --require-hashes -r .github/requirements/semgrep.txt
+
+      - name: Run Semgrep
+        # --error makes findings exit 1; they are reported through the SARIF upload, so
+        # 0 and 1 both continue. Anything else (bad config, crash, network) fails the job
+        # instead of silently uploading nothing.
+        run: |
+          set +e
+          semgrep scan \
+            --config p/csharp \
+            --config p/security-audit \
+            --config p/secrets \
+            --sarif --output semgrep.sarif \
+            --error \
+            src/
+          rc=$?
+          set -e
+          case "$rc" in
+            0) echo "semgrep: no findings" ;;
+            1) echo "semgrep: findings reported (see the Security tab after upload)" ;;
+            *) echo "::error::semgrep failed with exit code $rc (not a findings result)"; exit "$rc" ;;
+          esac
 
       - name: Upload Semgrep SARIF
+        # A fork's pull_request token cannot write Code Scanning (security-events: write is
+        # not granted), so the upload would fail after a successful scan. Skip it there; the
+        # scan step above still runs (report-only, as documented) and its SARIF is available
+        # once the change lands in this repository.
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         uses: github/codeql-action/upload-sarif@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
         with:
           sarif_file: semgrep.sarif
