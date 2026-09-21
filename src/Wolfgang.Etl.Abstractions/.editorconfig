@@ -16,3 +16,26 @@ dotnet_diagnostic.S1133.severity = none
 
 [TransformerBase.cs]
 dotnet_diagnostic.S1133.severity = none
+
+# S3427 ("signature overlaps … default parameter value can't be used") — the
+# `= null` default on the six options constructors is redundant next to the
+# parameterless constructor, but removing it changes the recorded public
+# signature. 0.26 ships with no API-surface change, so the defaults stay until
+# the 2026-12-15 removal wave (#636); delete these entries with them.
+[ExtractorBase.cs]
+dotnet_diagnostic.S3427.severity = none
+
+[ExtractorBase{TSource}.cs]
+dotnet_diagnostic.S3427.severity = none
+
+[LoaderBase.cs]
+dotnet_diagnostic.S3427.severity = none
+
+[LoaderBase{TDestination}.cs]
+dotnet_diagnostic.S3427.severity = none
+
+[TransformerBase.cs]
+dotnet_diagnostic.S3427.severity = none
+
+[TransformerBase{TSource,TDestination}.cs]
+dotnet_diagnostic.S3427.severity = none
