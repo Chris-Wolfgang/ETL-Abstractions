@@ -40,6 +40,18 @@
     <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' == '' and $(_RelativeProjectDir.StartsWith('src/'))">true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <!-- Repository baseline item 18 (#468): shipped libraries declare themselves trim- and
+       native-AOT-compatible on the TFMs that support it (net8.0+; IsAotCompatible implies
+       IsTrimmable there). The declaration turns on the ILLink / AOT / single-file Roslyn
+       analyzers, and .editorconfig raises those categories to warning so a reflection or
+       dynamic-code use in shipped code fails the Release build (TreatWarningsAsErrors) rather
+       than surfacing first as a consumer's publish-time IL2xxx/IL3xxx warning. tests/ and
+       benchmarks/ are exempt (the AOT smoke test publishes the real thing on Linux CI). -->
+  <PropertyGroup Condition="$(_RelativeProjectDir.StartsWith('src/')) and $([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+    <IsAotCompatible>true</IsAotCompatible>
+    <IsTrimmable>true</IsTrimmable>
+  </PropertyGroup>
+
   <ItemGroup>
     <!-- Include BannedSymbols.txt as AdditionalFiles for BannedApiAnalyzers -->
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)BannedSymbols.txt" />
