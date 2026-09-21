@@ -1,6 +1,11 @@
 <Project>
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <!-- latestMajor: the newest GA major language version the installed SDK
+         supports, never a preview. `latest` would also pick up preview
+         features when a preview SDK is on the machine, so the same source
+         could compile on one box and fail on the next. -->
+    <LangVersion>latestMajor</LangVersion>
+
     <!-- Enable nullable reference types for every SDK-style C# project.
          The condition excludes:
            - F# (.fsproj) and VB (.vbproj) — by the .csproj check
@@ -20,6 +25,19 @@
     
     <!-- Treat warnings as errors in Release builds -->
     <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+
+    <!-- XML documentation for every library under src/ (fleet initiative D3).
+         With TreatWarningsAsErrors above, a public member without a doc
+         comment (CS1591) fails the Release build - that is the point. Scoped
+         to src/ so test, example and benchmark projects are untouched, and
+         only applied when the project has not set the property itself, so a
+         project can still opt out (an analyzer or a generator host) with
+         <GenerateDocumentationFile>false</GenerateDocumentationFile>.
+         The directory test is on the normalized relative path with a trailing
+         slash ("src/Lib/"), so a sibling such as "src-old/" or "src2/" does
+         not match. -->
+    <_RelativeProjectDir>$([MSBuild]::EnsureTrailingSlash($([MSBuild]::MakeRelative($(MSBuildThisFileDirectory), $(MSBuildProjectDirectory)))).Replace('\', '/'))</_RelativeProjectDir>
+    <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' == '' and $(_RelativeProjectDir.StartsWith('src/'))">true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -103,9 +121,12 @@
          release version. Centralized here so all four packages stay in lockstep. -->
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>$([System.Text.RegularExpressions.Regex]::Replace("$(Version)", "[-+].*$", "")).0</FileVersion>
+    <!-- Owner-specific by design: this file is synced fleet-wide as-is, so
+         it carries the owner's name rather than a setup.ps1 placeholder.
+         Change these three lines when forking the template for another owner. -->
     <Authors>Chris Wolfgang</Authors>
     <Company>Chris Wolfgang</Company>
-    <Copyright>Copyright (c) Chris Wolfgang</Copyright>
+    <Copyright>Copyright (c) $([System.DateTime]::UtcNow.Year) Chris Wolfgang</Copyright>
     <!-- Repo-uniform now that all four packages ship from this repo. RepositoryUrl is intentionally
          NOT set here — SourceLink derives it from the git remote via PublishRepositoryUrl below. -->
     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
@@ -113,7 +134,6 @@
     <!-- MIT does not require explicit acceptance; standardized to False for all packages. -->
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <SignAssembly>False</SignAssembly>
-    <LangVersion>latest</LangVersion>
     <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -122,9 +142,20 @@
     <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
+  <ItemGroup Condition="$(_RelativeProjectDir.StartsWith('src/')) and Exists('$(MSBuildProjectDirectory)/obj/THIRD-PARTY-NOTICES.md')">
+    <!-- Third-party attribution: scripts/third-party-notices.ps1 renders the
+         package's transitive NuGet closure to obj/THIRD-PARTY-NOTICES.md
+         (release.yaml runs it between restore and pack) and it ships at the
+         package root. Generated, never committed - nothing to keep in sync. -->
+    <None Include="$(MSBuildProjectDirectory)/obj/THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="\" Visible="false" />
+  </ItemGroup>
+
   <ItemGroup>
     <!-- SourceLink: embed source provenance into PDBs so debuggers can step
-         into NuGet package code from GitHub. -->
+         into NuGet package code from GitHub. Dependabot does not bump this
+         file, so check https://www.nuget.org/packages/Microsoft.SourceLink.GitHub
+         when a NuGetAudit advisory names Microsoft.Build.Tasks.Git
+         (CVE-2026-62900 covered 8.0.0 and 10.0.300-10.0.301). -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
