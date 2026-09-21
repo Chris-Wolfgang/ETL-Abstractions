@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790021594883,
+  "lastUpdate": 1790024371916,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4536,6 +4536,90 @@ window.BENCHMARK_DATA = {
             "value": 8157341.375,
             "unit": "ns",
             "range": "± 33162.8309387383"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "809659174dbcd2fead5de5a35627dd0735023a2a",
+          "message": "build(analyzers): S3427 off for the six base-stage files until the 2026-12-15 wave (#637)\n\nThe `= null` default on the options constructors is redundant next to the\nparameterless constructor (S3427), but dropping it changes the recorded public\nsignature; 0.26 ships with none, so the defaults come back in the next PR and\nthe rule is silenced for exactly those six files until #636 removes them.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-21T16:57:24-04:00",
+          "tree_id": "a5d8e5936c08e1130950cdc2add3282734c261c8",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/809659174dbcd2fead5de5a35627dd0735023a2a"
+        },
+        "date": 1790024367144,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 32090.118723551434,
+            "unit": "ns",
+            "range": "± 268.3440399882079"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 34947.16353352865,
+            "unit": "ns",
+            "range": "± 287.70603998478833"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3125370.37890625,
+            "unit": "ns",
+            "range": "± 10283.758764241857"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3479824.7786458335,
+            "unit": "ns",
+            "range": "± 31956.050521492958"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29433.627817789715,
+            "unit": "ns",
+            "range": "± 133.3273593305237"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29187.01641337077,
+            "unit": "ns",
+            "range": "± 138.92488892052378"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 82787.98689778645,
+            "unit": "ns",
+            "range": "± 749.2722343824316"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2852435.7766927085,
+            "unit": "ns",
+            "range": "± 15690.16865538636"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2922864.2408854165,
+            "unit": "ns",
+            "range": "± 33395.09958616592"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8209918.479166667,
+            "unit": "ns",
+            "range": "± 12531.28352281143"
           }
         ]
       }
