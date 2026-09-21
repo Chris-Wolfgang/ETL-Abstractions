@@ -44,7 +44,7 @@ public abstract class TransformerBase<TSource, TDestination> : TransformerBase<T
     /// Construction-time configuration. When <see langword="null"/> — or omitted — the
     /// documented defaults apply.
     /// </param>
-    protected TransformerBase(TransformerOptions? options) : base(options)
+    protected TransformerBase(TransformerOptions? options = null) : base(options)
     {
     }
 
