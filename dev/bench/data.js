@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789930352837,
+  "lastUpdate": 1790004808573,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4284,6 +4284,90 @@ window.BENCHMARK_DATA = {
             "value": 8231340.473958333,
             "unit": "ns",
             "range": "± 32814.818197891596"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e0f4d0e74904f48a62e64b7349a01698af4168e3",
+          "message": "ci: template sync - the protected configuration files (#630) (#631)\n\nThe sixteen protected files of the #611 template sync, squashed from the\nper-file PRs #610 and #614-#622 (their descriptions carry the per-file\nresolutions):\n\n- workflows: actions-audit, license-audit, sbom (unconditional tool restore),\n  security-alerts, build-all-versions, benchmarks, docfx, sourcelink, semgrep,\n  release, stryker, scorecard (DangerousWorkflowID no longer suppressed)\n- coverlet.runsettings (template comma lists + local Test.Sdk.Program exclude)\n- Directory.Build.props (LangVersion latestMajor, src doc-file default,\n  notices pack item, dynamic copyright year; lockstep version block kept)\n- scripts/build-pr.ps1 (template; -TestCoverageThreshold 99 mirrors pr.yaml)\n- scripts/tfm-parity.ps1 (pure drift)\n\nConfiguration-only under the standalone guard.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-21T11:31:27-04:00",
+          "tree_id": "d34cb16fa2fa53a62e0785a3d0dbdb12e69a1884",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/e0f4d0e74904f48a62e64b7349a01698af4168e3"
+        },
+        "date": 1790004803495,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 31440.659830729168,
+            "unit": "ns",
+            "range": "± 197.5621371424318"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35306.16638183594,
+            "unit": "ns",
+            "range": "± 118.61304993237083"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3103503.3997395835,
+            "unit": "ns",
+            "range": "± 23874.59803822126"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3492031.0520833335,
+            "unit": "ns",
+            "range": "± 9759.161973515622"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29873.807657877605,
+            "unit": "ns",
+            "range": "± 105.84779090843806"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29459.10221862793,
+            "unit": "ns",
+            "range": "± 81.16014744289042"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 81929.15787760417,
+            "unit": "ns",
+            "range": "± 288.34733168519483"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2867021.765625,
+            "unit": "ns",
+            "range": "± 3856.130975762349"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2879254.0696614585,
+            "unit": "ns",
+            "range": "± 6641.582991568027"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8155616.182291667,
+            "unit": "ns",
+            "range": "± 13273.994235899409"
           }
         ]
       }
