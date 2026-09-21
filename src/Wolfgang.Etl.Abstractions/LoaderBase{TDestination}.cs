@@ -42,7 +42,7 @@ public abstract class LoaderBase<TDestination> : LoaderBase<TDestination, Report
     /// Construction-time configuration. When <see langword="null"/> — or omitted — the
     /// documented defaults apply.
     /// </param>
-    protected LoaderBase(LoaderOptions? options) : base(options)
+    protected LoaderBase(LoaderOptions? options = null) : base(options)
     {
     }
 

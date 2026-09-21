@@ -77,7 +77,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// deprecated and will be removed (#351 / #438, ADR-0009), at which point this options record
     /// is the only way to set them.
     /// </remarks>
-    protected ExtractorBase(ExtractorOptions? options)
+    protected ExtractorBase(ExtractorOptions? options = null)
     {
         if (options is null)
         {

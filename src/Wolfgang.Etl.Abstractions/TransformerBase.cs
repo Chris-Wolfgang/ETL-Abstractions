@@ -79,7 +79,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// deprecated and will be removed (#351 / #438, ADR-0009), at which point this options record
     /// is the only way to set them.
     /// </remarks>
-    protected TransformerBase(TransformerOptions? options)
+    protected TransformerBase(TransformerOptions? options = null)
     {
         if (options is null)
         {
