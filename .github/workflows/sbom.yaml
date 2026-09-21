@@ -54,19 +54,7 @@ jobs:
       - name: Restore CI tools (CycloneDX)
         if: steps.detect.outputs.found == 'true'
         # Pinned in .config/dotnet-tools.json; never installed unversioned.
-        # TRANSITIONAL: the manifest lands in the next PR of this stack (it is a
-        # protected file under the guard this PR introduces, so it cannot ride
-        # along). Until then fall back to the global install this step replaced;
-        # once the manifest exists the SDK routes `dotnet CycloneDX` through it
-        # and would refuse the global copy. The safe-workflows sync above
-        # restores the template's unconditional `dotnet tool restore`.
-        run: |
-          if [ -f .config/dotnet-tools.json ]; then
-            dotnet tool restore
-          else
-            echo "::notice::No .config/dotnet-tools.json yet - installing CycloneDX globally"
-            dotnet tool install --global CycloneDX
-          fi
+        run: dotnet tool restore
 
       - name: Restore .NET workloads
         # Same gate as pr.yaml: only repos with workload-bearing TFMs (net10.0-android,
