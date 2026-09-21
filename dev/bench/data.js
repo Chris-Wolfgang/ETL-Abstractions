@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790015215437,
+  "lastUpdate": 1790021594883,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4452,6 +4452,90 @@ window.BENCHMARK_DATA = {
             "value": 7912875.106770833,
             "unit": "ns",
             "range": "± 13117.178291214412"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1bac1039a3f833629f28f221443429aeac26e27d",
+          "message": "revert: keep the `= null` default on the six options constructors for 0.26 (#638) (#639) (#640)\n\nReverts #595 (3dc5941). Removing the default is source- and binary-compatible\nfor existing callers, but it changes the recorded public signature of six\nconstructors and 0.26 is to ship with no API-surface change. The removal is\nrescheduled to the 2026-12-15 wave (#636); S3427 is silenced for these files\nuntil then (previous commit). PublicAPI.Unshipped.txt is empty again.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-21T16:07:24-04:00",
+          "tree_id": "07bd84b302d94dc4b7943682c24e47045a8be6ad",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/1bac1039a3f833629f28f221443429aeac26e27d"
+        },
+        "date": 1790021589963,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 31529.35762532552,
+            "unit": "ns",
+            "range": "± 213.76957314610962"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35668.65981038412,
+            "unit": "ns",
+            "range": "± 104.64532631667299"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3110922.6783854165,
+            "unit": "ns",
+            "range": "± 14529.825704142399"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3458243.7552083335,
+            "unit": "ns",
+            "range": "± 16398.20015421336"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29428.959014892578,
+            "unit": "ns",
+            "range": "± 114.30575287488844"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29500.280604044598,
+            "unit": "ns",
+            "range": "± 55.720754883580554"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 84693.5127766927,
+            "unit": "ns",
+            "range": "± 395.71663184203317"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2841414.4557291665,
+            "unit": "ns",
+            "range": "± 869.6834704363441"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2929260.4830729165,
+            "unit": "ns",
+            "range": "± 6415.752317181146"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8157341.375,
+            "unit": "ns",
+            "range": "± 33162.8309387383"
           }
         ]
       }
