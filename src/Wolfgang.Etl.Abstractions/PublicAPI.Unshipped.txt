@@ -1,13 +1,1 @@
 #nullable enable
-*REMOVED*Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options = null) -> void
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options) -> void
-*REMOVED*Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options = null) -> void
-Wolfgang.Etl.Abstractions.ExtractorBase<TSource>.ExtractorBase(Wolfgang.Etl.Abstractions.ExtractorOptions? options) -> void
-*REMOVED*Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options = null) -> void
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options) -> void
-*REMOVED*Wolfgang.Etl.Abstractions.LoaderBase<TDestination>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options = null) -> void
-Wolfgang.Etl.Abstractions.LoaderBase<TDestination>.LoaderBase(Wolfgang.Etl.Abstractions.LoaderOptions? options) -> void
-*REMOVED*Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options = null) -> void
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options) -> void
-*REMOVED*Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options = null) -> void
-Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination>.TransformerBase(Wolfgang.Etl.Abstractions.TransformerOptions? options) -> void
