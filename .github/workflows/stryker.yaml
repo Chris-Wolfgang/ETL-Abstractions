@@ -13,6 +13,12 @@
 #
 # The workflow looks for a stryker-config.json at the repo root or under
 # tests/**/. If none is present the run is a no-op.
+#
+# Deliberately differs from the template's stryker.yaml (weekly-only, Windows
+# runner, per-project loop): both configs here pin target-framework net10.0, so
+# a Windows runner would add nothing for the net4x slots, and the PR gate, the
+# score-history chart and the survivors issue are local additions to be fed
+# back to the template (#611).
 name: Stryker (mutation testing)
 
 on:
@@ -81,11 +87,12 @@ jobs:
             8.0.x
             10.0.x
 
-      - name: Install dotnet-stryker
+      - name: Restore CI tools (dotnet-stryker)
         if: steps.check.outputs.found == 'true'
-        # Pinned: mutation score / the gate must be reproducible, and a floating
-        # Stryker can change instrumentation or break on an analyzer/Roslyn bump.
-        run: dotnet tool update -g dotnet-stryker --version 4.16.0 || dotnet tool install -g dotnet-stryker --version 4.16.0
+        # Pinned in .config/dotnet-tools.json (never installed unversioned): the
+        # mutation score / the gate must be reproducible, and a floating Stryker
+        # can change instrumentation or break on an analyzer/Roslyn bump.
+        run: dotnet tool restore
 
       - name: Run Stryker
         if: steps.check.outputs.found == 'true'
