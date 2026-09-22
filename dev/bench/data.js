@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790024371916,
+  "lastUpdate": 1790040146254,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4620,6 +4620,90 @@ window.BENCHMARK_DATA = {
             "value": 8209918.479166667,
             "unit": "ns",
             "range": "± 12531.28352281143"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c70e1452a3aeef1ad484dcaaeffd175b7abaa0fc",
+          "message": "build(analyzers): escape the braces in the per-file .editorconfig sections so they match (#643)\n\n`[ExtractorBase{TSource}.cs]` never matched: in an .editorconfig section\nheader `{a,b}` is an alternation and `,` its separator, so the three\nbrace-named base-stage files kept their S3427 findings after #637 (three\nalerts stayed open on main). With `\\{`, `\\}` and `\\,` all six sections\nmatch - verified by raising S3427 to warning globally: 0 findings.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-21T21:20:07-04:00",
+          "tree_id": "1ad56d2a070ed496e243f4ed5fa96331772d0fb4",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/c70e1452a3aeef1ad484dcaaeffd175b7abaa0fc"
+        },
+        "date": 1790040141362,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 30317.58851114909,
+            "unit": "ns",
+            "range": "± 329.1547192678938"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 40513.44648234049,
+            "unit": "ns",
+            "range": "± 2957.7614386096807"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3052761.6640625,
+            "unit": "ns",
+            "range": "± 481.8852596868034"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3189280.8111979165,
+            "unit": "ns",
+            "range": "± 12808.012298250658"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 26321.715189615887,
+            "unit": "ns",
+            "range": "± 30.82809737186524"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 27212.01264444987,
+            "unit": "ns",
+            "range": "± 1453.9666542598302"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 78411.16837565105,
+            "unit": "ns",
+            "range": "± 419.58489383478667"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2622190.3561197915,
+            "unit": "ns",
+            "range": "± 2152.8757902863513"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2596412.5208333335,
+            "unit": "ns",
+            "range": "± 6209.076329992946"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 7370908.359375,
+            "unit": "ns",
+            "range": "± 130826.48443776694"
           }
         ]
       }
