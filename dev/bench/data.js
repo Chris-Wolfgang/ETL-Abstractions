@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790040146254,
+  "lastUpdate": 1790082244797,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4704,6 +4704,90 @@ window.BENCHMARK_DATA = {
             "value": 7370908.359375,
             "unit": "ns",
             "range": "± 130826.48443776694"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "00b144e37f670362a046abafbb46ebcd800273e1",
+          "message": "chore(pack): advance PackageValidation baseline to 0.26.0 (#646)\n\nAll four packages: 0.25.0 -> 0.26.0, now that nuget.org's flatcontainer has\nindexed 0.26.0 (verified 03:27 UTC). PublicAPI.Unshipped.txt is empty in\nevery package - nothing to fold. Local `dotnet pack` resolves the new\nbaseline: 4 packages, no ApiCompat findings.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-22T09:01:58-04:00",
+          "tree_id": "396728f25a7f73e34e8937258e1ba4800346e1d4",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/00b144e37f670362a046abafbb46ebcd800273e1"
+        },
+        "date": 1790082239652,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 32526.91681925456,
+            "unit": "ns",
+            "range": "± 1037.740103890944"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 35067.08194986979,
+            "unit": "ns",
+            "range": "± 61.169621618841234"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3163548.435546875,
+            "unit": "ns",
+            "range": "± 1021.3737285019258"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3434816.109375,
+            "unit": "ns",
+            "range": "± 14843.557958610218"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29645.204467773438,
+            "unit": "ns",
+            "range": "± 63.71813817687708"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29104.80660502116,
+            "unit": "ns",
+            "range": "± 25.538767384108315"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 81832.35754394531,
+            "unit": "ns",
+            "range": "± 208.22896419621134"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2832997.8841145835,
+            "unit": "ns",
+            "range": "± 3441.8243734012735"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2831304.5807291665,
+            "unit": "ns",
+            "range": "± 2645.8229452808937"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 8143960.010416667,
+            "unit": "ns",
+            "range": "± 4843.6215446760625"
           }
         ]
       }
