@@ -98,7 +98,7 @@ jobs:
         # Same action + SHA pin as benchmarks.yaml. Compares the PR result against
         # the gh-pages baseline (latest main data point) WITHOUT pushing:
         # auto-push:false + save-data-file:false leave gh-pages untouched.
-        uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba  # v1.22.1
+        uses: benchmark-action/github-action-benchmark@4322e5726e6334590d251fc4f92bec0efafc45dc  # v1.22.2
         with:
           name: BenchmarkDotNet
           tool: 'benchmarkdotnet'
