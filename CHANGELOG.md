@@ -19,6 +19,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.26.0] - 2026-09-21
+
+### Added
+
+- All four packages declare `IsTrimmable` and `IsAotCompatible` on net8.0 and later, so trimmed and native-AOT consumers no longer get IL2104-style "assembly was not verified" warnings for them; the shipped code carries no trim or AOT diagnostics. (#632)
+
+### Fixed
+
+- Packages ship one `THIRD-PARTY-NOTICES.md` again - the per-package file generated from each project's own NuGet closure - instead of failing to pack (`NU5118`) because the repository-wide file was still added alongside it. (#633)
+
+### Internal
+
+- CheckNamespace: the two `System.Runtime.CompilerServices` polyfills carry a documented `ReSharper disable once`; three `BaseClassTests` files move to the folder namespace. (#597)
+- S1133 ("remove this deprecated code someday") is excluded per file for `ExtractorBase` / `LoaderBase` / `TransformerBase` in a nested `src/.editorconfig`: their `[Obsolete]` setters are the deliberate markers for the 2026-12-15 removal wave (#484). (#596)
+- Test-code InspectCode findings fixed: redundant usings/casts, `using`-declaration initialisers, a marked safe disposed-closure capture, and an override restating the base default. (#598)
+- TestKit doc comments: constructor `<see cref>`s written `Type{T}(…)` so InspectCode resolves them (26 × CS1580; Roslyn accepted both forms) and one Stryker rationale comment reworded so Sonar stops reading it as code (S125). (#594)
+- The PR benchmark gate compares against the median of the last five main-branch runs instead of the single latest one, so a lucky fast run on a hosted runner no longer makes every following PR look like a regression. (#606)
+- Mutation testing: the bulk `Increment*(int)` overloads are pinned to record the run start (six new tests) and the seven equivalent mutants (ConfigureAwait flags, a `Task.Yield`, a no-op `finally`) carry documented Stryker exclusions — no survivors left (#452). (#452)
+- The six options-constructor defaults (`XOptions? options = null`) stay as shipped in 0.25; their removal is scheduled for the 2026-12-15 wave (#636) so this release carries no public-signature change. (#638)
+
 ## [0.25.0] - 2026-09-17
 
 ### Breaking changes
