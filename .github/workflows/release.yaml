@@ -700,9 +700,98 @@ jobs:
           Write-Host "Documentation built successfully - release may proceed"
 
   # Publish to NuGet (only if validation passed)
+  sourcelink-snupkg:
+    name: SourceLink structural verify (.snupkg)
+    needs: pack-and-validate
+    if: needs.pack-and-validate.outputs.has-packages == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Download packed artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: nuget-packages
+          path: ./packages
+
+      - name: Verify .snupkg carries portable PDBs
+        shell: bash
+        run: |
+          set -euo pipefail
+          snupkgs=$(find packages -maxdepth 1 -name '*.snupkg' || true)
+          if [ -z "$snupkgs" ]; then
+            echo "::error::No .snupkg in ./packages - SourceLink verification cannot run."
+            ls -la packages/ || true
+            exit 1
+          fi
+
+          fail=0
+          for snupkg in $snupkgs; do
+            echo "::group::$snupkg"
+            work=$(mktemp -d)
+            unzip -q "$snupkg" -d "$work"
+
+            # Every shipped assembly on every runtime TFM must have a PDB, so the
+            # expected set is DERIVED from the runtime .nupkg rather than assumed:
+            # each lib/<tfm>/<assembly>.dll must have a matching .pdb in the
+            # .snupkg. Merely asserting "at least one PDB exists" passes while a
+            # single TFM is silently missing its symbols, and consumers on exactly
+            # that TFM get decompiled placeholders. Comparing <tfm>/<assembly>
+            # pairs also covers repos that ship more than one package.
+            nupkg="${snupkg%.snupkg}.nupkg"
+            if [ ! -f "$nupkg" ]; then
+              echo "::error::No runtime .nupkg beside $snupkg - cannot derive the expected set."
+              fail=1
+              echo "::endgroup::"
+              rm -rf "$work"
+              continue
+            fi
+
+            expected=$(unzip -Z1 "$nupkg" | awk -F/ '$1=="lib" && $3 ~ /[.]dll$/ {print $2"/"substr($3,1,length($3)-4)}' | sort -u)
+            actual=$(unzip -Z1 "$snupkg" | awk -F/ '$1=="lib" && $3 ~ /[.]pdb$/ {print $2"/"substr($3,1,length($3)-4)}' | sort -u)
+
+            if [ -z "$expected" ]; then
+              echo "::error::No lib/<tfm>/<assembly>.dll in $nupkg - nothing to verify against."
+              fail=1
+              echo "::endgroup::"
+              rm -rf "$work"
+              continue
+            fi
+
+            missing=$(comm -23 <(echo "$expected") <(echo "$actual"))
+            if [ -n "$missing" ]; then
+              echo "::error::.snupkg is missing a PDB for:"
+              echo "$missing"
+              fail=1
+            fi
+            echo "expected:"
+            echo "$expected"
+            echo "present:"
+            echo "$actual"
+
+            for pdb in $(find "$work/lib" -name '*.pdb' | sort); do
+              tfm=$(basename "$(dirname "$pdb")")
+              # Portable-PDB magic = 'B','S','J','B' (0x42 0x53 0x4A 0x42) in the
+              # first four bytes. A full-format Windows PDB starts with
+              # "Microsoft C/C++ MSF 7.00" and is an immediate fail.
+              magic=$(head -c 4 "$pdb" | od -An -tx1 | tr -d '[:space:]')
+              if [ "$magic" != "42534a42" ]; then
+                echo "::error::PDB is NOT portable (magic=0x$magic, expected 42534A42) - $tfm/$(basename "$pdb")"
+                fail=1
+              else
+                echo "$tfm/$(basename "$pdb") - portable PDB (magic BSJB)"
+              fi
+            done
+
+            echo "::endgroup::"
+            rm -rf "$work"
+          done
+
+          exit $fail
+
   publish-nuget:
     name: Publish to NuGet.org
-    needs: [pack-and-validate, verify-docs-build]
+    needs: [pack-and-validate, verify-docs-build, sourcelink-snupkg]
     if: needs.pack-and-validate.outputs.has-packages == 'true'
     runs-on: windows-latest
     timeout-minutes: 30
@@ -770,6 +859,114 @@ jobs:
 
   # Build and deploy versioned documentation via the shared docfx workflow
   # Note: reusable workflow jobs called via `uses:` do not require `runs-on` in the caller
+  sourcelink-symbol-server-smoke:
+    name: SourceLink symbol-server smoke (post-publish)
+    needs: publish-nuget
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the tool manifest
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Download packed artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: nuget-packages
+          path: ./packages
+
+      - name: Restore CI tools (dotnet-symbol)
+        # Pinned in .config/dotnet-tools.json, never installed unversioned: an
+        # upstream release could otherwise change CLI behaviour mid-release.
+        run: dotnet tool restore
+
+      - name: Collect one probe DLL per shipped package
+        shell: bash
+        run: |
+          set -euo pipefail
+          nupkgs=$(find packages -maxdepth 1 -name '*.nupkg' ! -name '*.symbols.nupkg' | sort)
+          if [ -z "$nupkgs" ]; then
+            echo "::error::No runtime .nupkg to probe."
+            exit 1
+          fi
+
+          : > probe-dlls.txt
+          for nupkg in $nupkgs; do
+            work=$(mktemp -d)
+            unzip -q "$nupkg" -d "$work"
+            # Any TFM's assembly will do: the symbol server is queried by the
+            # signature embedded in the DLL, not by target framework. One probe
+            # PER PACKAGE though -- ingestion happens per symbol package, so
+            # probing a single package would leave the others unverified in a
+            # repo that ships several.
+            dll=$(find "$work/lib" -name '*.dll' | sort | head -1)
+            if [ -z "$dll" ]; then
+              echo "::error::No runtime DLL under lib/ in $nupkg."
+              exit 1
+            fi
+            echo "$dll" >> probe-dlls.txt
+            echo "will probe: $dll"
+          done
+
+      - name: Poll symbol server for every published PDB
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # nuget.org's SSQP endpoint. dotnet-symbol defaults to
+          # msdl.microsoft.com, so the server path must be overridden.
+          server='https://symbols.nuget.org/download/symbols/'
+
+          # NuGet symbol ingestion is typically 5-30 min. All packages share one
+          # 30-minute budget rather than each getting its own, so adding packages
+          # does not multiply the worst-case wall clock.
+          out=$(mktemp -d)
+          attempts=30
+          mapfile -t pending < probe-dlls.txt
+
+          for i in $(seq 1 "$attempts"); do
+            echo "Attempt $i/$attempts - ${#pending[@]} package(s) outstanding"
+            still=()
+            for dll in "${pending[@]}"; do
+              # The output dir is emptied before each probe: otherwise a PDB
+              # fetched for an EARLIER package would make this check pass for
+              # every package after it.
+              rm -rf "${out:?}"/*
+              served=0
+              # `dotnet dotnet-symbol`, not bare `dotnet-symbol`: `dotnet tool
+              # restore` installs into the manifest, which is NOT on PATH.
+              if dotnet dotnet-symbol --symbols --server-path "$server" --output "$out" "$dll"; then
+                if find "$out" -name '*.pdb' | grep -q .; then
+                  served=1
+                fi
+              fi
+              if [ "$served" -eq 1 ]; then
+                echo "  served: $(basename "$dll")"
+              else
+                still+=("$dll")
+              fi
+            done
+
+            pending=("${still[@]}")
+            if [ "${#pending[@]}" -eq 0 ]; then
+              echo "Symbol server served every package's PDB on attempt $i."
+              exit 0
+            fi
+            echo "  outstanding: ${pending[*]}"
+            echo "  not-yet - sleeping 60s"
+            sleep 60
+          done
+
+          echo "::error::Symbol server did not serve: ${pending[*]}"
+          exit 1
+
   trigger-docs:
     name: Build & Deploy Documentation
     needs: validate-release
