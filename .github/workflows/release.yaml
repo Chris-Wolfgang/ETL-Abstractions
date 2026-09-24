@@ -760,11 +760,14 @@ jobs:
 
             missing=$(comm -23 <(echo "$expected") <(echo "$actual"))
             if [ -n "$missing" ]; then
-              echo "::error::.snupkg is missing a PDB for: $(echo $missing)"
+              echo "::error::.snupkg is missing a PDB for:"
+              echo "$missing"
               fail=1
             fi
-            echo "expected: $(echo $expected)"
-            echo "present : $(echo $actual)"
+            echo "expected:"
+            echo "$expected"
+            echo "present:"
+            echo "$actual"
 
             for pdb in $(find "$work/lib" -name '*.pdb' | sort); do
               tfm=$(basename "$(dirname "$pdb")")
@@ -884,29 +887,35 @@ jobs:
         # upstream release could otherwise change CLI behaviour mid-release.
         run: dotnet tool restore
 
-      - name: Extract a representative DLL from the packed .nupkg
+      - name: Collect one probe DLL per shipped package
         shell: bash
         run: |
           set -euo pipefail
-          nupkg=$(find packages -maxdepth 1 -name '*.nupkg' ! -name '*.symbols.nupkg' | sort | head -1)
-          if [ -z "$nupkg" ]; then
+          nupkgs=$(find packages -maxdepth 1 -name '*.nupkg' ! -name '*.symbols.nupkg' | sort)
+          if [ -z "$nupkgs" ]; then
             echo "::error::No runtime .nupkg to probe."
             exit 1
           fi
-          mkdir -p probe
-          unzip -q "$nupkg" -d probe
-          # One package is a sufficient smoke: ingestion is per-push, not
-          # per-assembly. Prefer the newest TFM's DLL.
-          dll=$(find probe/lib -name '*.dll' | sort | tail -1)
-          if [ -z "$dll" ]; then
-            echo "::error::No runtime DLL in the packed .nupkg."
-            find probe/lib -type f | head
-            exit 1
-          fi
-          echo "PROBE_DLL=$dll" >> "$GITHUB_ENV"
-          echo "Probing symbols for: $dll"
 
-      - name: Poll symbol server for published PDB (retry with backoff)
+          : > probe-dlls.txt
+          for nupkg in $nupkgs; do
+            work=$(mktemp -d)
+            unzip -q "$nupkg" -d "$work"
+            # Any TFM's assembly will do: the symbol server is queried by the
+            # signature embedded in the DLL, not by target framework. One probe
+            # PER PACKAGE though -- ingestion happens per symbol package, so
+            # probing a single package would leave the others unverified in a
+            # repo that ships several.
+            dll=$(find "$work/lib" -name '*.dll' | sort | head -1)
+            if [ -z "$dll" ]; then
+              echo "::error::No runtime DLL under lib/ in $nupkg."
+              exit 1
+            fi
+            echo "$dll" >> probe-dlls.txt
+            echo "will probe: $dll"
+          done
+
+      - name: Poll symbol server for every published PDB
         shell: bash
         run: |
           set -euo pipefail
@@ -915,25 +924,47 @@ jobs:
           # msdl.microsoft.com, so the server path must be overridden.
           server='https://symbols.nuget.org/download/symbols/'
 
-          # NuGet symbol ingestion is typically 5-30 min: poll every 60s for up
-          # to 30 min before failing.
+          # NuGet symbol ingestion is typically 5-30 min. All packages share one
+          # 30-minute budget rather than each getting its own, so adding packages
+          # does not multiply the worst-case wall clock.
           out=$(mktemp -d)
           attempts=30
+          mapfile -t pending < probe-dlls.txt
+
           for i in $(seq 1 "$attempts"); do
-            echo "Attempt $i/$attempts - dotnet-symbol from $server"
-            # `dotnet dotnet-symbol`, not bare `dotnet-symbol`: `dotnet tool
-            # restore` installs into the manifest, which is NOT on PATH.
-            if dotnet dotnet-symbol --symbols --server-path "$server" --output "$out" "$PROBE_DLL"; then
-              if find "$out" -name '*.pdb' | grep -q .; then
-                echo "Symbol server served the PDB on attempt $i."
-                exit 0
+            echo "Attempt $i/$attempts - ${#pending[@]} package(s) outstanding"
+            still=()
+            for dll in "${pending[@]}"; do
+              # The output dir is emptied before each probe: otherwise a PDB
+              # fetched for an EARLIER package would make this check pass for
+              # every package after it.
+              rm -rf "${out:?}"/*
+              served=0
+              # `dotnet dotnet-symbol`, not bare `dotnet-symbol`: `dotnet tool
+              # restore` installs into the manifest, which is NOT on PATH.
+              if dotnet dotnet-symbol --symbols --server-path "$server" --output "$out" "$dll"; then
+                if find "$out" -name '*.pdb' | grep -q .; then
+                  served=1
+                fi
               fi
+              if [ "$served" -eq 1 ]; then
+                echo "  served: $(basename "$dll")"
+              else
+                still+=("$dll")
+              fi
+            done
+
+            pending=("${still[@]}")
+            if [ "${#pending[@]}" -eq 0 ]; then
+              echo "Symbol server served every package's PDB on attempt $i."
+              exit 0
             fi
+            echo "  outstanding: ${pending[*]}"
             echo "  not-yet - sleeping 60s"
             sleep 60
           done
 
-          echo "::error::Symbol server did not serve the published PDB after $((attempts*60))s of polling."
+          echo "::error::Symbol server did not serve: ${pending[*]}"
           exit 1
 
   trigger-docs:
