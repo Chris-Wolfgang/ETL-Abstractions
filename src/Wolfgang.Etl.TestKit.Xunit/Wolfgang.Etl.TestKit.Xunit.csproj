@@ -28,6 +28,11 @@
          project; test / benchmark / example projects do not carry the .txt
          files and so are unaffected. -->
     <WarningsAsErrors>$(WarningsAsErrors);RS0016;RS0017;RS0025</WarningsAsErrors>
+    <!-- Several 10.x BCL packages drop net5.0/net6.0/net7.0 from their tested TFM
+         list; they resolve the netstandard2.0 asset there and work. Silence the
+         TFM-support warnings on those TFMs, as every other src project in the
+         fleet already does. -->
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <ItemGroup>
