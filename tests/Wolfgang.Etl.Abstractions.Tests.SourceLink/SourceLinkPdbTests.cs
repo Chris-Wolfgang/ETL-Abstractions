@@ -151,8 +151,11 @@ public class SourceLinkPdbTests
         // raw.githubusercontent.com does not serve a commit the instant it is pushed.
         // Measured propagation here was under two minutes, so a single 404 does not
         // prove the SHA is unresolvable. Retry briefly before concluding anything.
+        // Only CI waits. Locally a 404 cannot fail the test, so retrying just adds
+        // ten seconds per package to every run on an unpushed commit.
+        var attempts = RunningInCi ? 3 : 1;
         var notFound = false;
-        for (var attempt = 1; attempt <= 3; attempt++)
+        for (var attempt = 1; attempt <= attempts; attempt++)
         {
             try
             {
@@ -199,7 +202,7 @@ public class SourceLinkPdbTests
                 return;
             }
 
-            if (attempt < 3)
+            if (attempt < attempts)
             {
                 await Task.Delay(TimeSpan.FromSeconds(5));
             }
