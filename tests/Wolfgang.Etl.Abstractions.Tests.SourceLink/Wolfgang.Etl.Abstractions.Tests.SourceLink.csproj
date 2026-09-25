@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- net10.0 only: the checks operate on the runtime csprojs' produced
+         PDBs (any TFM's PDB will do) and use System.Reflection.Metadata to
+         parse them. Running once on the newest TFM is enough. -->
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+
+    <NoWarn>$(NoWarn);MA0004;S1144;S6966;CA1707;CA1062</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- One reference per shipped package, so every package's PDB lands in this
+         project's output directory (build ordering + copy-if-newer). All four
+         are verified: a symbol defect in any one of them is a broken debugging
+         experience for that package's consumers. -->
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.ErrorPolicies\Wolfgang.Etl.ErrorPolicies.csproj" />
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.TestKit\Wolfgang.Etl.TestKit.csproj" />
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.TestKit.Xunit\Wolfgang.Etl.TestKit.Xunit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <!-- net10.0-only project, so the modern slot applies: runner 3.0.1 uncapped
+         (it runs xunit v2 tests fine) per the settled fleet convention. -->
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <!-- System.Reflection.Metadata is BCL for net10.0 — no PackageReference. -->
+  </ItemGroup>
+
+</Project>
