@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790082244797,
+  "lastUpdate": 1790302219522,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -4788,6 +4788,90 @@ window.BENCHMARK_DATA = {
             "value": 8143960.010416667,
             "unit": "ns",
             "range": "± 4843.6215446760625"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3f96c300222732e712293710f9f2f0ea6d21a432",
+          "message": "build: silence the TFM-support warnings on the three src projects that lacked it (#654)\n\nA Release build of this solution emitted 23 warnings, all of the same kind: 10.x\nBCL packages (System.IO.Hashing, Microsoft.Bcl.Memory, System.Linq.AsyncEnumerable)\nannouncing they do not list net5.0/net6.0/net7.0 among their tested frameworks.\nThey resolve the netstandard2.0 asset on those TFMs and work.\n\nThis is the fleet's only outlier. Wolfgang.Etl.ErrorPolicies already sets\nSuppressTfmSupportBuildWarnings here, and so does the single src project in every\nother ETL repo; only Abstractions, TestKit and TestKit.Xunit were missing it.\n\nThe suppression is narrow, not blanket. These warnings are raw <Warning> emissions\nfrom the packages' buildTransitive targets and carry NO warning code -- the message\nrenders as \"warning :\" with the code empty -- so NoWarn cannot name them. The\nproperty is the lever the warning text itself points at, and it affects nothing\nelse.\n\nSolution-wide Release build goes 23 warnings to 0, still 0 errors. Unit suite\nunchanged: 583/583 on net10.0. No compilation or packaging change.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-24T22:08:01-04:00",
+          "tree_id": "20b50934993d0f3e3e0673a19547b20f17b9c8c8",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/3f96c300222732e712293710f9f2f0ea6d21a432"
+        },
+        "date": 1790302213502,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 42838.45916748047,
+            "unit": "ns",
+            "range": "± 550.8950551037819"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 44964.771545410156,
+            "unit": "ns",
+            "range": "± 189.85005843113734"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 4160000.25,
+            "unit": "ns",
+            "range": "± 16780.756725079365"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 4385504.029947917,
+            "unit": "ns",
+            "range": "± 6563.660277755134"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 35486.54056803385,
+            "unit": "ns",
+            "range": "± 99.84033549094384"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 35311.31457519531,
+            "unit": "ns",
+            "range": "± 155.74085700326927"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 106064.11254882812,
+            "unit": "ns",
+            "range": "± 229.5753925207672"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 3499997.4934895835,
+            "unit": "ns",
+            "range": "± 1599.3257384862618"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 3478795.7838541665,
+            "unit": "ns",
+            "range": "± 1478.9346126127389"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 10526945.651041666,
+            "unit": "ns",
+            "range": "± 34507.031780456644"
           }
         ]
       }
