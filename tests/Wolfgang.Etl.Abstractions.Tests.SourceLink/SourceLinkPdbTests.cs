@@ -15,7 +15,6 @@
 // Refs #214.
 
 using System.Net;
-using System.Net.Http;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
@@ -126,21 +125,33 @@ public class SourceLinkPdbTests
         var probeUrl = BuildProbeUrl(package, mappings);
         if (probeUrl is null)
         {
-            // No document matched a mapping prefix, or the URL still holds the
-            // unresolved "*" SHA placeholder — a local, unpushed build.
+            // Either no document matched a mapping prefix, or the URL still holds the
+            // unresolved "*" SHA placeholder. On a developer machine that is the ordinary
+            // case — a local, unpushed build — so the probe is skipped.
+            //
+            // In CI it is not. The same path is taken by a malformed local-prefix mapping,
+            // a document-table mismatch and an unresolved SHA, so returning here would let
+            // a broken PDB satisfy the two structural checks and silently skip the
+            // resolution check this test exists to perform. CI builds from a pushed commit,
+            // so there is no legitimate reason for the URL to be unbuildable.
+            if (RunningInCi)
+            {
+                Assert.Fail
+                (
+                    "No probe URL could be built from the SourceLink document table. In CI "
+                    + "this means the mapping prefix, the document paths or the commit SHA "
+                    + "did not line up - not that the build is local and unpushed."
+                );
+            }
+
             return;
         }
 
         Assert.DoesNotContain("*", probeUrl, StringComparison.Ordinal);
 
-        using var http = new HttpClient
-        {
-            Timeout = TimeSpan.FromSeconds(15)
-        };
-
         try
         {
-            using var response = await http.GetAsync(probeUrl, HttpCompletionOption.ResponseHeadersRead);
+            using var response = await Http.GetAsync(probeUrl, HttpCompletionOption.ResponseHeadersRead);
 
             // 404 means the SHA no longer resolves (force-push, repo rename).
             // 403/429 is GitHub rate-limiting the runner, which is infra noise
@@ -185,7 +196,7 @@ public class SourceLinkPdbTests
             $"SourceLink mapping is not an absolute URI: {url}"
         );
 
-        Assert.Equal(Uri.UriSchemeHttps, uri!.Scheme);
+        Assert.Equal(Uri.UriSchemeHttps, uri.Scheme);
         Assert.Equal(RawHost, uri.Host, ignoreCase: true);
 
         Assert.True
@@ -238,9 +249,9 @@ public class SourceLinkPdbTests
             // mappings from the ones third-party packages contribute, nothing
             // more. Applying the strict host check here instead would mean a
             // mapping with the right repo but a WRONG host got silently filtered
-            // out, and the only symptom would be an empty-collection failure;
-            // selecting it loosely and asserting strictly reports the actual
-            // defect. See AssertIsOurRawGitHubUrl.
+            // out, and the only symptom would be an empty-collection failure.
+            // Selecting it loosely and asserting strictly reports the actual
+            // defect instead. See AssertIsOurRawGitHubUrl.
             if (url is null || !url.Contains(RepoSlug, StringComparison.OrdinalIgnoreCase))
             {
                 continue;
@@ -251,6 +262,27 @@ public class SourceLinkPdbTests
 
         return result;
     }
+
+
+
+    /// <summary>
+    /// One shared client for the whole suite. A per-call <see cref="HttpClient"/> is
+    /// disposed while its socket lingers in TIME_WAIT, so repeated creation exhausts
+    /// sockets; the analyser flags it for that reason. A static instance also removes the
+    /// object-initialiser-inside-using shape, where a throw during initialisation would
+    /// leak the half-built client.
+    /// </summary>
+    private static readonly HttpClient Http = new() { Timeout = TimeSpan.FromSeconds(15) };
+
+
+
+    /// <summary>
+    /// Whether the suite is running in CI, where an unbuildable probe URL is a defect
+    /// rather than the ordinary local-build case. GitHub Actions sets <c>CI</c>, as does
+    /// every other common CI.
+    /// </summary>
+    private static bool RunningInCi =>
+        !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CI"));
 
 
 
