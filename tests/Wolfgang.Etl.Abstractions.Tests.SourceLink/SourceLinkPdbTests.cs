@@ -14,7 +14,6 @@
 //
 // Refs #214.
 
-using System.Net;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
@@ -159,12 +158,33 @@ public class SourceLinkPdbTests
             {
                 using var response = await Http.GetAsync(probeUrl, HttpCompletionOption.ResponseHeadersRead);
 
-                // 403/429 is GitHub rate-limiting the runner: infra noise, not a
-                // SourceLink defect.
-                notFound = response.StatusCode == HttpStatusCode.NotFound;
-                if (!notFound)
+                var status = (int)response.StatusCode;
+
+                if (response.IsSuccessStatusCode)
                 {
                     return;
+                }
+
+                // 403 and 429 are GitHub rate-limiting the runner, and 5xx is a
+                // server-side fault. Both are infra rather than a SourceLink defect,
+                // and the deterministic checks above still carry the gate.
+                if (status == 403 || status == 429 || status >= 500)
+                {
+                    return;
+                }
+
+                notFound = status == 404;
+
+                // Any other 4xx means the URL itself is wrong -- malformed, or naming a
+                // repository the runner cannot read. That is a real defect and there is
+                // nothing to wait for, so fail immediately rather than retrying.
+                if (!notFound)
+                {
+                    Assert.Fail
+                    (
+                        $"SourceLink URL returned {status}, so it does not resolve to a "
+                        + $"source file: {probeUrl}"
+                    );
                 }
             }
             catch (HttpRequestException)
