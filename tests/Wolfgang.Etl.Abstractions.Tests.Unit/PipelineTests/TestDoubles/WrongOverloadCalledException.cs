@@ -1,4 +1,5 @@
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles;

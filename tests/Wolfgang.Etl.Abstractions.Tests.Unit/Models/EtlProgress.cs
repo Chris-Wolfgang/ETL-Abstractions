@@ -1,3 +1,5 @@
+using System;
+
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 
 public record EtlProgress
