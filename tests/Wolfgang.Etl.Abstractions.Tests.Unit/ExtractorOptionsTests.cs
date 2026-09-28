@@ -1,3 +1,6 @@
+using System;
+using Xunit;
+
 namespace Wolfgang.Etl.Abstractions.Tests.Unit;
 
 public class ExtractorOptionsTests

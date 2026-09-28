@@ -1,3 +1,5 @@
+using System;
+
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 /// <summary>
 /// An <see cref="IProgress{T}"/> implementation that invokes the callback synchronously

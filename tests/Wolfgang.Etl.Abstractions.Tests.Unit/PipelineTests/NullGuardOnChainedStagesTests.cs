@@ -1,4 +1,6 @@
+using System;
 using Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles;
+using Xunit;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests;
 

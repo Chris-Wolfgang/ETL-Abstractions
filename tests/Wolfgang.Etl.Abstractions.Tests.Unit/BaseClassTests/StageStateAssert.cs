@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using System.Reflection;
+using Xunit;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 
