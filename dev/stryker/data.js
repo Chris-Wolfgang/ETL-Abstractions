@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790490729583,
+  "lastUpdate": 1791101987182,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "Mutation score": [
@@ -156,6 +156,38 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/f12341468745a07eacb04df3a7d9ee3461a7d49c"
         },
         "date": 1790490716754,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 98.63,
+            "unit": "%"
+          },
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.TestKit.Tests.Unit)",
+            "value": 98.9,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "bdc6c85424b88e44b260355d433e7c75663102df",
+          "message": "chore: explicit usings on every TFM (no implicit/global usings in multi-TFM projects) (#656)\n\nDisable ImplicitUsings and drop the global `<Using Include=\"Xunit\" />` in the two\nmulti-target unit test projects (Abstractions.Tests.Unit, ErrorPolicies.Tests.Unit),\nand add the explicit using directives each file needs. With implicit usings on, the\nmodern TFM slices got System/System.Linq/etc. globally, so single-slice analysis\n(InspectCode) flagged the usings net462/netstandard need as redundant.\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-28T14:43:46Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/bdc6c85424b88e44b260355d433e7c75663102df"
+        },
+        "date": 1791101974595,
         "tool": "customBiggerIsBetter",
         "benches": [
           {
