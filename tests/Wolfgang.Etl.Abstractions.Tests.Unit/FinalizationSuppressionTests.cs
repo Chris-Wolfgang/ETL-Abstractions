@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 using Xunit;
 
@@ -148,7 +149,6 @@ public sealed class FinalizationSuppressionTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class FinalizableLoader : LoaderBase<int, EtlProgress>
     {
         private readonly StrongBox<bool> _finalizerRan;
@@ -164,7 +164,6 @@ public sealed class FinalizationSuppressionTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class FinalizableExtractor : ExtractorBase<int, EtlProgress>
     {
         private readonly StrongBox<bool> _finalizerRan;
@@ -185,7 +184,6 @@ public sealed class FinalizationSuppressionTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class FinalizableTransformer : TransformerBase<int, int, EtlProgress>
     {
         private readonly StrongBox<bool> _finalizerRan;
@@ -204,5 +202,104 @@ public sealed class FinalizationSuppressionTests
 #pragma warning restore CS1998
 
         protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+    }
+
+
+    // Positive control: without a dispose the finalizer does run, so the suppression tests above
+    // would see it if SuppressFinalize were dropped.
+    [Fact]
+    public void FinalizableLoader_when_never_disposed_is_finalized()
+    {
+        var finalizerRan = new StrongBox<bool>(false);
+        CreateAndAbandonLoader(finalizerRan);
+
+        ForceFinalization();
+
+        Assert.True(finalizerRan.Value, "an undisposed instance must be finalized");
+    }
+
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    private static void CreateAndAbandonLoader(StrongBox<bool> finalizerRan)
+    {
+        _ = new FinalizableLoader(finalizerRan);
+    }
+
+
+    // Positive control: without a dispose the finalizer does run, so the suppression tests above
+    // would see it if SuppressFinalize were dropped.
+    [Fact]
+    public void FinalizableExtractor_when_never_disposed_is_finalized()
+    {
+        var finalizerRan = new StrongBox<bool>(false);
+        CreateAndAbandonExtractor(finalizerRan);
+
+        ForceFinalization();
+
+        Assert.True(finalizerRan.Value, "an undisposed instance must be finalized");
+    }
+
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    private static void CreateAndAbandonExtractor(StrongBox<bool> finalizerRan)
+    {
+        _ = new FinalizableExtractor(finalizerRan);
+    }
+
+
+    // Positive control: without a dispose the finalizer does run, so the suppression tests above
+    // would see it if SuppressFinalize were dropped.
+    [Fact]
+    public void FinalizableTransformer_when_never_disposed_is_finalized()
+    {
+        var finalizerRan = new StrongBox<bool>(false);
+        CreateAndAbandonTransformer(finalizerRan);
+
+        ForceFinalization();
+
+        Assert.True(finalizerRan.Value, "an undisposed instance must be finalized");
+    }
+
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    private static void CreateAndAbandonTransformer(StrongBox<bool> finalizerRan)
+    {
+        _ = new FinalizableTransformer(finalizerRan);
+    }
+
+
+    [Fact]
+    public async Task FinalizableLoader_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new FinalizableLoader(new StrongBox<bool>(false));
+
+        var run = await StageRunner.LoadAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+    [Fact]
+    public async Task FinalizableExtractor_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new FinalizableExtractor(new StrongBox<bool>(false));
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+    [Fact]
+    public async Task FinalizableTransformer_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new FinalizableTransformer(new StrongBox<bool>(false));
+
+        var run = await StageRunner.TransformAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
     }
 }

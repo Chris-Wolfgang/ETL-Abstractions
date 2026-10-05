@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
@@ -32,11 +31,39 @@ public class LoaderBaseTests
         var sut = CreateSut(1);
         Assert.Equal(1_000, sut.ReportingInterval);
     }
+
+
+
+    [Fact]
+    public async Task LoadAsync_when_constructed_with_a_timer_reports_progress_when_the_timer_fires()
+    {
+        using var timer = new ManualProgressTimer();
+        using var sut = new ListLoader(timer);
+        var reports = new List<int>();
+        var progress = new SynchronousProgress<EtlProgress>(p => reports.Add(p.CurrentItemCount));
+
+        await sut.LoadAsync(FireAfterTwo(timer), progress);
+
+        Assert.Equal(new[] { "1", "2", "3" }, sut.LoadedItems);
+        Assert.Equal(new[] { 2, 3 }, reports);
+    }
+
+
+
+    private static async IAsyncEnumerable<string> FireAfterTwo(ManualProgressTimer timer)
+    {
+        yield return "1";
+        yield return "2";
+
+        await Task.Yield();
+        timer.Fire();
+
+        yield return "3";
+    }
 }
 
 
 
-[ExcludeFromCodeCoverage]
 public class ListLoader : LoaderBase<string, EtlProgress>
 {
     private readonly List<string> _buffer = [];

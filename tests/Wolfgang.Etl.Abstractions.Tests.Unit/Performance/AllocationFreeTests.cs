@@ -4,9 +4,11 @@
 #if !NET462 && !NET472
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 using Xunit;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Unit.Performance;
@@ -120,6 +122,21 @@ public sealed class AllocationFreeTests
     }
 
 
+    // The harness exists only to reach the protected increments; running it as an extractor is
+    // not supported, and the run still ends with the base's final progress report.
+    [Fact]
+    public async Task CounterHarness_ExtractAsync_throws_NotSupportedException_and_still_sends_a_final_report()
+    {
+        using var sut = new CounterHarness();
+        var reports = new List<Report>();
+        var progress = new SynchronousProgress<Report>(reports.Add);
+
+        await Assert.ThrowsAsync<NotSupportedException>(async () => await sut.ExtractAsync(progress).ToListAsync());
+
+        Assert.Equal(0, Assert.Single(reports).CurrentItemCount);
+    }
+
+
     // Surfaces the protected counter increments for measurement.
     private sealed class CounterHarness : ExtractorBase<int, Report>
     {
@@ -127,14 +144,12 @@ public sealed class AllocationFreeTests
 
         public void IncrementSkipped() => IncrementCurrentSkippedItemCount();
 
-        // The harness only surfaces the protected counter increments; extraction is never run,
-        // so this required override cannot execute.
-        [ExcludeFromCodeCoverage]
+        // The harness only surfaces the protected counter increments; extraction is not supported
+        // (pinned by CounterHarness_ExtractAsync_throws_NotSupportedException_and_still_sends_a_final_report).
         protected override IAsyncEnumerable<int> ExtractWorkerAsync(CancellationToken token)
             => throw new NotSupportedException();
 
-        // Required override to instantiate the harness; progress is never reported in the probes.
-        [ExcludeFromCodeCoverage]
+        // Required override to instantiate the harness; the probes never report progress.
         protected override Report CreateProgressReport() => new(CurrentItemCount);
     }
 }

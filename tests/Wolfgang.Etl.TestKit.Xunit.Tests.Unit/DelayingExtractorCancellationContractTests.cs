@@ -1,8 +1,9 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Xunit.Tests.Unit;
 
@@ -17,24 +18,16 @@ public sealed class DelayingExtractorCancellationContractTests
 
 
 
-    // The await-foreach normal-completion path is unreachable: this run always cancels mid-stream
-    // (the contract asserts the stream never drains), so the loop only ever exits via the thrown
-    // OperationCanceledException — never by the enumerator completing.
-    [ExcludeFromCodeCoverage]
     protected override async Task<CancellationOutcome> RunAndCancelMidStreamAsync(int itemCount, int cancelAfter)
     {
         var sut = new DelayingExtractor<int>(Enumerable.Range(0, itemCount).ToArray(), PerItemDelay);
         using var cts = new CancellationTokenSource();
 
-        var processed = 0;
-        var canceled  = false;
-
-        try
-        {
-            await foreach (var _ in sut.ExtractAsync(cts.Token).ConfigureAwait(false))
+        return await DrainAsync
+        (
+            sut.ExtractAsync(cts.Token),
+            processed =>
             {
-                processed++;
-
                 if (processed == cancelAfter)
                 {
 #pragma warning disable CA1849, VSTHRD103 // sync Cancel() — CancelAsync is net8+ only
@@ -42,34 +35,47 @@ public sealed class DelayingExtractorCancellationContractTests
 #pragma warning restore CA1849, VSTHRD103
                 }
             }
-        }
-        catch (OperationCanceledException)
-        {
-            canceled = true;
-        }
-
-        return new CancellationOutcome(canceled, processed);
+        ).ConfigureAwait(false);
     }
 
 
 
-    // The loop body and normal-completion path are unreachable: an already-cancelled token makes the
-    // extractor throw before yielding any item (the contract asserts zero items are processed), so
-    // execution goes straight to the catch.
-    [ExcludeFromCodeCoverage]
+    // An already-cancelled token makes the extractor throw before yielding any item (the contract
+    // asserts zero items are processed), so there is no per-item callback.
     protected override async Task<CancellationOutcome> RunWithPreCancelledTokenAsync(int itemCount)
     {
         var sut   = new DelayingExtractor<int>(Enumerable.Range(0, itemCount).ToArray(), PerItemDelay);
         var token = new CancellationToken(canceled: true);
 
+        return await DrainAsync(sut.ExtractAsync(token), onItem: null).ConfigureAwait(false);
+    }
+
+
+
+    [Fact]
+    public async Task RunAndCancelMidStreamAsync_when_cancelAfter_is_never_reached_drains_every_item_without_cancelling()
+    {
+        var outcome = await RunAndCancelMidStreamAsync(itemCount: 2, cancelAfter: 3);
+
+        Assert.False(outcome.Canceled);
+        Assert.Equal(2, outcome.ProcessedItemCount);
+    }
+
+
+
+    // Counts each item before calling onItem with the running count; the run is cancelled when the
+    // enumeration throws OperationCanceledException (or a derived type).
+    private static async Task<CancellationOutcome> DrainAsync(IAsyncEnumerable<int> items, Action<int>? onItem)
+    {
         var processed = 0;
         var canceled  = false;
 
         try
         {
-            await foreach (var _ in sut.ExtractAsync(token).ConfigureAwait(false))
+            await foreach (var _ in items.ConfigureAwait(false))
             {
                 processed++;
+                onItem?.Invoke(processed);
             }
         }
         catch (OperationCanceledException)

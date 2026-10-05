@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -201,16 +200,7 @@ public class FaultyExtractorMutationTests
         // the top of the loop can catch it during the skip run.
         using var cts = new CancellationTokenSource();
 
-        IEnumerable<int> Source()
-        {
-            yield return 1;    // skipped
-            yield return 2;    // skipped
-            cts.Cancel();      // still in the skip phase
-            yield return 3;    // in-loop check throws before the skip branch
-            yield return 4;
-        }
-
-        var sut = new FaultyExtractor<int>(Source(), new ExtractorOptions { SkipItemCount = 10 });
+        var sut = new FaultyExtractor<int>(CancellingSkipSource(cts), new ExtractorOptions { SkipItemCount = 10 });
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>
         (
@@ -314,14 +304,12 @@ public class FaultyExtractorMutationTests
 #pragma warning restore CS0067
 
 
-        [ExcludeFromCodeCoverage]
         public void Start(int intervalMilliseconds) { }
 
 
         public void StopTimer() => StopTimerCallCount++;
 
 
-        [ExcludeFromCodeCoverage]
         public void Dispose() { }
     }
 
@@ -341,7 +329,6 @@ public class FaultyExtractorMutationTests
         public IEnumerator<T> GetEnumerator() => new TrackingEnumerator(this, _inner.GetEnumerator());
 
 
-        [ExcludeFromCodeCoverage]
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
 
@@ -361,14 +348,12 @@ public class FaultyExtractorMutationTests
             public T Current => _inner.Current;
 
 
-            [ExcludeFromCodeCoverage]
             object? IEnumerator.Current => Current;
 
 
             public bool MoveNext() => _inner.MoveNext();
 
 
-            [ExcludeFromCodeCoverage]
             public void Reset() => _inner.Reset();
 
 
@@ -394,5 +379,73 @@ public class FaultyExtractorMutationTests
         (
             async () => await extractor.ExtractAsync().ToListAsync()
         );
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Helpers and the doubles' own members
+    // ------------------------------------------------------------------
+
+    // Cancels its own CTS after the second item, while an extractor is still skipping.
+    private static IEnumerable<int> CancellingSkipSource(CancellationTokenSource cts)
+    {
+        yield return 1;    // skipped
+        yield return 2;    // skipped
+        cts.Cancel();      // still in the skip phase
+        yield return 3;    // in-loop check throws before the skip branch
+        yield return 4;
+    }
+
+
+
+    [Fact]
+    public void CancellingSkipSource_when_drained_yields_every_item_and_cancels_after_the_second()
+    {
+        using var cts = new CancellationTokenSource();
+        var seen = new List<int>();
+
+        foreach (var item in CancellingSkipSource(cts))
+        {
+            seen.Add(item);
+
+            Assert.Equal(item > 2, cts.IsCancellationRequested);
+        }
+
+        Assert.Equal(new[] { 1, 2, 3, 4 }, seen);
+    }
+
+
+
+    [Fact]
+    public void RecordingProgressTimer_Start_and_Dispose_do_not_count_as_StopTimer()
+    {
+        var timer = new RecordingProgressTimer();
+
+        timer.Start(10);
+        timer.Dispose();
+
+        Assert.Equal(0, timer.StopTimerCallCount);
+    }
+
+
+
+    [Fact]
+    public void DisposeTrackingEnumerable_non_generic_enumerator_reads_resets_and_records_its_disposal()
+    {
+        var source = new DisposeTrackingEnumerable<int>(new List<int> { 1, 2 });
+        var enumerator = ((IEnumerable)source).GetEnumerator();
+
+        Assert.True(enumerator.MoveNext());
+        Assert.Equal(1, enumerator.Current);
+
+        enumerator.Reset();
+
+        Assert.True(enumerator.MoveNext());
+        Assert.Equal(1, enumerator.Current);
+
+        ((IDisposable)enumerator).Dispose();
+
+        Assert.True(source.EnumeratorDisposed);
     }
 }

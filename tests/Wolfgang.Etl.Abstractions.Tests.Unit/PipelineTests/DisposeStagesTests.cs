@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -76,8 +75,8 @@ public class DisposeStagesTests
         }
 
         // The async disposal path is always preferred, so this IDisposable member is asserted
-        // never-called (see DisposeStagesOnCompletion_prefers_DisposeAsync_over_Dispose).
-        [ExcludeFromCodeCoverage]
+        // never-called (see DisposeStagesOnCompletion_prefers_DisposeAsync_over_Dispose); the
+        // DualDisposableLoader_Dispose_when_called_directly_sets_DisposeCalled control calls it directly.
         public void Dispose() => DisposeCalled = true;
 
         public ValueTask DisposeAsync()
@@ -509,5 +508,19 @@ public class DisposeStagesTests
             },
             log
         );
+    }
+
+
+    // Positive control for DisposeStagesOnCompletion_prefers_DisposeAsync_over_Dispose: calling
+    // Dispose directly does set the flag that test asserts stays false.
+    [Fact]
+    public void DualDisposableLoader_Dispose_when_called_directly_sets_DisposeCalled()
+    {
+        var sut = new DualDisposableLoader();
+
+        sut.Dispose();
+
+        Assert.True(sut.DisposeCalled);
+        Assert.False(sut.DisposeAsyncCalled);
     }
 }

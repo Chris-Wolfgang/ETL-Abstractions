@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
@@ -214,7 +215,6 @@ public class TestLoaderMutationTests
     // Helpers
     // ------------------------------------------------------------------
 
-    [ExcludeFromCodeCoverage]
     private static async IAsyncEnumerable<int> EmptyIgnoringCancellationAsync()
     {
         await Task.CompletedTask.ConfigureAwait(false);
@@ -246,5 +246,15 @@ public class TestLoaderMutationTests
         public TimedTestLoader(bool collectItems, IProgressTimer timer) : base(collectItems, timer)
         {
         }
+    }
+
+
+
+    [Fact]
+    public async Task EmptyIgnoringCancellationAsync_when_drained_yields_nothing()
+    {
+        var items = await EmptyIgnoringCancellationAsync().ToListAsync();
+
+        Assert.Empty(items);
     }
 }

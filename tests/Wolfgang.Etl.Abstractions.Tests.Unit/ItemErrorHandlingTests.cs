@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -474,7 +475,6 @@ public sealed class ItemErrorHandlingTests
 
 
     // Overrides OnItemError so the Skip/count path is exercised; exposes the protected helper.
-    [ExcludeFromCodeCoverage]
     private sealed class ConfigurableExtractor : ExtractorBase<int, EtlProgress>
     {
         public ItemErrorAction Policy { get; set; } = ItemErrorAction.Abort;
@@ -506,7 +506,6 @@ public sealed class ItemErrorHandlingTests
 
 
     // Does NOT override OnItemError — exercises the base default (Abort, no count).
-    [ExcludeFromCodeCoverage]
     private sealed class DefaultPolicyExtractor : ExtractorBase<int, EtlProgress>
     {
         public ItemErrorAction Handle(ItemErrorContext context) => HandleItemError(context);
@@ -523,7 +522,6 @@ public sealed class ItemErrorHandlingTests
 
 
     // A realistic worker: parse each line, skip or abort on failure per policy.
-    [ExcludeFromCodeCoverage]
     private sealed class ParsingExtractor : ExtractorBase<int, EtlProgress>
     {
         private readonly string[] _lines;
@@ -567,7 +565,6 @@ public sealed class ItemErrorHandlingTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class CollectingLoader : LoaderBase<int, EtlProgress>
     {
         protected override async Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
@@ -584,7 +581,6 @@ public sealed class ItemErrorHandlingTests
 
 
     // Does NOT override OnItemError — exercises the base default (Abort) on LoaderBase.
-    [ExcludeFromCodeCoverage]
     private sealed class DefaultPolicyLoader : LoaderBase<int, EtlProgress>
     {
         public ItemErrorAction Handle(ItemErrorContext context) => HandleItemError(context);
@@ -596,7 +592,6 @@ public sealed class ItemErrorHandlingTests
 
 
     // Overrides OnItemError so the Skip/count path is exercised; its worker skips negative items.
-    [ExcludeFromCodeCoverage]
     private sealed class ConfigurableLoader : LoaderBase<int, EtlProgress>
     {
         public ItemErrorAction Policy { get; set; } = ItemErrorAction.Abort;
@@ -632,7 +627,6 @@ public sealed class ItemErrorHandlingTests
 
 
     // Does NOT override OnItemError — exercises the base default (Abort) on TransformerBase.
-    [ExcludeFromCodeCoverage]
     private sealed class DefaultPolicyTransformer : TransformerBase<int, int, EtlProgress>
     {
         public ItemErrorAction Handle(ItemErrorContext context) => HandleItemError(context);
@@ -649,7 +643,6 @@ public sealed class ItemErrorHandlingTests
 
 
     // Overrides OnItemError so the Skip/count path is exercised; its worker skips negative items.
-    [ExcludeFromCodeCoverage]
     private sealed class ConfigurableTransformer : TransformerBase<int, int, EtlProgress>
     {
         public ItemErrorAction Policy { get; set; } = ItemErrorAction.Abort;
@@ -683,5 +676,109 @@ public sealed class ItemErrorHandlingTests
         }
 
         protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+    }
+
+
+    [Fact]
+    public async Task ConfigurableExtractor_ExtractAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new ConfigurableExtractor();
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task DefaultPolicyExtractor_ExtractAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new DefaultPolicyExtractor();
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task DefaultPolicyLoader_LoadAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new DefaultPolicyLoader();
+
+        var run = await StageRunner.LoadAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task DefaultPolicyTransformer_TransformAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new DefaultPolicyTransformer();
+
+        var run = await StageRunner.TransformAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task ParsingExtractor_ExtractAsync_with_progress_reports_the_parsed_item_count()
+    {
+        using var sut = new ParsingExtractor(new[] { "1", "2" });
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Equal(new[] { 1, 2 }, run.Items);
+        Assert.Equal(2, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task CollectingLoader_LoadAsync_with_progress_reports_the_loaded_item_count()
+    {
+        using var sut = new CollectingLoader();
+
+        var run = await StageRunner.LoadAsync(sut, AsyncSource(1, 2, 3));
+
+        Assert.Equal(3, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task Loader_worker_when_policy_aborts_throws_on_the_first_bad_item_and_still_sends_a_final_report()
+    {
+        using var sut = new ConfigurableLoader { Policy = ItemErrorAction.Abort };
+        var reports = new List<EtlProgress>();
+        var progress = new SynchronousProgress<EtlProgress>(reports.Add);
+
+        await Assert.ThrowsAsync<FormatException>(() => sut.LoadAsync(AsyncSource(1, -1, 2), progress));
+
+        Assert.Equal(1, Assert.Single(reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task Transformer_worker_when_policy_aborts_throws_on_the_first_bad_item_and_still_sends_a_final_report()
+    {
+        using var sut = new ConfigurableTransformer { Policy = ItemErrorAction.Abort };
+        var reports = new List<EtlProgress>();
+        var progress = new SynchronousProgress<EtlProgress>(reports.Add);
+
+        await Assert.ThrowsAsync<FormatException>(async () => await sut.TransformAsync(AsyncSource(1, -1, 2), progress).ToListAsync());
+
+        Assert.Equal(1, Assert.Single(reports).CurrentItemCount);
     }
 }

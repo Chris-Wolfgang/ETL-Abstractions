@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 using Xunit;
 
@@ -116,7 +116,6 @@ public sealed class DisposedGuardTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class NoOpProgress : IProgress<EtlProgress>
     {
         public void Report(EtlProgress value)
@@ -125,7 +124,6 @@ public sealed class DisposedGuardTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class NoOpLoader : LoaderBase<int, EtlProgress>
     {
         protected override Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
@@ -135,7 +133,6 @@ public sealed class DisposedGuardTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class NoOpExtractor : ExtractorBase<int, EtlProgress>
     {
 #pragma warning disable CS1998 // async iterator with no yielded items is intentional
@@ -150,7 +147,6 @@ public sealed class DisposedGuardTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class NoOpTransformer : TransformerBase<int, int, EtlProgress>
     {
 #pragma warning disable CS1998 // async iterator with no yielded items is intentional
@@ -163,5 +159,54 @@ public sealed class DisposedGuardTests
 #pragma warning restore CS1998
 
         protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+    }
+
+
+    [Fact]
+    public async Task NoOpExtractor_ExtractAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new NoOpExtractor();
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task NoOpLoader_LoadAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new NoOpLoader();
+
+        var run = await StageRunner.LoadAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task NoOpTransformer_TransformAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new NoOpTransformer();
+
+        var run = await StageRunner.TransformAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+    [Fact]
+    public async Task NoOpProgress_when_a_live_extractor_sends_its_final_report_ignores_it()
+    {
+        using var extractor = new NoOpExtractor();
+
+        var items = await extractor.ExtractAsync(Progress).ToListAsync();
+
+        Assert.Empty(items);
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit.Globalization;
@@ -15,7 +14,6 @@ namespace Wolfgang.Etl.TestKit.Tests.Unit.Globalization;
 /// before an asynchronous call remains in effect inside it. Wrap each test body
 /// in a <c>using</c> so the ambient culture is always restored, even on failure.
 /// </remarks>
-[ExcludeFromCodeCoverage]
 internal sealed class CultureSwapper : IDisposable
 {
     private readonly CultureInfo _originalCulture;
