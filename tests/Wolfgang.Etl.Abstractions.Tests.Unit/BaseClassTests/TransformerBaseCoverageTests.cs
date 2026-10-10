@@ -201,7 +201,31 @@ public sealed class TransformerBaseCoverageTests
     }
 
 
-    [ExcludeFromCodeCoverage]
+    [Fact]
+    public async Task DisposeRecordingTransformer_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new DisposeRecordingTransformer();
+
+        var run = await StageRunner.TransformAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+    [Fact]
+    public void RecordingTimer_Start_and_StopTimer_neither_raise_Elapsed_nor_dispose()
+    {
+        var timer = new RecordingTimer();
+        var raised = 0;
+        timer.Elapsed += () => raised++;
+
+        timer.Start(10);
+        timer.StopTimer();
+
+        Assert.Equal(0, raised);
+        Assert.False(timer.Disposed);
+    }
     private sealed class TimedTransformer : TransformerBase<int, int, EtlProgress>
     {
         private readonly int _perItemDelayMs;
@@ -261,7 +285,6 @@ public sealed class TransformerBaseCoverageTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class DisposeRecordingTransformer : TransformerBase<int, int, EtlProgress>
     {
         public int DisposeBoolCalls { get; private set; }
@@ -288,7 +311,6 @@ public sealed class TransformerBaseCoverageTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class RecordingTimer : IProgressTimer
     {
         public bool Disposed { get; private set; }

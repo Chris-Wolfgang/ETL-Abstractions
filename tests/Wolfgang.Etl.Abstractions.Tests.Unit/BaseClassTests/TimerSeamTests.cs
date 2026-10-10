@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -174,7 +175,6 @@ public class TimerSeamTests
 
 
     // A deterministic ITimerCore that records Change/Dispose calls and fires ticks on demand.
-    [ExcludeFromCodeCoverage]
     private sealed class FakeTimerCore : ITimerCore
     {
         private readonly TimerCallback _onTick;
@@ -199,7 +199,6 @@ public class TimerSeamTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class TimerSeamLoader : LoaderBase<int, EtlProgress>
     {
         public TimerSeamLoader(LoaderOptions? options = null)
@@ -216,7 +215,6 @@ public class TimerSeamTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class TimerSeamTransformer : TransformerBase<int, int, EtlProgress>
     {
         public TimerSeamTransformer(TransformerOptions? options = null)
@@ -238,7 +236,6 @@ public class TimerSeamTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class TimerSeamExtractor : ExtractorBase<int, EtlProgress>
     {
         public TimerSeamExtractor(ExtractorOptions? options = null)
@@ -256,5 +253,43 @@ public class TimerSeamTests
         }
 
         protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+    }
+
+
+    [Fact]
+    public async Task TimerSeamExtractor_ExtractAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new TimerSeamExtractor();
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task TimerSeamLoader_LoadAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new TimerSeamLoader();
+
+        var run = await StageRunner.LoadAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task TimerSeamTransformer_TransformAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new TimerSeamTransformer();
+
+        var run = await StageRunner.TransformAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -221,5 +222,44 @@ public class OptionsConstructorTests
         using var nullOptions   = new OptionsTransformer(null);
 
         StageStateAssert.Identical(nullOptions, parameterless);
+    }
+
+
+
+    [Fact]
+    public async Task OptionsExtractor_ExtractAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new OptionsExtractor();
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task OptionsLoader_LoadAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new OptionsLoader();
+
+        var run = await StageRunner.LoadAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task OptionsTransformer_TransformAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new OptionsTransformer();
+
+        var run = await StageRunner.TransformAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
     }
 }

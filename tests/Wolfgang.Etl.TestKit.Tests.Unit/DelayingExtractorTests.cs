@@ -301,4 +301,17 @@ public class DelayingExtractorTests
             yield return i;
         }
     }
+
+
+
+    [Fact]
+    public void CancelAt_when_drained_yields_every_index_and_cancels_at_the_chosen_one()
+    {
+        using var cts = new CancellationTokenSource();
+
+        var items = CancelAt(cts, cancelIndex: 1, total: 3).ToList();
+
+        Assert.Equal(new[] { 0, 1, 2 }, items);
+        Assert.True(cts.IsCancellationRequested);
+    }
 }

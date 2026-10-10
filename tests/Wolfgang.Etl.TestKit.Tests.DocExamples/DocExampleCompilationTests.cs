@@ -114,11 +114,7 @@ public sealed class DocExampleCompilationTests
 
                 examplesChecked++;
 
-                var rot = BestEffortRot(code);
-                if (rot.Count > 0)
-                {
-                    failures.Add(FormatFailure(file, line, code, rot));
-                }
+                CheckExample(failures, file, line, code);
             }
         }
 
@@ -170,6 +166,44 @@ public sealed class DocExampleCompilationTests
         Assert.Contains("var x = 1;", formatted, StringComparison.Ordinal);
         Assert.Contains("TEST0001", formatted, StringComparison.Ordinal);
         Assert.Contains("something is wrong", formatted, StringComparison.Ordinal);
+    }
+
+
+
+    [Fact]
+    public void CheckExample_when_the_snippet_compiles_records_no_failure()
+    {
+        var failures = new List<string>();
+
+        CheckExample(failures, "Example.cs", 7, "var x = 1;");
+
+        Assert.Empty(failures);
+    }
+
+
+
+    [Fact]
+    public void CheckExample_when_the_snippet_compiles_in_no_context_records_one_formatted_failure()
+    {
+        var failures = new List<string>();
+
+        CheckExample(failures, "Example.cs", 7, "int value = \"text\";");
+
+        var failure = Assert.Single(failures);
+        Assert.Contains("line 7", failure, StringComparison.Ordinal);
+        Assert.Contains("CS0029", failure, StringComparison.Ordinal);
+    }
+
+
+
+    // Records a formatted failure when the snippet is rot in every context it could belong to.
+    private static void CheckExample(List<string> failures, string file, int line, string code)
+    {
+        var rot = BestEffortRot(code);
+        if (rot.Count > 0)
+        {
+            failures.Add(FormatFailure(file, line, code, rot));
+        }
     }
 
 

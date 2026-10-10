@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -211,7 +210,6 @@ public class RetrySeamTests
     // Extractor whose overridden seam invokes the factory (WorkerRuns - 1) discarded times then a
     // final real run, proving the factory produces a fresh worker run on each call. WorkerRuns == 1
     // (the default) leaves the seam a pass-through, exercising the base default no-op.
-    [ExcludeFromCodeCoverage]
     private sealed class SeamExtractor : ExtractorBase<int, EtlProgress>
     {
         private readonly int[] _items;
@@ -272,7 +270,6 @@ public class RetrySeamTests
 
 
     // Extractor whose seam retries a genuine transient failure by re-invoking the factory.
-    [ExcludeFromCodeCoverage]
     private sealed class RetryingExtractor : ExtractorBase<int, EtlProgress>
     {
         private readonly int[] _items;
@@ -354,7 +351,6 @@ public class RetrySeamTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class SeamLoader : LoaderBase<int, EtlProgress>
     {
         private int _workerStarts;
@@ -401,7 +397,6 @@ public class RetrySeamTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class SeamTransformer : TransformerBase<int, int, EtlProgress>
     {
         private int _workerStarts;
@@ -455,5 +450,19 @@ public class RetrySeamTests
         }
 
         protected override EtlProgress CreateProgressReport() => new(CurrentItemCount);
+    }
+
+
+    [Fact]
+    public async Task Extractor_seam_retry_on_the_with_progress_path_sends_one_final_report()
+    {
+        // Worker throws on its first start, succeeds on the second; the run ends with one final report.
+        using var sut = new RetryingExtractor(new[] { 5, 6 }, failuresBeforeSuccess: 1);
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Equal(new[] { 5, 6 }, run.Items);
+        Assert.Equal(2, sut.WorkerStartCount);
+        Assert.Single(run.Reports);
     }
 }

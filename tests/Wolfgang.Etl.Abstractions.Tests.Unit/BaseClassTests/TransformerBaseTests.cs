@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -56,11 +55,32 @@ public class TransformerBaseTests
 
         Assert.Equal(2, sut.CurrentSkippedItemCount);
     }
+
+
+
+    [Fact]
+    public async Task TransformAsync_when_constructed_with_a_timer_reports_progress_when_the_timer_fires()
+    {
+        using var timer = new ManualProgressTimer();
+        using var sut = new IdentityTransformer(timer);
+        var reports = new List<int>();
+        var progress = new SynchronousProgress<EtlProgress>(p => reports.Add(p.CurrentItemCount));
+        var source = new[] { "1", "2", "3" }.ToAsyncEnumerable();
+
+        await foreach (var item in sut.TransformAsync(source, progress))
+        {
+            if (string.Equals(item, "2", StringComparison.Ordinal))
+            {
+                timer.Fire();
+            }
+        }
+
+        Assert.Equal(new[] { 2, 3 }, reports);
+    }
 }
 
 
 
-[ExcludeFromCodeCoverage]
 public class IdentityTransformer : TransformerBase<string, string, EtlProgress>
 {
     private readonly IProgressTimer? _progressTimer;

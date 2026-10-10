@@ -1,7 +1,5 @@
-
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,8 +38,7 @@ internal sealed class CancelOnlyLoader<T> : ILoadWithCancellationAsync<T>
 
 
     // Negative-routing guard: throws to prove the pipeline never binds the parameterless overload
-    // for a cancellation-only loader. Never executed on a green run, so it cannot be covered.
-    [ExcludeFromCodeCoverage]
+    // for a cancellation-only loader. OverloadDoubleCoverageTests calls it directly to pin the throw.
     public Task LoadAsync(IAsyncEnumerable<T> items)
         => throw new WrongOverloadCalledException("CancelOnlyLoader<T>.LoadAsync(items)");
 
