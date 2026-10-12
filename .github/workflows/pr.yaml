@@ -27,16 +27,14 @@ permissions:
 
 env:
   # Minimum line coverage for PRODUCTION assemblies (anything under src/).
-  CODECOV_MINIMUM: 90
+  CODECOV_MINIMUM: 95
   # Minimum line coverage for TEST assemblies (anything under tests/).
   # Test code that never executes has no purpose — an uncovered helper, fake, or
   # branch in a test project is dead code and should be exercised or deleted.
   # This is LINE coverage; branch coverage legitimately can't reach 100%
   # (compiler-generated async state machines), and the gate reads only the
   # line-coverage column that ReportGenerator puts at end-of-row.
-  # This repository gates its test assemblies at 99 (compiler-generated async state-machine
-  # branches in the contract-test doubles are the accepted gap — see #481).
-  CODECOV_TEST_MINIMUM: 99
+  CODECOV_TEST_MINIMUM: 100
   
 on:
   pull_request:
