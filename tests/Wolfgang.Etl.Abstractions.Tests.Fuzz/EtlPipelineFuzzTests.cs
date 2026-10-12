@@ -31,22 +31,20 @@ public class EtlPipelineFuzzTests
 
 
     [Fact]
-    public void From_To_delivers_the_source_in_order_and_counts_both_ends()
+    public async Task From_To_delivers_the_source_in_order_and_counts_both_ends()
     {
-        Source.Sample(
-            items =>
+        await Source.SampleAsync(
+            async items =>
             {
                 var loader = new CollectingLoader<int>();
                 EtlPipelineProgress? last = null;
                 var progress = new InlineProgress<EtlPipelineProgress>(p => last = p);
 
-                EtlPipeline
+                await EtlPipeline
                     .Create()
                     .From(AsyncSeq(items))
                     .To(loader)
-                    .RunAsync(progress)
-                    .GetAwaiter()
-                    .GetResult();
+                    .RunAsync(progress);
 
                 Assert.Equal(items, loader.Loaded);
                 Assert.NotNull(last);
@@ -58,21 +56,19 @@ public class EtlPipelineFuzzTests
 
 
     [Fact]
-    public void Through_map_is_applied_elementwise_preserving_order()
+    public async Task Through_map_is_applied_elementwise_preserving_order()
     {
-        Source.Sample(
-            items =>
+        await Source.SampleAsync(
+            async items =>
             {
                 var loader = new CollectingLoader<long>();
 
-                EtlPipeline
+                await EtlPipeline
                     .Create()
                     .From(AsyncSeq(items))
                     .Through(new MapTransformer<int, long>(x => (long)x * 2 + 1))
                     .To(loader)
-                    .RunAsync()
-                    .GetAwaiter()
-                    .GetResult();
+                    .RunAsync();
 
                 Assert.Equal(items.Select(x => (long)x * 2 + 1), loader.Loaded);
             },
@@ -81,19 +77,17 @@ public class EtlPipelineFuzzTests
 
 
     [Fact]
-    public void LoaderBase_progress_run_reports_every_loaded_item_in_its_final_report()
+    public async Task LoaderBase_progress_run_reports_every_loaded_item_in_its_final_report()
     {
-        Source.Sample(
-            items =>
+        await Source.SampleAsync(
+            async items =>
             {
                 var loader = new CollectingLoader<int>();
                 Report? last = null;
                 var progress = new InlineProgress<Report>(p => last = p);
 
-                loader
-                    .LoadAsync(AsyncSeq(items), progress)
-                    .GetAwaiter()
-                    .GetResult();
+                await loader
+                    .LoadAsync(AsyncSeq(items), progress);
 
                 Assert.Equal(items, loader.Loaded);
                 Assert.NotNull(last);
