@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -188,7 +187,26 @@ public class RetryingExtractorMutationTests
 
 
 
-        [ExcludeFromCodeCoverage]
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+
+
+    [Fact]
+    public void CancellingSequence_when_drained_through_the_non_generic_enumerator_yields_every_index_and_cancels_at_the_chosen_one()
+    {
+        using var cts = new CancellationTokenSource();
+        IEnumerable sequence = new CancellingSequence(cts, cancelAtIndex: 1, count: 3);
+
+        var items = new List<int>();
+
+        // The static type is the non-generic IEnumerable, so foreach binds IEnumerable.GetEnumerator().
+        foreach (var item in sequence)
+        {
+            items.Add((int)item!);
+        }
+
+        Assert.Equal(new[] { 0, 1, 2 }, items);
+        Assert.True(cts.IsCancellationRequested);
     }
 }

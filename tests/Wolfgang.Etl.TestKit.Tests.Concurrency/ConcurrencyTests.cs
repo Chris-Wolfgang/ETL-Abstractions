@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Coyote;
+using Microsoft.Coyote.Specifications;
 using Microsoft.Coyote.SystematicTesting;
 using Xunit;
 
@@ -33,11 +35,60 @@ public sealed class ConcurrencyTests
         RunSystematic(CancellationScenario);
     }
 
+
+
     [Fact]
     public void Dispose_racing_enumeration_is_race_safe()
     {
         RunSystematic(DisposeDuringEnumerationScenario);
     }
+
+
+
+    // The races' extremes, pinned deterministically so every outcome the
+    // scenarios accept is exercised on every run, whichever side wins the race.
+
+    [Fact]
+    public async Task DrainAsync_when_never_cancelled_or_disposed_yields_every_item()
+    {
+        using var extractor = new TestExtractor<int>(Enumerable.Range(0, 8));
+
+        var (observed, fault) = await DrainAsync(() => extractor.ExtractAsync());
+
+        Assert.Null(fault);
+        Assert.Equal(8, observed);
+    }
+
+
+
+    [Fact]
+    public async Task DrainAsync_when_cancelled_before_enumeration_reports_OperationCanceledException()
+    {
+        using var cts = new CancellationTokenSource();
+        using var extractor = new TestExtractor<int>(Enumerable.Range(0, 8));
+        cts.Cancel();
+
+        var (observed, fault) = await DrainAsync(() => extractor.ExtractAsync(cts.Token));
+
+        Assert.IsAssignableFrom<OperationCanceledException>(fault);
+        Assert.Equal(0, observed);
+    }
+
+
+
+    [Fact]
+    public async Task DrainAsync_when_disposed_before_enumeration_reports_ObjectDisposedException()
+    {
+        var extractor = new TestExtractor<int>(Enumerable.Range(0, 8));
+        extractor.Dispose();
+
+        var (observed, fault) = await DrainAsync(() => extractor.ExtractAsync());
+
+        Assert.IsType<ObjectDisposedException>(fault);
+        Assert.Equal(0, observed);
+    }
+
+
 
     // A cancellation arriving concurrently with enumeration must surface as a
     // clean OperationCanceledException (or simply complete) — never a torn state,
@@ -47,68 +98,81 @@ public sealed class ConcurrencyTests
         using var cts = new CancellationTokenSource();
         var extractor = new TestExtractor<int>(Enumerable.Range(0, 8));
 
-        var enumerate = Task.Run(async () =>
-        {
-            try
-            {
-                await foreach (var _ in extractor.ExtractAsync(cts.Token))
-                {
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                // Expected — cancellation is the point.
-            }
-        });
-
+        var enumerate = Task.Run(() => DrainAsync(() => extractor.ExtractAsync(cts.Token)));
         var cancel = Task.Run(() => cts.Cancel());
 
         await Task.WhenAll(enumerate, cancel);
         extractor.Dispose();
+
+        var fault = (await enumerate).Fault;
+        Specification.Assert
+        (
+            fault is null or OperationCanceledException,
+            "Cancellation surfaced as an unexpected exception: {0}",
+            fault
+        );
     }
 
-    // Disposing the extractor while an enumeration is in flight must not throw an
-    // unexpected exception or deadlock, regardless of interleaving. If dispose
-    // wins the race an ObjectDisposedException is a legitimate outcome.
+
+
+    // Dispose racing an in-flight enumeration must either let the enumeration
+    // finish or surface ObjectDisposedException — never any other exception.
     private static async Task DisposeDuringEnumerationScenario()
     {
         var extractor = new TestExtractor<int>(Enumerable.Range(0, 8));
 
-        var enumerate = Task.Run(async () =>
-        {
-            try
-            {
-                await foreach (var _ in extractor.ExtractAsync())
-                {
-                }
-            }
-            catch (ObjectDisposedException)
-            {
-                // Legitimate if dispose won the race.
-            }
-        });
-
+        var enumerate = Task.Run(() => DrainAsync(() => extractor.ExtractAsync()));
         var dispose = Task.Run(() => extractor.Dispose());
 
         await Task.WhenAll(enumerate, dispose);
+
+        var fault = (await enumerate).Fault;
+        Specification.Assert
+        (
+            fault is null or ObjectDisposedException,
+            "Dispose racing enumeration surfaced an unexpected exception: {0}",
+            fault
+        );
     }
 
+
+
+    // Starts and enumerates to the end, returning how many items were seen and
+    // what ended the enumeration (ExtractAsync itself throws when the extractor
+    // is already disposed, so the call happens inside the try), so the scenarios never branch on which side of
+    // the race won.
+    private static async Task<(int Observed, Exception? Fault)> DrainAsync(Func<IAsyncEnumerable<int>> extract)
+    {
+        var observed = 0;
+        try
+        {
+            await foreach (var _ in extract())
+            {
+                observed++;
+            }
+
+            return (observed, null);
+        }
+        catch (Exception ex)
+        {
+            return (observed, ex);
+        }
+    }
+
+
+
+    // Runs the scenario under Coyote's TestingEngine. When the coyote workflow
+    // has rewritten the assembly (COYOTE_REWRITTEN=1), Coyote controls the Task
+    // schedule and explores interleavings systematically. Un-rewritten (the
+    // normal PR sweep) it cannot control the schedule, so it runs in systematic
+    // fuzzing mode instead, which perturbs timing without needing the rewrite.
     private static void RunSystematic(Func<Task> scenario)
     {
-        // These tests require the assembly to be rewritten by `coyote rewrite`
-        // (the concurrency workflow does this before running them). Run
-        // un-rewritten — e.g. in the normal PR test sweep, which discovers every
-        // project under tests/ — Coyote cannot control the Task schedule and
-        // reports false deadlocks. The workflow sets COYOTE_REWRITTEN=1 after
-        // rewriting; without it, skip so the normal sweep stays green.
-        if (!string.Equals(Environment.GetEnvironmentVariable("COYOTE_REWRITTEN"), "1", StringComparison.Ordinal))
-        {
-            return;
-        }
-
+        var rewritten = string.Equals(Environment.GetEnvironmentVariable("COYOTE_REWRITTEN"), "1", StringComparison.Ordinal);
         var configuration = Configuration.Create()
             .WithTestingIterations(Iterations)
-            .WithMaxSchedulingSteps(500);
+            .WithMaxSchedulingSteps(500)
+            .WithSystematicFuzzingEnabled(!rewritten);
 
         using var engine = TestingEngine.Create(configuration, scenario);
         engine.Run();
@@ -117,9 +181,7 @@ public sealed class ConcurrencyTests
         Assert.True
         (
             report.NumOfFoundBugs == 0,
-            report.NumOfFoundBugs == 0
-                ? string.Empty
-                : "Coyote found a concurrency bug: " + report.BugReports.FirstOrDefault()
+            "Coyote found a concurrency bug: " + report.BugReports.FirstOrDefault()
         );
     }
 }

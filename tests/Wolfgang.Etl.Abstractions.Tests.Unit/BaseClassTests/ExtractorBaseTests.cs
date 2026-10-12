@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,11 +32,31 @@ public class ExtractorBaseTests
         var sut = CreateSut(1);
         Assert.Equal(1_000, sut.ReportingInterval);
     }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_when_constructed_with_a_timer_reports_progress_when_the_timer_fires()
+    {
+        using var timer = new ManualProgressTimer();
+        using var sut = new SequenceExtractor(3, timer);
+        var reports = new List<int>();
+        var progress = new SynchronousProgress<EtlProgress>(p => reports.Add(p.CurrentItemCount));
+
+        await foreach (var item in sut.ExtractAsync(progress))
+        {
+            if (item == 2)
+            {
+                timer.Fire();
+            }
+        }
+
+        Assert.Equal(new[] { 2, 3 }, reports);
+    }
 }
 
 
 
-[ExcludeFromCodeCoverage]
 public class SequenceExtractor : ExtractorBase<int, EtlProgress>
 {
     private readonly int _itemCount;

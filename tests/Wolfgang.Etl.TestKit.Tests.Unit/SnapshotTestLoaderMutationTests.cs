@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -52,7 +52,6 @@ public class SnapshotTestLoaderMutationTests
 
 
 
-    [ExcludeFromCodeCoverage]
     private static async IAsyncEnumerable<int> EmptyIgnoringCancellation()
     {
         await Task.CompletedTask;
@@ -67,5 +66,28 @@ public class SnapshotTestLoaderMutationTests
         yield return 1;
         yield return 2;
         await Task.CompletedTask;
+    }
+
+
+
+    [Fact]
+    public async Task EmptyIgnoringCancellation_when_drained_yields_nothing()
+    {
+        var items = await EmptyIgnoringCancellation().ToListAsync();
+
+        Assert.Empty(items);
+    }
+
+
+
+    [Fact]
+    public async Task CancelOnFirst_when_drained_cancels_before_yielding_and_still_yields_both_items()
+    {
+        using var cts = new CancellationTokenSource();
+
+        var items = await CancelOnFirst(cts).ToListAsync();
+
+        Assert.Equal(new[] { 1, 2 }, items);
+        Assert.True(cts.IsCancellationRequested);
     }
 }

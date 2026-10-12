@@ -139,4 +139,53 @@ public class OverloadDoubleCoverageTests
         await Assert.ThrowsAsync<ArgumentNullException>(
             async () => await sut.TransformAsync(Source(), null!).ToListAsync());
     }
+
+
+    // ------------------------------------------------------------------
+    // Negative-routing guards on the cancellation-only doubles
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public void CancelOnlyExtractor_parameterless_overload_throws_WrongOverloadCalledException_naming_itself()
+    {
+        var sut = new CancelOnlyExtractor<int>(Items);
+
+        var ex = Assert.Throws<WrongOverloadCalledException>(() => sut.ExtractAsync());
+
+        Assert.Equal
+        (
+            "Unexpected call to CancelOnlyExtractor<T>.ExtractAsync(). The pipeline routed through the wrong overload.",
+            ex.Message
+        );
+    }
+
+
+    [Fact]
+    public void CancelOnlyLoader_items_only_overload_throws_WrongOverloadCalledException_naming_itself()
+    {
+        var sut = new CancelOnlyLoader<int>();
+
+        var ex = Assert.Throws<WrongOverloadCalledException>(() => { _ = sut.LoadAsync(Source()); });
+
+        Assert.Equal
+        (
+            "Unexpected call to CancelOnlyLoader<T>.LoadAsync(items). The pipeline routed through the wrong overload.",
+            ex.Message
+        );
+    }
+
+
+    [Fact]
+    public void CancelOnlyTransformer_items_only_overload_throws_WrongOverloadCalledException_naming_itself()
+    {
+        var sut = new CancelOnlyTransformer<int, int>(x => x);
+
+        var ex = Assert.Throws<WrongOverloadCalledException>(() => sut.TransformAsync(Source()));
+
+        Assert.Equal
+        (
+            "Unexpected call to CancelOnlyTransformer<TSource, TDestination>.TransformAsync(items). The pipeline routed through the wrong overload.",
+            ex.Message
+        );
+    }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Channels;
 using Microsoft.Extensions.Logging;
 using Wolfgang.Etl.Abstractions;
@@ -190,14 +189,30 @@ public sealed class ItemErrorPolicyTests
 
 
 
+    [Fact]
+    public void RecordingLogger_BeginScope_returns_one_shared_no_op_scope()
+    {
+        var logger = new RecordingLogger();
+
+        var first = logger.BeginScope("first");
+        var second = logger.BeginScope(2);
+        first.Dispose();
+        second.Dispose();
+
+        Assert.Same(first, second);
+        Assert.Equal(0, logger.WarningCount);
+    }
+
+
+
     private sealed class RecordingLogger : ILogger
     {
         public int WarningCount { get; private set; }
 
         public EventId LastEventId { get; private set; }
 
-        // ILogger-required member; the policies under test log warnings but never open a scope, so this is never called.
-        [ExcludeFromCodeCoverage]
+        // ILogger-required member; the policies under test log warnings but never open a scope.
+        // RecordingLogger_BeginScope_returns_one_shared_no_op_scope pins it.
         public IDisposable BeginScope<TState>(TState state) where TState : notnull => NullScope.Instance;
 
         public bool IsEnabled(LogLevel logLevel) => true;
@@ -220,8 +235,7 @@ public sealed class ItemErrorPolicyTests
 
 
 
-        // Only ever returned by the never-called BeginScope above, so its members are unreachable in tests.
-        [ExcludeFromCodeCoverage]
+        // Only ever returned by BeginScope above; disposing it does nothing.
         private sealed class NullScope : IDisposable
         {
             public static readonly NullScope Instance = new();

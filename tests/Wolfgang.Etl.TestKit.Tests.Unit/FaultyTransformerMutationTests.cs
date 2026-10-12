@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -265,7 +264,6 @@ public class FaultyTransformerMutationTests
     // Helpers
     // ------------------------------------------------------------------
 
-    [ExcludeFromCodeCoverage]
     private static async IAsyncEnumerable<int> EmptyIgnoringCancellationAsync()
     {
         await Task.CompletedTask.ConfigureAwait(false);
@@ -313,5 +311,15 @@ public class FaultyTransformerMutationTests
         (
             async () => await transformer.TransformAsync(new[] { 1 }.ToAsyncEnumerable()).ToListAsync()
         );
+    }
+
+
+
+    [Fact]
+    public async Task EmptyIgnoringCancellationAsync_when_drained_yields_nothing()
+    {
+        var items = await EmptyIgnoringCancellationAsync().ToListAsync();
+
+        Assert.Empty(items);
     }
 }

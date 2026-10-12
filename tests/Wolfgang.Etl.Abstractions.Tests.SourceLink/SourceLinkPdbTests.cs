@@ -106,46 +106,19 @@ public class SourceLinkPdbTests
     /// Probing the mapping value verbatim is useless: it still contains the
     /// literal <c>*</c> and would 404 for that reason alone. A real URL only
     /// exists once an actual document path is substituted into it, which is
-    /// what this test does. Skipped when the SHA has not been substituted
-    /// (local dev builds), since only a pushed commit resolves.
+    /// what this test does. The SHA is substituted on every build, local ones
+    /// included, so a URL can always be built; only a local, unpushed commit is
+    /// allowed to 404.
     /// </remarks>
     [Theory]
     [MemberData(nameof(ShippedPackages))]
     public async Task Sourcelink_github_raw_url_resolves_for_a_real_source_file(string package)
     {
         var mappings = ReadOurSourceLinkMappings(package);
-        if (mappings.Count == 0)
-        {
-            // The structural test above already failed with a precise
-            // diagnostic; nothing further to add here.
-            return;
-        }
+        Assert.NotEmpty(mappings);
 
         var probeUrl = BuildProbeUrl(package, mappings);
-        if (probeUrl is null)
-        {
-            // Either no document matched a mapping prefix, or the URL still holds the
-            // unresolved "*" SHA placeholder. On a developer machine that is the ordinary
-            // case — a local, unpushed build — so the probe is skipped.
-            //
-            // In CI it is not. The same path is taken by a malformed local-prefix mapping,
-            // a document-table mismatch and an unresolved SHA, so returning here would let
-            // a broken PDB satisfy the two structural checks and silently skip the
-            // resolution check this test exists to perform. CI builds from a pushed commit,
-            // so there is no legitimate reason for the URL to be unbuildable.
-            if (RunningInCi)
-            {
-                Assert.Fail
-                (
-                    "No probe URL could be built from the SourceLink document table. In CI "
-                    + "this means the mapping prefix, the document paths or the commit SHA "
-                    + "did not line up - not that the build is local and unpushed."
-                );
-            }
-
-            return;
-        }
-
+        Assert.NotNull(probeUrl);
         Assert.DoesNotContain("*", probeUrl, StringComparison.Ordinal);
 
         // raw.githubusercontent.com does not serve a commit the instant it is pushed.
@@ -153,74 +126,227 @@ public class SourceLinkPdbTests
         // prove the SHA is unresolvable. Retry briefly before concluding anything.
         // Only CI waits. Locally a 404 cannot fail the test, so retrying just adds
         // ten seconds per package to every run on an unpushed commit.
-        var attempts = RunningInCi ? 3 : 1;
-        var notFound = false;
-        for (var attempt = 1; attempt <= attempts; attempt++)
-        {
-            try
+        var (outcome, status) = await ProbeAsync
+        (
+            () => GetStatusCodeAsync(probeUrl),
+            RunningInCi ? 3 : 1,
+            TimeSpan.FromSeconds(5)
+        );
+
+        // In CI the commit under test is always pushed, so a 404 is a real defect.
+        // Locally it usually just means this commit has not been pushed yet.
+        Assert.True
+        (
+            IsAcceptable(outcome, RunningInCi),
+            $"SourceLink URL probe ended {outcome} (HTTP {status}): {probeUrl}"
+        );
+    }
+
+
+
+    [Theory]
+    [InlineData(200, ProbeOutcome.Resolved)]
+    [InlineData(403, ProbeOutcome.Unavailable)]
+    [InlineData(429, ProbeOutcome.Unavailable)]
+    [InlineData(503, ProbeOutcome.Unavailable)]
+    [InlineData(400, ProbeOutcome.BadStatus)]
+    public async Task ProbeAsync_when_first_answer_is_final_returns_its_outcome_without_retrying(int status, ProbeOutcome expected)
+    {
+        var calls = 0;
+
+        var (outcome, reported) = await ProbeAsync
+        (
+            () =>
             {
-                using var response = await Http.GetAsync(probeUrl, HttpCompletionOption.ResponseHeadersRead);
+                calls++;
+                return Task.FromResult(status);
+            },
+            3,
+            TimeSpan.Zero
+        );
 
-                var status = (int)response.StatusCode;
+        Assert.Equal(expected, outcome);
+        Assert.Equal(status, reported);
+        Assert.Equal(1, calls);
+    }
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return;
-                }
 
-                // 403 and 429 are GitHub rate-limiting the runner, and 5xx is a
-                // server-side fault. Both are infra rather than a SourceLink defect,
-                // and the deterministic checks above still carry the gate.
-                if (status == 403 || status == 429 || status >= 500)
-                {
-                    return;
-                }
 
-                notFound = status == 404;
+    [Fact]
+    public async Task ProbeAsync_when_404_persists_retries_every_attempt_then_reports_NotFound()
+    {
+        var calls = 0;
 
-                // Any other 4xx means the URL itself is wrong -- malformed, or naming a
-                // repository the runner cannot read. That is a real defect and there is
-                // nothing to wait for, so fail immediately rather than retrying.
-                if (!notFound)
-                {
-                    Assert.Fail
-                    (
-                        $"SourceLink URL returned {status}, so it does not resolve to a "
-                        + $"source file: {probeUrl}"
-                    );
-                }
-            }
-            catch (HttpRequestException)
+        var (outcome, status) = await ProbeAsync
+        (
+            () =>
             {
-                // Network unavailable / GitHub outage: the deterministic checks above
-                // carry the per-PR gate, so don't fail on infra.
-                return;
-            }
-            catch (TaskCanceledException)
-            {
-                // Timeout — same rationale.
-                return;
-            }
+                calls++;
+                return Task.FromResult(404);
+            },
+            3,
+            TimeSpan.Zero
+        );
 
-            if (attempt < attempts)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(5));
-            }
-        }
+        Assert.Equal(ProbeOutcome.NotFound, outcome);
+        Assert.Equal(404, status);
+        Assert.Equal(3, calls);
+    }
 
-        // Still missing after retries. In CI the commit under test is always pushed, so
-        // this is a real defect — a force-pushed or deleted commit leaves consumers'
-        // debuggers with a dead URL. Locally it usually just means this commit has not
-        // been pushed yet, which is not something a developer should be failed for.
-        if (notFound && RunningInCi)
-        {
-            Assert.Fail($"SourceLink URL 404s — the commit SHA does not resolve: {probeUrl}");
-        }
+
+
+    [Fact]
+    public async Task ProbeAsync_when_404_clears_on_a_retry_reports_Resolved()
+    {
+        var answers = new Queue<int>(new[] { 404, 200 });
+
+        var (outcome, status) = await ProbeAsync
+        (
+            () => Task.FromResult(answers.Dequeue()),
+            3,
+            TimeSpan.Zero
+        );
+
+        Assert.Equal(ProbeOutcome.Resolved, outcome);
+        Assert.Equal(200, status);
+        Assert.Empty(answers);
+    }
+
+
+
+    [Fact]
+    public async Task ProbeAsync_when_the_request_fails_reports_Unavailable()
+    {
+        var (outcome, _) = await ProbeAsync
+        (
+            () => throw new HttpRequestException("network down"),
+            3,
+            TimeSpan.Zero
+        );
+
+        Assert.Equal(ProbeOutcome.Unavailable, outcome);
+    }
+
+
+
+    [Fact]
+    public async Task ProbeAsync_when_the_request_times_out_reports_Unavailable()
+    {
+        var (outcome, _) = await ProbeAsync
+        (
+            () => throw new TaskCanceledException("timeout"),
+            3,
+            TimeSpan.Zero
+        );
+
+        Assert.Equal(ProbeOutcome.Unavailable, outcome);
+    }
+
+
+
+    [Theory]
+    [InlineData(ProbeOutcome.Resolved, true, true)]
+    [InlineData(ProbeOutcome.Unavailable, true, true)]
+    [InlineData(ProbeOutcome.NotFound, false, true)]
+    [InlineData(ProbeOutcome.NotFound, true, false)]
+    [InlineData(ProbeOutcome.BadStatus, false, false)]
+    public void IsAcceptable_fails_only_a_bad_status_or_a_404_in_CI(ProbeOutcome outcome, bool runningInCi, bool expected)
+    {
+        Assert.Equal(expected, IsAcceptable(outcome, runningInCi));
     }
 
 
 
     // ------------------------------------------------------------------
+
+
+    /// <summary>How a SourceLink URL probe ended.</summary>
+    public enum ProbeOutcome
+    {
+        /// <summary>GitHub served the file.</summary>
+        Resolved,
+
+        /// <summary>
+        /// Rate-limited (403/429), a server fault (5xx), or no network. Infra rather than
+        /// a SourceLink defect; the deterministic checks above still carry the gate.
+        /// </summary>
+        Unavailable,
+
+        /// <summary>Still 404 after every attempt: the commit SHA does not resolve.</summary>
+        NotFound,
+
+        /// <summary>
+        /// Any other status: the URL itself is wrong — malformed, or naming a
+        /// repository the runner cannot read. There is nothing to wait for.
+        /// </summary>
+        BadStatus,
+    }
+
+
+
+    /// <summary>
+    /// Asks <paramref name="getStatus"/> for the URL's HTTP status up to
+    /// <paramref name="attempts"/> times, pausing <paramref name="pause"/> between
+    /// attempts, and retries only while the answer is 404.
+    /// </summary>
+    private static async Task<(ProbeOutcome Outcome, int Status)> ProbeAsync(Func<Task<int>> getStatus, int attempts, TimeSpan pause)
+    {
+        var status = 0;
+        for (var attempt = 1; attempt <= attempts; attempt++)
+        {
+            try
+            {
+                status = await getStatus();
+            }
+            catch (HttpRequestException)
+            {
+                return (ProbeOutcome.Unavailable, status);
+            }
+            catch (TaskCanceledException)
+            {
+                return (ProbeOutcome.Unavailable, status);
+            }
+
+            var outcome = Classify(status);
+            if (outcome != ProbeOutcome.NotFound)
+            {
+                return (outcome, status);
+            }
+
+            if (attempt < attempts)
+            {
+                await Task.Delay(pause);
+            }
+        }
+
+        return (ProbeOutcome.NotFound, status);
+    }
+
+
+
+    private static ProbeOutcome Classify(int status) =>
+        status switch
+        {
+            >= 200 and < 300 => ProbeOutcome.Resolved,
+            403 or 429 or >= 500 => ProbeOutcome.Unavailable,
+            404 => ProbeOutcome.NotFound,
+            _ => ProbeOutcome.BadStatus,
+        };
+
+
+
+    private static bool IsAcceptable(ProbeOutcome outcome, bool runningInCi) =>
+        outcome is ProbeOutcome.Resolved or ProbeOutcome.Unavailable
+        || (outcome is ProbeOutcome.NotFound && !runningInCi);
+
+
+
+    private static async Task<int> GetStatusCodeAsync(string url)
+    {
+        using var response = await Http.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+        return (int)response.StatusCode;
+    }
+
 
 
     /// <summary>
@@ -335,8 +461,7 @@ public class SourceLinkPdbTests
     /// <summary>
     /// Picks a source document from the PDB, matches it against a SourceLink
     /// prefix mapping and substitutes the remainder into the URL, yielding a
-    /// URL that names an actual file. Returns <c>null</c> when nothing matches
-    /// or the SHA is still the unresolved '*' placeholder.
+    /// URL that names an actual file. Returns <c>null</c> when nothing matches.
     /// </summary>
     private static string? BuildProbeUrl(string package, List<(string LocalPrefix, string UrlPrefix)> mappings)
     {
@@ -345,51 +470,21 @@ public class SourceLinkPdbTests
         using var provider = MetadataReaderProvider.FromPortablePdbStream(stream);
         var reader = provider.GetMetadataReader();
 
-        foreach (var handle in reader.Documents)
-        {
-            var name = reader.GetString(reader.GetDocument(handle).Name);
-            if (string.IsNullOrEmpty(name) || !name.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
-            {
-                continue;
-            }
-
-            foreach (var (localPrefix, urlPrefix) in mappings)
-            {
-                if (localPrefix.Length == 0 || !name.StartsWith(localPrefix, StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                // The URL still carrying '*' means Microsoft.SourceLink.GitHub
-                // never substituted a commit SHA — an unpushed local build.
-                if (urlPrefix.Contains('*', StringComparison.Ordinal))
-                {
-                    return null;
-                }
-
-                var relative = name.Substring(localPrefix.Length).Replace('\\', '/');
-                return urlPrefix + relative;
-            }
-        }
-
-        return null;
+        return reader.Documents
+            .Select(handle => reader.GetString(reader.GetDocument(handle).Name))
+            .Where(name => name.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
+            .SelectMany(name => mappings
+                .Where(m => m.LocalPrefix.Length > 0 && name.StartsWith(m.LocalPrefix, StringComparison.OrdinalIgnoreCase))
+                .Select(m => m.UrlPrefix + name.Substring(m.LocalPrefix.Length).Replace('\\', '/')))
+            .FirstOrDefault();
     }
 
 
 
-    private static string ReadSourceLinkPayload(MetadataReader reader)
-    {
-        foreach (var handle in reader.CustomDebugInformation)
-        {
-            var cdi = reader.GetCustomDebugInformation(handle);
-            if (reader.GetGuid(cdi.Kind) != SourceLinkGuid)
-            {
-                continue;
-            }
-
-            return Encoding.UTF8.GetString(reader.GetBlobBytes(cdi.Value));
-        }
-
-        return string.Empty;
-    }
+    private static string ReadSourceLinkPayload(MetadataReader reader) =>
+        reader.CustomDebugInformation
+            .Select(reader.GetCustomDebugInformation)
+            .Where(cdi => reader.GetGuid(cdi.Kind) == SourceLinkGuid)
+            .Select(cdi => Encoding.UTF8.GetString(reader.GetBlobBytes(cdi.Value)))
+            .FirstOrDefault() ?? string.Empty;
 }
