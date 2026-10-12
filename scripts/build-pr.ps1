@@ -23,7 +23,7 @@
 
 .PARAMETER CoverageThreshold
     Minimum line coverage for PRODUCTION assemblies (anything under src/).
-    Defaults to 90. Mirrors CODECOV_MINIMUM in pr.yaml.
+    Defaults to 95. Mirrors CODECOV_MINIMUM in pr.yaml.
 
 .PARAMETER TestCoverageThreshold
     Minimum line coverage for TEST assemblies (anything under tests/).
@@ -39,8 +39,8 @@ param(
     [switch]$SkipTests,
     [switch]$SkipCoverage,
     [switch]$SkipSecurity,
-    [int]$CoverageThreshold = 90,
-    [int]$TestCoverageThreshold = 99   # mirrors CODECOV_TEST_MINIMUM in pr.yaml (per-assembly test floor, #386)
+    [int]$CoverageThreshold = 95,
+    [int]$TestCoverageThreshold = 100  # mirrors CODECOV_TEST_MINIMUM in pr.yaml (per-assembly test floor, #386)
 )
 
 $ErrorActionPreference = 'Stop'
