@@ -12,15 +12,14 @@ name: AOT / Trim Smoke
 # which can only be done on Linux.
 
 on:
+  # NO paths: filter on pull_request - DO NOT ADD ONE. "PublishAot linux-x64 + run" is to be a
+  # required status check (#657), and a path-skipped workflow reports nothing at all (not
+  # "skipped"), so every docs-, config- or workflow-only PR would wait forever for it. The job
+  # is short; running it on every PR is cheaper than an admin bypass on each of those PRs.
   pull_request:
     branches:
       - main
       - vNext
-    paths:
-      - 'src/**/*.cs'
-      - 'src/**/*.csproj'
-      - 'tests/Wolfgang.Etl.Abstractions.AotSmoke/**'
-      - '.github/workflows/aot.yaml'
   push:
     branches:
       - main
