@@ -317,6 +317,16 @@ jobs:
                    "$GITHUB_RUN_ID" "$score" "${floors:-none}" "$survivors")
           existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --label "kind:mutation-survives" \
                        --state open --json number --jq '.[0].number' 2>/dev/null || true)
+          # Nothing survived: the worklist is empty, so close the tracking issue instead of
+          # leaving a "Mutation survivors (0)" issue open forever. The next run that finds a
+          # survivor opens a fresh one.
+          if [ "$count" -eq 0 ]; then
+            if [ -n "$existing" ]; then
+              gh issue close "$existing" --repo "$GITHUB_REPOSITORY" \
+                --comment "No surviving mutants in run $GITHUB_RUN_ID (lowest mutation score ${score} %). Closing; the next run that finds a survivor opens a new issue." || true
+            fi
+            exit 0
+          fi
           if [ -n "$existing" ]; then
             gh issue edit "$existing" --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body" || true
           else
