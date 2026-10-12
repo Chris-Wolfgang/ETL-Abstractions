@@ -99,6 +99,19 @@ jobs:
       #                          approver would force admin-bypass on every PR.
       #   CIIBestPracticesID   — bestpractices.dev badge is an external
       #                          registration, not something CI can earn.
+      #   FuzzingID            — Scorecard has no .NET fuzzing detector (only
+      #                          OSS-Fuzz, ClusterFuzzLite, Go, atheris, Jazzer,
+      #                          QuickCheck, OneFuzz - none of which support C#),
+      #                          so the CsCheck suites in tests/*.Tests.Fuzz and
+      #                          fuzz.yaml can never satisfy it (#523).
+      #   BranchProtectionID, SOLO-MAINTAINER WARNINGS ONLY — dropped only when
+      #                          EVERY `Warn:` line in the finding is one that
+      #                          needs a second reviewer: required approvers,
+      #                          code-owner review, last-push approval. Same
+      #                          reason as CodeReviewID (#530). Any other Warn
+      #                          (force push or deletion allowed, status checks
+      #                          not required, ruleset disabled, ...) keeps the
+      #                          whole finding, so a real regression still fires.
       #   PinnedDependenciesID / nugetCommand, RESTORE commands only —
       #                          `dotnet restore` / `nuget restore` /
       #                          `msbuild /t:restore` without --locked-mode.
@@ -133,7 +146,11 @@ jobs:
       - name: Filter suppressed findings from SARIF
         shell: bash
         env:
-          SUPPRESSED_RULES: 'CodeReviewID CIIBestPracticesID'
+          SUPPRESSED_RULES: 'CodeReviewID CIIBestPracticesID FuzzingID'
+          # BranchProtectionID `Warn:` lines that only a second reviewer can
+          # satisfy (see the comment block above). A finding is dropped only when
+          # it has at least one Warn line and all of them match this.
+          SUPPRESSED_BP_WARNINGS: '^Warn: (branch .* does not require approvers|codeowners review is not required on branch .*|.last push approval. is disabled on branch .*)$'
           # PinnedDependenciesID message substrings suppressed everywhere, but
           # only when the finding's snippet is a restore command (see the
           # comment block above).
@@ -155,6 +172,7 @@ jobs:
           rules_json=$(printf '%s\n' $SUPPRESSED_RULES $TEMPLATE_ONLY_RULES | jq -R . | jq -s .)
           echo "Suppressed rules: $SUPPRESSED_RULES $TEMPLATE_ONLY_RULES"
           echo "Suppressed PinnedDependenciesID kinds: '${SUPPRESSED_PIN_KINDS}' when the snippet matches '${SUPPRESSED_PIN_SNIPPET}'"
+          echo "Suppressed BranchProtectionID only when every Warn line matches: '${SUPPRESSED_BP_WARNINGS}'"
           # Bind ruleId/message to variables before the boolean expression:
           # inside `$suppressed | index(.ruleId)` the `.ruleId` would be applied
           # to the array, not the result (jq 1.8 errors, older versions
@@ -162,15 +180,17 @@ jobs:
           jq \
             --argjson suppressed "$rules_json" \
             --arg pinKinds "$SUPPRESSED_PIN_KINDS" \
-            --arg pinSnippet "$SUPPRESSED_PIN_SNIPPET" \
+            --arg pinSnippet "$SUPPRESSED_PIN_SNIPPET"             --arg bpWarn "$SUPPRESSED_BP_WARNINGS" \
             '
               .runs |= map(
                 .results |= map(select(
                   (.ruleId // "") as $r
                   | (.message.text // "") as $t
                   | ([.locations[]?.physicalLocation.region.snippet.text // ""] | join(" ")) as $s
+                  | ([$t | splits("\r?\n") | select(startswith("Warn:"))]) as $w
                   | (($suppressed | index($r)) == null)
                     and (($pinKinds != "" and $r == "PinnedDependenciesID" and ($t | test($pinKinds)) and ($s | test($pinSnippet; "i"))) | not)
+                    and (($bpWarn != "" and $r == "BranchProtectionID" and ($w | length) > 0 and all($w[]; test($bpWarn))) | not)
                 ))
               )
             ' results.sarif > results.filtered.sarif
