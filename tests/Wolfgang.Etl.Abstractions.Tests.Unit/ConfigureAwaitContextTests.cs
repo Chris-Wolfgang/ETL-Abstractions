@@ -89,6 +89,9 @@ public sealed class ConfigureAwaitContextTests
         using var posted = new ManualResetEventSlim();
         var sent = false;
 
+        // posted.Wait below blocks until the callback has run, so `posted` is still alive when it
+        // executes; the disposed-closure inspection cannot see that.
+        // ReSharper disable once AccessToDisposedClosure
         context.Post(_ => posted.Set(), null);
         context.Send(_ => sent = true, null);
 
