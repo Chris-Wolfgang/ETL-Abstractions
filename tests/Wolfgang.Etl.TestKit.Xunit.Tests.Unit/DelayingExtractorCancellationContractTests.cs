@@ -30,7 +30,10 @@ public sealed class DelayingExtractorCancellationContractTests
             {
                 if (processed == cancelAfter)
                 {
+                    // DrainAsync is awaited inside the using scope and invokes this callback only
+                    // while draining, so `cts` is never disposed when it runs.
 #pragma warning disable CA1849, VSTHRD103 // sync Cancel() — CancelAsync is net8+ only
+                    // ReSharper disable once AccessToDisposedClosure
                     cts.Cancel();
 #pragma warning restore CA1849, VSTHRD103
                 }

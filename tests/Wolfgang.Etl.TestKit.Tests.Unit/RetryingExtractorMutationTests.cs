@@ -203,7 +203,7 @@ public class RetryingExtractorMutationTests
         // The static type is the non-generic IEnumerable, so foreach binds IEnumerable.GetEnumerator().
         foreach (var item in sequence)
         {
-            items.Add((int)item!);
+            items.Add(Assert.IsType<int>(item));
         }
 
         Assert.Equal(new[] { 0, 1, 2 }, items);

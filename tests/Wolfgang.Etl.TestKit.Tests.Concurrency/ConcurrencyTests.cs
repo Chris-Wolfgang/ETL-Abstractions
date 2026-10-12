@@ -98,8 +98,13 @@ public sealed class ConcurrencyTests
         using var cts = new CancellationTokenSource();
         var extractor = new TestExtractor<int>(Enumerable.Range(0, 8));
 
-        var enumerate = Task.Run(() => DrainAsync(() => extractor.ExtractAsync(cts.Token)));
-        var cancel = Task.Run(() => cts.Cancel());
+        var token = cts.Token;
+
+        // Both tasks are awaited before extractor.Dispose() below, so the captured extractor is still
+        // alive whenever the closure runs; the disposed-closure inspection cannot see that.
+        // ReSharper disable once AccessToDisposedClosure
+        var enumerate = Task.Run(() => DrainAsync(() => extractor.ExtractAsync(token)));
+        var cancel = Task.Run(cts.Cancel);
 
         await Task.WhenAll(enumerate, cancel);
         extractor.Dispose();
