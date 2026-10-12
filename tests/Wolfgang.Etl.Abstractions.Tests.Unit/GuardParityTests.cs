@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
 using Xunit;
 
@@ -51,14 +53,6 @@ public class GuardParityTests
     /// </summary>
     private static string ExpectedMessagePrefix(int actual, int floor) =>
         string.Format(CultureInfo.CurrentCulture, "value ('{0}') must be greater than or equal to '{1}'.", actual, floor);
-
-
-
-    private static async IAsyncEnumerable<int> EmptyAsync()
-    {
-        await Task.CompletedTask.ConfigureAwait(false);
-        yield break;
-    }
 
 
 
@@ -187,7 +181,7 @@ public class GuardParityTests
     {
         using var sut = new GuardLoader();
 
-        var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => sut.LoadAsync(EmptyAsync(), null!));
+        var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => sut.LoadAsync(AsyncEnumerable.Empty<int>(), null!));
 
         Assert.Equal("progress", ex.ParamName);
     }
@@ -202,5 +196,44 @@ public class GuardParityTests
         var ex = Assert.Throws<ArgumentNullException>(() => sut.TransformAsync(null!));
 
         Assert.Equal("items", ex.ParamName);
+    }
+
+
+
+    [Fact]
+    public async Task GuardExtractor_ExtractAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new GuardExtractor();
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task GuardLoader_LoadAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new GuardLoader();
+
+        var run = await StageRunner.LoadAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task GuardTransformer_TransformAsync_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new GuardTransformer();
+
+        var run = await StageRunner.TransformAsync(sut, AsyncEnumerable.Empty<int>());
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
     }
 }

@@ -80,6 +80,29 @@ public class EtlPipelineFuzzTests
     }
 
 
+    [Fact]
+    public void LoaderBase_progress_run_reports_every_loaded_item_in_its_final_report()
+    {
+        Source.Sample(
+            items =>
+            {
+                var loader = new CollectingLoader<int>();
+                Report? last = null;
+                var progress = new InlineProgress<Report>(p => last = p);
+
+                loader
+                    .LoadAsync(AsyncSeq(items), progress)
+                    .GetAwaiter()
+                    .GetResult();
+
+                Assert.Equal(items, loader.Loaded);
+                Assert.NotNull(last);
+                Assert.Equal(items.Length, last.CurrentItemCount);
+            },
+            iter: Iterations);
+    }
+
+
     private static async IAsyncEnumerable<T> AsyncSeq<T>(IEnumerable<T> items)
     {
         foreach (var item in items)

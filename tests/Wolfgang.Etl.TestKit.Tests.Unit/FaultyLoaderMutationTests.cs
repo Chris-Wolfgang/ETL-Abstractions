@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -318,7 +317,6 @@ public class FaultyLoaderMutationTests
 
 
 
-    [ExcludeFromCodeCoverage]
     private static async IAsyncEnumerable<int> EmptyIgnoringTokenAsync
     (
         [EnumeratorCancellation] CancellationToken token = default
@@ -384,14 +382,52 @@ public class FaultyLoaderMutationTests
 #pragma warning restore CS0067
 
 
-        [ExcludeFromCodeCoverage]
         public void Start(int intervalMilliseconds) { }
 
 
         public void StopTimer() => StopTimerCallCount++;
 
 
-        [ExcludeFromCodeCoverage]
         public void Dispose() { }
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // The helpers' and doubles' own behaviour
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task EmptyIgnoringTokenAsync_when_drained_yields_nothing()
+    {
+        var items = await EmptyIgnoringTokenAsync().ToListAsync();
+
+        Assert.Empty(items);
+    }
+
+
+
+    [Fact]
+    public async Task CancellingSkipSourceAsync_when_drained_yields_every_item_and_cancels_after_the_second()
+    {
+        using var cts = new CancellationTokenSource();
+
+        var items = await CancellingSkipSourceAsync(cts).ToListAsync();
+
+        Assert.Equal(new[] { 1, 2, 3, 4 }, items);
+        Assert.True(cts.IsCancellationRequested);
+    }
+
+
+
+    [Fact]
+    public void RecordingProgressTimer_Start_and_Dispose_do_not_count_as_StopTimer()
+    {
+        var timer = new RecordingProgressTimer();
+
+        timer.Start(10);
+        timer.Dispose();
+
+        Assert.Equal(0, timer.StopTimerCallCount);
     }
 }

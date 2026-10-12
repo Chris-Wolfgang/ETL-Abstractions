@@ -1,7 +1,5 @@
-
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -57,8 +55,7 @@ internal sealed class CancelOnlyExtractor<T> : IExtractWithCancellationAsync<T>
 
 
     // Negative-routing guard: throws to prove the pipeline never binds the parameterless overload
-    // for a cancellation-only extractor. Never executed on a green run, so it cannot be covered.
-    [ExcludeFromCodeCoverage]
+    // for a cancellation-only extractor. OverloadDoubleCoverageTests calls it directly to pin the throw.
     public IAsyncEnumerable<T> ExtractAsync() => throw new WrongOverloadCalledException
     (
         "CancelOnlyExtractor<T>.ExtractAsync()"

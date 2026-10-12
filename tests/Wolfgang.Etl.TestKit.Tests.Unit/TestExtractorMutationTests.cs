@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -215,12 +214,23 @@ public class TestExtractorMutationTests
         public event Action? Elapsed;
 #pragma warning restore CS0067
 
-        [ExcludeFromCodeCoverage]
         public void Start(int intervalMilliseconds) { }
 
         public void StopTimer() => StopTimerCallCount++;
 
-        [ExcludeFromCodeCoverage]
         public void Dispose() { }
+    }
+
+
+
+    [Fact]
+    public void RecordingProgressTimer_Start_and_Dispose_do_not_count_as_StopTimer()
+    {
+        var timer = new RecordingProgressTimer();
+
+        timer.Start(10);
+        timer.Dispose();
+
+        Assert.Equal(0, timer.StopTimerCallCount);
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
@@ -81,6 +80,24 @@ public sealed class ConfigureAwaitContextTests
             .RunAsync());
 
 
+    // Positive control for the double every test above relies on: a Post or Send that does reach
+    // the context is counted and its callback runs, so a zero count really means nothing was posted.
+    [Fact]
+    public void CountingSynchronizationContext_counts_and_runs_every_Post_and_Send()
+    {
+        var context = new CountingSynchronizationContext();
+        using var posted = new ManualResetEventSlim();
+        var sent = false;
+
+        context.Post(_ => posted.Set(), null);
+        context.Send(_ => sent = true, null);
+
+        Assert.True(posted.Wait(TimeSpan.FromSeconds(10)), "the posted callback never ran");
+        Assert.True(sent);
+        Assert.Equal(2, context.Posts);
+    }
+
+
     // Starts the operation while a counting context is current on this thread, restores the previous
     // context, then awaits off-context and asserts the library posted nothing back. A ConfigureAwait
     // flip to (true) on any await that suspended while the context was current posts a continuation
@@ -132,7 +149,6 @@ public sealed class ConfigureAwaitContextTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class CountingSynchronizationContext : SynchronizationContext
     {
         private int _posts;
@@ -153,7 +169,6 @@ public sealed class ConfigureAwaitContextTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class NoOpProgress<T> : IProgress<T>
     {
         public void Report(T value)
@@ -162,7 +177,6 @@ public sealed class ConfigureAwaitContextTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class ContextAgnosticLoader : LoaderBase<int, EtlProgress>
     {
         protected override async Task LoadWorkerAsync(IAsyncEnumerable<int> items, CancellationToken token)
@@ -178,7 +192,6 @@ public sealed class ConfigureAwaitContextTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class ContextAgnosticListLoader : ILoadAsync<int>
     {
         public async Task LoadAsync(IAsyncEnumerable<int> items)
@@ -191,7 +204,6 @@ public sealed class ConfigureAwaitContextTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class SuspendingExtractor : IExtractAsync<int>
     {
         private readonly int _count;
@@ -209,7 +221,6 @@ public sealed class ConfigureAwaitContextTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class SuspendingAsyncDisposableExtractor : IExtractAsync<int>, IAsyncDisposable
     {
         private readonly int _count;
@@ -230,7 +241,6 @@ public sealed class ConfigureAwaitContextTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class SuspendingAsyncDisposable : IAsyncDisposable
     {
         public async ValueTask DisposeAsync() => await Task.Delay(1).ConfigureAwait(false);

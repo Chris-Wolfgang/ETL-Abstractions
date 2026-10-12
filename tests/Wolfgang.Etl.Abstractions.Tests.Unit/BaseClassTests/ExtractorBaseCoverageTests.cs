@@ -191,7 +191,31 @@ public sealed class ExtractorBaseCoverageTests
     }
 
 
-    [ExcludeFromCodeCoverage]
+    [Fact]
+    public async Task DisposeRecordingExtractor_when_run_produces_no_items_and_a_final_report_of_zero()
+    {
+        using var sut = new DisposeRecordingExtractor();
+
+        var run = await StageRunner.ExtractAsync(sut);
+
+        Assert.Empty(run.Items);
+        Assert.Equal(0, Assert.Single(run.Reports).CurrentItemCount);
+    }
+
+
+    [Fact]
+    public void RecordingTimer_Start_and_StopTimer_neither_raise_Elapsed_nor_dispose()
+    {
+        var timer = new RecordingTimer();
+        var raised = 0;
+        timer.Elapsed += () => raised++;
+
+        timer.Start(10);
+        timer.StopTimer();
+
+        Assert.Equal(0, raised);
+        Assert.False(timer.Disposed);
+    }
     private sealed class TimedExtractor : ExtractorBase<int, EtlProgress>
     {
         private readonly int _perItemDelayMs;
@@ -267,7 +291,6 @@ public sealed class ExtractorBaseCoverageTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class DisposeRecordingExtractor : ExtractorBase<int, EtlProgress>
     {
         public int DisposeBoolCalls { get; private set; }
@@ -293,7 +316,6 @@ public sealed class ExtractorBaseCoverageTests
     }
 
 
-    [ExcludeFromCodeCoverage]
     private sealed class RecordingTimer : IProgressTimer
     {
         public bool Disposed { get; private set; }
