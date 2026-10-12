@@ -19,6 +19,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.26.1] - 2026-10-12
+
+### Internal
+
+- No source, public-API or package-content changes since 0.26.0: this release ships the same code. The cycle hardened CI and cleared every open security alert: InspectCode findings in the tests (#706, #707, #708), Scorecard results publishing again and its won't-fix findings filtered (#709, #715), gates that now fail when they cannot run (#711), coverage gates raised to 95% production / 100% test (#714), the AOT smoke check on every PR (#713), and the release gated on SourceLink symbol integrity (#653).
+- PackageValidation compares against 0.26.0 (the last published version) for all four packages. (#646)
+- The multi-target unit test projects no longer use implicit or global usings; every file states its own `using` directives so they are required on every target framework. No shipped-package change. (#656)
+- The three remaining `src` projects set `SuppressTfmSupportBuildWarnings`, matching `Wolfgang.Etl.ErrorPolicies` and every other src project in the fleet. Build-log noise only; no compilation or packaging change. (#654)
+
 ## [0.26.0] - 2026-09-21
 
 ### Added
