@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coverage version="1.0" date="2026-07-22_14-18-49" tag="">
+  <assembly name="Wolfgang.Etl.Abstractions">
+    <class name="Wolfgang.Etl.Abstractions.EtlPipeline" coveredlines="3" coverablelines="3" totallines="56" coveredbranches="0" totalbranches="0" coveredcodeelements="2" fullcoveredcodeelements="2" totalcodeelements="2" />
+    <class name="Wolfgang.Etl.Abstractions.EtlPipelineImpl`1" coveredlines="25" coverablelines="25" totallines="129" coveredbranches="13" totalbranches="16" coveredcodeelements="9" fullcoveredcodeelements="9" totalcodeelements="9" />
+    <class name="Wolfgang.Etl.Abstractions.EtlPipelineProgress" coveredlines="6" coverablelines="6" totallines="27" coveredbranches="0" totalbranches="0" coveredcodeelements="4" fullcoveredcodeelements="4" totalcodeelements="4" />
+    <class name="Wolfgang.Etl.Abstractions.EtlPipelineSink`2" coveredlines="19" coverablelines="19" totallines="62" coveredbranches="8" totalbranches="10" coveredcodeelements="3" fullcoveredcodeelements="3" totalcodeelements="3" />
+    <class name="Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions" coveredlines="18" coverablelines="18" totallines="98" coveredbranches="12" totalbranches="12" coveredcodeelements="4" fullcoveredcodeelements="4" totalcodeelements="4" />
+    <class name="Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions" coveredlines="6" coverablelines="6" totallines="57" coveredbranches="4" totalbranches="4" coveredcodeelements="2" fullcoveredcodeelements="2" totalcodeelements="2" />
+    <class name="Wolfgang.Etl.Abstractions.EtlRunState" coveredlines="2" coverablelines="2" totallines="25" coveredbranches="0" totalbranches="0" coveredcodeelements="2" fullcoveredcodeelements="2" totalcodeelements="2" />
+    <class name="Wolfgang.Etl.Abstractions.ExtractorBase`2" coveredlines="70" coverablelines="70" totallines="473" coveredbranches="18" totalbranches="22" coveredcodeelements="25" fullcoveredcodeelements="25" totalcodeelements="25" />
+    <class name="Wolfgang.Etl.Abstractions.ExtractStage`1" coveredlines="74" coverablelines="74" totallines="194" coveredbranches="16" totalbranches="16" coveredcodeelements="9" fullcoveredcodeelements="9" totalcodeelements="9" />
+    <class name="Wolfgang.Etl.Abstractions.ExtractStageWithProgress`2" coveredlines="22" coverablelines="22" totallines="130" coveredbranches="2" totalbranches="2" coveredcodeelements="10" fullcoveredcodeelements="10" totalcodeelements="10" />
+    <class name="Wolfgang.Etl.Abstractions.LoaderBase`2" coveredlines="70" coverablelines="71" totallines="471" coveredbranches="9" totalbranches="10" coveredcodeelements="25" fullcoveredcodeelements="24" totalcodeelements="25" />
+    <class name="Wolfgang.Etl.Abstractions.Pipeline" coveredlines="22" coverablelines="22" totallines="140" coveredbranches="8" totalbranches="8" coveredcodeelements="4" fullcoveredcodeelements="4" totalcodeelements="4" />
+    <class name="Wolfgang.Etl.Abstractions.PipelineImpl" coveredlines="22" coverablelines="22" totallines="84" coveredbranches="6" totalbranches="6" coveredcodeelements="6" fullcoveredcodeelements="6" totalcodeelements="6" />
+    <class name="Wolfgang.Etl.Abstractions.PipelineWithLoadProgress`2" coveredlines="40" coverablelines="42" totallines="129" coveredbranches="11" totalbranches="12" coveredcodeelements="7" fullcoveredcodeelements="7" totalcodeelements="8" />
+    <class name="Wolfgang.Etl.Abstractions.Report" coveredlines="33" coverablelines="33" totallines="158" coveredbranches="20" totalbranches="20" coveredcodeelements="9" fullcoveredcodeelements="9" totalcodeelements="9" />
+    <class name="Wolfgang.Etl.Abstractions.StageList" coveredlines="31" coverablelines="31" totallines="113" coveredbranches="16" totalbranches="16" coveredcodeelements="3" fullcoveredcodeelements="3" totalcodeelements="3" />
+    <class name="Wolfgang.Etl.Abstractions.SystemProgressTimer" coveredlines="27" coverablelines="27" totallines="113" coveredbranches="6" totalbranches="6" coveredcodeelements="4" fullcoveredcodeelements="4" totalcodeelements="4" />
+    <class name="Wolfgang.Etl.Abstractions.TransformerBase`3" coveredlines="73" coverablelines="74" totallines="480" coveredbranches="17" totalbranches="22" coveredcodeelements="25" fullcoveredcodeelements="24" totalcodeelements="25" />
+    <class name="Wolfgang.Etl.Abstractions.TransformStage`1" coveredlines="74" coverablelines="74" totallines="194" coveredbranches="16" totalbranches="16" coveredcodeelements="9" fullcoveredcodeelements="9" totalcodeelements="9" />
+    <class name="Wolfgang.Etl.Abstractions.TransformStageWithProgress`3" coveredlines="30" coverablelines="30" totallines="148" coveredbranches="2" totalbranches="2" coveredcodeelements="11" fullcoveredcodeelements="11" totalcodeelements="11" />
+  </assembly>
+</coverage>

@@ -1,23 +1,23 @@
 Summary
-  Generated on: 9/22/2026 - 3:11:43 AM
-  Coverage date: 9/22/2026 - 3:11:22 AM - 9/22/2026 - 3:11:39 AM
-  Parser: MultiReport (8x Cobertura)
-  Assemblies: 12
-  Classes: 230
-  Files: 214
-  Line coverage: 99%
-  Covered lines: 10978
-  Uncovered lines: 107
-  Coverable lines: 11085
-  Total lines: 37167
-  Branch coverage: 83.4% (1756 of 2104)
-  Covered branches: 1756
-  Total branches: 2104
-  Method coverage: 98.5% (2220 of 2253)
-  Full method coverage: 96.4% (2173 of 2253)
-  Covered methods: 2220
-  Fully covered methods: 2173
-  Total methods: 2253
+  Generated on: 10/13/2026 - 1:49:20 AM
+  Coverage date: 10/13/2026 - 1:48:48 AM - 10/13/2026 - 1:49:16 AM
+  Parser: MultiReport (10x Cobertura)
+  Assemblies: 14
+  Classes: 240
+  Files: 220
+  Line coverage: 99.4%
+  Covered lines: 12196
+  Uncovered lines: 67
+  Coverable lines: 12263
+  Total lines: 39113
+  Branch coverage: 84.9% (1964 of 2312)
+  Covered branches: 1964
+  Total branches: 2312
+  Method coverage: 99.3% (2559 of 2575)
+  Full method coverage: 97.8% (2520 of 2575)
+  Covered methods: 2559
+  Fully covered methods: 2520
+  Total methods: 2575
 
 Wolfgang.Etl.Abstractions                                                                              97.4%
   Wolfgang.Etl.Abstractions.DefaultItemErrorPolicy                                                      100%
@@ -59,27 +59,35 @@ Wolfgang.Etl.Abstractions.Tests.DocExamples                                     
   Wolfgang.Etl.Abstractions.Tests.DocExamples.DocExampleCompiler                                        100%
   Wolfgang.Etl.Abstractions.Tests.DocExamples.DocExampleSource                                          100%
 
-Wolfgang.Etl.Abstractions.Tests.Fuzz                                                                   99.1%
-  Wolfgang.Etl.Abstractions.Tests.Fuzz.CollectingLoader<T>                                             83.3%
+Wolfgang.Etl.Abstractions.Tests.Fuzz                                                                    100%
+  Wolfgang.Etl.Abstractions.Tests.Fuzz.CollectingLoader<T>                                              100%
   Wolfgang.Etl.Abstractions.Tests.Fuzz.EtlPipelineFuzzTests                                             100%
   Wolfgang.Etl.Abstractions.Tests.Fuzz.InlineProgress<T>                                                100%
   Wolfgang.Etl.Abstractions.Tests.Fuzz.MapTransformer<T1, T2>                                           100%
   Wolfgang.Etl.Abstractions.Tests.Fuzz.ReportFuzzTests                                                  100%
 
-Wolfgang.Etl.Abstractions.Tests.Unit                                                                   99.1%
+Wolfgang.Etl.Abstractions.Tests.SourceLink                                                              100%
+  Wolfgang.Etl.Abstractions.Tests.SourceLink.SourceLinkPdbTests                                         100%
+
+Wolfgang.Etl.Abstractions.Tests.Unit                                                                    100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.AsyncDisposableTests                              100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.BaseClassTimingTests                              100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.BulkIncrementTests                                100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.ClockSeamTests                                    100%
-  Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.ConvenienceBaseOptionsConstructorTests           90.1%
+  Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.ConvenienceBaseOptionsConstructorTests            100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.ConvenienceBaseTests                              100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.ExtractorBaseCoverageTests                        100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.ExtractorBaseTests                                100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.IdentityTransformer                               100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.ListLoader                                        100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.LoaderBaseCoverageTests                           100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.LoaderBaseTests                                   100%
-  Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.OptionsConstructorTests                          89.1%
+  Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.OptionsConstructorTests                           100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.ResetRunStateTests                                100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.RetrySeamTests                                    100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.SequenceExtractor                                 100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.StageRun<T1, T2>                                  100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.StageRunner                                       100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.StageStateAssert                                  100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.SynchronousProgress<T>                            100%
   Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests.SystemProgressTimerTests                          100%
@@ -101,7 +109,7 @@ Wolfgang.Etl.Abstractions.Tests.Unit                                            
   Wolfgang.Etl.Abstractions.Tests.Unit.ExtractorOptionsTests                                            100%
   Wolfgang.Etl.Abstractions.Tests.Unit.FinalizationSuppressionTests                                     100%
   Wolfgang.Etl.Abstractions.Tests.Unit.Globalization.CultureInvarianceTests                             100%
-  Wolfgang.Etl.Abstractions.Tests.Unit.GuardParityTests                                                83.1%
+  Wolfgang.Etl.Abstractions.Tests.Unit.GuardParityTests                                                 100%
   Wolfgang.Etl.Abstractions.Tests.Unit.ItemErrorHandlingTests                                           100%
   Wolfgang.Etl.Abstractions.Tests.Unit.LoaderOptionsTests                                               100%
   Wolfgang.Etl.Abstractions.Tests.Unit.MiddlewareTests                                                  100%
@@ -130,6 +138,7 @@ Wolfgang.Etl.Abstractions.Tests.Unit                                            
   Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles.ProgressOnlyExtractor<T1, T2>          100%
   Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles.ProgressOnlyLoader<T1, T2>             100%
   Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles.ProgressOnlyTransformer<T1, T2, T3>    100%
+  Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.TestDoubles.WrongOverloadCalledException           100%
   Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests.WithProgressSemanticsTests                         100%
   Wolfgang.Etl.Abstractions.Tests.Unit.ReportTests                                                      100%
   Wolfgang.Etl.Abstractions.Tests.Unit.TransformerOptionsTests                                          100%
@@ -157,27 +166,32 @@ Wolfgang.Etl.TestKit                                                            
   Wolfgang.Etl.TestKit.TestTransformer<T>                                                               100%
   Wolfgang.Etl.TestKit.TimeSourceExtensions                                                             100%
 
-Wolfgang.Etl.TestKit.Tests.DocExamples                                                                   99%
-  Wolfgang.Etl.TestKit.Tests.DocExamples.DocExampleCompilationTests                                      99%
+Wolfgang.Etl.TestKit.Tests.Concurrency                                                                  100%
+  Wolfgang.Etl.TestKit.Tests.Concurrency.ConcurrencyTests                                               100%
+
+Wolfgang.Etl.TestKit.Tests.DocExamples                                                                  100%
+  Wolfgang.Etl.TestKit.Tests.DocExamples.DocExampleCompilationTests                                     100%
 
 Wolfgang.Etl.TestKit.Tests.Fuzz                                                                         100%
   Wolfgang.Etl.TestKit.Tests.Fuzz.TestKitFuzzTests                                                      100%
 
-Wolfgang.Etl.TestKit.Tests.Unit                                                                        99.7%
+Wolfgang.Etl.TestKit.Tests.Unit                                                                         100%
   Wolfgang.Etl.TestKit.Tests.Unit.AllocationRegressionTests                                             100%
   Wolfgang.Etl.TestKit.Tests.Unit.CountingProgressTimer                                                 100%
-  Wolfgang.Etl.TestKit.Tests.Unit.DelayingExtractorTests                                               99.2%
+  Wolfgang.Etl.TestKit.Tests.Unit.CountingProgressTimerTests                                            100%
+  Wolfgang.Etl.TestKit.Tests.Unit.DelayingExtractorTests                                                100%
   Wolfgang.Etl.TestKit.Tests.Unit.DoubleReportTimingTests                                               100%
   Wolfgang.Etl.TestKit.Tests.Unit.FaultyExtractorErrorHookTests                                         100%
-  Wolfgang.Etl.TestKit.Tests.Unit.FaultyExtractorMutationTests                                         98.4%
+  Wolfgang.Etl.TestKit.Tests.Unit.FaultyExtractorMutationTests                                          100%
   Wolfgang.Etl.TestKit.Tests.Unit.FaultyExtractorTests                                                  100%
   Wolfgang.Etl.TestKit.Tests.Unit.FaultyLoaderErrorHookTests                                            100%
-  Wolfgang.Etl.TestKit.Tests.Unit.FaultyLoaderMutationTests                                            99.2%
+  Wolfgang.Etl.TestKit.Tests.Unit.FaultyLoaderMutationTests                                             100%
   Wolfgang.Etl.TestKit.Tests.Unit.FaultyLoaderTests                                                     100%
   Wolfgang.Etl.TestKit.Tests.Unit.FaultyTransformerErrorHookTests                                       100%
   Wolfgang.Etl.TestKit.Tests.Unit.FaultyTransformerMutationTests                                        100%
   Wolfgang.Etl.TestKit.Tests.Unit.FaultyTransformerTests                                                100%
   Wolfgang.Etl.TestKit.Tests.Unit.Globalization.CultureInvarianceTests                                  100%
+  Wolfgang.Etl.TestKit.Tests.Unit.Globalization.CultureSwapper                                          100%
   Wolfgang.Etl.TestKit.Tests.Unit.ManualProgressTimerCoreMutationTests                                  100%
   Wolfgang.Etl.TestKit.Tests.Unit.ManualProgressTimerCoreTests                                          100%
   Wolfgang.Etl.TestKit.Tests.Unit.ManualTimeSourceMutationTests                                         100%
@@ -186,9 +200,9 @@ Wolfgang.Etl.TestKit.Tests.Unit                                                 
   Wolfgang.Etl.TestKit.Tests.Unit.RecordingMiddlewareMutationTests                                      100%
   Wolfgang.Etl.TestKit.Tests.Unit.RecordingMiddlewareTests                                              100%
   Wolfgang.Etl.TestKit.Tests.Unit.RetryingExtractorBranchesTests                                        100%
-  Wolfgang.Etl.TestKit.Tests.Unit.RetryingExtractorMutationTests                                       98.5%
+  Wolfgang.Etl.TestKit.Tests.Unit.RetryingExtractorMutationTests                                        100%
   Wolfgang.Etl.TestKit.Tests.Unit.RetryingExtractorTests                                                100%
-  Wolfgang.Etl.TestKit.Tests.Unit.SnapshotTestLoaderMutationTests                                      90.4%
+  Wolfgang.Etl.TestKit.Tests.Unit.SnapshotTestLoaderMutationTests                                       100%
   Wolfgang.Etl.TestKit.Tests.Unit.SnapshotTestLoaderTests                                               100%
   Wolfgang.Etl.TestKit.Tests.Unit.TestExtractorMutationTests                                            100%
   Wolfgang.Etl.TestKit.Tests.Unit.TestExtractorTests                                                    100%
