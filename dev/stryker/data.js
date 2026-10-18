@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1791700248595,
+  "lastUpdate": 1792305105181,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "Mutation score": [
@@ -220,6 +220,38 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/790ccfe0486feeef6c0af5a17167286decd7653a"
         },
         "date": 1791700238102,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 98.63,
+            "unit": "%"
+          },
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.TestKit.Tests.Unit)",
+            "value": 98.9,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "f1da33a5f077ed04e6f0353bc62c941675b55051",
+          "message": "fix(scripts): security-alerts updates the open summary issue instead of filing a new one (#720)\n\nGet-TrackedIssues keyed each marker to the LAST issue in the listing. The REST\nissues listing (state=all) is newest first, so with a closed old summary and an\nopen newer one the map kept the CLOSED issue, and every weekly run filed a\nduplicate summary issue. Prefer the OPEN issue for a marker, and between two of\nthe same state the higher number. Port of Chris-Wolfgang/repo-template#719.\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+          "timestamp": "2026-10-15T13:29:30Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/f1da33a5f077ed04e6f0353bc62c941675b55051"
+        },
+        "date": 1792305091474,
         "tool": "customBiggerIsBetter",
         "benches": [
           {
