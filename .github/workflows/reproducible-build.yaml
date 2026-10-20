@@ -1,12 +1,16 @@
 name: Build Reproducibility
 
-# Deterministic-build verification (#216).
+# Deterministic-build verification (#216), cross-OS since #722.
 #
-# The library builds with Deterministic + ContinuousIntegrationBuild + SourceLink,
-# which should make the compiled assembly byte-for-byte reproducible regardless of
-# the checkout path. This job proves it: check the same commit out to two different
-# directories, build each with ContinuousIntegrationBuild=true (which normalises
-# source paths to /_/), and fail if the produced assemblies don't hash identically.
+# The libraries build with Deterministic + ContinuousIntegrationBuild + SourceLink, so the
+# compiled assemblies are a pure function of the source. This job proves it across operating
+# systems: the same commit is built on Ubuntu and on Windows, every shipped assembly and symbol
+# file (.dll/.pdb, all four src projects, every TFM) is hashed, and the job fails on any
+# difference. Directory.Build.targets normalizes the SDK-generated sources to LF and
+# Directory.Build.props pins the .NET Framework reference assemblies; those were the inputs
+# that differed between Linux and Windows. Package files (.nupkg/.snupkg) are not compared:
+# NuGet stamps each zip entry with the pack time, so the same commit gives a different package
+# file on every run, even on one OS. See docs/REPRODUCIBLE-BUILD.md.
 
 on:
   pull_request:
@@ -26,24 +30,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  reproducible:
-    name: Reproducible build
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
+  build:
+    name: Build (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     env:
-      ASM: src/Wolfgang.Etl.Abstractions/bin/Release/net10.0/Wolfgang.Etl.Abstractions.dll
-      PROJ: src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj
+      # Turns on ContinuousIntegrationBuild in Directory.Build.props, which
+      # enables DeterministicSourcePaths + normalized (SourceLink) path mapping.
+      CI: 'true'
     steps:
-      - name: Checkout (copy A)
+      - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          path: a
-          persist-credentials: false
-
-      - name: Checkout (copy B)
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          path: b
           persist-credentials: false
 
       - name: Setup .NET
@@ -51,20 +53,79 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Build copy A
-        run: dotnet build "a/${{ env.PROJ }}" -c Release -f net10.0 -p:ContinuousIntegrationBuild=true
-
-      - name: Build copy B
-        run: dotnet build "b/${{ env.PROJ }}" -c Release -f net10.0 -p:ContinuousIntegrationBuild=true
-
-      - name: Compare assembly hashes
+      - name: Build src projects (deterministic)
+        shell: bash
         run: |
-          ha=$(sha256sum "a/${ASM}" | cut -d' ' -f1)
-          hb=$(sha256sum "b/${ASM}" | cut -d' ' -f1)
-          echo "A: $ha"
-          echo "B: $hb"
-          if [ "$ha" != "$hb" ]; then
-            echo "::error::Build is not reproducible — assembly hashes differ."
+          set -euo pipefail
+          for proj in src/*/*.csproj; do
+            dotnet build "$proj" -c Release -p:ContinuousIntegrationBuild=true -p:Deterministic=true
+          done
+
+      - name: Hash outputs
+        shell: bash
+        env:
+          RUNNER_OS_NAME: ${{ matrix.os }}
+        run: |
+          set -euo pipefail
+          manifest="manifest.txt"
+          : > "$manifest"
+          # Every Wolfgang.Etl.* assembly and symbol file under each src project's
+          # Release output, keyed by its repository-relative path (identical across OS).
+          while IFS= read -r f; do
+            printf '%s  %s\n' "$(sha256sum "$f" | cut -d' ' -f1)" "$f" >> "$manifest"
+          done < <(find src -path '*/bin/Release/*' -type f \( -name 'Wolfgang.Etl.*.dll' -o -name 'Wolfgang.Etl.*.pdb' \) | sort)
+
+          if [ ! -s "$manifest" ]; then
+            echo "::error::No assemblies were found to hash."
             exit 1
           fi
-          echo "✅ Reproducible: $ha"
+
+          sort -k2 "$manifest" -o "$manifest"
+          echo "--- ${RUNNER_OS_NAME} output hashes ---"
+          cat "$manifest"
+
+      - name: Upload manifest
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: repro-manifest-${{ matrix.os }}
+          path: manifest.txt
+          if-no-files-found: error
+
+  compare:
+    name: Reproducible build
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Download Ubuntu manifest
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: repro-manifest-ubuntu-latest
+          path: ubuntu
+
+      - name: Download Windows manifest
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: repro-manifest-windows-latest
+          path: windows
+
+      - name: Compare
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Ubuntu manifest:"
+          cat ubuntu/manifest.txt
+          echo
+          echo "Windows manifest:"
+          cat windows/manifest.txt
+          echo
+          # If this fails, diff the per-TFM .pdb documents and the referenced-assembly
+          # records first: a generated source written with a different newline, or a
+          # different reference assembly, was the cause that Directory.Build.targets and
+          # Directory.Build.props now remove.
+          if diff -u ubuntu/manifest.txt windows/manifest.txt; then
+            echo "Reproducible: Ubuntu and Windows produced byte-identical assemblies and symbols."
+          else
+            echo "::error::Assemblies or symbols differ across runners - the build is not byte-identical cross-OS."
+            exit 1
+          fi
