@@ -1,0 +1,2 @@
+#nullable enable
+override Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.<Clone>$() -> Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress!
