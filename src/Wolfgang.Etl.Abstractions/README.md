@@ -53,26 +53,32 @@ verification procedure and how to report a discrepancy.
 ## 🚀 Quick Start
 
 ```csharp
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions;
+
 // Create a custom extractor by inheriting from ExtractorBase
 public class MyExtractor : ExtractorBase<string, Report>
 {
     protected override async IAsyncEnumerable<string> ExtractWorkerAsync(
         [EnumeratorCancellation] CancellationToken token)
     {
-        // Yield items from your data source
-        yield return "item1";
+        // Stands in for awaiting your real data source (a reader, a query, an HTTP call)
+        await Task.Yield();
+
         IncrementCurrentItemCount();
+        yield return "item1";
     }
 
     protected override Report CreateProgressReport()
     {
-        // StartedAt/Elapsed are populated by the base class once the first
-        // item is processed; the Report derives ItemsPerSecond / EstimatedRemaining from them.
-        return new Report(CurrentItemCount)
-        {
-            StartedAt = StartedAt,
-            Elapsed = Elapsed,
-        };
+        // StartedAt/Elapsed are populated by the base class once the first item is processed;
+        // the Report derives ItemsPerSecond / EstimatedRemaining from them. Use the timing
+        // constructor rather than init-setters: see the remarks on Report.
+        return new Report(CurrentItemCount, StartedAt, Elapsed);
     }
 }
 

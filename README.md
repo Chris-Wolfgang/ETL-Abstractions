@@ -4,7 +4,7 @@ The core building blocks for the **Wolfgang.Etl** ETL framework — interfaces a
 extractors, loaders, and transformers, plus companion packages for error handling and testing. This
 repository builds and releases four NuGet packages in lockstep.
 
-[![PR build](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/ETL-Abstractions/pr.yaml?event=pull_request_target&label=PR%20build&logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/pr.yaml)
+[![PR build](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/ETL-Abstractions/pr.yaml?event=pull_request&label=PR%20build&logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/pr.yaml)
 [![release](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/ETL-Abstractions/release.yaml?event=release&label=release&logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/release.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-Multi--Targeted-purple.svg)](https://dotnet.microsoft.com/)
@@ -26,6 +26,10 @@ repository builds and releases four NuGet packages in lockstep.
 Build a component on the core package:
 
 ```csharp
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 
 public sealed class NumberExtractor : ExtractorBase<int>
@@ -35,6 +39,10 @@ public sealed class NumberExtractor : ExtractorBase<int>
     {
         for (var i = 1; i <= 3; i++)
         {
+            // Stands in for awaiting your real data source
+            await Task.Yield();
+            token.ThrowIfCancellationRequested();
+
             IncrementCurrentItemCount();
             yield return i;
         }
@@ -57,14 +65,18 @@ conformance suite for free. See each package's README (linked above) for details
 
 ## Supported frameworks
 
-The runtime packages multi-target `net462`, `netstandard2.0`, `netstandard2.1`, and `net5.0` through
-`net10.0`. See each package's README for its exact target list.
+| Package | Target frameworks |
+| --- | --- |
+| `Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies` | `net462`, `net472`, `net48`, `net481`, `netstandard2.0`, `net5.0` through `net10.0` |
+| `Wolfgang.Etl.TestKit`, `Wolfgang.Etl.TestKit.Xunit` | `net462`, `net481`, `netstandard2.0`, `net5.0`, `net6.0`, `net7.0`, `net8.0`, `net10.0` |
+
+No package targets `netstandard2.1`; .NET Core 3.x consumers use the `netstandard2.0` build.
 
 ## Repository layout
 
 ```
 src/    — the four shipping packages (each with its own README)
-tests/  — unit, contract, concurrency, fuzz, and doc-example test projects
+tests/  — unit, contract, concurrency, fuzz, doc-example, SourceLink and AOT-smoke test projects
 docs/   — additional documentation and ADRs
 ```
 
