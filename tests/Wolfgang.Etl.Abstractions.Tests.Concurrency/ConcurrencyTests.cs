@@ -56,11 +56,10 @@ public static class ConcurrencyTests
     /// cancellation/disposal signals.
     /// </summary>
     /// <remarks>
-    /// NOT currently executed in CI — this method is commented out of the
-    /// <c>methods</c> array in <c>.github/workflows/coyote.yaml</c>. Coyote 1.7.11
-    /// crashes inside its own runtime on the <c>ConfiguredCancelableAsyncEnumerable</c>
-    /// awaiter this test reaches through <c>ExtractAsync</c>. The test is kept intact
-    /// so restoring it is a one-line change; see #364.
+    /// Runnable again since #364: the base classes enumerate the worker with a manual
+    /// <c>MoveNextAsync().ConfigureAwait(false)</c> loop instead of awaiting a
+    /// <c>ConfiguredCancelableAsyncEnumerable</c>, which Coyote 1.7.11 could not control.
+    /// <c>.github/workflows/coyote.yaml</c> lists the method once the workflow change lands.
     /// </remarks>
     [Microsoft.Coyote.SystematicTesting.Test]
     public static async Task Dispose_racing_enumeration_never_deadlocks()
