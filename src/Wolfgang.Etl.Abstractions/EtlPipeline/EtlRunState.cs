@@ -12,8 +12,18 @@ namespace Wolfgang.Etl.Abstractions;
 /// </summary>
 internal sealed class EtlRunState
 {
+    /// <summary>
+    /// The shortest gap between two in-flight <see cref="EtlPipelineProgress"/> reports (#735). The
+    /// first delivered record is always reported, and the sink reports the exact final snapshot after
+    /// the loader finishes, so the throttle only thins out the reports in between.
+    /// </summary>
+    internal static readonly TimeSpan ProgressReportInterval = TimeSpan.FromMilliseconds(100);
+
     private readonly ITimeSource _timeSource;
     private readonly long _startTimestamp;
+    private readonly long _reportIntervalTicks;
+    private long _nextReportTimestamp;
+    private bool _reportedOnce;
 
 
 
@@ -47,6 +57,7 @@ internal sealed class EtlRunState
     {
         _timeSource = timeSource;
         _startTimestamp = timeSource.GetTimestamp();
+        _reportIntervalTicks = (long)(ProgressReportInterval.TotalSeconds * timeSource.TimestampFrequency);
     }
 
 
@@ -58,6 +69,24 @@ internal sealed class EtlRunState
             var ticks = _timeSource.GetTimestamp() - _startTimestamp;
             return TimeSpan.FromSeconds(ticks / (double)_timeSource.TimestampFrequency);
         }
+    }
+
+
+
+    // True when an in-flight progress report is due: always for the first call, then at most once per
+    // ProgressReportInterval. Reading the timestamp is allocation-free, so the per-record cost of a
+    // throttled run is one clock read instead of one EtlPipelineProgress allocation.
+    public bool IsProgressReportDue()
+    {
+        var now = _timeSource.GetTimestamp();
+        if (_reportedOnce && now < _nextReportTimestamp)
+        {
+            return false;
+        }
+
+        _reportedOnce = true;
+        _nextReportTimestamp = now + _reportIntervalTicks;
+        return true;
     }
 
 

@@ -102,6 +102,28 @@ public class ClockSeamTests
     }
 
 
+    [Fact]
+    public void EtlRunState_IsProgressReportDue_reports_the_first_call_then_at_most_once_per_interval()
+    {
+        var clock = new FakeTimeSource();
+        var state = new EtlRunState(clock);
+
+        var first = state.IsProgressReportDue();
+        var immediatelyAfter = state.IsProgressReportDue();
+        clock.Advance(EtlRunState.ProgressReportInterval - TimeSpan.FromMilliseconds(1));
+        var justBefore = state.IsProgressReportDue();
+        clock.Advance(TimeSpan.FromMilliseconds(1));
+        var atInterval = state.IsProgressReportDue();
+        var afterSecondReport = state.IsProgressReportDue();
+
+        Assert.True(first);
+        Assert.False(immediatelyAfter);
+        Assert.False(justBefore);
+        Assert.True(atInterval);
+        Assert.False(afterSecondReport);
+    }
+
+
     // ---------- helpers ----------
 
     private static async IAsyncEnumerable<int> AsyncSource(params int[] items)
