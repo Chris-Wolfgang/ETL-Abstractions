@@ -34,7 +34,8 @@ namespace Wolfgang.Etl.Abstractions;
 /// </remarks>
 /// <example>
 /// <code>
-/// await EtlPipeline.Create()
+/// await EtlPipeline
+///     .Create()
 ///     .From(records)
 ///     .Through(new WhereTransformer&lt;Order&gt;(r =&gt; r.Amount &gt; 0))
 ///     .To(sqlLoader)

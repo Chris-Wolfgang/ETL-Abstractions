@@ -27,12 +27,14 @@ public sealed record EtlPipelineProgress
 )
 {
     /// <summary>
-    /// The number of records a source discarded via its error policy so far — an
-    /// <see cref="ExtractorBase{TSource, TProgress}"/> whose <c>OnItemError</c> returned
-    /// <see cref="ItemErrorAction.Skip"/> for a bad record — or <c>0</c> for a source that does not
-    /// report errors (for example a raw <see cref="System.Collections.Generic.IAsyncEnumerable{T}"/>).
-    /// Reported separately from <see cref="ExtractedItemCount"/>, which counts only the records that
-    /// successfully flowed into the pipeline, so a failed record is never silent. Distinct from
+    /// The number of records discarded via an error policy so far, summed across every stage that
+    /// reports errors: the source extractor, each transformer that implements
+    /// <see cref="IReportsItemErrors"/>, and the loader. A stage whose policy returned
+    /// <see cref="ItemErrorAction.Skip"/> for a bad record adds one; a stage that does not report
+    /// errors (for example a raw <see cref="System.Collections.Generic.IAsyncEnumerable{T}"/> source or
+    /// a delegate transform) adds <c>0</c>. Reported separately from <see cref="ExtractedItemCount"/>
+    /// and <see cref="LoadedItemCount"/>, which count only the records that flowed through, so a
+    /// failed record is never silent. Distinct from
     /// intentional skips (an extractor's <c>SkipItemCount</c> budget), which are not surfaced here.
     /// </summary>
     public long ErrorItemCount { get; init; }
