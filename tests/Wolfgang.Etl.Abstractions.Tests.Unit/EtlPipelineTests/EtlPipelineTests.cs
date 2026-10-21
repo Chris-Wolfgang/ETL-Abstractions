@@ -298,9 +298,30 @@ public class EtlPipelineCoreTests
         Assert.Equal(5, final.ExtractedItemCount);
         Assert.Equal(5, final.LoadedItemCount);
 
-        // The sink reports after each loaded item, not only at the end — so an intermediate
-        // snapshot capturing exactly one loaded record must be present.
+        // The sink reports the first loaded record straight away, not only at the end — so an
+        // intermediate snapshot capturing exactly one loaded record must be present.
         Assert.Contains(reports, r => r.LoadedItemCount == 1);
+    }
+
+
+    [Fact]
+    public async Task RunAsync_throttles_in_flight_progress_instead_of_reporting_every_record()
+    {
+        const int recordCount = 10_000;
+        var reports = new List<EtlPipelineProgress>();
+        var progress = new SynchronousProgress<EtlPipelineProgress>(reports.Add);
+        var loader = new CollectingLoader<int>();
+
+        await EtlPipeline
+            .Create()
+            .From(AsyncSource(Enumerable.Range(1, recordCount).ToArray()))
+            .To(loader)
+            .RunAsync(progress);
+
+        // One report for the first record, at most one per 100 ms after that, and the final one.
+        // Per-record reporting (#735) would produce recordCount + 1 reports.
+        Assert.True(reports.Count < recordCount / 2, $"Expected throttled progress, got {reports.Count} reports.");
+        Assert.Equal(recordCount, reports[reports.Count - 1].LoadedItemCount);
     }
 
 
