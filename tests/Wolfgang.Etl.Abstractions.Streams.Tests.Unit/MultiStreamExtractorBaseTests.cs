@@ -307,7 +307,8 @@ public class MultiStreamExtractorBaseTests
     {
         var a = Sources.Of("a1\n");
         var b = Sources.Of("b1\n");
-        var sut = new LineExtractor(new ReadOnlySources(new[] { a.Source, b.Source }));
+        var sources = new ReadOnlySources(new[] { a.Source, b.Source });
+        var sut = new LineExtractor(sources);
         var totals = new List<int>();
 
         await foreach (var _ in sut.ExtractAsync())
@@ -316,6 +317,11 @@ public class MultiStreamExtractorBaseTests
         }
 
         Assert.Equal(new[] { 2, 2 }, totals);
+
+        // The test double must enumerate the same sources through the non-generic interface too.
+        var nonGeneric = ((System.Collections.IEnumerable)sources).GetEnumerator();
+        Assert.True(nonGeneric.MoveNext());
+        Assert.Same(a.Source, nonGeneric.Current);
     }
 
 
