@@ -65,7 +65,7 @@ public class LineMultiStreamLoaderContractTests
 
 
     protected override IReadOnlyList<string> ParseDestination(string text) =>
-        text
+        (text ?? throw new ArgumentNullException(nameof(text)))
             .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
             .Skip(1)
             .ToList();
@@ -91,10 +91,11 @@ public sealed class LineMultiStreamExtractor : MultiStreamExtractorBase<string, 
         [EnumeratorCancellation] CancellationToken token
     )
     {
+        var source = reader ?? throw new ArgumentNullException(nameof(reader));
 #if NET7_0_OR_GREATER
-        var text = await reader.ReadToEndAsync(token).ConfigureAwait(false);
+        var text = await source.ReadToEndAsync(token).ConfigureAwait(false);
 #else
-        var text = await reader.ReadToEndAsync().ConfigureAwait(false);
+        var text = await source.ReadToEndAsync().ConfigureAwait(false);
 #endif
         var lines = text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
         if (lines.Length == 0 || !string.Equals(lines[0], "#header", StringComparison.Ordinal))
@@ -128,12 +129,12 @@ public sealed class LineMultiStreamLoader : MultiStreamLoaderBase<string, MultiS
 
 
     protected override Task OnDestinationOpenedAsync(NamedStreamDestination destination, CancellationToken token) =>
-        destination.Writer.WriteAsync("#header\n");
+        (destination ?? throw new ArgumentNullException(nameof(destination))).Writer.WriteAsync("#header\n");
 
 
 
     protected override Task WriteRecordAsync(string record, NamedStreamDestination destination, CancellationToken token) =>
-        destination.Writer.WriteAsync(record + "\n");
+        (destination ?? throw new ArgumentNullException(nameof(destination))).Writer.WriteAsync(record + "\n");
 
 
 
