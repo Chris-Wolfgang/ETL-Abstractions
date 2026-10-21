@@ -16,8 +16,12 @@ internal sealed class PullCounter
 {
     private int _count;
 
+
+
     /// <summary>The number of items pulled from the wrapped source so far.</summary>
     public int Count => Volatile.Read(ref _count);
+
+
 
     /// <summary>
     /// Wraps an async source, incrementing <see cref="Count"/> as each item is pulled and
@@ -38,6 +42,8 @@ internal sealed class PullCounter
             yield return item;
         }
     }
+
+
 
     /// <summary>
     /// Wraps a synchronous source (an extractor's in-memory sequence), incrementing

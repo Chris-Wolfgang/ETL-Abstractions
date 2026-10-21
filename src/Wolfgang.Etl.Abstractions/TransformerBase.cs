@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace Wolfgang.Etl.Abstractions;
 
@@ -359,8 +359,8 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         try
         {
             // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
-        // synchronization context), so the flipped mutant is unkillable (#452).
-        await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
+            // synchronization context), so the flipped mutant is unkillable (#452).
+            await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
             {
                 yield return item;
             }

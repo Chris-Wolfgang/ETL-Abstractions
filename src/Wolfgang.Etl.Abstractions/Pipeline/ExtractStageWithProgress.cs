@@ -21,6 +21,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     private readonly IReadOnlyList<object> _stages;
 
 
+
     internal ExtractStageWithProgress
     (
         Func<CancellationToken, IAsyncEnumerable<TSource>> noProgressSource,
@@ -32,6 +33,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         _withProgressSource = withProgressSource;
         _stages = stages;
     }
+
 
 
     /// <inheritdoc/>
@@ -47,6 +49,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+
     /// <inheritdoc/>
     public ITransformStage<TDestination> Transform<TDestination>
     (
@@ -58,6 +61,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+
     /// <inheritdoc/>
     public ITransformStage<TDestination> Transform<TDestination>
     (
@@ -67,6 +71,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     {
         return new ExtractStage<TSource>(_noProgressSource, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
@@ -81,6 +86,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+
     /// <inheritdoc/>
     public ITransformStageWithProgress<TDestination, TProgressOther> Transform<TDestination, TProgressOther>
     (
@@ -93,6 +99,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline Load(ILoadAsync<TSource> loader)
     {
@@ -100,11 +107,13 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TSource> loader)
     {
         return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>
@@ -116,6 +125,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     {
         return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>

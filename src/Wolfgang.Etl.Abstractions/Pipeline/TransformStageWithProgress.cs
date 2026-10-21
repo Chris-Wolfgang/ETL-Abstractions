@@ -23,6 +23,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     private readonly Func<IAsyncEnumerable<TUpstream>, IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TDestination>> _withProgressTransform;
 
 
+
     private readonly IReadOnlyList<object> _stages;
 
 
@@ -41,10 +42,12 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+
     private IAsyncEnumerable<TDestination> NoProgressSourceAsync(CancellationToken token)
     {
         return _noProgressTransform(_upstream(token), token);
     }
+
 
 
     /// <inheritdoc/>
@@ -65,6 +68,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+
     /// <inheritdoc/>
     public ITransformStage<TOut> Transform<TOut>
     (
@@ -76,6 +80,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+
     /// <inheritdoc/>
     public ITransformStage<TOut> Transform<TOut>
     (
@@ -85,6 +90,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     {
         return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
@@ -99,6 +105,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+
     /// <inheritdoc/>
     public ITransformStageWithProgress<TOut, TProgressOther> Transform<TOut, TProgressOther>
     (
@@ -111,6 +118,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline Load(ILoadAsync<TDestination> loader)
     {
@@ -118,11 +126,13 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TDestination> loader)
     {
         return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>
@@ -134,6 +144,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     {
         return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>

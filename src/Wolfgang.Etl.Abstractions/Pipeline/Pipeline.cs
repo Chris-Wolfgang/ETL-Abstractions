@@ -51,8 +51,9 @@ public static class Pipeline
             throw new ArgumentNullException(nameof(extractor));
         }
 
-        return new ExtractStage<TSource>(_ => extractor.ExtractAsync(), new object[] { extractor });
+        return new ExtractStage<TSource>(_ => extractor.ExtractAsync(), [extractor]);
     }
+
 
 
     /// <summary>
@@ -73,8 +74,9 @@ public static class Pipeline
             throw new ArgumentNullException(nameof(extractor));
         }
 
-        return new ExtractStage<TSource>(token => extractor.ExtractAsync(token), new object[] { extractor });
+        return new ExtractStage<TSource>(token => extractor.ExtractAsync(token), [extractor]);
     }
+
 
 
     /// <summary>
@@ -104,9 +106,10 @@ public static class Pipeline
         (
             noProgressSource: _ => extractor.ExtractAsync(),
             withProgressSource: (progress, _) => extractor.ExtractAsync(progress),
-            stages: new object[] { extractor }
+            stages: [extractor]
         );
     }
+
 
 
     /// <summary>
@@ -134,7 +137,7 @@ public static class Pipeline
         (
             noProgressSource: token => extractor.ExtractAsync(token),
             withProgressSource: (progress, token) => extractor.ExtractAsync(progress, token),
-            stages: new object[] { extractor }
+            stages: [extractor]
         );
     }
 }

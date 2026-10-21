@@ -18,11 +18,13 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
     private readonly IReadOnlyList<object> _stages;
 
 
+
     internal ExtractStage(Func<CancellationToken, IAsyncEnumerable<TSource>> source, IReadOnlyList<object> stages)
     {
         _source = source;
         _stages = stages;
     }
+
 
 
     /// <inheritdoc/>
@@ -46,6 +48,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
     }
 
 
+
     /// <inheritdoc/>
     public ITransformStage<TDestination> Transform<TDestination>
     (
@@ -65,6 +68,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
             StageList.Append(_stages, transformer)
         );
     }
+
 
 
     /// <inheritdoc/>
@@ -91,6 +95,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
     }
 
 
+
     /// <inheritdoc/>
     public ITransformStageWithProgress<TDestination, TProgress> Transform<TDestination, TProgress>
     (
@@ -115,6 +120,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline Load(ILoadAsync<TSource> loader)
     {
@@ -132,6 +138,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TSource> loader)
     {
@@ -147,6 +154,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
             StageList.Append(_stages, loader)
         );
     }
+
 
 
     /// <inheritdoc/>
@@ -169,6 +177,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
             stages: StageList.Append(_stages, loader)
         );
     }
+
 
 
     /// <inheritdoc/>

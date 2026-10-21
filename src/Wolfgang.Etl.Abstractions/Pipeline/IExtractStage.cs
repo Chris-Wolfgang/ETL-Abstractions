@@ -33,6 +33,7 @@ public interface IExtractStage<TSource>
         where TDestination : notnull;
 
 
+
     /// <summary>
     /// Appends a transformer that supports cancellation but does not report progress.
     /// </summary>
@@ -45,6 +46,7 @@ public interface IExtractStage<TSource>
         ITransformWithCancellationAsync<TSource, TDestination> transformer
     )
         where TDestination : notnull;
+
 
 
     /// <summary>
@@ -64,6 +66,7 @@ public interface IExtractStage<TSource>
         where TProgress : notnull;
 
 
+
     /// <summary>
     /// Appends a progress-reporting transformer that also supports cancellation. The returned
     /// stage exposes <see cref="ITransformStageWithProgress{TDestination, TProgress}.WithProgress"/>.
@@ -81,6 +84,7 @@ public interface IExtractStage<TSource>
         where TProgress : notnull;
 
 
+
     /// <summary>
     /// Terminates the chain with a loader that supports neither progress nor cancellation.
     /// The pipeline's <see cref="CancellationToken"/> will not be forwarded into this stage.
@@ -91,6 +95,7 @@ public interface IExtractStage<TSource>
     IPipeline Load(ILoadAsync<TSource> loader);
 
 
+
     /// <summary>
     /// Terminates the chain with a loader that supports cancellation but does not report progress.
     /// </summary>
@@ -98,6 +103,7 @@ public interface IExtractStage<TSource>
     /// <returns>A runnable <see cref="IPipeline"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="loader"/> is <see langword="null"/>.</exception>
     IPipeline Load(ILoadWithCancellationAsync<TSource> loader);
+
 
 
     /// <summary>
@@ -113,6 +119,7 @@ public interface IExtractStage<TSource>
         ILoadWithProgressAsync<TSource, TProgress> loader
     )
         where TProgress : notnull;
+
 
 
     /// <summary>
