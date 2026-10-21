@@ -192,6 +192,11 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <remarks>
     /// This is useful for partially loading data from a source, especially when the source is large
     /// or infinite or during development.
+    /// <para>
+    /// Configure it through <see cref="LoaderOptions.MaximumItemCount"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
+    /// </para>
     /// </remarks>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1.</exception>
     /// <example>
@@ -202,11 +207,6 @@ public abstract class LoaderBase<TDestination, TProgress>
     ///     }
     /// </code>
     /// </example>
-    /// <remarks>
-    /// Configure it through <see cref="LoaderOptions.MaximumItemCount"/> on the options record passed to the
-    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
-    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
-    /// </remarks>
     public int MaximumItemCount
     {
         get => _maximumItemCount;
@@ -226,6 +226,11 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// </summary>
     /// <remarks>
     /// This is useful for skipping the beginning of the list during testing or because it may already be loaded.
+    /// <para>
+    /// Configure it through <see cref="LoaderOptions.SkipItemCount"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
+    /// </para>
     /// </remarks>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     /// <example>
@@ -236,11 +241,6 @@ public abstract class LoaderBase<TDestination, TProgress>
     ///     }
     /// </code>
     /// </example>
-    /// <remarks>
-    /// Configure it through <see cref="LoaderOptions.SkipItemCount"/> on the options record passed to the
-    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
-    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
-    /// </remarks>
     public int SkipItemCount
     {
         get => _skipItemCount;
@@ -255,6 +255,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
     /// <inheritdoc/>
+    /// <exception cref="ObjectDisposedException">This instance has been disposed.</exception>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items)
     {
         ThrowIfDisposed();
@@ -265,6 +266,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
     /// <inheritdoc/>
+    /// <exception cref="ObjectDisposedException">This instance has been disposed.</exception>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, CancellationToken token)
     {
         ThrowIfDisposed();
@@ -275,6 +277,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
     /// <inheritdoc/>
+    /// <exception cref="ObjectDisposedException">This instance has been disposed.</exception>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress)
     {
         ThrowIfDisposed();
@@ -287,6 +290,7 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
     /// <inheritdoc/>
+    /// <exception cref="ObjectDisposedException">This instance has been disposed.</exception>
     public virtual Task LoadAsync(IAsyncEnumerable<TDestination> items, IProgress<TProgress> progress, CancellationToken token)
     {
         ThrowIfDisposed();
@@ -381,7 +385,6 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <remarks>
     /// Items may be an empty sequence if no data is available or if the loading fails.
     /// </remarks>
-    /// <exception cref="ArgumentNullException">Argument items is null</exception>
     protected abstract Task LoadWorkerAsync(IAsyncEnumerable<TDestination> items, CancellationToken token);
 
 
@@ -479,8 +482,8 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// Increments the CurrentItemCount in a thread safe manner.
     /// </summary>
     /// <remarks>
-    /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
-    /// thread safe. This method ensures that CurrentItemCount is incremented safely.
+    /// <see cref="CurrentItemCount"/> is read-only to derived classes; this method is the only way to
+    /// advance it, and it does so with an interlocked increment so concurrent callers never lose a count.
     /// </remarks>
     [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
         Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
@@ -518,8 +521,8 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// Increments the CurrentSkippedItemCount in a thread safe manner.
     /// </summary>
     /// <remarks>
-    /// Simply calling CurrentSkippedItemCount++ or CurrentSkippedItemCount += 1 is not
-    /// thread safe. This method ensures that CurrentSkippedItemCount is incremented safely.
+    /// <see cref="CurrentSkippedItemCount"/> is read-only to derived classes; this method is the only way to
+    /// advance it, and it does so with an interlocked increment so concurrent callers never lose a count.
     /// </remarks>
     [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
         Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
@@ -655,12 +658,12 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
     /// <summary>
-    /// Asynchronously releases the resources held by this loader. The base implementation is a
-    /// no-op (the base owns no unmanaged resources); derived classes that hold resources such as
-    /// connections or streams override <see cref="Dispose(bool)"/> to release them. Enables
-    /// <c>await using</c> on any loader.
+    /// Asynchronously releases the resources held by this loader and marks it disposed: every later
+    /// <c>LoadAsync</c> call throws <see cref="ObjectDisposedException"/>. The base owns no unmanaged
+    /// resources; derived classes that hold resources such as streams or connections override
+    /// <see cref="Dispose(bool)"/> to release them. Enables <c>await using</c> on any loader.
     /// </summary>
-    /// <returns>A completed <see cref="ValueTask"/> for the default no-op implementation.</returns>
+    /// <returns>A completed <see cref="ValueTask"/>; the base implementation disposes synchronously.</returns>
     public virtual ValueTask DisposeAsync()
     {
         Dispose(disposing: true);
@@ -671,8 +674,9 @@ public abstract class LoaderBase<TDestination, TProgress>
 
 
     /// <summary>
-    /// Releases the resources held by this loader. The base implementation is a no-op; derived
-    /// classes that hold resources override <see cref="Dispose(bool)"/>.
+    /// Releases the resources held by this loader and marks it disposed: every later
+    /// <c>LoadAsync</c> call throws <see cref="ObjectDisposedException"/>. Derived classes that hold
+    /// resources override <see cref="Dispose(bool)"/>.
     /// </summary>
     public void Dispose()
     {

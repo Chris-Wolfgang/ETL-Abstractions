@@ -13,8 +13,9 @@ public enum ItemErrorAction
     Abort,
 
     /// <summary>
-    /// Discard the failed item and continue with the next one. The stage's skipped-item count is
-    /// incremented so the skip is never silent.
+    /// Discard the failed item and continue with the next one. The stage's error-item count
+    /// (<c>CurrentErrorItemCount</c>) is incremented so the skip is never silent; the skipped-item
+    /// count (<c>CurrentSkippedItemCount</c>, used for <c>SkipItemCount</c>) is not.
     /// </summary>
     Skip,
 }

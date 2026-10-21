@@ -25,7 +25,11 @@ namespace Wolfgang.Etl.Abstractions;
 /// <code>
 /// try
 /// {
-///     await Pipeline.Extract(e).Transform(t).Load(l).RunAsync(token);
+///     await Pipeline
+///         .Extract(e)
+///         .Transform(t)
+///         .Load(l)
+///         .RunAsync(token);
 /// }
 /// catch (OperationCanceledException)
 /// {
