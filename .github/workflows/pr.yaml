@@ -1,5 +1,5 @@
 # Sequential PR validation workflow with coverage gating
-# Stage 1: Linux tests with 90% coverage requirement
+# Stage 1: Linux tests with 95% production line-coverage requirement (CODECOV_MINIMUM)
 # Stage 2: Windows .NET (5.0-10.0) and .NET Framework (4.6.2-4.8.1) tests (only if Linux passes)
 # Stage 3: macOS tests (only if Stage 2 passes)
 #
@@ -776,7 +776,7 @@ jobs:
             -targetdir:"CoverageReport" \
             -reporttypes:"Html;TextSummary;MarkdownSummaryGithub;CsvSummary"
 
-      - name: Enforce 90% coverage threshold
+      - name: Enforce the CODECOV_MINIMUM (95%) coverage threshold
         if: steps.check-coverage.outputs.has-coverage == 'true'
         run: |
           if [ ! -f CoverageReport/Summary.txt ]; then
@@ -789,7 +789,7 @@ jobs:
           echo ""
           
           failed_projects=""
-          threshold=${CODECOV_MINIMUM:-90}
+          threshold=${CODECOV_MINIMUM:-95}
           test_threshold=${CODECOV_TEST_MINIMUM:-100}
           matched_count=0
 
@@ -1253,7 +1253,7 @@ jobs:
           }
           Write-Host "Every test assembly that collected coverage is present in the report."
 
-      - name: Enforce 90% coverage threshold
+      - name: Enforce the CODECOV_MINIMUM (95%) coverage threshold
         if: steps.check-coverage.outputs.has-coverage == 'true'
         shell: pwsh
         run: |
@@ -1266,7 +1266,7 @@ jobs:
           Get-Content "CoverageReport/Summary.txt"
           Write-Host ""
 
-          $threshold     = if ($env:CODECOV_MINIMUM) { [int]$env:CODECOV_MINIMUM } else { 90 }
+          $threshold     = if ($env:CODECOV_MINIMUM) { [int]$env:CODECOV_MINIMUM } else { 95 }
           $testThreshold = if ($env:CODECOV_TEST_MINIMUM) { [int]$env:CODECOV_TEST_MINIMUM } else { 100 }
           $failedProjects = @()
           $matchedCount   = 0
@@ -1662,7 +1662,7 @@ jobs:
             echo "ℹ️  No coverage files found - skipping report generation"
           fi
 
-      - name: Enforce 90% coverage threshold
+      - name: Enforce the CODECOV_MINIMUM (95%) coverage threshold
         run: |
           # If no cobertura files were produced (no tests, all test projects
           # skipped, etc.), the preceding step explicitly skipped report
@@ -1682,7 +1682,7 @@ jobs:
           cat CoverageReport/Summary.txt
           echo ""
 
-          THRESHOLD=${CODECOV_MINIMUM:-90}
+          THRESHOLD=${CODECOV_MINIMUM:-95}
           TEST_THRESHOLD=${CODECOV_TEST_MINIMUM:-100}
           FAILED=0
           MATCHED=0
@@ -1784,7 +1784,7 @@ jobs:
           echo "=========================================="
           echo "✅ ALL STAGES PASSED"
           echo "=========================================="
-          echo "Stage 1: Linux tests + 90% coverage ✅"
+          echo "Stage 1: Linux tests + 95% coverage ✅"
           echo "Stage 2: Windows .NET Core & .NET Framework tests ✅"
           echo "Stage 3: macOS tests ✅"
           echo ""
