@@ -338,11 +338,24 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     {
         ResetRunState();
 
-        // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
-        // synchronization context), so the flipped mutant is unkillable (#452).
-        await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
+        // A manual enumerator loop, not `await foreach (... .ConfigureAwait(false))` (#364): that form awaits a
+        // ConfiguredCancelableAsyncEnumerable, which Microsoft.Coyote cannot control, so the Coyote
+        // dispose-race test could not run. MoveNextAsync().ConfigureAwait(false) keeps the same
+        // no-context continuation (the #363 deadlock fix) as a ConfiguredValueTaskAwaitable Coyote controls.
+        var enumerator = WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).GetAsyncEnumerator(token);
+        try
         {
-            yield return item;
+            // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
+            // synchronization context), so the flipped mutant is unkillable (#452).
+            while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+            {
+                yield return enumerator.Current;
+            }
+        }
+        finally
+        {
+            // Stryker disable once Boolean : same equivalence as above (#452).
+            await enumerator.DisposeAsync().ConfigureAwait(false);
         }
     }
 
@@ -358,11 +371,24 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 
         try
         {
-            // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
-            // synchronization context), so the flipped mutant is unkillable (#452).
-            await foreach (var item in WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).ConfigureAwait(false))
+            // A manual enumerator loop, not `await foreach (... .ConfigureAwait(false))` (#364): that form awaits a
+            // ConfiguredCancelableAsyncEnumerable, which Microsoft.Coyote cannot control, so the Coyote
+            // dispose-race test could not run. MoveNextAsync().ConfigureAwait(false) keeps the same
+            // no-context continuation (the #363 deadlock fix) as a ConfiguredValueTaskAwaitable Coyote controls.
+            var enumerator = WrapWorkerExecution(ct => TransformWorkerAsync(items, ct), token).GetAsyncEnumerator(token);
+            try
             {
-                yield return item;
+                // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
+                // synchronization context), so the flipped mutant is unkillable (#452).
+                while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+                {
+                    yield return enumerator.Current;
+                }
+            }
+            finally
+            {
+                // Stryker disable once Boolean : same equivalence as above (#452).
+                await enumerator.DisposeAsync().ConfigureAwait(false);
             }
         }
         finally
