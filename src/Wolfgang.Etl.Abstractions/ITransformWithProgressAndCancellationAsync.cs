@@ -27,7 +27,6 @@ public interface ITransformWithProgressAndCancellationAsync<in TSource, out TDes
     ITransformWithCancellationAsync<TSource, TDestination>,
     ITransformWithProgressAsync<TSource, TDestination, TProgress>
     where TSource : notnull where TDestination : notnull where TProgress : notnull
-
 {
     /// <summary>
     /// Asynchronously transforms data of type <typeparamref name="TSource"/> to <typeparamref name="TDestination"/>.

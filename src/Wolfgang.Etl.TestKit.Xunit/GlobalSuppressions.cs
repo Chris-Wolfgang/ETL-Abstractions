@@ -9,8 +9,10 @@ using System.Diagnostics.CodeAnalysis;
 // Contract test method names intentionally use underscores to describe
 // the behaviour under test (e.g. ExtractAsync_returns_non_null_sequence).
 // This is standard xUnit naming convention and is by design.
-[assembly: SuppressMessage(
+[assembly: SuppressMessage
+(
     "Naming",
     "CA1707:Identifiers should not contain underscores",
     Justification = "Contract test method names use underscores by design (xUnit naming convention).",
-    Scope = "module")]
+    Scope = "module"
+)]

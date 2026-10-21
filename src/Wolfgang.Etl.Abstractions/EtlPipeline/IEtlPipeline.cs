@@ -41,6 +41,7 @@ public interface IEtlPipeline<T>
     IEtlPipeline<TOut> Through<TOut>(ITransformAsync<T, TOut> transformer) where TOut : notnull;
 
 
+
     /// <summary>
     /// Appends a cancellation-aware transformer stage. The pipeline's cancellation token is forwarded
     /// into the transformer.
@@ -50,6 +51,7 @@ public interface IEtlPipeline<T>
     /// <returns>A pipeline carrying <typeparamref name="TOut"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="transformer"/> is <see langword="null"/>.</exception>
     IEtlPipeline<TOut> Through<TOut>(ITransformWithCancellationAsync<T, TOut> transformer) where TOut : notnull;
+
 
 
     /// <summary>
@@ -66,6 +68,7 @@ public interface IEtlPipeline<T>
     IEtlPipeline<TOut> Through<TOut>(Func<IAsyncEnumerable<T>, IAsyncEnumerable<TOut>> stage) where TOut : notnull;
 
 
+
     /// <summary>
     /// Appends a cancellation-aware stream-to-stream transformer stage supplied as a delegate. The
     /// pipeline's cancellation token is forwarded into the delegate.
@@ -75,6 +78,7 @@ public interface IEtlPipeline<T>
     /// <returns>A pipeline carrying <typeparamref name="TOut"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="stage"/> is <see langword="null"/>.</exception>
     IEtlPipeline<TOut> Through<TOut>(Func<IAsyncEnumerable<T>, CancellationToken, IAsyncEnumerable<TOut>> stage) where TOut : notnull;
+
 
 
     /// <summary>
@@ -88,6 +92,7 @@ public interface IEtlPipeline<T>
     /// <returns>A runnable <see cref="IEtlPipelineSink"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="loader"/> is <see langword="null"/>.</exception>
     IEtlPipelineSink To<TProgress>(LoaderBase<T, TProgress> loader) where TProgress : notnull;
+
 
 
     /// <summary>

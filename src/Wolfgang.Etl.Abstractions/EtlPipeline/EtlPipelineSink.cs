@@ -20,6 +20,7 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
     private readonly LoaderBase<T, TProgress> _loader;
 
 
+
     internal EtlPipelineSink
     (
         Func<EtlRunState, CancellationToken, IAsyncEnumerable<T>> factory,
@@ -29,6 +30,7 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
         _factory = factory;
         _loader = loader;
     }
+
 
 
     /// <inheritdoc/>
@@ -46,6 +48,7 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
 
         progress?.Report(state.Snapshot());
     }
+
 
 
     private static async IAsyncEnumerable<T> CountLoaded

@@ -97,7 +97,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public TestExtractor(IEnumerable<T> items, ExtractorOptions? options) : base(options)
-{
+    {
         _enumerable = items ?? throw new ArgumentNullException(nameof(items));
     }
 
@@ -135,7 +135,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public TestExtractor(IEnumerator<T> enumerator, ExtractorOptions? options) : base(options)
-{
+    {
         _enumerator = enumerator ?? throw new ArgumentNullException(nameof(enumerator));
     }
 
@@ -172,7 +172,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected TestExtractor(IEnumerable<T> items, IProgressTimer timer, ExtractorOptions? options) : base(options)
-{
+    {
         _enumerable    = items ?? throw new ArgumentNullException(nameof(items));
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
@@ -216,7 +216,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected TestExtractor(IEnumerator<T> enumerator, IProgressTimer timer, ExtractorOptions? options) : base(options)
-{
+    {
         _enumerator    = enumerator ?? throw new ArgumentNullException(nameof(enumerator));
         _progressTimer = timer      ?? throw new ArgumentNullException(nameof(timer));
     }
@@ -255,7 +255,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public TestExtractor(Func<T> factory, ExtractorOptions? options) : base(options)
-{
+    {
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -298,7 +298,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <param name="count">The number of items to produce. Must be non-negative.</param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public TestExtractor(Func<T> factory, int count, ExtractorOptions? options) : base(options)
-{
+    {
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -349,7 +349,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public TestExtractor(Func<int, T> factory, ExtractorOptions? options) : base(options)
-{
+    {
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -395,7 +395,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// <param name="count">The number of items to produce. Must be non-negative.</param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public TestExtractor(Func<int, T> factory, int count, ExtractorOptions? options) : base(options)
-{
+    {
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -452,7 +452,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected TestExtractor(Func<T> factory, IProgressTimer timer, ExtractorOptions? options) : base(options)
-{
+    {
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -505,7 +505,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected TestExtractor(Func<T> factory, int count, IProgressTimer timer, ExtractorOptions? options) : base(options)
-{
+    {
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -566,7 +566,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected TestExtractor(Func<int, T> factory, IProgressTimer timer, ExtractorOptions? options) : base(options)
-{
+    {
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
@@ -622,7 +622,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected TestExtractor(Func<int, T> factory, int count, IProgressTimer timer, ExtractorOptions? options) : base(options)
-{
+    {
         if (factory is null)
         {
             throw new ArgumentNullException(nameof(factory));
