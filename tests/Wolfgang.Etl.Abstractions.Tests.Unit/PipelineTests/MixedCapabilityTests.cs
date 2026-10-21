@@ -129,7 +129,7 @@ public class MixedCapabilityTests
     // ExtractStageWithProgress delegation — Transform/Load without WithProgress called first
     //
     // These verify the intermediate-overload paths on ExtractStageWithProgress that delegate
-    // to a fresh ExtractStage using the no-progress source.
+    // to a fresh Stage using the no-progress source.
     // ---------------------------------------------------------------
 
     [Fact]

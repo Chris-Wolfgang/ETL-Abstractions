@@ -6,12 +6,13 @@ using System.Threading;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Internal <see cref="IExtractStage{TSource}"/> implementation whose source stream is a
-/// pre-captured delegate. Used when the extractor does not report progress, or after
-/// <see cref="IExtractStageWithProgress{TSource, TProgress}.WithProgress"/> has captured a
-/// progress sink to forward to the extractor's <c>ExtractAsync</c> call.
+/// Internal <see cref="IExtractStage{TSource}"/> and <see cref="ITransformStage{TSource}"/>
+/// implementation whose source stream is a pre-captured delegate. The two stage interfaces have the
+/// same members, so one class serves both (#738): it is the stage after a no-progress extractor or
+/// transformer, and the stage after <c>WithProgress</c> has captured a progress sink to forward to
+/// the extractor's <c>ExtractAsync</c> or the transformer's <c>TransformAsync</c> call.
 /// </summary>
-internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
+internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<TSource>
     where TSource : notnull
 {
     private readonly Func<CancellationToken, IAsyncEnumerable<TSource>> _source;
@@ -19,7 +20,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
 
 
 
-    internal ExtractStage(Func<CancellationToken, IAsyncEnumerable<TSource>> source, IReadOnlyList<object> stages)
+    internal Stage(Func<CancellationToken, IAsyncEnumerable<TSource>> source, IReadOnlyList<object> stages)
     {
         _source = source;
         _stages = stages;
@@ -40,7 +41,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
         }
 
         var source = _source;
-        return new TransformStage<TDestination>
+        return new Stage<TDestination>
         (
             token => transformer.TransformAsync(source(token)),
             StageList.Append(_stages, transformer)
@@ -62,7 +63,7 @@ internal sealed class ExtractStage<TSource> : IExtractStage<TSource>
         }
 
         var source = _source;
-        return new TransformStage<TDestination>
+        return new Stage<TDestination>
         (
             token => transformer.TransformAsync(source(token), token),
             StageList.Append(_stages, transformer)
