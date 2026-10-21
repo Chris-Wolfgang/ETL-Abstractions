@@ -165,6 +165,49 @@ public class PollyResilienceTests
 
 
 
+    [Fact]
+    public async Task ForStream_with_progress_reports_the_final_item_count()
+    {
+        var progress = new CapturingProgress();
+        var sut = new FlakyExtractor(new[] { 1, 2 }, failingAttempts: 0)
+        {
+            WorkerResilience = PollyResilience.ForStream<int>(ResiliencePipeline.Empty),
+        };
+
+        await DrainAsync(sut.ExtractAsync(progress));
+
+        Assert.Equal(2, progress.Reports[progress.Reports.Count - 1].CurrentItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task ForLoader_with_progress_reports_the_final_item_count()
+    {
+        var progress = new CapturingProgress();
+        var sut = new FlakyLoader(failingAttempts: 0)
+        {
+            WorkerResilience = PollyResilience.ForLoader(ResiliencePipeline.Empty),
+        };
+
+        await sut.LoadAsync(AsAsync(new[] { 7, 8 }), progress);
+
+        Assert.Equal(2, progress.Reports[progress.Reports.Count - 1].CurrentItemCount);
+    }
+
+
+
+    // Records every report synchronously (Progress<T> would post to the thread pool).
+    private sealed class CapturingProgress : IProgress<Report>
+    {
+        public List<Report> Reports { get; } = new();
+
+
+        public void Report(Report value) => Reports.Add(value);
+    }
+
+
+
     // Yields its items; the first failingAttempts attempts throw IOException instead of the last item.
     private sealed class FlakyExtractor : ExtractorBase<int, Report>
     {
@@ -228,6 +271,7 @@ public class PollyResilienceTests
             await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
             {
                 Loaded.Add(item);
+                IncrementCurrentItemCount();
                 if (Attempts <= _failingAttempts)
                 {
                     throw new IOException("transient");
