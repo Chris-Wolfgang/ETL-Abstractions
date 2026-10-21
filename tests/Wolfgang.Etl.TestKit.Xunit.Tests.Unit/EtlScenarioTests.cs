@@ -7,7 +7,7 @@ namespace Wolfgang.Etl.TestKit.Xunit.Tests.Unit;
 public class EtlScenarioTests
 {
     [Fact]
-    public async Task Clean_run_loads_every_item_with_no_errors_Async()
+    public async Task Clean_run_loads_every_item_with_no_errors()
     {
         await EtlScenario
             .From(1, 2, 3)
@@ -18,7 +18,7 @@ public class EtlScenarioTests
 
 
     [Fact]
-    public async Task Skipped_extractor_fault_drops_the_item_and_counts_one_error_Async()
+    public async Task Skipped_extractor_fault_drops_the_item_and_counts_one_error()
     {
         await EtlScenario
             .From(1, 2, 3, 4)
@@ -30,7 +30,7 @@ public class EtlScenarioTests
 
 
     [Fact]
-    public async Task Skipped_loader_fault_drops_the_item_and_counts_one_error_Async()
+    public async Task Skipped_loader_fault_drops_the_item_and_counts_one_error()
     {
         await EtlScenario
             .From(1, 2, 3, 4)
@@ -42,7 +42,7 @@ public class EtlScenarioTests
 
 
     [Fact]
-    public async Task Transform_stage_is_applied_between_source_and_sink_Async()
+    public async Task Transform_stage_is_applied_between_source_and_sink()
     {
         await EtlScenario
             .From(1, 2, 3)
@@ -54,7 +54,7 @@ public class EtlScenarioTests
 
 
     [Fact]
-    public async Task Non_skipped_fault_propagates_as_the_expected_exception_Async()
+    public async Task Non_skipped_fault_propagates_as_the_expected_exception()
     {
         await EtlScenario
             .From(1, 2, 3)

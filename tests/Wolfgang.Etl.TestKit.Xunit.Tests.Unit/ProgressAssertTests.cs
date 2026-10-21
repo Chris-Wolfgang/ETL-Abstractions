@@ -347,7 +347,7 @@ public class ProgressAssertTests
     /// item count.
     /// </summary>
     [Fact]
-    public async Task ProgressCapture_with_TestExtractor_captures_monotonic_progress_Async()
+    public async Task ProgressCapture_with_TestExtractor_captures_monotonic_progress()
     {
         var items = Enumerable.Range(1, 50).ToList();
         var extractor = new TestExtractor<int>(items);
