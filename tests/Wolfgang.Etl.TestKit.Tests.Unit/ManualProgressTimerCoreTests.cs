@@ -21,7 +21,7 @@ public class ManualProgressTimerCoreTests
 
 
     [Fact]
-    public async Task Tick_after_the_run_starts_invokes_the_progress_callback_Async()
+    public async Task Tick_after_the_run_starts_invokes_the_progress_callback()
     {
         var timer = new ManualProgressTimerCore();
         var sut = new TestExtractor<int>(new[] { 1, 2, 3 });

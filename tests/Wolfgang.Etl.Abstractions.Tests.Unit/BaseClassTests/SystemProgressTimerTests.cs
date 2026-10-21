@@ -28,48 +28,24 @@ public class SystemProgressTimerTests
     /// from firing further callbacks after it has been called.
     /// </summary>
     [Fact]
-    public async Task StopTimer_prevents_further_callbacks()
+    public void StopTimer_prevents_further_callbacks()
     {
-        IProgressTimer? capturedTimer = null;
         var callbackCount = 0;
+        ArmableTimerCore? core = null;
+        using var timer = new SystemProgressTimer(_ => callbackCount++, state: null, onTick => core = new ArmableTimerCore(onTick));
 
-        var sut = new CapturingExtractor(
-            onTimerCreated: t => capturedTimer = t,
-            intervalMs: 50);
+        timer.Start(50);
+        core!.FireIfArmed();
+        timer.StopTimer();
+        core.FireIfArmed();
+        core.FireIfArmed();
 
-        var progress = new SynchronousProgress<EtlProgress>(_ => Interlocked.Increment(ref callbackCount));
-
-        // Start extraction on a background task so timer fires
-        var task = sut.ExtractAsync(progress).ToListAsync().AsTask();
-
-        // Wait for at least one callback to confirm timer is running
-        await WaitUntil(() => callbackCount > 0, timeoutMs: 2000);
-
-        capturedTimer!.StopTimer();
-
-        // A tick already dispatched when StopTimer was called can still land afterwards —
-        // StopTimer cannot un-dispatch a callback the thread pool already queued. Wait until
-        // the count has been stable for a full window, which normally absorbs that last tick
-        // regardless of runner speed. If StopTimer were broken the count would keep growing,
-        // this would hit its deadline, and the assertion below catches it.
-        var countAfterStop = await WaitUntilStable(() => callbackCount);
-
-        // Wait several more intervals — a still-running 50 ms timer would fire ~6 more.
-        await Task.Delay(300);
-        var countAfterWait = callbackCount;
-
-        await task;
-
-        Assert.True(countAfterStop > 0, "Timer should have fired at least once before StopTimer");
-
-        // Allow the single in-flight callback described above: on a starved runner it can land
-        // after the stability window closed. A timer that never actually stopped would add
-        // roughly six callbacks over the 300 ms wait, so this still fails loudly for a real bug.
-        var late = countAfterWait - countAfterStop;
-        Assert.True(
-            late <= 1,
-            $"StopTimer should stop further callbacks; {late} landed after it (at most one in-flight tick is allowed).");
+        // Only the tick before StopTimer reached the callback: StopTimer disarmed the core, so the
+        // later period boundaries never fire (#736: deterministic, no wall-clock waits).
+        Assert.Equal(1, callbackCount);
     }
+
+
 
     /// <summary>
     /// Verifies that <see cref="SystemProgressTimer.Start"/> is a no-op
@@ -156,54 +132,24 @@ public class SystemProgressTimerTests
     /// does not invoke the callback or raise <see cref="IProgressTimer.Elapsed"/>.
     /// </summary>
     [Fact]
-    public async Task Callback_does_not_fire_after_dispose()
+    public void Callback_does_not_fire_after_dispose()
     {
-        IProgressTimer? capturedTimer = null;
         var callbackCount = 0;
+        var elapsedCount = 0;
+        ArmableTimerCore? core = null;
+        var timer = new SystemProgressTimer(_ => callbackCount++, state: null, onTick => core = new ArmableTimerCore(onTick));
+        timer.Elapsed += () => elapsedCount++;
 
-        var sut = new CapturingExtractor(
-            onTimerCreated: t => capturedTimer = t,
-            intervalMs: 20);
+        timer.Start(20);
+        core!.FireIfArmed();
+        timer.Dispose();
 
-        var progress = new SynchronousProgress<EtlProgress>(_ => callbackCount++);
+        // A tick the thread pool had already queued when Dispose ran still reaches OnTick; the
+        // disposed guard must swallow it.
+        core.FireRegardless();
 
-        var task = sut.ExtractAsync(progress).ToListAsync().AsTask();
-
-        // Wait for at least one callback
-        await WaitUntil(() => callbackCount > 0, timeoutMs: 2000);
-
-        // Dispose the timer — any in-flight tick should be guarded
-        capturedTimer!.Dispose();
-        var countAfterDispose = callbackCount;
-
-        await Task.Delay(100);
-
-        await task;
-
-        // The finally-block progress.Report still fires (not via timer) — that's fine.
-        // The timer callback path specifically should not have incremented after dispose.
-        Assert.True(callbackCount >= countAfterDispose,
-            "Progress reports from the finally block are expected after dispose");
-    }
-
-
-
-    /// <summary>
-    /// Directly exercises <see cref="WaitUntilStable"/>'s reset branch: while the observed value
-    /// keeps changing, the stability window must restart rather than return early. The value
-    /// climbs for the first few reads, then settles, so the method returns the settled value.
-    /// </summary>
-    [Fact]
-    public async Task WaitUntilStable_restarts_the_window_while_the_value_keeps_changing()
-    {
-        var reads = 0;
-
-        // Returns 1, 2, 3, then a constant 3 — the changing reads drive the window reset.
-        int Read() => Math.Min(++reads, 3);
-
-        var result = await WaitUntilStable(Read, stableForMs: 100, pollMs: 5);
-
-        Assert.Equal(3, result);
+        Assert.Equal(1, callbackCount);
+        Assert.Equal(1, elapsedCount);
     }
 
 
@@ -218,41 +164,6 @@ public class SystemProgressTimerTests
         while (!condition() && DateTime.UtcNow < deadline)
             await Task.Delay(10);
     }
-
-
-    /// <summary>
-    /// Polls <paramref name="read"/> until its value has not changed for
-    /// <paramref name="stableForMs"/>, then returns that value. Adapts to runner
-    /// speed: a late in-flight tick resets the stability window rather than racing a
-    /// fixed delay. Bounded by <paramref name="maxWaitMs"/> so a value that never
-    /// settles (e.g. a timer that failed to stop) returns instead of hanging, letting
-    /// the caller's assertion report the failure.
-    /// </summary>
-    private static async Task<int> WaitUntilStable(
-        Func<int> read,
-        int stableForMs = 400,
-        int pollMs = 15,
-        int maxWaitMs = 5000)
-    {
-        var overallDeadline = DateTime.UtcNow.AddMilliseconds(maxWaitMs);
-        var last = read();
-        var stableSince = DateTime.UtcNow;
-
-        while (DateTime.UtcNow - stableSince < TimeSpan.FromMilliseconds(stableForMs)
-               && DateTime.UtcNow < overallDeadline)
-        {
-            await Task.Delay(pollMs);
-            var current = read();
-            if (current != last)
-            {
-                last = current;
-                stableSince = DateTime.UtcNow;
-            }
-        }
-
-        return last;
-    }
-
 
 
     // ------------------------------------------------------------------
@@ -297,5 +208,34 @@ public class SystemProgressTimerTests
                 yield return i;
             }
         }
+    }
+
+
+
+    /// <summary>
+    /// A deterministic <see cref="ITimerCore"/>: it fires only when the test says so, and
+    /// <see cref="FireIfArmed"/> models a real timer by firing only while armed by <c>Change</c>.
+    /// </summary>
+    private sealed class ArmableTimerCore : ITimerCore
+    {
+        private readonly TimerCallback _onTick;
+        private bool _armed;
+
+        public ArmableTimerCore(TimerCallback onTick) => _onTick = onTick;
+
+        public void Change(int dueTime, int period) => _armed = dueTime != Timeout.Infinite;
+
+        public void Dispose() => _armed = false;
+
+        public void FireIfArmed()
+        {
+            if (_armed)
+            {
+                _onTick(null);
+            }
+        }
+
+        // A callback already dispatched before the timer was stopped or disposed.
+        public void FireRegardless() => _onTick(null);
     }
 }
