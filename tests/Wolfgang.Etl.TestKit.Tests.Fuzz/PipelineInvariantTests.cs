@@ -102,10 +102,10 @@ public class PipelineInvariantTests
         Assert.Equal(expectedLoaded, loader.GetCollectedItems());
 
         // 2. Counter reconciliation
-        Assert.Equal(items.Count, extractor.CurrentItemCount);
+        Assert.Equal(extracted.Count, extractor.CurrentItemCount);
         Assert.Equal(extractFaultIndices.Count, extractor.CurrentErrorItemCount);
         Assert.Equal(0, extractor.CurrentSkippedItemCount);
-        Assert.Equal(extracted.Count, loader.CurrentItemCount);
+        Assert.Equal(expectedLoaded.Count, loader.CurrentItemCount);
         Assert.Equal(loadFaultIndices.Count, loader.CurrentErrorItemCount);
         Assert.Equal(0, loader.CurrentSkippedItemCount);
 

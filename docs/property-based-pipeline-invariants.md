@@ -20,8 +20,8 @@ in the loader, with both stages set to skip their faults (`SkipErrors()`):
 
 1. **Loaded set.** The loader receives the input minus the extractor's fault positions, then keeps
    that stream minus its own fault positions. Order is preserved.
-2. **Counter reconciliation.** Each stage's `CurrentItemCount` equals the number of items it saw
-   (a fault fires after the item is counted, so faulted items are included); its
+2. **Counter reconciliation.** Each stage's `CurrentItemCount` equals the number of items it passed
+   on (a fault skipped by the error policy is counted as an error, not as an item); its
    `CurrentErrorItemCount` equals its number of faults; its `CurrentSkippedItemCount` stays 0,
    because an error skip is not a `SkipItemCount` skip.
 3. **Every fault reported once.** Each stage's `CapturedErrors` holds exactly one entry per injected
