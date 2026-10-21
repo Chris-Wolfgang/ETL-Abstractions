@@ -61,7 +61,7 @@ public class SystemProgressTimerTests
                       .ToListAsync()
                       .AsTask();
 
-        await WaitUntil(() => capturedTimer != null, timeoutMs: 2000);
+        Assert.True(SpinWait.SpinUntil(() => capturedTimer != null, millisecondsTimeout: 2000));
 
         capturedTimer!.Dispose();
         var exception = Record.Exception(() => capturedTimer.Start(100));
@@ -111,7 +111,7 @@ public class SystemProgressTimerTests
                       .AsTask();
 
         // Wait for the timer to be created
-        await WaitUntil(() => capturedTimer != null, timeoutMs: 2000);
+        Assert.True(SpinWait.SpinUntil(() => capturedTimer != null, millisecondsTimeout: 2000));
 
         capturedTimer!.Dispose();
         var exception = Record.Exception(() => capturedTimer.StopTimer());
@@ -152,18 +152,6 @@ public class SystemProgressTimerTests
         Assert.Equal(1, elapsedCount);
     }
 
-
-
-    // ------------------------------------------------------------------
-    // Helpers
-    // ------------------------------------------------------------------
-
-    private static async Task WaitUntil(Func<bool> condition, int timeoutMs)
-    {
-        var deadline = DateTime.UtcNow.AddMilliseconds(timeoutMs);
-        while (!condition() && DateTime.UtcNow < deadline)
-            await Task.Delay(10);
-    }
 
 
     // ------------------------------------------------------------------
