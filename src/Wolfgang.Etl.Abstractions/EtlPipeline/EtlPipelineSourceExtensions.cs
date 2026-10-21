@@ -62,4 +62,47 @@ public static class EtlPipelineSourceExtensions
             return extractor.ExtractAsync(token);
         });
     }
+
+
+
+    /// <summary>
+    /// Begins a pipeline from an <see cref="ExtractorBase{TSource, TProgress}"/> and reports the
+    /// extractor's own typed progress to <paramref name="progress"/> while the pipeline runs — the
+    /// <see cref="EtlPipeline"/> counterpart of <c>Pipeline.Extract(extractor).WithProgress(progress)</c>.
+    /// The pipeline's cancellation token is forwarded to the extractor.
+    /// </summary>
+    /// <typeparam name="T">The type of item produced by the extractor.</typeparam>
+    /// <typeparam name="TProgress">The extractor's progress-report type.</typeparam>
+    /// <param name="pipeline">The builder returned by <see cref="EtlPipeline.Create"/>.</param>
+    /// <param name="extractor">The extractor that seeds the pipeline.</param>
+    /// <param name="progress">Receives the extractor's <typeparamref name="TProgress"/> reports.</param>
+    /// <returns>An <see cref="IEtlPipeline{T}"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="extractor"/> or <paramref name="progress"/> is <see langword="null"/>.
+    /// </exception>
+    public static IEtlPipeline<T> From<T, TProgress>
+    (
+        this EtlPipeline pipeline,
+        ExtractorBase<T, TProgress> extractor,
+        IProgress<TProgress> progress
+    )
+        where T : notnull
+        where TProgress : notnull
+    {
+        if (extractor is null)
+        {
+            throw new ArgumentNullException(nameof(extractor));
+        }
+
+        if (progress is null)
+        {
+            throw new ArgumentNullException(nameof(progress));
+        }
+
+        return EtlPipelineImpl<T>.FromStream((state, token) =>
+        {
+            state.AddErrorCountReader(() => extractor.CurrentErrorItemCount);
+            return extractor.ExtractAsync(progress, token);
+        });
+    }
 }
