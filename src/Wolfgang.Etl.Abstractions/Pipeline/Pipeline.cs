@@ -51,7 +51,7 @@ public static class Pipeline
             throw new ArgumentNullException(nameof(extractor));
         }
 
-        return new ExtractStage<TSource>(_ => extractor.ExtractAsync(), [extractor]);
+        return new Stage<TSource>(_ => extractor.ExtractAsync(), [extractor]);
     }
 
 
@@ -74,7 +74,7 @@ public static class Pipeline
             throw new ArgumentNullException(nameof(extractor));
         }
 
-        return new ExtractStage<TSource>(token => extractor.ExtractAsync(token), [extractor]);
+        return new Stage<TSource>(token => extractor.ExtractAsync(token), [extractor]);
     }
 
 
