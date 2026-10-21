@@ -32,12 +32,43 @@ seam, idempotency, and pipeline composition.
 public class MyExtractorContractTests
     : ExtractorBaseContractTests<MyExtractor, MyRecord, Report>
 {
-    protected override MyExtractor CreateSut(int itemCount) =>
-        new MyExtractor(TestData.Take(itemCount));
+    // Pass the three configuration values straight through to the SUT's options without validating
+    // them: the guard tests pass out-of-range values on purpose and expect construction to throw.
+    protected override MyExtractor CreateSut
+    (
+        int itemCount,
+        int maximumItemCount,
+        int skipItemCount,
+        int reportingInterval
+    ) =>
+        new MyExtractor
+        (
+            TestData.Take(itemCount),
+            new ExtractorOptions
+            {
+                MaximumItemCount = maximumItemCount,
+                SkipItemCount = skipItemCount,
+                ReportingInterval = reportingInterval,
+            }
+        );
 
     protected override IReadOnlyList<MyRecord> CreateExpectedItems() =>
         TestData;
 }
+```
+
+`CreateSut(int itemCount)` (one argument) is a non-virtual convenience that calls the four-argument
+overload with the defaults; override the four-argument one.
+
+The package also ships the xUnit-side helpers: `SynchronousProgress<T>` and `ProgressCapture<T>` (progress
+that reports on the calling thread), `ProgressAssert`, and `EtlScenario` for one-expression end-to-end
+scenarios:
+
+```csharp
+await EtlScenario
+    .From(1, 2, 3, 4)
+    .WithExtractorFault(index: 2, new FormatException("bad row"))
+    .RunAndAssertAsync(expectedLoaded: new[] { 1, 2, 4 }, expectedErrors: 1);
 ```
 
 Progress-timer behaviour is driven deterministically via `ManualProgressTimerCore` +
