@@ -33,6 +33,7 @@ public static class EtlPipelineSourceExtensions
     }
 
 
+
     /// <summary>
     /// Begins a pipeline from an <see cref="ExtractorBase{TSource, TProgress}"/>. The pipeline's
     /// cancellation token is forwarded to the extractor.

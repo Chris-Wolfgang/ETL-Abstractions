@@ -19,10 +19,12 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
     private readonly Func<EtlRunState, CancellationToken, IAsyncEnumerable<T>> _factory;
 
 
+
     private EtlPipelineImpl(Func<EtlRunState, CancellationToken, IAsyncEnumerable<T>> factory)
     {
         _factory = factory;
     }
+
 
 
     /// <summary>
@@ -35,6 +37,7 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
     {
         return new EtlPipelineImpl<T>((state, token) => CountExtracted(rawSource(state, token), state, token));
     }
+
 
 
     /// <inheritdoc/>
@@ -54,6 +57,7 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
     }
 
 
+
     /// <inheritdoc/>
     public IEtlPipeline<TOut> Through<TOut>(ITransformWithCancellationAsync<T, TOut> transformer)
         where TOut : notnull
@@ -71,6 +75,7 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
     }
 
 
+
     /// <inheritdoc/>
     public IEtlPipeline<TOut> Through<TOut>(Func<IAsyncEnumerable<T>, IAsyncEnumerable<TOut>> stage)
         where TOut : notnull
@@ -82,6 +87,7 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
 
         return new EtlPipelineImpl<TOut>((state, token) => stage(_factory(state, token)));
     }
+
 
 
     /// <inheritdoc/>
@@ -97,6 +103,7 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
     }
 
 
+
     /// <inheritdoc/>
     public IEtlPipelineSink To<TProgress>(LoaderBase<T, TProgress> loader)
         where TProgress : notnull
@@ -110,11 +117,13 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
     }
 
 
+
     /// <inheritdoc/>
     public IAsyncEnumerable<T> AsAsyncEnumerable(CancellationToken token = default)
     {
         return _factory(new EtlRunState(), token);
     }
+
 
 
     // Registers a transformer stage's error-item count with the run so
@@ -127,6 +136,7 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
             state.AddErrorCountReader(() => reporter.CurrentErrorItemCount);
         }
     }
+
 
 
     // The head of every pipeline: pulls from the raw source, honours cancellation, and counts each

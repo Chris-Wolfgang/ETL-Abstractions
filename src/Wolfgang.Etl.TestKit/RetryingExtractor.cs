@@ -82,7 +82,7 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
     /// <param name="maxAttempts">The maximum number of worker invocations (initial try plus retries).</param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public RetryingExtractor(IEnumerable<T> items, int failFirstAttempts, int maxAttempts, ExtractorOptions? options) : base(options)
-{
+    {
         _items = items ?? throw new ArgumentNullException(nameof(items));
 
         if (failFirstAttempts < 0)

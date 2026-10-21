@@ -26,7 +26,6 @@ namespace Wolfgang.Etl.Abstractions;
 /// </remarks>
 public interface IExtractAsync<out TSource>
     where TSource : notnull
-
 {
     /// <summary>
     /// Asynchronously extracts data of type <typeparamref name="TSource"/> from a source.
