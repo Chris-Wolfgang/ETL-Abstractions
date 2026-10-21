@@ -28,6 +28,12 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  # A new push to the same PR supersedes the run still in flight, so cancel it (#739). Scheduled,
+  # push and manual runs are never cancelled: each one is the run of record for its commit or week.
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   aot-smoke:
     name: PublishAot linux-x64 + run
