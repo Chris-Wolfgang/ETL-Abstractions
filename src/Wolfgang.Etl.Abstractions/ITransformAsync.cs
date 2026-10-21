@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Defines an asynchronous transformer interface for transforming data of type T to TResult.
+/// Defines an asynchronous transformer interface for transforming data of type <typeparamref name="TSource"/> to <typeparamref name="TDestination"/>.
 /// A class implementing this interface is intended to be the second step in an
 /// ETL (Extract, Transform, Load) process.
 /// </summary>
@@ -26,7 +26,7 @@ public interface ITransformAsync<in TSource, out TDestination>
 
 {
     /// <summary>
-    /// Asynchronously transforms data of type TSource to TDestination.
+    /// Asynchronously transforms data of type <typeparamref name="TSource"/> to <typeparamref name="TDestination"/>.
     /// </summary>
     /// <param name="items">An asynchronous sequence of TSource items to be transformed.</param>
     /// <returns>

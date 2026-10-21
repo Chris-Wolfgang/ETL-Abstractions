@@ -9,7 +9,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// </summary>
 /// <remarks>
 /// <para>
-/// This class can be used as a base class for other progress reports and expanded
+/// This record can be used as a base record for other progress reports and expanded
 /// with additional information specific to a particular extractor, transformer, or loader.
 /// </para>
 /// <para>
