@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net462;net472;net48;net481;netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
+    <!-- Opt-in resilience package (#332): the only package in the repo that depends on Polly.Core, so
+         Wolfgang.Etl.Abstractions stays free of third-party runtime dependencies. Built and released
+         from this repo in lockstep with the others, like Wolfgang.Etl.ErrorPolicies. -->
+    <!-- ABI / binary-compatibility gate: off for the FIRST release (no published baseline yet). Turn it
+         on with PackageValidationBaselineVersion once the first version is on NuGet. -->
+    <EnablePackageValidation>false</EnablePackageValidation>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>$(AssemblyName)</Title>
+    <Description>Ready-made Polly (Polly.Core v8) resilience for Wolfgang.Etl extractors, transformers and loaders, assignable to their WorkerResilience property: retry, timeout, circuit breaker and rate limiting around the whole worker. Built on Wolfgang.Etl.Abstractions.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>ETL-Abstractions.png</PackageIcon>
+    <PackageTags>ETL;Extract-Transform-Load;Polly;resilience;retry</PackageTags>
+    <!-- PublicApiAnalyzers: an untracked public-API addition (RS0016), removal (RS0017) or duplicate
+         entry (RS0025) fails the build, as in the other packages. -->
+    <WarningsAsErrors>$(WarningsAsErrors);RS0016;RS0017;RS0025</WarningsAsErrors>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Wolfgang.Etl.Polly.Tests.Unit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\ETL-Abstractions.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
+    <PackageReference Include="Polly.Core" Version="8.8.0" />
+  </ItemGroup>
+
+  <!--
+    Microsoft.Bcl.AsyncInterfaces: the runtime assembly is built into net8+, so pre-net8 TFMs get a full
+    reference. Same split as Wolfgang.Etl.Abstractions.
+  -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.11" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.11" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+  <!-- Analyzer PackageReferences are centralized in Directory.Build.props -->
+
+
+</Project>

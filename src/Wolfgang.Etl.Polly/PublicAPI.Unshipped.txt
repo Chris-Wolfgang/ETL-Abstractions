@@ -1,0 +1,4 @@
+#nullable enable
+Wolfgang.Etl.Polly.PollyResilience
+static Wolfgang.Etl.Polly.PollyResilience.ForLoader(Polly.ResiliencePipeline! pipeline) -> System.Func<System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task!>!, System.Threading.CancellationToken, System.Threading.Tasks.Task!>!
+static Wolfgang.Etl.Polly.PollyResilience.ForStream<T>(Polly.ResiliencePipeline! pipeline) -> System.Func<System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<T>!>!, System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<T>!>!
