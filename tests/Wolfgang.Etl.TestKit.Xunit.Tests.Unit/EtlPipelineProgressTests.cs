@@ -14,7 +14,7 @@ namespace Wolfgang.Etl.TestKit.Xunit.Tests.Unit;
 public class EtlPipelineProgressTests
 {
     [Fact]
-    public async Task Pipeline_progress_ErrorItemCount_reflects_a_skipped_faulty_item_Async()
+    public async Task Pipeline_progress_ErrorItemCount_reflects_a_skipped_faulty_item()
     {
         var source = new FaultyExtractor<int>(new[] { 0, 1, 2, 3, 4 })
             .ThrowAt(2, new FormatException("bad row"))
@@ -38,7 +38,7 @@ public class EtlPipelineProgressTests
 
 
     [Fact]
-    public async Task DisposingOwned_disposes_pipeline_owned_resources_after_the_run_Async()
+    public async Task DisposingOwned_disposes_pipeline_owned_resources_after_the_run()
     {
         var owned = new TrackingDisposable();
         var sink = new TestLoader<int>(collectItems: false);

@@ -300,16 +300,16 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
                 received.Add(item);
                 if (received.Count == 1)
                 {
-                    #if NET8_0_OR_GREATER
+#if NET8_0_OR_GREATER
                     await cts.CancelAsync().ConfigureAwait(false);
-                    #else
+#else
                     cts.Cancel();
-                    #endif
+#endif
                 }
             }
         }).ConfigureAwait(false);
 
-        Assert.Equal(1, received.Count);
+        Assert.Single(received);
     }
 
 
@@ -538,16 +538,16 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
                 received.Add(item);
                 if (received.Count == 1)
                 {
-                    #if NET8_0_OR_GREATER
+#if NET8_0_OR_GREATER
                     await cts.CancelAsync().ConfigureAwait(false);
-                    #else
+#else
                     cts.Cancel();
-                    #endif
+#endif
                 }
             }
         }).ConfigureAwait(false);
 
-        Assert.Equal(1, received.Count);
+        Assert.Single(received);
     }
 
     /// <summary>
@@ -719,7 +719,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
 
         var actual = await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
 
-        Assert.Equal(1, actual.Count);
+        Assert.Single(actual);
         Assert.Equal(expected[0], actual[0]);
     }
 
