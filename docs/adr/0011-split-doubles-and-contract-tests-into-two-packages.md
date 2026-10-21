@@ -1,4 +1,7 @@
-# 3. Ship the test doubles and the contract-test base classes as two packages
+# ADR 0011 — Ship the test doubles and the contract-test base classes as two packages
+
+> Imported from the archived ETL-Test-Kit repository, where it was ADR 3. Renumbered when
+> TestKit and TestKit.Xunit moved into this repository so the numbers no longer collide.
 
 ## Status
 

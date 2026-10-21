@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+Release sections are assembled from `changelog/unreleased/` fragments by `scripts/changelog.ps1`. Besides the
+Keep a Changelog categories, that script uses two extra headings: **Breaking changes** (listed first, for any
+source- or binary-incompatible change) and **Internal** (CI, tests, build and dependency work with no
+consumer-visible effect). The version links at the end of the file compare each release tag with the one
+before it; add a line there when a release is cut.
+
 ## [Unreleased]
 
 ### Added
@@ -681,3 +687,27 @@ dependencies.
   consumers without a binding redirect. (See DateTime-Extensions v1.3.1
   for the post-mortem on what happens when this regression reaches a
   release.)
+
+[Unreleased]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.26.1...HEAD
+[0.26.1]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.26.0...v0.26.1
+[0.26.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.25.0...v0.26.0
+[0.25.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.24.0...v0.25.0
+[0.24.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/0.23.4...v0.24.0
+[0.23.4]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/0.23.3...0.23.4
+[0.23.3]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.23.2...0.23.3
+[0.23.2]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/0.23.1...v0.23.2
+[0.23.1]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.23.0...0.23.1
+[0.23.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.22.0...v0.23.0
+[0.22.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.21.0...v0.22.0
+[0.21.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.20.0...v0.21.0
+[0.20.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.19.0...v0.20.0
+[0.19.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.18.1...v0.19.0
+[0.18.1]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.18.0...v0.18.1
+[0.18.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.17.0...v0.18.0
+[0.17.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.16.1...v0.17.0
+[0.16.1]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.16.0...v0.16.1
+[0.16.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.15.0...v0.16.0
+[0.15.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.14.1...v0.15.0
+[0.14.1]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.14.0...v0.14.1
+[0.14.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.13.1...v0.14.0
+[0.13.1]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.13.0...v0.13.1

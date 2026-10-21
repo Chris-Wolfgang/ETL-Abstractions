@@ -15,7 +15,8 @@ non-zero (failing the job) when the mutation score drops below it.
 | | Value |
 |---|---|
 | Baseline score (full project, 2026-07-22, Stryker 4.16.0) | **74.4 %** — 248 killed / 83 survived / 2 timeout of 333 tested |
-| **Enforced floor (`break`)** | **70 %** |
+| Score after the #205 test pass (2026-07-22) | **~86.6 %** — survivors 86 → ~43 |
+| **Enforced floor (`break`)** | **80 %** (`high` 90, `low` 80 in `stryker-config.json`) |
 
 The floor sits a few points below the measured baseline so normal CI-runner
 variance (a slow runner can turn a killed mutant into a timeout, nudging the
