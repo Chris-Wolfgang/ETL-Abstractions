@@ -1,1 +1,25 @@
 #nullable enable
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.ExtractAsync_disposes_the_reader_of_every_source_it_reads() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.ExtractAsync_when_there_are_no_sources_yields_no_records() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.ExtractAsync_with_Continue_skips_a_failing_source_reports_it_and_reads_the_next() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.ExtractAsync_with_Stop_rethrows_a_failing_source_and_does_not_open_later_sources() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.ExtractAsync_with_an_empty_source_moves_on_to_the_next_source() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.ExtractAsync_with_one_source_yields_its_records_in_order() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.ExtractAsync_with_several_sources_yields_every_record_in_source_order() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.MultiStreamExtractorBaseContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.Progress_reports_a_null_name_for_an_anonymous_source() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.Progress_reports_the_name_of_a_named_source() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamLoaderBaseContractTests<TSut, TRecord, TProgress>
+Wolfgang.Etl.TestKit.Xunit.MultiStreamLoaderBaseContractTests<TSut, TRecord, TProgress>.LoadAsync_routes_each_record_to_its_destination_and_disposes_every_writer() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamLoaderBaseContractTests<TSut, TRecord, TProgress>.LoadAsync_when_the_input_fails_disposes_every_opened_writer() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamLoaderBaseContractTests<TSut, TRecord, TProgress>.LoadAsync_with_no_records_opens_no_destination() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.MultiStreamLoaderBaseContractTests<TSut, TRecord, TProgress>.MultiStreamLoaderBaseContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.MultiStreamLoaderBaseContractTests<TSut, TRecord, TProgress>.Progress_counts_destinations_and_names_the_last_one_written() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.CreateRecords(int count) -> System.Collections.Generic.IReadOnlyList<TRecord>!
+abstract Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.CreateSut(System.Collections.Generic.IEnumerable<Wolfgang.Etl.Abstractions.Streams.NamedStreamSource!>! sources, Wolfgang.Etl.Abstractions.Streams.MultiStreamErrorAction errorAction, System.Action<Wolfgang.Etl.Abstractions.Streams.StreamSourceError!>? errorHandler) -> TSut!
+abstract Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.FormatSource(System.Collections.Generic.IReadOnlyList<TRecord>! records) -> string!
+abstract Wolfgang.Etl.TestKit.Xunit.MultiStreamExtractorBaseContractTests<TSut, TRecord, TProgress>.MalformedSourceText.get -> string!
+abstract Wolfgang.Etl.TestKit.Xunit.MultiStreamLoaderBaseContractTests<TSut, TRecord, TProgress>.CreateRecords(int count) -> System.Collections.Generic.IReadOnlyList<TRecord>!
+abstract Wolfgang.Etl.TestKit.Xunit.MultiStreamLoaderBaseContractTests<TSut, TRecord, TProgress>.CreateSut(System.Func<TRecord, Wolfgang.Etl.Abstractions.Streams.NamedStreamDestination!>! destinationSelector) -> TSut!
+abstract Wolfgang.Etl.TestKit.Xunit.MultiStreamLoaderBaseContractTests<TSut, TRecord, TProgress>.ParseDestination(string! text) -> System.Collections.Generic.IReadOnlyList<TRecord>!
