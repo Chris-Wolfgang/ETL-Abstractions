@@ -68,7 +68,14 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
             // directly — see EtlPipelineTests.AsAsyncEnumerable_honours_cancellation_at_the_head.
             token.ThrowIfCancellationRequested();
             state.LoadedItemCount++;
-            progress?.Report(state.Snapshot());
+
+            // Throttled (#735): one snapshot for the first record, then at most one per
+            // EtlRunState.ProgressReportInterval. RunAsync reports the exact final snapshot.
+            if (progress is not null && state.IsProgressReportDue())
+            {
+                progress.Report(state.Snapshot());
+            }
+
             yield return item;
         }
     }
