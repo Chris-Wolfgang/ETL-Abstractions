@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	<TargetFrameworks>net462;net472;net48;net481;netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
-	<!-- Lockstep with Wolfgang.Etl.Abstractions: this package is built and released from the same
-	     repo under the same version and tag (like Wolfgang.Etl.TestKit + Wolfgang.Etl.TestKit.Xunit). -->
+    <TargetFrameworks>net462;net472;net48;net481;netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
+    <!-- Lockstep with Wolfgang.Etl.Abstractions: this package is built and released from the same
+         repo under the same version and tag (like Wolfgang.Etl.TestKit + Wolfgang.Etl.TestKit.Xunit). -->
     <!-- ABI / binary-compatibility gate. Skipped for the FIRST release (0.21.0) because there was no
          previously-published baseline to compare against; enabled from 0.22.0 onward now that the
          package has published history. Baseline tracks the last PUBLISHED version. -->
@@ -13,7 +13,9 @@
     <Description>Ready-made item-error policies — skip, log, and dead-letter (to a collection or a channel) — assignable to the ErrorPolicy property of Wolfgang.Etl extractors, loaders, and transformers. Built on Wolfgang.Etl.Abstractions.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>ETL-Abstractions.png</PackageIcon>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <!-- PublicApiAnalyzers: an untracked public-API addition (RS0016), removal (RS0017) or duplicate
+         entry (RS0025) fails the build, as it does in the other three packages (#734). -->
+    <WarningsAsErrors>$(WarningsAsErrors);RS0016;RS0017;RS0025</WarningsAsErrors>
     <!-- The 10.0.10 logging packages drop net5.0/net7.0 from their tested TFM list; they resolve the
          netstandard2.0 asset there and work. Silence the NETSDK TFM-support warnings on those TFMs. -->
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
