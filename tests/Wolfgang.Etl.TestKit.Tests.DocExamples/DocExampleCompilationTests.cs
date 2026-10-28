@@ -78,6 +78,7 @@ public sealed class DocExampleCompilationTests
         "System.Threading",
         "System.Threading.Tasks",
         "Wolfgang.Etl.Abstractions",
+        "Wolfgang.Etl.Abstractions.Streams",
         "Wolfgang.Etl.TestKit",
         "Wolfgang.Etl.TestKit.Xunit",
         "Xunit",
