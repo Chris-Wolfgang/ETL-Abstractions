@@ -1,1 +1,3 @@
 #nullable enable
+Wolfgang.Etl.Abstractions.PropertySelector
+static Wolfgang.Etl.Abstractions.PropertySelector.Resolve<T, TProperty>(System.Linq.Expressions.Expression<System.Func<T, TProperty>!>! selector) -> System.Reflection.PropertyInfo!
