@@ -41,6 +41,7 @@ public class SourceLinkPdbTests
         "Wolfgang.Etl.Abstractions",
         "Wolfgang.Etl.Abstractions.Streams",
         "Wolfgang.Etl.ErrorPolicies",
+        "Wolfgang.Etl.Polly",
         "Wolfgang.Etl.TestKit",
         "Wolfgang.Etl.TestKit.Xunit"
     };

@@ -22,6 +22,7 @@
     <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions.Streams\Wolfgang.Etl.Abstractions.Streams.csproj" />
     <ProjectReference Include="..\..\src\Wolfgang.Etl.ErrorPolicies\Wolfgang.Etl.ErrorPolicies.csproj" />
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.Polly\Wolfgang.Etl.Polly.csproj" />
     <ProjectReference Include="..\..\src\Wolfgang.Etl.TestKit\Wolfgang.Etl.TestKit.csproj" />
     <ProjectReference Include="..\..\src\Wolfgang.Etl.TestKit.Xunit\Wolfgang.Etl.TestKit.Xunit.csproj" />
   </ItemGroup>
