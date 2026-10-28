@@ -119,6 +119,35 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
 
 
     /// <inheritdoc/>
+    // Typed-progress transform stage (#382). Same shape as Through(ITransformWithCancellationAsync),
+    // but routes the transformer's own TProgress reports to the caller's sink.
+    internal IEtlPipeline<TOut> ThroughWithProgress<TOut, TProgress>
+    (
+        TransformerBase<T, TOut, TProgress> transformer,
+        IProgress<TProgress> progress
+    )
+        where TOut : notnull
+        where TProgress : notnull
+    {
+        return new EtlPipelineImpl<TOut>((state, token) =>
+        {
+            RegisterErrorReader(transformer, state);
+            return transformer.TransformAsync(_factory(state, token), progress, token);
+        });
+    }
+
+
+
+    // Typed-progress sink (#382): the loader reports its own TProgress alongside the pipeline's
+    // aggregate EtlPipelineProgress.
+    internal IEtlPipelineSink ToWithProgress<TProgress>(LoaderBase<T, TProgress> loader, IProgress<TProgress> progress)
+        where TProgress : notnull
+    {
+        return new EtlPipelineSink<T, TProgress>(_factory, loader, progress);
+    }
+
+
+
     public IAsyncEnumerable<T> AsAsyncEnumerable(CancellationToken token = default)
     {
         return _factory(new EtlRunState(), token);
