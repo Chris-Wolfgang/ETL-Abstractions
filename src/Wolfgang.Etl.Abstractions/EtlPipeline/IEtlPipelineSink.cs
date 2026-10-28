@@ -18,7 +18,8 @@ public interface IEtlPipelineSink
     /// </summary>
     /// <param name="progress">
     /// An optional sink for <see cref="EtlPipelineProgress"/> snapshots. When supplied, a snapshot is
-    /// reported as records are delivered to the loader and once more when the run completes. Pass
+    /// reported for the first record delivered to the loader, then at most once every 100 ms while
+    /// records keep flowing, and once more, with the exact final counts, when the run completes. Pass
     /// <see langword="null"/> to skip progress reporting.
     /// </param>
     /// <param name="token">
