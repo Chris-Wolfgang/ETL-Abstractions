@@ -111,7 +111,7 @@ public class EtlPipelineStageProgressTests
     {
         var ex = Assert.Throws<ArgumentNullException>
         (
-            () => EtlPipeline.Create().From(new SeededExtractor<int>(new[] { 1 }), (IProgress<EtlProgress>)null!)
+            () => EtlPipeline.Create().From(new SeededExtractor<int>(new[] { 1 }), null!)
         );
 
         Assert.Equal("progress", ex.ParamName);
@@ -150,7 +150,7 @@ public class EtlPipelineStageProgressTests
     {
         var ex = Assert.Throws<ArgumentNullException>
         (
-            () => Source().Through(new DoublingTransformer(), (IProgress<EtlProgress>)null!)
+            () => Source().Through(new DoublingTransformer(), null!)
         );
 
         Assert.Equal("progress", ex.ParamName);
@@ -176,7 +176,7 @@ public class EtlPipelineStageProgressTests
     {
         var ex = Assert.Throws<ArgumentNullException>
         (
-            () => Source().To((LoaderBase<int, EtlProgress>)null!, new SynchronousProgress<EtlProgress>(_ => { }))
+            () => Source().To(null!, new SynchronousProgress<EtlProgress>(_ => { }))
         );
 
         Assert.Equal("loader", ex.ParamName);
@@ -189,7 +189,7 @@ public class EtlPipelineStageProgressTests
     {
         var ex = Assert.Throws<ArgumentNullException>
         (
-            () => Source().To(new CollectingLoader<int>(), (IProgress<EtlProgress>)null!)
+            () => Source().To(new CollectingLoader<int>(), null!)
         );
 
         Assert.Equal("progress", ex.ParamName);
