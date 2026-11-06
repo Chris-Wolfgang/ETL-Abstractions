@@ -9,7 +9,7 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.PipelineTests;
 /// <c>WithProgress</c> is never called on it — the pipeline falls back to the stage's
 /// no-progress overload. These paths are internal plumbing between
 /// <c>ExtractStageWithProgress</c> / <c>TransformStageWithProgress</c> and the no-progress
-/// <c>ExtractStage</c> / <c>TransformStage</c> / <c>PipelineImpl</c> / <c>PipelineWithLoadProgress</c>.
+/// <c>Stage</c> / <c>PipelineImpl</c> / <c>PipelineWithLoadProgress</c>.
 /// </summary>
 public class NoProgressPathTests
 {

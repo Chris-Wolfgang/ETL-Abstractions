@@ -24,6 +24,13 @@ namespace Wolfgang.Etl.TestKit;
 /// worker yields every item; if the retry budget (<c>maxAttempts</c>) is exhausted first, the last
 /// fault propagates. <see cref="AttemptCount"/> records how many worker invocations occurred.
 /// </para>
+/// <para>
+/// The retry is fully <b>buffered</b>: each attempt is drained into a list, and items are yielded
+/// only after an attempt completes without a fault. That keeps a failed attempt from leaking partial
+/// output, which is what a test double needs, but it holds the whole stream in memory and delays the
+/// first item until the worker finishes. A production retry over a large or unbounded source should
+/// instead stream items and make the downstream idempotent (or retry from a checkpoint).
+/// </para>
 /// </remarks>
 /// <example>
 /// <code>
