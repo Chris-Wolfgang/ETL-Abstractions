@@ -10,7 +10,7 @@ permissions:
 
 env:
   # Minimum line coverage for PRODUCTION assemblies (anything under src/).
-  CODECOV_MINIMUM: 90
+  CODECOV_MINIMUM: 95
   # Minimum line coverage for TEST assemblies (anything under tests/).
   # Kept in sync with pr.yaml — see the note there (#386).
   CODECOV_TEST_MINIMUM: 99
@@ -276,7 +276,7 @@ jobs:
           $coverageFiles = Get-ChildItem -Path "TestResults" -Recurse -Filter "coverage.cobertura.xml" -ErrorAction SilentlyContinue
           
           if ($coverageFiles.Count -eq 0) {
-            Write-Error "❌ No coverage files found - coverage data is required to enforce the 90% threshold"
+            Write-Error "❌ No coverage files found - coverage data is required to enforce the CODECOV_MINIMUM threshold"
             exit 1
           }
           
@@ -297,7 +297,7 @@ jobs:
           
           # Parse coverage and enforce threshold per module (matching pr.yaml)
           $summaryContent = Get-Content CoverageReport/Summary.txt
-          $threshold     = if ($env:CODECOV_MINIMUM) { [int]$env:CODECOV_MINIMUM } else { 90 }
+          $threshold     = if ($env:CODECOV_MINIMUM) { [int]$env:CODECOV_MINIMUM } else { 95 }
           $testThreshold = if ($env:CODECOV_TEST_MINIMUM) { [int]$env:CODECOV_TEST_MINIMUM } else { 100 }
           $failedModules = @()
           $coverageFound = $false
