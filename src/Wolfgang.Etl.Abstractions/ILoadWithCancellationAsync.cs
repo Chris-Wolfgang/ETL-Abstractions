@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Defines an asynchronous loader interface for loading data of type T.
+/// Defines an asynchronous loader interface for loading data of type <typeparamref name="TDestination"/>.
 /// A class implementing this interface is intended to be the last step in an
 /// ETL (Extract, Transform, Load) process.
 /// </summary>

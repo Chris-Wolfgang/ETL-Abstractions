@@ -92,6 +92,10 @@ public static class DocExampleCompiler
                     protected IProgress<Report> extractProgress;
                     protected ITransformAsync<Order, Order> enrich;
                     protected IProgress<Report> loadProgress;
+                    protected int CurrentItemCount;
+                    protected int CurrentSkippedItemCount;
+                    protected void IncrementCurrentItemCount() { }
+                    protected void IncrementCurrentSkippedItemCount() { }
                 }
 
                 internal sealed class Example : DocExampleContext
