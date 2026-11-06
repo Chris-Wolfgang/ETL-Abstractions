@@ -17,7 +17,7 @@ public class WorkerResilienceTests
     // ---------- Extractor ----------
 
     [Fact]
-    public async Task Extractor_default_WorkerResilience_is_a_passthrough_Async()
+    public async Task Extractor_default_WorkerResilience_is_a_passthrough()
     {
         var sut = new CountingExtractor();
 
@@ -29,7 +29,7 @@ public class WorkerResilienceTests
 
 
     [Fact]
-    public async Task Extractor_assigned_WorkerResilience_wraps_the_worker_Async()
+    public async Task Extractor_assigned_WorkerResilience_wraps_the_worker()
     {
         var wrapped = false;
         var sut = new CountingExtractor
@@ -48,7 +48,7 @@ public class WorkerResilienceTests
 
 
     [Fact]
-    public async Task Extractor_WorkerResilience_receives_a_reinvocable_factory_Async()
+    public async Task Extractor_WorkerResilience_receives_a_reinvocable_factory()
     {
         Func<CancellationToken, IAsyncEnumerable<int>>? captured = null;
         var sut = new CountingExtractor
@@ -79,7 +79,7 @@ public class WorkerResilienceTests
     // ---------- Loader ----------
 
     [Fact]
-    public async Task Loader_assigned_WorkerResilience_wraps_the_worker_Async()
+    public async Task Loader_assigned_WorkerResilience_wraps_the_worker()
     {
         var wrapped = false;
         var sut = new CountingLoader
@@ -108,7 +108,7 @@ public class WorkerResilienceTests
     // ---------- Transformer ----------
 
     [Fact]
-    public async Task Transformer_assigned_WorkerResilience_wraps_the_worker_Async()
+    public async Task Transformer_assigned_WorkerResilience_wraps_the_worker()
     {
         var wrapped = false;
         var sut = new CountingTransformer
