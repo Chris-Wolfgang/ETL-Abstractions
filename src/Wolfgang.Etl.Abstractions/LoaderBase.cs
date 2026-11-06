@@ -30,8 +30,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     private int _maximumItemCount = int.MaxValue;
     private int _skipItemCount;
     private int _currentErrorItemCount;
-    private long _startTimestamp;
-    private DateTimeOffset _startedAtUtc;
+    private RunStart? _runStart;
     private bool _disposed;
 
 
@@ -103,7 +102,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// surface it on their progress report (see <see cref="Report.StartedAt"/>).
     /// </summary>
     protected DateTimeOffset? StartedAt =>
-        Volatile.Read(ref _startTimestamp) == 0 ? null : _startedAtUtc;
+        Volatile.Read(ref _runStart)?.Utc;
 
 
 
@@ -117,14 +116,14 @@ public abstract class LoaderBase<TDestination, TProgress>
     {
         get
         {
-            var start = Volatile.Read(ref _startTimestamp);
-            if (start == 0)
+            var start = Volatile.Read(ref _runStart);
+            if (start is null)
             {
                 return TimeSpan.Zero;
             }
 
             var source = TimeSource ?? SystemTimeSource.Instance;
-            var ticks = source.GetTimestamp() - start;
+            var ticks = source.GetTimestamp() - start.Timestamp;
             return TimeSpan.FromSeconds(ticks / (double)source.TimestampFrequency);
         }
     }
@@ -367,7 +366,7 @@ public abstract class LoaderBase<TDestination, TProgress>
         Volatile.Write(ref _currentItemCount, 0);
         Volatile.Write(ref _currentSkippedItemCount, 0);
         Volatile.Write(ref _currentErrorItemCount, 0);
-        Volatile.Write(ref _startTimestamp, 0L);
+        Volatile.Write(ref _runStart, null);
     }
 
 
@@ -635,7 +634,7 @@ public abstract class LoaderBase<TDestination, TProgress>
     // win the CompareExchange records the start; later calls are a cheap volatile read.
     private void EnsureStarted()
     {
-        if (Volatile.Read(ref _startTimestamp) != 0)
+        if (Volatile.Read(ref _runStart) is not null)
         // Stryker disable once all: equivalent — dropping this fast-path block only skips a cheap
         // early-out. The CompareExchange below is the real guard and assigns only on the winning
         // exchange, so a re-entrant caller changes nothing either way. (The CONDITION itself is not
@@ -646,13 +645,11 @@ public abstract class LoaderBase<TDestination, TProgress>
             return;
         }
 
+        // Both values travel in one immutable object published by a single reference exchange, so a
+        // progress callback on another thread never sees the timestamp without the wall-clock time (#731).
         var source = TimeSource ?? SystemTimeSource.Instance;
-        var now = source.UtcNow;
-        var timestamp = source.GetTimestamp();
-        if (Interlocked.CompareExchange(ref _startTimestamp, timestamp, 0) == 0)
-        {
-            _startedAtUtc = now;
-        }
+        var start = new RunStart(source.GetTimestamp(), source.UtcNow);
+        _ = Interlocked.CompareExchange(ref _runStart, start, comparand: null);
     }
 
 
