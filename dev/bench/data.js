@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1793985169908,
+  "lastUpdate": 1794003164777,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -5040,6 +5040,114 @@ window.BENCHMARK_DATA = {
             "value": 8066488.703125,
             "unit": "ns",
             "range": "± 38473.768244324194"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c5d8ffeca2b262ec10bc7e1d5cead5a7bca6b289",
+          "message": "docs: bring docs/, ADRs, copilot instructions and CHANGELOG in line with the repo (#733) (#742)\n\n- WORKFLOW_SECURITY.md describes the current design: pr.yaml on\n  pull_request with the PR's own config, gate integrity in the\n  pull_request_target protected-files.yaml guard (which never checks out PR\n  code), and the guard's real protected-file list.\n- RELEASE-WORKFLOW-SETUP.md: NuGet trusted publishing (OIDC) replaces the\n  NUGET_API_KEY secret steps; coverage threshold 95%.\n- mutation-testing.md: the enforced Stryker floor is 80 (stryker-config.json).\n- ADRs: the three imported from ETL-Test-Kit are renumbered 0010-0012 (0010\n  superseded by ADR-0007), indexed, and README/index cover all four packages.\n- .github/copilot-instructions.md is filled in.\n- CHANGELOG.md: Keep a Changelog version links, and a note on the two extra\n  headings changelog.ps1 emits (Breaking changes, Internal).\n\nCo-authored-by: Claude Fable 5.1 <noreply@anthropic.com>",
+          "timestamp": "2026-11-06T17:09:56-05:00",
+          "tree_id": "970ae5c03e9353f29509be4223d65575cf9aed8f",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/c5d8ffeca2b262ec10bc7e1d5cead5a7bca6b289"
+        },
+        "date": 1794003159339,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 87051.10561116536,
+            "unit": "ns",
+            "range": "± 167.90064286375554"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 124268.81111653645,
+            "unit": "ns",
+            "range": "± 595.3524981684069"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 8856905.151041666,
+            "unit": "ns",
+            "range": "± 13223.759492696729"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 10617754.338541666,
+            "unit": "ns",
+            "range": "± 13167.041548956124"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 25556.775472005207,
+            "unit": "ns",
+            "range": "± 76.65870109842216"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 27420.125915527344,
+            "unit": "ns",
+            "range": "± 92.83488038116847"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 2492234.98046875,
+            "unit": "ns",
+            "range": "± 2106.709345471365"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 2637601.6627604165,
+            "unit": "ns",
+            "range": "± 1854.3077015279864"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 25589.36444091797,
+            "unit": "ns",
+            "range": "± 266.9926975480704"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 25188.138153076172,
+            "unit": "ns",
+            "range": "± 34.52648557806669"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 53855.64737955729,
+            "unit": "ns",
+            "range": "± 287.189109827837"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2488299.705078125,
+            "unit": "ns",
+            "range": "± 2311.1046953309497"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2490206.7421875,
+            "unit": "ns",
+            "range": "± 883.6187158950155"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 5276985.122395833,
+            "unit": "ns",
+            "range": "± 10041.755261717266"
           }
         ]
       }
