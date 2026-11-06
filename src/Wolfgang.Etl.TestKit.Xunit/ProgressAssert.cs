@@ -66,7 +66,7 @@ public static class ProgressAssert
             throw new ArgumentNullException(nameof(capture));
         }
 
-        Assert.Equal(count, capture.Reports.Count);
+        Assert.Equal(count, capture.Count);
     }
 
 
