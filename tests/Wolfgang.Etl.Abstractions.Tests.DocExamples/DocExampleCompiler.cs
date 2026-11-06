@@ -87,6 +87,9 @@ public static class DocExampleCompiler
                     protected IAsyncEnumerable<Order> records;
                     protected LoaderBase<Order, Report> sqlLoader;
                     protected IProgress<EtlPipelineProgress> progress;
+                    protected ExtractorBase<Order, Report> orderExtractor;
+                    protected TransformerBase<Order, Order, Report> enrichTransformer;
+                    protected IProgress<Report> enrichProgress;
                     protected CancellationToken token;
                     protected IExtractWithProgressAndCancellationAsync<Order, Report> csvExtractor;
                     protected IProgress<Report> extractProgress;

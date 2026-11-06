@@ -1,1 +1,5 @@
 #nullable enable
+Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions
+static Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T, TProgress>(this Wolfgang.Etl.Abstractions.EtlPipeline! pipeline, Wolfgang.Etl.Abstractions.ExtractorBase<T, TProgress>! extractor, System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+static Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through<T, TOut, TProgress>(this Wolfgang.Etl.Abstractions.IEtlPipeline<T>! pipeline, Wolfgang.Etl.Abstractions.TransformerBase<T, TOut, TProgress>! transformer, System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IEtlPipeline<TOut>!
+static Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To<T, TProgress>(this Wolfgang.Etl.Abstractions.IEtlPipeline<T>! pipeline, Wolfgang.Etl.Abstractions.LoaderBase<T, TProgress>! loader, System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IEtlPipelineSink!
