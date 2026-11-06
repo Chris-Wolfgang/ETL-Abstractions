@@ -19,6 +19,11 @@ on:
 permissions:
   contents: read
 
+env:
+  # A busy runner can take longer than vstest's default 90 seconds to start a test
+  # host, and the run then aborts with no test having failed.
+  VSTEST_CONNECTION_TIMEOUT: 300
+
 jobs:
   fuzz:
     name: Property fuzz sweep
