@@ -49,6 +49,7 @@ public sealed class EtlPipeline
     }
 
 
+
     /// <summary>
     /// Creates a new, empty <see cref="EtlPipeline"/> builder to start a fluent pipeline chain.
     /// </summary>

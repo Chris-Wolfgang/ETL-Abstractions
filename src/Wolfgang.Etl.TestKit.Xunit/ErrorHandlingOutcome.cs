@@ -24,6 +24,8 @@ public sealed class ErrorHandlingOutcome
         SkippedItemCount = skippedItemCount;
     }
 
+
+
     /// <summary>Whether the run re-threw the failing item's exception (aborted the run).</summary>
     public bool Aborted { get; }
 

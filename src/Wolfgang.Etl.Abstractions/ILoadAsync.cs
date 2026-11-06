@@ -29,7 +29,6 @@ namespace Wolfgang.Etl.Abstractions;
 /// </remarks>
 public interface ILoadAsync<in TDestination>
     where TDestination : notnull
-
 {
     /// <summary>
     /// Loads the data asynchronously.

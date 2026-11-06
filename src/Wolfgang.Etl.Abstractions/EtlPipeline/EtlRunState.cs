@@ -15,9 +15,13 @@ internal sealed class EtlRunState
     private readonly ITimeSource _timeSource;
     private readonly long _startTimestamp;
 
+
+
     public long ExtractedItemCount;
 
     public long LoadedItemCount;
+
+
 
     // Error-item-count readers, one per stage that reports errors (source, transformers, sink). Their
     // values are summed into the snapshot so an item any stage's error policy discarded is reported,
@@ -25,14 +29,17 @@ internal sealed class EtlRunState
     private readonly List<Func<int>> _errorCountReaders = new();
 
 
+
     // Registers a stage's error-item-count reader. Called once per stage as the factory chain runs.
     public void AddErrorCountReader(Func<int> reader) => _errorCountReaders.Add(reader);
+
 
 
     public EtlRunState()
         : this(SystemTimeSource.Instance)
     {
     }
+
 
 
     // Test seam (#338): inject a fake time source so the elapsed metric is deterministic.
@@ -43,6 +50,7 @@ internal sealed class EtlRunState
     }
 
 
+
     private TimeSpan Elapsed
     {
         get
@@ -51,6 +59,7 @@ internal sealed class EtlRunState
             return TimeSpan.FromSeconds(ticks / (double)_timeSource.TimestampFrequency);
         }
     }
+
 
 
     public EtlPipelineProgress Snapshot()

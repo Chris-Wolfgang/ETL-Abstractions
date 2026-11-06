@@ -80,7 +80,7 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
     /// </summary>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public FaultyTransformer(TransformerOptions? options) : base(options)
-{ }
+    { }
 
 
 
@@ -112,7 +112,7 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected FaultyTransformer(IProgressTimer timer, TransformerOptions? options) : base(options)
-{
+    {
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
 

@@ -46,6 +46,7 @@ public static class EtlPipelineSinkExtensions
     }
 
 
+
     private sealed class DisposingSink : IEtlPipelineSink
     {
         private readonly IEtlPipelineSink _inner;

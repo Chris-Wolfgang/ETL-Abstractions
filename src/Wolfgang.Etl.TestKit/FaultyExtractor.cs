@@ -95,7 +95,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public FaultyExtractor(IEnumerable<T> items, ExtractorOptions? options) : base(options)
-{
+    {
         _items = items ?? throw new ArgumentNullException(nameof(items));
     }
 
@@ -132,7 +132,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected FaultyExtractor(IEnumerable<T> items, IProgressTimer timer, ExtractorOptions? options) : base(options)
-{
+    {
         _items         = items ?? throw new ArgumentNullException(nameof(items));
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
@@ -342,6 +342,8 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
         IncrementCurrentItemCount();
         throw exception;
     }
+
+
 
     /// <inheritdoc/>
     protected override IProgressTimer CreateProgressTimer(IProgress<Report> progress)

@@ -31,6 +31,7 @@ internal static class StageList
     }
 
 
+
     /// <summary>
     /// Runs <paramref name="run"/> and then disposes every stage in <paramref name="stages"/>,
     /// whether the run succeeded or threw. If the run threw, that exception propagates unchanged
@@ -73,6 +74,7 @@ internal static class StageList
             throw disposalError;
         }
     }
+
 
 
     // Disposes each stage that is IAsyncDisposable (preferred) or IDisposable, skipping the rest,

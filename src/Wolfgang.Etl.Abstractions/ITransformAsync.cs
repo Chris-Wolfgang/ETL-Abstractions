@@ -23,7 +23,6 @@ namespace Wolfgang.Etl.Abstractions;
 /// </remarks>
 public interface ITransformAsync<in TSource, out TDestination>
     where TSource : notnull where TDestination : notnull
-
 {
     /// <summary>
     /// Asynchronously transforms data of type <typeparamref name="TSource"/> to <typeparamref name="TDestination"/>.

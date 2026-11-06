@@ -59,6 +59,7 @@ public interface IPipeline
     IPipeline WithName(string name);
 
 
+
     /// <summary>
     /// The name assigned via <see cref="WithName"/>, or <see langword="null"/> if none has been set.
     /// </summary>
@@ -116,12 +117,14 @@ public interface IPipeline
     IPipeline DisposeStagesOnCompletion();
 
 
+
     /// <summary>
     /// Runs the pipeline to completion with no cancellation token.
     /// </summary>
     /// <returns>A task that completes when the loader has finished consuming the stream.</returns>
     /// <exception cref="InvalidOperationException">The pipeline has already been run.</exception>
     Task RunAsync();
+
 
 
     /// <summary>

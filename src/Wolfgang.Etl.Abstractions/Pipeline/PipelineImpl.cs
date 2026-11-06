@@ -18,11 +18,13 @@ internal sealed class PipelineImpl : IPipeline
     private int _runCount;
 
 
+
     internal PipelineImpl(Func<CancellationToken, Task> run, IReadOnlyList<object> stages)
     {
         _run = run;
         _stages = stages;
     }
+
 
 
     /// <inheritdoc/>
@@ -42,6 +44,7 @@ internal sealed class PipelineImpl : IPipeline
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline DisposeStagesOnCompletion()
     {
@@ -50,11 +53,13 @@ internal sealed class PipelineImpl : IPipeline
     }
 
 
+
     /// <inheritdoc/>
     public Task RunAsync()
     {
         return RunAsync(CancellationToken.None);
     }
+
 
 
     /// <inheritdoc/>

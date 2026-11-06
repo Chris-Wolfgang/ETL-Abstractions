@@ -95,7 +95,7 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public FaultyLoader(bool collectItems, LoaderOptions? options) : base(options)
-{
+    {
         _collectItems = collectItems;
     }
 
@@ -137,7 +137,7 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected FaultyLoader(bool collectItems, IProgressTimer timer, LoaderOptions? options) : base(options)
-{
+    {
         _collectItems  = collectItems;
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }

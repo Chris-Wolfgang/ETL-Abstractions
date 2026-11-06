@@ -107,7 +107,7 @@ public class DelayingExtractor<T> : ExtractorBase<T, Report>
     /// <param name="delaySelector">Maps a zero-based item index to the delay to await before it.</param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public DelayingExtractor(IEnumerable<T> items, Func<int, TimeSpan> delaySelector, ExtractorOptions? options) : base(options)
-{
+    {
         _items         = items ?? throw new ArgumentNullException(nameof(items));
         _delaySelector = delaySelector ?? throw new ArgumentNullException(nameof(delaySelector));
     }
