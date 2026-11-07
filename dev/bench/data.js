@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794003164777,
+  "lastUpdate": 1794056516495,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -5148,6 +5148,114 @@ window.BENCHMARK_DATA = {
             "value": 5276985.122395833,
             "unit": "ns",
             "range": "± 10041.755261717266"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": false,
+          "id": "dd8f75c379c68ab9b885f03bef06a01bc84cc2d4",
+          "message": "chore: project-file hygiene across src, examples and the solution (#734) (#753)\n\n- Abstractions drops System.ComponentModel.Annotations (nothing uses\n  DataAnnotations) and its THIRD-PARTY-NOTICES row; TestKit and\n  TestKit.Xunit drop Microsoft.Bcl.Memory (no Span/Memory use).\n- No ApplicationIcon on the libraries; Abstractions' .ico is\n  Pack=\"false\" instead of packed content; PackageTags lose the trailing ';'.\n- Tabs -> spaces; GenerateDocumentationFile dropped where\n  Directory.Build.props already sets it for src/.\n- Abstractions and ErrorPolicies promote RS0016/RS0017/RS0025 to errors like\n  the TestKit pair; the TestKit pair documents its narrower TFM matrix and\n  loses the dead net9.0 condition.\n- Examples: Net8.0 csprojs lose the {copyright year} {author} placeholder and\n  append CA2007 to $(NoWarn); Net4.8 Example1-6 lose the ignored\n  packages.config and stale App.config binding redirect.\n- ETL-Abstractions.sln: solution items point at files that exist; the two\n  Example9 projects, AotSmoke and Tests.Concurrency are in the solution.\n\nCo-authored-by: Claude Fable 5.1 <noreply@anthropic.com>",
+          "timestamp": "2026-11-07T07:59:16-05:00",
+          "tree_id": "3c64144e25368f90d34af5e29613f1fb3f54bcec",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/dd8f75c379c68ab9b885f03bef06a01bc84cc2d4"
+        },
+        "date": 1794056511417,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 87619.1787923177,
+            "unit": "ns",
+            "range": "± 237.21923106596455"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 112997.98824055989,
+            "unit": "ns",
+            "range": "± 438.9038853825959"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 8571866.0625,
+            "unit": "ns",
+            "range": "± 116472.77183739172"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 10886227.515625,
+            "unit": "ns",
+            "range": "± 4208.712262027545"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 25738.926076253254,
+            "unit": "ns",
+            "range": "± 86.05064364177478"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 26913.199915568035,
+            "unit": "ns",
+            "range": "± 350.94493267421365"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 2499299.1380208335,
+            "unit": "ns",
+            "range": "± 2662.5287606800734"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 2703891.4088541665,
+            "unit": "ns",
+            "range": "± 1996.3934842929639"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 25280.505274454754,
+            "unit": "ns",
+            "range": "± 101.55010752759613"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 25181.512130737305,
+            "unit": "ns",
+            "range": "± 35.92765349037883"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 54578.89426676432,
+            "unit": "ns",
+            "range": "± 230.6869199461681"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2495636.8268229165,
+            "unit": "ns",
+            "range": "± 2312.6130115647857"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2489827.6490885415,
+            "unit": "ns",
+            "range": "± 3807.6598416803554"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 5296279.536458333,
+            "unit": "ns",
+            "range": "± 47633.80781407961"
           }
         ]
       }
