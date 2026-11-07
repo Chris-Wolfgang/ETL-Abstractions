@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794064265183,
+  "lastUpdate": 1794084460183,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -5364,6 +5364,114 @@ window.BENCHMARK_DATA = {
             "value": 6609115.127604167,
             "unit": "ns",
             "range": "± 82475.82942176826"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "584c6d5ef89a462d90ab9119a12998ec0b009449",
+          "message": "feat: add PropertySelector.Resolve for the per-library schema builders (#758) (#762)\n\nResolves a property-selector lambda (x => x.Name) to its PropertyInfo:\nunwraps a boxing Convert / ConvertChecked, requires a direct property\naccess on the lambda parameter (inherited properties allowed), and rejects\nfields, method calls, chained access, constants, the parameter itself,\ncaptured objects and static members with an ArgumentException that shows\nthe expected shape. Null throws ArgumentNullException.\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+          "timestamp": "2026-11-07T15:45:11-05:00",
+          "tree_id": "5daa6a2027d81490ab05b09076425ef60d91c790",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/584c6d5ef89a462d90ab9119a12998ec0b009449"
+        },
+        "date": 1794084455800,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 89215.88991292317,
+            "unit": "ns",
+            "range": "± 197.721399012663"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 112297.84619140625,
+            "unit": "ns",
+            "range": "± 2326.21808469846"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 8555434.71875,
+            "unit": "ns",
+            "range": "± 75337.76522536423"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 11376624.5625,
+            "unit": "ns",
+            "range": "± 64834.92050426178"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 27737.494130452473,
+            "unit": "ns",
+            "range": "± 137.3818651296438"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 28682.391571044922,
+            "unit": "ns",
+            "range": "± 67.95885120391269"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 2606526.33984375,
+            "unit": "ns",
+            "range": "± 23299.78173129717"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 2786630.5716145835,
+            "unit": "ns",
+            "range": "± 5288.9862370654855"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 21294.61983235677,
+            "unit": "ns",
+            "range": "± 746.6222773369138"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 20684.951416015625,
+            "unit": "ns",
+            "range": "± 111.66786254672412"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 60285.16973876953,
+            "unit": "ns",
+            "range": "± 252.8914261133517"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2165955.357421875,
+            "unit": "ns",
+            "range": "± 31436.847837352227"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2062546.7526041667,
+            "unit": "ns",
+            "range": "± 8441.748702999064"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 6035083.84375,
+            "unit": "ns",
+            "range": "± 34279.258980378145"
           }
         ]
       }
