@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794056516495,
+  "lastUpdate": 1794064265183,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -5256,6 +5256,114 @@ window.BENCHMARK_DATA = {
             "value": 5296279.536458333,
             "unit": "ns",
             "range": "± 47633.80781407961"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "06dad4c3acc030253ba829ed0453b68989f17865",
+          "message": "docs: name the inheritdoc source on the internal pipeline stages (#787)\n\nStage<TSource> implements IExtractStage and ITransformStage, whose members\nare identical, so a bare <inheritdoc/> has two base candidates\n(InspectCode InheritdocInvalidUsage, code-scanning alerts 2352-2359).\nPoint each one at the ITransformStage member. Drop the <inheritdoc/> on\nthe internal EtlPipelineImpl.ThroughWithProgress, which implements nothing\n(alerts 2368 InheritdocInvalidUsage, 2369 MA0196); the comment below it\nalready explains the method, as on its ToWithProgress sibling.\n\nCo-authored-by: Claude Fable 5.1 <noreply@anthropic.com>",
+          "timestamp": "2026-11-07T10:07:31-05:00",
+          "tree_id": "722e43d6ed6cde3124100aa5a6911094b6c6cc42",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/06dad4c3acc030253ba829ed0453b68989f17865"
+        },
+        "date": 1794064260044,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 113893.34431966145,
+            "unit": "ns",
+            "range": "± 282.8703246046677"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 139392.5847981771,
+            "unit": "ns",
+            "range": "± 105.495053486188"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 11166898.135416666,
+            "unit": "ns",
+            "range": "± 78966.82079934794"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 13327912.244791666,
+            "unit": "ns",
+            "range": "± 11469.510513116145"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 30495.478485107422,
+            "unit": "ns",
+            "range": "± 188.2318499340566"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 33158.21661376953,
+            "unit": "ns",
+            "range": "± 92.59733485554517"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3142048.015625,
+            "unit": "ns",
+            "range": "± 18510.951788825438"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3368597.6393229165,
+            "unit": "ns",
+            "range": "± 1837.719223503029"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29136.06362915039,
+            "unit": "ns",
+            "range": "± 70.36290747570851"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29416.789001464844,
+            "unit": "ns",
+            "range": "± 202.5516285329973"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 67476.80782063802,
+            "unit": "ns",
+            "range": "± 399.72627629742317"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2852774.5481770835,
+            "unit": "ns",
+            "range": "± 5728.365938370919"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2898085.8059895835,
+            "unit": "ns",
+            "range": "± 5243.386710254443"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 6609115.127604167,
+            "unit": "ns",
+            "range": "± 82475.82942176826"
           }
         ]
       }
