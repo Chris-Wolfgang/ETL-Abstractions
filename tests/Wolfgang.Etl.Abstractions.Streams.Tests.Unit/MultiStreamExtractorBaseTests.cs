@@ -319,7 +319,7 @@ public class MultiStreamExtractorBaseTests
         Assert.Equal(new[] { 2, 2 }, totals);
 
         // The test double must enumerate the same sources through the non-generic interface too.
-        var nonGeneric = ((System.Collections.IEnumerable)sources).GetEnumerator();
+        using var nonGeneric = (IEnumerator<NamedStreamSource>)((System.Collections.IEnumerable)sources).GetEnumerator();
         Assert.True(nonGeneric.MoveNext());
         Assert.Same(a.Source, nonGeneric.Current);
     }

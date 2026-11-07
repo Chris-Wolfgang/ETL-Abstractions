@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -159,14 +159,14 @@ public class MultiStreamLoaderBaseTests
     {
         var first = new Destinations();
         var second = new Destinations();
-        var useSecond = false;
-        var sut = new LineLoader(r => useSecond ? second.Select(r) : first.Select(r));
+        var useSecond = new StrongBox<bool>(false);
+        var sut = new LineLoader(r => useSecond.Value ? second.Select(r) : first.Select(r));
 
         await sut.LoadAsync(Sources.Async(new[] { "r1", "r2" }));
-        useSecond = true;
+        useSecond.Value = true;
         await sut.LoadAsync(Sources.Async(new[] { "r3" }));
 
         Assert.Equal(1, sut.Snapshot().CurrentSourceNumber);
-        Assert.Equal(new[] { "r3|" }, new[] { second.OddStream.Text }.ToArray());
+        Assert.Equal("r3|", second.OddStream.Text);
     }
 }
