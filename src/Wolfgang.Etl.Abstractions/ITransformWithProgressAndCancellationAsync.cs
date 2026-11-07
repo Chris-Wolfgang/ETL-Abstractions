@@ -6,7 +6,7 @@ using System.Threading;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Defines an asynchronous transformer interface for transforming data of type T to TResult.
+/// Defines an asynchronous transformer interface for transforming data of type <typeparamref name="TSource"/> to <typeparamref name="TDestination"/>.
 /// A class implementing this interface is intended to be the second step in an
 /// ETL (Extract, Transform, Load) process.
 /// </summary>
@@ -27,10 +27,9 @@ public interface ITransformWithProgressAndCancellationAsync<in TSource, out TDes
     ITransformWithCancellationAsync<TSource, TDestination>,
     ITransformWithProgressAsync<TSource, TDestination, TProgress>
     where TSource : notnull where TDestination : notnull where TProgress : notnull
-
 {
     /// <summary>
-    /// Asynchronously transforms data of type TSource to TDestination.
+    /// Asynchronously transforms data of type <typeparamref name="TSource"/> to <typeparamref name="TDestination"/>.
     /// </summary>
     /// <param name="items">An asynchronous sequence of TSource items to be transformed.</param>
     /// <param name="progress">A provider for progress updates.</param>

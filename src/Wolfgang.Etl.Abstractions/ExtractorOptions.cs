@@ -36,7 +36,7 @@ namespace Wolfgang.Etl.Abstractions;
 public record ExtractorOptions
 {
     /// <summary>
-    /// The number of items between progress reports. Defaults to <c>1000</c>.
+    /// The number of milliseconds between progress reports. Defaults to <c>1000</c>.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The value is less than 1.</exception>
     public int ReportingInterval
@@ -84,8 +84,8 @@ public record ExtractorOptions
 
 
     /// <summary>
-    /// The policy invoked when an item fails to process. Defaults to fail-fast
-    /// (<see cref="DefaultItemErrorPolicy.Abort"/>).
+    /// The policy invoked when an item fails to process. Defaults to fail-fast: a policy that
+    /// returns <see cref="ItemErrorAction.Abort"/> for every failure.
     /// </summary>
     /// <exception cref="ArgumentNullException">The value is <see langword="null"/>.</exception>
     public Func<ItemErrorContext, ItemErrorAction> ErrorPolicy

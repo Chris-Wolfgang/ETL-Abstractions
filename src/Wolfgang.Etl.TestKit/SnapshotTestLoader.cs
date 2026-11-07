@@ -116,7 +116,7 @@ public class SnapshotTestLoader<T> : LoaderBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public SnapshotTestLoader(Func<T, string> formatter, LoaderOptions? options) : base(options)
-{
+    {
         _formatter = formatter ?? throw new ArgumentNullException(nameof(formatter));
     }
 

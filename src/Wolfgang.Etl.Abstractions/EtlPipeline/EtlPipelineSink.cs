@@ -18,17 +18,22 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
 {
     private readonly Func<EtlRunState, CancellationToken, IAsyncEnumerable<T>> _factory;
     private readonly LoaderBase<T, TProgress> _loader;
+    private readonly IProgress<TProgress>? _loaderProgress;
+
 
 
     internal EtlPipelineSink
     (
         Func<EtlRunState, CancellationToken, IAsyncEnumerable<T>> factory,
-        LoaderBase<T, TProgress> loader
+        LoaderBase<T, TProgress> loader,
+        IProgress<TProgress>? loaderProgress = null
     )
     {
         _factory = factory;
         _loader = loader;
+        _loaderProgress = loaderProgress;
     }
+
 
 
     /// <inheritdoc/>
@@ -42,10 +47,18 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
 
         var stream = CountLoaded(_factory(state, token), state, progress, token);
 
-        await _loader.LoadAsync(stream, token).ConfigureAwait(false);
+        if (_loaderProgress is null)
+        {
+            await _loader.LoadAsync(stream, token).ConfigureAwait(false);
+        }
+        else
+        {
+            await _loader.LoadAsync(stream, _loaderProgress, token).ConfigureAwait(false);
+        }
 
         progress?.Report(state.Snapshot());
     }
+
 
 
     private static async IAsyncEnumerable<T> CountLoaded
@@ -65,7 +78,14 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
             // directly — see EtlPipelineTests.AsAsyncEnumerable_honours_cancellation_at_the_head.
             token.ThrowIfCancellationRequested();
             state.LoadedItemCount++;
-            progress?.Report(state.Snapshot());
+
+            // Throttled (#735): one snapshot for the first record, then at most one per
+            // EtlRunState.ProgressReportInterval. RunAsync reports the exact final snapshot.
+            if (progress is not null && state.IsProgressReportDue())
+            {
+                progress.Report(state.Snapshot());
+            }
+
             yield return item;
         }
     }

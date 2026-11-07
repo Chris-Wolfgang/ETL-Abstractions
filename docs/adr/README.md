@@ -1,7 +1,8 @@
 # Architecture Decision Records
 
-This directory records the significant architecture / design decisions for
-**Wolfgang.Etl.TestKit** and **Wolfgang.Etl.TestKit.Xunit**, using lightweight
+This directory records the significant architecture / design decisions for all four packages in
+this repository (**Wolfgang.Etl.Abstractions**, **Wolfgang.Etl.ErrorPolicies**, **Wolfgang.Etl.TestKit**
+and **Wolfgang.Etl.TestKit.Xunit**), using lightweight
 [Architecture Decision Records (ADRs)](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions).
 
 An ADR captures a single decision: the context that forced it, the decision

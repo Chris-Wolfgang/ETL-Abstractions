@@ -67,7 +67,7 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
     /// </summary>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public TestTransformer(TransformerOptions? options) : base(options)
-{ }
+    { }
 
 
 
@@ -99,7 +99,7 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected TestTransformer(IProgressTimer timer, TransformerOptions? options) : base(options)
-{
+    {
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
 

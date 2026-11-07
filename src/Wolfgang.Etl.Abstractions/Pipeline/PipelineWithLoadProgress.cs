@@ -25,6 +25,7 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     private int _runCount;
 
 
+
     internal PipelineWithLoadProgress
     (
         Func<CancellationToken, IAsyncEnumerable<TItem>> upstream,
@@ -38,6 +39,7 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
         _withProgressLoad = withProgressLoad;
         _stages = stages;
     }
+
 
 
     /// <inheritdoc/>
@@ -55,6 +57,7 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
         Name = name;
         return this;
     }
+
 
 
     /// <inheritdoc/>
@@ -78,6 +81,7 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline DisposeStagesOnCompletion()
     {
@@ -86,11 +90,13 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
     }
 
 
+
     /// <inheritdoc/>
     public Task RunAsync()
     {
         return RunAsync(CancellationToken.None);
     }
+
 
 
     /// <inheritdoc/>
@@ -117,6 +123,7 @@ internal sealed class PipelineWithLoadProgress<TItem, TProgress> : IPipelineWith
             return Task.FromException(ex);
         }
     }
+
 
 
     // Builds and starts the load, choosing the progress-aware overload when a sink was supplied.

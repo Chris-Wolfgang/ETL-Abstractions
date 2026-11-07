@@ -133,6 +133,6 @@ public class ProgressCaptureTests
         Report(capture, 42);
 
         // If Report were posted to another thread, the value would not be visible yet.
-        Assert.Equal(1, capture.Count);
+        Assert.Single(capture.Reports);
     }
 }

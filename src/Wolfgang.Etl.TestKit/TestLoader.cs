@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -95,7 +95,7 @@ public class TestLoader<T> : LoaderBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public TestLoader(bool collectItems, LoaderOptions? options) : base(options)
-{
+    {
         _collectItems = collectItems;
     }
 
@@ -137,7 +137,7 @@ public class TestLoader<T> : LoaderBase<T, Report>
     /// </param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     protected TestLoader(bool collectItems, IProgressTimer timer, LoaderOptions? options) : base(options)
-{
+    {
         _collectItems  = collectItems;
         _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }

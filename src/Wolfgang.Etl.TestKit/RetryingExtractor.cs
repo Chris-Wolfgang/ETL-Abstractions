@@ -24,6 +24,13 @@ namespace Wolfgang.Etl.TestKit;
 /// worker yields every item; if the retry budget (<c>maxAttempts</c>) is exhausted first, the last
 /// fault propagates. <see cref="AttemptCount"/> records how many worker invocations occurred.
 /// </para>
+/// <para>
+/// The retry is fully <b>buffered</b>: each attempt is drained into a list, and items are yielded
+/// only after an attempt completes without a fault. That keeps a failed attempt from leaking partial
+/// output, which is what a test double needs, but it holds the whole stream in memory and delays the
+/// first item until the worker finishes. A production retry over a large or unbounded source should
+/// instead stream items and make the downstream idempotent (or retry from a checkpoint).
+/// </para>
 /// </remarks>
 /// <example>
 /// <code>
@@ -82,7 +89,7 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
     /// <param name="maxAttempts">The maximum number of worker invocations (initial try plus retries).</param>
     /// <param name="options">The base-stage configuration; <see langword="null"/> keeps the defaults.</param>
     public RetryingExtractor(IEnumerable<T> items, int failFirstAttempts, int maxAttempts, ExtractorOptions? options) : base(options)
-{
+    {
         _items = items ?? throw new ArgumentNullException(nameof(items));
 
         if (failFirstAttempts < 0)

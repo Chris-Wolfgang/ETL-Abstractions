@@ -18,23 +18,26 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// <see cref="Start"/> and <see cref="StopTimer"/> are no-ops; the timer only fires when
 /// <see cref="Fire"/> is called explicitly.
 /// </para>
+/// <para>
+/// The contract-test base classes no longer use this type: they drive the base stage's own timer
+/// through <c>ManualProgressTimerCore</c> and <c>WithManualProgressTimer</c> from
+/// <c>Wolfgang.Etl.TestKit</c>, which needs no injection constructor. Use
+/// <see cref="ManualProgressTimer"/> only for a component that already returns an injected
+/// <see cref="IProgressTimer"/> from its <c>CreateProgressTimer</c> override.
+/// </para>
 /// </remarks>
 /// <example>
 /// <code>
-/// // In your concrete contract test class, override CreateSutWithTimer to return
-/// // your SUT wired to the supplied timer (see ExtractorBaseContractTests).
-///
-/// // The base class uses it like this in the progress callback test:
+/// // MyExtractor has an internal test constructor that stores the timer and returns it from
+/// // its CreateProgressTimer override, subscribing Elapsed to report progress.
 /// var timer = new ManualProgressTimer();
-/// var sut = CreateSutWithTimer(timer);
-/// TProgress? captured = null;
-/// var progress = new SynchronousProgress&lt;TProgress&gt;(r => captured = r);
+/// var sut = new MyExtractor(source, timer);
+/// Report? captured = null;
+/// var progress = new SynchronousProgress&lt;Report&gt;(r =&gt; captured = r);
 ///
-/// // Begin enumeration and pull the first item so the pipeline is mid-flight,
-/// // then fire the timer deterministically before draining the rest. This
-/// // avoids the race where a fast synchronous source completes (and the
-/// // timer's Elapsed handler is unsubscribed in the worker's finally) before
-/// // Fire() is reached.
+/// // Pull the first item so the run is mid-flight, then fire the timer deterministically
+/// // before draining the rest. Firing after a fast source completes would find the
+/// // Elapsed handler already unsubscribed by the worker's finally block.
 /// await using var enumerator = sut.ExtractAsync(progress).GetAsyncEnumerator();
 /// await enumerator.MoveNextAsync();
 /// timer.Fire();

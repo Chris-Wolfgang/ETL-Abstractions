@@ -6,23 +6,26 @@ using System.Threading;
 namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
-/// Internal <see cref="ITransformStage{TSource}"/> implementation whose source stream is a
-/// pre-captured delegate. Used after a no-progress transformer, or after
-/// <see cref="ITransformStageWithProgress{TSource, TProgress}.WithProgress"/> has captured a
-/// progress sink to forward to the transformer's <c>TransformAsync</c> call.
+/// Internal <see cref="IExtractStage{TSource}"/> and <see cref="ITransformStage{TSource}"/>
+/// implementation whose source stream is a pre-captured delegate. The two stage interfaces have the
+/// same members, so one class serves both (#738): it is the stage after a no-progress extractor or
+/// transformer, and the stage after <c>WithProgress</c> has captured a progress sink to forward to
+/// the extractor's <c>ExtractAsync</c> or the transformer's <c>TransformAsync</c> call.
 /// </summary>
-internal sealed class TransformStage<TSource> : ITransformStage<TSource>
+internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<TSource>
     where TSource : notnull
 {
     private readonly Func<CancellationToken, IAsyncEnumerable<TSource>> _source;
     private readonly IReadOnlyList<object> _stages;
 
 
-    internal TransformStage(Func<CancellationToken, IAsyncEnumerable<TSource>> source, IReadOnlyList<object> stages)
+
+    internal Stage(Func<CancellationToken, IAsyncEnumerable<TSource>> source, IReadOnlyList<object> stages)
     {
         _source = source;
         _stages = stages;
     }
+
 
 
     /// <inheritdoc/>
@@ -38,12 +41,13 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         }
 
         var source = _source;
-        return new TransformStage<TDestination>
+        return new Stage<TDestination>
         (
             token => transformer.TransformAsync(source(token)),
             StageList.Append(_stages, transformer)
         );
     }
+
 
 
     /// <inheritdoc/>
@@ -59,12 +63,13 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
         }
 
         var source = _source;
-        return new TransformStage<TDestination>
+        return new Stage<TDestination>
         (
             token => transformer.TransformAsync(source(token), token),
             StageList.Append(_stages, transformer)
         );
     }
+
 
 
     /// <inheritdoc/>
@@ -91,6 +96,7 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
     }
 
 
+
     /// <inheritdoc/>
     public ITransformStageWithProgress<TDestination, TProgress> Transform<TDestination, TProgress>
     (
@@ -115,6 +121,7 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline Load(ILoadAsync<TSource> loader)
     {
@@ -132,6 +139,7 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
     }
 
 
+
     /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TSource> loader)
     {
@@ -147,6 +155,7 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
             StageList.Append(_stages, loader)
         );
     }
+
 
 
     /// <inheritdoc/>
@@ -169,6 +178,7 @@ internal sealed class TransformStage<TSource> : ITransformStage<TSource>
             stages: StageList.Append(_stages, loader)
         );
     }
+
 
 
     /// <inheritdoc/>

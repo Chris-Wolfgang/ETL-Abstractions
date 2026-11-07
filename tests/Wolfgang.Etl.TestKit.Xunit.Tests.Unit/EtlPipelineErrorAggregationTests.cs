@@ -14,7 +14,7 @@ namespace Wolfgang.Etl.TestKit.Xunit.Tests.Unit;
 public class EtlPipelineErrorAggregationTests
 {
     [Fact]
-    public async Task Pipeline_ErrorItemCount_sums_errors_across_extractor_and_loader_Async()
+    public async Task Pipeline_ErrorItemCount_sums_errors_across_extractor_and_loader()
     {
         var source = new FaultyExtractor<int>(new[] { 0, 1, 2, 3, 4 })
             .ThrowAt(2, new FormatException("extractor fault"))
@@ -40,7 +40,7 @@ public class EtlPipelineErrorAggregationTests
 
 
     [Fact]
-    public async Task Pipeline_ErrorItemCount_sums_errors_across_all_three_stages_Async()
+    public async Task Pipeline_ErrorItemCount_sums_errors_across_all_three_stages()
     {
         var source = new FaultyExtractor<int>(new[] { 0, 1, 2, 3, 4 })
             .ThrowAt(2, new FormatException("extractor fault"))

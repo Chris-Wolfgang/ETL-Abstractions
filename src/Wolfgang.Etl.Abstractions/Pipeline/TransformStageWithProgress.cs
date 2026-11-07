@@ -9,7 +9,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// Internal <see cref="ITransformStageWithProgress{TDestination, TProgress}"/> implementation.
 /// Holds the upstream source and two transformer entry points (with and without progress) as
 /// delegates. The object itself is immutable: <see cref="WithProgress"/> and the
-/// <c>Transform</c>/<c>Load</c> overloads each return a fresh <see cref="TransformStage{TSource}"/>
+/// <c>Transform</c>/<c>Load</c> overloads each return a fresh <see cref="Stage{TSource}"/>
 /// that captures the relevant delegate, so repeated or branched calls cannot alias shared state.
 /// </summary>
 internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgress>
@@ -21,6 +21,7 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     private readonly Func<CancellationToken, IAsyncEnumerable<TUpstream>> _upstream;
     private readonly Func<IAsyncEnumerable<TUpstream>, CancellationToken, IAsyncEnumerable<TDestination>> _noProgressTransform;
     private readonly Func<IAsyncEnumerable<TUpstream>, IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TDestination>> _withProgressTransform;
+
 
 
     private readonly IReadOnlyList<object> _stages;
@@ -41,10 +42,12 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     }
 
 
+
     private IAsyncEnumerable<TDestination> NoProgressSourceAsync(CancellationToken token)
     {
         return _noProgressTransform(_upstream(token), token);
     }
+
 
 
     /// <inheritdoc/>
@@ -57,12 +60,13 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
 
         var upstream = _upstream;
         var withProgressTransform = _withProgressTransform;
-        return new TransformStage<TDestination>
+        return new Stage<TDestination>
         (
             token => withProgressTransform(upstream(token), progress, token),
             _stages
         );
     }
+
 
 
     /// <inheritdoc/>
@@ -72,8 +76,9 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     )
         where TOut : notnull
     {
-        return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Transform(transformer);
+        return new Stage<TDestination>(NoProgressSourceAsync, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
@@ -83,8 +88,9 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     )
         where TOut : notnull
     {
-        return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Transform(transformer);
+        return new Stage<TDestination>(NoProgressSourceAsync, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
@@ -95,8 +101,9 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
         where TOut : notnull
         where TProgressOther : notnull
     {
-        return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Transform(transformer);
+        return new Stage<TDestination>(NoProgressSourceAsync, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
@@ -107,22 +114,25 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
         where TOut : notnull
         where TProgressOther : notnull
     {
-        return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Transform(transformer);
+        return new Stage<TDestination>(NoProgressSourceAsync, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
     public IPipeline Load(ILoadAsync<TDestination> loader)
     {
-        return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
+        return new Stage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TDestination> loader)
     {
-        return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
+        return new Stage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>
@@ -132,8 +142,9 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     )
         where TProgressOther : notnull
     {
-        return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
+        return new Stage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>
@@ -143,6 +154,6 @@ internal sealed class TransformStageWithProgress<TUpstream, TDestination, TProgr
     )
         where TProgressOther : notnull
     {
-        return new TransformStage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
+        return new Stage<TDestination>(NoProgressSourceAsync, _stages).Load(loader);
     }
 }

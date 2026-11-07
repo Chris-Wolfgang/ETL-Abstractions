@@ -37,8 +37,9 @@ public interface IEtlPipeline<T>
     /// <typeparam name="TOut">The type produced by the transformer.</typeparam>
     /// <param name="transformer">The transformer to append.</param>
     /// <returns>A pipeline carrying <typeparamref name="TOut"/>.</returns>
-    /// <exception cref="System.ArgumentNullException"><paramref name="transformer"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="transformer"/> is <see langword="null"/>.</exception>
     IEtlPipeline<TOut> Through<TOut>(ITransformAsync<T, TOut> transformer) where TOut : notnull;
+
 
 
     /// <summary>
@@ -48,8 +49,9 @@ public interface IEtlPipeline<T>
     /// <typeparam name="TOut">The type produced by the transformer.</typeparam>
     /// <param name="transformer">The transformer to append.</param>
     /// <returns>A pipeline carrying <typeparamref name="TOut"/>.</returns>
-    /// <exception cref="System.ArgumentNullException"><paramref name="transformer"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="transformer"/> is <see langword="null"/>.</exception>
     IEtlPipeline<TOut> Through<TOut>(ITransformWithCancellationAsync<T, TOut> transformer) where TOut : notnull;
+
 
 
     /// <summary>
@@ -66,6 +68,7 @@ public interface IEtlPipeline<T>
     IEtlPipeline<TOut> Through<TOut>(Func<IAsyncEnumerable<T>, IAsyncEnumerable<TOut>> stage) where TOut : notnull;
 
 
+
     /// <summary>
     /// Appends a cancellation-aware stream-to-stream transformer stage supplied as a delegate. The
     /// pipeline's cancellation token is forwarded into the delegate.
@@ -77,6 +80,7 @@ public interface IEtlPipeline<T>
     IEtlPipeline<TOut> Through<TOut>(Func<IAsyncEnumerable<T>, CancellationToken, IAsyncEnumerable<TOut>> stage) where TOut : notnull;
 
 
+
     /// <summary>
     /// Terminates the pipeline with a loader. Format-specific sink terminators (for example
     /// <c>CsvLoader</c> or <c>SqlBulkCopyLoader</c>) are extension methods shipped by their own
@@ -86,8 +90,9 @@ public interface IEtlPipeline<T>
     /// <typeparam name="TProgress">The loader's progress-report type.</typeparam>
     /// <param name="loader">The loader that consumes the pipeline output.</param>
     /// <returns>A runnable <see cref="IEtlPipelineSink"/>.</returns>
-    /// <exception cref="System.ArgumentNullException"><paramref name="loader"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="loader"/> is <see langword="null"/>.</exception>
     IEtlPipelineSink To<TProgress>(LoaderBase<T, TProgress> loader) where TProgress : notnull;
+
 
 
     /// <summary>

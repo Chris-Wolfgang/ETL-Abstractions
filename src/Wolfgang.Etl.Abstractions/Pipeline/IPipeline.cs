@@ -25,7 +25,11 @@ namespace Wolfgang.Etl.Abstractions;
 /// <code>
 /// try
 /// {
-///     await Pipeline.Extract(e).Transform(t).Load(l).RunAsync(token);
+///     await Pipeline
+///         .Extract(e)
+///         .Transform(t)
+///         .Load(l)
+///         .RunAsync(token);
 /// }
 /// catch (OperationCanceledException)
 /// {
@@ -53,6 +57,7 @@ public interface IPipeline
     /// <returns>The same pipeline, for fluent chaining.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     IPipeline WithName(string name);
+
 
 
     /// <summary>
@@ -112,12 +117,14 @@ public interface IPipeline
     IPipeline DisposeStagesOnCompletion();
 
 
+
     /// <summary>
     /// Runs the pipeline to completion with no cancellation token.
     /// </summary>
     /// <returns>A task that completes when the loader has finished consuming the stream.</returns>
     /// <exception cref="InvalidOperationException">The pipeline has already been run.</exception>
     Task RunAsync();
+
 
 
     /// <summary>

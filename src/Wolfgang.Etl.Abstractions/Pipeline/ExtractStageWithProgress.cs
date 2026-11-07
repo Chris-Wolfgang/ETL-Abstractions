@@ -9,7 +9,7 @@ namespace Wolfgang.Etl.Abstractions;
 /// Internal <see cref="IExtractStageWithProgress{TSource, TProgress}"/> implementation. Holds
 /// the two extractor entry points (with and without progress) as delegates. The object itself
 /// is immutable: <see cref="WithProgress"/> and the <c>Transform</c>/<c>Load</c> overloads each
-/// return a fresh <see cref="ExtractStage{TSource}"/> that captures the relevant delegate, so
+/// return a fresh <see cref="Stage{TSource}"/> that captures the relevant delegate, so
 /// repeated or branched calls cannot alias shared state.
 /// </summary>
 internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractStageWithProgress<TSource, TProgress>
@@ -19,6 +19,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     private readonly Func<CancellationToken, IAsyncEnumerable<TSource>> _noProgressSource;
     private readonly Func<IProgress<TProgress>, CancellationToken, IAsyncEnumerable<TSource>> _withProgressSource;
     private readonly IReadOnlyList<object> _stages;
+
 
 
     internal ExtractStageWithProgress
@@ -34,6 +35,7 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     }
 
 
+
     /// <inheritdoc/>
     public IExtractStage<TSource> WithProgress(IProgress<TProgress> progress)
     {
@@ -43,8 +45,9 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         }
 
         var withProgressSource = _withProgressSource;
-        return new ExtractStage<TSource>(token => withProgressSource(progress, token), _stages);
+        return new Stage<TSource>(token => withProgressSource(progress, token), _stages);
     }
+
 
 
     /// <inheritdoc/>
@@ -54,8 +57,9 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TDestination : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource, _stages).Transform(transformer);
+        return new Stage<TSource>(_noProgressSource, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
@@ -65,8 +69,9 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TDestination : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource, _stages).Transform(transformer);
+        return new Stage<TSource>(_noProgressSource, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
@@ -77,8 +82,9 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         where TDestination : notnull
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource, _stages).Transform(transformer);
+        return new Stage<TSource>(_noProgressSource, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
@@ -89,22 +95,25 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
         where TDestination : notnull
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource, _stages).Transform(transformer);
+        return new Stage<TSource>(_noProgressSource, _stages).Transform(transformer);
     }
+
 
 
     /// <inheritdoc/>
     public IPipeline Load(ILoadAsync<TSource> loader)
     {
-        return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
+        return new Stage<TSource>(_noProgressSource, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>
     public IPipeline Load(ILoadWithCancellationAsync<TSource> loader)
     {
-        return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
+        return new Stage<TSource>(_noProgressSource, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>
@@ -114,8 +123,9 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
+        return new Stage<TSource>(_noProgressSource, _stages).Load(loader);
     }
+
 
 
     /// <inheritdoc/>
@@ -125,6 +135,6 @@ internal sealed class ExtractStageWithProgress<TSource, TProgress> : IExtractSta
     )
         where TProgressOther : notnull
     {
-        return new ExtractStage<TSource>(_noProgressSource, _stages).Load(loader);
+        return new Stage<TSource>(_noProgressSource, _stages).Load(loader);
     }
 }

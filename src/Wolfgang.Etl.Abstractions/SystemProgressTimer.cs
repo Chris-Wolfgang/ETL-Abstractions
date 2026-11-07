@@ -58,7 +58,7 @@ internal sealed class SystemProgressTimer : IProgressTimer
     [ExcludeFromCodeCoverage]
     private void OnTick(TimerCallback callback, object? state)
     {
-        if (_disposed)
+        if (Volatile.Read(ref _disposed))
         {
             return;
         }
@@ -99,7 +99,7 @@ internal sealed class SystemProgressTimer : IProgressTimer
         {
             return;
         }
-        _disposed = true;
+        Volatile.Write(ref _disposed, true);
         Elapsed = null;
         _timer.Dispose();
     }

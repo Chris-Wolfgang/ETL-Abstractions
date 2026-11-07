@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace Wolfgang.Etl.Abstractions;
 
@@ -29,8 +29,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     private int _maximumItemCount = int.MaxValue;
     private int _skipItemCount;
     private int _currentErrorItemCount;
-    private long _startTimestamp;
-    private DateTimeOffset _startedAtUtc;
+    private RunStart? _runStart;
     private bool _disposed;
 
 
@@ -102,7 +101,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// surface it on their progress report (see <see cref="Report.StartedAt"/>).
     /// </summary>
     protected DateTimeOffset? StartedAt =>
-        Volatile.Read(ref _startTimestamp) == 0 ? null : _startedAtUtc;
+        Volatile.Read(ref _runStart)?.Utc;
 
 
 
@@ -116,14 +115,14 @@ public abstract class ExtractorBase<TSource, TProgress>
     {
         get
         {
-            var start = Volatile.Read(ref _startTimestamp);
-            if (start == 0)
+            var start = Volatile.Read(ref _runStart);
+            if (start is null)
             {
                 return TimeSpan.Zero;
             }
 
             var source = TimeSource ?? SystemTimeSource.Instance;
-            var ticks = source.GetTimestamp() - start;
+            var ticks = source.GetTimestamp() - start.Timestamp;
             return TimeSpan.FromSeconds(ticks / (double)source.TimestampFrequency);
         }
     }
@@ -193,31 +192,31 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <remarks>
     /// This is useful for partially extracting data from a source, especially when the source is large
     /// or infinite or during development.
+    /// <para>
+    /// Configure it through <see cref="ExtractorOptions.MaximumItemCount"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
+    /// </para>
     /// </remarks>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1.</exception>
     /// <example>
     /// <code>
-    ///     var count = 0;
-    ///     using (var reader = new StreamReader(filePath))
+    /// using (var reader = new StreamReader(filePath))
+    /// {
+    ///     string line;
+    ///     while ((line = await reader.ReadLineAsync()) != null)
     ///     {
-    ///         while (!reader.EndOfStream)
+    ///         if (CurrentItemCount &gt;= MaximumItemCount)
     ///         {
-    ///             yield return await reader.ReadLineAsync();
-    ///             count++;
-    ///             if (count >= MaximumItemCount)
-    ///             {
-    ///                 Console.WriteLine("Maximum item count reached. Stopping extraction.");
-    ///                 break; // Stop extracting if the maximum item count is reached
-    ///             }
+    ///             break; // the limit is reached: end the sequence
     ///         }
+    ///
+    ///         IncrementCurrentItemCount();
+    ///         yield return line;
     ///     }
+    /// }
     /// </code>
     /// </example>
-    /// <remarks>
-    /// Configure it through <see cref="ExtractorOptions.MaximumItemCount"/> on the options record passed to the
-    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
-    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
-    /// </remarks>
     public int MaximumItemCount
     {
         get => _maximumItemCount;
@@ -238,37 +237,32 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// <remarks>
     /// This is useful for partially extracting data from a source during development, or to skip
     /// items that were already processed or are not relevant for the current extraction.
+    /// <para>
+    /// Configure it through <see cref="ExtractorOptions.SkipItemCount"/> on the options record passed to the
+    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
+    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
+    /// </para>
     /// </remarks>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     /// <example>
     /// <code>
-    ///     using (var reader = new StreamReader(filePath))
+    /// using (var reader = new StreamReader(filePath))
+    /// {
+    ///     string line;
+    ///     while ((line = await reader.ReadLineAsync()) != null)
     ///     {
-    ///         // Skip the specified number of items before starting to yield results
-    ///
-    ///         var skipCount = 0;
-    ///         while (!reader.EndOfStream &amp;&amp; skipCount &lt; SkipItemCount)
+    ///         if (CurrentSkippedItemCount &lt; SkipItemCount)
     ///         {
-    ///             await reader.ReadLineAsync();
-    ///             skipCount++;
+    ///             IncrementCurrentSkippedItemCount(); // counted as skipped, never yielded
+    ///             continue;
     ///         }
     ///
-    ///         // Now start yielding results
-    ///
-    ///         var count = 0;
-    ///         while (!reader.EndOfStream)
-    ///         {
-    ///             yield return await reader.ReadLineAsync();
-    ///             count++;
-    ///         }
+    ///         IncrementCurrentItemCount();
+    ///         yield return line;
     ///     }
+    /// }
     /// </code>
     /// </example>
-    /// <remarks>
-    /// Configure it through <see cref="ExtractorOptions.SkipItemCount"/> on the options record passed to the
-    /// constructor. The setter is deprecated (ADR-0009) and will be removed, leaving the property read-only; at that point the
-    /// constructor is the only way to set it; a value assigned after a run has started is not honoured.
-    /// </remarks>
     public int SkipItemCount
     {
         get => _skipItemCount;
@@ -283,6 +277,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
     /// <inheritdoc/>
+    /// <exception cref="ObjectDisposedException">This instance has been disposed.</exception>
     public virtual IAsyncEnumerable<TSource> ExtractAsync()
     {
         ThrowIfDisposed();
@@ -292,6 +287,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
     /// <inheritdoc/>
+    /// <exception cref="ObjectDisposedException">This instance has been disposed.</exception>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(CancellationToken token)
     {
         ThrowIfDisposed();
@@ -301,6 +297,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
     /// <inheritdoc/>
+    /// <exception cref="ObjectDisposedException">This instance has been disposed.</exception>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress)
     {
         ThrowIfDisposed();
@@ -312,6 +309,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
     /// <inheritdoc/>
+    /// <exception cref="ObjectDisposedException">This instance has been disposed.</exception>
     public virtual IAsyncEnumerable<TSource> ExtractAsync(IProgress<TProgress> progress, CancellationToken token)
     {
         ThrowIfDisposed();
@@ -353,11 +351,24 @@ public abstract class ExtractorBase<TSource, TProgress>
     {
         ResetRunState();
 
-        // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
-        // synchronization context), so the flipped mutant is unkillable (#452).
-        await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token).ConfigureAwait(false))
+        // A manual enumerator loop, not `await foreach (... .ConfigureAwait(false))` (#364): that form awaits a
+        // ConfiguredCancelableAsyncEnumerable, which Microsoft.Coyote cannot control, so the Coyote
+        // dispose-race test could not run. MoveNextAsync().ConfigureAwait(false) keeps the same
+        // no-context continuation (the #363 deadlock fix) as a ConfiguredValueTaskAwaitable Coyote controls.
+        var enumerator = WrapWorkerExecution(ExtractWorkerAsync, token).GetAsyncEnumerator(token);
+        try
         {
-            yield return item;
+            // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
+            // synchronization context), so the flipped mutant is unkillable (#452).
+            while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+            {
+                yield return enumerator.Current;
+            }
+        }
+        finally
+        {
+            // Stryker disable once Boolean : same equivalence as above (#452).
+            await enumerator.DisposeAsync().ConfigureAwait(false);
         }
     }
 
@@ -373,11 +384,24 @@ public abstract class ExtractorBase<TSource, TProgress>
 
         try
         {
-            // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
-        // synchronization context), so the flipped mutant is unkillable (#452).
-        await foreach (var item in WrapWorkerExecution(ExtractWorkerAsync, token).ConfigureAwait(false))
+            // A manual enumerator loop, not `await foreach (... .ConfigureAwait(false))` (#364): that form awaits a
+            // ConfiguredCancelableAsyncEnumerable, which Microsoft.Coyote cannot control, so the Coyote
+            // dispose-race test could not run. MoveNextAsync().ConfigureAwait(false) keeps the same
+            // no-context continuation (the #363 deadlock fix) as a ConfiguredValueTaskAwaitable Coyote controls.
+            var enumerator = WrapWorkerExecution(ExtractWorkerAsync, token).GetAsyncEnumerator(token);
+            try
             {
-                yield return item;
+                // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
+                // synchronization context), so the flipped mutant is unkillable (#452).
+                while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+                {
+                    yield return enumerator.Current;
+                }
+            }
+            finally
+            {
+                // Stryker disable once Boolean : same equivalence as above (#452).
+                await enumerator.DisposeAsync().ConfigureAwait(false);
             }
         }
         finally
@@ -399,7 +423,7 @@ public abstract class ExtractorBase<TSource, TProgress>
         Volatile.Write(ref _currentItemCount, 0);
         Volatile.Write(ref _currentSkippedItemCount, 0);
         Volatile.Write(ref _currentErrorItemCount, 0);
-        Volatile.Write(ref _startTimestamp, 0L);
+        Volatile.Write(ref _runStart, null);
     }
 
 
@@ -510,8 +534,8 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// Increments the CurrentItemCount in a thread safe manner.
     /// </summary>
     /// <remarks>
-    /// Simply calling CurrentItemCount++ or CurrentItemCount += 1 is not
-    /// thread safe. This method ensures that CurrentItemCount is incremented safely.
+    /// <see cref="CurrentItemCount"/> is read-only to derived classes; this method is the only way to
+    /// advance it, and it does so with an interlocked increment so concurrent callers never lose a count.
     /// </remarks>
     [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
         Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
@@ -549,8 +573,8 @@ public abstract class ExtractorBase<TSource, TProgress>
     /// Increments the CurrentSkippedItemCount in a thread safe manner.
     /// </summary>
     /// <remarks>
-    /// Simply calling CurrentSkippedItemCount++ or CurrentSkippedItemCount += 1 is not
-    /// thread safe. This method ensures that CurrentSkippedItemCount is incremented safely.
+    /// <see cref="CurrentSkippedItemCount"/> is read-only to derived classes; this method is the only way to
+    /// advance it, and it does so with an interlocked increment so concurrent callers never lose a count.
     /// </remarks>
     [SuppressMessage("IDE0058", "IDE0058:Expression value is never used",
         Justification = "Interlocked.Increment return value intentionally discarded; only the side-effect matters.")]
@@ -665,7 +689,7 @@ public abstract class ExtractorBase<TSource, TProgress>
     // win the CompareExchange records the start; later calls are a cheap volatile read.
     private void EnsureStarted()
     {
-        if (Volatile.Read(ref _startTimestamp) != 0)
+        if (Volatile.Read(ref _runStart) is not null)
         // Stryker disable once all: equivalent — dropping this fast-path block only skips a cheap
         // early-out. The CompareExchange below is the real guard and assigns only on the winning
         // exchange, so a re-entrant caller changes nothing either way. (The CONDITION itself is not
@@ -676,24 +700,22 @@ public abstract class ExtractorBase<TSource, TProgress>
             return;
         }
 
+        // Both values travel in one immutable object published by a single reference exchange, so a
+        // progress callback on another thread never sees the timestamp without the wall-clock time (#731).
         var source = TimeSource ?? SystemTimeSource.Instance;
-        var now = source.UtcNow;
-        var timestamp = source.GetTimestamp();
-        if (Interlocked.CompareExchange(ref _startTimestamp, timestamp, 0) == 0)
-        {
-            _startedAtUtc = now;
-        }
+        var start = new RunStart(source.GetTimestamp(), source.UtcNow);
+        _ = Interlocked.CompareExchange(ref _runStart, start, comparand: null);
     }
 
 
 
     /// <summary>
-    /// Asynchronously releases the resources held by this extractor. The base implementation is a
-    /// no-op (the base owns no unmanaged resources); derived classes that hold resources such as
-    /// streams or connections override <see cref="Dispose(bool)"/> to release them. Enables
-    /// <c>await using</c> on any extractor.
+    /// Asynchronously releases the resources held by this extractor and marks it disposed: every later
+    /// <c>ExtractAsync</c> call throws <see cref="ObjectDisposedException"/>. The base owns no unmanaged
+    /// resources; derived classes that hold resources such as streams or connections override
+    /// <see cref="Dispose(bool)"/> to release them. Enables <c>await using</c> on any extractor.
     /// </summary>
-    /// <returns>A completed <see cref="ValueTask"/> for the default no-op implementation.</returns>
+    /// <returns>A completed <see cref="ValueTask"/>; the base implementation disposes synchronously.</returns>
     public virtual ValueTask DisposeAsync()
     {
         Dispose(disposing: true);
@@ -704,8 +726,9 @@ public abstract class ExtractorBase<TSource, TProgress>
 
 
     /// <summary>
-    /// Releases the resources held by this extractor. The base implementation is a no-op; derived
-    /// classes that hold resources override <see cref="Dispose(bool)"/>.
+    /// Releases the resources held by this extractor and marks it disposed: every later
+    /// <c>ExtractAsync</c> call throws <see cref="ObjectDisposedException"/>. Derived classes that hold
+    /// resources override <see cref="Dispose(bool)"/>.
     /// </summary>
     public void Dispose()
     {

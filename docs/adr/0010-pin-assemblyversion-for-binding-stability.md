@@ -1,8 +1,11 @@
-# 2. Pin AssemblyVersion at 1.0.0.0 for binding stability
+# ADR 0010 — Pin AssemblyVersion at 1.0.0.0 for binding stability
+
+> Imported from the archived ETL-Test-Kit repository, where it was ADR 2. Renumbered when
+> TestKit and TestKit.Xunit moved into this repository so the numbers no longer collide.
 
 ## Status
 
-Accepted
+Superseded by [ADR-0007](0007-pin-assemblyversion.md). Since the repository consolidation, ADR-0007 records the same decision for all four packages; this record is kept for history.
 
 ## Context
 
