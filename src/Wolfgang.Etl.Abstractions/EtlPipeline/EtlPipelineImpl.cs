@@ -118,7 +118,6 @@ internal sealed class EtlPipelineImpl<T> : IEtlPipeline<T>
 
 
 
-    /// <inheritdoc/>
     // Typed-progress transform stage (#382). Same shape as Through(ITransformWithCancellationAsync),
     // but routes the transformer's own TProgress reports to the caller's sink.
     internal IEtlPipeline<TOut> ThroughWithProgress<TOut, TProgress>
