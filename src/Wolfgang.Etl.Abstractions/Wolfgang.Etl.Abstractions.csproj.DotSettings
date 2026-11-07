@@ -1,0 +1,10 @@
+<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<!--
+	  This assembly uses one flat namespace (Wolfgang.Etl.Abstractions); the EtlPipeline/ and
+	  Pipeline/ folders only organise files. Mark them as non-namespace-providers so InspectCode's
+	  CheckNamespace does not expect Wolfgang.Etl.Abstractions.EtlPipeline / .Pipeline. Changing
+	  the namespaces instead would break the shipped public API.
+	-->
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=etlpipeline/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=pipeline/@EntryIndexedValue">True</s:Boolean>
+</wpf:ResourceDictionary>
