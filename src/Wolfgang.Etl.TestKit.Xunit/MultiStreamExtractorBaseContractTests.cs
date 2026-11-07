@@ -248,7 +248,7 @@ public abstract class MultiStreamExtractorBaseContractTests<TSut, TRecord, TProg
         var later = Source(CreateRecords(1), "later");
         var sut = CreateSut(new[] { failing.Named, later.Named }, MultiStreamErrorAction.Stop, errorHandler: null);
 
-        var ex = await Record.ExceptionAsync(() => DrainAsync(sut)).ConfigureAwait(false);
+        var ex = await Record.ExceptionAsync(async () => _ = await DrainAsync(sut).ConfigureAwait(false)).ConfigureAwait(false);
 
         Assert.NotNull(ex);
         Assert.False(ex is OperationCanceledException, "A malformed source must fail with an error, not a cancellation.");
