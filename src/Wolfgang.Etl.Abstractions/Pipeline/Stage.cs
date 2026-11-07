@@ -28,7 +28,7 @@ internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<T
 
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITransformStage{TSource}.Transform{TDestination}(ITransformAsync{TSource, TDestination})"/>
     public ITransformStage<TDestination> Transform<TDestination>
     (
         ITransformAsync<TSource, TDestination> transformer
@@ -50,7 +50,7 @@ internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<T
 
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITransformStage{TSource}.Transform{TDestination}(ITransformWithCancellationAsync{TSource, TDestination})"/>
     public ITransformStage<TDestination> Transform<TDestination>
     (
         ITransformWithCancellationAsync<TSource, TDestination> transformer
@@ -72,7 +72,7 @@ internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<T
 
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITransformStage{TSource}.Transform{TDestination, TProgress}(ITransformWithProgressAsync{TSource, TDestination, TProgress})"/>
     public ITransformStageWithProgress<TDestination, TProgress> Transform<TDestination, TProgress>
     (
         ITransformWithProgressAsync<TSource, TDestination, TProgress> transformer
@@ -97,7 +97,7 @@ internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<T
 
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITransformStage{TSource}.Transform{TDestination, TProgress}(ITransformWithProgressAndCancellationAsync{TSource, TDestination, TProgress})"/>
     public ITransformStageWithProgress<TDestination, TProgress> Transform<TDestination, TProgress>
     (
         ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress> transformer
@@ -122,7 +122,7 @@ internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<T
 
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITransformStage{TSource}.Load(ILoadAsync{TSource})"/>
     public IPipeline Load(ILoadAsync<TSource> loader)
     {
         if (loader is null)
@@ -140,7 +140,7 @@ internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<T
 
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITransformStage{TSource}.Load(ILoadWithCancellationAsync{TSource})"/>
     public IPipeline Load(ILoadWithCancellationAsync<TSource> loader)
     {
         if (loader is null)
@@ -158,7 +158,7 @@ internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<T
 
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITransformStage{TSource}.Load{TProgress}(ILoadWithProgressAsync{TSource, TProgress})"/>
     public IPipelineWithLoadProgress<TProgress> Load<TProgress>
     (
         ILoadWithProgressAsync<TSource, TProgress> loader
@@ -181,7 +181,7 @@ internal sealed class Stage<TSource> : IExtractStage<TSource>, ITransformStage<T
 
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITransformStage{TSource}.Load{TProgress}(ILoadWithProgressAndCancellationAsync{TSource, TProgress})"/>
     public IPipelineWithLoadProgress<TProgress> Load<TProgress>
     (
         ILoadWithProgressAndCancellationAsync<TSource, TProgress> loader
