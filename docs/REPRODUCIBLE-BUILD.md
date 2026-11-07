@@ -6,17 +6,25 @@ function of the source at a given commit. That means **you don't have to trust o
 CI**: you can rebuild the library yourself from the published tag and confirm, byte
 for byte, that the assembly we shipped is the one the source produces.
 
-Our CI already proves the build is reproducible *internally* — `.github/workflows/reproducible-build.yaml`
-builds the library twice in independent directories and fails if the two
-assemblies' hashes differ (#216). This page is the **consumer side**: how *you*
-verify it independently (#225).
+Our CI already proves the build is reproducible *across operating systems* —
+`.github/workflows/reproducible-build.yaml` builds all four `src/` projects on Ubuntu
+and on Windows, hashes every `.dll` and `.pdb` for every target framework, and fails on
+any difference (#216, #722). This page is the **consumer side**: how *you* verify it
+independently (#225).
 
 ## What is verified
 
-The **compiled assembly** (`Wolfgang.Etl.Abstractions.dll`) is the deterministic
-artifact. The `.nupkg` itself is a zip and carries non-deterministic container
-metadata (entry timestamps), so its outer hash is *not* expected to match — verify
-the assembly inside it, not the package envelope.
+The guarantee covers the **compiled assemblies and their symbols** (`.dll` and `.pdb`,
+every target framework): the same commit produces the same bytes on Linux and on
+Windows. Two build settings make that hold across operating systems:
+`Directory.Build.targets` rewrites the SDK-generated sources to LF line endings before
+compiling, and `Directory.Build.props` compiles the .NET Framework targets against the
+`Microsoft.NETFramework.ReferenceAssemblies` package rather than a locally installed
+targeting pack.
+
+Package files (`.nupkg` / `.snupkg`) are **not** covered. A package is a zip, and NuGet
+stamps every entry with the pack time, so two packs of one commit differ even on one
+machine. Verify the assembly inside the package, not the package file.
 
 Each release attaches a **`reproducible-build-manifest.json`** listing the expected
 `sha256` of the shipped assembly for every target framework, e.g.:
@@ -61,9 +69,13 @@ on your machine, under your control.
 
 ## If the hashes differ
 
-First rule out environment drift — a different SDK **feature band** or OS can change
-codegen. Confirm you used the SDK major/feature band named in the release and built
-with `-p:ContinuousIntegrationBuild=true`.
+First rule out environment drift. A different SDK **feature band** can change
+codegen, and the `.pdb` records the version of the runtime the compiler ran on, so a
+newer runtime patch on your machine changes the `.pdb` and, through its checksum, the
+`.dll`. Confirm you used the SDK major/feature band named in the release and built
+with `-p:ContinuousIntegrationBuild=true`. For an older target framework (for example
+`net5.0`), a targeting pack installed under the .NET install directory can be a
+different build from the NuGet package CI downloads, and that also changes the hashes.
 
 If they still differ with matching tooling, that is a genuine reproducibility
 discrepancy worth reporting: open an issue titled `reproducibility: <version> hash
