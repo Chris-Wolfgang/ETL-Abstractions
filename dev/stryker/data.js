@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1792305105181,
+  "lastUpdate": 1794142618554,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "Mutation score": [
@@ -257,6 +257,38 @@ window.BENCHMARK_DATA = {
           {
             "name": "Mutation score",
             "value": 98.63,
+            "unit": "%"
+          },
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.TestKit.Tests.Unit)",
+            "value": 98.9,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "7eb92e1ba30c6572bb0f8e3f023727536755f460",
+          "message": "chore(inspectcode): mark EtlPipeline/ and Pipeline/ as non-namespace folders (#788)\n\n* docs: name the inheritdoc source on the internal pipeline stages\n\nStage<TSource> implements IExtractStage and ITransformStage, whose members\nare identical, so a bare <inheritdoc/> has two base candidates\n(InspectCode InheritdocInvalidUsage, code-scanning alerts 2352-2359).\nPoint each one at the ITransformStage member. Drop the <inheritdoc/> on\nthe internal EtlPipelineImpl.ThroughWithProgress, which implements nothing\n(alerts 2368 InheritdocInvalidUsage, 2369 MA0196); the comment below it\nalready explains the method, as on its ToWithProgress sibling.\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n\n* chore(inspectcode): mark EtlPipeline/ and Pipeline/ as non-namespace folders\n\nThe assembly uses one flat namespace, Wolfgang.Etl.Abstractions; these two\nfolders only organise files. InspectCode's CheckNamespace flags every new\nfile in them (code-scanning alerts 2351, 2367), and nine earlier ones were\ndismissed one by one as \"won't fix: by design\". A project-layer\nNamespaceFoldersToSkip entry states that design once.\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Fable 5.1 <noreply@anthropic.com>",
+          "timestamp": "2026-11-08T02:16:36Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/7eb92e1ba30c6572bb0f8e3f023727536755f460"
+        },
+        "date": 1794142608143,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 96.88,
             "unit": "%"
           },
           {
