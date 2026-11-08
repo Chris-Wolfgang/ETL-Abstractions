@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794084460183,
+  "lastUpdate": 1794104354179,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -5472,6 +5472,114 @@ window.BENCHMARK_DATA = {
             "value": 6035083.84375,
             "unit": "ns",
             "range": "± 34279.258980378145"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7eb92e1ba30c6572bb0f8e3f023727536755f460",
+          "message": "chore(inspectcode): mark EtlPipeline/ and Pipeline/ as non-namespace folders (#788)\n\n* docs: name the inheritdoc source on the internal pipeline stages\n\nStage<TSource> implements IExtractStage and ITransformStage, whose members\nare identical, so a bare <inheritdoc/> has two base candidates\n(InspectCode InheritdocInvalidUsage, code-scanning alerts 2352-2359).\nPoint each one at the ITransformStage member. Drop the <inheritdoc/> on\nthe internal EtlPipelineImpl.ThroughWithProgress, which implements nothing\n(alerts 2368 InheritdocInvalidUsage, 2369 MA0196); the comment below it\nalready explains the method, as on its ToWithProgress sibling.\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n\n* chore(inspectcode): mark EtlPipeline/ and Pipeline/ as non-namespace folders\n\nThe assembly uses one flat namespace, Wolfgang.Etl.Abstractions; these two\nfolders only organise files. InspectCode's CheckNamespace flags every new\nfile in them (code-scanning alerts 2351, 2367), and nine earlier ones were\ndismissed one by one as \"won't fix: by design\". A project-layer\nNamespaceFoldersToSkip entry states that design once.\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Fable 5.1 <noreply@anthropic.com>",
+          "timestamp": "2026-11-07T21:16:36-05:00",
+          "tree_id": "40ef59286e7c077f7498ad941c88dd7883d6fe39",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/7eb92e1ba30c6572bb0f8e3f023727536755f460"
+        },
+        "date": 1794104349179,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 89348.23832194011,
+            "unit": "ns",
+            "range": "± 397.5709367127046"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 110875.53243001302,
+            "unit": "ns",
+            "range": "± 759.2387509330139"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 8848099.791666666,
+            "unit": "ns",
+            "range": "± 10017.676721041082"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 11594793.494791666,
+            "unit": "ns",
+            "range": "± 22182.556608670217"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 25609.63328552246,
+            "unit": "ns",
+            "range": "± 25.982614777872698"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 27017.708567301434,
+            "unit": "ns",
+            "range": "± 136.13470860772696"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 2517309.6966145835,
+            "unit": "ns",
+            "range": "± 1984.9363565973658"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 2702266.4947916665,
+            "unit": "ns",
+            "range": "± 29366.58204031368"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 25300.15512084961,
+            "unit": "ns",
+            "range": "± 90.83205868533226"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 25137.73876444499,
+            "unit": "ns",
+            "range": "± 20.353404256298308"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 56158.81099446615,
+            "unit": "ns",
+            "range": "± 920.1609385467189"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2499026.1354166665,
+            "unit": "ns",
+            "range": "± 6051.61674943552"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2514749.8606770835,
+            "unit": "ns",
+            "range": "± 4810.865752374915"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 5270446.796875,
+            "unit": "ns",
+            "range": "± 5979.610870300616"
           }
         ]
       }
