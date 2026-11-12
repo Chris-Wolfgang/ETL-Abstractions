@@ -1,9 +1,6 @@
 {
   "stryker-config": {
-    "project": "src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj",
-    "test-projects": [
-      "tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj"
-    ],
+    "project": "Wolfgang.Etl.Abstractions.csproj",
     "target-framework": "net10.0",
     "reporters": [
       "html",
