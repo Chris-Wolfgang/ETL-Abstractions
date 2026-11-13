@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Coyote.Specifications;
-using Microsoft.Coyote.SystematicTesting;
 
 namespace Wolfgang.Etl.Abstractions.Tests.Concurrency;
 
