@@ -3,7 +3,7 @@ using Wolfgang.Etl.Abstractions;
 
 namespace Example9_DisposingOwned;
 
-internal class Program
+internal static class Program
 {
     private static async Task Main()
     {
