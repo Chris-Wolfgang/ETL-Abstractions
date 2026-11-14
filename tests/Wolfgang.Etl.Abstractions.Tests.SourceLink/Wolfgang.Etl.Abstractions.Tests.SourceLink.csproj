@@ -20,6 +20,7 @@
          are verified: a symbol defect in any one of them is a broken debugging
          experience for that package's consumers. -->
     <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions.Streams\Wolfgang.Etl.Abstractions.Streams.csproj" />
     <ProjectReference Include="..\..\src\Wolfgang.Etl.ErrorPolicies\Wolfgang.Etl.ErrorPolicies.csproj" />
     <ProjectReference Include="..\..\src\Wolfgang.Etl.TestKit\Wolfgang.Etl.TestKit.csproj" />
     <ProjectReference Include="..\..\src\Wolfgang.Etl.TestKit.Xunit\Wolfgang.Etl.TestKit.Xunit.csproj" />
