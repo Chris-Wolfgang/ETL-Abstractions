@@ -138,7 +138,7 @@
          Change these three lines when forking the template for another owner. -->
     <Authors>Chris Wolfgang</Authors>
     <Company>Chris Wolfgang</Company>
-    <Copyright>Copyright (c) $([System.DateTime]::UtcNow.Year) Chris Wolfgang</Copyright>
+    <Copyright>Copyright (c) 2025-2026 Chris Wolfgang</Copyright>
     <!-- Repo-uniform now that all four packages ship from this repo. RepositoryUrl is intentionally
          NOT set here — SourceLink derives it from the git remote via PublishRepositoryUrl below. -->
     <PackageProjectUrl>https://github.com/Chris-Wolfgang/ETL-Abstractions</PackageProjectUrl>
