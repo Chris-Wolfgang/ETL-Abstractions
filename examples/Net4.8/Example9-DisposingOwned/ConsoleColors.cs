@@ -1,6 +1,6 @@
 namespace Example9_DisposingOwned
 {
-    internal class ConsoleColors
+    internal static class ConsoleColors
     {
         private const char Escape = (char)27;
 
