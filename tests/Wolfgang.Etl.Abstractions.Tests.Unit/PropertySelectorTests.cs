@@ -20,7 +20,9 @@ public class PropertySelectorTests
     {
         public string Name { get; set; } = string.Empty;
 
+#pragma warning disable S3459 // Read and written only through the expression trees under test.
         public int Age { get; set; }
+#pragma warning restore S3459
 
         public Address Home { get; set; } = new();
 

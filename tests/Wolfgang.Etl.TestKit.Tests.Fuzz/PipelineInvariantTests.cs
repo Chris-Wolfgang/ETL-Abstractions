@@ -87,6 +87,7 @@ public class PipelineInvariantTests
         }
 
         EtlPipelineProgress? final = null;
+#pragma warning disable VSTHRD002 // Cases.Sample takes a synchronous callback, so blocking on the pipeline is unavoidable here.
         EtlPipeline
             .Create()
             .From(extractor)
@@ -94,6 +95,7 @@ public class PipelineInvariantTests
             .RunAsync(new InlineProgress<EtlPipelineProgress>(p => final = p), CancellationToken.None)
             .GetAwaiter()
             .GetResult();
+#pragma warning restore VSTHRD002
 
         var extracted = items.Where((_, i) => !extractFaults[i]).ToList();
         var expectedLoaded = extracted.Where((_, i) => !loadFaults[i]).ToList();
@@ -115,7 +117,7 @@ public class PipelineInvariantTests
 
         // 4. Pipeline totals
         Assert.NotNull(final);
-        Assert.Equal(extracted.Count, final!.ExtractedItemCount);
+        Assert.Equal(extracted.Count, final.ExtractedItemCount);
         Assert.Equal(extracted.Count, final.LoadedItemCount);
         Assert.Equal(extractFaultIndices.Count + loadFaultIndices.Count, final.ErrorItemCount);
     }
