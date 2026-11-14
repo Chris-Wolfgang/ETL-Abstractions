@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -26,7 +25,7 @@ public sealed class EnumeratorDisposalTests
             try
             {
                 var next = 0;
-                while (true)
+                while (!token.IsCancellationRequested)
                 {
                     await Task.Yield();
                     yield return next++;
@@ -56,7 +55,7 @@ public sealed class EnumeratorDisposalTests
             try
             {
                 var next = 0;
-                while (true)
+                while (!token.IsCancellationRequested)
                 {
                     await Task.Yield();
                     yield return next++;
