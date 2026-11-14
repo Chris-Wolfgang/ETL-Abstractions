@@ -54,8 +54,8 @@ Require(seen == 4, "AsAsyncEnumerable");
 var report = new Report(50, startedAt: null, elapsed: TimeSpan.FromSeconds(10), totalItemCount: 100);
 
 Require(report.CurrentItemCount == 50, "Report.CurrentItemCount");
-Require(report.ItemsPerSecond == 5d, "Report.ItemsPerSecond");
-Require(report.PercentComplete == 50d, "Report.PercentComplete");
+Require(Near(report.ItemsPerSecond, 5d), "Report.ItemsPerSecond");
+Require(Near(report.PercentComplete, 50d), "Report.PercentComplete");
 Require(report.EstimatedRemaining == TimeSpan.FromSeconds(10), "Report.EstimatedRemaining");
 
 Console.WriteLine("AOT smoke: OK");
@@ -69,6 +69,13 @@ static async IAsyncEnumerable<int> Numbers(int count)
         yield return i;
         await Task.Yield();
     }
+}
+
+
+static bool Near(double? actual, double expected)
+{
+    // A missing value (null) never matches; the tolerance absorbs floating-point rounding.
+    return actual.HasValue && Math.Abs(actual.Value - expected) < 1e-9;
 }
 
 
