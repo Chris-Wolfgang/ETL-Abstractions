@@ -14,6 +14,9 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 /// </summary>
 public sealed class EnumeratorDisposalTests
 {
+    private readonly List<EtlProgress> _reports = new();
+
+
     private sealed class EndlessExtractor : ExtractorBase<int, EtlProgress>
     {
         public bool WorkerCleanedUp { get; private set; }
@@ -22,10 +25,11 @@ public sealed class EnumeratorDisposalTests
         {
             try
             {
-                for (var i = 0; ; i++)
+                var next = 0;
+                while (true)
                 {
                     await Task.Yield();
-                    yield return i;
+                    yield return next++;
                 }
             }
             finally
@@ -44,12 +48,18 @@ public sealed class EnumeratorDisposalTests
 
         protected override async IAsyncEnumerable<int> TransformWorkerAsync(IAsyncEnumerable<int> items, [EnumeratorCancellation] CancellationToken token)
         {
+            await foreach (var _ in items.WithCancellation(token))
+            {
+                IncrementCurrentItemCount();
+            }
+
             try
             {
-                for (var i = 0; ; i++)
+                var next = 0;
+                while (true)
                 {
                     await Task.Yield();
-                    yield return i;
+                    yield return next++;
                 }
             }
             finally
@@ -62,16 +72,18 @@ public sealed class EnumeratorDisposalTests
     }
 
 
-    private static async IAsyncEnumerable<int> EmptySource()
+    private static async IAsyncEnumerable<int> OneItemSource()
     {
-        await Task.CompletedTask;
-        yield break;
+        await Task.Yield();
+        yield return 1;
     }
 
 
     private static async Task TakeOneAndAbandonAsync(IAsyncEnumerable<int> stream)
     {
         var enumerator = stream.GetAsyncEnumerator();
+        // Two items: the second MoveNextAsync resumes the worker past its first yield before the run is abandoned.
+        Assert.True(await enumerator.MoveNextAsync());
         Assert.True(await enumerator.MoveNextAsync());
         await enumerator.DisposeAsync();
     }
@@ -93,7 +105,7 @@ public sealed class EnumeratorDisposalTests
     {
         var sut = new EndlessExtractor();
 
-        await TakeOneAndAbandonAsync(sut.ExtractAsync(new Progress<EtlProgress>(_ => { })));
+        await TakeOneAndAbandonAsync(sut.ExtractAsync(new SynchronousProgress<EtlProgress>(_reports.Add)));
 
         Assert.True(sut.WorkerCleanedUp);
     }
@@ -104,7 +116,7 @@ public sealed class EnumeratorDisposalTests
     {
         var sut = new EndlessTransformer();
 
-        await TakeOneAndAbandonAsync(sut.TransformAsync(EmptySource()));
+        await TakeOneAndAbandonAsync(sut.TransformAsync(OneItemSource()));
 
         Assert.True(sut.WorkerCleanedUp);
     }
@@ -115,7 +127,7 @@ public sealed class EnumeratorDisposalTests
     {
         var sut = new EndlessTransformer();
 
-        await TakeOneAndAbandonAsync(sut.TransformAsync(EmptySource(), new Progress<EtlProgress>(_ => { })));
+        await TakeOneAndAbandonAsync(sut.TransformAsync(OneItemSource(), new SynchronousProgress<EtlProgress>(_reports.Add)));
 
         Assert.True(sut.WorkerCleanedUp);
     }
