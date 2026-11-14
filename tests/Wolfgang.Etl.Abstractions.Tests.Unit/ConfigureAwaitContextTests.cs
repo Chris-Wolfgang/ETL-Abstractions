@@ -33,6 +33,15 @@ public sealed class ConfigureAwaitContextTests
 
 
     [Fact]
+    public Task EtlPipeline_loader_with_progress_run_does_not_capture_the_context()
+        => AssertDoesNotCaptureContext(() => EtlPipeline
+            .Create()
+            .From(SuspendingSource(3))
+            .To(new ContextAgnosticLoader(), new NoOpProgress<EtlProgress>())
+            .RunAsync());
+
+
+    [Fact]
     public Task DisposingOwned_streaming_run_does_not_capture_the_context()
         => AssertDoesNotCaptureContext(() => EtlPipeline
             .Create()

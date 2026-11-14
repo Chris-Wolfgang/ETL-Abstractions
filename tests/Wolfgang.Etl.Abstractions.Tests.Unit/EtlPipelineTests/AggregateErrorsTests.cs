@@ -138,6 +138,42 @@ public class AggregateErrorsTests
     }
 
 
+    [Fact]
+    public async Task ErrorItemCount_includes_extractor_errors_when_the_extractor_is_given_a_progress()
+    {
+        // Binds From(extractor, progress), which must register the extractor's error reader (#817).
+        var reports = new List<EtlPipelineProgress>();
+
+        await EtlPipeline
+            .Create()
+            .From(new ErroringExtractor(good: 2, errors: 3), new Progress<EtlProgress>(_ => { }))
+            .To(new ErroringLoader(errors: 0))
+            .RunAsync(new SyncProgress(reports.Add));
+
+        Assert.Equal(3, reports[^1].ErrorItemCount);
+    }
+
+
+    [Fact]
+    public async Task ErrorItemCount_includes_extractor_and_transformer_errors_when_Through_is_given_a_progress()
+    {
+        // Through(transformer, progress) must register the transformer's error reader (#817), and it runs on
+        // an EtlPipeline-built pipeline, so it must keep that pipeline's shared state: the extractor's errors
+        // still count rather than being lost to a re-adapted stream.
+        var reports = new List<EtlPipelineProgress>();
+
+        await EtlPipeline
+            .Create()
+            .From(new ErroringExtractor(good: 2, errors: 3))
+            .Through(new ErroringTransformer(errors: 4), new Progress<EtlProgress>(_ => { }))
+            .To(new ErroringLoader(errors: 0))
+            .RunAsync(new SyncProgress(reports.Add));
+
+        Assert.Equal(7, reports[^1].ErrorItemCount);   // 3 (extract) + 4 (transform)
+        Assert.Equal(2, reports[^1].ExtractedItemCount);
+    }
+
+
     // ---------- helpers ----------
 
     private static async IAsyncEnumerable<int> AsyncSource(params int[] items)
