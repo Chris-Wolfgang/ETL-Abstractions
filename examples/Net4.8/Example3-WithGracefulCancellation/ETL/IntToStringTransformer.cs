@@ -33,7 +33,7 @@ namespace Example3_WithGracefulCancellation.ETL
             {
                 if (token.IsCancellationRequested)
                 {
-                    Console.WriteLine($"{ConsoleColors.Red}Loading cancelled.{ConsoleColors.Reset}");
+                    Console.WriteLine($"{ConsoleColors.Red}Transformation cancelled.{ConsoleColors.Reset}");
                     yield break; // Exit gracefully if cancellation is requested
                 }
 

@@ -57,7 +57,7 @@ internal class Program
 
     private static async Task EtlWithCancellationToken()
     {
-        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process wit cancellation...{ConsoleColors.Reset}\n\n");
+        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process with cancellation...{ConsoleColors.Reset}\n\n");
 
         // Set a cancellation token to cancel the extraction after 1 second
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
@@ -90,7 +90,7 @@ internal class Program
 
     private static async Task EtlWithProgress()
     {
-        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process wit cancellation...{ConsoleColors.Reset}\n\n");
+        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process with progress...{ConsoleColors.Reset}\n\n");
 
         var progress = new Progress<EtlProgress>(p =>
         {
@@ -117,7 +117,7 @@ internal class Program
 
     private static async Task EtlWithProgressAndCancellationToken()
     {
-        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process wit cancellation...{ConsoleColors.Reset}\n\n");
+        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process with progress and cancellation...{ConsoleColors.Reset}\n\n");
 
         // Set a cancellation token to cancel the extraction after 1 second
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
