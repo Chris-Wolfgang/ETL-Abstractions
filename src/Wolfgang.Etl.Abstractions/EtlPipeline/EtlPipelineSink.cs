@@ -47,16 +47,23 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
 
         var stream = CountLoaded(_factory(state, token), state, progress, token);
 
-        if (_loaderProgress is null)
+        try
         {
-            await _loader.LoadAsync(stream, token).ConfigureAwait(false);
+            if (_loaderProgress is null)
+            {
+                await _loader.LoadAsync(stream, token).ConfigureAwait(false);
+            }
+            else
+            {
+                await _loader.LoadAsync(stream, _loaderProgress, token).ConfigureAwait(false);
+            }
         }
-        else
+        finally
         {
-            await _loader.LoadAsync(stream, _loaderProgress, token).ConfigureAwait(false);
+            // In-flight snapshots are throttled, so the last one can trail the real counts. Send the
+            // exact counts however the run ended — a failed or cancelled run is when they matter most.
+            progress?.Report(state.Snapshot());
         }
-
-        progress?.Report(state.Snapshot());
     }
 
 
