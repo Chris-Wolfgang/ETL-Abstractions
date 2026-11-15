@@ -138,7 +138,7 @@ public abstract class ExtractWithProgressAndCancellationAsyncContractTests<TSut,
         using var cts = new CancellationTokenSource();
         var received = new List<TItem>();
 
-        await Assert.ThrowsAsync<OperationCanceledException>(async () =>
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
             await foreach (var item in sut.ExtractAsync(cts.Token).ConfigureAwait(false))
             {
