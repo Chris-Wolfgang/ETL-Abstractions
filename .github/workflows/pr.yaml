@@ -1695,6 +1695,9 @@ jobs:
                 exit 1
               fi
               rm -f "$test_log"
+              # Ledger for the coverage gate: this project/TFM ran tests with the coverage
+              # collector attached, so a missing coverage file later is a failure, not a skip.
+              echo "$test_proj ($fw)" >> "$RUNNER_TEMP/stage3-ran-with-coverage.txt"
             done <<< "$frameworks"
             echo ""
           done
@@ -1722,7 +1725,16 @@ jobs:
           # actually collected — instead of failing with "Coverage report
           # not generated!" on jobs that legitimately had nothing to cover.
           if ! find ./TestResults -name "coverage.cobertura.xml" -print -quit 2>/dev/null | grep -q .; then
-            echo "ℹ️  No coverage files produced — skipping coverage gate (consistent with the prior 'skipping report generation' notice)."
+            # Skipping is only right when nothing ran. If tests ran with the collector attached
+            # and left no coverage file, coverage was never measured (a dropped
+            # coverlet.collector reference, a collector crash) and the gate must not pass.
+            ran_file="$RUNNER_TEMP/stage3-ran-with-coverage.txt"
+            if [ -s "$ran_file" ]; then
+              echo "::error::Tests ran with coverage collection but no coverage file was produced. An unmeasured run must not pass the gate. Ran:"
+              sort -u "$ran_file" | sed 's/^/  - /'
+              exit 1
+            fi
+            echo "ℹ️  No test project ran in this stage and no coverage files were produced — skipping coverage gate."
             exit 0
           fi
           if [ ! -f "CoverageReport/Summary.txt" ]; then
