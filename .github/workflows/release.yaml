@@ -746,6 +746,7 @@ jobs:
     needs: pack-and-validate
     if: needs.pack-and-validate.outputs.has-packages == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
@@ -904,6 +905,7 @@ jobs:
     name: SourceLink symbol-server smoke (post-publish)
     needs: publish-nuget
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: read
     steps:
