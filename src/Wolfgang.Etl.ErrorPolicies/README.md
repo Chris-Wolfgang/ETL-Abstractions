@@ -28,6 +28,8 @@ and stop). This package supplies the common policies so you don't hand-write the
 ## Usage
 
 ```csharp
+using System.Collections.Generic;
+using Wolfgang.Etl.Abstractions;
 using Wolfgang.Etl.ErrorPolicies;
 
 var deadLetters = new List<ItemErrorContext>();

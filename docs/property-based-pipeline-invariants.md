@@ -43,6 +43,7 @@ FUZZ_ITER=20000 dotnet test tests/Wolfgang.Etl.TestKit.Tests.Fuzz --filter Pipel
 ## Example: the same check in a downstream library
 
 ```csharp
+using System;
 using System.Linq;
 using CsCheck;
 using Wolfgang.Etl.Abstractions;
