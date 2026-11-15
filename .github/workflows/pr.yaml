@@ -198,6 +198,9 @@ jobs:
     name: "Changelog Fragment Check"
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]'
+    permissions:
+      contents: read
+      pull-requests: read   # read the PR's current labels (the event payload's are frozen)
     steps:
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -209,7 +212,11 @@ jobs:
         shell: pwsh
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+          # Fallback only: the labels as they were when the event fired.
+          EVENT_PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           # The checkout uses persist-credentials:false (nothing in .git/config for
           # PR-controlled build steps to read), so a bare `git fetch origin` has no
           # auth and fails on a private repository. Pass the job token on this one
@@ -217,7 +224,22 @@ jobs:
           TRUSTED_MAIN_URL: https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
         run: |
           git fetch "$env:TRUSTED_MAIN_URL" $env:BASE_SHA --depth=1
-          pwsh ./scripts/changelog.ps1 check -BaseRef $env:BASE_SHA -Labels $env:PR_LABELS
+
+          # Read the labels the PR has NOW. A re-run replays the original event payload, so a
+          # 'no-changelog' label added after the check failed would never reach it and the
+          # author had to push a commit to clear the check. With a live read, "Re-run job" is
+          # enough. If the API call fails, fall back to the payload's labels: that can only
+          # miss a waiver, never grant one.
+          $labels = gh api "repos/$env:REPO/issues/$env:PR_NUMBER/labels" --paginate --jq '.[].name'
+          if ($LASTEXITCODE -eq 0) {
+            $prLabels = @($labels | Where-Object { $_ }) -join ','
+            Write-Host "PR labels (live): $prLabels"
+          } else {
+            Write-Host "::warning::Could not read the PR's labels from the API; using the labels from the event payload."
+            $prLabels = $env:EVENT_PR_LABELS
+          }
+
+          pwsh ./scripts/changelog.ps1 check -BaseRef $env:BASE_SHA -Labels $prLabels
 
   # ============================================================================
   # INSPECTCODE: JetBrains ReSharper InspectCode parallel to the test stages.
