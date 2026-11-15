@@ -16,7 +16,7 @@ env:
   CODECOV_MINIMUM: 95
   # Minimum line coverage for TEST assemblies (anything under tests/).
   # Kept in sync with pr.yaml — see the note there (#386).
-  CODECOV_TEST_MINIMUM: 99
+  CODECOV_TEST_MINIMUM: 100
 
 concurrency:
   # Serialize releases so a duplicate / re-published Release event can't run two
@@ -236,7 +236,12 @@ jobs:
               }
               
               Write-Host "Testing framework: $fw" -ForegroundColor Yellow
-              
+
+              # Tee the console output so the zero-tests-ran guard below can read it:
+              # `dotnet test` exits 0 when the runner finds NO tests, so a TFM whose adapter
+              # discovers nothing would otherwise pass release validation (same guard as pr.yaml).
+              $testLog = [System.IO.Path]::GetTempFileName()
+
               # Collect coverage only for .NET 5.0+ TFMs; still run tests for all frameworks
               if ($fw -match '^net([5-9]|[1-9][0-9]+)\.') {
                 dotnet test $testProj.FullName `
@@ -247,7 +252,7 @@ jobs:
                   --collect:"XPlat Code Coverage" `
                   --settings coverlet.runsettings `
                   --results-directory "./TestResults" `
-                  --logger "console;verbosity=minimal"
+                  --logger "console;verbosity=minimal" 2>&1 | Tee-Object -FilePath $testLog
               } else {
                 # For older frameworks (e.g., netstandard, net4x, net3x, etc.), run tests without coverage
                 dotnet test $testProj.FullName `
@@ -256,9 +261,9 @@ jobs:
                   --no-build `
                   --no-restore `
                   --results-directory "./TestResults" `
-                  --logger "console;verbosity=minimal"
+                  --logger "console;verbosity=minimal" 2>&1 | Tee-Object -FilePath $testLog
               }
-              
+
               if ($LASTEXITCODE -ne 0) {
                 if ($fw) {
                   Write-Error "❌ Tests failed for $fw in $($testProj.Name)"
@@ -266,6 +271,15 @@ jobs:
                   Write-Error "❌ Tests failed in $($testProj.Name)"
                 }
                 exit $LASTEXITCODE
+              }
+
+              # vstest prints "Total: N" at verbosity=minimal and "Total tests: N" at
+              # verbosity=normal; MTP prints "total: N".
+              $testOutput = Get-Content $testLog -Raw
+              Remove-Item $testLog -Force -ErrorAction SilentlyContinue
+              if ($testOutput -match 'No test is available' -or $testOutput -notmatch '(?i)total( tests)?:\s*[1-9][0-9]*') {
+                Write-Host "::error file=$($testProj.FullName)::Zero tests ran for $fw - the test adapter found nothing to execute. dotnet test exits 0 in this case, so this guard fails the release instead."
+                exit 1
               }
             }
             Write-Host ""
