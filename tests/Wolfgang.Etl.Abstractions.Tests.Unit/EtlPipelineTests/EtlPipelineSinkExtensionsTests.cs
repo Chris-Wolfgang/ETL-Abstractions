@@ -104,6 +104,48 @@ public sealed class EtlPipelineSinkExtensionsTests
     }
 
 
+    private sealed class ThrowingDisposable : IDisposable
+    {
+        public void Dispose() => throw new InvalidOperationException("dispose failed");
+    }
+
+
+    [Fact]
+    public async Task DisposingOwned_when_a_resource_throws_on_dispose_still_disposes_the_rest()
+    {
+        var log = new List<string>();
+        var sink = new FakeSink();
+
+        var ex = await Assert.ThrowsAsync<AggregateException>
+        (
+            () => sink
+                .DisposingOwned(new TrackingDisposable(log, "first"), new ThrowingDisposable())
+                .RunAsync()
+        );
+
+        Assert.IsType<InvalidOperationException>(Assert.Single(ex.InnerExceptions));
+        Assert.Equal(new[] { "first" }, log);
+    }
+
+
+    [Fact]
+    public async Task DisposingOwned_when_run_and_dispose_both_throw_surfaces_the_run_exception()
+    {
+        var log = new List<string>();
+        var sink = new FakeSink(() => throw new NotSupportedException("run failed"));
+
+        var ex = await Assert.ThrowsAsync<NotSupportedException>
+        (
+            () => sink
+                .DisposingOwned(new TrackingDisposable(log, "first"), new ThrowingDisposable())
+                .RunAsync()
+        );
+
+        Assert.Equal("run failed", ex.Message);
+        Assert.Equal(new[] { "first" }, log);
+    }
+
+
     [Fact]
     public void DisposingOwned_with_no_resources_returns_the_same_sink()
     {
