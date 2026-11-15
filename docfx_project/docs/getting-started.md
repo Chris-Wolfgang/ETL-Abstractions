@@ -247,10 +247,11 @@ A complete, runnable version lives in
 | Extended by packages | no | yes — source factories are extension methods on the `EtlPipeline` instance |
 | Progress | per-stage `IProgress<T>` | pipeline-level `EtlPipelineProgress`, plus per-stage `IProgress<T>` through the `From` / `Through` / `To` overloads that take one |
 
-Reach for `EtlPipeline` for new code: it covers cross-format flows, the operator and
-format-package extensions, and both kinds of progress. `Pipeline` remains for code that
-already uses it; [Migrating from `Pipeline` to `EtlPipeline`](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/migrating-pipeline-to-etlpipeline.md)
-maps one onto the other.
+Both builders are supported. Reach for `Pipeline` when you already hold discrete
+extractor/transformer/loader objects and want the staged, typed chain; reach for
+`EtlPipeline` for cross-format flows or when you want the operator and format-package
+extensions. [Migrating from `Pipeline` to `EtlPipeline`](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/migrating-pipeline-to-etlpipeline.md)
+maps every call shape of one onto the other.
 
 ## Next Steps
 
