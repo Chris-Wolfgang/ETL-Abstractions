@@ -437,9 +437,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
                 if (CurrentItemCount >= MaximumItemCount)
                 {
-                    // break, not yield break: stopping at the limit is still a completed run, so
-                    // ThrowAfterCompletion fires below.
-                    break;
+                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
                 }
 
                 var item = enumerator.Current;
