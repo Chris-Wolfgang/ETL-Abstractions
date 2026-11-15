@@ -415,9 +415,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     {
         token.ThrowIfCancellationRequested();
 
-        // The wrapped source is synchronous; await once up front to honour the async-iterator contract.
-        // Deliberately not Task.Yield(): that cannot take ConfigureAwait(false) and would resume on the
-        // caller's SynchronizationContext.
+        // Keeps the iterator async. Not Task.Yield(): that resumes on the caller's SynchronizationContext.
         // Stryker disable once Statement : equivalent — the await completes synchronously (#452).
         await Task.CompletedTask.ConfigureAwait(false);
 
@@ -439,9 +437,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
                 if (CurrentItemCount >= MaximumItemCount)
                 {
-                    // break, not yield break: stopping at the limit is still a completed run, so
-                    // ThrowAfterCompletion fires below.
-                    break;
+                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
                 }
 
                 var item = enumerator.Current;
