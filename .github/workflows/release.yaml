@@ -578,6 +578,10 @@ jobs:
             return
           }
 
+          # Every project is attempted, then the step fails if any SBOM could not be generated.
+          # The SBOM is a supply-chain artifact: a release must not ship a package without one,
+          # and the result must not depend on which project happened to be last in the loop.
+          $failed = @()
           foreach ($proj in $srcProjects) {
             $sbomName = "$($proj.BaseName).bom.json"
             $sbomPath = Join-Path $sbomDir $sbomName
@@ -585,12 +589,32 @@ jobs:
             Write-Host "📋 Generating SBOM for $($proj.Name)" -ForegroundColor Cyan
             dotnet CycloneDX $proj.FullName --output $sbomDir --filename $sbomName --json
 
-            if ($LASTEXITCODE -ne 0) {
-              Write-Warning "⚠️ SBOM generation failed for $($proj.Name) - continuing"
+            if ($LASTEXITCODE -ne 0 -or -not (Test-Path $sbomPath)) {
+              Write-Host "::error::SBOM generation failed for $($proj.Name)"
+              $failed += $proj.Name
             } else {
               Write-Host "✅ SBOM generated: $sbomName" -ForegroundColor Green
             }
           }
+
+          # One SBOM per package that will be published.
+          $packages = Get-ChildItem -Path $sbomDir -Filter '*.nupkg' -ErrorAction SilentlyContinue
+          foreach ($package in $packages) {
+            $matching = Get-ChildItem -Path $sbomDir -Filter '*.bom.json' |
+              Where-Object { $package.BaseName.StartsWith($_.Name.Substring(0, $_.Name.Length - '.bom.json'.Length) + '.', [System.StringComparison]::OrdinalIgnoreCase) }
+            if (-not $matching) {
+              Write-Host "::error::No SBOM was generated for package $($package.Name)"
+              $failed += $package.Name
+            }
+          }
+
+          if ($failed.Count -gt 0) {
+            Write-Error "❌ SBOM generation is incomplete: $($failed -join ', ')"
+            exit 1
+          }
+
+          # dotnet CycloneDX's last exit code must not leak out as the step's result.
+          $global:LASTEXITCODE = 0
 
 
       - name: Upload NuGet packages
