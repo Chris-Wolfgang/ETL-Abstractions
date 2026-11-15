@@ -137,10 +137,11 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
 
         token.ThrowIfCancellationRequested();
 
-        // Stryker disable once Statement : Task.Yield only forces the continuation to run
-        // asynchronously; removing it changes scheduling, not observable behaviour, so the
-        // statement-removal mutant is equivalent and unkillable.
-        await Task.Yield();
+        // Keeps the iterator async without capturing the caller's SynchronizationContext, which
+        // Task.Yield() would do (it cannot take ConfigureAwait(false)).
+        // Stryker disable once Statement : the await completes synchronously; removing it changes
+        // no observable behaviour, so the statement-removal mutant is equivalent and unkillable.
+        await Task.CompletedTask.ConfigureAwait(false);
 
         if (attempt <= _failFirstAttempts)
         {
