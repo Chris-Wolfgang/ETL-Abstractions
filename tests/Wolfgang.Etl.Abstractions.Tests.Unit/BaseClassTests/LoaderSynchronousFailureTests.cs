@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions.Tests.Unit.Models;
@@ -13,11 +14,8 @@ namespace Wolfgang.Etl.Abstractions.Tests.Unit.BaseClassTests;
 /// </summary>
 public sealed class LoaderSynchronousFailureTests
 {
-    private static async IAsyncEnumerable<int> NoItems()
-    {
-        await Task.CompletedTask;
-        yield break;
-    }
+    // Never enumerated: the worker throws before it touches the source.
+    private static IAsyncEnumerable<int> NoItems() => Array.Empty<int>().ToAsyncEnumerable();
 
 
 
