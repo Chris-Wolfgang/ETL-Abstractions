@@ -154,6 +154,88 @@ public class SystemProgressTimerTests
 
 
 
+    /// <summary>
+    /// Verifies that <see cref="SystemProgressTimer.Dispose"/> does not return while a tick is
+    /// still inside the callback, so a report sent after Dispose is always the last one.
+    /// </summary>
+    [Fact]
+    public async Task Dispose_when_a_tick_is_in_flight_waits_for_it_to_finish()
+    {
+        using var tickEntered = new ManualResetEventSlim();
+        using var releaseTick = new ManualResetEventSlim();
+        var events = new List<string>();
+        ArmableTimerCore? core = null;
+        var timer = new SystemProgressTimer
+        (
+            _ =>
+            {
+                tickEntered.Set();
+                releaseTick.Wait();
+                lock (events)
+                {
+                    events.Add("tick");
+                }
+            },
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timer.Start(20);
+
+        var tick = Task.Run(() => core!.FireIfArmed());
+        tickEntered.Wait();
+        var dispose = Task.Run
+        (
+            () =>
+            {
+                timer.Dispose();
+                lock (events)
+                {
+                    events.Add("disposed");
+                }
+            }
+        );
+
+        var first = await Task.WhenAny(dispose, Task.Delay(250));
+        Assert.NotSame(dispose, first);
+
+        releaseTick.Set();
+        await tick;
+        await dispose;
+
+        Assert.Equal(new[] { "tick", "disposed" }, events);
+    }
+
+
+
+    /// <summary>
+    /// Verifies that a tick may dispose its own timer (the gate is re-entrant).
+    /// </summary>
+    [Fact]
+    public void Dispose_from_inside_a_tick_does_not_deadlock()
+    {
+        var callbackCount = 0;
+        ArmableTimerCore? core = null;
+        SystemProgressTimer? timer = null;
+        timer = new SystemProgressTimer
+        (
+            _ =>
+            {
+                callbackCount++;
+                timer!.Dispose();
+            },
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timer.Start(20);
+
+        core!.FireIfArmed();
+        core.FireRegardless();
+
+        Assert.Equal(1, callbackCount);
+    }
+
+
+
     // ------------------------------------------------------------------
     // Test double
     // ------------------------------------------------------------------
