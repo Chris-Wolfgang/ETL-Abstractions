@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794142618554,
+  "lastUpdate": 1794749870320,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "Mutation score": [
@@ -289,6 +289,38 @@ window.BENCHMARK_DATA = {
           {
             "name": "Mutation score",
             "value": 96.88,
+            "unit": "%"
+          },
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.TestKit.Tests.Unit)",
+            "value": 98.9,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "da4686381433d4f8f423f89c2a07d76a7664fec6",
+          "message": "build(deps): raise semgrep OpenTelemetry override floor to 1.45.2 (GHSA-mf5v-w3w3-f6cg) (#844)\n\n* test: give the endless test workers a cancellation exit and drop an unused using\n\nClears InspectCode code-scanning alerts #2404 (RedundantUsingDirective) and\n#2405/#2406 (S2190) in EnumeratorDisposalTests.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n* build(deps): raise the semgrep OpenTelemetry override floor to 1.45.2\n\nopentelemetry-api 1.45.1 is affected by GHSA-mf5v-w3w3-f6cg (Dependabot\nalerts #78/#79). Recompiled semgrep.txt with uv, upgrading only the\nOpenTelemetry family.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+          "timestamp": "2026-11-14T14:56:23Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/da4686381433d4f8f423f89c2a07d76a7664fec6"
+        },
+        "date": 1794749858737,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.Abstractions.Tests.Unit)",
+            "value": 98.66,
             "unit": "%"
           },
           {
