@@ -38,7 +38,7 @@ namespace Example3_WithGracefulCancellation.ETL
                 }
 
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50, token); // Simulate some delay for transformation
+                await Task.Delay(50, CancellationToken.None); // Simulate some delay for transformation
                 yield return item.ToString();
             }
 

@@ -33,7 +33,7 @@ internal class ConsoleLoader : ILoadWithCancellationAsync<string>
             }
 
             Console.WriteLine($"Loading item: {item}\n");
-            await Task.Delay(50, token); // Simulate some delay for loading
+            await Task.Delay(50, CancellationToken.None); // Simulate some delay for loading
         }
 
         Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");

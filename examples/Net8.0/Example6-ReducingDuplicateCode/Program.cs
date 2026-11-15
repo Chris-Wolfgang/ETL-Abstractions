@@ -65,9 +65,18 @@ internal class Program
         var loader = new ConsoleLoader();
 
 
-        var sourceItems = extractor.ExtractAsync(token);
-        var transformedItems = transformer.TransformAsync(sourceItems, token);
-        await loader.LoadAsync(transformedItems, token).ConfigureAwait(false);
+        // The transformer and loader stop by throwing when cancellation is requested (the extractor
+        // stops gracefully), so a cancelled run surfaces here as an OperationCanceledException.
+        try
+        {
+            var sourceItems = extractor.ExtractAsync(token);
+            var transformedItems = transformer.TransformAsync(sourceItems, token);
+            await loader.LoadAsync(transformedItems, token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine($"\n{ConsoleColors.Red}ETL process cancelled.{ConsoleColors.Reset}");
+        }
 
         Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
 
@@ -124,9 +133,18 @@ internal class Program
         // Best practice is to only use one progress reporter per ETL process. Using multiple progress reporters
         // can lead to confusion and inconsistent reporting. This example passes the progress reporter to
         // the loader, but you could also pass it to the extractor or transformer depending on your needs.
-        var sourceItems = extractor.ExtractAsync(token);
-        var transformedItems = transformer.TransformAsync(sourceItems, token);
-        await loader.LoadAsync(transformedItems, progress, token).ConfigureAwait(false);
+        // The transformer and loader stop by throwing when cancellation is requested (the extractor
+        // stops gracefully), so a cancelled run surfaces here as an OperationCanceledException.
+        try
+        {
+            var sourceItems = extractor.ExtractAsync(token);
+            var transformedItems = transformer.TransformAsync(sourceItems, token);
+            await loader.LoadAsync(transformedItems, progress, token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine($"\n{ConsoleColors.Red}ETL process cancelled.{ConsoleColors.Reset}");
+        }
 
         Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
 
