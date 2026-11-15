@@ -138,6 +138,24 @@ public class FaultyLoaderTests
 
 
 
+    [Fact]
+    public async Task LoadAsync_when_ThrowAfterCompletion_configured_and_MaximumItemCount_cuts_the_run_short_throws()
+    {
+        var expected = new InvalidOperationException("commit failed");
+        var loader   = new FaultyLoader<int>(collectItems: true, new LoaderOptions { MaximumItemCount = 2 })
+            .ThrowAfterCompletion(expected);
+
+        var actual = await Assert.ThrowsAsync<InvalidOperationException>
+        (
+            async () => await loader.LoadAsync(new FaultyExtractor<int>(new[] { 1, 2, 3 }).ExtractAsync())
+        );
+
+        Assert.Same(expected, actual);
+        Assert.Equal(new[] { 1, 2 }, loader.GetCollectedItems());
+    }
+
+
+
     // ------------------------------------------------------------------
     // DuplicateAt
     // ------------------------------------------------------------------

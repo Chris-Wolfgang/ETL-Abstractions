@@ -184,6 +184,10 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     /// Configures the extractor to throw <paramref name="exception"/> after all items have
     /// been yielded successfully, simulating a cleanup or finalization failure.
     /// </summary>
+    /// <remarks>
+    /// A run that stops because <c>MaximumItemCount</c> was reached has completed too, so the
+    /// exception is thrown in that case as well.
+    /// </remarks>
     /// <param name="exception">The exception to throw after completion.</param>
     /// <returns>The same <see cref="FaultyExtractor{T}"/> instance, to allow chaining.</returns>
     /// <exception cref="ArgumentNullException">
@@ -426,7 +430,9 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
                 if (CurrentItemCount >= MaximumItemCount)
                 {
-                    yield break;
+                    // break, not yield break: stopping at the limit is still a completed run, so
+                    // ThrowAfterCompletion fires below.
+                    break;
                 }
 
                 var item = enumerator.Current;

@@ -166,6 +166,32 @@ public class FaultyExtractorTests
 
 
 
+    [Fact]
+    public async Task ExtractAsync_when_ThrowAfterCompletion_configured_and_MaximumItemCount_cuts_the_run_short_throws()
+    {
+        var expected = new InvalidOperationException("finalize failed");
+        var sut      = new FaultyExtractor<int>(new[] { 1, 2, 3 }, new ExtractorOptions { MaximumItemCount = 2 })
+            .ThrowAfterCompletion(expected);
+
+        var collected = new List<int>();
+
+        var actual = await Assert.ThrowsAsync<InvalidOperationException>
+        (
+            async () =>
+            {
+                await foreach (var item in sut.ExtractAsync())
+                {
+                    collected.Add(item);
+                }
+            }
+        );
+
+        Assert.Same(expected, actual);
+        Assert.Equal(new[] { 1, 2 }, collected);
+    }
+
+
+
     // ------------------------------------------------------------------
     // DuplicateAt
     // ------------------------------------------------------------------
