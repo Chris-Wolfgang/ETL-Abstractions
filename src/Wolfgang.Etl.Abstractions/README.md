@@ -150,6 +150,39 @@ await Pipeline
   an `AggregateException`. If the run **threw**, that exception propagates unchanged (disposal
   still runs, but its own failures are suppressed so the run's failure stays the primary signal).
 
+
+## Generic `EtlPipeline`
+
+Use `EtlPipeline` to compose an extractor, zero or more transformers, and a loader with `From`, `Through`, and `To`. `RunAsync` can report aggregate source and sink progress as `EtlPipelineProgress`; overloads on each stage accept a separate observer for that stage's progress type.
+
+```csharp
+await EtlPipeline
+    .Create()
+    .From(extractor, extractProgress)
+    .Through(transformer, transformProgress)
+    .To(loader, loadProgress)
+    .RunAsync(pipelineProgress, cancellationToken);
+```
+
+For short-lived resources created while building a pipeline, `DisposingOwned(resource1, resource2)` disposes them in reverse order after the run, including when the run fails. See the [migration guide](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/migrating-pipeline-to-etlpipeline.md) for the full call-shape map and progress details.
+
+## Construction options
+
+Pass an options record to a stage's base constructor to configure it before a run:
+
+```csharp
+using Wolfgang.Etl.Abstractions;
+
+var options = new ExtractorOptions
+{
+    SkipItemCount = 10,
+    MaximumItemCount = 100,
+    ErrorPolicy = _ => ItemErrorAction.Skip
+};
+```
+
+Use `TransformerOptions` and `LoaderOptions` for the corresponding stages. The `MaximumItemCount` and `SkipItemCount` setters on stage instances are obsolete; configure those values through the constructor options instead. `WorkerResilience` is a separate per-stage wrapper around worker execution, with a delegate type specific to each stage.
+
 ---
 
 ## ✨ Features
@@ -162,13 +195,13 @@ await Pipeline
 | Throughput & ETA | `Report` exposes `StartedAt`, `Elapsed`, `ItemsPerSecond`, `PercentComplete`, and `EstimatedRemaining` derived from the item count and elapsed time |
 | Resource Disposal | Base classes implement `IDisposable` / `IAsyncDisposable`; override `Dispose(bool)` or `DisposeAsync()` to release resources deterministically |
 | Per-run State | Item counts and timing reset at the start of each enumeration, so a reused component reports the current run rather than cumulative totals |
-| Per-item Error Handling | Opt-in `OnItemError` policy (`Abort` / `Skip`) on each base stage with a distinct `CurrentErrorItemCount`; the pipeline sums error counts across every stage (source, transformers, sink) into `EtlPipelineProgress.ErrorItemCount` |
-| Middleware / Interceptors | Attach composable per-item behaviour (logging, validation, metrics, throttling, dedup) to any stream with `WithMiddleware(...)` — an `IItemMiddleware<T>` returning `MiddlewareResult<T>` (`Continue` / `Drop`) |
-| Retry Seam | `WrapWorkerExecution` hook on each base stage to run the worker through a retry / resilience strategy (for example Polly); default no-op, dependency-free |
+| Per-item Error Handling | Configure each stage's `ErrorPolicy` (`Abort` by default, or `Skip`) with `ItemErrorContext` and `ItemErrorAction`; the pipeline sums per-stage failures into `EtlPipelineProgress.ErrorItemCount` |
+| Middleware / Interceptors | Use `WithMiddleware(...)` to apply per-item logging, validation, metrics, throttling, or deduplication through `IItemMiddleware<T>` (`Continue` / `Drop`) |
+| Retry Seam | Each base stage's `WorkerResilience` delegate wraps worker execution for a retry / resilience strategy (for example Polly); it defaults to direct execution and adds no dependency |
 | Cancellation | Full `CancellationToken` support across all operations |
 | Multi-TFM | Targets .NET Framework 4.6.2–4.8.1, .NET Standard 2.0, and .NET 5.0–10.0 |
-| Skip & Limit | `SkipItemCount` and `MaximumItemCount` for partial extraction/loading |
-| Thread Safety | `Interlocked`-based counters for safe concurrent progress tracking |
+| Skip & Limit | `SkipItemCount` and `MaximumItemCount` configure stage limits through options records; the stage-property setters are obsolete |
+| Property Selection | `PropertySelector.Resolve(...)` validates a direct property expression and returns its `PropertyInfo` for code-first schema builders |\n| Thread Safety | `Interlocked`-based counters for safe concurrent progress tracking |
 
 ---
 
