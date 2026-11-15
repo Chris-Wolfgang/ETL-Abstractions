@@ -94,12 +94,15 @@ public sealed class DisposedGuardTests
     [Fact]
     public void Dispose_is_idempotent()
     {
-        var loader = new NoOpLoader();
+        var stages = new IDisposable[] { new NoOpExtractor(), new NoOpTransformer(), new NoOpLoader() };
 
-        loader.Dispose();
-        var second = Record.Exception(() => loader.Dispose());
+        foreach (var stage in stages)
+        {
+            stage.Dispose();
+            var second = Record.Exception(() => stage.Dispose());
 
-        Assert.Null(second);
+            Assert.Null(second);
+        }
     }
 
 

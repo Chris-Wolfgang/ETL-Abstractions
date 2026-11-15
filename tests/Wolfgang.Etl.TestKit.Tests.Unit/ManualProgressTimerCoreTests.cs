@@ -27,14 +27,14 @@ public class ManualProgressTimerCoreTests
         var sut = new TestExtractor<int>(new[] { 1, 2, 3 });
         sut.WithManualProgressTimer(timer);
 
-        Report? captured = null;
-        var progress = new SyncProgress<Report>(r => captured = r);
+        var callbackCount = 0;
+        var progress = new SyncProgress<Report>(_ => callbackCount++);
 
         await using var enumerator = sut.ExtractAsync(progress).GetAsyncEnumerator();
         await enumerator.MoveNextAsync();   // starts the run; builds the progress timer
         timer.Tick();                                            // fires the callback exactly once
 
-        Assert.NotNull(captured);
+        Assert.Equal(1, callbackCount);
     }
 
 
