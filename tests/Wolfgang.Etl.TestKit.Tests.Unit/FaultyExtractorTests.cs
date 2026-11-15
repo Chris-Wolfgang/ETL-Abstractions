@@ -437,4 +437,40 @@ public class FaultyExtractorTests
         public FaultyExtractorWithTimer(IEnumerable<int> items, IProgressTimer timer)
             : base(items, timer) { }
     }
+
+
+
+    // ------------------------------------------------------------------
+    // ErrorPolicy supplied through the options record
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task ExtractAsync_when_options_ErrorPolicy_skips_skips_the_injected_fault()
+    {
+        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3 }, new ExtractorOptions { ErrorPolicy = _ => ItemErrorAction.Skip });
+        sut.ThrowAt(1, new FormatException("bad row"));
+
+        await sut.ExtractAsync().ToListAsync();
+
+        Assert.Equal(2, sut.CurrentItemCount);
+        Assert.Equal(1, sut.CurrentErrorItemCount);
+        Assert.Single(sut.CapturedErrors);
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_when_options_ErrorPolicy_aborts_rethrows_without_counting_the_item()
+    {
+        var expected = new FormatException("bad row");
+        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3 }, new ExtractorOptions { ErrorPolicy = _ => ItemErrorAction.Abort });
+        sut.ThrowAt(1, expected);
+
+        var actual = await Assert.ThrowsAsync<FormatException>(async () => { await sut.ExtractAsync().ToListAsync(); });
+
+        Assert.Same(expected, actual);
+        Assert.Equal(1, sut.CurrentItemCount);
+        Assert.Equal(0, sut.CurrentErrorItemCount);
+        Assert.Single(sut.CapturedErrors);
+    }
 }

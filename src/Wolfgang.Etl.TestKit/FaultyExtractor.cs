@@ -331,9 +331,16 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     // which counts it as an error (not a processed item). Throws to abort the run, or,
     // when no policy is configured, to preserve fail-fast behaviour (counting the
     // failing item first, matching the ThrowAt contract).
+    // True when an error policy was configured either fluently (SkipErrors / HandleErrorsWith) or
+    // through the options record's ErrorPolicy; false leaves the stage on its fail-fast default.
+    private bool HasErrorPolicy =>
+        _onItemErrorPolicy is not null || !ReferenceEquals(ErrorPolicy, DefaultItemErrorPolicy.Abort);
+
+
+
     private bool HandleInjectedFault(int index, Exception exception)
     {
-        if (_onItemErrorPolicy is not null)
+        if (HasErrorPolicy)
         {
             if (HandleItemError(new ItemErrorContext(index + 1, exception)) == ItemErrorAction.Skip)
             {
