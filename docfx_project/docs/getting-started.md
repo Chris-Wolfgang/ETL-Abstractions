@@ -176,8 +176,9 @@ await EtlPipeline
 ### Progress, cancellation, and the escape hatch
 
 - **Progress** — pass an `IProgress<EtlPipelineProgress>` to `RunAsync`. The snapshot
-  reports `RecordsExtracted` (counted at the source) and `RecordsLoaded` (counted at
-  the sink) plus `Elapsed`, regardless of how many stages sit in between.
+  reports `ExtractedItemCount` (counted at the source), `LoadedItemCount` (counted at
+  the sink), `ErrorItemCount` (items skipped by an error policy, summed across the stages)
+  and `Elapsed`, regardless of how many stages sit in between.
 - **Cancellation** — the token passed to `RunAsync` is observed while pulling from the
   source and is forwarded into any cancellation-aware transformer stage.
 - **Escape hatch** — `AsAsyncEnumerable(token)` drops to the raw `IAsyncEnumerable<T>`
@@ -185,7 +186,7 @@ await EtlPipeline
 
 ```csharp
 var progress = new Progress<EtlPipelineProgress>(p =>
-    Console.WriteLine($"extracted {p.RecordsExtracted}, loaded {p.RecordsLoaded}"));
+    Console.WriteLine($"extracted {p.ExtractedItemCount}, loaded {p.LoadedItemCount}, errors {p.ErrorItemCount}"));
 
 await EtlPipeline
     .Create()
