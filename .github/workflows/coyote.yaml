@@ -28,7 +28,6 @@ on:
   pull_request:
     branches:
       - main
-      - vNext
     paths:
       - 'src/**/*.cs'
       - 'tests/Wolfgang.Etl.Abstractions.Tests.Concurrency/**'
