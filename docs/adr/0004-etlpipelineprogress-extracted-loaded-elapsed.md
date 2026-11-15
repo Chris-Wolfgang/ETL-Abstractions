@@ -1,6 +1,6 @@
 # ADR 0004 — `EtlPipelineProgress` reports extracted / loaded / elapsed only
 
-- **Status:** Accepted
+- **Status:** Superseded by [ADR-0013](0013-progress-snapshot-and-stage-observers.md)
 - **Date:** 2026-07-21
 - **Deciders:** Chris Wolfgang
 
