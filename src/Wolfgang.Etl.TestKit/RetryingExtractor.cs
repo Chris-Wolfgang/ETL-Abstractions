@@ -112,7 +112,7 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
     // Public API
     // ------------------------------------------------------------------
 
-    /// <summary>Gets the number of worker invocations (attempts) made by the most recent run.</summary>
+    /// <summary>Gets the number of worker invocations (attempts) made by the most recent run. It resets when a new run starts.</summary>
     public int AttemptCount => _attemptCount;
 
 
@@ -203,6 +203,10 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
         [EnumeratorCancellation] CancellationToken token
     )
     {
+        // Per run, like the base stage's own counters: a re-run of the same instance starts again
+        // at attempt 1 and injects its transient faults again.
+        Interlocked.Exchange(ref _attemptCount, 0);
+
         for (var attempt = 1; ; attempt++)
         {
             var buffer  = new List<T>();
