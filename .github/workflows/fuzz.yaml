@@ -49,9 +49,28 @@ jobs:
         env:
           FUZZ_ITER: ${{ github.event.inputs.iterations || '1000000' }}
         run: |
-          set -o pipefail
-          dotnet test tests/Wolfgang.Etl.Abstractions.Tests.Fuzz/Wolfgang.Etl.Abstractions.Tests.Fuzz.csproj \
-            -c Release --logger "console;verbosity=detailed" 2>&1 | tee fuzz-output.txt
+          set -uo pipefail
+          # Every fuzz project, not a named one: a new *.Tests.Fuzz project joins the sweep
+          # without a workflow change. All of them run even if one fails, so one log carries
+          # every falsified property.
+          shopt -s nullglob
+          projects=(tests/*Tests.Fuzz/*.csproj)
+          if [ ${#projects[@]} -eq 0 ]; then
+            echo "::error::No tests/*Tests.Fuzz project found - the sweep has nothing to run."
+            exit 1
+          fi
+
+          : > fuzz-output.txt
+          failed=0
+          for project in "${projects[@]}"; do
+            echo "::group::Fuzz sweep: $project"
+            if ! dotnet test "$project" -c Release --logger "console;verbosity=detailed" 2>&1 | tee -a fuzz-output.txt; then
+              echo "::error::Fuzz sweep failed in $project"
+              failed=1
+            fi
+            echo "::endgroup::"
+          done
+          exit "$failed"
 
       - name: Upload fuzz log
         if: always()
