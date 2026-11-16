@@ -18,7 +18,7 @@ namespace Wolfgang.Etl.TestKit.Tests.Unit;
 public class FaultyExtractorMutationTests
 {
     // ------------------------------------------------------------------
-    // OnItemError ternary (base-vs-policy) — L285
+    // OnItemError ternary (base-vs-policy)
     // ------------------------------------------------------------------
 
     [Fact]
@@ -49,7 +49,7 @@ public class FaultyExtractorMutationTests
 
 
     // ------------------------------------------------------------------
-    // HandleInjectedFault — Abort path must not count the item — L306
+    // HandleInjectedFault — Abort path must not count the item
     // ------------------------------------------------------------------
 
     [Fact]
@@ -74,7 +74,7 @@ public class FaultyExtractorMutationTests
 
 
     // ------------------------------------------------------------------
-    // Progress-timer wiring seam — L321 / L323 / L325
+    // Progress-timer wiring seam
     // ------------------------------------------------------------------
 
     [Fact]
@@ -126,7 +126,7 @@ public class FaultyExtractorMutationTests
 
 
     // ------------------------------------------------------------------
-    // Dispose(bool) unsubscribe guard — L343
+    // Dispose(bool) unsubscribe guard
     // ------------------------------------------------------------------
 
     [Fact]
@@ -167,7 +167,7 @@ public class FaultyExtractorMutationTests
 
 
     // ------------------------------------------------------------------
-    // Cancellation checks — L370 (pre-loop) / L384 (in-loop, skip phase)
+    // Cancellation checks — pre-loop / in-loop, skip phase
     // ------------------------------------------------------------------
 
     [Fact]
@@ -220,7 +220,7 @@ public class FaultyExtractorMutationTests
 
 
     // ------------------------------------------------------------------
-    // DuplicateAt boundary against MaximumItemCount — L410
+    // DuplicateAt boundary against MaximumItemCount
     // ------------------------------------------------------------------
 
     [Fact]
@@ -241,7 +241,7 @@ public class FaultyExtractorMutationTests
 
 
     // ------------------------------------------------------------------
-    // finally block — StopTimer (L421) and enumerator.Dispose (L422)
+    // finally block — StopTimer and enumerator.Dispose
     // ------------------------------------------------------------------
 
     [Fact]
