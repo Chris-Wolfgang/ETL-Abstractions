@@ -145,6 +145,13 @@ if (-not $SkipTests -and $failed.Count -eq 0) {
             # are seen; a regex over the raw csproj misses both.
             $tfmRaw = (dotnet msbuild $testProj.FullName -noLogo -p:Configuration=Release -getProperty:TargetFrameworks 2>$null |
                 Where-Object { $_ -and "$_".Trim() } | Select-Object -Last 1)
+            if ($LASTEXITCODE -ne 0) {
+                # pr.yaml fails the stage when MSBuild cannot evaluate the project; an
+                # evaluation error must not read as "no target frameworks, skip".
+                Write-Host "  MSBuild evaluation of TargetFrameworks failed for $($testProj.Name)" -ForegroundColor Red
+                $failed += "Tests ($($testProj.Name): MSBuild evaluation failed)"
+                continue
+            }
             if (-not $tfmRaw) {
                 $tfmRaw = (dotnet msbuild $testProj.FullName -noLogo -p:Configuration=Release -getProperty:TargetFramework 2>$null |
                     Where-Object { $_ -and "$_".Trim() } | Select-Object -Last 1)
@@ -243,7 +250,10 @@ if (-not $SkipTests -and -not $SkipCoverage -and $failed.Count -eq 0) {
     $coverageFiles = Get-ChildItem -Path TestResults -Recurse -Filter coverage.cobertura.xml -ErrorAction SilentlyContinue
 
     if (-not $coverageFiles) {
-        Write-Host "No coverage files found — skipping"
+        # Tests ran (this block is skipped with -SkipTests) but nothing was measured. pr.yaml
+        # fails in that case; so does this script, rather than reporting an unmeasured pass.
+        Write-Host "No coverage files found although tests ran — coverage was not measured." -ForegroundColor Red
+        $failed += 'Coverage (no coverage files produced)'
     }
     else {
         # ReportGenerator is pinned in .config/dotnet-tools.json, exactly as pr.yaml
