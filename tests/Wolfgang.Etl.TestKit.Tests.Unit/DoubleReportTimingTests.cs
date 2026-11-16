@@ -29,25 +29,30 @@ public class DoubleReportTimingTests
     [Fact]
     public async Task CreateProgressReport_after_a_run_surfaces_StartedAt_and_Elapsed()
     {
+        var clock = new ManualTimeSource();
         var sut = new ExposedTestExtractor<int>(new List<int> { 1, 2, 3 });
+        sut.WithTimeSource(clock);
 
-        await sut.ExtractAsync().ToListAsync();
+        await DrainAdvancingAfterFirstItem(sut, clock, TimeSpan.FromSeconds(10));
         var report = sut.GetProgressReport();
 
         Assert.NotNull(report.StartedAt);
-        Assert.True(report.Elapsed >= TimeSpan.Zero);
+        Assert.Equal(TimeSpan.FromSeconds(10), report.Elapsed);
         Assert.Equal(3, report.CurrentItemCount);
     }
 
     [Fact]
-    public async Task CreateProgressReport_after_a_run_computes_a_non_negative_throughput()
+    public async Task CreateProgressReport_after_a_run_computes_the_throughput_from_the_elapsed_time()
     {
+        var clock = new ManualTimeSource();
         var sut = new ExposedTestExtractor<int>(Enumerable.Range(0, 50).ToList());
+        sut.WithTimeSource(clock);
 
-        await sut.ExtractAsync().ToListAsync();
+        await DrainAdvancingAfterFirstItem(sut, clock, TimeSpan.FromSeconds(10));
         var report = sut.GetProgressReport();
 
-        Assert.True(report.ItemsPerSecond >= 0);
+        // 50 items over the 10 s the fake clock advanced.
+        Assert.Equal(5d, report.ItemsPerSecond);
     }
 
     [Fact]
@@ -71,6 +76,21 @@ public class DoubleReportTimingTests
 
         Assert.Null(report.TotalItemCount);
     }
+
+    // The start of the run is captured when the first item is processed, so advancing the fake
+    // clock after that item gives the run an exact, known elapsed time.
+    private static async Task DrainAdvancingAfterFirstItem(TestExtractor<int> sut, ManualTimeSource clock, TimeSpan elapsed)
+    {
+        await using var enumerator = sut.ExtractAsync().GetAsyncEnumerator();
+        await enumerator.MoveNextAsync();
+        clock.Advance(elapsed);
+
+        while (await enumerator.MoveNextAsync())
+        {
+        }
+    }
+
+
 
     private sealed class ExposedTestExtractor<T> : TestExtractor<T>
         where T : notnull

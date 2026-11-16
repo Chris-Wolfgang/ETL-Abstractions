@@ -42,12 +42,11 @@ public abstract class TransformWithCancellationAsyncContractTests<TSut, TItem>
     // Factory methods
     // ------------------------------------------------------------------
 
-    /// <summary>Creates the system under test.</summary>
-    /// <returns>A new, fully initialised instance of <typeparamref name="TSut"/>.</returns>
     /// <summary>
     /// Creates the system under test configured to yield exactly <paramref name="itemCount"/> items.
     /// </summary>
     /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
+    /// <returns>A new, fully initialised instance of <typeparamref name="TSut"/>.</returns>
     protected abstract TSut CreateSut(int itemCount);
 
     private const int DefaultItemCount = 5;
@@ -100,7 +99,7 @@ public abstract class TransformWithCancellationAsyncContractTests<TSut, TItem>
         using var cts = new CancellationTokenSource();
         var received = new List<TItem>();
 
-        await Assert.ThrowsAsync<OperationCanceledException>(async () =>
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
             await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token).ConfigureAwait(false))
             {

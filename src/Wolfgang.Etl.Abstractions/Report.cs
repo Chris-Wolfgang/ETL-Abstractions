@@ -59,6 +59,11 @@ public record Report
     public Report(int currentItemCount, DateTimeOffset? startedAt, TimeSpan elapsed, int? totalItemCount = null)
         : this(currentItemCount)
     {
+        if (totalItemCount is < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(totalItemCount), "Total item count cannot be less than 0.");
+        }
+
         StartedAt = startedAt;
         Elapsed = elapsed;
         TotalItemCount = totalItemCount;
