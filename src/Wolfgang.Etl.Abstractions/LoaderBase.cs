@@ -333,7 +333,21 @@ public abstract class LoaderBase<TDestination, TProgress>
     )
     {
         ResetRunState();
-        return WrapWorkerExecution(ct => LoadWorkerAsync(items, ct), token);
+
+        // A worker (or a WrapWorkerExecution / WorkerResilience override) that throws before its
+        // first await would otherwise escape synchronously here, while the progress overloads
+        // surface the same failure as a faulted task. Forward it through the Task contract so
+        // both overload families fail the same way.
+        try
+        {
+            return WrapWorkerExecution(ct => LoadWorkerAsync(items, ct), token);
+        }
+#pragma warning disable CA1031 // Do not catch general exception types — intentional: every failure is forwarded through the returned task.
+        catch (Exception ex)
+#pragma warning restore CA1031
+        {
+            return Task.FromException(ex);
+        }
     }
 
 
