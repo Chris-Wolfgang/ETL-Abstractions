@@ -24,6 +24,6 @@ internal static class ItemErrorPolicyLog
         (
             LogLevel.Warning,
             new EventId(2, nameof(ItemDeadLetterDropped)),
-            "Item {ItemNumber} failed and its dead-letter could not be recorded because the channel was full; the failure record was dropped."
+            "Item {ItemNumber} failed and its dead-letter could not be recorded because the channel was full or completed; the failure record was dropped."
         );
 }

@@ -18,7 +18,7 @@ namespace Wolfgang.Etl.TestKit.Tests.Unit;
 public class FaultyLoaderMutationTests
 {
     // ------------------------------------------------------------------
-    // GetCollectedItems ternary — L123
+    // GetCollectedItems ternary
     // ------------------------------------------------------------------
 
     [Fact]
@@ -33,7 +33,7 @@ public class FaultyLoaderMutationTests
 
 
     // ------------------------------------------------------------------
-    // OnItemError ternary (base-vs-policy) — L296
+    // OnItemError ternary (base-vs-policy)
     // ------------------------------------------------------------------
 
     [Fact]
@@ -62,7 +62,7 @@ public class FaultyLoaderMutationTests
 
 
     // ------------------------------------------------------------------
-    // HandleInjectedFault — Abort path must not count the item — L317
+    // HandleInjectedFault — Abort path must not count the item
     // ------------------------------------------------------------------
 
     [Fact]
@@ -83,7 +83,7 @@ public class FaultyLoaderMutationTests
 
 
     // ------------------------------------------------------------------
-    // Progress-timer wiring seam — L332 / L334 / L336
+    // Progress-timer wiring seam
     // ------------------------------------------------------------------
 
     [Fact]
@@ -140,7 +140,7 @@ public class FaultyLoaderMutationTests
 
 
     // ------------------------------------------------------------------
-    // Dispose(bool) unsubscribe guard — L354 / L356
+    // Dispose(bool) unsubscribe guard
     // ------------------------------------------------------------------
 
     [Fact]
@@ -195,7 +195,7 @@ public class FaultyLoaderMutationTests
 
 
     // ------------------------------------------------------------------
-    // base.Dispose(disposing) is invoked — L360
+    // base.Dispose(disposing) is invoked
     // ------------------------------------------------------------------
 
     [Fact]
@@ -215,7 +215,7 @@ public class FaultyLoaderMutationTests
 
 
     // ------------------------------------------------------------------
-    // Cancellation checks — L378 (pre-loop) / L388 (in-loop, skip phase)
+    // Cancellation checks — pre-loop / in-loop, skip phase
     // ------------------------------------------------------------------
 
     [Fact]
@@ -250,7 +250,7 @@ public class FaultyLoaderMutationTests
 
 
     // ------------------------------------------------------------------
-    // _buffer.Clear() between runs — L380
+    // _buffer.Clear() between runs
     // ------------------------------------------------------------------
 
     [Fact]
@@ -268,7 +268,7 @@ public class FaultyLoaderMutationTests
 
 
     // ------------------------------------------------------------------
-    // DuplicateAt boundary against MaximumItemCount — L415
+    // DuplicateAt boundary against MaximumItemCount
     // ------------------------------------------------------------------
 
     [Fact]
@@ -285,7 +285,7 @@ public class FaultyLoaderMutationTests
 
 
     // ------------------------------------------------------------------
-    // finally block — StopTimer — L430
+    // finally block — StopTimer
     // ------------------------------------------------------------------
 
     [Fact]

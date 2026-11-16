@@ -281,6 +281,8 @@ public class ReportTests
     [Fact]
     public void Timing_constructor_when_totalItemCount_is_negative_throws_ArgumentOutOfRangeException()
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => new Report(0, null, TimeSpan.Zero, -1));
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new Report(0, null, TimeSpan.Zero, -1));
+
+        Assert.Equal("totalItemCount", ex.ParamName);
     }
 }
