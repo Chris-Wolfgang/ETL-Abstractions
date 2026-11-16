@@ -40,4 +40,20 @@ public class RetryingExtractorBranchesTests
         // Cancellation is not a retryable fault — only the single attempt ran.
         Assert.Equal(1, sut.AttemptCount);
     }
+
+
+    [Fact]
+    public async Task ExtractAsync_when_run_twice_resets_AttemptCount_and_injects_the_faults_again()
+    {
+        var sut = new RetryingExtractor<int>(new[] { 1, 2 }, failFirstAttempts: 2, maxAttempts: 3);
+
+        var first = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
+        var attemptsInFirstRun = sut.AttemptCount;
+        var second = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
+
+        Assert.Equal(new[] { 1, 2 }, first);
+        Assert.Equal(new[] { 1, 2 }, second);
+        Assert.Equal(3, attemptsInFirstRun);
+        Assert.Equal(3, sut.AttemptCount);
+    }
 }

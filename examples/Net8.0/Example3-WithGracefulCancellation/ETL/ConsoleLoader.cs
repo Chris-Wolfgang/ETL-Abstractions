@@ -28,12 +28,12 @@ internal class ConsoleLoader : ILoadWithCancellationAsync<string>
         {
             if (token.IsCancellationRequested)
             {
-                Console.WriteLine($"{ConsoleColors.Red}Extraction cancelled{ConsoleColors.Reset}.");
+                Console.WriteLine($"{ConsoleColors.Red}Loading cancelled{ConsoleColors.Reset}.");
                 return; // Exit the method if cancellation is requested
             }
 
             Console.WriteLine($"Loading item: {item}\n");
-            await Task.Delay(50, token); // Simulate some delay for loading
+            await Task.Delay(50, CancellationToken.None); // Simulate some delay for loading
         }
 
         Console.WriteLine($"{ConsoleColors.Green}Loading{ConsoleColors.Reset} completed.\n");

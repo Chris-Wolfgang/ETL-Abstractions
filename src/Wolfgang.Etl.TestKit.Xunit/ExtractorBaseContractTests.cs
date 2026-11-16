@@ -93,24 +93,23 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
     protected TSut CreateSut(int itemCount) => CreateSut(itemCount, DefaultMaximumItemCount, DefaultSkipItemCount, DefaultReportingInterval);
 
-    private const int DefaultItemCount = 5;
     private const int DefaultMaximumItemCount = int.MaxValue;
     private const int DefaultSkipItemCount = 0;
     private const int DefaultReportingInterval = 1_000;
 
-    /// <summary>Creates the SUT with <see cref="DefaultItemCount"/> items.</summary>
-    private TSut CreateSut() => CreateSut(DefaultItemCount);
+    /// <summary>Creates the SUT with one item per expected item.</summary>
+    private TSut CreateSut() => CreateSut(CreateExpectedItems().Count);
 
-    /// <summary>Creates the SUT with <see cref="DefaultItemCount"/> items and the given base configuration.</summary>
+    /// <summary>Creates the SUT with one item per expected item and the given base configuration.</summary>
     private TSut CreateConfiguredSut(int maximumItemCount = DefaultMaximumItemCount, int skipItemCount = DefaultSkipItemCount, int reportingInterval = DefaultReportingInterval) =>
-        CreateSut(DefaultItemCount, maximumItemCount, skipItemCount, reportingInterval);
+        CreateSut(CreateExpectedItems().Count, maximumItemCount, skipItemCount, reportingInterval);
 
     /// <summary>Creates the SUT with an empty source.</summary>
     private TSut CreateSutWithNoItems() => CreateSut(0);
 
     /// <summary>
     /// Returns the expected items that the SUT should yield when created with
-    /// <see cref="CreateSut(int, int, int, int)"/>. Must return at least 5 items.
+    /// <see cref="CreateSut(int, int, int, int)"/>. Must return at least 3 items; the tests create the SUT with exactly this many.
     /// The first <c>itemCount</c> items from this list are the expected output
     /// when <c>CreateSut(itemCount)</c> is called.
     /// </summary>
