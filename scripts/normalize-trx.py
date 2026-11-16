@@ -13,7 +13,8 @@ import os
 import sys
 import xml.etree.ElementTree as ET
 
-NS = "{http://microsoft.com/schemas/VisualStudio/TeamTest/2010}"
+# The TRX XML namespace: an identifier that is never fetched, so plain http is not a risk.
+NS = "{http://microsoft.com/schemas/VisualStudio/TeamTest/2010}"  # DevSkim: ignore DS137138
 
 
 def main(trx_dir: str, out_file: str) -> None:
