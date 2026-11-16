@@ -154,6 +154,160 @@ public class SystemProgressTimerTests
 
 
 
+    /// <summary>
+    /// Verifies that <see cref="SystemProgressTimer.Dispose"/> does not return while a tick is
+    /// still inside the callback, so a report sent after Dispose is always the last one.
+    /// </summary>
+    [Fact]
+    public async Task Dispose_when_a_tick_is_in_flight_waits_for_it_to_finish()
+    {
+        var blockingTick = new BlockingTick();
+        ArmableTimerCore? core = null;
+        var timer = new SystemProgressTimer
+        (
+            _ => blockingTick.OnTick(),
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timer.Start(20);
+
+        var tick = Task.Run(() => core!.FireIfArmed());
+        blockingTick.WaitUntilEntered();
+        var dispose = Task.Run
+        (
+            () =>
+            {
+                timer.Dispose();
+                blockingTick.Record("disposed");
+            }
+        );
+
+        var first = await Task.WhenAny(dispose, Task.Delay(250));
+        Assert.NotSame(dispose, first);
+
+        blockingTick.Release();
+        await tick;
+        await dispose;
+
+        Assert.Equal(new[] { "tick", "disposed" }, blockingTick.Events());
+    }
+
+
+
+    /// <summary>
+    /// A timer callback that signals when it is entered and then blocks until released,
+    /// recording the order in which it and the test's own steps finish.
+    /// </summary>
+    /// <remarks>
+    /// Signals with a monitor rather than wait handles, so there is nothing to dispose and the
+    /// test's lambdas can hold it for as long as they run.
+    /// </remarks>
+    private sealed class BlockingTick
+    {
+        private readonly object _gate = new();
+        private readonly List<string> _events = new();
+        private bool _entered;
+        private bool _released;
+
+
+
+        public void OnTick()
+        {
+            lock (_gate)
+            {
+                _entered = true;
+                Monitor.PulseAll(_gate);
+                while (!_released)
+                {
+                    Monitor.Wait(_gate);
+                }
+
+                _events.Add("tick");
+            }
+        }
+
+
+
+        // Polls rather than waits: a wait that is only sometimes needed would leave a line
+        // that is only sometimes covered.
+        public void WaitUntilEntered() => SpinWait.SpinUntil(HasEntered);
+
+
+
+        private bool HasEntered()
+        {
+            lock (_gate)
+            {
+                return _entered;
+            }
+        }
+
+
+
+        public void Release()
+        {
+            lock (_gate)
+            {
+                _released = true;
+                Monitor.PulseAll(_gate);
+            }
+        }
+
+
+
+        public void Record(string name)
+        {
+            lock (_gate)
+            {
+                _events.Add(name);
+            }
+        }
+
+
+
+        public string[] Events()
+        {
+            lock (_gate)
+            {
+                return _events.ToArray();
+            }
+        }
+    }
+
+
+
+    /// <summary>
+    /// Verifies that a tick may dispose its own timer (the gate is re-entrant).
+    /// </summary>
+    [Fact]
+    public void Dispose_from_inside_a_tick_does_not_deadlock()
+    {
+        var callbackCount = 0;
+        ArmableTimerCore? core = null;
+        // The callback needs the timer it belongs to, which exists only after construction;
+        // the one-element array is assigned once and filled in afterwards.
+        var timerSlot = new SystemProgressTimer?[1];
+        var timer = new SystemProgressTimer
+        (
+            _ =>
+            {
+                callbackCount++;
+                timerSlot[0]!.Dispose();
+            },
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timerSlot[0] = timer;
+        timer.Start(20);
+
+        core!.FireIfArmed();
+        core.FireRegardless();
+
+        Assert.Equal(1, callbackCount);
+    }
+
+
+
     // ------------------------------------------------------------------
     // Test double
     // ------------------------------------------------------------------
