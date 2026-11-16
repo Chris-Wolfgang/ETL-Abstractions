@@ -158,6 +158,33 @@ public class FaultyTransformerTests
 
 
 
+    [Fact]
+    public async Task TransformAsync_when_ThrowAfterCompletion_configured_and_MaximumItemCount_cuts_the_run_short_throws()
+    {
+        var expected    = new InvalidOperationException("flush failed");
+        var extractor   = new FaultyExtractor<int>(new[] { 1, 2, 3 });
+        var transformer = new FaultyTransformer<int>(new TransformerOptions { MaximumItemCount = 2 })
+            .ThrowAfterCompletion(expected);
+
+        var collected = new List<int>();
+
+        var actual = await Assert.ThrowsAsync<InvalidOperationException>
+        (
+            async () =>
+            {
+                await foreach (var item in transformer.TransformAsync(extractor.ExtractAsync()))
+                {
+                    collected.Add(item);
+                }
+            }
+        );
+
+        Assert.Same(expected, actual);
+        Assert.Equal(new[] { 1, 2 }, collected);
+    }
+
+
+
     // ------------------------------------------------------------------
     // DuplicateAt
     // ------------------------------------------------------------------

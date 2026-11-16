@@ -163,6 +163,10 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
     /// Configures the transformer to throw <paramref name="exception"/> after all items have
     /// been emitted successfully, simulating a cleanup or finalization failure.
     /// </summary>
+    /// <remarks>
+    /// A run that stops because <c>MaximumItemCount</c> was reached has completed too, so the
+    /// exception is thrown in that case as well.
+    /// </remarks>
     /// <param name="exception">The exception to throw after completion.</param>
     /// <returns>The same <see cref="FaultyTransformer{T}"/> instance, to allow chaining.</returns>
     /// <exception cref="ArgumentNullException">
@@ -391,7 +395,7 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
 
                 if (CurrentItemCount >= MaximumItemCount)
                 {
-                    yield break;
+                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
                 }
 
                 if (_throwAt.TryGetValue(index, out var exception)
