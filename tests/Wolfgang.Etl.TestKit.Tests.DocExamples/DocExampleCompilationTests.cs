@@ -90,8 +90,8 @@ public sealed class DocExampleCompilationTests
         var failures = new List<string>();
         var examplesChecked = 0;
 
-        // Only this repo's TestKit packages — Abstractions/ErrorPolicies examples are validated by
-        // their own DocExamples test (they now share the folded repo's src/ root).
+        // Only the TestKit packages — the Abstractions and ErrorPolicies examples are compiled by
+        // Wolfgang.Etl.Abstractions.Tests.DocExamples, which scans both of those folders.
         var files = new[] { "Wolfgang.Etl.TestKit", "Wolfgang.Etl.TestKit.Xunit" }
             .Select(name => Path.Combine(sourceRoot, name))
             .SelectMany(dir => Directory.EnumerateFiles(dir, "*.cs", SearchOption.AllDirectories));

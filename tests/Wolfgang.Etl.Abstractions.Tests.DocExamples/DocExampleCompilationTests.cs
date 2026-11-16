@@ -29,6 +29,68 @@ public sealed class DocExampleCompilationTests
     }
 
 
+    [Fact]
+    public void Source_scan_takes_code_from_every_example_element()
+    {
+        var scan = DocExampleSource.Scan();
+
+        // An <example> written in a layout the extractor does not recognise would otherwise be
+        // skipped silently and never compiled.
+        Assert.Equal(scan.ExampleTagCount, scan.ExamplesWithCodeCount);
+    }
+
+
+    [Fact]
+    public void Source_scan_covers_the_ErrorPolicies_package()
+    {
+        var examples = DocExampleSource.DiscoverAll();
+
+        Assert.Contains(examples, example => example.File.StartsWith("Wolfgang.Etl.ErrorPolicies/", StringComparison.Ordinal));
+        Assert.Contains(examples, example => example.File.StartsWith("Wolfgang.Etl.Abstractions/", StringComparison.Ordinal));
+    }
+
+
+    [Fact]
+    public void ScanLines_reads_tags_that_share_a_line()
+    {
+        var scan = new DocExampleScan();
+        string[] lines =
+        [
+            "/// <example><code>",
+            "/// var x = 1;",
+            "///",
+            "/// </code></example>",
+        ];
+
+        DocExampleSource.ScanLines(lines, "File.cs", scan);
+
+        var example = Assert.Single(scan.Examples);
+        Assert.Equal("var x = 1;\n", example.Code);
+        Assert.Equal(2, example.Line);
+        Assert.Equal(1, scan.ExampleTagCount);
+        Assert.Equal(1, scan.ExamplesWithCodeCount);
+    }
+
+
+    [Fact]
+    public void ScanLines_counts_an_example_without_code_as_not_extracted()
+    {
+        var scan = new DocExampleScan();
+        string[] lines =
+        [
+            "/// <example>",
+            "/// Prose only.",
+            "/// </example>",
+        ];
+
+        DocExampleSource.ScanLines(lines, "File.cs", scan);
+
+        Assert.Empty(scan.Examples);
+        Assert.Equal(1, scan.ExampleTagCount);
+        Assert.Equal(0, scan.ExamplesWithCodeCount);
+    }
+
+
     [Theory]
     [MemberData(nameof(Examples))]
     public void Documented_example_still_compiles(DocExample example)

@@ -61,40 +61,83 @@ public sealed class DocExample : IXunitSerializable
 
 
 /// <summary>
+/// What a scan of the library source found: the extracted code blocks, plus two counts that
+/// let a test prove no <c>&lt;example&gt;</c> was skipped.
+/// </summary>
+public sealed class DocExampleScan
+{
+    /// <summary>Every <c>&lt;code&gt;</c> block found inside an <c>&lt;example&gt;</c>.</summary>
+    public List<DocExample> Examples { get; } = new();
+
+
+    /// <summary>
+    /// The number of doc-comment lines that open an <c>&lt;example</c> element, counted from the
+    /// raw text and so independent of which tag layouts the extractor recognises.
+    /// </summary>
+    public int ExampleTagCount { get; set; }
+
+
+    /// <summary>The number of <c>&lt;example&gt;</c> elements the extractor took code from.</summary>
+    public int ExamplesWithCodeCount { get; set; }
+}
+
+
+/// <summary>
 /// Locates the library source tree and scans it for <c>&lt;example&gt;&lt;code&gt;</c>
 /// blocks in <c>///</c> documentation comments.
 /// </summary>
 public static class DocExampleSource
 {
+    // The packages whose doc examples this project compiles. The TestKit packages have their
+    // own DocExamples project.
+    private static readonly string[] ScannedPackages =
+    [
+        "Wolfgang.Etl.Abstractions",
+        "Wolfgang.Etl.ErrorPolicies",
+    ];
+
+    private static readonly string[] BlockTags = ["<example>", "</example>", "<code>", "</code>"];
+
+
     /// <summary>
-    /// Finds every <c>&lt;example&gt;&lt;code&gt;</c> block in the library's source files.
+    /// Finds every <c>&lt;example&gt;&lt;code&gt;</c> block in the scanned packages' source files.
     /// </summary>
-    public static IReadOnlyList<DocExample> DiscoverAll()
+    public static IReadOnlyList<DocExample> DiscoverAll() => Scan().Examples;
+
+
+    /// <summary>
+    /// Scans the source files of the packages this project covers.
+    /// </summary>
+    public static DocExampleScan Scan()
     {
-        var sourceDirectory = LocateSourceDirectory(AppContext.BaseDirectory);
-        var examples = new List<DocExample>();
+        var sourceRoot = Path.GetDirectoryName(LocateSourceDirectory(AppContext.BaseDirectory))!;
+        var scan = new DocExampleScan();
 
-        foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*.cs", SearchOption.AllDirectories))
+        foreach (var package in ScannedPackages)
         {
-            if (IsGeneratedPath(file))
+            var packageDirectory = Path.Combine(sourceRoot, package);
+            foreach (var file in Directory.EnumerateFiles(packageDirectory, "*.cs", SearchOption.AllDirectories))
             {
-                continue;
-            }
+                if (IsGeneratedPath(file))
+                {
+                    continue;
+                }
 
-            var relative = Path.GetRelativePath(sourceDirectory, file).Replace('\\', '/');
-            examples.AddRange(ExtractFromFile(file, relative));
+                var relative = Path.GetRelativePath(sourceRoot, file).Replace('\\', '/');
+                ScanLines(File.ReadAllLines(file), relative, scan);
+            }
         }
 
-        return examples;
+        return scan;
     }
 
 
-    private static IEnumerable<DocExample> ExtractFromFile(string file, string relative)
+    // Internal so a test can feed it tag layouts the library source does not currently use.
+    internal static void ScanLines(string[] lines, string relative, DocExampleScan scan)
     {
-        var lines = File.ReadAllLines(file);
-
         var inExample = false;
         var inCode = false;
+        var exampleHasCode = false;
         var codeStartLine = 0;
         var buffer = new List<string>();
 
@@ -109,38 +152,75 @@ public static class DocExampleSource
                 continue;
             }
 
-            var tag = content.Trim();
-            switch (tag)
+            if (content.Contains("<example", StringComparison.Ordinal))
             {
-                case "<example>":
-                    inExample = true;
-                    break;
+                scan.ExampleTagCount++;
+            }
 
-                case "</example>":
-                    inExample = false;
-                    inCode = false;
-                    break;
+            // A line may hold one tag or several (`<example><code>`, `</code></example>`).
+            foreach (var tag in SplitTags(content.Trim()))
+            {
+                switch (tag)
+                {
+                    case "<example>":
+                        inExample = true;
+                        exampleHasCode = false;
+                        break;
 
-                case "<code>" when inExample:
-                    inCode = true;
-                    buffer.Clear();
-                    codeStartLine = i + 2; // first code line, 1-based
-                    break;
+                    case "</example>":
+                        inExample = false;
+                        inCode = false;
+                        break;
 
-                case "</code>" when inCode:
-                    inCode = false;
-                    yield return new DocExample(relative, codeStartLine, Decode(string.Join("\n", buffer)));
-                    break;
+                    case "<code>" when inExample:
+                        inCode = true;
+                        buffer.Clear();
+                        codeStartLine = i + 2; // first code line, 1-based
+                        break;
 
-                default:
-                    if (inCode)
-                    {
-                        buffer.Add(content);
-                    }
+                    case "</code>" when inCode:
+                        inCode = false;
+                        scan.Examples.Add(new DocExample(relative, codeStartLine, Decode(string.Join("\n", buffer))));
+                        if (!exampleHasCode)
+                        {
+                            exampleHasCode = true;
+                            scan.ExamplesWithCodeCount++;
+                        }
 
-                    break;
+                        break;
+
+                    default:
+                        if (inCode)
+                        {
+                            buffer.Add(content);
+                        }
+
+                        break;
+                }
             }
         }
+    }
+
+
+    // Returns the block tags a line is made of when it holds nothing else, and otherwise the
+    // line itself, so that a code line is never mistaken for markup.
+    private static IReadOnlyList<string> SplitTags(string line)
+    {
+        var tags = new List<string>();
+        var rest = line;
+        while (rest.Length > 0)
+        {
+            var tag = Array.Find(BlockTags, candidate => rest.StartsWith(candidate, StringComparison.Ordinal));
+            if (tag is null)
+            {
+                return [line];
+            }
+
+            tags.Add(tag);
+            rest = rest.Substring(tag.Length).TrimStart();
+        }
+
+        return tags.Count == 0 ? [line] : tags;
     }
 
 
