@@ -69,14 +69,14 @@ jobs:
       - name: Build the concurrency project (Release)
         run: dotnet build "$PROJECT/Wolfgang.Etl.Abstractions.Tests.Concurrency.csproj" -c Release
 
-      - name: Install Coyote CLI
-        run: |
-          dotnet tool install --global Microsoft.Coyote.CLI --version 1.7.11
-          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+      # The CLI version lives in .config/dotnet-tools.json, where Dependabot can keep it in
+      # step with the Microsoft.Coyote packages the test projects reference.
+      - name: Restore the Coyote CLI
+        run: dotnet tool restore
 
       - name: Rewrite assemblies for the controlled scheduler
         working-directory: ${{ env.PROJECT }}
-        run: coyote rewrite coyote.json
+        run: dotnet coyote rewrite coyote.json
 
       - name: Run Coyote systematic tests
         working-directory: ${{ env.PROJECT }}
@@ -89,15 +89,23 @@ jobs:
             iterations=10000
           fi
           dll="bin/Release/net8.0/Wolfgang.Etl.Abstractions.Tests.Concurrency.dll"
-          methods=(
-            Concurrent_item_count_increments_never_lose_an_update
-            # Runnable since #364: the base classes now await MoveNextAsync().ConfigureAwait(false)
-            # instead of a ConfiguredCancelableAsyncEnumerable, which Coyote 1.7.11 could not control.
-            Dispose_racing_enumeration_never_deadlocks
+          # Every method marked [Microsoft.Coyote.SystematicTesting.Test] in this project, read
+          # from the source so a new test runs without an edit here. The attribute sits on the
+          # line above the method signature.
+          mapfile -t methods < <(
+            grep -hA1 --include='*.cs' -r 'SystematicTesting\.Test\]' . \
+              | grep -oE '[A-Za-z_][A-Za-z0-9_]*\(' \
+              | tr -d '(' \
+              | sort -u
           )
+          if [ "${#methods[@]}" -eq 0 ]; then
+            echo "::error::No [Microsoft.Coyote.SystematicTesting.Test] method found under $PWD - nothing would be tested."
+            exit 1
+          fi
+          echo "Coyote test methods: ${methods[*]}"
           for m in "${methods[@]}"; do
             echo "::group::coyote test $m ($iterations iterations)"
-            coyote test "$dll" --method "$m" --iterations "$iterations"
+            dotnet coyote test "$dll" --method "$m" --iterations "$iterations"
             echo "::endgroup::"
           done
 
@@ -123,14 +131,14 @@ jobs:
       - name: Build the TestKit concurrency project (Release)
         run: dotnet build "$PROJECT/Wolfgang.Etl.TestKit.Tests.Concurrency.csproj" -c Release
 
-      - name: Install Coyote CLI
-        run: |
-          dotnet tool install --global Microsoft.Coyote.CLI --version 1.7.11
-          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+      # The CLI version lives in .config/dotnet-tools.json, where Dependabot can keep it in
+      # step with the Microsoft.Coyote packages the test projects reference.
+      - name: Restore the Coyote CLI
+        run: dotnet tool restore
 
       - name: Rewrite assemblies for the controlled scheduler
         working-directory: ${{ env.PROJECT }}
-        run: coyote rewrite rewrite.coyote.json
+        run: dotnet coyote rewrite rewrite.coyote.json
 
       - name: Run the systematic tests under the rewritten assemblies
         # Without this flag RunSystematic uses systematic fuzzing mode (what the ordinary

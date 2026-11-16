@@ -64,6 +64,13 @@
         "dotnet-symbol"
       ],
       "rollForward": true
+    },
+    "microsoft.coyote.cli": {
+      "version": "1.7.11",
+      "commands": [
+        "coyote"
+      ],
+      "rollForward": true
     }
   }
 }
