@@ -22,7 +22,7 @@ env:
   # SHA-256 of netcoredbg-linux-amd64.tar.gz for the version above. Samsung publishes no
   # checksum file, so this is the digest of the asset as downloaded when the pin was added;
   # a bump of the version must update it from a fresh download of the new asset.
-  NETCOREDBG_SHA256: '4f58ae90aacbccdf85dc7d6a0d8893796dd3750d6867fe31396a6b7bee09c9cb'
+  NETCOREDBG_SHA256: '4f58ae90aacbccdf85dc7d6a0d8893796dd3750d6867fe31396a6b7bee09c9cb'  # DevSkim: ignore DS173237
   CONSUMER: .github/sourcelink/consumer
   EXPECTED_SRC: Report.cs
 
