@@ -56,7 +56,9 @@ public static class DocExampleCompiler
             using System.Threading;
             using System.Threading.Tasks;
             using System.Collections.Generic;
+            using Microsoft.Extensions.Logging;
             using Wolfgang.Etl.Abstractions;
+            using Wolfgang.Etl.ErrorPolicies;
 
             namespace DocExamples.Generated
             {
@@ -71,6 +73,21 @@ public static class DocExampleCompiler
                     public WhereTransformer(Func<T, bool> predicate) { _ = predicate; }
 
                     public IAsyncEnumerable<T> TransformAsync(IAsyncEnumerable<T> items)
+                        => throw new NotSupportedException();
+                }
+
+                // The record type and the extractor the ErrorPolicies example names.
+                internal sealed class Record { }
+
+                internal sealed class SomeExtractor<T> : ExtractorBase<T, Report>
+                    where T : notnull
+                {
+                    public SomeExtractor(IEnumerable<T> source) { _ = source; }
+
+                    protected override IAsyncEnumerable<T> ExtractWorkerAsync(CancellationToken token)
+                        => throw new NotSupportedException();
+
+                    protected override Report CreateProgressReport()
                         => throw new NotSupportedException();
                 }
 
@@ -97,6 +114,8 @@ public static class DocExampleCompiler
                     protected IProgress<Report> loadProgress;
                     protected int CurrentItemCount;
                     protected int CurrentSkippedItemCount;
+                    protected IEnumerable<Record> source;
+                    protected ILogger logger;
                     protected void IncrementCurrentItemCount() { }
                     protected void IncrementCurrentSkippedItemCount() { }
                 }
@@ -178,6 +197,8 @@ public static class DocExampleCompiler
         // Belt-and-braces: guarantee the library under test is referenced even if it is
         // ever loaded from outside the TPA closure.
         AddIfUnseen(references, seen, typeof(EtlPipeline).Assembly.Location);
+        AddIfUnseen(references, seen, typeof(Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy).Assembly.Location);
+        AddIfUnseen(references, seen, typeof(Microsoft.Extensions.Logging.ILogger).Assembly.Location);
 
         return references;
     }
