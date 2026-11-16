@@ -17,9 +17,9 @@ the job) when the mutation score drops below it.
 |---|---|---|---|---|
 | `Wolfgang.Etl.Abstractions` | `tests/Wolfgang.Etl.Abstractions.Tests.Unit/stryker-config.json` | **80 %** | 80 | 90 |
 | `Wolfgang.Etl.TestKit` | `tests/Wolfgang.Etl.TestKit.Tests.Unit/stryker-config.json` | **70 %** | 70 | 90 |
+| `Wolfgang.Etl.ErrorPolicies` | `tests/Wolfgang.Etl.ErrorPolicies.Tests.Unit/stryker-config.json` | **80 %** | 80 | 90 |
 
-`Wolfgang.Etl.TestKit.Xunit` and `Wolfgang.Etl.ErrorPolicies` have no configuration and are not
-mutation-tested.
+`Wolfgang.Etl.TestKit.Xunit` has no configuration and is not mutation-tested.
 
 Scores for `Wolfgang.Etl.Abstractions`:
 
@@ -28,6 +28,9 @@ Scores for `Wolfgang.Etl.Abstractions`:
 | Baseline (2026-07-22, Stryker 4.16.0) | 74.4 % — 248 killed / 83 survived / 2 timeout of 333 tested |
 | After the #205 test pass (2026-07-22) | ~86.6 % |
 | After the #817 survivor pass (2026-11, Stryker 5.0.0, local run) | 98.66 % |
+
+`Wolfgang.Etl.ErrorPolicies` scored 100 % when its configuration was added (2026-11, Stryker
+5.0.0, local run: 24 killed of 24 tested).
 
 A current score for `Wolfgang.Etl.TestKit` is not recorded here; read it from the latest
 `Stryker (mutation testing)` workflow run.
