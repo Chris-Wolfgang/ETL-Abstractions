@@ -54,7 +54,7 @@ internal class Program
 
     private static async Task EtlWithCancellationToken()
     {
-        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process wit cancellation...{ConsoleColors.Reset}\n\n");
+        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process with cancellation...{ConsoleColors.Reset}\n\n");
 
         // Set a cancellation token to cancel the extraction after 1 second
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
@@ -65,9 +65,18 @@ internal class Program
         var loader = new ConsoleLoader();
 
 
-        var sourceItems = extractor.ExtractAsync(token);
-        var transformedItems = transformer.TransformAsync(sourceItems, token);
-        await loader.LoadAsync(transformedItems, token).ConfigureAwait(false);
+        // The transformer and loader stop by throwing when cancellation is requested (the extractor
+        // stops gracefully), so a cancelled run surfaces here as an OperationCanceledException.
+        try
+        {
+            var sourceItems = extractor.ExtractAsync(token);
+            var transformedItems = transformer.TransformAsync(sourceItems, token);
+            await loader.LoadAsync(transformedItems, token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine($"\n{ConsoleColors.Red}ETL process cancelled.{ConsoleColors.Reset}");
+        }
 
         Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
 
@@ -78,7 +87,7 @@ internal class Program
 
     private static async Task EtlWithProgress()
     {
-        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process wit cancellation...{ConsoleColors.Reset}\n\n");
+        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process with progress...{ConsoleColors.Reset}\n\n");
 
         var progress = new Progress<EtlProgress>(p =>
         {
@@ -105,7 +114,7 @@ internal class Program
 
     private static async Task EtlWithProgressAndCancellationToken()
     {
-        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process wit cancellation...{ConsoleColors.Reset}\n\n");
+        Console.WriteLine($"{ConsoleColors.Yellow} Starting ETL process with progress and cancellation...{ConsoleColors.Reset}\n\n");
 
         // Set a cancellation token to cancel the extraction after 1 second
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
@@ -124,9 +133,18 @@ internal class Program
         // Best practice is to only use one progress reporter per ETL process. Using multiple progress reporters
         // can lead to confusion and inconsistent reporting. This example passes the progress reporter to
         // the loader, but you could also pass it to the extractor or transformer depending on your needs.
-        var sourceItems = extractor.ExtractAsync(token);
-        var transformedItems = transformer.TransformAsync(sourceItems, token);
-        await loader.LoadAsync(transformedItems, progress, token).ConfigureAwait(false);
+        // The transformer and loader stop by throwing when cancellation is requested (the extractor
+        // stops gracefully), so a cancelled run surfaces here as an OperationCanceledException.
+        try
+        {
+            var sourceItems = extractor.ExtractAsync(token);
+            var transformedItems = transformer.TransformAsync(sourceItems, token);
+            await loader.LoadAsync(transformedItems, progress, token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine($"\n{ConsoleColors.Red}ETL process cancelled.{ConsoleColors.Reset}");
+        }
 
         Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
 
