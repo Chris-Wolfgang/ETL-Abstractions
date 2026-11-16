@@ -348,21 +348,24 @@ public class TestLoaderTests
 
 
     [Fact]
-    public async Task Dispose_after_timer_wired_runs_unsubscribe_branch_without_error()
+    public async Task Dispose_after_a_completed_run_unsubscribes_from_the_already_disposed_timer_without_error()
     {
         using var timer = new ManualProgressTimer();
         var progress = new SynchronousProgress<Report>(_ => { });
 
         var loader = new TestLoaderWithTimer(collectItems: false, timer);
 
-        // A completed load wires (and leaves wired) the Elapsed handler. Disposing the
-        // loader then exercises the unsubscribe branch of Dispose(bool). The injected
-        // timer is owned by the caller, so disposing the loader must not dispose it.
+        // A completed load wires (and leaves wired) the Elapsed handler, and the base class
+        // disposes the timer it was handed when the run ends. Disposing the loader afterwards
+        // exercises the unsubscribe branch of Dispose(bool) against that already-disposed timer.
         await loader.LoadAsync(new TestExtractor<int>(new List<int> { 1, 2, 3 }).ExtractAsync(), progress);
 
         var exception = Record.Exception(() => loader.Dispose());
 
         Assert.Null(exception);
+
+        // The run, not the loader's Dispose, is what disposed the injected timer.
+        Assert.Throws<ObjectDisposedException>(() => timer.Fire());
     }
 
 

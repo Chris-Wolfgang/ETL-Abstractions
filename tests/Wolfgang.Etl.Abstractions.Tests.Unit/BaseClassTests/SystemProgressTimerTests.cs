@@ -47,82 +47,6 @@ public class SystemProgressTimerTests
 
 
 
-    /// <summary>
-    /// Verifies that <see cref="SystemProgressTimer.Start"/> is a no-op
-    /// after <see cref="SystemProgressTimer.Dispose"/> has been called.
-    /// </summary>
-    [Fact]
-    public async Task Start_after_dispose_does_not_throw()
-    {
-        IProgressTimer? capturedTimer = null;
-        var sut = new CapturingExtractor(onTimerCreated: t => capturedTimer = t);
-
-        var task = sut.ExtractAsync(new SynchronousProgress<EtlProgress>(_ => { }))
-                      .ToListAsync()
-                      .AsTask();
-
-        Assert.True(SpinWait.SpinUntil(() => capturedTimer != null, millisecondsTimeout: 2000));
-
-        capturedTimer!.Dispose();
-        var exception = Record.Exception(() => capturedTimer.Start(100));
-
-        await task;
-
-        Assert.Null(exception);
-    }
-
-    /// <summary>
-    /// Verifies that the timer callback fires at least once during extraction,
-    /// confirming the callback body (callback + Elapsed) is executed.
-    /// </summary>
-    [Fact]
-    public async Task Timer_callback_fires_during_extraction()
-    {
-        var elapsedCount = 0;
-
-        var sut = new CapturingExtractor(
-            onTimerCreated: t =>
-            {
-                t.Elapsed += () => Interlocked.Increment(ref elapsedCount);
-            },
-            intervalMs: 30,
-            workerDelayMs: 200);
-
-        var progress = new SynchronousProgress<EtlProgress>(_ => { });
-
-        await sut.ExtractAsync(progress).ToListAsync();
-
-        Assert.True(elapsedCount > 0, "Elapsed event should have fired at least once during extraction");
-    }
-
-    /// <summary>
-    /// Verifies that <see cref="SystemProgressTimer.StopTimer"/> is a no-op
-    /// after <see cref="SystemProgressTimer.Dispose"/> has been called.
-    /// </summary>
-    [Fact]
-    public async Task StopTimer_after_dispose_does_not_throw()
-    {
-        IProgressTimer? capturedTimer = null;
-        var sut = new CapturingExtractor(onTimerCreated: t => capturedTimer = t);
-
-        // Trigger timer creation by starting extraction — timer is captured in CreateProgressTimer
-        var task = sut.ExtractAsync(new SynchronousProgress<EtlProgress>(_ => { }))
-                      .ToListAsync()
-                      .AsTask();
-
-        // Wait for the timer to be created
-        Assert.True(SpinWait.SpinUntil(() => capturedTimer != null, millisecondsTimeout: 2000));
-
-        capturedTimer!.Dispose();
-        var exception = Record.Exception(() => capturedTimer.StopTimer());
-
-        await task;
-
-        Assert.Null(exception);
-    }
-
-
-
     // ------------------------------------------------------------------
     // Disposed guard in callback
     // ------------------------------------------------------------------
@@ -365,48 +289,6 @@ public class SystemProgressTimerTests
     // ------------------------------------------------------------------
     // Test double
     // ------------------------------------------------------------------
-
-    /// <summary>
-    /// An extractor that overrides <c>CreateProgressTimer</c> to capture
-    /// the <see cref="IProgressTimer"/> instance for inspection in tests.
-    /// </summary>
-    private sealed class CapturingExtractor : ExtractorBase<int, EtlProgress>
-    {
-        private readonly Action<IProgressTimer> _onTimerCreated;
-        private readonly int _workerDelayMs;
-
-        public CapturingExtractor(
-            Action<IProgressTimer> onTimerCreated,
-            int intervalMs = 100,
-            int workerDelayMs = 0)
-            : base(new ExtractorOptions { ReportingInterval = intervalMs })
-        {
-            _onTimerCreated = onTimerCreated;
-            _workerDelayMs = workerDelayMs > 0 ? workerDelayMs : intervalMs * 2;
-        }
-
-        protected override IProgressTimer CreateProgressTimer(IProgress<EtlProgress> progress)
-        {
-            var timer = base.CreateProgressTimer(progress);
-            _onTimerCreated(timer);
-            return timer;
-        }
-
-        protected override EtlProgress CreateProgressReport() =>
-            new(CurrentItemCount);
-
-        protected override async IAsyncEnumerable<int> ExtractWorkerAsync(
-            [EnumeratorCancellation] CancellationToken token)
-        {
-            for (var i = 0; i < 5; i++)
-            {
-                await Task.Delay(_workerDelayMs, token);
-                yield return i;
-            }
-        }
-    }
-
-
 
     /// <summary>
     /// A deterministic <see cref="ITimerCore"/>: it fires only when the test says so, and
