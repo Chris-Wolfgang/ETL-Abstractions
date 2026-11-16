@@ -1,5 +1,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.Extensions.Logging;
+using Wolfgang.Etl.ErrorPolicies;
 
 namespace Wolfgang.Etl.Abstractions.Tests.DocExamples;
 
@@ -197,8 +199,8 @@ public static class DocExampleCompiler
         // Belt-and-braces: guarantee the library under test is referenced even if it is
         // ever loaded from outside the TPA closure.
         AddIfUnseen(references, seen, typeof(EtlPipeline).Assembly.Location);
-        AddIfUnseen(references, seen, typeof(Wolfgang.Etl.ErrorPolicies.ItemErrorPolicy).Assembly.Location);
-        AddIfUnseen(references, seen, typeof(Microsoft.Extensions.Logging.ILogger).Assembly.Location);
+        AddIfUnseen(references, seen, typeof(ItemErrorPolicy).Assembly.Location);
+        AddIfUnseen(references, seen, typeof(ILogger).Assembly.Location);
 
         return references;
     }
