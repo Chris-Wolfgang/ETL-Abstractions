@@ -772,11 +772,15 @@ jobs:
               # weeks with a green CI. Fail the TFM unless the summary reports a
               # non-zero total (vstest prints "Total: N" at verbosity=minimal and
               # "Total tests: N" at verbosity=normal; MTP prints "total: N").
+              # --blame: when the test host crashes, the log names the tests that were
+              # running and a Sequence_*.xml lands in TestResults. A run that does not
+              # crash is unchanged. The other test stages pass it for the same reason.
               test_log=$(mktemp)
               dotnet test "$test_proj" \
                 --configuration Release \
                 --framework "$fw" \
                 --no-build --no-restore \
+                --blame \
                 --collect:"XPlat Code Coverage" \
                 --settings coverlet.runsettings \
                 --results-directory "./TestResults" \
@@ -1186,6 +1190,7 @@ jobs:
                   --configuration Release `
                   --framework $fw `
                   --no-build --no-restore `
+                  --blame `
                   --collect:"XPlat Code Coverage" `
                   --settings coverlet.runsettings `
                   --results-directory "./TestResults" `
@@ -1196,6 +1201,7 @@ jobs:
                   --configuration Release `
                   --framework $fw `
                   --no-build --no-restore `
+                  --blame `
                   --logger "console;verbosity=normal" 2>&1 | Tee-Object -FilePath $testLog
               }
 
@@ -1678,6 +1684,7 @@ jobs:
                 --configuration Release \
                 --framework "$fw" \
                 --no-build --no-restore \
+                --blame \
                 --collect:"XPlat Code Coverage" \
                 --settings coverlet.runsettings \
                 --results-directory "./TestResults" \
