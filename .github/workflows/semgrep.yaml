@@ -5,9 +5,8 @@ name: SAST (Semgrep)
 # Semgrep runs a different engine and ruleset from CodeQL (pattern/dataflow rules
 # for C#, a general security-audit pack, and a secrets pack), so it surfaces
 # issues CodeQL's queries don't. Findings upload to Code Scanning (Security tab)
-# as an additional signal; report-only for now (`|| true`) so a noisy new ruleset
-# version can't block merges — the current baseline is clean (0 findings), so this
-# can be promoted to a gate later.
+# as an additional signal. Findings are report-only: the scan's exit code 1 (findings)
+# does not fail the job, while any other non-zero exit (bad config, crash) does.
 #
 # Uses the public Semgrep registry packs, which need no account/login. The scan
 # is scoped to src/ (the shipped library) — SAST belongs on shipped code, and
@@ -19,7 +18,6 @@ on:
   pull_request:
     branches:
       - main
-      - vNext
   push:
     branches:
       - main
