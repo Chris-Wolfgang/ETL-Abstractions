@@ -1012,7 +1012,18 @@ jobs:
 
   trigger-docs:
     name: Build & Deploy Documentation
-    needs: validate-release
+    # Deploy the docs for a version only once that version is on NuGet: a pack or
+    # package-validation failure must not leave the site's latest version pointing at
+    # a release that was never published. A repository that ships no package skips
+    # publish-nuget, and its docs still deploy.
+    needs: [validate-release, pack-and-validate, publish-nuget]
+    if: >-
+      ${{ !cancelled()
+          && needs.validate-release.result == 'success'
+          && needs.pack-and-validate.result == 'success'
+          && (needs.publish-nuget.result == 'success'
+              || (needs.publish-nuget.result == 'skipped'
+                  && needs.pack-and-validate.outputs.has-packages != 'true')) }}
     permissions:
       contents: write  # Required by docfx.yaml to push to gh-pages branch
     # GitHub's `$/` self-repository syntax is preferred here, but actionlint
