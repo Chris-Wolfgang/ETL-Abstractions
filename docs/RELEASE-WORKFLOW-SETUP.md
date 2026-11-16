@@ -1,12 +1,13 @@
 # Release Workflow Setup Guide
 
-This guide explains how to configure a repository to use the standard `release.yaml` workflow. The same checklist applies whether you are bootstrapping a new repo from `repo-template` or auditing an existing one.
+This guide explains how this repository's `release.yaml` workflow is configured and how a release moves through it. The repository ships four packages (`Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies`, `Wolfgang.Etl.TestKit`, `Wolfgang.Etl.TestKit.Xunit`) from one lockstep version, and one run of the workflow publishes all of them.
 
 ## Overview
 
 The release workflow triggers when you **publish a GitHub Release** and implements a comprehensive validation and automatic deployment process that:
 - ✅ Tests all target frameworks per test project on Windows
-- ✅ Enforces the 95% production line-coverage threshold
+- ✅ Enforces the line-coverage thresholds set at the top of `release.yaml`: `CODECOV_MINIMUM` (95%) for the production assemblies and `CODECOV_TEST_MINIMUM` (99%) for the test assemblies
+- ✅ Verifies the documentation builds and that the symbol packages carry SourceLink
 - ✅ Validates NuGet package integrity with smoke tests
 - ✅ Automatically publishes to NuGet.org after validation passes
 - ✅ Eliminates duplicate build work for faster releases
@@ -39,7 +40,7 @@ minutes the job runs. Nothing long-lived is stored in the repository.
 
 **Location:** Settings → Branches → main (or Settings → Rules → Rulesets)
 
-> **Note:** Repos created from `repo-template` ship with `scripts/Setup-BranchRuleset.ps1`, which configures branch protection interactively (option `[1]` for single-developer mode, `[2]` for multi-developer mode). The script may not be present in older repos — if it is missing, configure the equivalent settings manually using the checklist below.
+> **Note:** This repository carries `scripts/Fix-BranchRuleset.ps1`, which replaces the "Protect main branch" ruleset with a fresh one when the canonical definition has changed. It delegates the creation to `Setup-BranchRuleset.ps1`, which is **not** in this repository's `scripts/` folder — it comes from `repo-template`. Without it, configure the equivalent settings manually using the checklist below.
 
 Ensure the following settings are enabled:
 
@@ -76,22 +77,33 @@ The workflow triggers automatically when the release is published.
 
 ### Expected Workflow Behavior
 
-1. **Job 1: validate-release** (3-10 minutes)
+The workflow has eight jobs. Nothing is published unless the first four pass.
+
+1. **`validate-release`**
    - Runs all framework tests with coverage
-   - Enforces the 95% coverage threshold
-   - Uploads coverage report
-   - ✅ Auto-passes if tests succeed
+   - Enforces the production (95%) and test-assembly (99%) coverage thresholds
+   - Uploads the coverage report
 
-2. **Job 2: pack-and-validate** (2-5 minutes)
-   - Packs NuGet packages
-   - Performs smoke test installation
+2. **`pack-and-validate`** (needs 1)
+   - Packs the four NuGet packages and their symbol packages
+   - Performs a smoke-test installation
+   - Generates one CycloneDX SBOM per package
    - Uploads packages as artifacts
-   - ✅ Auto-passes if packages are valid
 
-3. **Job 3: publish-nuget** (1-2 minutes)
+3. **`verify-docs-build`** — "Verify Documentation Builds" (needs 1 and 2)
+
+4. **`sourcelink-snupkg`** — "SourceLink structural verify (.snupkg)" (needs 2)
+
+5. **`publish-nuget`** (needs 2, 3 and 4)
    - Exchanges the job's OIDC token for a short-lived NuGet key (`NuGet/login`)
-   - Publishes packages to NuGet.org automatically
-   - ✅ Auto-completes if the trusted publishing policy matches
+   - Publishes the packages to NuGet.org
+
+6. **`sourcelink-symbol-server-smoke`** — "SourceLink symbol-server smoke (post-publish)" (needs 5)
+
+7. **`trigger-docs`** — "Build & Deploy Documentation" (needs 1)
+
+8. **`update-release-artifacts`** — "Attach Artifacts to Release" (needs 1, 2 and 5): attaches the
+   packages, symbol packages, SBOMs and the reproducible-build manifest to the GitHub Release
 
 ### Monitoring the Workflow
 
@@ -121,13 +133,14 @@ The workflow triggers automatically when the release is published.
 3. Test locally: `dotnet test --framework net462`
 4. Push fix, then re-publish the release (or re-run the workflow from the Actions tab)
 
-### Coverage Below the 95% Threshold
+### Coverage Below a Threshold
 
 **Problem:** Workflow fails at coverage validation step.
 
 **Solution:**
-1. Review `CoverageReport/Summary.txt` artifact
-2. Add tests for uncovered code paths
+1. Review `CoverageReport/Summary.txt` artifact; the failing module is named in the job log, and
+   test assemblies are held to the higher test threshold
+2. Add tests for uncovered code paths (or, for a test assembly, remove or exercise the unexecuted test code)
 3. Ensure tests run on all frameworks
 4. Push fix, then re-publish the release (or re-run the workflow from the Actions tab)
 
@@ -146,10 +159,12 @@ The workflow triggers automatically when the release is published.
 Before creating a production GitHub Release (e.g., `v1.0.0`):
 
 - [ ] All tests pass on all platforms (pr.yaml workflow)
-- [ ] Code coverage meets the 95% threshold
+- [ ] Code coverage meets both thresholds (production 95%; test assemblies 100% on pull requests)
 - [ ] Security scan shows no critical issues
-- [ ] Version numbers updated in `.csproj` files
-- [ ] `CHANGELOG.md` updated with release notes (if applicable)
+- [ ] The lockstep `<Version>` in `Directory.Build.props` is bumped (the projects carry no version of their own)
+- [ ] The changelog fragments are assembled: `pwsh ./scripts/changelog.ps1 assemble` writes the new
+      version section into `CHANGELOG.md` from `changelog/unreleased/*.md` and deletes the fragments
+      (`pwsh ./scripts/changelog.ps1 bump` prints the version the fragments imply)
 - [ ] All PRs merged to `main` branch
 - [ ] Local build succeeds: `dotnet build --configuration Release`
 - [ ] Local tests pass: `dotnet test --configuration Release`
@@ -175,30 +190,33 @@ Before creating a production GitHub Release (e.g., `v1.0.0`):
                             │
                             ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Job 1: validate-release (Windows)                          │
-│  • Restore & Build                                          │
-│  • Test all frameworks (net5.0-10.0, net462-481)           │
-│  • Collect coverage                                         │
-│  • Enforce 95% threshold                                    │
-│  • Upload coverage artifacts                                │
+│  validate-release                                           │
+│  • Test all frameworks, collect coverage                    │
+│  • Enforce the production and test-assembly thresholds      │
 └─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼ (only if tests pass)
+          │                                   │
+          ▼                                   ▼
+┌───────────────────────────────┐   ┌─────────────────────────┐
+│  pack-and-validate            │   │  trigger-docs           │
+│  • Pack, smoke test, SBOMs    │   │  • Build & deploy docs  │
+└───────────────────────────────┘   └─────────────────────────┘
+          │                │
+          ▼                ▼
+┌──────────────────┐  ┌─────────────────────┐
+│ verify-docs-build│  │ sourcelink-snupkg   │
+└──────────────────┘  └─────────────────────┘
+          │                │
+          ▼                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Job 2: pack-and-validate (Windows)                         │
-│  • Restore & Build (fresh)                                  │
-│  • Pack NuGet packages                                      │
-│  • Smoke test installation                                  │
-│  • Upload package artifacts                                 │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼ (only if packing succeeds)
-┌─────────────────────────────────────────────────────────────┐
-│  Job 3: publish-nuget (Windows)                             │
-│  • Download packages                                        │
+│  publish-nuget (needs pack, docs build and SourceLink)      │
 │  • NuGet login via OIDC trusted publishing                  │
-│  • Publish to NuGet.org automatically                       │
+│  • Publish to NuGet.org                                     │
 └─────────────────────────────────────────────────────────────┘
+          │                                   │
+          ▼                                   ▼
+┌───────────────────────────────┐   ┌─────────────────────────┐
+│ sourcelink-symbol-server-smoke│   │ update-release-artifacts│
+└───────────────────────────────┘   └─────────────────────────┘
 ```
 
 ## Key Improvements Over Previous Workflow
@@ -206,7 +224,7 @@ Before creating a production GitHub Release (e.g., `v1.0.0`):
 | Issue | Before | After |
 |-------|--------|-------|
 | **Framework Coverage** | Default framework only | All frameworks (net5.0-10.0, net462-481) |
-| **Code Coverage** | Not enforced | 95% threshold enforced |
+| **Code Coverage** | Not enforced | Production and test-assembly thresholds enforced |
 | **Package Validation** | None | Smoke test installation |
 | **Deployment** | Incomplete publish script | Automatic publishing after validation |
 | **Publishing credential** | Long-lived API key | OIDC trusted publishing, no stored key |
