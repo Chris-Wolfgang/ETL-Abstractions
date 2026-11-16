@@ -85,48 +85,117 @@ public class SystemProgressTimerTests
     [Fact]
     public async Task Dispose_when_a_tick_is_in_flight_waits_for_it_to_finish()
     {
-        using var tickEntered = new ManualResetEventSlim();
-        using var releaseTick = new ManualResetEventSlim();
-        var events = new List<string>();
+        var blockingTick = new BlockingTick();
         ArmableTimerCore? core = null;
         var timer = new SystemProgressTimer
         (
-            _ =>
-            {
-                tickEntered.Set();
-                releaseTick.Wait();
-                lock (events)
-                {
-                    events.Add("tick");
-                }
-            },
+            _ => blockingTick.OnTick(),
             state: null,
             onTick => core = new ArmableTimerCore(onTick)
         );
         timer.Start(20);
 
         var tick = Task.Run(() => core!.FireIfArmed());
-        tickEntered.Wait();
+        blockingTick.WaitUntilEntered();
         var dispose = Task.Run
         (
             () =>
             {
                 timer.Dispose();
-                lock (events)
-                {
-                    events.Add("disposed");
-                }
+                blockingTick.Record("disposed");
             }
         );
 
         var first = await Task.WhenAny(dispose, Task.Delay(250));
         Assert.NotSame(dispose, first);
 
-        releaseTick.Set();
+        blockingTick.Release();
         await tick;
         await dispose;
 
-        Assert.Equal(new[] { "tick", "disposed" }, events);
+        Assert.Equal(new[] { "tick", "disposed" }, blockingTick.Events());
+    }
+
+
+
+    /// <summary>
+    /// A timer callback that signals when it is entered and then blocks until released,
+    /// recording the order in which it and the test's own steps finish.
+    /// </summary>
+    /// <remarks>
+    /// Signals with a monitor rather than wait handles, so there is nothing to dispose and the
+    /// test's lambdas can hold it for as long as they run.
+    /// </remarks>
+    private sealed class BlockingTick
+    {
+        private readonly object _gate = new();
+        private readonly List<string> _events = new();
+        private bool _entered;
+        private bool _released;
+
+
+
+        public void OnTick()
+        {
+            lock (_gate)
+            {
+                _entered = true;
+                Monitor.PulseAll(_gate);
+                while (!_released)
+                {
+                    Monitor.Wait(_gate);
+                }
+
+                _events.Add("tick");
+            }
+        }
+
+
+
+        // Polls rather than waits: a wait that is only sometimes needed would leave a line
+        // that is only sometimes covered.
+        public void WaitUntilEntered() => SpinWait.SpinUntil(HasEntered);
+
+
+
+        private bool HasEntered()
+        {
+            lock (_gate)
+            {
+                return _entered;
+            }
+        }
+
+
+
+        public void Release()
+        {
+            lock (_gate)
+            {
+                _released = true;
+                Monitor.PulseAll(_gate);
+            }
+        }
+
+
+
+        public void Record(string name)
+        {
+            lock (_gate)
+            {
+                _events.Add(name);
+            }
+        }
+
+
+
+        public string[] Events()
+        {
+            lock (_gate)
+            {
+                return _events.ToArray();
+            }
+        }
     }
 
 
@@ -139,17 +208,20 @@ public class SystemProgressTimerTests
     {
         var callbackCount = 0;
         ArmableTimerCore? core = null;
-        SystemProgressTimer? timer = null;
-        timer = new SystemProgressTimer
+        // The callback needs the timer it belongs to, which exists only after construction;
+        // the one-element array is assigned once and filled in afterwards.
+        var timerSlot = new SystemProgressTimer?[1];
+        var timer = new SystemProgressTimer
         (
             _ =>
             {
                 callbackCount++;
-                timer!.Dispose();
+                timerSlot[0]!.Dispose();
             },
             state: null,
             onTick => core = new ArmableTimerCore(onTick)
         );
+        timerSlot[0] = timer;
         timer.Start(20);
 
         core!.FireIfArmed();
