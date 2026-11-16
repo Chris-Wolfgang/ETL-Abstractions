@@ -145,6 +145,13 @@ if (-not $SkipTests -and $failed.Count -eq 0) {
             # are seen; a regex over the raw csproj misses both.
             $tfmRaw = (dotnet msbuild $testProj.FullName -noLogo -p:Configuration=Release -getProperty:TargetFrameworks 2>$null |
                 Where-Object { $_ -and "$_".Trim() } | Select-Object -Last 1)
+            if ($LASTEXITCODE -ne 0) {
+                # pr.yaml fails the stage when MSBuild cannot evaluate the project; an
+                # evaluation error must not read as "no target frameworks, skip".
+                Write-Host "  MSBuild evaluation of TargetFrameworks failed for $($testProj.Name)" -ForegroundColor Red
+                $failed += "Tests ($($testProj.Name): MSBuild evaluation failed)"
+                continue
+            }
             if (-not $tfmRaw) {
                 $tfmRaw = (dotnet msbuild $testProj.FullName -noLogo -p:Configuration=Release -getProperty:TargetFramework 2>$null |
                     Where-Object { $_ -and "$_".Trim() } | Select-Object -Last 1)
@@ -243,7 +250,10 @@ if (-not $SkipTests -and -not $SkipCoverage -and $failed.Count -eq 0) {
     $coverageFiles = Get-ChildItem -Path TestResults -Recurse -Filter coverage.cobertura.xml -ErrorAction SilentlyContinue
 
     if (-not $coverageFiles) {
-        Write-Host "No coverage files found — skipping"
+        # Tests ran (this block is skipped with -SkipTests) but nothing was measured. pr.yaml
+        # fails in that case; so does this script, rather than reporting an unmeasured pass.
+        Write-Host "No coverage files found although tests ran — coverage was not measured." -ForegroundColor Red
+        $failed += 'Coverage (no coverage files produced)'
     }
     else {
         # ReportGenerator is pinned in .config/dotnet-tools.json, exactly as pr.yaml
@@ -341,7 +351,7 @@ if (-not $SkipSecurity) {
             --file-format text `
             --output-file devskim-results.txt `
             --ignore-rule-ids DS176209 `
-            --ignore-globs "**/api/**,**/CoverageReport/**,**/TestResults/**"
+            --ignore-globs "**/api/**,**/CoverageReport/**,**/TestResults/**,**/.github/license-audit/**"
         # Mirror pr.yaml, where a non-zero exit fails the DevSkim step.
         $devskimExit = $LASTEXITCODE
         $devskimRan = ($devskimExit -eq 0)
@@ -355,13 +365,18 @@ if (-not $SkipSecurity) {
     }
     elseif (Test-Path "devskim-results.txt") {
         $results = Get-Content "devskim-results.txt" -Raw
-        if ($results -and $results -match '(?i)(error|critical|high)') {
+        # Same gate as pr.yaml: every finding line ("<file>:<line>:<col>:<line>:<col> [Severity] DSnnnnnn")
+        # fails, whatever its severity; a false positive is excluded as narrowly as it can be -
+        # by rule id, by glob, or inline on the line - never by lowering the bar. These exclusions
+        # MUST stay in step with pr.yaml, or a local run disagrees with CI.
+        $findings = @($results -split "`n" | Where-Object { $_ -match '^.+:\d+:\d+:\d+:\d+ \[[A-Za-z]+\] DS\d+' })
+        if ($findings.Count -gt 0) {
             Write-Host $results
-            Write-Fail "DevSkim found security issues"
+            Write-Fail "DevSkim reported $($findings.Count) finding(s) - every finding fails this gate"
             $failed += "DevSkim"
         }
         else {
-            Write-Pass "No critical security issues found"
+            Write-Pass "No DevSkim findings"
         }
         Remove-Item "devskim-results.txt" -ErrorAction SilentlyContinue
     }

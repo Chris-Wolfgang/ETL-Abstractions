@@ -33,7 +33,6 @@ on:
   pull_request:
     branches:
       - main
-      - vNext   # this repository integrates a release cycle on vNext; gate those PRs too
     paths:
       - 'src/**'
       - 'tests/**/*.cs'
@@ -140,9 +139,14 @@ jobs:
     if: needs.detect.outputs.run == 'true'
     runs-on: ${{ needs.detect.outputs.runner }}
     timeout-minutes: 120
+    # Read-only: this job builds and tests the checked-out code, which on a pull request is
+    # the PR's code. Everything that writes (the gh-pages chart, the tracking issue) is in the
+    # `publish` job below, which never runs on a pull request and runs none of that code.
     permissions:
-      contents: write   # publish the score-history chart to gh-pages (non-PR runs only)
-      issues: write     # upsert the single survivors tracking issue (non-PR runs only)
+      contents: read
+    outputs:
+      runs: ${{ steps.run.outputs.runs }}
+      score: ${{ steps.score.outputs.score }}
     steps:
       - name: Check out repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -260,10 +264,47 @@ jobs:
           printf '%s\n' "${entries[@]}" | jq -s . > mutation-score.json
           echo "score=$lowest" >> "$GITHUB_OUTPUT"
 
+      - name: Upload Stryker report
+        if: always() && steps.run.outputs.runs != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: stryker-report-${{ github.run_id }}
+          # mutation-score.json sits at the workspace root, which keeps the artifact rooted
+          # there: the publish job restores every path where its steps expect it.
+          path: |
+            mutation-score.json
+            **/StrykerOutput/**
+            stryker-logs/
+          if-no-files-found: ignore
+          retention-days: 30
+
+  publish:
+    name: Publish score history and track survivors
+    needs: stryker
+    # always(): publish and track even when the gate FAILED - a low score is exactly when the
+    # trend and the survivor list matter most. Never on a pull request: one data point per
+    # scheduled or manual run, and no write token near PR code.
+    if: always() && needs.stryker.outputs.runs != '' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write   # publish the score-history chart to gh-pages
+      issues: write     # upsert the single survivors tracking issue
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Download the Stryker report
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: stryker-report-${{ github.run_id }}
+          path: .
+
       - name: Publish mutation-score history to gh-pages
         # Trend chart under gh-pages /dev/stryker (same action and pin as the BDN
-        # benchmark charts). Non-PR only: one data point per scheduled/manual run.
-        if: always() && steps.run.outputs.runs != '' && github.event_name != 'pull_request'
+        # benchmark charts). One data point per scheduled/manual run.
         uses: benchmark-action/github-action-benchmark@4322e5726e6334590d251fc4f92bec0efafc45dc  # v1.22.2
         with:
           name: Mutation score
@@ -282,10 +323,9 @@ jobs:
         # Writes the survivor worklist to the run summary and keeps ONE rolling
         # `kind:mutation-survives` issue up to date (deliberately not one issue per
         # survivor - there are dozens). Best-effort: never fails the run.
-        if: always() && steps.run.outputs.runs != '' && github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          STRYKER_SCORE: ${{ steps.score.outputs.score }}
+          STRYKER_SCORE: ${{ needs.stryker.outputs.score }}
         shell: bash
         run: |
           set -uo pipefail
@@ -339,14 +379,3 @@ jobs:
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body" \
               --label "kind:mutation-survives" || true
           fi
-
-      - name: Upload Stryker report
-        if: always() && steps.run.outputs.runs != ''
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
-        with:
-          name: stryker-report-${{ github.run_id }}
-          path: |
-            **/StrykerOutput/**
-            stryker-logs/
-          if-no-files-found: ignore
-          retention-days: 30

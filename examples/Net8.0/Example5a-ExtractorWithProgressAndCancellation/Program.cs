@@ -34,9 +34,18 @@ internal class Program
         // Best practice is to only use one progress reporter per ETL process. Using multiple progress reporters
         // can lead to confusion and inconsistent reporting. This example passes the progress reporter to
         // the extractor, but you could also pass it to the transformer or loader depending on your needs.
-        var sourceItems = extractor.ExtractAsync(progress, token);
-        var transformedItems = transformer.TransformAsync(sourceItems, token);
-        await loader.LoadAsync(transformedItems, token);
+        // The transformer and loader stop by throwing when cancellation is requested (the extractor
+        // stops gracefully), so a cancelled run surfaces here as an OperationCanceledException.
+        try
+        {
+            var sourceItems = extractor.ExtractAsync(progress, token);
+            var transformedItems = transformer.TransformAsync(sourceItems, token);
+            await loader.LoadAsync(transformedItems, token);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine($"\n{ConsoleColors.Red}ETL process cancelled.{ConsoleColors.Reset}");
+        }
 
         Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
     }

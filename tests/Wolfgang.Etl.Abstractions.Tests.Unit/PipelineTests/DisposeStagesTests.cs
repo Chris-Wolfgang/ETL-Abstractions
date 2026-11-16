@@ -37,6 +37,24 @@ public class DisposeStagesTests
     }
 
 
+    private sealed class TrackingProgressLoader : ILoadWithProgressAsync<int, string>, IDisposable
+    {
+        public bool Disposed { get; private set; }
+
+        public Task LoadAsync(IAsyncEnumerable<int> items) => LoadAsync(items, new Progress<string>());
+
+        public async Task LoadAsync(IAsyncEnumerable<int> items, IProgress<string> progress)
+        {
+            await foreach (var _ in items)
+            {
+            }
+        }
+
+        public void Dispose() => Disposed = true;
+    }
+
+
+
     private sealed class TrackingLoader : ILoadAsync<int>, IDisposable
     {
         private readonly bool _throwOnLoad;
@@ -255,14 +273,16 @@ public class DisposeStagesTests
         // A load-progress loader routes the run through PipelineWithLoadProgress, whose
         // dispose branch is separate from the bare path — exercise it explicitly.
         var extractor = new TrackingExtractor(3);
+        var loader = new TrackingProgressLoader();
 
         await Pipeline
             .Extract(extractor)
-            .Load(new TestDoubles.ProgressOnlyLoader<int, string>("p"))
+            .Load(loader)
             .DisposeStagesOnCompletion()
             .RunAsync();
 
         Assert.True(extractor.Disposed);
+        Assert.True(loader.Disposed);
     }
 
 

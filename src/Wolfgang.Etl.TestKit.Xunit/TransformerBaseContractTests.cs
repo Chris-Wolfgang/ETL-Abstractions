@@ -958,19 +958,15 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that once <c>MaximumItemCount</c> is reached the transformer stops pulling from
-    /// its source rather than draining it — at most M+1 reads (the +1 discovers the limit).
+    /// No longer a test. It asserted the rule that
+    /// <see cref="TransformAsync_stops_reading_source_at_MaximumItemCount_Async"/> asserts (at
+    /// most M+1 source reads once <c>MaximumItemCount</c> is reached), so every derived test
+    /// class ran the same check twice. The method remains so that existing callers keep
+    /// compiling, and runs that test.
     /// </summary>
-    [Fact]
-    public async Task TransformAsync_does_not_over_read_past_MaximumItemCount_Async()
-    {
-        var sut = CreateConfiguredSut(maximumItemCount: 3);
-        var counter = new PullCounter();
-
-        await sut.TransformAsync(counter.CountAsync(CreateInputItemsAsync())).ToListAsync().ConfigureAwait(false);
-
-        Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");
-    }
+    [Obsolete("Duplicate of TransformAsync_stops_reading_source_at_MaximumItemCount_Async, which still runs. This method is no longer a test and will be removed in a future release.")]
+    public Task TransformAsync_does_not_over_read_past_MaximumItemCount_Async()
+        => TransformAsync_stops_reading_source_at_MaximumItemCount_Async();
 
     // Cancel() runs synchronously to cancel mid-enumeration; CancelAsync is net8.0+ only and
     // this base targets net462+.
