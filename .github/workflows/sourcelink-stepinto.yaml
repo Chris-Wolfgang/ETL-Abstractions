@@ -19,6 +19,10 @@ permissions:
 
 env:
   NETCOREDBG_VERSION: '3.1.2-1054'
+  # SHA-256 of netcoredbg-linux-amd64.tar.gz for the version above. Samsung publishes no
+  # checksum file, so this is the digest of the asset as downloaded when the pin was added;
+  # a bump of the version must update it from a fresh download of the new asset.
+  NETCOREDBG_SHA256: '4f58ae90aacbccdf85dc7d6a0d8893796dd3750d6867fe31396a6b7bee09c9cb'
   CONSUMER: .github/sourcelink/consumer
   EXPECTED_SRC: Report.cs
 
@@ -43,6 +47,8 @@ jobs:
           set -euo pipefail
           url="https://github.com/Samsung/netcoredbg/releases/download/${NETCOREDBG_VERSION}/netcoredbg-linux-amd64.tar.gz"
           curl -sSfL -o netcoredbg.tar.gz "$url"
+          # The debugger runs in this job; verify the download before unpacking it.
+          echo "${NETCOREDBG_SHA256}  netcoredbg.tar.gz" | sha256sum -c - || { echo "::error::netcoredbg checksum verification failed"; exit 1; }
           tar -xzf netcoredbg.tar.gz
           echo "NETCOREDBG=$PWD/netcoredbg/netcoredbg" >> "$GITHUB_ENV"
 
