@@ -20,41 +20,49 @@ public sealed class LoaderSynchronousFailureTests
 
 
     [Fact]
-    public async Task LoadAsync_when_worker_throws_synchronously_returns_a_faulted_task()
+    public void LoadAsync_when_worker_throws_synchronously_returns_a_faulted_task()
     {
         var loader = new ThrowingLoader();
 
         var task = loader.LoadAsync(NoItems());
 
-        Assert.True(task.IsFaulted);
-        await Assert.ThrowsAsync<InvalidOperationException>(() => task);
+        AssertFaultedWithTheWorkerFailure(task);
     }
 
 
 
     [Fact]
-    public async Task LoadAsync_with_token_when_worker_throws_synchronously_returns_a_faulted_task()
+    public void LoadAsync_with_token_when_worker_throws_synchronously_returns_a_faulted_task()
     {
         var loader = new ThrowingLoader();
 
         var task = loader.LoadAsync(NoItems(), CancellationToken.None);
 
-        Assert.True(task.IsFaulted);
-        await Assert.ThrowsAsync<InvalidOperationException>(() => task);
+        AssertFaultedWithTheWorkerFailure(task);
     }
 
 
 
     [Fact]
-    public async Task LoadAsync_with_progress_when_worker_throws_synchronously_returns_a_faulted_task()
+    public void LoadAsync_with_progress_when_worker_throws_synchronously_returns_a_faulted_task()
     {
         var loader = new ThrowingLoader();
         var progress = new SynchronousProgress<EtlProgress>(_ => { });
 
         var task = loader.LoadAsync(NoItems(), progress);
 
+        AssertFaultedWithTheWorkerFailure(task);
+    }
+
+
+
+    // The task is already complete, so the failure is read from it rather than awaited.
+    private static void AssertFaultedWithTheWorkerFailure(Task task)
+    {
         Assert.True(task.IsFaulted);
-        await Assert.ThrowsAsync<InvalidOperationException>(() => task);
+
+        var failure = Assert.Single(task.Exception!.InnerExceptions);
+        Assert.IsType<InvalidOperationException>(failure);
     }
 
 
