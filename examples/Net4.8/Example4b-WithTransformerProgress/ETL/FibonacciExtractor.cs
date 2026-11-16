@@ -52,6 +52,11 @@ internal class FibonacciExtractor : IExtractWithProgressAsync<int, EtlProgress>
 
     public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)
     {
+        if (progress == null)
+        {
+            throw new ArgumentNullException(nameof(progress));
+        }
+
         Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
 
         var count = 0;
