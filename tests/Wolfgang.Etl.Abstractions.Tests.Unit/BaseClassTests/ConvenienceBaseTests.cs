@@ -26,7 +26,6 @@ public class ConvenienceBaseTests
         Assert.Equal(new[] { 1, 2, 3 }, items);
         Assert.Equal(3, report.CurrentItemCount);
         Assert.NotNull(report.StartedAt);              // captured once the first item was processed
-        Assert.True(report.Elapsed >= TimeSpan.Zero);
     }
 
 

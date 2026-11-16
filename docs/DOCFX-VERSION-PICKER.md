@@ -84,11 +84,11 @@ Two changes from a stock DocFX project:
 ### 3. `docfx_project/versions.json` (stub)
 
 Committed as `[]` (empty array). The `docfx.yaml` workflow regenerates
-the real `versions.json` at deploy time from the set of actual `v*`
-tags that have versioned docs deployed (D6 derivation) and writes it
-to the gh-pages site root. The empty stub is the fanout-safe default —
-no DateTime-Extensions paths leak into other repos when this folder is
-synced fleet-wide.
+the real `versions.json` at deploy time from the set of release tags
+(with or without the `v` prefix: `v0.23.2` and `0.23.3` both count)
+that have versioned docs deployed (D6 derivation) and writes it to the
+gh-pages site root. The empty stub keeps a fresh checkout free of
+version entries until the first deploy.
 
 **Local picker testing** requires populating `versions.json` manually
 with mock entries (see "Testing locally" below). The picker
@@ -147,7 +147,7 @@ The deploy steps that docfx.yaml runs in both cases:
   ├─ docfx build  → _site/  (includes public/version-picker.js,
   │                          inline bootstrap in every page's
   │                          footer via _appFooter)
-  ├─ Generate versions.json from v* tags → _site/versions.json
+  ├─ Generate versions.json from release tags → _site/versions.json
   ├─ Deploy _site/ to gh-pages /versions/<v>/  (always)
   │
   │  --- The remaining two steps only run when `deploy_as_latest`

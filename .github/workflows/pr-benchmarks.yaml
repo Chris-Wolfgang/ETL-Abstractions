@@ -7,14 +7,13 @@ name: PR Benchmarks
 # balloons allocations or runtime is caught before merge, not after.
 #
 # Scoped to code that can actually move the numbers (src/**, benchmarks/**) so it
-# does not run on docs/test-only PRs, and to main/vNext so it exercises release
+# does not run on docs/test-only PRs, and to main so it exercises release
 # candidates. Full mutation-style cost is avoided by BDN's --job short.
 
 on:
   pull_request:
     branches:
       - main
-      - vNext
     paths:
       # Only run on actual code changes — a version/csproj/docs-only PR can't move
       # the numbers, so it should not spend ~5 min on benchmarks.

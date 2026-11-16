@@ -176,8 +176,9 @@ await EtlPipeline
 ### Progress, cancellation, and the escape hatch
 
 - **Progress** — pass an `IProgress<EtlPipelineProgress>` to `RunAsync`. The snapshot
-  reports `RecordsExtracted` (counted at the source) and `RecordsLoaded` (counted at
-  the sink) plus `Elapsed`, regardless of how many stages sit in between.
+  reports `ExtractedItemCount` (counted at the source), `LoadedItemCount` (counted at
+  the sink), `ErrorItemCount` (items skipped by an error policy, summed across the stages)
+  and `Elapsed`, regardless of how many stages sit in between.
 - **Cancellation** — the token passed to `RunAsync` is observed while pulling from the
   source and is forwarded into any cancellation-aware transformer stage.
 - **Escape hatch** — `AsAsyncEnumerable(token)` drops to the raw `IAsyncEnumerable<T>`
@@ -185,7 +186,7 @@ await EtlPipeline
 
 ```csharp
 var progress = new Progress<EtlPipelineProgress>(p =>
-    Console.WriteLine($"extracted {p.RecordsExtracted}, loaded {p.RecordsLoaded}"));
+    Console.WriteLine($"extracted {p.ExtractedItemCount}, loaded {p.LoadedItemCount}, errors {p.ErrorItemCount}"));
 
 await EtlPipeline
     .Create()
@@ -244,21 +245,21 @@ A complete, runnable version lives in
 | Starts from | a typed extractor | any `IAsyncEnumerable<T>` or `ExtractorBase<T, TProgress>` |
 | Appends stages | `.Transform(...)` | `.Through(...)` (plus operators via `Wolfgang.Etl.Transformers`) |
 | Extended by packages | no | yes — source factories are extension methods on the `EtlPipeline` instance |
-| Progress | per-stage `IProgress<T>` | pipeline-level `EtlPipelineProgress` |
+| Progress | per-stage `IProgress<T>` | pipeline-level `EtlPipelineProgress`, plus per-stage `IProgress<T>` through the `From` / `Through` / `To` overloads that take one |
 
-Reach for `Pipeline` when you already hold discrete extractor/transformer/loader
-objects and want per-stage progress; reach for `EtlPipeline` for cross-format flows or
-when you want the operator and format-package extensions.
+Both builders are supported. Reach for `Pipeline` when you already hold discrete
+extractor/transformer/loader objects and want the staged, typed chain; reach for
+`EtlPipeline` for cross-format flows or when you want the operator and format-package
+extensions. [Migrating from `Pipeline` to `EtlPipeline`](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/migrating-pipeline-to-etlpipeline.md)
+maps every call shape of one onto the other.
 
 ## Next Steps
 
 - Explore the [API Reference](../api/index.md) for detailed documentation
 - Read the [Introduction](introduction.md) to learn more about Wolfgang.Etl.Abstractions
+- Add ready-made error policies with [`Wolfgang.Etl.ErrorPolicies`](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.ErrorPolicies/README.md)
+- Test your components with [`Wolfgang.Etl.TestKit`](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.TestKit/README.md) and the contract tests in [`Wolfgang.Etl.TestKit.Xunit`](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.TestKit.Xunit/README.md)
 - Check out example projects in the [GitHub repository](https://github.com/Chris-Wolfgang/ETL-Abstractions)
-
-## Common Issues
-
-<!-- Add common issues and their solutions here -->
 
 ## Additional Resources
 

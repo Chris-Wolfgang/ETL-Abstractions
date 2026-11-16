@@ -41,7 +41,7 @@ jobs:
           persist-credentials: false
 
       # Guard so the scheduled run no-ops when the workload project isn't on the
-      # checked-out ref (it lands via vNext before it reaches main).
+      # checked-out ref.
       - name: Detect GcProfileWorkload
         id: check
         shell: bash
@@ -49,7 +49,7 @@ jobs:
           if [ -f tools/GcProfileWorkload/GcProfileWorkload.csproj ]; then
             echo "found=true" >> "$GITHUB_OUTPUT"
           else
-            echo "::notice::GcProfileWorkload project not present on this ref — skipping GC profile. Merge vNext to main to enable."
+            echo "::notice::GcProfileWorkload project not present on this ref — skipping GC profile."
             echo "found=false" >> "$GITHUB_OUTPUT"
           fi
 
@@ -59,11 +59,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Install dotnet-counters + dotnet-trace
+      - name: Install dotnet-counters
         if: steps.check.outputs.found == 'true'
-        run: |
-          dotnet tool install --global dotnet-counters
-          dotnet tool install --global dotnet-trace
+        # Pinned so the weekly numbers are not moved by a tool release. dotnet-trace was
+        # installed here too but never used.
+        run: dotnet tool install --global dotnet-counters --version 10.0.750501
 
       - name: Restore + Build workload (Release)
         if: steps.check.outputs.found == 'true'
@@ -84,9 +84,16 @@ jobs:
 
           # Launch the workload in the background so dotnet-counters can attach by
           # PID; its stdout goes to reports/workload.log for offline inspection.
-          dotnet run --no-build --project tools/GcProfileWorkload \
-            --configuration Release \
-            > reports/workload.log 2>&1 &
+          #
+          # The built assembly is started directly, not through `dotnet run`: `dotnet run`
+          # starts the application as a CHILD process, so `$!` would be the PID of the CLI
+          # host and the counters would describe the idle host instead of the workload.
+          workload_dll=tools/GcProfileWorkload/bin/Release/net10.0/GcProfileWorkload.dll
+          if [ ! -f "$workload_dll" ]; then
+            echo "::error::$workload_dll was not built - nothing to profile."
+            exit 1
+          fi
+          dotnet "$workload_dll" > reports/workload.log 2>&1 &
           workload_pid=$!
           echo "Workload PID: $workload_pid"
 

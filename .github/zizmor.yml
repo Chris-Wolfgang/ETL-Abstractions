@@ -13,14 +13,3 @@ rules:
     config:
       policies:
         "*": hash-pin
-
-  # Accepted-suppression baseline. Each entry is a pre-existing finding that is
-  # intentional; a NEW high-severity finding anywhere else still fails the PR.
-  dangerous-triggers:
-    ignore:
-      # pr.yaml's `pull_request_target` is deliberate: the protected-file guard
-      # ("Detect .NET Projects") must run trusted workflow code from the base
-      # branch, not from the PR branch, so it cannot be spoofed by a fork PR.
-      # It never checks out or executes PR-supplied code, which is what makes
-      # pull_request_target dangerous. Revisiting this is out of scope for #223.
-      - pr.yaml

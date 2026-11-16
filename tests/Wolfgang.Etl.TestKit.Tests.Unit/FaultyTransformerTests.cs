@@ -158,6 +158,33 @@ public class FaultyTransformerTests
 
 
 
+    [Fact]
+    public async Task TransformAsync_when_ThrowAfterCompletion_configured_and_MaximumItemCount_cuts_the_run_short_throws()
+    {
+        var expected    = new InvalidOperationException("flush failed");
+        var extractor   = new FaultyExtractor<int>(new[] { 1, 2, 3 });
+        var transformer = new FaultyTransformer<int>(new TransformerOptions { MaximumItemCount = 2 })
+            .ThrowAfterCompletion(expected);
+
+        var collected = new List<int>();
+
+        var actual = await Assert.ThrowsAsync<InvalidOperationException>
+        (
+            async () =>
+            {
+                await foreach (var item in transformer.TransformAsync(extractor.ExtractAsync()))
+                {
+                    collected.Add(item);
+                }
+            }
+        );
+
+        Assert.Same(expected, actual);
+        Assert.Equal(new[] { 1, 2 }, collected);
+    }
+
+
+
     // ------------------------------------------------------------------
     // DuplicateAt
     // ------------------------------------------------------------------
@@ -408,5 +435,41 @@ public class FaultyTransformerTests
     private sealed class FaultyTransformerWithTimer : FaultyTransformer<int>
     {
         public FaultyTransformerWithTimer(IProgressTimer timer) : base(timer) { }
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // ErrorPolicy supplied through the options record
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task TransformAsync_when_options_ErrorPolicy_skips_skips_the_injected_fault()
+    {
+        var sut = new FaultyTransformer<int>(new TransformerOptions { ErrorPolicy = _ => ItemErrorAction.Skip });
+        sut.ThrowAt(1, new FormatException("bad row"));
+
+        await sut.TransformAsync(new FaultyExtractor<int>(new[] { 1, 2, 3 }).ExtractAsync()).ToListAsync();
+
+        Assert.Equal(2, sut.CurrentItemCount);
+        Assert.Equal(1, sut.CurrentErrorItemCount);
+        Assert.Single(sut.CapturedErrors);
+    }
+
+
+
+    [Fact]
+    public async Task TransformAsync_when_options_ErrorPolicy_aborts_rethrows_without_counting_the_item()
+    {
+        var expected = new FormatException("bad row");
+        var sut = new FaultyTransformer<int>(new TransformerOptions { ErrorPolicy = _ => ItemErrorAction.Abort });
+        sut.ThrowAt(1, expected);
+
+        var actual = await Assert.ThrowsAsync<FormatException>(async () => { await sut.TransformAsync(new FaultyExtractor<int>(new[] { 1, 2, 3 }).ExtractAsync()).ToListAsync(); });
+
+        Assert.Same(expected, actual);
+        Assert.Equal(1, sut.CurrentItemCount);
+        Assert.Equal(0, sut.CurrentErrorItemCount);
+        Assert.Single(sut.CapturedErrors);
     }
 }
