@@ -100,7 +100,9 @@ The workflow has eight jobs. Nothing is published unless the first four pass.
 
 6. **`sourcelink-symbol-server-smoke`** — "SourceLink symbol-server smoke (post-publish)" (needs 5)
 
-7. **`trigger-docs`** — "Build & Deploy Documentation" (needs 1)
+7. **`trigger-docs`** — "Build & Deploy Documentation" (needs 1, 2 and 5): runs once the packages
+   are published, so the site never advertises a version that did not reach NuGet. A repository
+   that ships no package skips step 5 and still deploys its docs.
 
 8. **`update-release-artifacts`** — "Attach Artifacts to Release" (needs 1, 2 and 5): attaches the
    packages, symbol packages, SBOMs and the reproducible-build manifest to the GitHub Release
@@ -194,12 +196,12 @@ Before creating a production GitHub Release (e.g., `v1.0.0`):
 │  • Test all frameworks, collect coverage                    │
 │  • Enforce the production and test-assembly thresholds      │
 └─────────────────────────────────────────────────────────────┘
-          │                                   │
-          ▼                                   ▼
-┌───────────────────────────────┐   ┌─────────────────────────┐
-│  pack-and-validate            │   │  trigger-docs           │
-│  • Pack, smoke test, SBOMs    │   │  • Build & deploy docs  │
-└───────────────────────────────┘   └─────────────────────────┘
+          │
+          ▼
+┌───────────────────────────────┐
+│  pack-and-validate            │
+│  • Pack, smoke test, SBOMs    │
+└───────────────────────────────┘
           │                │
           ▼                ▼
 ┌──────────────────┐  ┌─────────────────────┐
@@ -217,6 +219,12 @@ Before creating a production GitHub Release (e.g., `v1.0.0`):
 ┌───────────────────────────────┐   ┌─────────────────────────┐
 │ sourcelink-symbol-server-smoke│   │ update-release-artifacts│
 └───────────────────────────────┘   └─────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│  trigger-docs (needs validate, pack and publish)            │
+│  • Build & deploy docs                                      │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ## Key Improvements Over Previous Workflow
