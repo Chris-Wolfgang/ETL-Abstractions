@@ -2545,7 +2545,6 @@ jobs:
                 --configuration Release \
                 --framework "$fw" \
                 --no-build --no-restore \
-                --blame \
                 --results-directory "./TestResults" \
                 --logger "console;verbosity=normal" 2>&1 | tee "$test_log" || exit 1
               if grep -q "No test is available" "$test_log" || ! grep -qiE "total( tests)?:[[:space:]]*[1-9][0-9]*" "$test_log"; then
