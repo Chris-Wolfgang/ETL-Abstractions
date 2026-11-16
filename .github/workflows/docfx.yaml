@@ -694,9 +694,27 @@ jobs:
                 Write-Error "❌ git commit failed with exit code $LASTEXITCODE — aborting deploy."
                 throw "git commit failed"
               }
-              git -C $WORK_DIR push origin HEAD:gh-pages
-              if ($LASTEXITCODE -ne 0) {
-                Write-Error "❌ git push origin HEAD:gh-pages failed with exit code $LASTEXITCODE — deploy did not land."
+              # Other workflows publish to gh-pages too (benchmarks, mutation reports), each
+              # under its own folder. When one of them lands between our fetch and our push,
+              # the push is rejected as non-fast-forward: replay our one commit on the new
+              # tip and try again. A rebase that conflicts means two writers touched the same
+              # path, which is not expected, so it fails the deploy instead of guessing.
+              $pushed = $false
+              foreach ($attempt in 1..3) {
+                git -C $WORK_DIR push origin HEAD:gh-pages
+                if ($LASTEXITCODE -eq 0) { $pushed = $true; break }
+                if ($attempt -eq 3) { break }
+                Write-Host "⚠️ Push attempt $attempt was rejected — rebasing onto the current gh-pages and retrying."
+                git -C $WORK_DIR fetch origin gh-pages
+                if ($LASTEXITCODE -ne 0) { throw "git fetch origin gh-pages failed with exit code $LASTEXITCODE" }
+                git -C $WORK_DIR rebase FETCH_HEAD
+                if ($LASTEXITCODE -ne 0) {
+                  git -C $WORK_DIR rebase --abort
+                  throw "Rebasing the docs commit onto the current gh-pages conflicted — deploy did not land."
+                }
+              }
+              if (-not $pushed) {
+                Write-Error "❌ git push origin HEAD:gh-pages failed after 3 attempts — deploy did not land."
                 throw "git push failed"
               }
               Write-Host "✅ Documentation deployed in a single commit."
