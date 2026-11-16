@@ -89,7 +89,7 @@ public sealed class AllocationFreeTests
 
     // Measures managed bytes allocated on the current thread across a tight loop and
     // asserts the per-call average is below the threshold. GC.GetAllocatedBytesForCurrentThread
-    // is available on every target framework (net462+, netcoreapp3.1+). The loop runs on the
+    // is available on the frameworks this file compiles for (net48+, netcoreapp3.1+). The loop runs on the
     // test thread with no await, so the measurement is not polluted by other threads.
     private static void AssertAllocationFree(
         Action hotPath,

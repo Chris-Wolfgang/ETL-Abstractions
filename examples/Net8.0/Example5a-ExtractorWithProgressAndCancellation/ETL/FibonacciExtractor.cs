@@ -145,7 +145,7 @@ internal class FibonacciExtractor : IExtractWithProgressAndCancellationAsync<int
             var temp = current;
             current += previous;
             previous = temp;
-            await Task.Delay(100, token); // Simulate asynchronous operation
+            await Task.Delay(100, CancellationToken.None); // Simulate asynchronous operation
         }
 
         progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count

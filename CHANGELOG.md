@@ -13,17 +13,8 @@ before it; add a line there when a release is cut.
 
 ## [Unreleased]
 
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
+Unreleased changes are not listed here. Each one is a fragment file in
+[`changelog/unreleased/`](changelog/unreleased/), assembled into a version section at release time.
 
 ## [0.26.1] - 2026-10-12
 
@@ -54,7 +45,7 @@ before it; add a line there when a release is cut.
 - Mutation testing: the bulk `Increment*(int)` overloads are pinned to record the run start (six new tests) and the seven equivalent mutants (ConfigureAwait flags, a `Task.Yield`, a no-op `finally`) carry documented Stryker exclusions — no survivors left (#452). (#452)
 - The six options-constructor defaults (`XOptions? options = null`) stay as shipped in 0.25; their removal is scheduled for the 2026-12-15 wave (#636) so this release carries no public-signature change. (#638)
 
-## [0.25.0] - 2026-09-17
+## [0.25.0] - 2026-09-18
 
 ### Breaking changes
 
@@ -192,7 +183,7 @@ coverage work only (validated: empty `PublicAPI.Shipped/Unshipped.txt` diff agai
   "independent" samples that were actually two attempts of the same workflow run. No code change;
   documented on the issue for downstream (ETL-FixedWidth#347) to revert its precautionary pin.
 
-## [0.23.3] - 2026-08-19
+## [0.23.3] - 2026-08-20
 
 ### Internal
 
@@ -225,7 +216,7 @@ coverage work only (validated: empty `PublicAPI.Shipped/Unshipped.txt` diff agai
 - Forced `System.Text.Json` 8.0.5 in the Coyote concurrency test project to clear a test-only
   transitive advisory (CVE-2024-30105 / CVE-2024-43485); not shipped in any package (#412).
 
-## [0.23.1] - 2026-08-16
+## [0.23.1] - 2026-08-17
 
 ### Changed
 
@@ -505,7 +496,7 @@ against 0.16.1 and no binding redirect is needed (`AssemblyVersion` remains
   addition to the SBOM that already shipped. (Package signing remains outstanding —
   tracked in #208.)
 
-## [0.16.1] - 2026-07-21
+## [0.16.1] - 2026-07-22
 
 Patch release: maintenance, testing, and supply-chain hardening. **No API or
 behavioural change** — the compiled assembly is identical to 0.16.0; consumers can
@@ -552,6 +543,9 @@ Minor release: adds a generic, format-agnostic ETL pipeline. No breaking change.
   - The pipeline is lazy and streaming. The LINQ-flavored operators (`Where`, `Select`, …) are
     provided separately by `Wolfgang.Etl.Transformers` as extension methods layered over
     `Through`, so the core takes no dependency on them.
+  - `EtlPipelineSinkExtensions.DisposingOwned(params object[])` wraps a sink so resources opened
+    by the code that built the pipeline (for example a file stream a path-based factory created)
+    are disposed after the run, whether it succeeds or throws.
 
 ## [0.15.0] - 2026-06-28
 
@@ -687,6 +681,12 @@ dependencies.
   consumers without a binding redirect. (See DateTime-Extensions v1.3.1
   for the post-mortem on what happens when this regression reaches a
   release.)
+
+## Earlier releases
+
+History before 0.13.1 is not recorded in this file. The earlier versions (v0.4.0 through v0.13.0) are
+tags in the repository; all but v0.5.0, v0.5.1 and v0.5.2 also have notes on the
+[GitHub releases page](https://github.com/Chris-Wolfgang/ETL-Abstractions/releases).
 
 [Unreleased]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.26.1...HEAD
 [0.26.1]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.26.0...v0.26.1

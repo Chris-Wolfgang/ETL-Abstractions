@@ -41,12 +41,11 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
     // Factory methods
     // ------------------------------------------------------------------
 
-    /// <summary>Creates the system under test.</summary>
-    /// <returns>A new, fully initialised instance of <typeparamref name="TSut"/>.</returns>
     /// <summary>
     /// Creates the system under test configured to yield exactly <paramref name="itemCount"/> items.
     /// </summary>
     /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
+    /// <returns>A new, fully initialised instance of <typeparamref name="TSut"/>.</returns>
     protected abstract TSut CreateSut(int itemCount);
 
     private const int DefaultItemCount = 5;
@@ -101,7 +100,7 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
         using var cts = new CancellationTokenSource();
         var itemsLoaded = 0;
 
-        await Assert.ThrowsAsync<OperationCanceledException>(async () =>
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
             await sut.LoadAsync(CancellingSequenceAsync(), cts.Token).ConfigureAwait(false);
 

@@ -53,7 +53,7 @@ unless the PR carries `no-changelog`. It also validates every fragment in this d
 
 ```powershell
 pwsh ./scripts/changelog.ps1 check                     # against origin/main
-pwsh ./scripts/changelog.ps1 check -BaseRef origin/vNext
+pwsh ./scripts/changelog.ps1 check -BaseRef origin/some-base-branch
 ```
 
 ## Assembling a release
