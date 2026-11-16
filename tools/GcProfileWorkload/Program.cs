@@ -119,6 +119,7 @@ internal sealed class DoublingTransformer : TransformerBase<int, int, Report>
     {
         await foreach (var item in items.WithCancellation(token))
         {
+            IncrementCurrentItemCount();
             yield return item * 2;
         }
     }
