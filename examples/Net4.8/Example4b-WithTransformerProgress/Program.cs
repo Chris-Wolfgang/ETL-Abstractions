@@ -33,7 +33,7 @@ internal class Program
         // can lead to confusion and inconsistent reporting.
         var sourceItems = extractor.ExtractAsync();
         var transformedItems = transformer.TransformAsync(sourceItems, progress);
-        await loader.LoadAsync(transformedItems, progress);
+        await loader.LoadAsync(transformedItems);
 
         Console.WriteLine($"\n\n{ConsoleColors.Yellow}ETL process completed.{ConsoleColors.Reset}");
     }

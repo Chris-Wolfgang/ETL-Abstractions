@@ -15,6 +15,11 @@ public static class EtlPipelineSinkExtensions
     /// example a file stream a path-based loader factory created) — are disposed after the run
     /// completes, whether it succeeds or throws.
     /// </summary>
+    /// <remarks>
+    /// Every resource is disposed even when an earlier one throws while being disposed. If the run
+    /// itself threw, that exception propagates unchanged; otherwise any disposal failures surface
+    /// as a single <see cref="AggregateException"/> once all resources have been disposed.
+    /// </remarks>
     /// <param name="sink">The sink to wrap.</param>
     /// <param name="ownedResources">
     /// The resources to dispose after the run. Each is disposed via <see cref="IAsyncDisposable"/>
@@ -60,40 +65,24 @@ public static class EtlPipelineSinkExtensions
         }
 
 
-        public async Task RunAsync
+        public Task RunAsync
         (
             IProgress<EtlPipelineProgress>? progress = null,
             CancellationToken token = default
         )
         {
-            try
-            {
-                await _inner.RunAsync(progress, token).ConfigureAwait(false);
-            }
-            finally
-            {
-                await DisposeOwnedAsync().ConfigureAwait(false);
-            }
-        }
-
-
-        // Reverse (LIFO) order, matching nested using / DI-scope disposal. IAsyncDisposable is
-        // preferred where the concrete resource implements it (e.g. FileStream on net5.0+); on the
-        // older frameworks the same FileStream matches only IDisposable, so it disposes synchronously.
-        private async Task DisposeOwnedAsync()
-        {
-            for (var i = _ownedResources.Length - 1; i >= 0; i--)
-            {
-                switch (_ownedResources[i])
-                {
-                    case IAsyncDisposable asyncDisposable:
-                        await asyncDisposable.DisposeAsync().ConfigureAwait(false);
-                        break;
-                    case IDisposable disposable:
-                        disposable.Dispose();
-                        break;
-                }
-            }
+            // One disposal contract for both pipelines: reverse (LIFO) order, every resource is
+            // disposed even when an earlier one throws, disposal failures are aggregated, and the
+            // run's own exception — when there is one — is the exception the caller sees.
+            // IAsyncDisposable is preferred where the concrete resource implements it (e.g.
+            // FileStream on net5.0+); on the older frameworks the same FileStream matches only
+            // IDisposable, so it disposes synchronously.
+            return StageList.RunThenDisposeStagesAsync
+            (
+                runToken => _inner.RunAsync(progress, runToken),
+                _ownedResources,
+                token
+            );
         }
     }
 }

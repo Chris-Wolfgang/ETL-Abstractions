@@ -33,12 +33,12 @@ namespace Example3_WithGracefulCancellation.ETL
             {
                 if (token.IsCancellationRequested)
                 {
-                    Console.WriteLine($"{ConsoleColors.Red}Loading cancelled.{ConsoleColors.Reset}");
+                    Console.WriteLine($"{ConsoleColors.Red}Transformation cancelled.{ConsoleColors.Reset}");
                     yield break; // Exit gracefully if cancellation is requested
                 }
 
                 Console.WriteLine($"Transforming integer {item} to string.");
-                await Task.Delay(50, token); // Simulate some delay for transformation
+                await Task.Delay(50, CancellationToken.None); // Simulate some delay for transformation
                 yield return item.ToString();
             }
 
