@@ -20,6 +20,11 @@ public interface IProgressTimer : IDisposable
     /// Raised at each timer interval. Subscribers receive progress notifications
     /// and should call <c>CreateProgressReport()</c> then <c>Report()</c>.
     /// </summary>
+    /// <remarks>
+    /// The built-in timer raises this on a thread-pool thread. If a subscriber (or the progress
+    /// report itself) throws, the built-in timer contains the exception and stops ticking; it does
+    /// not propagate it to the run.
+    /// </remarks>
 #pragma warning disable MA0046 // Elapsed intentionally uses Action (not EventHandler) — changing the delegate signature would be a breaking change across all downstream ETL libraries
     event Action? Elapsed;
 #pragma warning restore MA0046

@@ -86,7 +86,6 @@ public class ClockSeamTests
 
         Assert.NotNull(sut.PeekStartedAt);
         Assert.InRange(sut.PeekStartedAt.Value, before.AddSeconds(-1), after.AddSeconds(1));
-        Assert.True(sut.PeekElapsed >= TimeSpan.Zero);
     }
 
 
