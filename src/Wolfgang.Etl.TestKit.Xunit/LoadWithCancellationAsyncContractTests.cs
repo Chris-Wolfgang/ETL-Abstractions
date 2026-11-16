@@ -101,7 +101,7 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
         using var cts = new CancellationTokenSource();
         var itemsLoaded = 0;
 
-        await Assert.ThrowsAsync<OperationCanceledException>(async () =>
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
             await sut.LoadAsync(CancellingSequenceAsync(), cts.Token).ConfigureAwait(false);
 

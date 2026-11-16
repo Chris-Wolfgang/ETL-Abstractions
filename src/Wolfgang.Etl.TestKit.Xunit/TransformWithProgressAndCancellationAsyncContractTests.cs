@@ -138,7 +138,7 @@ public abstract class TransformWithProgressAndCancellationAsyncContractTests<TSu
         using var cts = new CancellationTokenSource();
         var received = new List<TItem>();
 
-        await Assert.ThrowsAsync<OperationCanceledException>(async () =>
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
             await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token).ConfigureAwait(false))
             {
