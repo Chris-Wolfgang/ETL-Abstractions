@@ -928,19 +928,15 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that once <c>MaximumItemCount</c> is reached the loader stops pulling from its
-    /// source rather than draining it — at most M+1 reads (the +1 discovers the limit).
+    /// No longer a test. It asserted the rule that
+    /// <see cref="LoadAsync_stops_reading_source_at_MaximumItemCount_Async"/> asserts (at most
+    /// M+1 source reads once <c>MaximumItemCount</c> is reached), so every derived test class ran
+    /// the same check twice. The method remains so that existing callers keep compiling, and
+    /// runs that test.
     /// </summary>
-    [Fact]
-    public async Task LoadAsync_does_not_over_read_past_MaximumItemCount_Async()
-    {
-        var sut = CreateConfiguredSut(maximumItemCount: 3);
-        var counter = new PullCounter();
-
-        await sut.LoadAsync(counter.CountAsync(CreateInputItemsAsync())).ConfigureAwait(false);
-
-        Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");
-    }
+    [Obsolete("Duplicate of LoadAsync_stops_reading_source_at_MaximumItemCount_Async, which still runs. This method is no longer a test and will be removed in a future release.")]
+    public Task LoadAsync_does_not_over_read_past_MaximumItemCount_Async()
+        => LoadAsync_stops_reading_source_at_MaximumItemCount_Async();
 
     // Cancel() runs synchronously to cancel mid-enumeration; CancelAsync is net8.0+ only and
     // this base targets net462+.
