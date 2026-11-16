@@ -104,10 +104,23 @@ public sealed class EtlPipelineSinkExtensionsTests
     }
 
 
-    private sealed class ThrowingDisposable : IDisposable
+    private sealed class CallbackDisposable : IDisposable
     {
-        public void Dispose() => throw new InvalidOperationException("dispose failed");
+        private readonly Action _onDispose;
+
+
+
+        public CallbackDisposable(Action onDispose) => _onDispose = onDispose;
+
+
+
+        public void Dispose() => _onDispose();
     }
+
+
+
+    private static CallbackDisposable DisposableThatFails() =>
+        new(() => throw new InvalidOperationException("dispose failed"));
 
 
     [Fact]
@@ -119,7 +132,7 @@ public sealed class EtlPipelineSinkExtensionsTests
         var ex = await Assert.ThrowsAsync<AggregateException>
         (
             () => sink
-                .DisposingOwned(new TrackingDisposable(log, "first"), new ThrowingDisposable())
+                .DisposingOwned(new TrackingDisposable(log, "first"), DisposableThatFails())
                 .RunAsync()
         );
 
@@ -137,7 +150,7 @@ public sealed class EtlPipelineSinkExtensionsTests
         var ex = await Assert.ThrowsAsync<NotSupportedException>
         (
             () => sink
-                .DisposingOwned(new TrackingDisposable(log, "first"), new ThrowingDisposable())
+                .DisposingOwned(new TrackingDisposable(log, "first"), DisposableThatFails())
                 .RunAsync()
         );
 
