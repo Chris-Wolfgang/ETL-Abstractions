@@ -97,6 +97,27 @@ public sealed class ItemErrorPolicyTests
 
 
     [Fact]
+    public void SkipAndDeadLetter_channel_when_full_drops_the_failure_and_returns_Skip()
+    {
+        // A bounded channel at capacity: TryWrite returns false, so the failure record is dropped.
+        var channel = Channel.CreateBounded<ItemErrorContext>
+        (
+            new BoundedChannelOptions(1) { FullMode = BoundedChannelFullMode.Wait }
+        );
+        var prefilled = Context();
+        Assert.True(channel.Writer.TryWrite(prefilled));   // fill it to capacity
+
+        var action = ItemErrorPolicy.SkipAndDeadLetter(channel.Writer)(Context());
+
+        Assert.Equal(ItemErrorAction.Skip, action);        // still skips — a full sink never aborts the run
+        Assert.True(channel.Reader.TryRead(out var only));
+        Assert.Same(prefilled, only);                      // the new failure was dropped, not enqueued
+        Assert.False(channel.Reader.TryRead(out _));       // nothing else in the channel
+    }
+
+
+
+    [Fact]
     public void SkipDeadLetterAndLog_collection_when_deadLetters_is_null_throws_ArgumentNullException()
     {
         Assert.Throws<ArgumentNullException>(() => ItemErrorPolicy.SkipDeadLetterAndLog((ICollection<ItemErrorContext>)null!, new RecordingLogger()));
