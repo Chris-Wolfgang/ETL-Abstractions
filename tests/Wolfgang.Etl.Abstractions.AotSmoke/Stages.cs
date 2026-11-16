@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Logging;
 
 namespace Wolfgang.Etl.Abstractions.AotSmoke;
 
@@ -68,4 +69,37 @@ internal sealed class ListLoader : LoaderBase<int, Report>
     }
 
     protected override Report CreateProgressReport() => new(CurrentItemCount);
+}
+
+
+internal sealed class SmokeOrder
+{
+    public decimal Amount { get; set; }
+}
+
+
+// A logger that formats and keeps every message, so the policies' log calls run their
+// formatting code rather than being skipped by a disabled logger.
+internal sealed class RecordingLogger : ILogger
+{
+    public List<string> Messages { get; } = new();
+
+
+    public IDisposable? BeginScope<TState>(TState state)
+        where TState : notnull
+        => null;
+
+
+    public bool IsEnabled(LogLevel logLevel) => true;
+
+
+    public void Log<TState>(
+        LogLevel logLevel,
+        EventId eventId,
+        TState state,
+        Exception? exception,
+        Func<TState, Exception?, string> formatter)
+    {
+        Messages.Add(formatter(state, exception));
+    }
 }

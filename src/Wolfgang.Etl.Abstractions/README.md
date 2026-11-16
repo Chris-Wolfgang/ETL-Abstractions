@@ -24,7 +24,7 @@ dotnet add package Wolfgang.Etl.Abstractions
 
 ## 📄 License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/LICENSE) file for details.
 
 ---
 
@@ -45,7 +45,7 @@ This library is built **deterministically**, so you don't have to trust our CI �
 can rebuild it yourself from any release tag and confirm the shipped assembly, byte
 for byte. Each release attaches a `reproducible-build-manifest.json` with the expected
 `sha256` of every target framework's assembly. See
-[**docs/REPRODUCIBLE-BUILD.md**](docs/REPRODUCIBLE-BUILD.md) for the step-by-step
+[**docs/REPRODUCIBLE-BUILD.md**](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/REPRODUCIBLE-BUILD.md) for the step-by-step
 verification procedure and how to report a discrepancy.
 
 ---
@@ -251,7 +251,7 @@ dotnet format
 dotnet format --verify-no-changes
 ```
 
-See [README-FORMATTING.md](docs/README-FORMATTING.md) for detailed formatting guidelines.
+See [README-FORMATTING.md](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/README-FORMATTING.md) for detailed formatting guidelines.
 
 ### Building Documentation
 
@@ -293,7 +293,7 @@ docfx build --serve
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
+Contributions are welcome! Please see [CONTRIBUTING.md](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/CONTRIBUTING.md) for:
 - Code quality standards
 - Build and test instructions
 - Pull request guidelines

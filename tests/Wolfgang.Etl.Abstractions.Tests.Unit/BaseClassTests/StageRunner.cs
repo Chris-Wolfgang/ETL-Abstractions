@@ -24,6 +24,12 @@ internal sealed class StageRun<TItem, TProgress>
 /// when the run finishes). Used by the tests that pin what a test double does when it is
 /// actually run, for doubles whose own tests only construct, configure or dispose them.
 /// </summary>
+/// <remarks>
+/// The run's interval timer is replaced with one that never fires, unless the test installed
+/// its own timer core. The reports a run collects are then the ones the stage sends itself
+/// (the final report), however long the run takes: on a real timer a run that outlasted the
+/// reporting interval gained an extra report, and "exactly one report" depended on the clock.
+/// </remarks>
 internal static class StageRunner
 {
     public static async Task<StageRun<TSource, TProgress>> ExtractAsync<TSource, TProgress>
@@ -35,6 +41,7 @@ internal static class StageRunner
     {
         var run = new StageRun<TSource, TProgress>();
         var progress = new SynchronousProgress<TProgress>(run.Reports.Add);
+        extractor.TimerCoreFactory ??= _ => new IdleTimerCore();
 
         run.Items.AddRange(await extractor.ExtractAsync(progress).ToListAsync());
 
@@ -53,6 +60,7 @@ internal static class StageRunner
     {
         var run = new StageRun<TDestination, TProgress>();
         var progress = new SynchronousProgress<TProgress>(run.Reports.Add);
+        loader.TimerCoreFactory ??= _ => new IdleTimerCore();
 
         await loader.LoadAsync(items, progress);
 
@@ -72,9 +80,30 @@ internal static class StageRunner
     {
         var run = new StageRun<TDestination, TProgress>();
         var progress = new SynchronousProgress<TProgress>(run.Reports.Add);
+        transformer.TimerCoreFactory ??= _ => new IdleTimerCore();
 
         run.Items.AddRange(await transformer.TransformAsync(items, progress).ToListAsync());
 
         return run;
+    }
+}
+
+
+
+/// <summary>
+/// A timer core that accepts being armed and disposed and never ticks.
+/// </summary>
+internal sealed class IdleTimerCore : ITimerCore
+{
+    public void Change(int dueTime, int period)
+    {
+        // Never fires, so there is nothing to arm.
+    }
+
+
+
+    public void Dispose()
+    {
+        // Holds no resource.
     }
 }

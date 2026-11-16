@@ -14,6 +14,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <!-- Lives under tests/ but is not run by dotnet test; said explicitly so a stage that
+         requires every project under tests/ to be a test project or to opt out accepts it. -->
+    <IsTestProject>false</IsTestProject>
 
     <PublishAot>true</PublishAot>
     <PublishTrimmed>true</PublishTrimmed>
@@ -25,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.ErrorPolicies\Wolfgang.Etl.ErrorPolicies.csproj" />
   </ItemGroup>
 
 </Project>

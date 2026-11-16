@@ -17,6 +17,9 @@ namespace Wolfgang.Etl.Abstractions;
 /// </remarks>
 internal sealed class SystemProgressTimer : IProgressTimer
 {
+    // Held for the whole of a tick and while Dispose sets the flag, so Dispose returns only once no
+    // tick is mid-report: a stage's final report can then never be followed by a stale periodic one.
+    private readonly object _tickGate = new();
     private readonly ITimerCore _timer;
     private bool _disposed;
 
@@ -51,19 +54,36 @@ internal sealed class SystemProgressTimer : IProgressTimer
 
 
     /// <summary>
-    /// Invoked on each timer tick. The <see cref="_disposed"/> guard is a defensive
-    /// race-condition safety net — a queued tick may fire just after
-    /// <see cref="Dispose"/> sets the flag.
+    /// Invoked on each timer tick. A tick that the thread pool had already queued can still arrive
+    /// after <see cref="Dispose"/>; the <see cref="_disposed"/> check, made under
+    /// <see cref="_tickGate"/>, drops it.
     /// </summary>
     [ExcludeFromCodeCoverage]
     private void OnTick(TimerCallback callback, object? state)
     {
-        if (Volatile.Read(ref _disposed))
+        lock (_tickGate)
         {
-            return;
+            if (_disposed)
+            {
+                return;
+            }
+
+            // A tick runs on a thread-pool thread with nothing above it: an exception that escaped
+            // here would end the process rather than fail the run. Stop ticking instead. A fault
+            // that persists (a report that cannot be built, a sink that always throws) surfaces to
+            // the caller through the stage's final report, which runs on the run's own flow.
+            try
+            {
+                callback(state);
+                Elapsed?.Invoke();
+            }
+#pragma warning disable CA1031 // Do not catch general exception types — intentional: nothing may escape a timer callback.
+            catch (Exception)
+#pragma warning restore CA1031
+            {
+                _timer.Change(Timeout.Infinite, Timeout.Infinite);
+            }
         }
-        callback(state);
-        Elapsed?.Invoke();
     }
 
 
@@ -71,7 +91,7 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// <inheritdoc/>
     public void Start(int intervalMilliseconds)
     {
-        if (_disposed)
+        if (Volatile.Read(ref _disposed))
         {
             return;
         }
@@ -83,7 +103,7 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// <inheritdoc/>
     public void StopTimer()
     {
-        if (_disposed)
+        if (Volatile.Read(ref _disposed))
         {
             return;
         }
@@ -95,12 +115,20 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// <inheritdoc/>
     public void Dispose()
     {
-        if (_disposed)
+        // Waits for a tick that is already reporting (the lock is re-entrant, so a tick that disposes
+        // its own timer does not deadlock). Callbacks therefore must not block on the thread that
+        // disposes the timer.
+        lock (_tickGate)
         {
-            return;
+            if (_disposed)
+            {
+                return;
+            }
+
+            Volatile.Write(ref _disposed, true);
+            Elapsed = null;
         }
-        Volatile.Write(ref _disposed, true);
-        Elapsed = null;
+
         _timer.Dispose();
     }
 

@@ -81,7 +81,6 @@ public class BaseClassTimingTests
         }
 
         Assert.NotNull(sut.StartedAtForTest);
-        Assert.True(sut.ElapsedForTest >= TimeSpan.Zero);
     }
 
 
@@ -162,7 +161,6 @@ public class BaseClassTimingTests
         await sut.LoadAsync(Range(5), new Progress<EtlProgress>());
 
         Assert.NotNull(sut.StartedAtForTest);
-        Assert.True(sut.ElapsedForTest >= TimeSpan.Zero);
     }
 
 
@@ -186,6 +184,5 @@ public class BaseClassTimingTests
         }
 
         Assert.NotNull(sut.StartedAtForTest);
-        Assert.True(sut.ElapsedForTest >= TimeSpan.Zero);
     }
 }

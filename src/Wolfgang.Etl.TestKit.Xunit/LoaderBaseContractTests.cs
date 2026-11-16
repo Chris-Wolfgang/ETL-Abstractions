@@ -437,16 +437,20 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var timer = new ManualProgressTimerCore();
         var sut = CreateSut();
         sut.WithManualProgressTimer(timer);
-        TProgress? captured = default;
-        var progress = new SynchronousProgress<TProgress>(r => captured = r);
+        var callbackCount = 0;
+        var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
         var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
         var task = sut.LoadAsync(CreateGatedInputItemsAsync(gate), progress);
         timer.Tick();
+
+        // Read before the gate opens: the load always sends a final report when it completes, so a
+        // count taken afterwards would pass even if the tick had delivered nothing.
+        var callbacksFromTick = callbackCount;
         gate.SetResult(true);
         await task.ConfigureAwait(false);
 
-        Assert.NotNull(captured);
+        Assert.Equal(1, callbacksFromTick);
     }
 
 
@@ -592,16 +596,20 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var timer = new ManualProgressTimerCore();
         var sut = CreateSut();
         sut.WithManualProgressTimer(timer);
-        TProgress? captured = default;
-        var progress = new SynchronousProgress<TProgress>(r => captured = r);
+        var callbackCount = 0;
+        var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
         var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
         var task = sut.LoadAsync(CreateGatedInputItemsAsync(gate), progress, CancellationToken.None);
         timer.Tick();
+
+        // Read before the gate opens: the load always sends a final report when it completes, so a
+        // count taken afterwards would pass even if the tick had delivered nothing.
+        var callbacksFromTick = callbackCount;
         gate.SetResult(true);
         await task.ConfigureAwait(false);
 
-        Assert.NotNull(captured);
+        Assert.Equal(1, callbacksFromTick);
     }
 
 
@@ -920,19 +928,15 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that once <c>MaximumItemCount</c> is reached the loader stops pulling from its
-    /// source rather than draining it — at most M+1 reads (the +1 discovers the limit).
+    /// No longer a test. It asserted the rule that
+    /// <see cref="LoadAsync_stops_reading_source_at_MaximumItemCount_Async"/> asserts (at most
+    /// M+1 source reads once <c>MaximumItemCount</c> is reached), so every derived test class ran
+    /// the same check twice. The method remains so that existing callers keep compiling, and
+    /// runs that test.
     /// </summary>
-    [Fact]
-    public async Task LoadAsync_does_not_over_read_past_MaximumItemCount_Async()
-    {
-        var sut = CreateConfiguredSut(maximumItemCount: 3);
-        var counter = new PullCounter();
-
-        await sut.LoadAsync(counter.CountAsync(CreateInputItemsAsync())).ConfigureAwait(false);
-
-        Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");
-    }
+    [Obsolete("Duplicate of LoadAsync_stops_reading_source_at_MaximumItemCount_Async, which still runs. This method is no longer a test and will be removed in a future release.")]
+    public Task LoadAsync_does_not_over_read_past_MaximumItemCount_Async()
+        => LoadAsync_stops_reading_source_at_MaximumItemCount_Async();
 
     // Cancel() runs synchronously to cancel mid-enumeration; CancelAsync is net8.0+ only and
     // this base targets net462+.

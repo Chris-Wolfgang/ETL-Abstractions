@@ -22,7 +22,9 @@ public class ManualTimeSourceMutationTests
         // mutant would reject it — advancing by zero must not throw.
         var clock = new ManualTimeSource();
 
-        clock.Advance(TimeSpan.Zero);
+        var exception = Record.Exception(() => clock.Advance(TimeSpan.Zero));
+
+        Assert.Null(exception);
     }
 
 
