@@ -1,0 +1,14 @@
+# Per-file analyzer suppressions for this project. Every entry is documented and
+# scoped to a single file; remove an entry when its reason no longer holds rather
+# than widening it.
+
+# S1133 flags [Obsolete] members as "do not forget to remove someday".
+# Each of these two files keeps one obsolete forwarder for a contract test that
+# duplicated its neighbour (#889). The method stays so that existing callers keep
+# compiling; its removal belongs to a release that removes public API, not to the
+# next commit. Delete these entries with the two methods.
+[LoaderBaseContractTests.cs]
+dotnet_diagnostic.S1133.severity = none
+
+[TransformerBaseContractTests.cs]
+dotnet_diagnostic.S1133.severity = none
