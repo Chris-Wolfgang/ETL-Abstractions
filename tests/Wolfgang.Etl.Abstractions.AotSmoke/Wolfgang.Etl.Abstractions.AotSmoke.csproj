@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Wolfgang.Etl.Abstractions\Wolfgang.Etl.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.ErrorPolicies\Wolfgang.Etl.ErrorPolicies.csproj" />
   </ItemGroup>
 
 </Project>
