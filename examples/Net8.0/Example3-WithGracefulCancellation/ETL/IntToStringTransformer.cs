@@ -26,11 +26,11 @@ internal class IntToStringTransformer : ITransformWithCancellationAsync<int, str
     {
         Console.WriteLine($"{ConsoleColors.Green}Transforming{ConsoleColors.Reset} integers to strings asynchronously...\n");
 
-        await foreach (var item in items)
+        await foreach (var item in items.WithCancellation(token))
         {
             if (token.IsCancellationRequested)
             {
-                Console.WriteLine($"{ConsoleColors.Red}Extraction cancelled{ConsoleColors.Reset}.");
+                Console.WriteLine($"{ConsoleColors.Red}Transformation cancelled{ConsoleColors.Reset}.");
                 yield break; // Exit the method if cancellation is requested
             }
 
