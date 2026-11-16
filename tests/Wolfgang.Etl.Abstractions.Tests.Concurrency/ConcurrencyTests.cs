@@ -58,7 +58,7 @@ public static class ConcurrencyTests
     /// Runnable again since #364: the base classes enumerate the worker with a manual
     /// <c>MoveNextAsync().ConfigureAwait(false)</c> loop instead of awaiting a
     /// <c>ConfiguredCancelableAsyncEnumerable</c>, which Coyote 1.7.11 could not control.
-    /// <c>.github/workflows/coyote.yaml</c> lists the method once the workflow change lands.
+    /// <c>.github/workflows/coyote.yaml</c> lists the method.
     /// </remarks>
     [Microsoft.Coyote.SystematicTesting.Test]
     public static async Task Dispose_racing_enumeration_never_deadlocks()
