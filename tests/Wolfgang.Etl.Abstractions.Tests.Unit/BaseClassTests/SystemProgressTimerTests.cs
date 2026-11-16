@@ -308,6 +308,60 @@ public class SystemProgressTimerTests
 
 
 
+    /// <summary>
+    /// Verifies that an exception thrown by the tick callback does not escape the tick (on a real
+    /// timer it would be unhandled on a thread-pool thread) and stops further ticks.
+    /// </summary>
+    [Fact]
+    public void Tick_when_the_callback_throws_swallows_the_exception_and_stops_the_timer()
+    {
+        var callbackCount = 0;
+        ArmableTimerCore? core = null;
+        using var timer = new SystemProgressTimer
+        (
+            _ =>
+            {
+                callbackCount++;
+                throw new InvalidOperationException("report failed");
+            },
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timer.Start(20);
+
+        core!.FireIfArmed();
+        core.FireIfArmed();
+
+        Assert.Equal(1, callbackCount);
+    }
+
+
+
+    /// <summary>
+    /// Verifies that an exception thrown by an <see cref="IProgressTimer.Elapsed"/> subscriber
+    /// is contained the same way.
+    /// </summary>
+    [Fact]
+    public void Tick_when_an_Elapsed_subscriber_throws_swallows_the_exception_and_stops_the_timer()
+    {
+        var elapsedCount = 0;
+        ArmableTimerCore? core = null;
+        using var timer = new SystemProgressTimer(_ => { }, state: null, onTick => core = new ArmableTimerCore(onTick));
+        timer.Elapsed += () =>
+        {
+            elapsedCount++;
+            throw new InvalidOperationException("subscriber failed");
+        };
+        timer.Start(20);
+
+        core!.FireIfArmed();
+        core.FireIfArmed();
+
+        Assert.Equal(1, elapsedCount);
+    }
+
+
+
     // ------------------------------------------------------------------
     // Test double
     // ------------------------------------------------------------------

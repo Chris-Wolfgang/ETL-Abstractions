@@ -68,8 +68,21 @@ internal sealed class SystemProgressTimer : IProgressTimer
                 return;
             }
 
-            callback(state);
-            Elapsed?.Invoke();
+            // A tick runs on a thread-pool thread with nothing above it: an exception that escaped
+            // here would end the process rather than fail the run. Stop ticking instead. A fault
+            // that persists (a report that cannot be built, a sink that always throws) surfaces to
+            // the caller through the stage's final report, which runs on the run's own flow.
+            try
+            {
+                callback(state);
+                Elapsed?.Invoke();
+            }
+#pragma warning disable CA1031 // Do not catch general exception types — intentional: nothing may escape a timer callback.
+            catch (Exception)
+#pragma warning restore CA1031
+            {
+                _timer.Change(Timeout.Infinite, Timeout.Infinite);
+            }
         }
     }
 
