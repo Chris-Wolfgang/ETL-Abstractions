@@ -228,14 +228,17 @@ public class SystemProgressTimerTests
 
 
 
-        public void WaitUntilEntered()
+        // Polls rather than waits: a wait that is only sometimes needed would leave a line
+        // that is only sometimes covered.
+        public void WaitUntilEntered() => SpinWait.SpinUntil(HasEntered);
+
+
+
+        private bool HasEntered()
         {
             lock (_gate)
             {
-                while (!_entered)
-                {
-                    Monitor.Wait(_gate);
-                }
+                return _entered;
             }
         }
 
