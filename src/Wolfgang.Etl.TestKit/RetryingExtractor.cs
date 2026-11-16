@@ -112,7 +112,7 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
     // Public API
     // ------------------------------------------------------------------
 
-    /// <summary>Gets the number of worker invocations (attempts) made by the most recent run.</summary>
+    /// <summary>Gets the number of worker invocations (attempts) made by the most recent run. It resets when a new run starts.</summary>
     public int AttemptCount => _attemptCount;
 
 
@@ -189,6 +189,10 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
         {
             throw new ArgumentNullException(nameof(workerFactory));
         }
+
+        // Per run, like the base stage's own counters: a re-run of the same instance starts again
+        // at attempt 1 and injects its transient faults again.
+        Interlocked.Exchange(ref _attemptCount, 0);
 
         // Split so the null check runs eagerly at call time rather than being
         // deferred to the first MoveNextAsync of the iterator (S4456).
