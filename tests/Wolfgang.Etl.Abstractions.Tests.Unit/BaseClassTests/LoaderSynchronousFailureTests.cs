@@ -61,7 +61,8 @@ public sealed class LoaderSynchronousFailureTests
     {
         Assert.True(task.IsFaulted);
 
-        var failure = Assert.Single(task.Exception!.InnerExceptions);
+        var aggregate = Assert.IsType<AggregateException>(task.Exception);
+        var failure = Assert.Single(aggregate.InnerExceptions);
         Assert.IsType<InvalidOperationException>(failure);
     }
 
