@@ -161,11 +161,11 @@ public class SystemProgressTimerTests
     [Fact]
     public async Task Dispose_when_a_tick_is_in_flight_waits_for_it_to_finish()
     {
-        using var blockingTick = new BlockingTick();
+        var blockingTick = new BlockingTick();
         ArmableTimerCore? core = null;
         var timer = new SystemProgressTimer
         (
-            blockingTick.OnTick,
+            _ => blockingTick.OnTick(),
             state: null,
             onTick => core = new ArmableTimerCore(onTick)
         );
@@ -198,34 +198,63 @@ public class SystemProgressTimerTests
     /// A timer callback that signals when it is entered and then blocks until released,
     /// recording the order in which it and the test's own steps finish.
     /// </summary>
-    private sealed class BlockingTick : IDisposable
+    /// <remarks>
+    /// Signals with a monitor rather than wait handles, so there is nothing to dispose and the
+    /// test's lambdas can hold it for as long as they run.
+    /// </remarks>
+    private sealed class BlockingTick
     {
-        private readonly ManualResetEventSlim _entered = new();
-        private readonly ManualResetEventSlim _released = new();
+        private readonly object _gate = new();
         private readonly List<string> _events = new();
+        private bool _entered;
+        private bool _released;
 
 
 
-        public void OnTick(object? _)
+        public void OnTick()
         {
-            _entered.Set();
-            _released.Wait();
-            Record("tick");
+            lock (_gate)
+            {
+                _entered = true;
+                Monitor.PulseAll(_gate);
+                while (!_released)
+                {
+                    Monitor.Wait(_gate);
+                }
+
+                _events.Add("tick");
+            }
         }
 
 
 
-        public void WaitUntilEntered() => _entered.Wait();
+        public void WaitUntilEntered()
+        {
+            lock (_gate)
+            {
+                while (!_entered)
+                {
+                    Monitor.Wait(_gate);
+                }
+            }
+        }
 
 
 
-        public void Release() => _released.Set();
+        public void Release()
+        {
+            lock (_gate)
+            {
+                _released = true;
+                Monitor.PulseAll(_gate);
+            }
+        }
 
 
 
         public void Record(string name)
         {
-            lock (_events)
+            lock (_gate)
             {
                 _events.Add(name);
             }
@@ -235,18 +264,10 @@ public class SystemProgressTimerTests
 
         public string[] Events()
         {
-            lock (_events)
+            lock (_gate)
             {
                 return _events.ToArray();
             }
-        }
-
-
-
-        public void Dispose()
-        {
-            _entered.Dispose();
-            _released.Dispose();
         }
     }
 
