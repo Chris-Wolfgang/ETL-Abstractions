@@ -161,48 +161,93 @@ public class SystemProgressTimerTests
     [Fact]
     public async Task Dispose_when_a_tick_is_in_flight_waits_for_it_to_finish()
     {
-        using var tickEntered = new ManualResetEventSlim();
-        using var releaseTick = new ManualResetEventSlim();
-        var events = new List<string>();
+        using var blockingTick = new BlockingTick();
         ArmableTimerCore? core = null;
         var timer = new SystemProgressTimer
         (
-            _ =>
-            {
-                tickEntered.Set();
-                releaseTick.Wait();
-                lock (events)
-                {
-                    events.Add("tick");
-                }
-            },
+            blockingTick.OnTick,
             state: null,
             onTick => core = new ArmableTimerCore(onTick)
         );
         timer.Start(20);
 
         var tick = Task.Run(() => core!.FireIfArmed());
-        tickEntered.Wait();
+        blockingTick.WaitUntilEntered();
         var dispose = Task.Run
         (
             () =>
             {
                 timer.Dispose();
-                lock (events)
-                {
-                    events.Add("disposed");
-                }
+                blockingTick.Record("disposed");
             }
         );
 
         var first = await Task.WhenAny(dispose, Task.Delay(250));
         Assert.NotSame(dispose, first);
 
-        releaseTick.Set();
+        blockingTick.Release();
         await tick;
         await dispose;
 
-        Assert.Equal(new[] { "tick", "disposed" }, events);
+        Assert.Equal(new[] { "tick", "disposed" }, blockingTick.Events());
+    }
+
+
+
+    /// <summary>
+    /// A timer callback that signals when it is entered and then blocks until released,
+    /// recording the order in which it and the test's own steps finish.
+    /// </summary>
+    private sealed class BlockingTick : IDisposable
+    {
+        private readonly ManualResetEventSlim _entered = new();
+        private readonly ManualResetEventSlim _released = new();
+        private readonly List<string> _events = new();
+
+
+
+        public void OnTick(object? _)
+        {
+            _entered.Set();
+            _released.Wait();
+            Record("tick");
+        }
+
+
+
+        public void WaitUntilEntered() => _entered.Wait();
+
+
+
+        public void Release() => _released.Set();
+
+
+
+        public void Record(string name)
+        {
+            lock (_events)
+            {
+                _events.Add(name);
+            }
+        }
+
+
+
+        public string[] Events()
+        {
+            lock (_events)
+            {
+                return _events.ToArray();
+            }
+        }
+
+
+
+        public void Dispose()
+        {
+            _entered.Dispose();
+            _released.Dispose();
+        }
     }
 
 
@@ -215,17 +260,20 @@ public class SystemProgressTimerTests
     {
         var callbackCount = 0;
         ArmableTimerCore? core = null;
-        SystemProgressTimer? timer = null;
-        timer = new SystemProgressTimer
+        // The callback needs the timer it belongs to, which exists only after construction;
+        // the one-element array is assigned once and filled in afterwards.
+        var timerSlot = new SystemProgressTimer?[1];
+        var timer = new SystemProgressTimer
         (
             _ =>
             {
                 callbackCount++;
-                timer!.Dispose();
+                timerSlot[0]!.Dispose();
             },
             state: null,
             onTick => core = new ArmableTimerCore(onTick)
         );
+        timerSlot[0] = timer;
         timer.Start(20);
 
         core!.FireIfArmed();
