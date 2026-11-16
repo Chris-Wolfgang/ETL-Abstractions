@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794749870320,
+  "lastUpdate": 1794865397813,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "Mutation score": [
@@ -326,6 +326,43 @@ window.BENCHMARK_DATA = {
           {
             "name": "Mutation score (tests/Wolfgang.Etl.TestKit.Tests.Unit)",
             "value": 98.9,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "d2fc8df0b45afa9edea5242328bdebbf25582c99",
+          "message": "chore(analyzers): S1133 off for the two obsolete contract-test forwarders (#958)\n\nSame per-file pattern as src/Wolfgang.Etl.Abstractions/.editorconfig uses for\nthe base stages' obsolete setters.\n\nRefs #889\n\nCo-authored-by: Claude Fable 5.2 <noreply@anthropic.com>",
+          "timestamp": "2026-11-16T21:24:18Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/d2fc8df0b45afa9edea5242328bdebbf25582c99"
+        },
+        "date": 1794865394427,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.Abstractions.Tests.Unit)",
+            "value": 98.2,
+            "unit": "%"
+          },
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.ErrorPolicies.Tests.Unit)",
+            "value": 100,
+            "unit": "%"
+          },
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.TestKit.Tests.Unit)",
+            "value": 98.28,
             "unit": "%"
           }
         ]
