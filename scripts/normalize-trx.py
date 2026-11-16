@@ -23,6 +23,12 @@ def main(trx_dir: str, out_file: str) -> None:
         for result in tree.iter(NS + "UnitTestResult"):
             rows.append(f"{result.get('testName')}\t{result.get('outcome')}")
 
+    # A differential over nothing proves nothing: a build break or a run that discovered no
+    # tests would otherwise produce the same empty list on every platform and a green diff.
+    if not rows:
+        print(f"error: no test outcomes found under {trx_dir} - the tests did not run", file=sys.stderr)
+        sys.exit(1)
+
     rows.sort()
     with open(out_file, "w", encoding="utf-8", newline="\n") as handle:
         handle.write("\n".join(rows))

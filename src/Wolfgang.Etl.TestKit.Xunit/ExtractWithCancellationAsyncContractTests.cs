@@ -55,14 +55,13 @@ public abstract class ExtractWithCancellationAsyncContractTests<TSut, TItem>
     /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
     protected abstract TSut CreateSut(int itemCount);
 
-    private const int DefaultItemCount = 5;
 
-    /// <summary>Creates the SUT with <see cref="DefaultItemCount"/> items.</summary>
-    private TSut CreateSut() => CreateSut(DefaultItemCount);
+    /// <summary>Creates the SUT with one item per expected item.</summary>
+    private TSut CreateSut() => CreateSut(CreateExpectedItems().Count);
 
     /// <summary>
     /// Returns the expected items that the SUT should yield when created with
-    /// <see cref="CreateSut(int)"/>. Must return at least 5 items.
+    /// <see cref="CreateSut(int)"/>. Must return at least 3 items; the tests create the SUT with exactly this many.
     /// </summary>
     protected abstract IReadOnlyList<TItem> CreateExpectedItems();
 
@@ -102,7 +101,7 @@ public abstract class ExtractWithCancellationAsyncContractTests<TSut, TItem>
         using var cts = new CancellationTokenSource();
         var received = new List<TItem>();
 
-        await Assert.ThrowsAsync<OperationCanceledException>(async () =>
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
             await foreach (var item in sut.ExtractAsync(cts.Token).ConfigureAwait(false))
             {

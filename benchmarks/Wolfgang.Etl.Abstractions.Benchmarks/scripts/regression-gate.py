@@ -19,8 +19,15 @@ ratio-and-floor check cannot help when the reference point itself is the outlier
 Usage:
     regression-gate.py <current-bdn-report.json> <baseline-data.js> <ratio> <floor_ns>
 
+A gate that compared nothing must not pass: if the current report is empty, or none of
+its benchmarks has a baseline to compare against (a renamed class or namespace, changed
+[Params], a change in result naming), the gate fails. Benchmarks present on only one side
+are listed; a new benchmark beside others that did compare is reported, not failed.
+
+Only the mean time is gated; allocated bytes are not.
+
 Exit codes: 0 = no real regression, 1 = at least one benchmark regressed past both
-thresholds, 2 = usage/parse error.
+thresholds or nothing could be compared, 2 = usage/parse error.
 """
 import json
 import statistics
@@ -63,12 +70,16 @@ def main(argv):
     floor_ns = float(argv[4])
 
     regressions = []
+    compared = 0
+    unmatched_current = []
     print(f"Gate: fail only if ratio >= {ratio_threshold:.2f}x AND abs delta >= {floor_ns:,.0f} ns; baseline = median of the last {BASELINE_RUNS} main runs\n")
     print(f"{'benchmark':<70} {'current':>14} {'baseline':>14} {'ratio':>7} {'delta ns':>14}")
     for name, cur in sorted(current.items()):
         base = baseline.get(name)
         if base is None or base <= 0:
+            unmatched_current.append(name)
             continue
+        compared += 1
         ratio = cur / base
         delta = cur - base
         flag = ""
@@ -81,6 +92,18 @@ def main(argv):
         print(f"{short:<70} {cur:>14,.0f} {base:>14,.0f} {ratio:>6.2f}x {delta:>14,.0f}{flag}")
 
     print()
+    missing_from_current = sorted(set(baseline) - set(current))
+    if unmatched_current:
+        print(f"::warning::{len(unmatched_current)} benchmark(s) have no usable baseline and were not compared:")
+        for name in unmatched_current:
+            print(f"  + {name}")
+    if missing_from_current:
+        print(f"::warning::{len(missing_from_current)} baseline benchmark(s) are missing from the current run:")
+        for name in missing_from_current:
+            print(f"  - {name}")
+    if compared == 0:
+        print("::error::No benchmark was compared against the baseline - the gate could not run, so it fails.")
+        return 1
     if regressions:
         print(f"::error::{len(regressions)} benchmark(s) regressed past BOTH the ratio and the absolute floor.")
         return 1

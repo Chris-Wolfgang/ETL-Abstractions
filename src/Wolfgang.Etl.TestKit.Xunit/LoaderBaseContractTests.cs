@@ -437,16 +437,20 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var timer = new ManualProgressTimerCore();
         var sut = CreateSut();
         sut.WithManualProgressTimer(timer);
-        TProgress? captured = default;
-        var progress = new SynchronousProgress<TProgress>(r => captured = r);
+        var callbackCount = 0;
+        var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
         var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
         var task = sut.LoadAsync(CreateGatedInputItemsAsync(gate), progress);
         timer.Tick();
+
+        // Read before the gate opens: the load always sends a final report when it completes, so a
+        // count taken afterwards would pass even if the tick had delivered nothing.
+        var callbacksFromTick = callbackCount;
         gate.SetResult(true);
         await task.ConfigureAwait(false);
 
-        Assert.NotNull(captured);
+        Assert.Equal(1, callbacksFromTick);
     }
 
 
@@ -592,16 +596,20 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var timer = new ManualProgressTimerCore();
         var sut = CreateSut();
         sut.WithManualProgressTimer(timer);
-        TProgress? captured = default;
-        var progress = new SynchronousProgress<TProgress>(r => captured = r);
+        var callbackCount = 0;
+        var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
         var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
         var task = sut.LoadAsync(CreateGatedInputItemsAsync(gate), progress, CancellationToken.None);
         timer.Tick();
+
+        // Read before the gate opens: the load always sends a final report when it completes, so a
+        // count taken afterwards would pass even if the tick had delivered nothing.
+        var callbacksFromTick = callbackCount;
         gate.SetResult(true);
         await task.ConfigureAwait(false);
 
-        Assert.NotNull(captured);
+        Assert.Equal(1, callbacksFromTick);
     }
 
 

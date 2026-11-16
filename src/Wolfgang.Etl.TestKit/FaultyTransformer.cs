@@ -163,6 +163,10 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
     /// Configures the transformer to throw <paramref name="exception"/> after all items have
     /// been emitted successfully, simulating a cleanup or finalization failure.
     /// </summary>
+    /// <remarks>
+    /// A run that stops because <c>MaximumItemCount</c> was reached has completed too, so the
+    /// exception is thrown in that case as well.
+    /// </remarks>
     /// <param name="exception">The exception to throw after completion.</param>
     /// <returns>The same <see cref="FaultyTransformer{T}"/> instance, to allow chaining.</returns>
     /// <exception cref="ArgumentNullException">
@@ -298,9 +302,16 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
     // which counts it as an error (not a processed item). Throws to abort the run, or,
     // when no policy is configured, to preserve fail-fast behaviour (counting the
     // failing item first, matching the ThrowAt contract).
+    // True when an error policy was configured either fluently (SkipErrors / HandleErrorsWith) or
+    // through the options record's ErrorPolicy; false leaves the stage on its fail-fast default.
+    private bool HasErrorPolicy =>
+        _onItemErrorPolicy is not null || !ReferenceEquals(ErrorPolicy, DefaultItemErrorPolicy.Abort);
+
+
+
     private bool HandleInjectedFault(int index, Exception exception)
     {
-        if (_onItemErrorPolicy is not null)
+        if (HasErrorPolicy)
         {
             if (HandleItemError(new ItemErrorContext(index + 1, exception)) == ItemErrorAction.Skip)
             {
@@ -391,7 +402,7 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
 
                 if (CurrentItemCount >= MaximumItemCount)
                 {
-                    yield break;
+                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
                 }
 
                 if (_throwAt.TryGetValue(index, out var exception)
