@@ -1,6 +1,8 @@
 # Contributing to Wolfgang.Etl.Abstractions
 
-Thank you for your interest in contributing to **Wolfgang.Etl.Abstractions**! We welcome contributions to help improve this project.
+Thank you for your interest in contributing! This repository ships four packages —
+**Wolfgang.Etl.Abstractions**, **Wolfgang.Etl.ErrorPolicies**, **Wolfgang.Etl.TestKit** and
+**Wolfgang.Etl.TestKit.Xunit** — and this guide applies to all of them.
 
 ## How Can You Contribute?
 
@@ -122,12 +124,10 @@ await Task.WhenAll(tasks);
 // Banned
 File.ReadAllText(path);
 stream.Read(buffer, 0, count);
-streamReader.ReadLine();
 
 // Required
 await File.ReadAllTextAsync(path);
 await stream.ReadAsync(buffer, 0, count);
-await streamReader.ReadLineAsync();
 ```
 
 #### ❌ Thread Blocking
@@ -248,6 +248,32 @@ View the complete configuration in [.editorconfig](.editorconfig).
   [`docs/adr/`](docs/adr/index.md) in the same PR — copy
   [`TEMPLATE.md`](docs/adr/TEMPLATE.md) and add a row to the index. See
   [ADR-0001](docs/adr/0001-record-architecture-decisions.md) for the practice.
+
+### Changelog fragment
+
+`CHANGELOG.md` is not edited by hand. A pull request that changes anything under `src/` must add one
+fragment file to `changelog/unreleased/` (the **Changelog Fragment Check** fails without it):
+
+```
+type: fix
+
+One sentence saying what changed for the consumer.
+```
+
+`type` is one of `breaking`, `feature`, `fix`, `docs` or `internal`. For a `src/` change with no
+user-visible effect, add the `no-changelog` label instead. The full convention is in
+[`changelog/unreleased/README.md`](changelog/unreleased/README.md).
+
+### Protected files
+
+Some files configure the build and CI for everyone: `.editorconfig`, `Directory.Build.props`,
+`Directory.Build.targets`, `BannedSymbols.txt`, `coverlet.runsettings`, `.config/dotnet-tools.json`,
+`*.globalconfig`, `*.ruleset`, `*.DotSettings`, the workflows under `.github/workflows/`, and the CI
+scripts those workflows run (the exact list is in
+[`.github/workflows/protected-files.yaml`](.github/workflows/protected-files.yaml)). The
+**Protected Files Guard** fails a pull request that changes any of them **together with** other files.
+Put such a change in its own pull request that contains only protected files (no changelog fragment),
+and send the rest separately.
 
 ---
 
