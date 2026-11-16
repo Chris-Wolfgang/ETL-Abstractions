@@ -26,12 +26,13 @@ namespace Wolfgang.Etl.TestKit.Tests.Unit;
 /// pushes the marginal cost far above it, while one-time setup and background
 /// noise cancel out of the delta. Measured baseline: ~0 B/item on all three.
 /// Guarded to net6.0+ where <see cref="GC.GetTotalAllocatedBytes(bool)"/> exists.
+/// The counter is process-wide, so the class runs in the non-parallel <c>Allocation</c> collection
+/// (see <see cref="AllocationCollection"/>); other test classes would otherwise allocate inside
+/// the measurement window.
 /// </remarks>
+[Collection("Allocation")]
 public sealed class AllocationRegressionTests
 {
-    // Real per-item regressions allocate >= 24 bytes/item (boxing) or an amortized
-    // slab (List growth). 4 bytes/item is comfortably above measurement noise yet
-    // an order of magnitude below any genuine per-item allocation.
     // Real per-item regressions allocate >= 24 bytes/item (boxing) or an amortized
     // slab (List growth). 8 bytes/item sits an order of magnitude below that while
     // tolerating the background-allocation noise the process-wide counter picks up
