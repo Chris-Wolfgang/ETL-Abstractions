@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,6 +41,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// }
 /// </code>
 /// </example>
+[Obsolete("Derive from IdempotentTransformerContractTests<TSut, TItem, TProgress> instead: it reads CurrentItemCount without assuming the Report progress type. This class will be removed in a future release.")]
 public abstract class IdempotentTransformerContractTests<TSut, TItem>
     where TSut : ITransformAsync<TItem, TItem>
     where TItem : notnull
@@ -171,4 +173,56 @@ public abstract class IdempotentTransformerContractTests<TSut, TItem>
 
         Assert.Equal(expected.Count, GetCurrentItemCount(sut));
     }
+}
+
+
+
+/// <summary>
+/// Abstract base class providing opt-in xUnit idempotency contract tests for a transformer derived
+/// from <see cref="TransformerBase{TSource, TDestination, TProgress}"/>, whatever its progress type.
+/// </summary>
+/// <typeparam name="TSut">
+/// The type under test. Must derive from <see cref="TransformerBase{TSource, TDestination, TProgress}"/>
+/// with the same source and destination type.
+/// </typeparam>
+/// <typeparam name="TItem">The type of item the transformer consumes and produces.</typeparam>
+/// <typeparam name="TProgress">The type of the transformer's progress report.</typeparam>
+/// <remarks>
+/// <para>
+/// <b>This base class is opt-in.</b> Inherit from it <em>only</em> if your transformer supports
+/// being run more than once on the <em>same</em> instance and produces the same result each time.
+/// </para>
+/// <para>
+/// It runs the same tests as the two-parameter base and reads <c>CurrentItemCount</c> from the
+/// transformer directly, so a transformer with its own progress type needs no override.
+/// </para>
+/// </remarks>
+/// <example>
+/// <code>
+/// public class MyTransformerIdempotencyTests
+///     : IdempotentTransformerContractTests&lt;MyTransformer, MyRecord, MyProgress&gt;
+/// {
+///     protected override MyTransformer CreateSut(int itemCount) => new MyTransformer();
+///
+///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
+///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
+/// }
+/// </code>
+/// </example>
+public abstract class IdempotentTransformerContractTests<TSut, TItem, TProgress>
+#pragma warning disable CS0618 // The two-parameter base is obsolete for consumers; it still holds the shared tests.
+    : IdempotentTransformerContractTests<TSut, TItem>
+#pragma warning restore CS0618
+    where TSut : TransformerBase<TItem, TItem, TProgress>, ITransformAsync<TItem, TItem>
+    where TItem : notnull
+    where TProgress : notnull
+{
+    /// <summary>
+    /// Returns <paramref name="sut"/>'s
+    /// <see cref="TransformerBase{TSource, TDestination, TProgress}.CurrentItemCount"/>.
+    /// </summary>
+    /// <param name="sut">The system under test, after a transformation has completed.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="sut"/> is <see langword="null"/>.</exception>
+    protected override int GetCurrentItemCount(TSut sut) =>
+        (sut ?? throw new ArgumentNullException(nameof(sut))).CurrentItemCount;
 }

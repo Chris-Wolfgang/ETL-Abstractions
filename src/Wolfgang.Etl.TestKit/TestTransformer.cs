@@ -179,13 +179,15 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
                     continue;
                 }
 
+                IncrementCurrentItemCount();
+                yield return item;
+
+                // Checked after counting, before asking the source for another item: a stage limited to
+                // MaximumItemCount items reads exactly that many and leaves the next one unread.
                 if (CurrentItemCount >= MaximumItemCount)
                 {
                     yield break;
                 }
-
-                IncrementCurrentItemCount();
-                yield return item;
             }
         }
         finally

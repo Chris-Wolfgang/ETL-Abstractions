@@ -176,8 +176,9 @@ await EtlPipeline
 ### Progress, cancellation, and the escape hatch
 
 - **Progress** — pass an `IProgress<EtlPipelineProgress>` to `RunAsync`. The snapshot
-  reports `ExtractedItemCount` (counted at the source), `LoadedItemCount` (counted at
-  the sink), `ErrorItemCount` (items skipped by an error policy, summed across the stages)
+  reports `ExtractedItemCount` (counted at the source), `LoadedItemCount` (the loader's own
+  count of the records it loaded, so records it skipped or discarded are not included),
+  `ErrorItemCount` (items skipped by an error policy, summed across the stages)
   and `Elapsed`, regardless of how many stages sit in between.
 - **Cancellation** — the token passed to `RunAsync` is observed while pulling from the
   source and is forwarded into any cancellation-aware transformer stage.

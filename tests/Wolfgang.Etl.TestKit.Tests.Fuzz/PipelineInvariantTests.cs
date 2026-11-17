@@ -118,7 +118,7 @@ public class PipelineInvariantTests
         // 4. Pipeline totals
         Assert.NotNull(final);
         Assert.Equal(extracted.Count, final.ExtractedItemCount);
-        Assert.Equal(extracted.Count, final.LoadedItemCount);
+        Assert.Equal(expectedLoaded.Count, final.LoadedItemCount);
         Assert.Equal(extractFaultIndices.Count + loadFaultIndices.Count, final.ErrorItemCount);
     }
 

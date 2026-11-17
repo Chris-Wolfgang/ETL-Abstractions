@@ -206,13 +206,14 @@ public abstract class ExtractorBase<TSource, TProgress>
     ///     string line;
     ///     while ((line = await reader.ReadLineAsync()) != null)
     ///     {
+    ///         IncrementCurrentItemCount();
+    ///         yield return line;
+    ///
+    ///         // Checked after counting, before the next read, so the record after the limit stays unread.
     ///         if (CurrentItemCount &gt;= MaximumItemCount)
     ///         {
     ///             break; // the limit is reached: end the sequence
     ///         }
-    ///
-    ///         IncrementCurrentItemCount();
-    ///         yield return line;
     ///     }
     /// }
     /// </code>
@@ -381,6 +382,7 @@ public abstract class ExtractorBase<TSource, TProgress>
         ResetRunState();
 
         var timer = CreateProgressTimer(progress);
+        var outcome = new RunOutcome();
 
         try
         {
@@ -393,15 +395,32 @@ public abstract class ExtractorBase<TSource, TProgress>
             {
                 // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
                 // synchronization context), so the flipped mutant is unkillable (#452).
-                while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+                while (true)
                 {
+                    bool moved;
+                    try
+                    {
+                        moved = await enumerator.MoveNextAsync().ConfigureAwait(false);
+                    }
+                    catch
+                    {
+                        // Noted here because a yield cannot sit inside a try that has a catch.
+                        outcome.Failed = true;
+                        throw;
+                    }
+
+                    if (!moved)
+                    {
+                        break;
+                    }
+
                     yield return enumerator.Current;
                 }
             }
             finally
             {
                 // Stryker disable once Boolean : same equivalence as above (#452).
-                await enumerator.DisposeAsync().ConfigureAwait(false);
+                await outcome.DisposeAsync(enumerator).ConfigureAwait(false);
             }
         }
         finally
@@ -409,7 +428,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 #pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here; await is not valid in a finally block
             timer.Dispose();
 #pragma warning restore CA1849, VSTHRD103
-            progress.Report(CreateProgressReport());
+            FinalProgressReport.Send(progress, CreateProgressReport, outcome.Failed);
         }
     }
 
