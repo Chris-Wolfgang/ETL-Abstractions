@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
@@ -68,10 +69,12 @@ internal class FibonacciExtractor : IExtractWithProgressAsync<int, EtlProgress>
     {
         Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
 
-        var count = 0;
+        // A box, not a local: the timer callback and the loop then share one object and no captured
+        // local is written from two scopes.
+        var count = new StrongBox<int>();
         using var timer = new Timer
         (
-            _ => progress.Report(new EtlProgress(Volatile.Read(ref count))),
+            _ => progress.Report(new EtlProgress(Volatile.Read(ref count.Value))),
             state: null,
             TimeSpan.Zero,
             TimeSpan.FromMilliseconds(_progressInterval) // Use the configured progress interval
@@ -83,7 +86,7 @@ internal class FibonacciExtractor : IExtractWithProgressAsync<int, EtlProgress>
         {
             Console.WriteLine($"Extracting Fibonacci number {x + 1}: {current}");
             yield return current;
-            count = Interlocked.Increment(ref count);
+            Interlocked.Increment(ref count.Value);
 
             var temp = current;
             current += previous;
@@ -91,7 +94,7 @@ internal class FibonacciExtractor : IExtractWithProgressAsync<int, EtlProgress>
             await Task.Delay(100); // Simulate asynchronous operation
         }
 
-        progress.Report(new EtlProgress(Volatile.Read(ref count))); // Report final count
+        progress.Report(new EtlProgress(Volatile.Read(ref count.Value))); // Report final count
 
         Console.WriteLine($"{ConsoleColors.Green}Extraction{ConsoleColors.Reset} completed.\n");
     }
