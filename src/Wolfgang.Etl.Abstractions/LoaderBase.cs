@@ -360,17 +360,25 @@ public abstract class LoaderBase<TDestination, TProgress>
         ResetRunState();
 
         var timer = CreateProgressTimer(progress);
+        var runFailed = false;
 
         try
         {
             await WrapWorkerExecution(ct => LoadWorkerAsync(items, ct), token).ConfigureAwait(false);
+        }
+        catch
+        {
+            runFailed = true;
+            throw;
         }
         finally
         {
 #pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here; await is not valid in a finally block
             timer.Dispose();
 #pragma warning restore CA1849, VSTHRD103
-            progress.Report(CreateProgressReport());
+
+            // On a failed or cancelled run the final report must not replace the run's exception.
+            FinalProgressReport.Send(progress, CreateProgressReport, runFailed);
         }
     }
 
