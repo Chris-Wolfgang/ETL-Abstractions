@@ -405,16 +405,12 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
             }
             finally
             {
-                try
-                {
-                    // Stryker disable once Boolean : same equivalence as above (#452).
-                    await enumerator.DisposeAsync().ConfigureAwait(false);
-                }
-                catch
-                {
-                    runFailed = true;
-                    throw;
-                }
+                // The flag stays set if DisposeAsync throws: a worker whose cleanup fails has failed.
+                var failedBeforeDispose = runFailed;
+                runFailed = true;
+                // Stryker disable once Boolean : same equivalence as above (#452).
+                await enumerator.DisposeAsync().ConfigureAwait(false);
+                runFailed = failedBeforeDispose;
             }
         }
         finally

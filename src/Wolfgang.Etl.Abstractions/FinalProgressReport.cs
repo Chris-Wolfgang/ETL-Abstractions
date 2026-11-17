@@ -25,21 +25,31 @@ internal static class FinalProgressReport
         bool runFailed
     )
     {
-        if (!runFailed)
+        if (runFailed)
         {
-            progress.Report(createReport());
+            _ = TrySend(progress, createReport);
             return;
         }
 
+        progress.Report(createReport());
+    }
+
+
+
+    // Returns whether the report was delivered. The caller above ignores the answer: on a failed
+    // run the exception already unwinding the run is the one the caller of the stage needs.
+    private static bool TrySend<TProgress>(IProgress<TProgress> progress, Func<TProgress> createReport)
+    {
         try
         {
             progress.Report(createReport());
+            return true;
         }
 #pragma warning disable CA1031 // Do not catch general exception types — intentional: the run's own exception must reach the caller.
         catch (Exception)
 #pragma warning restore CA1031
         {
-            // Discarded: the exception already unwinding the run is the one the caller needs.
+            return false;
         }
     }
 }
