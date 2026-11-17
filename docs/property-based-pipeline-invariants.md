@@ -27,7 +27,8 @@ in the loader, with both stages set to skip their faults (`SkipErrors()`):
 3. **Every fault reported once.** Each stage's `CapturedErrors` holds exactly one entry per injected
    fault, with the 1-based item number of that position and the injected exception instance.
 4. **Pipeline totals.** The final `EtlPipelineProgress` reports `ExtractedItemCount` = input minus
-   extractor faults, `LoadedItemCount` = `ExtractedItemCount`, and `ErrorItemCount` = the faults of
+   extractor faults, `LoadedItemCount` = the loader's `CurrentItemCount` (`ExtractedItemCount`
+   minus the loader's faults), and `ErrorItemCount` = the faults of
    both stages.
 
 ## Running them

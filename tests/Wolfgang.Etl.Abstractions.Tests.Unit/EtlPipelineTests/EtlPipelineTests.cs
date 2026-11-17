@@ -298,9 +298,9 @@ public class EtlPipelineCoreTests
         Assert.Equal(5, final.ExtractedItemCount);
         Assert.Equal(5, final.LoadedItemCount);
 
-        // The sink reports the first loaded record straight away, not only at the end — so an
-        // intermediate snapshot capturing exactly one loaded record must be present.
-        Assert.Contains(reports, r => r.LoadedItemCount == 1);
+        // The sink reports straight away, as the first record reaches it, not only at the end. That
+        // record is extracted but not loaded yet: LoadedItemCount is the loader's own count.
+        Assert.Contains(reports, r => r.ExtractedItemCount == 1 && r.LoadedItemCount == 0);
     }
 
 

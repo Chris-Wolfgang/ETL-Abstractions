@@ -17,7 +17,11 @@ namespace Wolfgang.Etl.Abstractions;
 /// pipeline.
 /// </remarks>
 /// <param name="ExtractedItemCount">The number of records pulled from the source so far.</param>
-/// <param name="LoadedItemCount">The number of records delivered to the sink so far.</param>
+/// <param name="LoadedItemCount">
+/// The number of records the loader has loaded so far: its own <c>CurrentItemCount</c>. Records the
+/// loader pulled but did not load (its <c>SkipItemCount</c> budget, a record its error policy
+/// discarded) are not counted, so this can be lower than <paramref name="ExtractedItemCount"/>.
+/// </param>
 /// <param name="Elapsed">The wall-clock time elapsed since the run started.</param>
 public sealed record EtlPipelineProgress
 (
