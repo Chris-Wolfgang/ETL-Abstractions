@@ -754,7 +754,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
         // reachable regardless of how the loop terminates. Deliberately not
         // Task.Yield(): that cannot take ConfigureAwait(false) and would resume
         // on the caller's SynchronizationContext.
-        // Stryker disable once Statement : equivalent — the await completes synchronously; removing
+        // Stryker disable once Statement,Boolean : equivalent — the await completes synchronously; removing
         // it changes no observable extraction result (the source is synchronous).
         await Task.CompletedTask.ConfigureAwait(false);
 
