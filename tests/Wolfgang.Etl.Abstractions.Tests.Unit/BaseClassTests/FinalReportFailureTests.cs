@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.TestKit;
@@ -29,7 +28,7 @@ public sealed class FinalReportFailureTests
 
         var thrown = await Assert.ThrowsAsync<InvalidDataException>
         (
-            () => DrainAsync(extractor.ExtractAsync(new ThrowingProgress<Report>()))
+            () => extractor.ExtractAsync(new ThrowingProgress<Report>()).ToListAsync().AsTask()
         );
 
         Assert.Equal("worker", thrown.Message);
@@ -44,7 +43,7 @@ public sealed class FinalReportFailureTests
 
         await Assert.ThrowsAsync<ProgressSinkException>
         (
-            () => DrainAsync(extractor.ExtractAsync(new ThrowingProgress<Report>()))
+            () => extractor.ExtractAsync(new ThrowingProgress<Report>()).ToListAsync().AsTask()
         );
     }
 
@@ -57,7 +56,7 @@ public sealed class FinalReportFailureTests
 
         var thrown = await Assert.ThrowsAsync<InvalidDataException>
         (
-            () => TakeOneAsync(extractor.ExtractAsync(new ThrowingProgress<Report>()))
+            () => extractor.ExtractAsync(new ThrowingProgress<Report>()).FirstAsync().AsTask()
         );
 
         Assert.Equal("cleanup", thrown.Message);
@@ -73,7 +72,7 @@ public sealed class FinalReportFailureTests
 
         var thrown = await Assert.ThrowsAsync<InvalidDataException>
         (
-            () => DrainAsync(transformer.TransformAsync(Items.ToAsyncEnumerable(), new ThrowingProgress<Report>()))
+            () => transformer.TransformAsync(Items.ToAsyncEnumerable(), new ThrowingProgress<Report>()).ToListAsync().AsTask()
         );
 
         Assert.Equal("worker", thrown.Message);
@@ -88,7 +87,7 @@ public sealed class FinalReportFailureTests
 
         await Assert.ThrowsAsync<ProgressSinkException>
         (
-            () => DrainAsync(transformer.TransformAsync(Items.ToAsyncEnumerable(), new ThrowingProgress<Report>()))
+            () => transformer.TransformAsync(Items.ToAsyncEnumerable(), new ThrowingProgress<Report>()).ToListAsync().AsTask()
         );
     }
 
@@ -97,11 +96,11 @@ public sealed class FinalReportFailureTests
     [Fact]
     public async Task TransformAsync_when_worker_cleanup_and_final_report_both_throw_surfaces_the_cleanup_exception()
     {
-        var transformer = new ThrowsOnCleanupTransformer();
+        var transformer = new TestTransformer<int>();
 
         var thrown = await Assert.ThrowsAsync<InvalidDataException>
         (
-            () => TakeOneAsync(transformer.TransformAsync(Items.ToAsyncEnumerable(), new ThrowingProgress<Report>()))
+            () => transformer.TransformAsync(new ThrowsOnDisposeSequence(), new ThrowingProgress<Report>()).FirstAsync().AsTask()
         );
 
         Assert.Equal("cleanup", thrown.Message);
@@ -173,27 +172,6 @@ public sealed class FinalReportFailureTests
 
 
 
-    private static async Task DrainAsync<T>(IAsyncEnumerable<T> source)
-    {
-        await foreach (var _ in source)
-        {
-            // Enumerated only to run the stage to its end.
-        }
-    }
-
-
-
-    // Abandons the sequence after its first item, so the stage's worker is disposed mid-run.
-    private static async Task TakeOneAsync<T>(IAsyncEnumerable<T> source)
-    {
-        await foreach (var _ in source)
-        {
-            break;
-        }
-    }
-
-
-
     private sealed class ProgressSinkException : Exception
     {
         public ProgressSinkException() : base("progress sink")
@@ -234,55 +212,25 @@ public sealed class FinalReportFailureTests
 
 
 
-    private sealed class ThrowsOnCleanupExtractor : ExtractorBase<int, Report>
+    // A worker stream that never ends and fails when it is disposed, as a worker whose cleanup
+    // throws does. Hand-written rather than an iterator so that every line of it runs.
+    private sealed class ThrowsOnDisposeSequence : IAsyncEnumerable<int>, IAsyncEnumerator<int>
     {
-        protected override async IAsyncEnumerable<int> ExtractWorkerAsync([EnumeratorCancellation] CancellationToken token)
-        {
-            try
-            {
-                foreach (var item in Items)
-                {
-                    await Task.Yield();
-                    IncrementCurrentItemCount();
-                    yield return item;
-                }
-            }
-            finally
-            {
-                throw new InvalidDataException("cleanup");
-            }
-        }
+        public int Current => 1;
 
+        public IAsyncEnumerator<int> GetAsyncEnumerator(CancellationToken cancellationToken = default) => this;
 
+        public ValueTask<bool> MoveNextAsync() => new(true);
 
-        protected override Report CreateProgressReport() => new(CurrentItemCount);
+        public ValueTask DisposeAsync() => throw new InvalidDataException("cleanup");
     }
 
 
 
-    private sealed class ThrowsOnCleanupTransformer : TransformerBase<int, int, Report>
+    private sealed class ThrowsOnCleanupExtractor : ExtractorBase<int, Report>
     {
-        protected override async IAsyncEnumerable<int> TransformWorkerAsync
-        (
-            IAsyncEnumerable<int> items,
-            [EnumeratorCancellation] CancellationToken token
-        )
-        {
-            try
-            {
-                await foreach (var item in items.WithCancellation(token))
-                {
-                    IncrementCurrentItemCount();
-                    yield return item;
-                }
-            }
-            finally
-            {
-                throw new InvalidDataException("cleanup");
-            }
-        }
-
-
+        protected override IAsyncEnumerable<int> ExtractWorkerAsync(CancellationToken token) =>
+            new ThrowsOnDisposeSequence();
 
         protected override Report CreateProgressReport() => new(CurrentItemCount);
     }
