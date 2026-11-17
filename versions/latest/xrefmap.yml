@@ -156,6 +156,53 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From(Of T, TProgress)(Wolfgang.Etl.Abstractions.EtlPipeline, Wolfgang.Etl.Abstractions.ExtractorBase(Of T, TProgress))
   nameWithType: EtlPipelineSourceExtensions.From<T, TProgress>(EtlPipeline, ExtractorBase<T, TProgress>)
   nameWithType.vb: EtlPipelineSourceExtensions.From(Of T, TProgress)(EtlPipeline, ExtractorBase(Of T, TProgress))
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From``2(Wolfgang.Etl.Abstractions.EtlPipeline,Wolfgang.Etl.Abstractions.ExtractorBase{``0,``1},System.IProgress{``1})
+  name: From<T, TProgress>(EtlPipeline, ExtractorBase<T, TProgress>, IProgress<TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineSourceExtensions_From__2_Wolfgang_Etl_Abstractions_EtlPipeline_Wolfgang_Etl_Abstractions_ExtractorBase___0___1__System_IProgress___1__
+  commentId: M:Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From``2(Wolfgang.Etl.Abstractions.EtlPipeline,Wolfgang.Etl.Abstractions.ExtractorBase{``0,``1},System.IProgress{``1})
+  name.vb: From(Of T, TProgress)(EtlPipeline, ExtractorBase(Of T, TProgress), IProgress(Of TProgress))
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T, TProgress>(Wolfgang.Etl.Abstractions.EtlPipeline, Wolfgang.Etl.Abstractions.ExtractorBase<T, TProgress>, System.IProgress<TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From(Of T, TProgress)(Wolfgang.Etl.Abstractions.EtlPipeline, Wolfgang.Etl.Abstractions.ExtractorBase(Of T, TProgress), System.IProgress(Of TProgress))
+  nameWithType: EtlPipelineSourceExtensions.From<T, TProgress>(EtlPipeline, ExtractorBase<T, TProgress>, IProgress<TProgress>)
+  nameWithType.vb: EtlPipelineSourceExtensions.From(Of T, TProgress)(EtlPipeline, ExtractorBase(Of T, TProgress), IProgress(Of TProgress))
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions
+  name: EtlPipelineStageProgressExtensions
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.html
+  commentId: T:Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions
+  nameWithType: EtlPipelineStageProgressExtensions
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through*
+  name: Through
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions_Through_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through
+  nameWithType: EtlPipelineStageProgressExtensions.Through
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through``3(Wolfgang.Etl.Abstractions.IEtlPipeline{``0},Wolfgang.Etl.Abstractions.TransformerBase{``0,``1,``2},System.IProgress{``2})
+  name: Through<T, TOut, TProgress>(IEtlPipeline<T>, TransformerBase<T, TOut, TProgress>, IProgress<TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions_Through__3_Wolfgang_Etl_Abstractions_IEtlPipeline___0__Wolfgang_Etl_Abstractions_TransformerBase___0___1___2__System_IProgress___2__
+  commentId: M:Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through``3(Wolfgang.Etl.Abstractions.IEtlPipeline{``0},Wolfgang.Etl.Abstractions.TransformerBase{``0,``1,``2},System.IProgress{``2})
+  name.vb: Through(Of T, TOut, TProgress)(IEtlPipeline(Of T), TransformerBase(Of T, TOut, TProgress), IProgress(Of TProgress))
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through<T, TOut, TProgress>(Wolfgang.Etl.Abstractions.IEtlPipeline<T>, Wolfgang.Etl.Abstractions.TransformerBase<T, TOut, TProgress>, System.IProgress<TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through(Of T, TOut, TProgress)(Wolfgang.Etl.Abstractions.IEtlPipeline(Of T), Wolfgang.Etl.Abstractions.TransformerBase(Of T, TOut, TProgress), System.IProgress(Of TProgress))
+  nameWithType: EtlPipelineStageProgressExtensions.Through<T, TOut, TProgress>(IEtlPipeline<T>, TransformerBase<T, TOut, TProgress>, IProgress<TProgress>)
+  nameWithType.vb: EtlPipelineStageProgressExtensions.Through(Of T, TOut, TProgress)(IEtlPipeline(Of T), TransformerBase(Of T, TOut, TProgress), IProgress(Of TProgress))
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To*
+  name: To
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions_To_
+  commentId: Overload:Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To
+  nameWithType: EtlPipelineStageProgressExtensions.To
+- uid: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To``2(Wolfgang.Etl.Abstractions.IEtlPipeline{``0},Wolfgang.Etl.Abstractions.LoaderBase{``0,``1},System.IProgress{``1})
+  name: To<T, TProgress>(IEtlPipeline<T>, LoaderBase<T, TProgress>, IProgress<TProgress>)
+  href: api/Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.html#Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions_To__2_Wolfgang_Etl_Abstractions_IEtlPipeline___0__Wolfgang_Etl_Abstractions_LoaderBase___0___1__System_IProgress___1__
+  commentId: M:Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To``2(Wolfgang.Etl.Abstractions.IEtlPipeline{``0},Wolfgang.Etl.Abstractions.LoaderBase{``0,``1},System.IProgress{``1})
+  name.vb: To(Of T, TProgress)(IEtlPipeline(Of T), LoaderBase(Of T, TProgress), IProgress(Of TProgress))
+  fullName: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To<T, TProgress>(Wolfgang.Etl.Abstractions.IEtlPipeline<T>, Wolfgang.Etl.Abstractions.LoaderBase<T, TProgress>, System.IProgress<TProgress>)
+  fullName.vb: Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To(Of T, TProgress)(Wolfgang.Etl.Abstractions.IEtlPipeline(Of T), Wolfgang.Etl.Abstractions.LoaderBase(Of T, TProgress), System.IProgress(Of TProgress))
+  nameWithType: EtlPipelineStageProgressExtensions.To<T, TProgress>(IEtlPipeline<T>, LoaderBase<T, TProgress>, IProgress<TProgress>)
+  nameWithType.vb: EtlPipelineStageProgressExtensions.To(Of T, TProgress)(IEtlPipeline(Of T), LoaderBase(Of T, TProgress), IProgress(Of TProgress))
 - uid: Wolfgang.Etl.Abstractions.ExtractorBase`1
   name: ExtractorBase<TSource>
   href: api/Wolfgang.Etl.Abstractions.ExtractorBase-1.html
@@ -2435,6 +2482,28 @@ references:
   fullName.vb: Wolfgang.Etl.Abstractions.Pipeline.Extract(Of TSource, TProgress)(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync(Of TSource, TProgress))
   nameWithType: Pipeline.Extract<TSource, TProgress>(IExtractWithProgressAsync<TSource, TProgress>)
   nameWithType.vb: Pipeline.Extract(Of TSource, TProgress)(IExtractWithProgressAsync(Of TSource, TProgress))
+- uid: Wolfgang.Etl.Abstractions.PropertySelector
+  name: PropertySelector
+  href: api/Wolfgang.Etl.Abstractions.PropertySelector.html
+  commentId: T:Wolfgang.Etl.Abstractions.PropertySelector
+  fullName: Wolfgang.Etl.Abstractions.PropertySelector
+  nameWithType: PropertySelector
+- uid: Wolfgang.Etl.Abstractions.PropertySelector.Resolve*
+  name: Resolve
+  href: api/Wolfgang.Etl.Abstractions.PropertySelector.html#Wolfgang_Etl_Abstractions_PropertySelector_Resolve_
+  commentId: Overload:Wolfgang.Etl.Abstractions.PropertySelector.Resolve
+  isSpec: "True"
+  fullName: Wolfgang.Etl.Abstractions.PropertySelector.Resolve
+  nameWithType: PropertySelector.Resolve
+- uid: Wolfgang.Etl.Abstractions.PropertySelector.Resolve``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})
+  name: Resolve<T, TProperty>(Expression<Func<T, TProperty>>)
+  href: api/Wolfgang.Etl.Abstractions.PropertySelector.html#Wolfgang_Etl_Abstractions_PropertySelector_Resolve__2_System_Linq_Expressions_Expression_System_Func___0___1___
+  commentId: M:Wolfgang.Etl.Abstractions.PropertySelector.Resolve``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})
+  name.vb: Resolve(Of T, TProperty)(Expression(Of Func(Of T, TProperty)))
+  fullName: Wolfgang.Etl.Abstractions.PropertySelector.Resolve<T, TProperty>(System.Linq.Expressions.Expression<System.Func<T, TProperty>>)
+  fullName.vb: Wolfgang.Etl.Abstractions.PropertySelector.Resolve(Of T, TProperty)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProperty)))
+  nameWithType: PropertySelector.Resolve<T, TProperty>(Expression<Func<T, TProperty>>)
+  nameWithType.vb: PropertySelector.Resolve(Of T, TProperty)(Expression(Of Func(Of T, TProperty)))
 - uid: Wolfgang.Etl.Abstractions.Report
   name: Report
   href: api/Wolfgang.Etl.Abstractions.Report.html

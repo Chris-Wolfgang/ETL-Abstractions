@@ -78,6 +78,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.yml\" sourcestartlinenumber=\"1\">Per-stage typed progress for <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref> (#382): attach a transformer or loader\ntogether with an <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref> that receives that stage's own progress type, the\ncounterpart of <code>WithProgress</code> on the fluent <xref href=\"Wolfgang.Etl.Abstractions.Pipeline\" data-throw-if-not-resolved=\"false\"></xref> builder. The aggregate\n<xref href=\"Wolfgang.Etl.Abstractions.EtlPipelineProgress\" data-throw-if-not-resolved=\"false\"></xref> passed to <xref href=\"Wolfgang.Etl.Abstractions.IEtlPipelineSink.RunAsync(System.IProgress%7bWolfgang.Etl.Abstractions.EtlPipelineProgress%7d%2cSystem.Threading.CancellationToken)\" data-throw-if-not-resolved=\"false\"></xref> is reported as\nbefore; the two are independent.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.Abstractions.ExtractorBase-1.yml",
       "output": {
         ".html": {
@@ -158,7 +172,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.IExtractAsync<TSource>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type T.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type <code class=\"typeparamref\">TSource</code>.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -200,7 +214,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync<TSource>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type T.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type <code class=\"typeparamref\">TSource</code>.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -214,7 +228,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync<TSource, TProgress>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type T.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type <code class=\"typeparamref\">TSource</code>.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -228,7 +242,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.IExtractWithProgressAsync<TSource, TProgress>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type T.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous extractor interface for extracting data of type <code class=\"typeparamref\">TSource</code>.\nA class implementing this interface is intended to be the first step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -256,7 +270,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ILoadAsync<TDestination>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type T.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type <code class=\"typeparamref\">TDestination</code>.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -270,7 +284,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync<TDestination>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type T.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync-1.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type <code class=\"typeparamref\">TDestination</code>.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -284,7 +298,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync<TDestination, TProgress>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type T.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type <code class=\"typeparamref\">TDestination</code>.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -298,7 +312,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ILoadWithProgressAsync<TDestination, TProgress>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadWithProgressAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type T.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ILoadWithProgressAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous loader interface for loading data of type <code class=\"typeparamref\">TDestination</code>.\nA class implementing this interface is intended to be the last step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -368,7 +382,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ITransformAsync<TSource, TDestination>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type T to TResult.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type <code class=\"typeparamref\">TSource</code> to <code class=\"typeparamref\">TDestination</code>.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -410,7 +424,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync<TSource, TDestination>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type T to TResult.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type <code class=\"typeparamref\">TSource</code> to <code class=\"typeparamref\">TDestination</code>.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -424,7 +438,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync<TSource, TDestination, TProgress>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync-3.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type T to TResult.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync-3.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type <code class=\"typeparamref\">TSource</code> to <code class=\"typeparamref\">TDestination</code>.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -438,7 +452,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.ITransformWithProgressAsync<TSource, TDestination, TProgress>",
-      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformWithProgressAsync-3.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type T to TResult.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.ITransformWithProgressAsync-3.yml\" sourcestartlinenumber=\"1\">Defines an asynchronous transformer interface for transforming data of type <code class=\"typeparamref\">TSource</code> to <code class=\"typeparamref\">TDestination</code>.\nA class implementing this interface is intended to be the second step in an\nETL (Extract, Transform, Load) process.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -565,6 +579,20 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.Abstractions.Pipeline",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.Pipeline.yml\" sourcestartlinenumber=\"1\">Entry point for building a fluent ETL pipeline. Start with one of the <code>Extract</code> overloads,\nchain zero or more <code>Transform</code> calls, terminate with one of the <code>Load</code> overloads, then\ninvoke <xref href=\"Wolfgang.Etl.Abstractions.IPipeline.RunAsync\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.Abstractions.PropertySelector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.Abstractions.PropertySelector.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.Abstractions.PropertySelector",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.Abstractions.PropertySelector.yml\" sourcestartlinenumber=\"1\">Resolves a property-selector lambda such as <code>x =&gt; x.Name</code> to the\n<xref href=\"System.Reflection.PropertyInfo\" data-throw-if-not-resolved=\"false\"></xref> it selects. The shared primitive behind the per-library code-first\nschema builders, so every ETL library validates selectors the same way.</p>\n"
     },
     {
       "type": "ManagedReference",

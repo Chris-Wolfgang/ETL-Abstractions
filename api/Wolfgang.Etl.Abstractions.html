@@ -111,6 +111,15 @@ source reads the same way: <code>EtlPipeline.Create().Xxx(...)</code>.</p>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.html">EtlPipelineStageProgressExtensions</a></dt>
+      <dd><p>Per-stage typed progress for <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a> (#382): attach a transformer or loader
+together with an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> that receives that stage's own progress type, the
+counterpart of <code>WithProgress</code> on the fluent <a class="xref" href="Wolfgang.Etl.Abstractions.Pipeline.html">Pipeline</a> builder. The aggregate
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineProgress.html">EtlPipelineProgress</a> passed to <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html#Wolfgang_Etl_Abstractions_IEtlPipelineSink_RunAsync_System_IProgress_Wolfgang_Etl_Abstractions_EtlPipelineProgress__System_Threading_CancellationToken_">RunAsync(IProgress&lt;EtlPipelineProgress&gt;?, CancellationToken)</a> is reported as
+before; the two are independent.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-1.html">ExtractorBase&lt;TSource&gt;</a></dt>
       <dd><p>A convenience <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-2.html">ExtractorBase&lt;TSource, TProgress&gt;</a> that reports progress with the
 built-in <a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a> type and supplies a default <a class="xref" href="Wolfgang.Etl.Abstractions.ExtractorBase-1.html#Wolfgang_Etl_Abstractions_ExtractorBase_1_CreateProgressReport">CreateProgressReport()</a>, so a
@@ -183,6 +192,13 @@ invoke <a class="xref" href="Wolfgang.Etl.Abstractions.IPipeline.html#Wolfgang_E
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.Abstractions.PropertySelector.html">PropertySelector</a></dt>
+      <dd><p>Resolves a property-selector lambda such as <code>x =&gt; x.Name</code> to the
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a> it selects. The shared primitive behind the per-library code-first
+schema builders, so every ETL library validates selectors the same way.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.Report.html">Report</a></dt>
       <dd><p>Provides a point-in-time snapshot of the progress of an ETL process — how many
 items have been processed, how long it has been running, and (when the total is
@@ -243,7 +259,7 @@ sink terminator) to obtain a runnable <a class="xref" href="Wolfgang.Etl.Abstrac
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractAsync-1.html">IExtractAsync&lt;TSource&gt;</a></dt>
-      <dd><p>Defines an asynchronous extractor interface for extracting data of type T.
+      <dd><p>Defines an asynchronous extractor interface for extracting data of type <code class="typeparamref">TSource</code>.
 A class implementing this interface is intended to be the first step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
@@ -265,21 +281,21 @@ transformer, or one of the <code>Load</code> overloads to terminate the chain wi
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync-1.html">IExtractWithCancellationAsync&lt;TSource&gt;</a></dt>
-      <dd><p>Defines an asynchronous extractor interface for extracting data of type T.
+      <dd><p>Defines an asynchronous extractor interface for extracting data of type <code class="typeparamref">TSource</code>.
 A class implementing this interface is intended to be the first step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync-2.html">IExtractWithProgressAndCancellationAsync&lt;TSource, TProgress&gt;</a></dt>
-      <dd><p>Defines an asynchronous extractor interface for extracting data of type T.
+      <dd><p>Defines an asynchronous extractor interface for extracting data of type <code class="typeparamref">TSource</code>.
 A class implementing this interface is intended to be the first step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IExtractWithProgressAsync-2.html">IExtractWithProgressAsync&lt;TSource, TProgress&gt;</a></dt>
-      <dd><p>Defines an asynchronous extractor interface for extracting data of type T.
+      <dd><p>Defines an asynchronous extractor interface for extracting data of type <code class="typeparamref">TSource</code>.
 A class implementing this interface is intended to be the first step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
@@ -295,28 +311,28 @@ they run in the order attached, each seeing the item the previous one passed on.
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadAsync-1.html">ILoadAsync&lt;TDestination&gt;</a></dt>
-      <dd><p>Defines an asynchronous loader interface for loading data of type T.
+      <dd><p>Defines an asynchronous loader interface for loading data of type <code class="typeparamref">TDestination</code>.
 A class implementing this interface is intended to be the last step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync-1.html">ILoadWithCancellationAsync&lt;TDestination&gt;</a></dt>
-      <dd><p>Defines an asynchronous loader interface for loading data of type T.
+      <dd><p>Defines an asynchronous loader interface for loading data of type <code class="typeparamref">TDestination</code>.
 A class implementing this interface is intended to be the last step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync-2.html">ILoadWithProgressAndCancellationAsync&lt;TDestination, TProgress&gt;</a></dt>
-      <dd><p>Defines an asynchronous loader interface for loading data of type T.
+      <dd><p>Defines an asynchronous loader interface for loading data of type <code class="typeparamref">TDestination</code>.
 A class implementing this interface is intended to be the last step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ILoadWithProgressAsync-2.html">ILoadWithProgressAsync&lt;TDestination, TProgress&gt;</a></dt>
-      <dd><p>Defines an asynchronous loader interface for loading data of type T.
+      <dd><p>Defines an asynchronous loader interface for loading data of type <code class="typeparamref">TDestination</code>.
 A class implementing this interface is intended to be the last step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
@@ -351,7 +367,7 @@ that reports it into <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformAsync-2.html">ITransformAsync&lt;TSource, TDestination&gt;</a></dt>
-      <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
+      <dd><p>Defines an asynchronous transformer interface for transforming data of type <code class="typeparamref">TSource</code> to <code class="typeparamref">TDestination</code>.
 A class implementing this interface is intended to be the second step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
@@ -373,21 +389,21 @@ transformer, or one of the <code>Load</code> overloads to terminate the chain.</
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync-2.html">ITransformWithCancellationAsync&lt;TSource, TDestination&gt;</a></dt>
-      <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
+      <dd><p>Defines an asynchronous transformer interface for transforming data of type <code class="typeparamref">TSource</code> to <code class="typeparamref">TDestination</code>.
 A class implementing this interface is intended to be the second step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync-3.html">ITransformWithProgressAndCancellationAsync&lt;TSource, TDestination, TProgress&gt;</a></dt>
-      <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
+      <dd><p>Defines an asynchronous transformer interface for transforming data of type <code class="typeparamref">TSource</code> to <code class="typeparamref">TDestination</code>.
 A class implementing this interface is intended to be the second step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.Abstractions.ITransformWithProgressAsync-3.html">ITransformWithProgressAsync&lt;TSource, TDestination, TProgress&gt;</a></dt>
-      <dd><p>Defines an asynchronous transformer interface for transforming data of type T to TResult.
+      <dd><p>Defines an asynchronous transformer interface for transforming data of type <code class="typeparamref">TSource</code> to <code class="typeparamref">TDestination</code>.
 A class implementing this interface is intended to be the second step in an
 ETL (Extract, Transform, Load) process.</p>
 </dd>

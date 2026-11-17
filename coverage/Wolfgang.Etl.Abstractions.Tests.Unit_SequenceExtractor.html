@@ -66,12 +66,12 @@
 <div class="card">
 <div class="card-header">Branch coverage</div>
 <div class="card-body">
-<div class="large cardpercentagebar cardpercentagebar0">100%</div>
+<div class="large cardpercentagebar cardpercentagebar10">90%</div>
 <div class="table">
 <table>
 <tr>
 <th>Covered branches:</th>
-<td class="limit-width right" title="10">10</td>
+<td class="limit-width right" title="9">9</td>
 </tr>
 <tr>
 <th>Total branches:</th>
@@ -79,7 +79,7 @@
 </tr>
 <tr>
 <th>Branch coverage:</th>
-<td class="limit-width right" title="10 of 10">100%</td>
+<td class="limit-width right" title="9 of 10">90%</td>
 </tr>
 </table>
 </div>
@@ -96,7 +96,7 @@
 </div>
 </div>
 <h1>Coverage history</h1>
-<div class="historychart ct-chart" data-data="historyChartDatac1dce91057454591b902cda1c3bf2084"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="ct-chart" width="1200" height="150" viewBox="0 0 1200 150">
+<div class="historychart ct-chart" data-data="historyChartData5746168f0b1541328bccc41d856a2a22"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="ct-chart" width="1200" height="150" viewBox="0 0 1200 150">
 <style type="text/css">
         <![CDATA[
         .ct-chart .ct-grid {
@@ -161,27 +161,101 @@
     <text x="45" y="38" class="ct-label">75</text>
     <text x="45" y="13" class="ct-label">100</text>
 </g><g class="ct-series ct-series-a">
-<path d="M50.000,15.000" class="ct-line"></path>
+<path d="M50.000,15.000L1190.000,15.000" class="ct-line"></path>
 <line x1="50.000" y1="15.000" x2="50.010" y2="15.000" class="ct-point"><title>10/13/2026 - 1:49:19 AM&#13;
 Line coverage: 100% (23/23)&#13;
 Branch coverage: 100% (10/10)&#13;
+Total lines: 135</title></line><line x1="1190.000" y1="15.000" x2="1190.010" y2="15.000" class="ct-point"><title>11/17/2026 - 3:50:17 AM&#13;
+Line coverage: 100% (23/23)&#13;
+Branch coverage: 90% (9/10)&#13;
 Total lines: 135</title></line></g>
 <g class="ct-series ct-series-b">
-<path d="M50.000,15.000" class="ct-line"></path>
+<path d="M50.000,15.000L1190.000,25.000" class="ct-line"></path>
 <line x1="50.000" y1="15.000" x2="50.010" y2="15.000" class="ct-point"><title>10/13/2026 - 1:49:19 AM&#13;
 Line coverage: 100% (23/23)&#13;
 Branch coverage: 100% (10/10)&#13;
+Total lines: 135</title></line><line x1="1190.000" y1="25.000" x2="1190.010" y2="25.000" class="ct-point"><title>11/17/2026 - 3:50:17 AM&#13;
+Line coverage: 100% (23/23)&#13;
+Branch coverage: 90% (9/10)&#13;
 Total lines: 135</title></line></g>
 </svg>
 </div>
 <script type="text/javascript">/* <![CDATA[ */ 
-var historyChartDatac1dce91057454591b902cda1c3bf2084 = {
-    "series" : [[{ 'meta': 0, 'value': 100 }],
-[{ 'meta': 0, 'value': 100 }],
+var historyChartData5746168f0b1541328bccc41d856a2a22 = {
+    "series" : [[{ 'meta': 0, 'value': 100 }, { 'meta': 1, 'value': 100 }],
+[{ 'meta': 0, 'value': 100 }, { 'meta': 1, 'value': 90 }],
 [],
 []
 ],
-    "tooltips" : ['<h3>10/13/2026 - 1:49:19 AM</h3><br /><span class="linecoverage"></span> Line coverage: 100% (23/23)<br /><span class="branchcoverage"></span> Branch coverage: 100% (10/10)<br />Total lines: 135']
+    "tooltips" : ['<h3>10/13/2026 - 1:49:19 AM</h3><br /><span class="linecoverage"></span> Line coverage: 100% (23/23)<br /><span class="branchcoverage"></span> Branch coverage: 100% (10/10)<br />Total lines: 135','<h3>11/17/2026 - 3:50:17 AM</h3><br /><span class="linecoverage"></span> Line coverage: 100% (23/23)<br /><span class="branchcoverage"></span> Branch coverage: 90% (9/10)<br />Total lines: 135']
+};
+ /* ]]> */ </script>
+<h1>Coverage delta</h1>
+<div class="historydiffchart ct-chart" data-data="historyChartData01dda6878a9a44098498d84c5613f76d"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="ct-chart-bar ct-horizontal-bars" width="1200" height="100" viewBox="0 0 1200 100">
+<style type="text/css">
+        <![CDATA[
+        .ct-chart-bar .ct-grid {
+            stroke: rgba(0,0,0,.2);
+            stroke-width: 1px;
+            stroke-dasharray: 2px;
+        }
+
+        .ct-label {
+            fill: rgba(0, 0, 0, 0.4);
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 12px;
+            font-family: sans-serif;
+            text-anchor: end;
+        }
+
+        .ct-bar {fill: none;
+            stroke-width: 10px;
+        }
+
+        .ct-chart .ct-series.ct-series-a .ct-bar {
+            stroke: #c00;
+        }
+
+        .ct-chart .ct-series.ct-series-b .ct-bar {
+            stroke: #1c2298;
+        }
+
+        .ct-chart .ct-series.ct-series-c .ct-bar {
+            stroke: #0aad0a;
+        }
+
+        .ct-chart .ct-series.ct-series-d .ct-bar {
+            stroke: #FF6A00;
+        }
+        ]]>
+</style>
+<title>Coverage delta</title>
+<defs>
+</defs><g class="ct-grids">
+<line x1="50" x2="1190" y1="0" y2="0" class="ct-grid"></line>
+<line x1="50" x2="1190" y1="25" y2="25" class="ct-grid"></line>
+<line x1="50" x2="1190" y1="50" y2="50" class="ct-grid"></line>
+<line x1="50" x2="1190" y1="75" y2="75" class="ct-grid"></line>
+<line x1="50" x2="1190" y1="100" y2="100" class="ct-grid"></line>
+<line x1="50.000" x2="50.000" y1="0" y2="100" class="ct-grid"></line>
+<line x1="1190.000" x2="1190.000" y1="0" y2="100" class="ct-grid"></line>
+</g>
+<g>
+<text x="45" y="10" class="ct-label">10</text>
+<text x="45" y="100" class="ct-label">-10</text>
+</g>
+<g class="ct-series ct-series-a">
+<line x1="600.500" x2="600.500" y1="50" y2="50.000" class="ct-bar"></line>
+</g>
+<g class="ct-series ct-series-b">
+<line x1="613.500" x2="613.500" y1="50" y2="100.000" class="ct-bar"></line>
+</g>
+</svg>
+</div>
+<script type="text/javascript">/* <![CDATA[ */ 
+var historyChartData01dda6878a9a44098498d84c5613f76d = {
+    "minMaxValue" : 10,    "series" : [[{ 'meta': 0, 'value': 0 }],[{ 'meta': 0, 'value': -10 }],],
+    "tooltips" : ['<h3>Coverage delta</h3><br/>Current: 11/17/2026 - 3:50:17 AM<br/>Previous: 10/13/2026 - 1:49:19 AM<br /><br /><span class="linecoverage"></span> Line coverage: 0%<br /><span class="branchcoverage"></span> Branch coverage: -10%']
 };
  /* ]]> */ </script>
 <h1>Metrics</h1>
@@ -200,7 +274,7 @@ var historyChartDatac1dce91057454591b902cda1c3bf2084 = {
 <tr><td title=".ctor(System.Int32,Wolfgang.Etl.Abstractions.IProgressTimer)"><a href="#file0_line77" class="navigatetohash">.ctor(...)</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
 <tr><td title="ExtractWorkerAsync()"><a href="#file0_line89" class="navigatetohash">ExtractWorkerAsync()</a></td><td>100%</td><td>6</td><td>6</td><td>100%</td></tr>
 <tr><td title="CreateProgressReport()"><a href="#file0_line115" class="navigatetohash">CreateProgressReport()</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
-<tr><td title="CreateProgressTimer(System.IProgress`1&lt;Wolfgang.Etl.Abstractions.Tests.Unit.Models.EtlProgress&gt;)"><a href="#file0_line122" class="navigatetohash">CreateProgressTimer(...)</a></td><td>100%</td><td>4</td><td>4</td><td>100%</td></tr>
+<tr><td title="CreateProgressTimer(System.IProgress`1&lt;Wolfgang.Etl.Abstractions.Tests.Unit.Models.EtlProgress&gt;)"><a href="#file0_line122" class="navigatetohash">CreateProgressTimer(...)</a></td><td>75%</td><td>4</td><td>4</td><td>100%</td></tr>
 </tbody>
 </table>
 </div>
@@ -336,7 +410,7 @@ var historyChartDatac1dce91057454591b902cda1c3bf2084 = {
 <tr class="coverableline" title="Covered (11 visits)" data-coverage="{'AllTestMethods': {'VC': '11', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">11</td><td class="rightmargin right"><a id="file0_line124"></a><code>124</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;base.CreateProgressTimer(progress);</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line125"></a><code>125</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line126"></a><code>126</code></td><td></td><td class="lightgray"><code></code></td></tr>
-<tr class="coverableline" title="Covered (1 visits, 2 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line127"></a><code>127</code></td><td class="percentagebar percentagebar100"><i class="icon-fork"></i></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!_progressTimerWired)</code></td></tr>
+<tr class="coverableline" title="Partially covered (1 visits, 1 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'orange'}}"><td class="orange">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line127"></a><code>127</code></td><td class="percentagebar percentagebar50"><i class="icon-fork"></i></td><td class="lightorange"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!_progressTimerWired)</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line128"></a><code>128</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line129"></a><code>129</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_progressTimerWired&nbsp;=&nbsp;true;</code></td></tr>
 <tr class="coverableline" title="Covered (2 visits)" data-coverage="{'AllTestMethods': {'VC': '2', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">2</td><td class="rightmargin right"><a id="file0_line130"></a><code>130</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_progressTimer.Elapsed&nbsp;+=&nbsp;()&nbsp;=&gt;&nbsp;progress.Report(CreateProgressReport());</code></td></tr>
@@ -348,7 +422,7 @@ var historyChartDatac1dce91057454591b902cda1c3bf2084 = {
 </tbody>
 </table>
 </div>
-<div class="footer">Generated by: ReportGenerator 5.5.11.0<br />10/13/2026 - 1:49:20 AM<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
+<div class="footer">Generated by: ReportGenerator 5.5.11.0<br />11/17/2026 - 3:50:17 AM<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
 <div class="containerright">
 <div class="containerrightfixed">
 <h1>Methods/Properties</h1>

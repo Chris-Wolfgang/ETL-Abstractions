@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.26.1/docfx_project/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/docfx_project/index.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -82,9 +82,39 @@
 </ul>
 <h2 id="about-wolfgangetlabstractions">About Wolfgang.Etl.Abstractions</h2>
 <p>Interface and base classes for building ETLs</p>
+<h2 id="packages">Packages</h2>
+<p>This repository ships four packages, versioned and released together:</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.Abstractions/README.md"><code>Wolfgang.Etl.Abstractions</code></a></td>
+<td>The core <code>ExtractorBase</code> / <code>LoaderBase</code> / <code>TransformerBase</code> types, the <code>EtlPipeline</code> composer, progress reporting, per-item error handling, and resilience seams.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.ErrorPolicies/README.md"><code>Wolfgang.Etl.ErrorPolicies</code></a></td>
+<td>Ready-made item-error policies (skip, log, dead-letter) to assign to a stage's <code>ErrorPolicy</code>.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.TestKit/README.md"><code>Wolfgang.Etl.TestKit</code></a></td>
+<td>Test doubles and harnesses: <code>TestExtractor</code> / <code>TestLoader</code> / <code>TestTransformer</code>, fault injection, a deterministic clock and progress timer.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.TestKit.Xunit/README.md"><code>Wolfgang.Etl.TestKit.Xunit</code></a></td>
+<td>xUnit contract-test base classes that verify a component against the behavioural contract of its base type.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="installation">Installation</h2>
 <pre><code class="lang-bash">dotnet add package Wolfgang.Etl.Abstractions
 </code></pre>
+<p>Add <code>Wolfgang.Etl.ErrorPolicies</code> for the ready-made error policies, and <code>Wolfgang.Etl.TestKit</code> /
+<code>Wolfgang.Etl.TestKit.Xunit</code> to your test projects.</p>
 <h2 id="documentation-sections">Documentation Sections</h2>
 <h3 id="-documentation">📖 <a href="docs/getting-started.html">Documentation</a></h3>
 <p>Step-by-step guides and tutorials to help you use Wolfgang.Etl.Abstractions effectively.</p>
@@ -102,7 +132,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.26.1/docfx_project/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/docfx_project/index.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.26.1/docfx_project/docs/getting-started.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/docfx_project/docs/getting-started.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -216,15 +216,16 @@ the compiler requires the loader's input type to match the source's output:</p>
 <h3 id="progress-cancellation-and-the-escape-hatch">Progress, cancellation, and the escape hatch</h3>
 <ul>
 <li><strong>Progress</strong> — pass an <code>IProgress&lt;EtlPipelineProgress&gt;</code> to <code>RunAsync</code>. The snapshot
-reports <code>RecordsExtracted</code> (counted at the source) and <code>RecordsLoaded</code> (counted at
-the sink) plus <code>Elapsed</code>, regardless of how many stages sit in between.</li>
+reports <code>ExtractedItemCount</code> (counted at the source), <code>LoadedItemCount</code> (counted at
+the sink), <code>ErrorItemCount</code> (items skipped by an error policy, summed across the stages)
+and <code>Elapsed</code>, regardless of how many stages sit in between.</li>
 <li><strong>Cancellation</strong> — the token passed to <code>RunAsync</code> is observed while pulling from the
 source and is forwarded into any cancellation-aware transformer stage.</li>
 <li><strong>Escape hatch</strong> — <code>AsAsyncEnumerable(token)</code> drops to the raw <code>IAsyncEnumerable&lt;T&gt;</code>
 so you can apply <code>System.Linq.Async</code> operators directly.</li>
 </ul>
 <pre><code class="lang-csharp">var progress = new Progress&lt;EtlPipelineProgress&gt;(p =&gt;
-    Console.WriteLine($&quot;extracted {p.RecordsExtracted}, loaded {p.RecordsLoaded}&quot;));
+    Console.WriteLine($&quot;extracted {p.ExtractedItemCount}, loaded {p.LoadedItemCount}, errors {p.ErrorItemCount}&quot;));
 
 await EtlPipeline
     .Create()
@@ -296,21 +297,23 @@ runnable version is in
 <tr>
 <td>Progress</td>
 <td>per-stage <code>IProgress&lt;T&gt;</code></td>
-<td>pipeline-level <code>EtlPipelineProgress</code></td>
+<td>pipeline-level <code>EtlPipelineProgress</code>, plus per-stage <code>IProgress&lt;T&gt;</code> through the <code>From</code> / <code>Through</code> / <code>To</code> overloads that take one</td>
 </tr>
 </tbody>
 </table>
-<p>Reach for <code>Pipeline</code> when you already hold discrete extractor/transformer/loader
-objects and want per-stage progress; reach for <code>EtlPipeline</code> for cross-format flows or
-when you want the operator and format-package extensions.</p>
+<p>Both builders are supported. Reach for <code>Pipeline</code> when you already hold discrete
+extractor/transformer/loader objects and want the staged, typed chain; reach for
+<code>EtlPipeline</code> for cross-format flows or when you want the operator and format-package
+extensions. <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/migrating-pipeline-to-etlpipeline.md">Migrating from <code>Pipeline</code> to <code>EtlPipeline</code></a>
+maps every call shape of one onto the other.</p>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li>Explore the <a href="../api/index.html">API Reference</a> for detailed documentation</li>
 <li>Read the <a href="introduction.html">Introduction</a> to learn more about Wolfgang.Etl.Abstractions</li>
+<li>Add ready-made error policies with <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.ErrorPolicies/README.md"><code>Wolfgang.Etl.ErrorPolicies</code></a></li>
+<li>Test your components with <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.TestKit/README.md"><code>Wolfgang.Etl.TestKit</code></a> and the contract tests in <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/src/Wolfgang.Etl.TestKit.Xunit/README.md"><code>Wolfgang.Etl.TestKit.Xunit</code></a></li>
 <li>Check out example projects in the <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions">GitHub repository</a></li>
 </ul>
-<h2 id="common-issues">Common Issues</h2>
-<!-- Add common issues and their solutions here -->
 <h2 id="additional-resources">Additional Resources</h2>
 <ul>
 <li><a href="https://github.com/Chris-Wolfgang/ETL-Abstractions">GitHub Repository</a></li>
@@ -321,7 +324,7 @@ when you want the operator and format-package extensions.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.26.1/docfx_project/docs/getting-started.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/docfx_project/docs/getting-started.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
