@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 using Xunit;
@@ -158,32 +156,27 @@ public sealed class MaximumItemCountReadTests
 
 
 
-    // A ten-item source that counts how many items a stage has read from it.
+    // A ten-item source that counts how many items a stage has read from it. Built from LINQ
+    // operators rather than iterator methods: a limited stage never reads it to the end, and an
+    // iterator's closing lines would then never run.
     private sealed class CountingSource
     {
         public int ReadCount { get; private set; }
 
 
 
-        public IEnumerable<int> Items()
+        public IEnumerable<int> Items() => Enumerable.Range(1, SourceLength).Select(Count);
+
+
+
+        public IAsyncEnumerable<int> ItemsAsync() => Items().ToAsyncEnumerable();
+
+
+
+        private int Count(int item)
         {
-            for (var i = 1; i <= SourceLength; i++)
-            {
-                ReadCount++;
-                yield return i;
-            }
-        }
-
-
-
-        public async IAsyncEnumerable<int> ItemsAsync([EnumeratorCancellation] CancellationToken token = default)
-        {
-            foreach (var item in Items())
-            {
-                token.ThrowIfCancellationRequested();
-                await Task.Yield();
-                yield return item;
-            }
+            ReadCount++;
+            return item;
         }
     }
 }
