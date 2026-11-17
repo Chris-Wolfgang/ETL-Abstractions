@@ -50,13 +50,22 @@ internal class FibonacciExtractor : IExtractWithProgressAsync<int, EtlProgress>
 
 
 
-    public async IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)
+    public IAsyncEnumerable<int> ExtractAsync(IProgress<EtlProgress> progress)
     {
+        // Checked here, not in the iterator: an iterator body does not run until the first
+        // MoveNextAsync, so a null argument would otherwise surface at the first await foreach.
         if (progress == null)
         {
             throw new ArgumentNullException(nameof(progress));
         }
 
+        return ExtractWithProgressAsync(progress);
+    }
+
+
+
+    private async IAsyncEnumerable<int> ExtractWithProgressAsync(IProgress<EtlProgress> progress)
+    {
         Console.WriteLine($"{ConsoleColors.Green}Extracting{ConsoleColors.Reset} Fibonacci numbers asynchronously...\n");
 
         var count = 0;
