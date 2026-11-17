@@ -25,9 +25,9 @@ namespace Wolfgang.Etl.TestKit;
 /// </para>
 /// <para>
 /// Fault indices are zero-based and refer to the position in the emitted (post-skip)
-/// sequence. A configured fault fires <em>after</em>
-/// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount()"/> for that item,
-/// so a progress report reflects the item that caused the failure. When a
+/// sequence. A configured fault fires <em>instead of</em> the item: the failing item is not
+/// yielded and is not counted in <c>CurrentItemCount</c>, whether the run then aborts or the
+/// item is skipped by an error policy. When a
 /// <see cref="ThrowAt"/> and a <see cref="DuplicateAt"/> are configured for the same index,
 /// the throw takes precedence and the duplicate is not emitted. Calling <see cref="ThrowAt"/>
 /// twice for the same index replaces the earlier exception (last-wins).
@@ -146,10 +146,10 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     /// <summary>
     /// Configures the extractor to throw <paramref name="exception"/> when it reaches the
     /// item at the specified zero-based <paramref name="index"/> in the emitted sequence.
-    /// The failing item is counted (its
-    /// <see cref="ExtractorBase{TSource,TProgress}.IncrementCurrentItemCount()"/> runs) before
-    /// the exception is thrown, so progress reflects the item that caused the failure, but
-    /// the item itself is not yielded.
+    /// The
+    /// failing item is not yielded and is not counted: <c>CurrentItemCount</c> stays at the number of
+    /// items yielded before it, the same count whether the run aborts by default or through an
+    /// error policy that returns <see cref="ItemErrorAction.Abort"/>.
     /// </summary>
     /// <param name="index">The zero-based index of the item to fail on.</param>
     /// <param name="exception">The exception to throw.</param>
@@ -331,10 +331,10 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
 
     // Applies the configured error policy to an injected fault. Returns true when the
-    // failing item should be skipped — routed through the base HandleItemError hook,
-    // which counts it as an error (not a processed item). Throws to abort the run, or,
-    // when no policy is configured, to preserve fail-fast behaviour (counting the
-    // failing item first, matching the ThrowAt contract).
+    // failing item should be skipped: routed through the base HandleItemError hook,
+    // which counts it as an error (not a processed item). Otherwise throws to abort the run.
+    // The failing item is never counted as processed, with or without a policy. Without one
+    // the hook is not consulted at all, so CapturedErrors stays empty on the fail-fast default.
     // True when an error policy was configured either fluently (SkipErrors / HandleErrorsWith) or
     // through the options record's ErrorPolicy; false leaves the stage on its fail-fast default.
     private bool HasErrorPolicy =>
@@ -344,17 +344,12 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
     private bool HandleInjectedFault(int index, Exception exception)
     {
-        if (HasErrorPolicy)
+        if (HasErrorPolicy
+            && HandleItemError(new ItemErrorContext(index + 1, exception)) == ItemErrorAction.Skip)
         {
-            if (HandleItemError(new ItemErrorContext(index + 1, exception)) == ItemErrorAction.Skip)
-            {
-                return true;
-            }
-
-            throw exception;
+            return true;
         }
 
-        IncrementCurrentItemCount();
         throw exception;
     }
 
@@ -431,7 +426,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
         BeginRun(token);
 
         // Keeps the iterator async. Not Task.Yield(): that resumes on the caller's SynchronizationContext.
-        // Stryker disable once Statement : equivalent — the await completes synchronously (#452).
+        // Stryker disable once Statement,Boolean : equivalent — the await completes synchronously (#452).
         await Task.CompletedTask.ConfigureAwait(false);
 
         var enumerator = _items.GetEnumerator();
