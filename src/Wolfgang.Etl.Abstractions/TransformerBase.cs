@@ -392,7 +392,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         ResetRunState();
 
         var timer = CreateProgressTimer(progress);
-        var runFailed = false;
+        var outcome = new RunOutcome();
 
         try
         {
@@ -415,7 +415,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
                     catch
                     {
                         // Noted here because a yield cannot sit inside a try that has a catch.
-                        runFailed = true;
+                        outcome.Failed = true;
                         throw;
                     }
 
@@ -429,12 +429,8 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
             }
             finally
             {
-                // The flag stays set if DisposeAsync throws: a worker whose cleanup fails has failed.
-                var failedBeforeDispose = runFailed;
-                runFailed = true;
                 // Stryker disable once Boolean : same equivalence as above (#452).
-                await enumerator.DisposeAsync().ConfigureAwait(false);
-                runFailed = failedBeforeDispose;
+                await outcome.DisposeAsync(enumerator).ConfigureAwait(false);
             }
         }
         finally
@@ -442,7 +438,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 #pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here; await is not valid in a finally block
             timer.Dispose();
 #pragma warning restore CA1849, VSTHRD103
-            FinalProgressReport.Send(progress, CreateProgressReport, runFailed);
+            FinalProgressReport.Send(progress, CreateProgressReport, outcome.Failed);
         }
     }
 
