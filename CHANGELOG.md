@@ -16,6 +16,53 @@ before it; add a line there when a release is cut.
 Unreleased changes are not listed here. Each one is a fragment file in
 [`changelog/unreleased/`](changelog/unreleased/), assembled into a version section at release time.
 
+## [0.27.0] - 2026-11-16
+
+### Added
+
+- `EtlPipeline` reports each stage's own typed progress: `From(extractor, progress)`, `Through(transformer, progress)` and `To(loader, progress)` are the counterparts of `WithProgress` on the fluent `Pipeline` builder, and `docs/migrating-pipeline-to-etlpipeline.md` maps every `Pipeline` call shape to its `EtlPipeline` equivalent. (#382)
+- Add `PropertySelector.Resolve`, which turns a property-selector lambda such as `x => x.Name` into its validated `PropertyInfo`, so the per-library schema builders share one selector rule. (#758)
+
+### Fixed
+
+- The six mid-stream cancellation contract tests in `Wolfgang.Etl.TestKit.Xunit` now accept any `OperationCanceledException` (including `TaskCanceledException`), like the rest of the cancellation contract tests. (#896)
+- `DisposingOwned` now disposes every owned resource even when one throws on dispose, and a disposal failure no longer replaces the exception from a failed run; disposal failures on a successful run surface as an `AggregateException`. (#893)
+- `Wolfgang.Etl.Abstractions` no longer depends on `System.ComponentModel.Annotations` and no longer packs `ETL-Abstractions.ico` into the package `content/` folder, and `Wolfgang.Etl.TestKit` / `Wolfgang.Etl.TestKit.Xunit` no longer depend on `Microsoft.Bcl.Memory`; none of them used these. (#734)
+- `EtlPipeline` runs now report the final `EtlPipelineProgress` snapshot, with the exact counts, when the run fails or is cancelled, not only when it completes. (#892)
+- `EtlPipeline.RunAsync(progress)` no longer allocates and reports an `EtlPipelineProgress` snapshot for every record: it reports the first record, then at most one snapshot every 100 ms, then the exact final snapshot when the run completes. (#735)
+- The extractor contract test bases no longer require exactly five expected items: the SUT is created with as many items as `CreateExpectedItems()` returns (at least three), and the docs and examples now say so consistently. (#903)
+- `FaultyExtractor`, `FaultyLoader` and `FaultyTransformer` now apply an `ErrorPolicy` supplied through the options record to injected `ThrowAt` faults, not only one set with `SkipErrors` / `HandleErrorsWith`. (#900)
+- `LoaderBase.LoadAsync` overloads without progress now return a faulted task when the worker throws before its first `await`, matching the progress overloads, instead of throwing synchronously. (#891)
+- The two `LoaderBaseContractTests` "invokes callback when timer fires" tests now check the callback before the load completes, so they fail when a timer tick delivers no report instead of being satisfied by the final report. (#897)
+- Disposing the built-in progress timer now waits for a tick that is already reporting, so a stage's final progress report can no longer be followed by a stale periodic one. (#894)
+- `Report`'s timing constructor now reports `totalItemCount` (not `value`) as the parameter name when the total is negative. (#890)
+- `RetryingExtractor.AttemptCount` now resets at the start of each run, as documented, so a second run on the same instance injects its transient faults again. (#898)
+- `StartedAt` on `ExtractorBase`, `TransformerBase` and `LoaderBase` is now published together with the start timestamp, so a progress report built on the timer thread can no longer read `StartedAt` as `0001-01-01` at the start of a run. (#731)
+- `TestExtractor`, `FaultyExtractor` and `RetryingExtractor` no longer `await Task.Yield()`, which resumed on the caller's `SynchronizationContext`; a host that blocks on the extraction from such a context can no longer deadlock on the test double. (#901)
+- `FaultyExtractor` and `FaultyTransformer` now throw the `ThrowAfterCompletion` exception when the run stops at `MaximumItemCount`, as `FaultyLoader` already did. (#899)
+- An exception thrown during a periodic progress tick (from `CreateProgressReport`, a synchronous `IProgress<T>.Report`, or an `Elapsed` subscriber) no longer terminates the process; the built-in timer stops ticking instead, and a persistent fault surfaces through the final report. (#895)
+
+### Documentation
+
+- The remaining repository links in the Abstractions package README are absolute, so they resolve on nuget.org. (#959)
+- The package READMEs' code samples compile against the current API (TestKit quick start, the `EtlScenario` sample, the four-argument `CreateSut` override, the `Report` timing constructor), and their target-framework lists match what each package ships. (#730)
+- XML docs now match the code: `ReportingInterval` is in milliseconds, `ItemErrorAction.Skip` and `EtlPipelineProgress.ErrorItemCount` describe the error-item count (summed across every stage), `Dispose`/`DisposeAsync` say the stage then throws `ObjectDisposedException`, and the `MaximumItemCount`/`SkipItemCount` examples call the `Increment*` helpers. (#732)
+
+### Internal
+
+- PackageValidation compares against 0.26.1 (the last published version) for all four packages. (#719)
+- `LoaderBaseContractTests.LoadAsync_does_not_over_read_past_MaximumItemCount_Async` and `TransformerBaseContractTests.TransformAsync_does_not_over_read_past_MaximumItemCount_Async` are no longer tests: each repeated the check its `..._stops_reading_source_at_MaximumItemCount_Async` neighbour makes. Both are marked `[Obsolete]`, so a derived test class reports one test fewer per base. (#952)
+- `ExtractorBase` and `TransformerBase` enumerate the worker with a manual `MoveNextAsync().ConfigureAwait(false)` loop instead of `await foreach (... .ConfigureAwait(false))`, so the Coyote dispose-race test can run. Same behaviour, including the no-context continuations. (#364)
+- The shipped `.dll` and `.pdb` files are now byte-identical whether the package is built on Linux or Windows, and CI fails if they are not. (#722)
+- Source formatting follows the repository style everywhere: constructor braces, indentation, `using` order, three blank lines between members, no UTF-8 BOMs. No behaviour change. (#737)
+- Internal pipeline stage classes name the interface member each `<inheritdoc>` copies from, resolving the InspectCode InheritdocInvalidUsage and MA0196 findings. No behaviour change. (#787)
+- InspectCode treats the `EtlPipeline/` and `Pipeline/` source folders as non-namespace folders, matching the assembly's single flat `Wolfgang.Etl.Abstractions` namespace. No code change. (#788)
+- New unit tests kill the 8 surviving Stryker mutants (error-count registration in the pipeline builders, early-abandon disposal of the worker enumerator, and the To(loader, progress) context-capture path). Mutation score 96.88% to 98.66%. (#817)
+- The assembly/package copyright is now the literal "2025-2026" instead of the build-clock year, so rebuilding a tag after 31 December reproduces the released bytes (#801). (#817)
+- The fluent `Pipeline` builder's internal extract and transform stages are one class; `RetryingExtractor` documents that its retry buffers each attempt. No public API or behaviour change. (#738)
+- Tidy the shipped TestKit.Xunit contract tests: use `Assert.Single` and normalize preprocessor indentation, with no change in behaviour. (#736)
+- `Wolfgang.Etl.TestKit` no longer references `System.Linq.Async`, which it did not use; the ErrorPolicies dropped-dead-letter warning now says the channel was "full or completed". (#902)
+
 ## [0.26.1] - 2026-10-12
 
 ### Internal
@@ -688,7 +735,8 @@ History before 0.13.1 is not recorded in this file. The earlier versions (v0.4.0
 tags in the repository; all but v0.5.0, v0.5.1 and v0.5.2 also have notes on the
 [GitHub releases page](https://github.com/Chris-Wolfgang/ETL-Abstractions/releases).
 
-[Unreleased]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.26.1...HEAD
+[Unreleased]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.27.0...HEAD
+[0.27.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.26.1...v0.27.0
 [0.26.1]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.26.0...v0.26.1
 [0.26.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.25.0...v0.26.0
 [0.25.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.24.0...v0.25.0
