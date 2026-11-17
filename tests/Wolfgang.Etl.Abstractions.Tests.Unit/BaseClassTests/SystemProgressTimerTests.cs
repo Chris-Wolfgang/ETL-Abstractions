@@ -119,6 +119,44 @@ public class SystemProgressTimerTests
 
 
     /// <summary>
+    /// Verifies that a tick arriving while the previous one is still inside the callback returns
+    /// at once without reporting, instead of queuing behind it on a thread-pool thread.
+    /// </summary>
+    [Fact]
+    public async Task Tick_when_the_previous_tick_is_still_reporting_is_dropped()
+    {
+        var blockingTick = new BlockingTick();
+        var callbackCount = 0;
+        ArmableTimerCore? core = null;
+        using var timer = new SystemProgressTimer
+        (
+            _ =>
+            {
+                Interlocked.Increment(ref callbackCount);
+                blockingTick.OnTick();
+            },
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timer.Start(20);
+
+        var firstTick = Task.Run(() => core!.FireIfArmed());
+        blockingTick.WaitUntilEntered();
+
+        var overlappingTick = Task.Run(() => core!.FireIfArmed());
+        var finishedFirst = await Task.WhenAny(overlappingTick, Task.Delay(TimeSpan.FromSeconds(10)));
+
+        // Released before asserting: a failed assertion must not leave the first tick holding the gate.
+        blockingTick.Release();
+        await firstTick;
+
+        Assert.Same(overlappingTick, finishedFirst);
+        Assert.Equal(1, Volatile.Read(ref callbackCount));
+    }
+
+
+
+    /// <summary>
     /// A timer callback that signals when it is entered and then blocks until released,
     /// recording the order in which it and the test's own steps finish.
     /// </summary>
