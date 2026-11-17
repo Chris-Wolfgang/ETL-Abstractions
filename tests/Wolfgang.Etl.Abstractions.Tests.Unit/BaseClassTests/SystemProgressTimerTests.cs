@@ -47,82 +47,6 @@ public class SystemProgressTimerTests
 
 
 
-    /// <summary>
-    /// Verifies that <see cref="SystemProgressTimer.Start"/> is a no-op
-    /// after <see cref="SystemProgressTimer.Dispose"/> has been called.
-    /// </summary>
-    [Fact]
-    public async Task Start_after_dispose_does_not_throw()
-    {
-        IProgressTimer? capturedTimer = null;
-        var sut = new CapturingExtractor(onTimerCreated: t => capturedTimer = t);
-
-        var task = sut.ExtractAsync(new SynchronousProgress<EtlProgress>(_ => { }))
-                      .ToListAsync()
-                      .AsTask();
-
-        Assert.True(SpinWait.SpinUntil(() => capturedTimer != null, millisecondsTimeout: 2000));
-
-        capturedTimer!.Dispose();
-        var exception = Record.Exception(() => capturedTimer.Start(100));
-
-        await task;
-
-        Assert.Null(exception);
-    }
-
-    /// <summary>
-    /// Verifies that the timer callback fires at least once during extraction,
-    /// confirming the callback body (callback + Elapsed) is executed.
-    /// </summary>
-    [Fact]
-    public async Task Timer_callback_fires_during_extraction()
-    {
-        var elapsedCount = 0;
-
-        var sut = new CapturingExtractor(
-            onTimerCreated: t =>
-            {
-                t.Elapsed += () => Interlocked.Increment(ref elapsedCount);
-            },
-            intervalMs: 30,
-            workerDelayMs: 200);
-
-        var progress = new SynchronousProgress<EtlProgress>(_ => { });
-
-        await sut.ExtractAsync(progress).ToListAsync();
-
-        Assert.True(elapsedCount > 0, "Elapsed event should have fired at least once during extraction");
-    }
-
-    /// <summary>
-    /// Verifies that <see cref="SystemProgressTimer.StopTimer"/> is a no-op
-    /// after <see cref="SystemProgressTimer.Dispose"/> has been called.
-    /// </summary>
-    [Fact]
-    public async Task StopTimer_after_dispose_does_not_throw()
-    {
-        IProgressTimer? capturedTimer = null;
-        var sut = new CapturingExtractor(onTimerCreated: t => capturedTimer = t);
-
-        // Trigger timer creation by starting extraction — timer is captured in CreateProgressTimer
-        var task = sut.ExtractAsync(new SynchronousProgress<EtlProgress>(_ => { }))
-                      .ToListAsync()
-                      .AsTask();
-
-        // Wait for the timer to be created
-        Assert.True(SpinWait.SpinUntil(() => capturedTimer != null, millisecondsTimeout: 2000));
-
-        capturedTimer!.Dispose();
-        var exception = Record.Exception(() => capturedTimer.StopTimer());
-
-        await task;
-
-        Assert.Null(exception);
-    }
-
-
-
     // ------------------------------------------------------------------
     // Disposed guard in callback
     // ------------------------------------------------------------------
@@ -154,51 +78,257 @@ public class SystemProgressTimerTests
 
 
 
-    // ------------------------------------------------------------------
-    // Test double
-    // ------------------------------------------------------------------
+    /// <summary>
+    /// Verifies that <see cref="SystemProgressTimer.Dispose"/> does not return while a tick is
+    /// still inside the callback, so a report sent after Dispose is always the last one.
+    /// </summary>
+    [Fact]
+    public async Task Dispose_when_a_tick_is_in_flight_waits_for_it_to_finish()
+    {
+        var blockingTick = new BlockingTick();
+        ArmableTimerCore? core = null;
+        var timer = new SystemProgressTimer
+        (
+            _ => blockingTick.OnTick(),
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timer.Start(20);
+
+        var tick = Task.Run(() => core!.FireIfArmed());
+        blockingTick.WaitUntilEntered();
+        var dispose = Task.Run
+        (
+            () =>
+            {
+                timer.Dispose();
+                blockingTick.Record("disposed");
+            }
+        );
+
+        var first = await Task.WhenAny(dispose, Task.Delay(250));
+        Assert.NotSame(dispose, first);
+
+        blockingTick.Release();
+        await tick;
+        await dispose;
+
+        Assert.Equal(new[] { "tick", "disposed" }, blockingTick.Events());
+    }
+
+
 
     /// <summary>
-    /// An extractor that overrides <c>CreateProgressTimer</c> to capture
-    /// the <see cref="IProgressTimer"/> instance for inspection in tests.
+    /// Verifies that a tick arriving while the previous one is still inside the callback returns
+    /// at once without reporting, instead of queuing behind it on a thread-pool thread.
     /// </summary>
-    private sealed class CapturingExtractor : ExtractorBase<int, EtlProgress>
+    [Fact]
+    public async Task Tick_when_the_previous_tick_is_still_reporting_is_dropped()
     {
-        private readonly Action<IProgressTimer> _onTimerCreated;
-        private readonly int _workerDelayMs;
-
-        public CapturingExtractor(
-            Action<IProgressTimer> onTimerCreated,
-            int intervalMs = 100,
-            int workerDelayMs = 0)
-            : base(new ExtractorOptions { ReportingInterval = intervalMs })
-        {
-            _onTimerCreated = onTimerCreated;
-            _workerDelayMs = workerDelayMs > 0 ? workerDelayMs : intervalMs * 2;
-        }
-
-        protected override IProgressTimer CreateProgressTimer(IProgress<EtlProgress> progress)
-        {
-            var timer = base.CreateProgressTimer(progress);
-            _onTimerCreated(timer);
-            return timer;
-        }
-
-        protected override EtlProgress CreateProgressReport() =>
-            new(CurrentItemCount);
-
-        protected override async IAsyncEnumerable<int> ExtractWorkerAsync(
-            [EnumeratorCancellation] CancellationToken token)
-        {
-            for (var i = 0; i < 5; i++)
+        var blockingTick = new BlockingTick();
+        // A box, not a local: the callback and the assertion then share one object and no
+        // captured local is written from two scopes.
+        var callbackCount = new StrongBox<int>();
+        ArmableTimerCore? core = null;
+        using var timer = new SystemProgressTimer
+        (
+            _ =>
             {
-                await Task.Delay(_workerDelayMs, token);
-                yield return i;
+                Interlocked.Increment(ref callbackCount.Value);
+                blockingTick.OnTick();
+            },
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timer.Start(20);
+
+        var firstTick = Task.Run(() => core!.FireIfArmed());
+        blockingTick.WaitUntilEntered();
+
+        var overlappingTick = Task.Run(() => core!.FireIfArmed());
+        var finishedFirst = await Task.WhenAny(overlappingTick, Task.Delay(TimeSpan.FromSeconds(10)));
+
+        // Released before asserting: a failed assertion must not leave the first tick holding the gate.
+        blockingTick.Release();
+        await firstTick;
+
+        Assert.Same(overlappingTick, finishedFirst);
+        Assert.Equal(1, Volatile.Read(ref callbackCount.Value));
+    }
+
+
+
+    /// <summary>
+    /// A timer callback that signals when it is entered and then blocks until released,
+    /// recording the order in which it and the test's own steps finish.
+    /// </summary>
+    /// <remarks>
+    /// Signals with a monitor rather than wait handles, so there is nothing to dispose and the
+    /// test's lambdas can hold it for as long as they run.
+    /// </remarks>
+    private sealed class BlockingTick
+    {
+        private readonly object _gate = new();
+        private readonly List<string> _events = new();
+        private bool _entered;
+        private bool _released;
+
+
+
+        public void OnTick()
+        {
+            lock (_gate)
+            {
+                _entered = true;
+                Monitor.PulseAll(_gate);
+                while (!_released)
+                {
+                    Monitor.Wait(_gate);
+                }
+
+                _events.Add("tick");
+            }
+        }
+
+
+
+        // Polls rather than waits: a wait that is only sometimes needed would leave a line
+        // that is only sometimes covered.
+        public void WaitUntilEntered() => SpinWait.SpinUntil(HasEntered);
+
+
+
+        private bool HasEntered()
+        {
+            lock (_gate)
+            {
+                return _entered;
+            }
+        }
+
+
+
+        public void Release()
+        {
+            lock (_gate)
+            {
+                _released = true;
+                Monitor.PulseAll(_gate);
+            }
+        }
+
+
+
+        public void Record(string name)
+        {
+            lock (_gate)
+            {
+                _events.Add(name);
+            }
+        }
+
+
+
+        public string[] Events()
+        {
+            lock (_gate)
+            {
+                return _events.ToArray();
             }
         }
     }
 
 
+
+    /// <summary>
+    /// Verifies that a tick may dispose its own timer (the gate is re-entrant).
+    /// </summary>
+    [Fact]
+    public void Dispose_from_inside_a_tick_does_not_deadlock()
+    {
+        var callbackCount = 0;
+        ArmableTimerCore? core = null;
+        // The callback needs the timer it belongs to, which exists only after construction;
+        // the one-element array is assigned once and filled in afterwards.
+        var timerSlot = new SystemProgressTimer?[1];
+        var timer = new SystemProgressTimer
+        (
+            _ =>
+            {
+                callbackCount++;
+                timerSlot[0]!.Dispose();
+            },
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timerSlot[0] = timer;
+        timer.Start(20);
+
+        core!.FireIfArmed();
+        core.FireRegardless();
+
+        Assert.Equal(1, callbackCount);
+    }
+
+
+
+    /// <summary>
+    /// Verifies that an exception thrown by the tick callback does not escape the tick (on a real
+    /// timer it would be unhandled on a thread-pool thread) and stops further ticks.
+    /// </summary>
+    [Fact]
+    public void Tick_when_the_callback_throws_swallows_the_exception_and_stops_the_timer()
+    {
+        var callbackCount = 0;
+        ArmableTimerCore? core = null;
+        using var timer = new SystemProgressTimer
+        (
+            _ =>
+            {
+                callbackCount++;
+                throw new InvalidOperationException("report failed");
+            },
+            state: null,
+            onTick => core = new ArmableTimerCore(onTick)
+        );
+        timer.Start(20);
+
+        core!.FireIfArmed();
+        core.FireIfArmed();
+
+        Assert.Equal(1, callbackCount);
+    }
+
+
+
+    /// <summary>
+    /// Verifies that an exception thrown by an <see cref="IProgressTimer.Elapsed"/> subscriber
+    /// is contained the same way.
+    /// </summary>
+    [Fact]
+    public void Tick_when_an_Elapsed_subscriber_throws_swallows_the_exception_and_stops_the_timer()
+    {
+        var elapsedCount = 0;
+        ArmableTimerCore? core = null;
+        using var timer = new SystemProgressTimer(_ => { }, state: null, onTick => core = new ArmableTimerCore(onTick));
+        timer.Elapsed += () =>
+        {
+            elapsedCount++;
+            throw new InvalidOperationException("subscriber failed");
+        };
+        timer.Start(20);
+
+        core!.FireIfArmed();
+        core.FireIfArmed();
+
+        Assert.Equal(1, elapsedCount);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Test double
+    // ------------------------------------------------------------------
 
     /// <summary>
     /// A deterministic <see cref="ITimerCore"/>: it fires only when the test says so, and

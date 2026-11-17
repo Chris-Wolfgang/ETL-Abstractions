@@ -6,7 +6,7 @@ namespace Wolfgang.Etl.Abstractions;
 
 /// <summary>
 /// Per-run counter bag for a generic ETL pipeline. Created when a run starts and threaded through the
-/// factory chain so the source can count extracted records and the sink can count loaded records.
+/// factory chain so the source can count extracted records and the sink can report loaded records.
 /// A pipeline is enumerated by a single consumer one item at a time, so the counters are only ever
 /// touched on one logical flow and need no synchronization.
 /// </summary>
@@ -29,7 +29,18 @@ internal sealed class EtlRunState
 
     public long ExtractedItemCount;
 
-    public long LoadedItemCount;
+
+
+    // Reads the number of records the loader has loaded. The loader owns that count: it knows which
+    // of the records it pulled it skipped (SkipItemCount), discarded (an error policy) or never
+    // reached (MaximumItemCount), so the sink registers the loader's own counter instead of counting
+    // what flowed past. Reads as 0 until a sink registers one.
+    private Func<long> _loadedCountReader = static () => 0;
+
+
+
+    // Registers the loader's loaded-record counter. Called once, by the sink, when the run starts.
+    public void SetLoadedCountReader(Func<long> reader) => _loadedCountReader = reader;
 
 
 
@@ -99,7 +110,7 @@ internal sealed class EtlRunState
             errorItemCount += reader();
         }
 
-        return new EtlPipelineProgress(ExtractedItemCount, LoadedItemCount, Elapsed)
+        return new EtlPipelineProgress(ExtractedItemCount, _loadedCountReader(), Elapsed)
         {
             ErrorItemCount = errorItemCount,
         };

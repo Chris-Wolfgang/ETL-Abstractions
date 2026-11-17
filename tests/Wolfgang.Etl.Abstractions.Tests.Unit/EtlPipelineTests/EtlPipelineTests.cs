@@ -298,9 +298,9 @@ public class EtlPipelineCoreTests
         Assert.Equal(5, final.ExtractedItemCount);
         Assert.Equal(5, final.LoadedItemCount);
 
-        // The sink reports the first loaded record straight away, not only at the end — so an
-        // intermediate snapshot capturing exactly one loaded record must be present.
-        Assert.Contains(reports, r => r.LoadedItemCount == 1);
+        // The sink reports straight away, as the first record reaches it, not only at the end. That
+        // record is extracted but not loaded yet: LoadedItemCount is the loader's own count.
+        Assert.Contains(reports, r => r.ExtractedItemCount == 1 && r.LoadedItemCount == 0);
     }
 
 
@@ -428,5 +428,44 @@ public class EtlPipelineCoreTests
         Assert.Equal(big, p.ExtractedItemCount);
         Assert.Equal(big, p.LoadedItemCount);
         Assert.Equal(big, p.ErrorItemCount);
+    }
+
+
+    [Fact]
+    public async Task RunAsync_when_the_run_fails_reports_a_final_snapshot_with_the_exact_counts()
+    {
+        var reports = new List<EtlPipelineProgress>();
+        var progress = new SynchronousProgress<EtlPipelineProgress>(reports.Add);
+
+        var sink = EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3, 4, 5))
+            .Through(new MapTransformer<int, int>(x => x == 3 ? throw new InvalidOperationException("boom") : x))
+            .To(new CollectingLoader<int>());
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => sink.RunAsync(progress));
+
+        Assert.Equal(3, reports[reports.Count - 1].ExtractedItemCount);
+        Assert.Equal(2, reports[reports.Count - 1].LoadedItemCount);
+    }
+
+
+    [Fact]
+    public async Task RunAsync_when_the_run_is_cancelled_reports_a_final_snapshot_with_the_exact_counts()
+    {
+        using var cts = new CancellationTokenSource();
+        var reports = new List<EtlPipelineProgress>();
+        var progress = new SynchronousProgress<EtlPipelineProgress>(reports.Add);
+        var loader = new CollectingLoader<int>();
+
+        var sink = EtlPipeline
+            .Create()
+            .From(AsyncSource(1, 2, 3, 4, 5))
+            .Through(new CancelingTransformer<int>(cts, 2))
+            .To(loader);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => sink.RunAsync(progress, cts.Token));
+
+        Assert.Equal(loader.Loaded.Count, reports[reports.Count - 1].LoadedItemCount);
     }
 }

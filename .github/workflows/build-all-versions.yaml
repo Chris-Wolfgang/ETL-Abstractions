@@ -55,12 +55,13 @@ jobs:
           $outDir = Join-Path $env:RUNNER_TEMP 'all_version_docs'
           New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 
-          # Versions to build – discovered automatically from all v*.*.* git tags so
+          # Versions to build – discovered automatically from all release tags, with or
+          # without the v prefix (this repository has both: v0.23.2 and 0.23.3), so
           # no manual list updates are needed when new releases are published.
           # 'latest' is handled separately below.
-          $semverRe = '^v(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>[0-9A-Za-z.-]+))?$'
+          $semverRe = '^v?(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>[0-9A-Za-z.-]+))?$'
           $versions = @(
-            git tag -l 'v*' |
+            git tag -l 'v*' '[0-9]*' | Sort-Object -Unique |
               Where-Object { $_ -match $semverRe } |
               ForEach-Object {
                 $_ -match $semverRe | Out-Null
@@ -169,8 +170,8 @@ jobs:
           Write-Host "Building docs for latest" -ForegroundColor Cyan
           Write-Host "========================================" -ForegroundColor Cyan
 
-          $semverRe = '^v(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)$'
-          $latestTag = git tag -l 'v*' |
+          $semverRe = '^v?(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)$'
+          $latestTag = git tag -l 'v*' '[0-9]*' | Sort-Object -Unique |
             Where-Object { $_ -match $semverRe } |
             ForEach-Object {
               $_ -match $semverRe | Out-Null
@@ -276,8 +277,8 @@ jobs:
           $repoName = ($env:GITHUB_REPOSITORY -split '/')[-1]
           $base = if ($repoName) { "/$repoName/" } else { "/" }
 
-          $semverRe = '^v(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>[0-9A-Za-z.-]+))?$'
-          $tags = git tag -l 'v*' | Where-Object { $_ -ne '' }
+          $semverRe = '^v?(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>[0-9A-Za-z.-]+))?$'
+          $tags = git tag -l 'v*' '[0-9]*' | Where-Object { $_ -ne '' } | Sort-Object -Unique
 
           $taggedVersions = foreach ($t in $tags) {
             if ($t -match $semverRe) {

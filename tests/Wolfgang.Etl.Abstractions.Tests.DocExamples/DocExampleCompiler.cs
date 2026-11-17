@@ -1,5 +1,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.Extensions.Logging;
+using Wolfgang.Etl.ErrorPolicies;
 
 namespace Wolfgang.Etl.Abstractions.Tests.DocExamples;
 
@@ -56,7 +58,9 @@ public static class DocExampleCompiler
             using System.Threading;
             using System.Threading.Tasks;
             using System.Collections.Generic;
+            using Microsoft.Extensions.Logging;
             using Wolfgang.Etl.Abstractions;
+            using Wolfgang.Etl.ErrorPolicies;
 
             namespace DocExamples.Generated
             {
@@ -74,6 +78,21 @@ public static class DocExampleCompiler
                         => throw new NotSupportedException();
                 }
 
+                // The record type and the extractor the ErrorPolicies example names.
+                internal sealed class Record { }
+
+                internal sealed class SomeExtractor<T> : ExtractorBase<T, Report>
+                    where T : notnull
+                {
+                    public SomeExtractor(IEnumerable<T> source) { _ = source; }
+
+                    protected override IAsyncEnumerable<T> ExtractWorkerAsync(CancellationToken token)
+                        => throw new NotSupportedException();
+
+                    protected override Report CreateProgressReport()
+                        => throw new NotSupportedException();
+                }
+
                 // Supplies the placeholder identifiers the illustrative snippets reference. These
                 // are scaffolding, not the API under test: they are never executed (the snippets are
                 // compiled, not run), so their values are irrelevant. Their TYPES are chosen so the
@@ -83,7 +102,7 @@ public static class DocExampleCompiler
                     protected int MaximumItemCount;
                     protected int SkipItemCount;
                     protected string filePath;
-                    protected IEnumerable<Order> items;
+                    protected IAsyncEnumerable<Order> items;
                     protected IAsyncEnumerable<Order> records;
                     protected LoaderBase<Order, Report> sqlLoader;
                     protected IProgress<EtlPipelineProgress> progress;
@@ -97,8 +116,11 @@ public static class DocExampleCompiler
                     protected IProgress<Report> loadProgress;
                     protected int CurrentItemCount;
                     protected int CurrentSkippedItemCount;
+                    protected IEnumerable<Record> source;
+                    protected ILogger logger;
                     protected void IncrementCurrentItemCount() { }
                     protected void IncrementCurrentSkippedItemCount() { }
+                    protected string Transform(Order item) => string.Empty;
                 }
 
                 internal sealed class Example : DocExampleContext
@@ -178,6 +200,8 @@ public static class DocExampleCompiler
         // Belt-and-braces: guarantee the library under test is referenced even if it is
         // ever loaded from outside the TPA closure.
         AddIfUnseen(references, seen, typeof(EtlPipeline).Assembly.Location);
+        AddIfUnseen(references, seen, typeof(ItemErrorPolicy).Assembly.Location);
+        AddIfUnseen(references, seen, typeof(ILogger).Assembly.Location);
 
         return references;
     }

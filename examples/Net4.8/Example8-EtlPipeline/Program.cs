@@ -16,7 +16,7 @@ namespace Example8_EtlPipeline
 
             // Report EtlPipelineProgress as records flow through. The core counts the
             // two ends of the pipeline: ExtractedItemCount at the source, LoadedItemCount
-            // at the sink — regardless of how many stages sit in between.
+            // from the loader (the records it loaded) — regardless of how many stages sit in between.
             var progress = new Progress<EtlPipelineProgress>(p =>
                 Console.WriteLine(
                     $"{ConsoleColors.Green}[progress]{ConsoleColors.Reset} " +

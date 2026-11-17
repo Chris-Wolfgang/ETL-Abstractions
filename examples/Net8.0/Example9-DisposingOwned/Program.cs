@@ -31,7 +31,7 @@ internal static class Program
             .DisposingOwned(stream)
             .RunAsync();
 
-        // Proof the stream was closed: if it were still open, File.OpenRead would throw
+        // Proof the stream was closed: if it were still open, reading the file back would throw
         // IOException (the file would still be locked for writing).
         Console.WriteLine($"{ConsoleColors.Green}Wrote and closed:{ConsoleColors.Reset} {path}\n");
         foreach (var line in await File.ReadAllLinesAsync(path))

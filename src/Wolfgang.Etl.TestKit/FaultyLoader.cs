@@ -311,6 +311,10 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
     /// through the error hook, in the order they occurred. Empty when no error policy is
     /// configured (faults propagate) or when no fault has fired.
     /// </summary>
+    /// <remarks>
+    /// Per run, like the stage's counters: the list is cleared each time the worker starts, so a
+    /// reused instance reports only the errors of its latest run.
+    /// </remarks>
     public IReadOnlyList<ItemErrorContext> CapturedErrors => _capturedErrors.ToArray();
 
 
@@ -343,9 +347,16 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
     // which counts it as an error (not a loaded item). Throws to abort the run, or,
     // when no policy is configured, to preserve fail-fast behaviour (counting the
     // failing item first, matching the ThrowAt contract).
+    // True when an error policy was configured either fluently (SkipErrors / HandleErrorsWith) or
+    // through the options record's ErrorPolicy; false leaves the stage on its fail-fast default.
+    private bool HasErrorPolicy =>
+        _onItemErrorPolicy is not null || !ReferenceEquals(ErrorPolicy, DefaultItemErrorPolicy.Abort);
+
+
+
     private bool HandleInjectedFault(int index, Exception exception)
     {
-        if (_onItemErrorPolicy is not null)
+        if (HasErrorPolicy)
         {
             if (HandleItemError(new ItemErrorContext(index + 1, exception)) == ItemErrorAction.Skip)
             {
@@ -406,6 +417,18 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
 
 
 
+    // Runs at the start of every worker invocation: per-run state starts empty, as the base
+    // counters do.
+    private void BeginRun(CancellationToken token)
+    {
+        token.ThrowIfCancellationRequested();
+
+        _buffer.Clear();
+        _capturedErrors.Clear();
+    }
+
+
+
     /// <inheritdoc/>
     protected override async Task LoadWorkerAsync
     (
@@ -413,9 +436,7 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
         CancellationToken token
     )
     {
-        token.ThrowIfCancellationRequested();
-
-        _buffer.Clear();
+        BeginRun(token);
         var index = 0;
 
         try
@@ -429,11 +450,6 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
                 {
                     IncrementCurrentSkippedItemCount();
                     continue;
-                }
-
-                if (CurrentItemCount >= MaximumItemCount)
-                {
-                    break;
                 }
 
                 if (_throwAt.TryGetValue(index, out var exception)
@@ -461,6 +477,11 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
                 }
 
                 index++;
+
+                if (CurrentItemCount >= MaximumItemCount)
+                {
+                    break;
+                }
             }
         }
         finally

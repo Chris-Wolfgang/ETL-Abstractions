@@ -46,7 +46,20 @@ jobs:
           # Every file the PR adds, modifies, renames, copies or deletes — the API's view of
           # the PR diff against its merge base, so a PR that is merely behind main is not
           # blamed for files main changed since it branched.
-          mapfile -t all_changed < <(gh api --paginate "repos/$REPO/pulls/$PR_NUMBER/files" --jq '.[] | .filename, (.previous_filename // empty)')
+          #
+          # Captured into a variable first: `set -e` / `pipefail` do not see the exit status of
+          # a process substitution, so `mapfile < <(gh api ...)` would turn a failed API call
+          # into an empty list and a green guard. A pull request always changes at least one
+          # file, so an empty list is a failure too.
+          if ! files=$(gh api --paginate "repos/$REPO/pulls/$PR_NUMBER/files" --jq '.[] | .filename, (.previous_filename // empty)'); then
+            echo "::error::Could not list the pull request's files - the guard cannot classify them, so it fails."
+            exit 1
+          fi
+          if [ -z "$files" ]; then
+            echo "::error::The pull request's file list came back empty - the guard cannot classify it, so it fails."
+            exit 1
+          fi
+          mapfile -t all_changed <<< "$files"
           protected=(); other=()
           for file in "${all_changed[@]}"; do
             case "$file" in

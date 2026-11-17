@@ -1,1 +1,7 @@
 #nullable enable
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem, TProgress>.IdempotentLoaderContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem, TProgress>.IdempotentTransformerContractTests() -> void
+override Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem, TProgress>.GetCurrentItemCount(TSut! sut) -> int
+override Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem, TProgress>.GetCurrentItemCount(TSut! sut) -> int

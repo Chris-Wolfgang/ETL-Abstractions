@@ -748,14 +748,15 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
         token.ThrowIfCancellationRequested();
 
         // The wrapped source is synchronous, so this iterator would otherwise
-        // contain no await. Yield once up front to honour the async-iterator
+        // contain no await. Await once up front to honour the async-iterator
         // contract on every exit path (including the MaximumItemCount
-        // yield-break) and to give callers an asynchronous hop. Placing it here
-        // rather than after the loop keeps it reachable regardless of how the
-        // loop terminates.
-        // Stryker disable once Statement : equivalent — Task.Yield is a scheduling hop only; removing
+        // yield-break). Placing it here rather than after the loop keeps it
+        // reachable regardless of how the loop terminates. Deliberately not
+        // Task.Yield(): that cannot take ConfigureAwait(false) and would resume
+        // on the caller's SynchronizationContext.
+        // Stryker disable once Statement : equivalent — the await completes synchronously; removing
         // it changes no observable extraction result (the source is synchronous).
-        await Task.Yield();
+        await Task.CompletedTask.ConfigureAwait(false);
 
         var enumerator     = (_enumerator ?? _enumerable!.GetEnumerator());
         var ownsEnumerator = _enumerator == null;
@@ -772,13 +773,15 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
                     continue;
                 }
 
+                IncrementCurrentItemCount();
+                yield return enumerator.Current;
+
+                // Checked after counting, before asking the source for another item: a stage limited to
+                // MaximumItemCount items reads exactly that many and leaves the next one unread.
                 if (CurrentItemCount >= MaximumItemCount)
                 {
                     yield break;
                 }
-
-                IncrementCurrentItemCount();
-                yield return enumerator.Current;
             }
         }
         finally

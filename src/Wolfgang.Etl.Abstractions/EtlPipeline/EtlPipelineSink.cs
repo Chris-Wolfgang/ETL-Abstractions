@@ -45,23 +45,44 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
         // transformer error counts so the pipeline total reflects every stage, not just the source.
         state.AddErrorCountReader(() => _loader.CurrentErrorItemCount);
 
-        var stream = CountLoaded(_factory(state, token), state, progress, token);
+        // LoadedItemCount is the loader's own count of loaded records, so the pipeline's snapshot and
+        // the loader's progress always agree, whatever the loader skipped or stopped short of.
+        state.SetLoadedCountReader(() => _loader.CurrentItemCount);
 
-        if (_loaderProgress is null)
-        {
-            await _loader.LoadAsync(stream, token).ConfigureAwait(false);
-        }
-        else
-        {
-            await _loader.LoadAsync(stream, _loaderProgress, token).ConfigureAwait(false);
-        }
+        var stream = ReportInFlight(_factory(state, token), state, progress, token);
+        var runFailed = false;
 
-        progress?.Report(state.Snapshot());
+        try
+        {
+            if (_loaderProgress is null)
+            {
+                await _loader.LoadAsync(stream, token).ConfigureAwait(false);
+            }
+            else
+            {
+                await _loader.LoadAsync(stream, _loaderProgress, token).ConfigureAwait(false);
+            }
+        }
+        catch
+        {
+            runFailed = true;
+            throw;
+        }
+        finally
+        {
+            // In-flight snapshots are throttled, so the last one can trail the real counts. Send the
+            // exact counts however the run ended — a failed or cancelled run is when they matter most.
+            // On such a run the report must not replace the run's exception.
+            if (progress is not null)
+            {
+                FinalProgressReport.Send(progress, state.Snapshot, runFailed);
+            }
+        }
     }
 
 
 
-    private static async IAsyncEnumerable<T> CountLoaded
+    private static async IAsyncEnumerable<T> ReportInFlight
     (
         IAsyncEnumerable<T> stream,
         EtlRunState state,
@@ -77,7 +98,6 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
             // check cannot change observable cancellation behaviour. The head guard itself IS tested
             // directly — see EtlPipelineTests.AsAsyncEnumerable_honours_cancellation_at_the_head.
             token.ThrowIfCancellationRequested();
-            state.LoadedItemCount++;
 
             // Throttled (#735): one snapshot for the first record, then at most one per
             // EtlRunState.ProgressReportInterval. RunAsync reports the exact final snapshot.
