@@ -311,6 +311,10 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
     /// through the error hook, in the order they occurred. Empty when no error policy is
     /// configured (faults propagate) or when no fault has fired.
     /// </summary>
+    /// <remarks>
+    /// Per run, like the stage's counters: the list is cleared each time the worker starts, so a
+    /// reused instance reports only the errors of its latest run.
+    /// </remarks>
     public IReadOnlyList<ItemErrorContext> CapturedErrors => _capturedErrors.ToArray();
 
 
@@ -413,6 +417,18 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
 
 
 
+    // Runs at the start of every worker invocation: per-run state starts empty, as the base
+    // counters do.
+    private void BeginRun(CancellationToken token)
+    {
+        token.ThrowIfCancellationRequested();
+
+        _buffer.Clear();
+        _capturedErrors.Clear();
+    }
+
+
+
     /// <inheritdoc/>
     protected override async Task LoadWorkerAsync
     (
@@ -420,9 +436,7 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
         CancellationToken token
     )
     {
-        token.ThrowIfCancellationRequested();
-
-        _buffer.Clear();
+        BeginRun(token);
         var index = 0;
 
         try
