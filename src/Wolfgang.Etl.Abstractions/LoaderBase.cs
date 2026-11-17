@@ -201,10 +201,22 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
+    /// await foreach (var item in items.WithCancellation(token))
+    /// {
+    ///     if (CurrentSkippedItemCount &lt; SkipItemCount)
     ///     {
-    ///         // Process the item
+    ///         IncrementCurrentSkippedItemCount(); // counted as skipped, never loaded
+    ///         continue;
     ///     }
+    ///
+    ///     // Load the item here, then count it.
+    ///     IncrementCurrentItemCount();
+    ///
+    ///     if (CurrentItemCount &gt;= MaximumItemCount)
+    ///     {
+    ///         break; // the limit is reached: stop reading the source
+    ///     }
+    /// }
     /// </code>
     /// </example>
     public int MaximumItemCount
@@ -235,10 +247,22 @@ public abstract class LoaderBase<TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
+    /// await foreach (var item in items.WithCancellation(token))
+    /// {
+    ///     if (CurrentSkippedItemCount &lt; SkipItemCount)
     ///     {
-    ///         // Process the item
+    ///         IncrementCurrentSkippedItemCount(); // counted as skipped, never loaded
+    ///         continue;
     ///     }
+    ///
+    ///     // Load the item here, then count it.
+    ///     IncrementCurrentItemCount();
+    ///
+    ///     if (CurrentItemCount &gt;= MaximumItemCount)
+    ///     {
+    ///         break; // the limit is reached: stop reading the source
+    ///     }
+    /// }
     /// </code>
     /// </example>
     public int SkipItemCount
@@ -360,17 +384,25 @@ public abstract class LoaderBase<TDestination, TProgress>
         ResetRunState();
 
         var timer = CreateProgressTimer(progress);
+        var runFailed = false;
 
         try
         {
             await WrapWorkerExecution(ct => LoadWorkerAsync(items, ct), token).ConfigureAwait(false);
+        }
+        catch
+        {
+            runFailed = true;
+            throw;
         }
         finally
         {
 #pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here; await is not valid in a finally block
             timer.Dispose();
 #pragma warning restore CA1849, VSTHRD103
-            progress.Report(CreateProgressReport());
+
+            // On a failed or cancelled run the final report must not replace the run's exception.
+            FinalProgressReport.Send(progress, CreateProgressReport, runFailed);
         }
     }
 

@@ -20,7 +20,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// Inherit from this class to verify that your source composes with a loader sink into an
 /// <see cref="EtlPipeline"/> that runs end-to-end and delivers every item, and that its
 /// <see cref="EtlPipelineProgress"/> counts the records pulled from the source
-/// (<see cref="EtlPipelineProgress.ExtractedItemCount"/>) and delivered to the sink
+/// (<see cref="EtlPipelineProgress.ExtractedItemCount"/>) and loaded by the sink
 /// (<see cref="EtlPipelineProgress.LoadedItemCount"/>).
 /// </para>
 /// <para>

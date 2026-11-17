@@ -37,8 +37,8 @@ public sealed class ManualTimeSource : ITimeSource
 {
     private static readonly DateTimeOffset DefaultEpoch = new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero);
 
-    // The base classes treat a captured start timestamp of 0 as the "run has not started" sentinel,
-    // so the source must never report 0 — begin one second in and only ever move forward.
+    // Begins one second in and only ever moves forward, so a start timestamp captured from this
+    // source is never 0 and an elapsed time computed from it is never negative.
     private const long InitialTimestamp = TimeSpan.TicksPerSecond;
 
     private DateTimeOffset _utcNow;

@@ -299,6 +299,10 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     /// through the error hook, in the order they occurred. Empty when no error policy is
     /// configured (faults propagate) or when no fault has fired.
     /// </summary>
+    /// <remarks>
+    /// Per run, like the stage's counters: the list is cleared each time the worker starts, so a
+    /// reused instance reports only the errors of its latest run.
+    /// </remarks>
     public IReadOnlyList<ItemErrorContext> CapturedErrors => _capturedErrors.ToArray();
 
 
@@ -407,13 +411,24 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
 
 
+    // Runs at the start of every worker invocation: per-run state starts empty, as the base
+    // counters do.
+    private void BeginRun(CancellationToken token)
+    {
+        token.ThrowIfCancellationRequested();
+
+        _capturedErrors.Clear();
+    }
+
+
+
     /// <inheritdoc/>
     protected override async IAsyncEnumerable<T> ExtractWorkerAsync
     (
         [EnumeratorCancellation] CancellationToken token
     )
     {
-        token.ThrowIfCancellationRequested();
+        BeginRun(token);
 
         // Keeps the iterator async. Not Task.Yield(): that resumes on the caller's SynchronizationContext.
         // Stryker disable once Statement : equivalent — the await completes synchronously (#452).
@@ -433,11 +448,6 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
                 {
                     IncrementCurrentSkippedItemCount();
                     continue;
-                }
-
-                if (CurrentItemCount >= MaximumItemCount)
-                {
-                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
                 }
 
                 var item = enumerator.Current;
@@ -460,6 +470,11 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
                 }
 
                 index++;
+
+                if (CurrentItemCount >= MaximumItemCount)
+                {
+                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
+                }
             }
         }
         finally

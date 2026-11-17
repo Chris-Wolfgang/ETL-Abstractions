@@ -102,7 +102,7 @@ public static class DocExampleCompiler
                     protected int MaximumItemCount;
                     protected int SkipItemCount;
                     protected string filePath;
-                    protected IEnumerable<Order> items;
+                    protected IAsyncEnumerable<Order> items;
                     protected IAsyncEnumerable<Order> records;
                     protected LoaderBase<Order, Report> sqlLoader;
                     protected IProgress<EtlPipelineProgress> progress;
@@ -120,6 +120,7 @@ public static class DocExampleCompiler
                     protected ILogger logger;
                     protected void IncrementCurrentItemCount() { }
                     protected void IncrementCurrentSkippedItemCount() { }
+                    protected string Transform(Order item) => string.Empty;
                 }
 
                 internal sealed class Example : DocExampleContext
