@@ -773,13 +773,15 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
                     continue;
                 }
 
+                IncrementCurrentItemCount();
+                yield return enumerator.Current;
+
+                // Checked after counting, before asking the source for another item: a stage limited to
+                // MaximumItemCount items reads exactly that many and leaves the next one unread.
                 if (CurrentItemCount >= MaximumItemCount)
                 {
                     yield break;
                 }
-
-                IncrementCurrentItemCount();
-                yield return enumerator.Current;
             }
         }
         finally

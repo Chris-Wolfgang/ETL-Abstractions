@@ -435,11 +435,6 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
                     continue;
                 }
 
-                if (CurrentItemCount >= MaximumItemCount)
-                {
-                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
-                }
-
                 var item = enumerator.Current;
 
                 if (_throwAt.TryGetValue(index, out var exception)
@@ -460,6 +455,11 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
                 }
 
                 index++;
+
+                if (CurrentItemCount >= MaximumItemCount)
+                {
+                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
+                }
             }
         }
         finally

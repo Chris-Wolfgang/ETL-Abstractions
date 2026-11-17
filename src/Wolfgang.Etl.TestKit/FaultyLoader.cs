@@ -438,11 +438,6 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
                     continue;
                 }
 
-                if (CurrentItemCount >= MaximumItemCount)
-                {
-                    break;
-                }
-
                 if (_throwAt.TryGetValue(index, out var exception)
                     && HandleInjectedFault(index, exception))
                 {
@@ -468,6 +463,11 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
                 }
 
                 index++;
+
+                if (CurrentItemCount >= MaximumItemCount)
+                {
+                    break;
+                }
             }
         }
         finally

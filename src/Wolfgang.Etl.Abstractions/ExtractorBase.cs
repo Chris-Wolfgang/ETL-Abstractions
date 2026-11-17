@@ -206,13 +206,14 @@ public abstract class ExtractorBase<TSource, TProgress>
     ///     string line;
     ///     while ((line = await reader.ReadLineAsync()) != null)
     ///     {
+    ///         IncrementCurrentItemCount();
+    ///         yield return line;
+    ///
+    ///         // Checked after counting, before the next read, so the record after the limit stays unread.
     ///         if (CurrentItemCount &gt;= MaximumItemCount)
     ///         {
     ///             break; // the limit is reached: end the sequence
     ///         }
-    ///
-    ///         IncrementCurrentItemCount();
-    ///         yield return line;
     ///     }
     /// }
     /// </code>

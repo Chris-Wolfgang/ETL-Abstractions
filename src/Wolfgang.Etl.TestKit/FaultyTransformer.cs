@@ -400,11 +400,6 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
                     continue;
                 }
 
-                if (CurrentItemCount >= MaximumItemCount)
-                {
-                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
-                }
-
                 if (_throwAt.TryGetValue(index, out var exception)
                     && HandleInjectedFault(index, exception))
                 {
@@ -423,6 +418,11 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
                 }
 
                 index++;
+
+                if (CurrentItemCount >= MaximumItemCount)
+                {
+                    break; // not yield break: a run cut at the limit has completed, so ThrowAfterCompletion fires
+                }
             }
         }
         finally
