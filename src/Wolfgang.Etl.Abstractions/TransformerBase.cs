@@ -203,10 +203,22 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
+    /// await foreach (var item in items.WithCancellation(token))
+    /// {
+    ///     if (CurrentSkippedItemCount &lt; SkipItemCount)
     ///     {
-    ///         // Transform each item and return it
+    ///         IncrementCurrentSkippedItemCount(); // counted as skipped, never transformed
+    ///         continue;
     ///     }
+    ///
+    ///     IncrementCurrentItemCount();
+    ///     yield return Transform(item);
+    ///
+    ///     if (CurrentItemCount &gt;= MaximumItemCount)
+    ///     {
+    ///         break; // the limit is reached: stop reading the source
+    ///     }
+    /// }
     /// </code>
     /// </example>
     public int MaximumItemCount
@@ -238,10 +250,22 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
+    /// await foreach (var item in items.WithCancellation(token))
+    /// {
+    ///     if (CurrentSkippedItemCount &lt; SkipItemCount)
     ///     {
-    ///         // Transform each item and return it
+    ///         IncrementCurrentSkippedItemCount(); // counted as skipped, never transformed
+    ///         continue;
     ///     }
+    ///
+    ///     IncrementCurrentItemCount();
+    ///     yield return Transform(item);
+    ///
+    ///     if (CurrentItemCount &gt;= MaximumItemCount)
+    ///     {
+    ///         break; // the limit is reached: stop reading the source
+    ///     }
+    /// }
     /// </code>
     /// </example>
     public int SkipItemCount
@@ -368,6 +392,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
         ResetRunState();
 
         var timer = CreateProgressTimer(progress);
+        var outcome = new RunOutcome();
 
         try
         {
@@ -380,15 +405,32 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
             {
                 // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
                 // synchronization context), so the flipped mutant is unkillable (#452).
-                while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+                while (true)
                 {
+                    bool moved;
+                    try
+                    {
+                        moved = await enumerator.MoveNextAsync().ConfigureAwait(false);
+                    }
+                    catch
+                    {
+                        // Noted here because a yield cannot sit inside a try that has a catch.
+                        outcome.Failed = true;
+                        throw;
+                    }
+
+                    if (!moved)
+                    {
+                        break;
+                    }
+
                     yield return enumerator.Current;
                 }
             }
             finally
             {
                 // Stryker disable once Boolean : same equivalence as above (#452).
-                await enumerator.DisposeAsync().ConfigureAwait(false);
+                await outcome.DisposeAsync(enumerator).ConfigureAwait(false);
             }
         }
         finally
@@ -396,7 +438,7 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
 #pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here; await is not valid in a finally block
             timer.Dispose();
 #pragma warning restore CA1849, VSTHRD103
-            progress.Report(CreateProgressReport());
+            FinalProgressReport.Send(progress, CreateProgressReport, outcome.Failed);
         }
     }
 
