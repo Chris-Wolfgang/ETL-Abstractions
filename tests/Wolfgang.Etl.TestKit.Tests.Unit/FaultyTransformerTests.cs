@@ -91,7 +91,7 @@ public class FaultyTransformerTests
 
 
     [Fact]
-    public async Task TransformAsync_when_ThrowAt_configured_counts_the_failing_item()
+    public async Task TransformAsync_when_ThrowAt_configured_does_not_count_the_failing_item()
     {
         var extractor   = new FaultyExtractor<int>(new[] { 10, 20, 30, 40, 50 });
         var transformer = new FaultyTransformer<int>().ThrowAt(2, new InvalidOperationException("bad record"));
@@ -101,8 +101,8 @@ public class FaultyTransformerTests
             async () => await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync()
         );
 
-        // Index 2 is the third item; the failing item is counted, so 2 + 1 == 3.
-        Assert.Equal(3, transformer.CurrentItemCount);
+        // Index 2 is the third item. It failed, so only the two items before it are counted.
+        Assert.Equal(2, transformer.CurrentItemCount);
     }
 
 
