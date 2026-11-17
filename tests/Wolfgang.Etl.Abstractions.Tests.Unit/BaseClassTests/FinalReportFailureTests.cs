@@ -41,7 +41,7 @@ public sealed class FinalReportFailureTests
     {
         var extractor = new FaultyExtractor<int>(Items);
 
-        await Assert.ThrowsAsync<ProgressSinkException>
+        await Assert.ThrowsAsync<NotSupportedException>
         (
             () => extractor.ExtractAsync(new ThrowingProgress<Report>()).ToListAsync().AsTask()
         );
@@ -85,7 +85,7 @@ public sealed class FinalReportFailureTests
     {
         var transformer = new FaultyTransformer<int>();
 
-        await Assert.ThrowsAsync<ProgressSinkException>
+        await Assert.ThrowsAsync<NotSupportedException>
         (
             () => transformer.TransformAsync(Items.ToAsyncEnumerable(), new ThrowingProgress<Report>()).ToListAsync().AsTask()
         );
@@ -129,7 +129,7 @@ public sealed class FinalReportFailureTests
     {
         var loader = new FaultyLoader<int>(collectItems: false);
 
-        await Assert.ThrowsAsync<ProgressSinkException>
+        await Assert.ThrowsAsync<NotSupportedException>
         (
             () => loader.LoadAsync(Items.ToAsyncEnumerable(), new ThrowingProgress<Report>())
         );
@@ -160,7 +160,7 @@ public sealed class FinalReportFailureTests
     [Fact]
     public async Task RunAsync_when_only_the_final_snapshot_throws_surfaces_the_snapshot_exception()
     {
-        await Assert.ThrowsAsync<ProgressSinkException>
+        await Assert.ThrowsAsync<NotSupportedException>
         (
             () => EtlPipeline
                 .Create()
@@ -172,18 +172,9 @@ public sealed class FinalReportFailureTests
 
 
 
-    private sealed class ProgressSinkException : Exception
-    {
-        public ProgressSinkException() : base("progress sink")
-        {
-        }
-    }
-
-
-
     private sealed class ThrowingProgress<T> : IProgress<T>
     {
-        public void Report(T value) => throw new ProgressSinkException();
+        public void Report(T value) => throw new NotSupportedException("progress sink");
     }
 
 
@@ -205,7 +196,7 @@ public sealed class FinalReportFailureTests
             _reports++;
             if (_reports > 1 || value.ExtractedItemCount >= _itemCount)
             {
-                throw new ProgressSinkException();
+                throw new NotSupportedException("progress sink");
             }
         }
     }
