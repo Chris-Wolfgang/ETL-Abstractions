@@ -15,6 +15,7 @@ Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount.get -> long
 Wolfgang.Etl.Abstractions.EtlPipelineProgress.LoadedItemCount.init -> void
 Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions
 Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions
+Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentErrorItemCount.get -> int
 Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>.CurrentItemCount.get -> int
@@ -178,6 +179,7 @@ Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Item.get -> T
 Wolfgang.Etl.Abstractions.MiddlewareResult<T>.MiddlewareResult() -> void
 Wolfgang.Etl.Abstractions.MiddlewareResult<T>.Skip.get -> bool
 Wolfgang.Etl.Abstractions.Pipeline
+Wolfgang.Etl.Abstractions.PropertySelector
 Wolfgang.Etl.Abstractions.Report
 Wolfgang.Etl.Abstractions.Report.CurrentItemCount.get -> int
 Wolfgang.Etl.Abstractions.Report.Elapsed.get -> System.TimeSpan
@@ -261,7 +263,10 @@ static Wolfgang.Etl.Abstractions.EtlPipelineProgress.operator !=(Wolfgang.Etl.Ab
 static Wolfgang.Etl.Abstractions.EtlPipelineProgress.operator ==(Wolfgang.Etl.Abstractions.EtlPipelineProgress? left, Wolfgang.Etl.Abstractions.EtlPipelineProgress? right) -> bool
 static Wolfgang.Etl.Abstractions.EtlPipelineSinkExtensions.DisposingOwned(this Wolfgang.Etl.Abstractions.IEtlPipelineSink! sink, params object![]! ownedResources) -> Wolfgang.Etl.Abstractions.IEtlPipelineSink!
 static Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T, TProgress>(this Wolfgang.Etl.Abstractions.EtlPipeline! pipeline, Wolfgang.Etl.Abstractions.ExtractorBase<T, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+static Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T, TProgress>(this Wolfgang.Etl.Abstractions.EtlPipeline! pipeline, Wolfgang.Etl.Abstractions.ExtractorBase<T, TProgress>! extractor, System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
 static Wolfgang.Etl.Abstractions.EtlPipelineSourceExtensions.From<T>(this Wolfgang.Etl.Abstractions.EtlPipeline! pipeline, System.Collections.Generic.IAsyncEnumerable<T>! source) -> Wolfgang.Etl.Abstractions.IEtlPipeline<T>!
+static Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through<T, TOut, TProgress>(this Wolfgang.Etl.Abstractions.IEtlPipeline<T>! pipeline, Wolfgang.Etl.Abstractions.TransformerBase<T, TOut, TProgress>! transformer, System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IEtlPipeline<TOut>!
+static Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To<T, TProgress>(this Wolfgang.Etl.Abstractions.IEtlPipeline<T>! pipeline, Wolfgang.Etl.Abstractions.LoaderBase<T, TProgress>! loader, System.IProgress<TProgress>! progress) -> Wolfgang.Etl.Abstractions.IEtlPipelineSink!
 static Wolfgang.Etl.Abstractions.ExtractorOptions.operator !=(Wolfgang.Etl.Abstractions.ExtractorOptions? left, Wolfgang.Etl.Abstractions.ExtractorOptions? right) -> bool
 static Wolfgang.Etl.Abstractions.ExtractorOptions.operator ==(Wolfgang.Etl.Abstractions.ExtractorOptions? left, Wolfgang.Etl.Abstractions.ExtractorOptions? right) -> bool
 static Wolfgang.Etl.Abstractions.LoaderOptions.operator !=(Wolfgang.Etl.Abstractions.LoaderOptions? left, Wolfgang.Etl.Abstractions.LoaderOptions? right) -> bool
@@ -276,6 +281,7 @@ static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.E
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource, TProgress>(Wolfgang.Etl.Abstractions.IExtractWithProgressAsync<TSource, TProgress>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStageWithProgress<TSource, TProgress>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractAsync<TSource>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>!
 static Wolfgang.Etl.Abstractions.Pipeline.Extract<TSource>(Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync<TSource>! extractor) -> Wolfgang.Etl.Abstractions.IExtractStage<TSource>!
+static Wolfgang.Etl.Abstractions.PropertySelector.Resolve<T, TProperty>(System.Linq.Expressions.Expression<System.Func<T, TProperty>!>! selector) -> System.Reflection.PropertyInfo!
 static Wolfgang.Etl.Abstractions.Report.operator !=(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
 static Wolfgang.Etl.Abstractions.Report.operator ==(Wolfgang.Etl.Abstractions.Report? left, Wolfgang.Etl.Abstractions.Report? right) -> bool
 static Wolfgang.Etl.Abstractions.TransformerOptions.operator !=(Wolfgang.Etl.Abstractions.TransformerOptions? left, Wolfgang.Etl.Abstractions.TransformerOptions? right) -> bool
