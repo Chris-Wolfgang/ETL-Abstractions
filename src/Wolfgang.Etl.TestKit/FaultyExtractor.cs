@@ -431,7 +431,7 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
         BeginRun(token);
 
         // Keeps the iterator async. Not Task.Yield(): that resumes on the caller's SynchronizationContext.
-        // Stryker disable once Statement : equivalent — the await completes synchronously (#452).
+        // Stryker disable once Statement,Boolean : equivalent — the await completes synchronously (#452).
         await Task.CompletedTask.ConfigureAwait(false);
 
         var enumerator = _items.GetEnumerator();
