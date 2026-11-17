@@ -19,6 +19,7 @@ internal sealed class SystemProgressTimer : IProgressTimer
 {
     // Held for the whole of a tick and while Dispose sets the flag, so Dispose returns only once no
     // tick is mid-report: a stage's final report can then never be followed by a stale periodic one.
+    // A tick never waits for it: one that arrives while another is still reporting is dropped.
     private readonly object _tickGate = new();
     private readonly ITimerCore _timer;
     private bool _disposed;
@@ -58,10 +59,21 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// after <see cref="Dispose"/>; the <see cref="_disposed"/> check, made under
     /// <see cref="_tickGate"/>, drops it.
     /// </summary>
+    /// <remarks>
+    /// <see cref="System.Threading.Timer"/> does not wait for one callback to return before it fires
+    /// the next. A tick that finds the previous one still reporting returns at once instead of
+    /// queuing on the gate: it has nothing newer to say, and a queue of them would hold one
+    /// thread-pool thread each and keep <see cref="Dispose"/> waiting behind the backlog.
+    /// </remarks>
     [ExcludeFromCodeCoverage]
     private void OnTick(TimerCallback callback, object? state)
     {
-        lock (_tickGate)
+        if (!Monitor.TryEnter(_tickGate))
+        {
+            return;
+        }
+
+        try
         {
             if (_disposed)
             {
@@ -83,6 +95,10 @@ internal sealed class SystemProgressTimer : IProgressTimer
             {
                 _timer.Change(Timeout.Infinite, Timeout.Infinite);
             }
+        }
+        finally
+        {
+            Monitor.Exit(_tickGate);
         }
     }
 
@@ -115,9 +131,10 @@ internal sealed class SystemProgressTimer : IProgressTimer
     /// <inheritdoc/>
     public void Dispose()
     {
-        // Waits for a tick that is already reporting (the lock is re-entrant, so a tick that disposes
-        // its own timer does not deadlock). Callbacks therefore must not block on the thread that
-        // disposes the timer.
+        // Waits for the one tick that may already be reporting; overlapping ticks are dropped, so there
+        // is never a backlog to wait behind. The lock is re-entrant, so a tick that disposes its own
+        // timer does not deadlock. Callbacks therefore must not block on the thread that disposes the
+        // timer.
         lock (_tickGate)
         {
             if (_disposed)
