@@ -46,6 +46,7 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
         state.AddErrorCountReader(() => _loader.CurrentErrorItemCount);
 
         var stream = CountLoaded(_factory(state, token), state, progress, token);
+        var runFailed = false;
 
         try
         {
@@ -58,11 +59,20 @@ internal sealed class EtlPipelineSink<T, TProgress> : IEtlPipelineSink
                 await _loader.LoadAsync(stream, _loaderProgress, token).ConfigureAwait(false);
             }
         }
+        catch
+        {
+            runFailed = true;
+            throw;
+        }
         finally
         {
             // In-flight snapshots are throttled, so the last one can trail the real counts. Send the
             // exact counts however the run ended — a failed or cancelled run is when they matter most.
-            progress?.Report(state.Snapshot());
+            // On such a run the report must not replace the run's exception.
+            if (progress is not null)
+            {
+                FinalProgressReport.Send(progress, state.Snapshot, runFailed);
+            }
         }
     }
 

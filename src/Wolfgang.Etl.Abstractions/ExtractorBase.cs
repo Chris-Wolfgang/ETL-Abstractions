@@ -381,6 +381,7 @@ public abstract class ExtractorBase<TSource, TProgress>
         ResetRunState();
 
         var timer = CreateProgressTimer(progress);
+        var runFailed = false;
 
         try
         {
@@ -393,15 +394,40 @@ public abstract class ExtractorBase<TSource, TProgress>
             {
                 // Stryker disable once Boolean : ConfigureAwait(false) vs (true) is equivalent under the test host (no
                 // synchronization context), so the flipped mutant is unkillable (#452).
-                while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+                while (true)
                 {
+                    bool moved;
+                    try
+                    {
+                        moved = await enumerator.MoveNextAsync().ConfigureAwait(false);
+                    }
+                    catch
+                    {
+                        // Noted here because a yield cannot sit inside a try that has a catch.
+                        runFailed = true;
+                        throw;
+                    }
+
+                    if (!moved)
+                    {
+                        break;
+                    }
+
                     yield return enumerator.Current;
                 }
             }
             finally
             {
-                // Stryker disable once Boolean : same equivalence as above (#452).
-                await enumerator.DisposeAsync().ConfigureAwait(false);
+                try
+                {
+                    // Stryker disable once Boolean : same equivalence as above (#452).
+                    await enumerator.DisposeAsync().ConfigureAwait(false);
+                }
+                catch
+                {
+                    runFailed = true;
+                    throw;
+                }
             }
         }
         finally
@@ -409,7 +435,7 @@ public abstract class ExtractorBase<TSource, TProgress>
 #pragma warning disable CA1849, VSTHRD103 // Timer.Dispose() is correct here; await is not valid in a finally block
             timer.Dispose();
 #pragma warning restore CA1849, VSTHRD103
-            progress.Report(CreateProgressReport());
+            FinalProgressReport.Send(progress, CreateProgressReport, runFailed);
         }
     }
 
