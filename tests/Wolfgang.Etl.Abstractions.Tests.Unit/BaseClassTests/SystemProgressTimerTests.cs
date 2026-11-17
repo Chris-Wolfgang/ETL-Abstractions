@@ -126,13 +126,15 @@ public class SystemProgressTimerTests
     public async Task Tick_when_the_previous_tick_is_still_reporting_is_dropped()
     {
         var blockingTick = new BlockingTick();
-        var callbackCount = 0;
+        // A box, not a local: the callback and the assertion then share one object and no
+        // captured local is written from two scopes.
+        var callbackCount = new StrongBox<int>();
         ArmableTimerCore? core = null;
         using var timer = new SystemProgressTimer
         (
             _ =>
             {
-                Interlocked.Increment(ref callbackCount);
+                Interlocked.Increment(ref callbackCount.Value);
                 blockingTick.OnTick();
             },
             state: null,
@@ -151,7 +153,7 @@ public class SystemProgressTimerTests
         await firstTick;
 
         Assert.Same(overlappingTick, finishedFirst);
-        Assert.Equal(1, Volatile.Read(ref callbackCount));
+        Assert.Equal(1, Volatile.Read(ref callbackCount.Value));
     }
 
 
