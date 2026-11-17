@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// }
 /// </code>
 /// </example>
+[Obsolete("Derive from IdempotentLoaderContractTests<TSut, TItem, TProgress> instead: it reads CurrentItemCount without assuming the Report progress type. This class will be removed in a future release.")]
 public abstract class IdempotentLoaderContractTests<TSut, TItem>
     where TSut : ILoadAsync<TItem>
     where TItem : notnull
@@ -193,4 +195,61 @@ public abstract class IdempotentLoaderContractTests<TSut, TItem>
 
         Assert.Equal(source.Count, GetCurrentItemCount(sut));
     }
+}
+
+
+
+/// <summary>
+/// Abstract base class providing opt-in xUnit idempotency contract tests for a loader derived
+/// from <see cref="LoaderBase{TDestination, TProgress}"/>, whatever its progress type.
+/// </summary>
+/// <typeparam name="TSut">
+/// The type under test. Must derive from <see cref="LoaderBase{TDestination, TProgress}"/>.
+/// </typeparam>
+/// <typeparam name="TItem">The type of item the loader consumes.</typeparam>
+/// <typeparam name="TProgress">The type of the loader's progress report.</typeparam>
+/// <remarks>
+/// <para>
+/// <b>This base class is opt-in.</b> Inherit from it <em>only</em> if your loader supports
+/// being run more than once on the <em>same</em> instance, processing the full input each time
+/// and carrying no state over from a previous run. Single-use components — for example a loader
+/// that opens a destination stream once and disposes it after the first load — must <em>not</em>
+/// inherit this class.
+/// </para>
+/// <para>
+/// It runs the same tests as the two-parameter base and reads <c>CurrentItemCount</c> from the
+/// loader directly, so a loader with its own progress type needs no override.
+/// </para>
+/// </remarks>
+/// <example>
+/// <code>
+/// public class MyLoaderIdempotencyTests
+///     : IdempotentLoaderContractTests&lt;MyLoader, MyRecord, MyProgress&gt;
+/// {
+///     protected override MyLoader CreateSut(int itemCount) =>
+///         new MyLoader(collectItems: true);
+///
+///     protected override IReadOnlyList&lt;MyRecord&gt; CreateSourceItems() =>
+///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
+///
+///     protected override IReadOnlyList&lt;MyRecord&gt;? TryGetLoadedItems(MyLoader sut) =>
+///         sut.GetCollectedItems();
+/// }
+/// </code>
+/// </example>
+public abstract class IdempotentLoaderContractTests<TSut, TItem, TProgress>
+#pragma warning disable CS0618 // The two-parameter base is obsolete for consumers; it still holds the shared tests.
+    : IdempotentLoaderContractTests<TSut, TItem>
+#pragma warning restore CS0618
+    where TSut : LoaderBase<TItem, TProgress>, ILoadAsync<TItem>
+    where TItem : notnull
+    where TProgress : notnull
+{
+    /// <summary>
+    /// Returns <paramref name="sut"/>'s <see cref="LoaderBase{TDestination, TProgress}.CurrentItemCount"/>.
+    /// </summary>
+    /// <param name="sut">The system under test, after a load has completed.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="sut"/> is <see langword="null"/>.</exception>
+    protected override int GetCurrentItemCount(TSut sut) =>
+        (sut ?? throw new ArgumentNullException(nameof(sut))).CurrentItemCount;
 }
