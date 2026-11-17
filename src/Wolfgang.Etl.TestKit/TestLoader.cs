@@ -261,17 +261,19 @@ public class TestLoader<T> : LoaderBase<T, Report>
                     continue;
                 }
 
-                if (CurrentItemCount >= MaximumItemCount)
-                {
-                    break;
-                }
-
                 if (_collectItems && !IsDryRun)
                 {
                     _buffer.Add(item);
                 }
 
                 IncrementCurrentItemCount();
+
+                // Checked after counting, before asking the source for another item: a stage limited to
+                // MaximumItemCount items reads exactly that many and leaves the next one unread.
+                if (CurrentItemCount >= MaximumItemCount)
+                {
+                    break;
+                }
             }
         }
         finally

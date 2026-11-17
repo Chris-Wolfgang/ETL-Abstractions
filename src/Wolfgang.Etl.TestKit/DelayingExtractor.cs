@@ -157,11 +157,6 @@ public class DelayingExtractor<T> : ExtractorBase<T, Report>
                 continue;
             }
 
-            if (CurrentItemCount >= MaximumItemCount)
-            {
-                yield break;
-            }
-
             // Stryker disable once Boolean : ConfigureAwait(false) is required on
             // net462/netstandard2.0; (true) is behaviourally identical under the test host
             // (no synchronization context), so that mutant is equivalent and unkillable.
@@ -170,6 +165,13 @@ public class DelayingExtractor<T> : ExtractorBase<T, Report>
             IncrementCurrentItemCount();
             index++;
             yield return item;
+
+            // Checked after counting, before asking the source for another item: a stage limited to
+            // MaximumItemCount items reads exactly that many and leaves the next one unread.
+            if (CurrentItemCount >= MaximumItemCount)
+            {
+                yield break;
+            }
         }
     }
 }

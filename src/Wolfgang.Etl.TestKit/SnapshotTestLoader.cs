@@ -183,14 +183,16 @@ public class SnapshotTestLoader<T> : LoaderBase<T, Report>
                 continue;
             }
 
+            _buffer.Add(item);
+
+            IncrementCurrentItemCount();
+
+            // Checked after counting, before asking the source for another item: a stage limited to
+            // MaximumItemCount items reads exactly that many and leaves the next one unread.
             if (CurrentItemCount >= MaximumItemCount)
             {
                 break;
             }
-
-            _buffer.Add(item);
-
-            IncrementCurrentItemCount();
         }
     }
 }
