@@ -203,10 +203,22 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 1.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
+    /// await foreach (var item in items.WithCancellation(token))
+    /// {
+    ///     if (CurrentSkippedItemCount &lt; SkipItemCount)
     ///     {
-    ///         // Transform each item and return it
+    ///         IncrementCurrentSkippedItemCount(); // counted as skipped, never transformed
+    ///         continue;
     ///     }
+    ///
+    ///     IncrementCurrentItemCount();
+    ///     yield return Transform(item);
+    ///
+    ///     if (CurrentItemCount &gt;= MaximumItemCount)
+    ///     {
+    ///         break; // the limit is reached: stop reading the source
+    ///     }
+    /// }
     /// </code>
     /// </example>
     public int MaximumItemCount
@@ -238,10 +250,22 @@ public abstract class TransformerBase<TSource, TDestination, TProgress>
     /// <exception cref="ArgumentOutOfRangeException">The specified value is less than 0.</exception>
     /// <example>
     /// <code>
-    ///     foreach (var item in items.Skip(SkipItemCount).Take(MaximumItemCount))
+    /// await foreach (var item in items.WithCancellation(token))
+    /// {
+    ///     if (CurrentSkippedItemCount &lt; SkipItemCount)
     ///     {
-    ///         // Transform each item and return it
+    ///         IncrementCurrentSkippedItemCount(); // counted as skipped, never transformed
+    ///         continue;
     ///     }
+    ///
+    ///     IncrementCurrentItemCount();
+    ///     yield return Transform(item);
+    ///
+    ///     if (CurrentItemCount &gt;= MaximumItemCount)
+    ///     {
+    ///         break; // the limit is reached: stop reading the source
+    ///     }
+    /// }
     /// </code>
     /// </example>
     public int SkipItemCount
