@@ -270,6 +270,10 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
     /// through the error hook, in the order they occurred. Empty when no error policy is
     /// configured (faults propagate) or when no fault has fired.
     /// </summary>
+    /// <remarks>
+    /// Per run, like the stage's counters: the list is cleared each time the worker starts, so a
+    /// reused instance reports only the errors of its latest run.
+    /// </remarks>
     public IReadOnlyList<ItemErrorContext> CapturedErrors => _capturedErrors.ToArray();
 
 
@@ -376,6 +380,17 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
 
 
 
+    // Runs at the start of every worker invocation: per-run state starts empty, as the base
+    // counters do.
+    private void BeginRun(CancellationToken token)
+    {
+        token.ThrowIfCancellationRequested();
+
+        _capturedErrors.Clear();
+    }
+
+
+
     /// <inheritdoc/>
     protected override async IAsyncEnumerable<T> TransformWorkerAsync
     (
@@ -383,7 +398,7 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
         [EnumeratorCancellation] CancellationToken token
     )
     {
-        token.ThrowIfCancellationRequested();
+        BeginRun(token);
 
         var index = 0;
 
