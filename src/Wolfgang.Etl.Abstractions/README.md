@@ -201,7 +201,8 @@ Use `TransformerOptions` and `LoaderOptions` for the corresponding stages. The `
 | Cancellation | Full `CancellationToken` support across all operations |
 | Multi-TFM | Targets .NET Framework 4.6.2–4.8.1, .NET Standard 2.0, and .NET 5.0–10.0 |
 | Skip & Limit | `SkipItemCount` and `MaximumItemCount` configure stage limits through options records; the stage-property setters are obsolete |
-| Property Selection | `PropertySelector.Resolve(...)` validates a direct property expression and returns its `PropertyInfo` for code-first schema builders |\n| Thread Safety | `Interlocked`-based counters for safe concurrent progress tracking |
+| Property Selection | `PropertySelector.Resolve(...)` validates a direct property expression and returns its `PropertyInfo` for code-first schema builders |
+| Thread Safety | `Interlocked`-based counters for safe concurrent progress tracking |
 
 ---
 
