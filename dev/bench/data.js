@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1795006817714,
+  "lastUpdate": 1795020572232,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -6876,6 +6876,114 @@ window.BENCHMARK_DATA = {
             "value": 7296317.223958333,
             "unit": "ns",
             "range": "± 37086.85339503271"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "daa28d31e040645e1d6432d83021cd1ea66c6962",
+          "message": "docs: rewrite the release verification guide for SHA256SUMS.txt and all four packages (#1002)\n\n* docs: rewrite the release verification guide for SHA256SUMS.txt and all four packages\n\nTakes repo-template's docs/REPRODUCIBLE-BUILD.md with the placeholders filled,\nadds that one release ships four reproducible packages, and updates the\nAbstractions package README to name the new release assets.\n\nCloses #999\nCloses #801\n\nCo-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>\n\n* docs: name all four packages in the verification guide and the package README\n\nThe README change and the four-package paragraph the previous commit's message\ndescribes; that commit carried only the template guide and the fragment.\n\nCo-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>\n\n* docs: generate the third-party notices in the verification rebuild\n\nA release packs obj/THIRD-PARTY-NOTICES.md into every package, so a rebuild\nthat skips scripts/third-party-notices.ps1 gives packages with one entry\nfewer. Step 3 now restores, runs the script and then packs. Also says why the\nrebuild is on Linux: releases are packed on Ubuntu (#1003).\n\nRefs #999\n\nCo-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Fable 5.2 <noreply@anthropic.com>",
+          "timestamp": "2026-11-18T11:46:33-05:00",
+          "tree_id": "1c68449bf459e0ceb8ba0164316fda6065052e5a",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/daa28d31e040645e1d6432d83021cd1ea66c6962"
+        },
+        "date": 1795020567901,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 89734.36730957031,
+            "unit": "ns",
+            "range": "± 763.0183226903756"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 117717.88765462239,
+            "unit": "ns",
+            "range": "± 278.0716041604374"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 8846034.822916666,
+            "unit": "ns",
+            "range": "± 21688.65210438541"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 11054875.661458334,
+            "unit": "ns",
+            "range": "± 133096.6650685681"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 25893.1065826416,
+            "unit": "ns",
+            "range": "± 51.88965047512515"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 25811.203689575195,
+            "unit": "ns",
+            "range": "± 105.8383457816055"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 2583458.9153645835,
+            "unit": "ns",
+            "range": "± 8974.394558222331"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 2501756.8033854165,
+            "unit": "ns",
+            "range": "± 7414.723154864057"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 25457.88333638509,
+            "unit": "ns",
+            "range": "± 100.32826628167065"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 25376.33854675293,
+            "unit": "ns",
+            "range": "± 379.6183256894042"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 58635.518493652344,
+            "unit": "ns",
+            "range": "± 538.6126844353231"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2497664.9908854165,
+            "unit": "ns",
+            "range": "± 1496.79846429656"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2496631.6822916665,
+            "unit": "ns",
+            "range": "± 7625.63557938406"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 5309029.4140625,
+            "unit": "ns",
+            "range": "± 34940.823876464"
           }
         ]
       }
