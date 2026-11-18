@@ -65,6 +65,7 @@ jobs:
           dotnet-version: |
             8.0.x
             10.0.x
+            11.0.x
 
       - name: Build the concurrency project (Release)
         run: dotnet build "$PROJECT/Wolfgang.Etl.Abstractions.Tests.Concurrency.csproj" -c Release
@@ -127,6 +128,7 @@ jobs:
           dotnet-version: |
             8.0.x
             10.0.x
+            11.0.x
 
       - name: Build the TestKit concurrency project (Release)
         run: dotnet build "$PROJECT/Wolfgang.Etl.TestKit.Tests.Concurrency.csproj" -c Release
