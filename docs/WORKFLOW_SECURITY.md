@@ -63,11 +63,15 @@ GitHub API and classifies the PR.
 **Protected files** (the authoritative list is the `case` statement in `protected-files.yaml`):
 
 - `.editorconfig` (any directory), `*.globalconfig`, `*.ruleset`, `*.DotSettings`
-- `Directory.Build.props`, `Directory.Build.targets`
-- `BannedSymbols.txt`, `coverlet.runsettings`, `.gitleaks.toml`
+- `Directory.Build.props`, `Directory.Build.targets` (any directory: MSBuild imports them by
+  directory, so a nested copy shapes the build as the root one does)
+- `BannedSymbols.txt`, `coverlet.runsettings`
+- `.gitleaks.toml` and `.gitleaksignore`
+- `stryker-config.json` (any directory: each one sets a mutation-score floor)
 - `.config/dotnet-tools.json` (the CI tool manifest)
 - `.github/workflows/*.yml` and `.github/workflows/*.yaml`
 - `.github/license-audit/*.json`
+- `.github/requirements/*` (the hash-pinned requirements of the Python scanners)
 - The CI scripts: `scripts/build-pr.ps1`, `scripts/changelog.ps1` and `scripts/tfm-parity.ps1`
   (run by `pr.yaml`), and `scripts/third-party-notices.ps1` (run by `license-audit.yaml` and
   `release.yaml`, which generate the per-package third-party notices)
