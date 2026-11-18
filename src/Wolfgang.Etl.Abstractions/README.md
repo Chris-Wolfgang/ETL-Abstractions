@@ -4,9 +4,9 @@ Interface and base classes for building ETLs
 
 [![NuGet](https://img.shields.io/nuget/v/Wolfgang.Etl.Abstractions.svg?logo=nuget&label=NuGet)](https://www.nuget.org/packages/Wolfgang.Etl.Abstractions/)
 [![Downloads](https://img.shields.io/nuget/dt/Wolfgang.Etl.Abstractions.svg?logo=nuget&label=downloads)](https://www.nuget.org/packages/Wolfgang.Etl.Abstractions/)
-[![PR build](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/ETL-Abstractions/pr.yaml?event=pull_request_target&label=PR%20build&logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/pr.yaml)
+[![PR build](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/ETL-Abstractions/pr.yaml?event=pull_request&label=PR%20build&logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/pr.yaml)
 [![release](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/ETL-Abstractions/release.yaml?event=release&label=release&logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/release.yaml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-Multi--Targeted-purple.svg)](https://dotnet.microsoft.com/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions)
 
@@ -32,10 +32,10 @@ This project is licensed under the **MIT License**. See the [LICENSE](https://gi
 
 - **GitHub Repository:** [https://github.com/Chris-Wolfgang/ETL-Abstractions](https://github.com/Chris-Wolfgang/ETL-Abstractions)
 - **API Documentation:** https://Chris-Wolfgang.github.io/ETL-Abstractions/
-- **Formatting Guide:** [README-FORMATTING.md](docs/README-FORMATTING.md)
-- **Architecture Decisions:** [docs/adr/](docs/adr/index.md) — the *why* behind non-obvious design choices
-- **Verify the build:** [REPRODUCIBLE-BUILD.md](docs/REPRODUCIBLE-BUILD.md) — rebuild from source and confirm the shipped assembly
-- **Contributing Guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Formatting Guide:** [README-FORMATTING.md](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/README-FORMATTING.md)
+- **Architecture Decisions:** [docs/adr/](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/adr/index.md) — the *why* behind non-obvious design choices
+- **Verify the build:** [REPRODUCIBLE-BUILD.md](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/REPRODUCIBLE-BUILD.md) — rebuild from source and confirm the shipped assembly
+- **Contributing Guide:** [CONTRIBUTING.md](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/CONTRIBUTING.md)
 
 ---
 
@@ -150,6 +150,39 @@ await Pipeline
   an `AggregateException`. If the run **threw**, that exception propagates unchanged (disposal
   still runs, but its own failures are suppressed so the run's failure stays the primary signal).
 
+
+## Generic `EtlPipeline`
+
+Use `EtlPipeline` to compose an extractor, zero or more transformers, and a loader with `From`, `Through`, and `To`. `RunAsync` can report aggregate source and sink progress as `EtlPipelineProgress`; overloads on each stage accept a separate observer for that stage's progress type.
+
+```csharp
+await EtlPipeline
+    .Create()
+    .From(extractor, extractProgress)
+    .Through(transformer, transformProgress)
+    .To(loader, loadProgress)
+    .RunAsync(pipelineProgress, cancellationToken);
+```
+
+For short-lived resources created while building a pipeline, `DisposingOwned(resource1, resource2)` disposes them in reverse order after the run, including when the run fails. See the [migration guide](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/migrating-pipeline-to-etlpipeline.md) for the full call-shape map and progress details.
+
+## Construction options
+
+Pass an options record to a stage's base constructor to configure it before a run:
+
+```csharp
+using Wolfgang.Etl.Abstractions;
+
+var options = new ExtractorOptions
+{
+    SkipItemCount = 10,
+    MaximumItemCount = 100,
+    ErrorPolicy = _ => ItemErrorAction.Skip
+};
+```
+
+Use `TransformerOptions` and `LoaderOptions` for the corresponding stages. The `MaximumItemCount` and `SkipItemCount` setters on stage instances are obsolete; configure those values through the constructor options instead. `WorkerResilience` is a separate per-stage wrapper around worker execution, with a delegate type specific to each stage.
+
 ---
 
 ## ✨ Features
@@ -162,12 +195,13 @@ await Pipeline
 | Throughput & ETA | `Report` exposes `StartedAt`, `Elapsed`, `ItemsPerSecond`, `PercentComplete`, and `EstimatedRemaining` derived from the item count and elapsed time |
 | Resource Disposal | Base classes implement `IDisposable` / `IAsyncDisposable`; override `Dispose(bool)` or `DisposeAsync()` to release resources deterministically |
 | Per-run State | Item counts and timing reset at the start of each enumeration, so a reused component reports the current run rather than cumulative totals |
-| Per-item Error Handling | Opt-in `OnItemError` policy (`Abort` / `Skip`) on each base stage with a distinct `CurrentErrorItemCount`; the pipeline sums error counts across every stage (source, transformers, sink) into `EtlPipelineProgress.ErrorItemCount` |
-| Middleware / Interceptors | Attach composable per-item behaviour (logging, validation, metrics, throttling, dedup) to any stream with `WithMiddleware(...)` — an `IItemMiddleware<T>` returning `MiddlewareResult<T>` (`Continue` / `Drop`) |
-| Retry Seam | `WrapWorkerExecution` hook on each base stage to run the worker through a retry / resilience strategy (for example Polly); default no-op, dependency-free |
+| Per-item Error Handling | Configure each stage's `ErrorPolicy` (`Abort` by default, or `Skip`) with `ItemErrorContext` and `ItemErrorAction`; the pipeline sums per-stage failures into `EtlPipelineProgress.ErrorItemCount` |
+| Middleware / Interceptors | Use `WithMiddleware(...)` to apply per-item logging, validation, metrics, throttling, or deduplication through `IItemMiddleware<T>` (`Continue` / `Drop`) |
+| Retry Seam | Each base stage's `WorkerResilience` delegate wraps worker execution for a retry / resilience strategy (for example Polly); it defaults to direct execution and adds no dependency |
 | Cancellation | Full `CancellationToken` support across all operations |
 | Multi-TFM | Targets .NET Framework 4.6.2–4.8.1, .NET Standard 2.0, and .NET 5.0–10.0 |
-| Skip & Limit | `SkipItemCount` and `MaximumItemCount` for partial extraction/loading |
+| Skip & Limit | `SkipItemCount` and `MaximumItemCount` configure stage limits through options records; the stage-property setters are obsolete |
+| Property Selection | `PropertySelector.Resolve(...)` validates a direct property expression and returns its `PropertyInfo` for code-first schema builders |
 | Thread Safety | `Interlocked`-based counters for safe concurrent progress tracking |
 
 ---
@@ -270,7 +304,7 @@ docfx build     # Build HTML documentation
 # (the release/docs workflow publishes it to the gh-pages branch)
 ```
 
-The documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch.
+The documentation is deployed to GitHub Pages when a GitHub Release is published (through `release.yaml`) or when a maintainer runs `docfx.yaml` manually. A push to `main` alone does not deploy the documentation.
 
 **Local Preview:**
 ```bash
