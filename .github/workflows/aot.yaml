@@ -49,6 +49,7 @@ jobs:
         with:
           dotnet-version: |
             10.0.x
+            11.0.x
 
       - name: Install Native AOT prerequisites
         # ILC links native code with clang against zlib; ubuntu-latest ships clang
@@ -93,6 +94,7 @@ jobs:
         with:
           dotnet-version: |
             10.0.x
+            11.0.x
 
       - name: Install Native AOT prerequisites
         # ILC links native code with clang against zlib; the runner image ships clang
