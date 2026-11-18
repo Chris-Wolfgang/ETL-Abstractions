@@ -12,3 +12,13 @@ dotnet_diagnostic.S1133.severity = none
 
 [TransformerBaseContractTests.cs]
 dotnet_diagnostic.S1133.severity = none
+
+# The two-parameter idempotency bases are [Obsolete] in favour of the three-parameter ones
+# that take the progress type (#976). They stay so that existing test classes keep
+# compiling; removing them is public API removal and belongs to a release that does that.
+# Delete these entries with the two classes.
+[IdempotentLoaderContractTests.cs]
+dotnet_diagnostic.S1133.severity = none
+
+[IdempotentTransformerContractTests.cs]
+dotnet_diagnostic.S1133.severity = none

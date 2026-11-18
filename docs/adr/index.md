@@ -24,6 +24,10 @@ its status updated, so the history of the thinking is preserved.
 | [0010](0010-pin-assemblyversion-for-binding-stability.md) | Pin AssemblyVersion at 1.0.0.0 for binding stability (TestKit) | Superseded by ADR-0007 |
 | [0011](0011-split-doubles-and-contract-tests-into-two-packages.md) | Ship the test doubles and the contract-test base classes as two packages | Accepted |
 | [0012](0012-deterministic-progress-timer-via-injection.md) | Make progress reporting deterministic via an injectable timer | Accepted |
+| [0015](0015-assemblyversion-policy-for-the-etl-family.md) | `<AssemblyVersion>` policy for the ETL family: `0.{Minor}.0.0` for new libraries, existing pins stay | Accepted |
+| [0016](0016-declare-trim-and-native-aot-compatibility.md) | Declare the shipped libraries trim- and Native-AOT-compatible, and prove it with a published smoke test | Accepted |
+| [0017](0017-notnull-on-record-and-progress-type-parameters.md) | Constrain record and progress type parameters to `notnull` | Accepted |
+| [0018](0018-target-framework-matrix.md) | Target .NET Framework 4.6.2 through the current .NET, one build per runtime for the runtime packages | Accepted |
 
 ## Status legend
 
