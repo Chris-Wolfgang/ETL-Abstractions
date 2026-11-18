@@ -77,7 +77,7 @@ See the doubles' XML docs for the full surface.
 
 ## Supported frameworks
 
-Multi-targets `net462`, `net481`, `netstandard2.0`, `net5.0`, `net6.0`, `net7.0`, `net8.0` and `net10.0`.
+Multi-targets `net462`, `net481`, `netstandard2.0`, `net5.0`, `net6.0`, `net7.0`, `net8.0`, `net10.0` and `net11.0`.
 Other .NET Framework 4.6.2+ and .NET 9 consumers resolve to the nearest of these.
 
 ---

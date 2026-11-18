@@ -21,8 +21,8 @@ We target every runtime a consumer is likely to be on, from `net462` up.
 
 | Packages | Target frameworks |
 |---|---|
-| `Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies` | `net462`, `net472`, `net48`, `net481`, `netstandard2.0`, `net5.0` through `net10.0` |
-| `Wolfgang.Etl.TestKit`, `Wolfgang.Etl.TestKit.Xunit` | `net462`, `net481`, `netstandard2.0`, `net5.0`, `net6.0`, `net7.0`, `net8.0`, `net10.0` |
+| `Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies` | `net462`, `net472`, `net48`, `net481`, `netstandard2.0`, `net5.0` through `net11.0` |
+| `Wolfgang.Etl.TestKit`, `Wolfgang.Etl.TestKit.Xunit` | `net462`, `net481`, `netstandard2.0`, `net5.0`, `net6.0`, `net7.0`, `net8.0`, `net10.0`, `net11.0` |
 
 - **The runtime packages get one build per runtime release**, because they ship into
   production applications on each of those runtimes.
