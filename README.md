@@ -18,8 +18,8 @@ repository builds and releases four NuGet packages in lockstep.
 | --- | --- | --- |
 | **Wolfgang.Etl.Abstractions** [![NuGet](https://img.shields.io/nuget/v/Wolfgang.Etl.Abstractions.svg?logo=nuget&label=)](https://www.nuget.org/packages/Wolfgang.Etl.Abstractions/) | The core `ExtractorBase` / `LoaderBase` / `TransformerBase` types, the `EtlPipeline` composer, progress reporting, per-item error handling, and resilience seams. Zero third-party runtime dependencies. | [README](src/Wolfgang.Etl.Abstractions/README.md) |
 | **Wolfgang.Etl.ErrorPolicies** [![NuGet](https://img.shields.io/nuget/v/Wolfgang.Etl.ErrorPolicies.svg?logo=nuget&label=)](https://www.nuget.org/packages/Wolfgang.Etl.ErrorPolicies/) | Ready-made item-error policies — skip, log, and dead-letter — to assign to a stage's `ErrorPolicy`. | [README](src/Wolfgang.Etl.ErrorPolicies/README.md) |
-| **Wolfgang.Etl.TestKit** [![NuGet](https://img.shields.io/nuget/v/Wolfgang.Etl.TestKit.svg?logo=nuget&label=)](https://www.nuget.org/packages/Wolfgang.Etl.TestKit/) | Test doubles and harnesses — `TestExtractor`/`TestLoader`/`TestTransformer`, fault injection, deterministic clock and progress timer, and end-to-end scenario helpers. | [README](src/Wolfgang.Etl.TestKit/README.md) |
-| **Wolfgang.Etl.TestKit.Xunit** [![NuGet](https://img.shields.io/nuget/v/Wolfgang.Etl.TestKit.Xunit.svg?logo=nuget&label=)](https://www.nuget.org/packages/Wolfgang.Etl.TestKit.Xunit/) | xUnit **contract-test base classes** — inherit one to verify your component against the full behavioural contract of its base type. | [README](src/Wolfgang.Etl.TestKit.Xunit/README.md) |
+| **Wolfgang.Etl.TestKit** [![NuGet](https://img.shields.io/nuget/v/Wolfgang.Etl.TestKit.svg?logo=nuget&label=)](https://www.nuget.org/packages/Wolfgang.Etl.TestKit/) | Test doubles and harnesses — in-memory components, fault injection, delay and retry doubles, deterministic clock and progress timer. | [README](src/Wolfgang.Etl.TestKit/README.md) |
+| **Wolfgang.Etl.TestKit.Xunit** [![NuGet](https://img.shields.io/nuget/v/Wolfgang.Etl.TestKit.Xunit.svg?logo=nuget&label=)](https://www.nuget.org/packages/Wolfgang.Etl.TestKit.Xunit/) | xUnit **contract-test base classes** for the stage types, plus `EtlScenario` for one-expression end-to-end tests. | [README](src/Wolfgang.Etl.TestKit.Xunit/README.md) |
 
 ## Getting started
 
@@ -67,10 +67,22 @@ conformance suite for free. See each package's README (linked above) for details
 
 | Package | Target frameworks |
 | --- | --- |
-| `Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies` | `net462`, `net472`, `net48`, `net481`, `netstandard2.0`, `net5.0` through `net10.0` |
-| `Wolfgang.Etl.TestKit`, `Wolfgang.Etl.TestKit.Xunit` | `net462`, `net481`, `netstandard2.0`, `net5.0`, `net6.0`, `net7.0`, `net8.0`, `net10.0` |
+| `Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies` | `net462`, `net472`, `net48`, `net481`, `netstandard2.0`, `net5.0` through `net11.0` |
+| `Wolfgang.Etl.TestKit`, `Wolfgang.Etl.TestKit.Xunit` | `net462`, `net481`, `netstandard2.0`, `net5.0`, `net6.0`, `net7.0`, `net8.0`, `net10.0`, `net11.0` |
 
 No package targets `netstandard2.1`; .NET Core 3.x consumers use the `netstandard2.0` build.
+
+Every pull request runs the tests on five legs:
+
+| Leg | Runner | Target frameworks tested |
+| --- | --- | --- |
+| Linux x64 | `ubuntu-24.04` | `net5.0` through `net11.0` |
+| Windows x64 | `windows-latest` | every target framework, including .NET Framework 4.6.2 through 4.8.1 |
+| macOS ARM64 | `macos-latest` | `net6.0` through `net11.0` |
+| Linux ARM64 | `ubuntu-24.04-arm` | `net6.0` through `net11.0` |
+| Windows ARM64 | `windows-11-arm` | `net6.0` through `net11.0` |
+
+.NET Framework is tested on Windows x64 only; the ARM64 and macOS legs run `net6.0` and later.
 
 ## Repository layout
 

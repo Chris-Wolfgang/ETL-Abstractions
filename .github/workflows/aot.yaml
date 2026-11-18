@@ -49,6 +49,7 @@ jobs:
         with:
           dotnet-version: |
             10.0.x
+            11.0.x
 
       - name: Install Native AOT prerequisites
         # ILC links native code with clang against zlib; ubuntu-latest ships clang
@@ -73,4 +74,49 @@ jobs:
         run: |
           set -euo pipefail
           BIN="tests/Wolfgang.Etl.Abstractions.AotSmoke/bin/Release/net10.0/linux-x64/publish/Wolfgang.Etl.Abstractions.AotSmoke"
+          "$BIN"
+
+  aot-smoke-arm64:
+    name: PublishAot linux-arm64 + run
+    # The native binary is per-architecture, so the x64 job proves nothing about ARM64 (#802).
+    # The ARM64 hosted runner is free for public repositories only.
+    runs-on: ubuntu-24.04-arm
+    if: ${{ !github.event.repository.private }}
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+        with:
+          dotnet-version: |
+            10.0.x
+            11.0.x
+
+      - name: Install Native AOT prerequisites
+        # ILC links native code with clang against zlib; the runner image ships clang
+        # but the zlib dev headers must be installed.
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends clang zlib1g-dev
+
+      - name: Publish (Native AOT + trimmed)
+        # A trim/AOT incompatibility in the library's reachable surface fails the
+        # publish (analyzer warning -> error, or an ILC error) before the run.
+        run: >
+          dotnet publish
+          tests/Wolfgang.Etl.Abstractions.AotSmoke/Wolfgang.Etl.Abstractions.AotSmoke.csproj
+          -c Release -r linux-arm64
+
+      - name: Run the published native binary
+        # No managed runtime here — the binary is fully native. A reflection path
+        # that silently no-ops or throws NotSupportedException under AOT makes the
+        # smoke exit non-zero and fails the job.
+        run: |
+          set -euo pipefail
+          BIN="tests/Wolfgang.Etl.Abstractions.AotSmoke/bin/Release/net10.0/linux-arm64/publish/Wolfgang.Etl.Abstractions.AotSmoke"
           "$BIN"
