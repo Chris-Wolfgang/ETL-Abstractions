@@ -1,93 +1,115 @@
-# Reproducing & verifying the build
+# Verifying a release of ETL-Abstractions
 
-`Wolfgang.Etl.Abstractions` is built **deterministically** — `Deterministic` +
-`ContinuousIntegrationBuild` + SourceLink — so the compiled assembly is a pure
-function of the source at a given commit. That means **you don't have to trust our
-CI**: you can rebuild the library yourself from the published tag and confirm, byte
-for byte, that the assembly we shipped is the one the source produces.
+Anyone can check that a published release of ETL-Abstractions was built from the tagged source, without
+trusting this repository's CI. This page is for a consumer who has never seen the repository.
 
-Our CI already proves the build is reproducible *across operating systems* —
-`.github/workflows/reproducible-build.yaml` builds all four `src/` projects on Ubuntu
-and on Windows, hashes every `.dll` and `.pdb` for every target framework, and fails on
-any difference (#216, #722). This page is the **consumer side**: how *you* verify it
-independently (#225).
+One release ships four packages in lockstep: `Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies`,
+`Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit`. All four are built reproducibly, and everything below
+covers all four.
 
-## What is verified
+## What "reproducible" means here
 
-The guarantee covers the **compiled assemblies and their symbols** (`.dll` and `.pdb`,
-every target framework): the same commit produces the same bytes on Linux and on
-Windows. Two build settings make that hold across operating systems:
-`Directory.Build.targets` rewrites the SDK-generated sources to LF line endings before
-compiling, and `Directory.Build.props` compiles the .NET Framework targets against the
-`Microsoft.NETFramework.ReferenceAssemblies` package rather than a locally installed
-targeting pack.
+The same tag, built with the SDK recorded in the release's `BUILD-MANIFEST.txt`, **on Linux**, gives:
 
-Package files (`.nupkg` / `.snupkg`) are **not** covered. A package is a zip, and NuGet
-stamps every entry with the pack time, so two packs of one commit differ even on one
-machine. Verify the assembly inside the package, not the package file.
+- byte-identical `.dll` and `.pdb` files for every target framework, and
+- `.nupkg` / `.snupkg` packages whose **entries** match the published packages entry by entry.
 
-Each release attaches a **`reproducible-build-manifest.json`** for `Wolfgang.Etl.Abstractions` only,
-listing the expected `sha256` of its shipped assembly for every target framework. The other three
-packages do not currently have per-release hash manifests. For example:
+What is expected to differ, and is never compared:
 
-```json
-{
-  "package": "Wolfgang.Etl.Abstractions",
-  "version": "0.16.1",
-  "algorithm": "sha256",
-  "assemblies": {
-    "lib/net10.0/Wolfgang.Etl.Abstractions.dll": "d34db33f…",
-    "lib/net8.0/Wolfgang.Etl.Abstractions.dll": "…"
-  }
-}
-```
+- **the package file itself** (`.nupkg` / `.snupkg` as a zip): NuGet stamps every zip entry with the pack time, so
+  two packs of the same commit never give the same zip bytes, even on one machine. Compare the entries.
+- **a build on another operating system**: cross-OS identity is reported by the
+  [Reproducible Build workflow](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/reproducible-build.yaml), not promised.
 
-## Verify a published package
+Every pull request is checked the same way: the workflow packs the commit twice on Ubuntu and fails unless both
+packs are identical by the rules above.
 
-You need the same **major .NET SDK** the release was built with (see the release's
-`global.json` / the SDK line in `release.yaml` — `10.0.x` for current releases).
+## What a release publishes
 
-```bash
-# 1. Get the exact published assembly hash (from the package on nuget.org)
-dotnet nuget locals -c all >/dev/null   # optional: clean caches
-unzip -p Wolfgang.Etl.Abstractions.<version>.nupkg \
-  lib/net10.0/Wolfgang.Etl.Abstractions.dll | sha256sum
+Each GitHub Release carries, next to the packages:
 
-# 2. Rebuild from source at the tag and hash your own output
-git clone https://github.com/Chris-Wolfgang/ETL-Abstractions
-cd ETL-Abstractions
-git checkout v<version>
-dotnet build src/Wolfgang.Etl.Abstractions/Wolfgang.Etl.Abstractions.csproj \
-  -c Release -f net10.0 -p:ContinuousIntegrationBuild=true
-sha256sum src/Wolfgang.Etl.Abstractions/bin/Release/net10.0/Wolfgang.Etl.Abstractions.dll
+| Asset | Contents |
+|---|---|
+| `SHA256SUMS.txt` | `<sha256>  <tfm>/<file>` for every `.dll`/`.pdb`, and `<sha256>  <package-file>` for every `.nupkg`/`.snupkg` |
+| `BUILD-MANIFEST.txt` | exact SDK version (`dotnet --version`), runner image and version, commit SHA, tag, and the `CI` / `ContinuousIntegrationBuild` / `Deterministic` values |
 
-# 3. Compare — the two hashes, and the value in reproducible-build-manifest.json,
-#    must all match.
-```
+Both are subjects of the release's build-provenance attestation, so step 5 below covers them as well as the packages.
 
-A match means the published binary is exactly what the tagged source compiles to,
-on your machine, under your control.
+## Verify a release
 
-## If the hashes differ
+You need git, the GitHub CLI (`gh`), Python 3, PowerShell (`pwsh`) and a Linux machine (or container). Releases
+are packed on Ubuntu, which is why the rebuild is on Linux: NuGet writes a package's text entries (XML documentation,
+`.nuspec`) with the packing machine's line endings, so a rebuild on Windows matches the assemblies but not the
+package entries.
 
-First rule out environment drift. A different SDK **feature band** can change
-codegen, and the `.pdb` records the version of the runtime the compiler ran on, so a
-newer runtime patch on your machine changes the `.pdb` and, through its checksum, the
-`.dll`. Confirm you used the SDK major/feature band named in the release and built
-with `-p:ContinuousIntegrationBuild=true`. For an older target framework (for example
-`net5.0`), a targeting pack installed under the .NET install directory can be a
-different build from the NuGet package CI downloads, and that also changes the hashes.
+1. **Clone the tag.**
 
-If they still differ with matching tooling, that is a genuine reproducibility
-discrepancy worth reporting: open an issue titled `reproducibility: <version> hash
-mismatch` with your **SDK version** (`dotnet --version`), **OS**, the **two hashes**,
-and the target framework. It is treated as a security-relevant report.
+   ```bash
+   TAG=v1.2.3   # the release you are checking
+   git clone --branch "$TAG" --depth 1 https://github.com/Chris-Wolfgang/ETL-Abstractions.git
+   cd ETL-Abstractions
+   gh release download "$TAG" --repo Chris-Wolfgang/ETL-Abstractions --dir ../release
+   cat ../release/BUILD-MANIFEST.txt
+   ```
 
-## Third-party verification attestations
+2. **Install the recorded SDK.** `global.json` pins the major version; install the exact version that
+   `BUILD-MANIFEST.txt` names (for example with `dotnet-install.sh --version <sdk>`), and check that `dotnet --version`
+   prints it from inside the clone.
 
-Independent verifiers are encouraged to publish their result following the
-[Reproducible Builds project](https://reproducible-builds.org/) conventions (a
-signed statement that "version X's assembly rebuilds to hash H"), for example via
-[vouchsafe.io](https://vouchsafe.io/) or an [`actions/attest-build-provenance`](https://github.com/actions/attest-build-provenance)
-attestation over your own rebuild. Link such an attestation on the discrepancy/verification
-issue so others can find it.
+3. **Pack exactly as the workflow does**, once per packable project under `src/`. Each package ships a
+   `THIRD-PARTY-NOTICES.md` that the release generates between restore and pack, so the rebuild generates it too:
+
+   ```bash
+   export CI=true
+   projects=()
+   for proj in $(git ls-files 'src/*.csproj' 'src/**/*.csproj'); do
+     [ "$(dotnet msbuild "$proj" -getProperty:IsPackable | tr -d '[:space:]')" = "true" ] || continue
+     projects+=("$proj")
+     dotnet restore "$proj"
+   done
+   pwsh ./scripts/third-party-notices.ps1
+   for proj in "${projects[@]}"; do
+     dotnet pack "$proj" -c Release -p:ContinuousIntegrationBuild=true -p:Deterministic=true -o ../rebuilt
+   done
+   ```
+
+4. **Compare.**
+
+   ```bash
+   # Assemblies and symbols, keyed <tfm>/<file> exactly as in SHA256SUMS.txt.
+   for d in $(git ls-files 'src/*.csproj' 'src/**/*.csproj' | xargs -n1 dirname); do
+     [ -d "$d/bin/Release" ] || continue
+     (cd "$d/bin/Release" && find . -mindepth 2 -maxdepth 2 \( -name '*.dll' -o -name '*.pdb' \) \
+       | sed 's|^\./||' | xargs sha256sum)
+   done | sort -u -k2 > ../rebuilt-assemblies.txt
+   grep -vE '\.s?nupkg$' ../release/SHA256SUMS.txt | sort -k2 | diff - ../rebuilt-assemblies.txt \
+     && echo "Assemblies and symbols: identical"
+
+   # Packages, entry by entry.
+   python3 - ../release ../rebuilt <<'PY'
+   import hashlib, pathlib, sys, zipfile
+   def entries(p):
+       with zipfile.ZipFile(p) as z:
+           return {e.filename: hashlib.sha256(z.read(e)).hexdigest() for e in z.infolist() if not e.is_dir()}
+   ok = True
+   for pub in sorted(pathlib.Path(sys.argv[1]).glob("*.*nupkg")):
+       mine = pathlib.Path(sys.argv[2]) / pub.name
+       same = mine.exists() and entries(pub) == entries(mine)
+       ok &= same
+       print(("identical entries: " if same else "DIFFERS: ") + pub.name)
+   sys.exit(0 if ok else 1)
+   PY
+   ```
+
+5. **Check the provenance** of the downloaded assets against this repository:
+
+   ```bash
+   for f in ../release/*; do gh attestation verify "$f" --repo Chris-Wolfgang/ETL-Abstractions; done
+   ```
+
+## Releases cut before the standard
+
+A tag cut before this repository took the reproducible-builds pieces (literal copyright year, LF-normalized generated
+sources, the reference-assemblies pin, `global.json`) has no `SHA256SUMS.txt` or `BUILD-MANIFEST.txt`, and its copyright
+attribute may carry the year it was built in. To rebuild such a tag, pass the original year
+(`-p:Copyright="Copyright (c) <year> <holder>"`) and expect only the Linux-to-Linux comparison to hold.
