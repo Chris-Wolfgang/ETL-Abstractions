@@ -3,7 +3,7 @@
 Test doubles and harnesses for exercising components built on
 [`Wolfgang.Etl.Abstractions`](https://www.nuget.org/packages/Wolfgang.Etl.Abstractions/) — ready-made
 extractors, loaders, and transformers, fault injection, a deterministic clock and progress timer, and
-end-to-end scenario helpers.
+doubles for latency and transient worker faults.
 
 [![NuGet](https://img.shields.io/nuget/v/Wolfgang.Etl.TestKit.svg?logo=nuget&label=NuGet)](https://www.nuget.org/packages/Wolfgang.Etl.TestKit/)
 [![Downloads](https://img.shields.io/nuget/dt/Wolfgang.Etl.TestKit.svg?logo=nuget&label=downloads)](https://www.nuget.org/packages/Wolfgang.Etl.TestKit/)
@@ -28,6 +28,7 @@ contract of their base type, add
 | --- | --- |
 | `TestExtractor<T>` / `TestLoader<T>` / `TestTransformer<T>` | Drive or capture a pipeline with in-memory doubles. |
 | `FaultyExtractor<T>` / `FaultyLoader<T>` / `FaultyTransformer<T>` | Inject a fault at a chosen item; route it through the base error hook (`SkipErrors()` / `HandleErrorsWith(policy)` / `CapturedErrors`). |
+| `DelayingExtractor<T>` / `RetryingExtractor<T>` | Simulate source latency and transient worker faults to exercise cancellation and retry. |
 | `SnapshotTestLoader<T>` | Snapshot / approval testing of loaded output. |
 | `RecordingMiddleware<T>` | Assert on items flowing through `WithMiddleware(...)`. |
 | `ManualTimeSource` + `WithTimeSource` | Drive `Report` timing (`Elapsed`, throughput, ETA) from a fake clock. |

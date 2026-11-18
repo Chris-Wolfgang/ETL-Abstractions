@@ -26,8 +26,9 @@ Package files (`.nupkg` / `.snupkg`) are **not** covered. A package is a zip, an
 stamps every entry with the pack time, so two packs of one commit differ even on one
 machine. Verify the assembly inside the package, not the package file.
 
-Each release attaches a **`reproducible-build-manifest.json`** listing the expected
-`sha256` of the shipped assembly for every target framework, e.g.:
+Each release attaches a **`reproducible-build-manifest.json`** for `Wolfgang.Etl.Abstractions` only,
+listing the expected `sha256` of its shipped assembly for every target framework. The other three
+packages do not currently have per-release hash manifests. For example:
 
 ```json
 {
