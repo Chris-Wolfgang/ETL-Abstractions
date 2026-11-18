@@ -85,11 +85,20 @@ jobs:
               grep -E '^\s+Failed |Failed!' "$log" | head -10
               rm -rf "$out/results-$i"
             else
-              passes=$((passes + 1))
-              rm -rf "$out/results-$i" "$log"
+              # dotnet test exits 0 when it finds no tests, so a pass only counts with a test total.
+              total=$(grep -oE 'Passed!  - Failed: +[0-9]+, Passed: +[0-9]+, Skipped: +[0-9]+, Total: +[0-9]+' "$log" | grep -oE 'Total: +[0-9]+' | grep -oE '[0-9]+' | head -1)
+              if [ -z "$total" ] || [ "$total" -eq 0 ]; then
+                failures=$((failures + 1))
+                echo "::warning::Run $i on $LABEL shard $SHARD: exit 0 but no test total in the log"
+              else
+                passes=$((passes + 1))
+                echo "run $i: $total tests" >> "$out/test-counts.txt"
+                rm -rf "$out/results-$i" "$log"
+              fi
             fi
           done
-          summary="$LABEL shard $SHARD: $ITERATIONS runs, $passes passed, $failures failed without a crash, $crashes crashed"
+          [ -f "$out/test-counts.txt" ] && echo "tests per passing run: $(awk '{print $3}' "$out/test-counts.txt" | sort -u | tr '\n' ' ')"
+          summary="$LABEL shard $SHARD: $ITERATIONS runs, $passes passed (with a test total), $failures failed without a crash, $crashes crashed"
           echo "$summary"
           echo "$summary" >> "$GITHUB_STEP_SUMMARY"
           echo "$summary" > "$out/summary.txt"
