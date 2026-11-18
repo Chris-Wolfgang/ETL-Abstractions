@@ -3,6 +3,10 @@
 Anyone can check that a published release of ETL-Abstractions was built from the tagged source, without
 trusting this repository's CI. This page is for a consumer who has never seen the repository.
 
+One release ships four packages in lockstep: `Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies`,
+`Wolfgang.Etl.TestKit` and `Wolfgang.Etl.TestKit.Xunit`. All four are built reproducibly, and everything below
+covers all four.
+
 ## What "reproducible" means here
 
 The same tag, built with the SDK recorded in the release's `BUILD-MANIFEST.txt`, **on Linux**, gives:

@@ -43,10 +43,11 @@ This project is licensed under the **MIT License**. See the [LICENSE](https://gi
 
 This library is built **deterministically**, so you don't have to trust our CI — you
 can rebuild it yourself from any release tag and confirm the shipped assembly, byte
-for byte. Each release attaches a `reproducible-build-manifest.json` with the expected
-`sha256` of every target framework's assembly. See
+for byte. Each release attaches a `SHA256SUMS.txt` with the expected `sha256` of every
+target framework's assembly and symbol file, for all four `Wolfgang.Etl.*` packages, and a
+`BUILD-MANIFEST.txt` recording the SDK and environment it was built with. See
 [**docs/REPRODUCIBLE-BUILD.md**](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/REPRODUCIBLE-BUILD.md) for the step-by-step
-verification procedure and how to report a discrepancy.
+verification procedure.
 
 ---
 
