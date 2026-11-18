@@ -27,7 +27,8 @@ contract of their base type, add
 | Type | Use |
 | --- | --- |
 | `TestExtractor<T>` / `TestLoader<T>` / `TestTransformer<T>` | Drive or capture a pipeline with in-memory doubles. |
-| `FaultyExtractor<T>` / `FaultyLoader<T>` / `FaultyTransformer<T>` | Inject a fault at a chosen item; route it through the base error hook (`SkipErrors()` / `HandleErrorsWith(policy)` / `CapturedErrors`). |\n| `DelayingExtractor<T>` / `RetryingExtractor<T>` | Simulate source latency and transient worker faults to exercise cancellation and retry. |
+| `FaultyExtractor<T>` / `FaultyLoader<T>` / `FaultyTransformer<T>` | Inject a fault at a chosen item; route it through the base error hook (`SkipErrors()` / `HandleErrorsWith(policy)` / `CapturedErrors`). |
+| `DelayingExtractor<T>` / `RetryingExtractor<T>` | Simulate source latency and transient worker faults to exercise cancellation and retry. |
 | `SnapshotTestLoader<T>` | Snapshot / approval testing of loaded output. |
 | `RecordingMiddleware<T>` | Assert on items flowing through `WithMiddleware(...)`. |
 | `ManualTimeSource` + `WithTimeSource` | Drive `Report` timing (`Elapsed`, throughput, ETA) from a fake clock. |
