@@ -382,10 +382,15 @@ jobs:
           path: CoverageReport/
 
   # Pack and validate NuGet package
+  #
+  # Packs on Ubuntu because docs/REPRODUCIBLE-BUILD.md has a consumer rebuild the tag on Linux
+  # and compare the packages entry by entry. The text entries NuGet writes into a package (XML
+  # documentation, .nuspec, .rels, .psmdcp) carry the packing machine's line endings, so a
+  # package packed on Windows never matches a Linux rebuild even when every assembly does.
   pack-and-validate:
     name: Pack & Validate NuGet
     needs: validate-release
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     outputs:
       has-packages: ${{ steps.check-packages.outputs.has-packages }}
