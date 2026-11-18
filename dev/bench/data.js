@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1795020572232,
+  "lastUpdate": 1795024532565,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -6984,6 +6984,114 @@ window.BENCHMARK_DATA = {
             "value": 5309029.4140625,
             "unit": "ns",
             "range": "± 34940.823876464"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4ca41d16d029810140228eb65e1954966a7e42d2",
+          "message": "feat: add net11.0 to the four packages and their unit tests (#1009)\n\nTargetFrameworks gains net11.0 in the eight multi-TFM projects, and each\nper-framework ItemGroup that named net10.0 names net11.0 too (without that the\nnet11.0 test builds had no xunit reference). global.json moves to SDK 11.0.100,\nbecause a 10.0 SDK cannot build a net11.0 target.\n\nRefs #821\n\nCo-authored-by: Claude Fable 5.2 <noreply@anthropic.com>",
+          "timestamp": "2026-11-18T12:52:26-05:00",
+          "tree_id": "4b022664d1f000e5698d735ca891352c8cf1b388",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/4ca41d16d029810140228eb65e1954966a7e42d2"
+        },
+        "date": 1795024528103,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 89399.39310709636,
+            "unit": "ns",
+            "range": "± 601.713824332409"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 113942.4774576823,
+            "unit": "ns",
+            "range": "± 1659.8941789518321"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 8977452.036458334,
+            "unit": "ns",
+            "range": "± 115271.22193565761"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 10782764.286458334,
+            "unit": "ns",
+            "range": "± 46891.35841372437"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 25760.685577392578,
+            "unit": "ns",
+            "range": "± 39.34118331867408"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 26523.919713338215,
+            "unit": "ns",
+            "range": "± 161.87021862943595"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 2506661.3385416665,
+            "unit": "ns",
+            "range": "± 28144.87149165228"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 2545635.5403645835,
+            "unit": "ns",
+            "range": "± 17537.189941735985"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 24750.92091878255,
+            "unit": "ns",
+            "range": "± 131.02476030753226"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 25380.453837076824,
+            "unit": "ns",
+            "range": "± 231.2170678545317"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 55662.843393961586,
+            "unit": "ns",
+            "range": "± 496.18608332787926"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2515878.474609375,
+            "unit": "ns",
+            "range": "± 9681.258245608104"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2533309.9921875,
+            "unit": "ns",
+            "range": "± 21833.262339780784"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 5345258.307291667,
+            "unit": "ns",
+            "range": "± 8759.293667930964"
           }
         ]
       }
