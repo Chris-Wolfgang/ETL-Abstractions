@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794971338100,
+  "lastUpdate": 1795006817714,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -6768,6 +6768,114 @@ window.BENCHMARK_DATA = {
             "value": 7223141.875,
             "unit": "ns",
             "range": "± 7018.794036078151"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64564295+MatheoPaiva@users.noreply.github.com",
+            "name": "MatheoPaiva",
+            "username": "MatheoPaiva"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "504cd74d4c32f8429a6c08a31ee7c26320526f32",
+          "message": "docs: correct package and workflow guidance (#915)\n\n* docs: correct workflow and package documentation details\n\n* docs: split the glued TestKit table row; keep the script bullet a protected-files entry\n\nThe DelayingExtractor / RetryingExtractor row was joined to the row above by a\nliteral backslash-n. The WORKFLOW_SECURITY bullet sits in the protected-files\nlist and all four scripts are in the guard's case statement, so it lists them\nas protected and notes which workflow runs each.\n\nCo-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>\n\n* docs: list all four CI scripts as protected files in WORKFLOW_SECURITY\n\nThis is the wording change the previous commit's message describes; that commit\ncarried only the TestKit table fix.\n\nCo-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Chris Wolfgang <210299580+Chris-Wolfgang@users.noreply.github.com>\nCo-authored-by: Claude Fable 5.2 <noreply@anthropic.com>",
+          "timestamp": "2026-11-18T07:57:28-05:00",
+          "tree_id": "d39e9143084b9a4bb7239175fc60cfb345d7b8b3",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/504cd74d4c32f8429a6c08a31ee7c26320526f32"
+        },
+        "date": 1795006813030,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 109375.37070719402,
+            "unit": "ns",
+            "range": "± 156.74793781503848"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 140865.59212239584,
+            "unit": "ns",
+            "range": "± 1028.9396520589435"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 11213854.864583334,
+            "unit": "ns",
+            "range": "± 63457.902926039"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 14281212.901041666,
+            "unit": "ns",
+            "range": "± 38623.26536525537"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 30860.39853922526,
+            "unit": "ns",
+            "range": "± 374.61564401829287"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 32697.185689290363,
+            "unit": "ns",
+            "range": "± 84.25142859065062"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3099186.7239583335,
+            "unit": "ns",
+            "range": "± 6354.270542123828"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3184049.9140625,
+            "unit": "ns",
+            "range": "± 15168.891688479542"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 29654.88064066569,
+            "unit": "ns",
+            "range": "± 107.21590871722894"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 29656.44172159831,
+            "unit": "ns",
+            "range": "± 38.09833352381944"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 67558.72916666667,
+            "unit": "ns",
+            "range": "± 461.3814422944106"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2851710.30859375,
+            "unit": "ns",
+            "range": "± 1293.2023962858248"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2894997.5338541665,
+            "unit": "ns",
+            "range": "± 20152.64629678623"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 7296317.223958333,
+            "unit": "ns",
+            "range": "± 37086.85339503271"
           }
         ]
       }
