@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794968455936,
+  "lastUpdate": 1794971338100,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -6660,6 +6660,114 @@ window.BENCHMARK_DATA = {
             "value": 5374296.122395833,
             "unit": "ns",
             "range": "± 32774.34019208487"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64564295+MatheoPaiva@users.noreply.github.com",
+            "name": "MatheoPaiva",
+            "username": "MatheoPaiva"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d0bae187c0414ca667ac8a686839f8a9d0e0b069",
+          "message": "docs: cover EtlPipeline and stage options in package README (#913)\n\n* docs: document EtlPipeline composition and stage options\n\n* docs: put the Thread Safety feature row back on its own line\n\nThe row was joined to the Property Selection row by a literal backslash-n.\n\nCo-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Chris Wolfgang <210299580+Chris-Wolfgang@users.noreply.github.com>\nCo-authored-by: Claude Fable 5.2 <noreply@anthropic.com>",
+          "timestamp": "2026-11-17T22:06:15-05:00",
+          "tree_id": "58abf21afc9bed71510a81403d917009b5006d78",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/d0bae187c0414ca667ac8a686839f8a9d0e0b069"
+        },
+        "date": 1794971334341,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 108698.26985677083,
+            "unit": "ns",
+            "range": "± 1455.9658787406804"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 129505.43835449219,
+            "unit": "ns",
+            "range": "± 373.0589615983482"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 10527751.890625,
+            "unit": "ns",
+            "range": "± 13713.946551328516"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 12843180.177083334,
+            "unit": "ns",
+            "range": "± 25502.071399177814"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 32751.8520304362,
+            "unit": "ns",
+            "range": "± 87.32882876423868"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 34176.06260172526,
+            "unit": "ns",
+            "range": "± 46.452415760354356"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3249465.3359375,
+            "unit": "ns",
+            "range": "± 10912.980222304663"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3372603.33203125,
+            "unit": "ns",
+            "range": "± 2806.459309807463"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 28179.60251871745,
+            "unit": "ns",
+            "range": "± 44.64241481236947"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 28335.74611409505,
+            "unit": "ns",
+            "range": "± 17.727655251370077"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 72491.54858398438,
+            "unit": "ns",
+            "range": "± 177.7082727551264"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2825857.1842447915,
+            "unit": "ns",
+            "range": "± 3638.246270852655"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2805092.6569010415,
+            "unit": "ns",
+            "range": "± 2773.9972011503455"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 7223141.875,
+            "unit": "ns",
+            "range": "± 7018.794036078151"
           }
         ]
       }
