@@ -37,7 +37,10 @@ Both are subjects of the release's build-provenance attestation, so step 5 below
 
 ## Verify a release
 
-You need git, the GitHub CLI (`gh`), Python 3 and a Linux machine (or container).
+You need git, the GitHub CLI (`gh`), Python 3, PowerShell (`pwsh`) and a Linux machine (or container). Releases
+are packed on Ubuntu, which is why the rebuild is on Linux: NuGet writes a package's text entries (XML documentation,
+`.nuspec`) with the packing machine's line endings, so a rebuild on Windows matches the assemblies but not the
+package entries.
 
 1. **Clone the tag.**
 
@@ -53,12 +56,19 @@ You need git, the GitHub CLI (`gh`), Python 3 and a Linux machine (or container)
    `BUILD-MANIFEST.txt` names (for example with `dotnet-install.sh --version <sdk>`), and check that `dotnet --version`
    prints it from inside the clone.
 
-3. **Pack exactly as the workflow does**, once per packable project under `src/`:
+3. **Pack exactly as the workflow does**, once per packable project under `src/`. Each package ships a
+   `THIRD-PARTY-NOTICES.md` that the release generates between restore and pack, so the rebuild generates it too:
 
    ```bash
    export CI=true
+   projects=()
    for proj in $(git ls-files 'src/*.csproj' 'src/**/*.csproj'); do
      [ "$(dotnet msbuild "$proj" -getProperty:IsPackable | tr -d '[:space:]')" = "true" ] || continue
+     projects+=("$proj")
+     dotnet restore "$proj"
+   done
+   pwsh ./scripts/third-party-notices.ps1
+   for proj in "${projects[@]}"; do
      dotnet pack "$proj" -c Release -p:ContinuousIntegrationBuild=true -p:Deterministic=true -o ../rebuilt
    done
    ```
