@@ -1,0 +1,105 @@
+# TEMPORARY - issue #946. Runs on its own pull request only and is never merged; the PR is closed
+# once the runs are read. Loops the net6.0 run of Wolfgang.Etl.Abstractions.Tests.Unit to try to
+# reproduce the test-host crash (ArgumentOutOfRangeException 'state' from
+# ManualResetValueTaskSourceCore.SignalCompletion via EtlPipelineImpl.CountExtracted).
+# Hypothesis under test: a .NET 6 race that shows on ARM64 only. ubuntu-latest (x64) is the control.
+name: Repro 946
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/repro-946.yaml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: 'true'
+  DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+  VSTEST_CONNECTION_TIMEOUT: 300
+  TEST_PROJECT: tests/Wolfgang.Etl.Abstractions.Tests.Unit/Wolfgang.Etl.Abstractions.Tests.Unit.csproj
+  ITERATIONS: 50
+
+jobs:
+  loop:
+    name: net6.0 x50 on ${{ matrix.label }} (shard ${{ matrix.shard }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-latest, ubuntu-24.04-arm, windows-11-arm, ubuntu-latest]
+        shard: [1, 2]
+        include:
+          - { runner: macos-latest,     label: macos-arm64 }
+          - { runner: ubuntu-24.04-arm, label: linux-arm64 }
+          - { runner: windows-11-arm,   label: windows-arm64 }
+          - { runner: ubuntu-latest,    label: linux-x64-control }
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73  # v6.1.0
+        with:
+          dotnet-version: |
+            6.0.x
+            11.0.x
+
+      - name: Build net6.0
+        run: dotnet build "$TEST_PROJECT" -c Release -f net6.0
+
+      - name: Loop the net6.0 test run
+        env:
+          LABEL: ${{ matrix.label }}
+          SHARD: ${{ matrix.shard }}
+        run: |
+          set -uo pipefail
+          out="$RUNNER_TEMP/repro"
+          mkdir -p "$out"
+          crashes=0; failures=0; passes=0
+          for i in $(seq 1 "$ITERATIONS"); do
+            log="$out/run-$i.log"
+            dotnet test "$TEST_PROJECT" -c Release -f net6.0 --no-build \
+              --blame-crash --blame-crash-dump-type mini \
+              --results-directory "$out/results-$i" > "$log" 2>&1
+            rc=$?
+            if grep -qE 'Test host process crashed|The active test run was aborted' "$log"; then
+              crashes=$((crashes + 1))
+              echo "::error::Run $i on $LABEL shard $SHARD: test host crashed"
+              grep -nE 'crashed|aborted|ArgumentOutOfRange|SignalCompletion|CountExtracted|was running|Sequence_' "$log" | head -40
+            elif [ "$rc" -ne 0 ]; then
+              failures=$((failures + 1))
+              echo "::warning::Run $i on $LABEL shard $SHARD: exit $rc without a crash (test failure)"
+              grep -E '^\s+Failed |Failed!' "$log" | head -10
+              rm -rf "$out/results-$i"
+            else
+              passes=$((passes + 1))
+              rm -rf "$out/results-$i" "$log"
+            fi
+          done
+          summary="$LABEL shard $SHARD: $ITERATIONS runs, $passes passed, $failures failed without a crash, $crashes crashed"
+          echo "$summary"
+          echo "$summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "$summary" > "$out/summary.txt"
+          [ "$crashes" -eq 0 ]
+
+      - name: Upload logs and crash dumps
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: repro-946-${{ matrix.label }}-${{ matrix.shard }}
+          path: ${{ runner.temp }}/repro/
+          retention-days: 14
+          if-no-files-found: ignore
