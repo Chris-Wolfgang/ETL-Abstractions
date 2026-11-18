@@ -4,9 +4,9 @@ Interface and base classes for building ETLs
 
 [![NuGet](https://img.shields.io/nuget/v/Wolfgang.Etl.Abstractions.svg?logo=nuget&label=NuGet)](https://www.nuget.org/packages/Wolfgang.Etl.Abstractions/)
 [![Downloads](https://img.shields.io/nuget/dt/Wolfgang.Etl.Abstractions.svg?logo=nuget&label=downloads)](https://www.nuget.org/packages/Wolfgang.Etl.Abstractions/)
-[![PR build](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/ETL-Abstractions/pr.yaml?event=pull_request_target&label=PR%20build&logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/pr.yaml)
+[![PR build](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/ETL-Abstractions/pr.yaml?event=pull_request&label=PR%20build&logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/pr.yaml)
 [![release](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/ETL-Abstractions/release.yaml?event=release&label=release&logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions/actions/workflows/release.yaml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-Multi--Targeted-purple.svg)](https://dotnet.microsoft.com/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/Chris-Wolfgang/ETL-Abstractions)
 
@@ -32,10 +32,10 @@ This project is licensed under the **MIT License**. See the [LICENSE](https://gi
 
 - **GitHub Repository:** [https://github.com/Chris-Wolfgang/ETL-Abstractions](https://github.com/Chris-Wolfgang/ETL-Abstractions)
 - **API Documentation:** https://Chris-Wolfgang.github.io/ETL-Abstractions/
-- **Formatting Guide:** [README-FORMATTING.md](docs/README-FORMATTING.md)
-- **Architecture Decisions:** [docs/adr/](docs/adr/index.md) — the *why* behind non-obvious design choices
-- **Verify the build:** [REPRODUCIBLE-BUILD.md](docs/REPRODUCIBLE-BUILD.md) — rebuild from source and confirm the shipped assembly
-- **Contributing Guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Formatting Guide:** [README-FORMATTING.md](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/README-FORMATTING.md)
+- **Architecture Decisions:** [docs/adr/](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/adr/index.md) — the *why* behind non-obvious design choices
+- **Verify the build:** [REPRODUCIBLE-BUILD.md](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/docs/REPRODUCIBLE-BUILD.md) — rebuild from source and confirm the shipped assembly
+- **Contributing Guide:** [CONTRIBUTING.md](https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/main/CONTRIBUTING.md)
 
 ---
 
@@ -303,7 +303,7 @@ docfx build     # Build HTML documentation
 # (the release/docs workflow publishes it to the gh-pages branch)
 ```
 
-The documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch.
+The documentation is deployed to GitHub Pages when a GitHub Release is published (through `release.yaml`) or when a maintainer runs `docfx.yaml` manually. A push to `main` alone does not deploy the documentation.
 
 **Local Preview:**
 ```bash

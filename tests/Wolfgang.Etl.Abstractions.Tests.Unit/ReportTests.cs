@@ -284,5 +284,16 @@ public class ReportTests
         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new Report(0, null, TimeSpan.Zero, -1));
 
         Assert.Equal("totalItemCount", ex.ParamName);
+        Assert.StartsWith("Total item count cannot be less than 0.", ex.Message);
+    }
+
+
+
+    [Fact]
+    public void Timing_constructor_when_totalItemCount_is_zero_stores_zero()
+    {
+        var sut = new Report(0, null, TimeSpan.Zero, 0);
+
+        Assert.Equal(0, sut.TotalItemCount);
     }
 }

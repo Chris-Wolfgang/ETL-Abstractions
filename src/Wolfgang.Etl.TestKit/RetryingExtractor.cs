@@ -139,7 +139,7 @@ public class RetryingExtractor<T> : ExtractorBase<T, Report>
 
         // Keeps the iterator async without capturing the caller's SynchronizationContext, which
         // Task.Yield() would do (it cannot take ConfigureAwait(false)).
-        // Stryker disable once Statement : the await completes synchronously; removing it changes
+        // Stryker disable once Statement,Boolean : the await completes synchronously; removing it changes
         // no observable behaviour, so the statement-removal mutant is equivalent and unkillable.
         await Task.CompletedTask.ConfigureAwait(false);
 

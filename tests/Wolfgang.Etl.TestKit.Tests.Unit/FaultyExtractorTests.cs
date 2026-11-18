@@ -100,7 +100,7 @@ public class FaultyExtractorTests
 
 
     [Fact]
-    public async Task ExtractAsync_when_ThrowAt_configured_counts_the_failing_item()
+    public async Task ExtractAsync_when_ThrowAt_configured_does_not_count_the_failing_item()
     {
         var sut = new FaultyExtractor<int>(new[] { 10, 20, 30, 40, 50 })
             .ThrowAt(2, new InvalidOperationException("boom"));
@@ -110,8 +110,8 @@ public class FaultyExtractorTests
             async () => await sut.ExtractAsync().ToListAsync()
         );
 
-        // Index 2 is the third item; the failing item is counted, so 2 + 1 == 3.
-        Assert.Equal(3, sut.CurrentItemCount);
+        // Index 2 is the third item. It failed, so only the two items before it are counted.
+        Assert.Equal(2, sut.CurrentItemCount);
     }
 
 

@@ -80,7 +80,7 @@ public class FaultyLoaderTests
 
 
     [Fact]
-    public async Task LoadAsync_when_ThrowAt_configured_counts_the_failing_item()
+    public async Task LoadAsync_when_ThrowAt_configured_does_not_count_the_failing_item()
     {
         var loader = new FaultyLoader<int>(collectItems: true)
             .ThrowAt(2, new TimeoutException("connection lost"));
@@ -90,8 +90,8 @@ public class FaultyLoaderTests
             async () => await loader.LoadAsync(new FaultyExtractor<int>(new[] { 10, 20, 30, 40, 50 }).ExtractAsync())
         );
 
-        // Index 2 is the third item; the failing item is counted, so 2 + 1 == 3.
-        Assert.Equal(3, loader.CurrentItemCount);
+        // Index 2 is the third item. It failed, so only the two items before it are counted.
+        Assert.Equal(2, loader.CurrentItemCount);
     }
 
 
