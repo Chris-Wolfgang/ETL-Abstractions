@@ -67,8 +67,8 @@ conformance suite for free. See each package's README (linked above) for details
 
 | Package | Target frameworks |
 | --- | --- |
-| `Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies` | `net462`, `net472`, `net48`, `net481`, `netstandard2.0`, `net5.0` through `net10.0` |
-| `Wolfgang.Etl.TestKit`, `Wolfgang.Etl.TestKit.Xunit` | `net462`, `net481`, `netstandard2.0`, `net5.0`, `net6.0`, `net7.0`, `net8.0`, `net10.0` |
+| `Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies` | `net462`, `net472`, `net48`, `net481`, `netstandard2.0`, `net5.0` through `net11.0` |
+| `Wolfgang.Etl.TestKit`, `Wolfgang.Etl.TestKit.Xunit` | `net462`, `net481`, `netstandard2.0`, `net5.0`, `net6.0`, `net7.0`, `net8.0`, `net10.0`, `net11.0` |
 
 No package targets `netstandard2.1`; .NET Core 3.x consumers use the `netstandard2.0` build.
 
@@ -76,11 +76,11 @@ Every pull request runs the tests on five legs:
 
 | Leg | Runner | Target frameworks tested |
 | --- | --- | --- |
-| Linux x64 | `ubuntu-24.04` | `net5.0` through `net10.0` |
+| Linux x64 | `ubuntu-24.04` | `net5.0` through `net11.0` |
 | Windows x64 | `windows-latest` | every target framework, including .NET Framework 4.6.2 through 4.8.1 |
-| macOS ARM64 | `macos-latest` | `net6.0` through `net10.0` |
-| Linux ARM64 | `ubuntu-24.04-arm` | `net6.0` through `net10.0` |
-| Windows ARM64 | `windows-11-arm` | `net6.0` through `net10.0` |
+| macOS ARM64 | `macos-latest` | `net6.0` through `net11.0` |
+| Linux ARM64 | `ubuntu-24.04-arm` | `net6.0` through `net11.0` |
+| Windows ARM64 | `windows-11-arm` | `net6.0` through `net11.0` |
 
 .NET Framework is tested on Windows x64 only; the ARM64 and macOS legs run `net6.0` and later.
 
