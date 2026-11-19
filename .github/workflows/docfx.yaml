@@ -60,6 +60,13 @@ jobs:
     name: Build & Deploy Documentation
     runs-on: windows-latest
     timeout-minutes: 15
+    # Both docs writers (this job and build-all-versions.yaml) rewrite the same docs files on
+    # gh-pages, so two of them at once would conflict however the push retries. One shared
+    # group runs them one at a time. Job level, not workflow level: release.yaml calls this
+    # workflow and holds its own workflow-level group. Never cancel a deploy in flight.
+    concurrency:
+      group: gh-pages-docs-${{ github.repository }}
+      cancel-in-progress: false
 
     permissions:
       contents: write # Allow write access for gh-pages branch
