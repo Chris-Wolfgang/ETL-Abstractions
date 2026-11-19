@@ -16,6 +16,38 @@ before it; add a line there when a release is cut.
 Unreleased changes are not listed here. Each one is a fragment file in
 [`changelog/unreleased/`](changelog/unreleased/), assembled into a version section at release time.
 
+## [0.28.0] - 2026-11-19
+
+### Breaking changes
+
+- TestKit: an aborting fault in `FaultyExtractor`, `FaultyLoader` and `FaultyTransformer` no longer counts the failing item. After `ThrowAt(n, ex)` aborts a run, `CurrentItemCount` is the number of items processed before the failing one, the same value whether the abort comes from the fail-fast default or from an error policy that returns `ItemErrorAction.Abort`. Previously the fail-fast default counted the failing item and the policy path did not. Tests that assert `CurrentItemCount` after an unhandled `ThrowAt` need the expected value lowered by one. (#987)
+
+### Added
+
+- Add `IdempotentLoaderContractTests<TSut, TItem, TProgress>` and `IdempotentTransformerContractTests<TSut, TItem, TProgress>`, which read `CurrentItemCount` from the stage itself, so a loader or transformer with its own progress type no longer fails the idempotency contract with an `InvalidCastException`. The two-parameter bases are now `[Obsolete]`; they keep working for `Report`-progress stages. (#976)
+- All four packages add a `net11.0` build, and the repository now builds with the .NET 11 SDK. (#1009)
+
+### Fixed
+
+- `CapturedErrors` on `FaultyExtractor`, `FaultyTransformer` and `FaultyLoader` is now cleared at the start of each run, like the stage counters, so a reused double reports only the errors of its latest run. (#975)
+- When a run fails or is cancelled and the final progress report also throws (from `CreateProgressReport` or the `IProgress<T>` sink), the caller now gets the run's own exception instead of the report's; this applies to `ExtractorBase`, `TransformerBase`, `LoaderBase` and `EtlPipeline.RunAsync(progress)`. On a run that did not fail, a failing final report still reaches the caller. (#978)
+- `EtlPipelineProgress.LoadedItemCount` is now the loader's own count of loaded records (its `CurrentItemCount`) instead of the number of records the loader pulled, so it no longer over-reports when the loader skips records (`SkipItemCount`), discards one through an error policy, or stops at `MaximumItemCount`. An in-flight snapshot therefore reports the record that has just reached the loader as extracted but not yet loaded. (#973)
+- The TestKit doubles (`TestExtractor`, `TestTransformer`, `TestLoader`, `SnapshotTestLoader`, `DelayingExtractor`, `RetryingExtractor`, `FaultyExtractor`, `FaultyTransformer`, `FaultyLoader`) now stop at `MaximumItemCount` without reading one more record from their source and discarding it; the `ExtractorBase.MaximumItemCount` example shows the same check-after-counting pattern. (#981)
+- The built-in progress timer now drops a tick that arrives while the previous one is still reporting, instead of queuing it: a progress sink slower than `ReportingInterval` no longer ties up thread-pool threads or delays the end of the run. (#979)
+
+### Documentation
+
+- Correct package descriptions, workflow guidance, sample imports, and release notice documentation. (#915)
+- Document the generic EtlPipeline API, constructor options, and stage extension points in the Abstractions package README. (#913)
+- The `MaximumItemCount` and `SkipItemCount` examples on `LoaderBase` and `TransformerBase` now compile against the real worker signature (`await foreach` over the `IAsyncEnumerable<T>`) and call `IncrementCurrentSkippedItemCount()` / `IncrementCurrentItemCount()`, as the `ExtractorBase` examples already did. (#977)
+- Correct the Abstractions package README links, PR build badge event, and documentation deployment description. (#912)
+- Rewrite the release verification guide for the new release assets: `SHA256SUMS.txt` and `BUILD-MANIFEST.txt` cover all four packages and replace `reproducible-build-manifest.json`, which covered `Wolfgang.Etl.Abstractions` only. (#1002)
+
+### Internal
+
+- PackageValidation compares against 0.27.0 (the last published version) for all four packages. (#988)
+- Three `await Task.CompletedTask.ConfigureAwait(false)` lines in the TestKit extractor doubles are marked as equivalent for the Stryker Boolean mutator, like the same lines in the base stages. (#993)
+
 ## [0.27.0] - 2026-11-16
 
 ### Added
@@ -735,7 +767,8 @@ History before 0.13.1 is not recorded in this file. The earlier versions (v0.4.0
 tags in the repository; all but v0.5.0, v0.5.1 and v0.5.2 also have notes on the
 [GitHub releases page](https://github.com/Chris-Wolfgang/ETL-Abstractions/releases).
 
-[Unreleased]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.27.0...HEAD
+[Unreleased]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.28.0...HEAD
+[0.28.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.27.0...v0.28.0
 [0.27.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.26.1...v0.27.0
 [0.26.1]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.26.0...v0.26.1
 [0.26.0]: https://github.com/Chris-Wolfgang/ETL-Abstractions/compare/v0.25.0...v0.26.0
