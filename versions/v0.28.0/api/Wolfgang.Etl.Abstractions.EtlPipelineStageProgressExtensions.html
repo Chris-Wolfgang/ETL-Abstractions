@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class EtlPipelineStageProgressExtensions | Wolfgang.Etl.Abstractions Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class EtlPipelineStageProgressExtensions | Wolfgang.Etl.Abstractions Documentation ">
+      
+      <meta name="description" content="Per-stage typed progress for  (#382): attach a transformer or loader together with an  that receives that stage&#39;s own progress type, the counterpart of WithProgress on the fluent  builder. The aggregate  passed to  is reported as before; the two are independent.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.28.0/apiSpec/new?filename=Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.Abstractions">
+            Wolfgang.Etl.Abstractions
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions">
+
+
+
+  <h1 id="Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions" data-uid="Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions" class="text-break">
+Class EtlPipelineStageProgressExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/EtlPipelineStageProgressExtensions.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.Etl.html">Etl</a>.<a class="xref" href="Wolfgang.Etl.Abstractions.html">Abstractions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.Etl.Abstractions.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Per-stage typed progress for <a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipeline.html">EtlPipeline</a> (#382): attach a transformer or loader
+together with an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> that receives that stage's own progress type, the
+counterpart of <code>WithProgress</code> on the fluent <a class="xref" href="Wolfgang.Etl.Abstractions.Pipeline.html">Pipeline</a> builder. The aggregate
+<a class="xref" href="Wolfgang.Etl.Abstractions.EtlPipelineProgress.html">EtlPipelineProgress</a> passed to <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html#Wolfgang_Etl_Abstractions_IEtlPipelineSink_RunAsync_System_IProgress_Wolfgang_Etl_Abstractions_EtlPipelineProgress__System_Threading_CancellationToken_">RunAsync(IProgress&lt;EtlPipelineProgress&gt;?, CancellationToken)</a> is reported as
+before; the two are independent.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class EtlPipelineStageProgressExtensions</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">EtlPipelineStageProgressExtensions</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions_examples">Examples</h2>
+  <pre><code class="lang-csharp">await EtlPipeline
+    .Create()
+    .From(orderExtractor, extractProgress)
+    .Through(enrichTransformer, enrichProgress)
+    .To(sqlLoader, loadProgress)
+    .RunAsync(progress, token);</code></pre>
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions_Through_" data-uid="Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions_Through__3_Wolfgang_Etl_Abstractions_IEtlPipeline___0__Wolfgang_Etl_Abstractions_TransformerBase___0___1___2__System_IProgress___2__" data-uid="Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.Through``3(Wolfgang.Etl.Abstractions.IEtlPipeline{``0},Wolfgang.Etl.Abstractions.TransformerBase{``0,``1,``2},System.IProgress{``2})">
+  Through&lt;T, TOut, TProgress&gt;(IEtlPipeline&lt;T&gt;, TransformerBase&lt;T, TOut, TProgress&gt;, IProgress&lt;TProgress&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/EtlPipelineStageProgressExtensions.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase&lt;TSource, TDestination, TProgress&gt;</a> stage whose own
+<code class="typeparamref">TProgress</code> reports go to <code class="paramref">progress</code>. The pipeline's
+cancellation token is forwarded to the transformer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEtlPipeline&lt;TOut&gt; Through&lt;T, TOut, TProgress&gt;(this IEtlPipeline&lt;T&gt; pipeline, TransformerBase&lt;T, TOut, TProgress&gt; transformer, IProgress&lt;TProgress&gt; progress) where T : notnull where TOut : notnull where TProgress : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pipeline</code> <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline</a>&lt;T&gt;</dt>
+    <dd><p>The pipeline to extend.</p>
+</dd>
+    <dt><code>transformer</code> <a class="xref" href="Wolfgang.Etl.Abstractions.TransformerBase-3.html">TransformerBase</a>&lt;T, TOut, TProgress&gt;</dt>
+    <dd><p>The transformer to add.</p>
+</dd>
+    <dt><code>progress</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress</a>&lt;TProgress&gt;</dt>
+    <dd><p>Receives the transformer's <code class="typeparamref">TProgress</code> reports.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline</a>&lt;TOut&gt;</dt>
+    <dd><p>An <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline&lt;T&gt;</a> of <code class="typeparamref">TOut</code> for chaining.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of item flowing into the transformer.</p>
+</dd>
+    <dt><code>TOut</code></dt>
+    <dd><p>The type of item the transformer produces.</p>
+</dd>
+    <dt><code>TProgress</code></dt>
+    <dd><p>The transformer's progress-report type.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">pipeline</code>, <code class="paramref">transformer</code> or <code class="paramref">progress</code> is
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions_To_" data-uid="Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To*"></a>
+
+  <h3 id="Wolfgang_Etl_Abstractions_EtlPipelineStageProgressExtensions_To__2_Wolfgang_Etl_Abstractions_IEtlPipeline___0__Wolfgang_Etl_Abstractions_LoaderBase___0___1__System_IProgress___1__" data-uid="Wolfgang.Etl.Abstractions.EtlPipelineStageProgressExtensions.To``2(Wolfgang.Etl.Abstractions.IEtlPipeline{``0},Wolfgang.Etl.Abstractions.LoaderBase{``0,``1},System.IProgress{``1})">
+  To&lt;T, TProgress&gt;(IEtlPipeline&lt;T&gt;, LoaderBase&lt;T, TProgress&gt;, IProgress&lt;TProgress&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/EtlPipelineStageProgressExtensions.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Terminates the pipeline with a <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase&lt;TDestination, TProgress&gt;</a> whose own
+<code class="typeparamref">TProgress</code> reports go to <code class="paramref">progress</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEtlPipelineSink To&lt;T, TProgress&gt;(this IEtlPipeline&lt;T&gt; pipeline, LoaderBase&lt;T, TProgress&gt; loader, IProgress&lt;TProgress&gt; progress) where T : notnull where TProgress : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pipeline</code> <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipeline-1.html">IEtlPipeline</a>&lt;T&gt;</dt>
+    <dd><p>The pipeline to terminate.</p>
+</dd>
+    <dt><code>loader</code> <a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html">LoaderBase</a>&lt;T, TProgress&gt;</dt>
+    <dd><p>The loader that consumes the stream.</p>
+</dd>
+    <dt><code>progress</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress</a>&lt;TProgress&gt;</dt>
+    <dd><p>Receives the loader's <code class="typeparamref">TProgress</code> reports.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a></dt>
+    <dd><p>An <a class="xref" href="Wolfgang.Etl.Abstractions.IEtlPipelineSink.html">IEtlPipelineSink</a> ready to run.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of item the loader consumes.</p>
+</dd>
+    <dt><code>TProgress</code></dt>
+    <dd><p>The loader's progress-report type.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">pipeline</code>, <code class="paramref">loader</code> or <code class="paramref">progress</code> is
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.Abstractions/EtlPipeline/EtlPipelineStageProgressExtensions.cs/#L23" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

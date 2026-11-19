@@ -7678,6 +7678,32 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests(Of TSut, TItem).TryGetLoadedItems
   nameWithType: IdempotentLoaderContractTests<TSut, TItem>.TryGetLoadedItems
   nameWithType.vb: IdempotentLoaderContractTests(Of TSut, TItem).TryGetLoadedItems
+- uid: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`3
+  name: IdempotentLoaderContractTests<TSut, TItem, TProgress>
+  href: api/Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-3.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`3
+  name.vb: IdempotentLoaderContractTests(Of TSut, TItem, TProgress)
+  fullName: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem, TProgress>
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests(Of TSut, TItem, TProgress)
+  nameWithType: IdempotentLoaderContractTests<TSut, TItem, TProgress>
+  nameWithType.vb: IdempotentLoaderContractTests(Of TSut, TItem, TProgress)
+- uid: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`3.GetCurrentItemCount(`0)
+  name: GetCurrentItemCount(TSut)
+  href: api/Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_3_GetCurrentItemCount__0_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`3.GetCurrentItemCount(`0)
+  fullName: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem, TProgress>.GetCurrentItemCount(TSut)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests(Of TSut, TItem, TProgress).GetCurrentItemCount(TSut)
+  nameWithType: IdempotentLoaderContractTests<TSut, TItem, TProgress>.GetCurrentItemCount(TSut)
+  nameWithType.vb: IdempotentLoaderContractTests(Of TSut, TItem, TProgress).GetCurrentItemCount(TSut)
+- uid: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`3.GetCurrentItemCount*
+  name: GetCurrentItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_IdempotentLoaderContractTests_3_GetCurrentItemCount_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests`3.GetCurrentItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem, TProgress>.GetCurrentItemCount
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests(Of TSut, TItem, TProgress).GetCurrentItemCount
+  nameWithType: IdempotentLoaderContractTests<TSut, TItem, TProgress>.GetCurrentItemCount
+  nameWithType.vb: IdempotentLoaderContractTests(Of TSut, TItem, TProgress).GetCurrentItemCount
 - uid: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests`2
   name: IdempotentTransformerContractTests<TSut, TItem>
   href: api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-2.html
@@ -7790,6 +7816,32 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests(Of TSut, TItem).TransformAsync_when_called_twice_yields_identical_items_Async
   nameWithType: IdempotentTransformerContractTests<TSut, TItem>.TransformAsync_when_called_twice_yields_identical_items_Async
   nameWithType.vb: IdempotentTransformerContractTests(Of TSut, TItem).TransformAsync_when_called_twice_yields_identical_items_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests`3
+  name: IdempotentTransformerContractTests<TSut, TItem, TProgress>
+  href: api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-3.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests`3
+  name.vb: IdempotentTransformerContractTests(Of TSut, TItem, TProgress)
+  fullName: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem, TProgress>
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests(Of TSut, TItem, TProgress)
+  nameWithType: IdempotentTransformerContractTests<TSut, TItem, TProgress>
+  nameWithType.vb: IdempotentTransformerContractTests(Of TSut, TItem, TProgress)
+- uid: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests`3.GetCurrentItemCount(`0)
+  name: GetCurrentItemCount(TSut)
+  href: api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_IdempotentTransformerContractTests_3_GetCurrentItemCount__0_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests`3.GetCurrentItemCount(`0)
+  fullName: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem, TProgress>.GetCurrentItemCount(TSut)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests(Of TSut, TItem, TProgress).GetCurrentItemCount(TSut)
+  nameWithType: IdempotentTransformerContractTests<TSut, TItem, TProgress>.GetCurrentItemCount(TSut)
+  nameWithType.vb: IdempotentTransformerContractTests(Of TSut, TItem, TProgress).GetCurrentItemCount(TSut)
+- uid: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests`3.GetCurrentItemCount*
+  name: GetCurrentItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-3.html#Wolfgang_Etl_TestKit_Xunit_IdempotentTransformerContractTests_3_GetCurrentItemCount_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests`3.GetCurrentItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem, TProgress>.GetCurrentItemCount
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests(Of TSut, TItem, TProgress).GetCurrentItemCount
+  nameWithType: IdempotentTransformerContractTests<TSut, TItem, TProgress>.GetCurrentItemCount
+  nameWithType.vb: IdempotentTransformerContractTests(Of TSut, TItem, TProgress).GetCurrentItemCount
 - uid: Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests`2
   name: LoadAsyncContractTests<TSut, TItem>
   href: api/Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests-2.html

@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/docfx_project/docs/getting-started.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/docfx_project/docs/getting-started.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -216,8 +216,9 @@ the compiler requires the loader's input type to match the source's output:</p>
 <h3 id="progress-cancellation-and-the-escape-hatch">Progress, cancellation, and the escape hatch</h3>
 <ul>
 <li><strong>Progress</strong> — pass an <code>IProgress&lt;EtlPipelineProgress&gt;</code> to <code>RunAsync</code>. The snapshot
-reports <code>ExtractedItemCount</code> (counted at the source), <code>LoadedItemCount</code> (counted at
-the sink), <code>ErrorItemCount</code> (items skipped by an error policy, summed across the stages)
+reports <code>ExtractedItemCount</code> (counted at the source), <code>LoadedItemCount</code> (the loader's own
+count of the records it loaded, so records it skipped or discarded are not included),
+<code>ErrorItemCount</code> (items skipped by an error policy, summed across the stages)
 and <code>Elapsed</code>, regardless of how many stages sit in between.</li>
 <li><strong>Cancellation</strong> — the token passed to <code>RunAsync</code> is observed while pulling from the
 source and is forwarded into any cancellation-aware transformer stage.</li>
@@ -324,7 +325,7 @@ maps every call shape of one onto the other.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/docfx_project/docs/getting-started.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/docfx_project/docs/getting-started.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

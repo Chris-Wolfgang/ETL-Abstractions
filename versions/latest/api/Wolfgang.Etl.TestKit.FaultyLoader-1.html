@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.27.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_FaultyLoader_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.FaultyLoader%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Abstractions/new/v0.28.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_FaultyLoader_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.FaultyLoader%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_TestKit_FaultyLoader_1" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1" class="text-break">
-Class FaultyLoader&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L46"><i class="bi bi-code-slash"></i></a>
+Class FaultyLoader&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L46"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -266,9 +266,9 @@ instance.
 </p>
 <p>
 Fault indices are zero-based and refer to the position in the loaded (post-skip)
-sequence. A configured fault fires <em>after</em>
-<a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount">IncrementCurrentItemCount()</a> for that item,
-so a progress report reflects the item that caused the failure. When a
+sequence. A configured fault fires <em>instead of</em> the item: the failing item is not
+stored and is not counted in <code>CurrentItemCount</code>, whether the run then aborts or the
+item is skipped by an error policy. When a
 <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a> and a <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1_DuplicateAt_System_Int32_">DuplicateAt(int)</a> are configured for the same index,
 the throw takes precedence and the duplicate is not loaded. Calling <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a>
 twice for the same index replaces the earlier exception (last-wins).
@@ -284,7 +284,7 @@ twice for the same index replaces the earlier exception (last-wins).
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1__ctor_System_Boolean_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.#ctor(System.Boolean)">
   FaultyLoader(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L79"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html">FaultyLoader&lt;T&gt;</a>.</p>
@@ -320,7 +320,7 @@ not stored — <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wo
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_IProgressTimer_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.IProgressTimer)">
   FaultyLoader(bool, IProgressTimer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L119"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html">FaultyLoader&lt;T&gt;</a> with the supplied
@@ -365,7 +365,7 @@ not stored — <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wo
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_IProgressTimer_Wolfgang_Etl_Abstractions_LoaderOptions_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.IProgressTimer,Wolfgang.Etl.Abstractions.LoaderOptions)">
   FaultyLoader(bool, IProgressTimer, LoaderOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L139"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html">FaultyLoader&lt;T&gt;</a> as <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_IProgressTimer_">FaultyLoader(bool, IProgressTimer)</a> does, with the
@@ -408,7 +408,7 @@ base-stage configuration (<code>ReportingInterval</code>, <code>MaximumItemCount
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_LoaderOptions_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.LoaderOptions)">
   FaultyLoader(bool, LoaderOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L97"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html">FaultyLoader&lt;T&gt;</a> as <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1__ctor_System_Boolean_">FaultyLoader(bool)</a> does, with the
@@ -453,7 +453,7 @@ not stored — <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wo
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_CapturedErrors" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.CapturedErrors">
   CapturedErrors
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L314"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L317"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorContext.html">ItemErrorContext</a> for every item whose injected fault was routed
@@ -479,6 +479,10 @@ configured (faults propagate) or when no fault has fired.</p>
 
 
 
+  <h4 class="section" id="Wolfgang_Etl_TestKit_FaultyLoader_1_CapturedErrors_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Per run, like the stage's counters: the list is cleared each time the worker starts, so a
+reused instance reports only the errors of its latest run.</p>
+</div>
 
 
 
@@ -491,7 +495,7 @@ configured (faults propagate) or when no fault has fired.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_CreateProgressReport" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.CreateProgressReport">
   CreateProgressReport()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L411"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L409"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a progress report of type TProgress. This gives the derived class the opportunity to
@@ -525,7 +529,7 @@ implement a custom progress report that is specific to the loading process.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_CreateProgressTimer_System_IProgress_Wolfgang_Etl_Abstractions_Report__" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.CreateProgressTimer(System.IProgress{Wolfgang.Etl.Abstractions.Report})">
   CreateProgressTimer(IProgress&lt;Report&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L370"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L368"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html">IProgressTimer</a> used to drive progress callbacks.
@@ -566,7 +570,7 @@ Override this method in a derived class to inject a custom timer
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_Dispose_System_Boolean_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.Dispose(System.Boolean)">
   Dispose(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L397"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L395"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Unsubscribes the <a class="xref" href="Wolfgang.Etl.Abstractions.IProgressTimer.html#Wolfgang_Etl_Abstractions_IProgressTimer_Elapsed">Elapsed</a> handler from an injected
@@ -601,7 +605,7 @@ timer. The injected timer is owned by the caller and is therefore not disposed h
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_DuplicateAt_System_Int32_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.DuplicateAt(System.Int32)">
   DuplicateAt(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L248"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L247"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the loader to load the item at the specified zero-based
@@ -652,7 +656,7 @@ so the total number of loaded items grows by one per configured duplicate.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_GetCollectedItems" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.GetCollectedItems">
   GetCollectedItems()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L160"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a snapshot of the items loaded so far, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if the
@@ -688,7 +692,7 @@ disabled.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_HandleErrorsWith_System_Func_Wolfgang_Etl_Abstractions_ItemErrorContext_Wolfgang_Etl_Abstractions_ItemErrorAction__" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.HandleErrorsWith(System.Func{Wolfgang.Etl.Abstractions.ItemErrorContext,Wolfgang.Etl.Abstractions.ItemErrorAction})">
   HandleErrorsWith(Func&lt;ItemErrorContext, ItemErrorAction&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L300"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L299"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures a custom per-item error policy. When an injected <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a> fault
@@ -737,7 +741,7 @@ fires, <code class="paramref">policy</code> is invoked with the failing item's
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_LoadWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
   LoadWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L417"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L427"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>This method is the core implementation of the loading logic and should be
@@ -783,7 +787,7 @@ overridden by derived classes.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_OnItemError_Wolfgang_Etl_Abstractions_ItemErrorContext_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext)">
   OnItemError(ItemErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L330"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L333"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Records the failed item and applies the configured error policy. Invoked by the base
@@ -825,7 +829,7 @@ policy is configured.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_SkipErrors" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.SkipErrors">
   SkipErrors()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L279"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L278"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the loader to route every injected <a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html#Wolfgang_Etl_TestKit_FaultyLoader_1_ThrowAt_System_Int32_System_Exception_">ThrowAt(int, Exception)</a> fault through the
@@ -867,7 +871,7 @@ default behaviour. The failing item is neither stored nor counted as loaded, and
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_ThrowAfterCompletion_System_Exception_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.ThrowAfterCompletion(System.Exception)">
   ThrowAfterCompletion(Exception)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L223"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L222"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the loader to throw <code class="paramref">exception</code> after all items have been
@@ -917,15 +921,14 @@ loaded successfully, simulating a cleanup or finalization failure.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_FaultyLoader_1_ThrowAt_System_Int32_System_Exception_" data-uid="Wolfgang.Etl.TestKit.FaultyLoader`1.ThrowAt(System.Int32,System.Exception)">
   ThrowAt(int, Exception)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L193"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the loader to throw <code class="paramref">exception</code> when it reaches the item
 at the specified zero-based <code class="paramref">index</code> in the loaded sequence. The
-failing item is counted (its
-<a class="xref" href="Wolfgang.Etl.Abstractions.LoaderBase-2.html#Wolfgang_Etl_Abstractions_LoaderBase_2_IncrementCurrentItemCount">IncrementCurrentItemCount()</a> runs) before
-the exception is thrown, so progress reflects the item that caused the failure, but
-the item itself is not stored.</p>
+failing item is not stored and is not counted: <code>CurrentItemCount</code> stays at the number of
+items stored before it, the same count whether the run aborts by default or through an
+error policy that returns <a class="xref" href="Wolfgang.Etl.Abstractions.ItemErrorAction.html#Wolfgang_Etl_Abstractions_ItemErrorAction_Abort">Abort</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -977,7 +980,7 @@ the item itself is not stored.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.27.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L46" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Abstractions/blob/v0.28.0/src/Wolfgang.Etl.TestKit/FaultyLoader.cs/#L46" class="edit-link">Edit this page</a>
         </div>
 
 
