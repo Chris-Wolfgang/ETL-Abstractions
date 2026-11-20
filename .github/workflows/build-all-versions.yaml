@@ -19,7 +19,14 @@ jobs:
   build-and-deploy:
     name: Build & Deploy All Versioned Docs
     runs-on: windows-latest
-    timeout-minutes: 30
+    # Restores and builds the docs of every release tag in turn (35 on 2026-11-18), so the
+    # run grows with each release; 30 minutes left little room. No run on record to size it from.
+    timeout-minutes: 90
+    # Shares docfx.yaml's group: both rewrite the same docs files on gh-pages, so they run one
+    # at a time. Never cancel a deploy in flight.
+    concurrency:
+      group: gh-pages-docs-${{ github.repository }}
+      cancel-in-progress: false
 
     permissions:
       contents: write # Required to push to gh-pages branch
