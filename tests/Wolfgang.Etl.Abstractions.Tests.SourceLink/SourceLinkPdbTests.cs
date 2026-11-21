@@ -39,6 +39,7 @@ public class SourceLinkPdbTests
     public static TheoryData<string> ShippedPackages() => new()
     {
         "Wolfgang.Etl.Abstractions",
+        "Wolfgang.Etl.Abstractions.Streams",
         "Wolfgang.Etl.ErrorPolicies",
         "Wolfgang.Etl.TestKit",
         "Wolfgang.Etl.TestKit.Xunit"
