@@ -15,7 +15,7 @@ its status updated, so the history of the thinking is preserved.
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
 | [0002](0002-etlpipeline-core-in-abstractions-operators-in-transformers.md) | EtlPipeline core in Abstractions; operators in Transformers | Accepted |
 | [0003](0003-from-as-extension-method.md) | `Create().From()` with `From` as an extension method | Accepted |
-| [0004](0004-etlpipelineprogress-extracted-loaded-elapsed.md) | `EtlPipelineProgress` reports extracted / loaded / elapsed only | Accepted |
+| [0004](0004-etlpipelineprogress-extracted-loaded-elapsed.md) | `EtlPipelineProgress` reports extracted / loaded / elapsed only | Superseded by ADR-0013 |
 | [0005](0005-name-etlpipeline-not-pipeline.md) | Name the generic builder `EtlPipeline`, not `Pipeline` | Accepted |
 | [0006](0006-sequential-reverse-order-stage-disposal.md) | Dispose stages sequentially, in reverse construction order | Accepted |
 | [0007](0007-pin-assemblyversion.md) | Pin `<AssemblyVersion>` at `1.0.0.0` | Accepted |
@@ -23,7 +23,9 @@ its status updated, so the history of the thinking is preserved.
 | [0009](0009-options-record-for-stage-configuration.md) | Configure stages with an options record, not properties on the stage | Accepted |
 | [0010](0010-pin-assemblyversion-for-binding-stability.md) | Pin AssemblyVersion at 1.0.0.0 for binding stability (TestKit) | Superseded by ADR-0007 |
 | [0011](0011-split-doubles-and-contract-tests-into-two-packages.md) | Ship the test doubles and the contract-test base classes as two packages | Accepted |
-| [0012](0012-deterministic-progress-timer-via-injection.md) | Make progress reporting deterministic via an injectable timer | Accepted |
+| [0012](0012-deterministic-progress-timer-via-injection.md) | Make progress reporting deterministic via an injectable timer | Superseded by ADR-0014 |
+| [0013](0013-progress-snapshot-and-stage-observers.md) | Report aggregate item errors and expose stage-specific progress | Accepted |
+| [0014](0014-manual-progress-timer-core-for-tests.md) | Drive stage progress tests through a manual timer core | Accepted |
 | [0015](0015-assemblyversion-policy-for-the-etl-family.md) | `<AssemblyVersion>` policy for the ETL family: `0.{Minor}.0.0` for new libraries, existing pins stay | Accepted |
 | [0016](0016-declare-trim-and-native-aot-compatibility.md) | Declare the shipped libraries trim- and Native-AOT-compatible, and prove it with a published smoke test | Accepted |
 | [0017](0017-notnull-on-record-and-progress-type-parameters.md) | Constrain record and progress type parameters to `notnull` | Accepted |

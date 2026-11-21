@@ -5,7 +5,7 @@
 
 ## Status
 
-Accepted
+Superseded by [ADR-0014](0014-manual-progress-timer-core-for-tests.md)
 
 ## Context
 
