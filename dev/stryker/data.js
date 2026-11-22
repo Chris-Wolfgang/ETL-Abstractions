@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794865397813,
+  "lastUpdate": 1795356646739,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "Mutation score": [
@@ -363,6 +363,43 @@ window.BENCHMARK_DATA = {
           {
             "name": "Mutation score (tests/Wolfgang.Etl.TestKit.Tests.Unit)",
             "value": 98.28,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "MatheoPaiva",
+            "username": "MatheoPaiva",
+            "email": "64564295+MatheoPaiva@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "028d6b964dc560e2b4c08b1aa852f24b945679c8",
+          "message": "docs: supersede outdated pipeline progress decisions (#914)\n\nCo-authored-by: Chris Wolfgang <210299580+Chris-Wolfgang@users.noreply.github.com>\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+          "timestamp": "2026-11-21T01:14:20Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/028d6b964dc560e2b4c08b1aa852f24b945679c8"
+        },
+        "date": 1795356642028,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.Abstractions.Tests.Unit)",
+            "value": 98.22,
+            "unit": "%"
+          },
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.ErrorPolicies.Tests.Unit)",
+            "value": 100,
+            "unit": "%"
+          },
+          {
+            "name": "Mutation score (tests/Wolfgang.Etl.TestKit.Tests.Unit)",
+            "value": 98.93,
             "unit": "%"
           }
         ]
