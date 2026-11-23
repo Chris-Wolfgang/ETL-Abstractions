@@ -13,3 +13,7 @@ opentelemetry-sdk>=1.45.2
 opentelemetry-exporter-otlp-proto-http>=1.45.2
 opentelemetry-instrumentation-requests>=0.66b1
 opentelemetry-instrumentation-threading>=0.66b1
+
+# wcmatch 8.x (pinned ~=8.3 by semgrep) carries GHSA-53pm-wgxf-c6qf (polynomial-time ReDoS), fixed in 11.2.
+# Remove this line once a semgrep release declares wcmatch>=11.2.
+wcmatch>=11.2
