@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1795117443691,
+  "lastUpdate": 1795476045772,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -7308,6 +7308,114 @@ window.BENCHMARK_DATA = {
             "value": 7217951.1171875,
             "unit": "ns",
             "range": "± 11545.435708137431"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a470aa1c51b74b34bd2079fd6b634d0fe3630485",
+          "message": "refactor: make FinalProgressReport.TrySend void (#1021)\n\nIts bool result was discarded by the only caller, so the two Boolean mutants (return true/false) could not be observed by any test. Removing the unused result removes the equivalent mutants.\n\nCo-authored-by: Claude Sonnet 5.5 <noreply@anthropic.com>",
+          "timestamp": "2026-11-23T18:18:10-05:00",
+          "tree_id": "6c1819c4ca4ca04222bb92fb9eb770dccf683d01",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/a470aa1c51b74b34bd2079fd6b634d0fe3630485"
+        },
+        "date": 1795476040789,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 144320.71183268228,
+            "unit": "ns",
+            "range": "± 280.82718439425213"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 168484.25459798178,
+            "unit": "ns",
+            "range": "± 521.2886491151907"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 14365771.932291666,
+            "unit": "ns",
+            "range": "± 68624.06026051115"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 16658779.114583334,
+            "unit": "ns",
+            "range": "± 6451.208441887232"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 41581.730072021484,
+            "unit": "ns",
+            "range": "± 59.84888764565476"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 43871.48197428385,
+            "unit": "ns",
+            "range": "± 113.13559232223433"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 4182819.5260416665,
+            "unit": "ns",
+            "range": "± 7516.274283090869"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 4305558.544270833,
+            "unit": "ns",
+            "range": "± 10548.952885447468"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 35860.58225504557,
+            "unit": "ns",
+            "range": "± 115.09996562010912"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 35044.860860188805,
+            "unit": "ns",
+            "range": "± 76.00062825938538"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 97630.67635091145,
+            "unit": "ns",
+            "range": "± 392.45630176277194"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 3541595.9342447915,
+            "unit": "ns",
+            "range": "± 2436.4639595205763"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 3487261.0494791665,
+            "unit": "ns",
+            "range": "± 576.6123963781404"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 9574003.333333334,
+            "unit": "ns",
+            "range": "± 46126.11322910909"
           }
         ]
       }
