@@ -27,7 +27,7 @@ internal static class FinalProgressReport
     {
         if (runFailed)
         {
-            _ = TrySend(progress, createReport);
+            TrySend(progress, createReport);
             return;
         }
 
@@ -36,20 +36,19 @@ internal static class FinalProgressReport
 
 
 
-    // Returns whether the report was delivered. The caller above ignores the answer: on a failed
-    // run the exception already unwinding the run is the one the caller of the stage needs.
-    private static bool TrySend<TProgress>(IProgress<TProgress> progress, Func<TProgress> createReport)
+    // Delivers the report and swallows any failure: on a failed run the exception already unwinding
+    // the run is the one the caller of the stage needs.
+    private static void TrySend<TProgress>(IProgress<TProgress> progress, Func<TProgress> createReport)
     {
         try
         {
             progress.Report(createReport());
-            return true;
         }
 #pragma warning disable CA1031 // Do not catch general exception types — intentional: the run's own exception must reach the caller.
         catch (Exception)
 #pragma warning restore CA1031
         {
-            return false;
+            // Intentionally empty: see the comment above the method.
         }
     }
 }
