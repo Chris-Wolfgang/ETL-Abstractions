@@ -247,7 +247,7 @@ View the complete configuration in [.editorconfig](.editorconfig).
   maintainer would otherwise re-derive), add an Architecture Decision Record in
   [`docs/adr/`](docs/adr/index.md) in the same PR — copy
   [`TEMPLATE.md`](docs/adr/TEMPLATE.md) and add a row to the index. See
-  [ADR-0001](docs/adr/0001-record-architecture-decisions.md) for the practice.
+  [ADR-0000](docs/adr/0000-record-architecture-decisions.md) for the practice.
 
 ### Changelog fragment
 

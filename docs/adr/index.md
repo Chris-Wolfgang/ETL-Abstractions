@@ -3,7 +3,7 @@
 This folder records the non-obvious design decisions behind the four packages in this
 repository (`Wolfgang.Etl.Abstractions`, `Wolfgang.Etl.ErrorPolicies`, `Wolfgang.Etl.TestKit` and
 `Wolfgang.Etl.TestKit.Xunit`) — the *why* that the code and type signatures can't
-carry on their own. See [ADR-0001](0001-record-architecture-decisions.md) for the
+carry on their own. See [ADR-0000](0000-record-architecture-decisions.md) for the
 practice itself, and [`TEMPLATE.md`](TEMPLATE.md) to add a new one.
 
 Each ADR is immutable once **Accepted**. A decision that gets reversed is recorded
@@ -12,7 +12,8 @@ its status updated, so the history of the thinking is preserved.
 
 | # | Title | Status |
 |---|-------|--------|
-| [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
+| [0000](0000-record-architecture-decisions.md) | Record architecture decisions | Accepted |
+| [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Superseded by [0000](0000-record-architecture-decisions.md) |
 | [0002](0002-etlpipeline-core-in-abstractions-operators-in-transformers.md) | EtlPipeline core in Abstractions; operators in Transformers | Accepted |
 | [0003](0003-from-as-extension-method.md) | `Create().From()` with `From` as an extension method | Accepted |
 | [0004](0004-etlpipelineprogress-extracted-loaded-elapsed.md) | `EtlPipelineProgress` reports extracted / loaded / elapsed only | Superseded by ADR-0013 |
