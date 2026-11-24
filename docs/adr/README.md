@@ -10,6 +10,7 @@ itself, and the consequences (good and bad). ADRs are immutable once accepted �
 when a decision changes, add a **new** ADR that supersedes the old one rather
 than editing history.
 
+- **[ADR 0000](0000-record-architecture-decisions.md)** — the practice these records follow.
 - **[index.md](index.md)** — the list of all ADRs and their status.
 - **[TEMPLATE.md](TEMPLATE.md)** — the skeleton to copy when adding one.
 
