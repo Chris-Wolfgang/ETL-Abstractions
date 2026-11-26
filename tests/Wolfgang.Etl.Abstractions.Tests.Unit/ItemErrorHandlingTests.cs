@@ -759,6 +759,8 @@ public sealed class ItemErrorHandlingTests
     public async Task Loader_worker_when_policy_aborts_throws_on_the_first_bad_item_and_still_sends_a_final_report()
     {
         using var sut = new ConfigurableLoader { Policy = ItemErrorAction.Abort };
+        // Never ticks, so the final report is the only report however long the run takes.
+        sut.TimerCoreFactory = _ => new IdleTimerCore();
         var reports = new List<EtlProgress>();
         var progress = new SynchronousProgress<EtlProgress>(reports.Add);
 
@@ -773,6 +775,8 @@ public sealed class ItemErrorHandlingTests
     public async Task Transformer_worker_when_policy_aborts_throws_on_the_first_bad_item_and_still_sends_a_final_report()
     {
         using var sut = new ConfigurableTransformer { Policy = ItemErrorAction.Abort };
+        // Never ticks, so the final report is the only report however long the run takes.
+        sut.TimerCoreFactory = _ => new IdleTimerCore();
         var reports = new List<EtlProgress>();
         var progress = new SynchronousProgress<EtlProgress>(reports.Add);
 
