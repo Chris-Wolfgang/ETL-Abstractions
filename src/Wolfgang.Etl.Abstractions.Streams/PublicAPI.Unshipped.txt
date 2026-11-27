@@ -1,0 +1,55 @@
+#nullable enable
+Wolfgang.Etl.Abstractions.Streams.MultiStreamErrorAction
+Wolfgang.Etl.Abstractions.Streams.MultiStreamErrorAction.Continue = 1 -> Wolfgang.Etl.Abstractions.Streams.MultiStreamErrorAction
+Wolfgang.Etl.Abstractions.Streams.MultiStreamErrorAction.Stop = 0 -> Wolfgang.Etl.Abstractions.Streams.MultiStreamErrorAction
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.CreateMultiStreamProgress() -> Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress!
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.CurrentFailedSourceCount.get -> int
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.CurrentSourceName.get -> string?
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.CurrentSourceNumber.get -> int
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.MultiStreamExtractorBase(System.Collections.Generic.IEnumerable<Wolfgang.Etl.Abstractions.Streams.NamedStreamSource!>! sources, Wolfgang.Etl.Abstractions.ExtractorOptions? options = null) -> void
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.SourceErrorAction.get -> Wolfgang.Etl.Abstractions.Streams.MultiStreamErrorAction
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.SourceErrorAction.init -> void
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.SourceErrorHandler.get -> System.Action<Wolfgang.Etl.Abstractions.Streams.StreamSourceError!>?
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.SourceErrorHandler.init -> void
+Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.TotalSourceCount.get -> int
+Wolfgang.Etl.Abstractions.Streams.MultiStreamLoaderBase<TRecord, TProgress>
+Wolfgang.Etl.Abstractions.Streams.MultiStreamLoaderBase<TRecord, TProgress>.CreateMultiStreamProgress() -> Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress!
+Wolfgang.Etl.Abstractions.Streams.MultiStreamLoaderBase<TRecord, TProgress>.CurrentSourceName.get -> string?
+Wolfgang.Etl.Abstractions.Streams.MultiStreamLoaderBase<TRecord, TProgress>.CurrentSourceNumber.get -> int
+Wolfgang.Etl.Abstractions.Streams.MultiStreamLoaderBase<TRecord, TProgress>.MultiStreamLoaderBase(System.Func<TRecord, Wolfgang.Etl.Abstractions.Streams.NamedStreamDestination!>! destinationSelector, Wolfgang.Etl.Abstractions.LoaderOptions? options = null) -> void
+Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress
+Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.CurrentFailedSourceCount.get -> int
+Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.CurrentSourceName.get -> string?
+Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.CurrentSourceNumber.get -> int
+Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.MultiStreamProgress(Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress! original) -> void
+Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.MultiStreamProgress(int currentItemCount, System.DateTimeOffset? startedAt, System.TimeSpan elapsed, int currentSourceNumber, int totalSourceCount, string? currentSourceName, int currentFailedSourceCount) -> void
+Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.TotalSourceCount.get -> int
+Wolfgang.Etl.Abstractions.Streams.NamedStreamDestination
+Wolfgang.Etl.Abstractions.Streams.NamedStreamDestination.Name.get -> string?
+Wolfgang.Etl.Abstractions.Streams.NamedStreamDestination.NamedStreamDestination(System.IO.StreamWriter! writer, string? name = null) -> void
+Wolfgang.Etl.Abstractions.Streams.NamedStreamDestination.Writer.get -> System.IO.StreamWriter!
+Wolfgang.Etl.Abstractions.Streams.NamedStreamSource
+Wolfgang.Etl.Abstractions.Streams.NamedStreamSource.Name.get -> string?
+Wolfgang.Etl.Abstractions.Streams.NamedStreamSource.NamedStreamSource(System.IO.StreamReader! reader, string? name = null) -> void
+Wolfgang.Etl.Abstractions.Streams.NamedStreamSource.Reader.get -> System.IO.StreamReader!
+Wolfgang.Etl.Abstractions.Streams.StreamSourceError
+Wolfgang.Etl.Abstractions.Streams.StreamSourceError.Exception.get -> System.Exception!
+Wolfgang.Etl.Abstractions.Streams.StreamSourceError.Name.get -> string?
+Wolfgang.Etl.Abstractions.Streams.StreamSourceError.SourceIndex.get -> int
+Wolfgang.Etl.Abstractions.Streams.StreamSourceError.StreamSourceError(string? name, int sourceIndex, System.Exception! exception) -> void
+abstract Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.ExtractSourceAsync(System.IO.StreamReader! reader, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TRecord>!
+abstract Wolfgang.Etl.Abstractions.Streams.MultiStreamLoaderBase<TRecord, TProgress>.WriteRecordAsync(TRecord record, Wolfgang.Etl.Abstractions.Streams.NamedStreamDestination! destination, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
+override Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.EqualityContract.get -> System.Type!
+override Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.Equals(object? obj) -> bool
+override Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.GetHashCode() -> int
+override Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.PrintMembers(System.Text.StringBuilder! builder) -> bool
+override Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.ToString() -> string!
+override sealed Wolfgang.Etl.Abstractions.Streams.MultiStreamExtractorBase<TRecord, TProgress>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<TRecord>!
+override sealed Wolfgang.Etl.Abstractions.Streams.MultiStreamLoaderBase<TRecord, TProgress>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<TRecord>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
+override sealed Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.Equals(Wolfgang.Etl.Abstractions.Report? other) -> bool
+static Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.operator !=(Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress? left, Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress? right) -> bool
+static Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.operator ==(Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress? left, Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress? right) -> bool
+virtual Wolfgang.Etl.Abstractions.Streams.MultiStreamLoaderBase<TRecord, TProgress>.OnDestinationClosingAsync(Wolfgang.Etl.Abstractions.Streams.NamedStreamDestination! destination, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
+virtual Wolfgang.Etl.Abstractions.Streams.MultiStreamLoaderBase<TRecord, TProgress>.OnDestinationOpenedAsync(Wolfgang.Etl.Abstractions.Streams.NamedStreamDestination! destination, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
+virtual Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress.Equals(Wolfgang.Etl.Abstractions.Streams.MultiStreamProgress? other) -> bool
