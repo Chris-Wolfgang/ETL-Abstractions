@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1795476045772,
+  "lastUpdate": 1795785833746,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Abstractions",
   "entries": {
     "BenchmarkDotNet": [
@@ -7416,6 +7416,114 @@ window.BENCHMARK_DATA = {
             "value": 9574003.333333334,
             "unit": "ns",
             "range": "± 46126.11322910909"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f454ae0e5775edfc2a4945fe0c49032d119e60ec",
+          "message": "fix: discard a failed run's final-report error with a catch filter (#1025)\n\nFinalProgressReport.TrySend ended in an empty `catch (Exception)` after\n#1021, which InspectCode reports as RCS1075 (alert 2494 on main 905f714).\nSend now wraps the single Report call in `catch (Exception) when\n(runFailed)`: the same behaviour (propagate on a run that did not fail,\ndiscard on a failed run) without the empty catch-all clause, and the\nduplicated Report call is gone.\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+          "timestamp": "2026-11-27T08:20:47-05:00",
+          "tree_id": "d81fc9e8c168e772e7bb5376b7ec54dc08a62573",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Abstractions/commit/f454ae0e5775edfc2a4945fe0c49032d119e60ec"
+        },
+        "date": 1795785830281,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 1000)",
+            "value": 106109.19496663411,
+            "unit": "ns",
+            "range": "± 231.06509648463464"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 1000)",
+            "value": 131035.19864908855,
+            "unit": "ns",
+            "range": "± 310.72429194302697"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_without_progress(RecordCount: 100000)",
+            "value": 10661857.380208334,
+            "unit": "ns",
+            "range": "± 25874.110649063172"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.EtlPipelineBenchmarks.EtlPipeline_with_progress(RecordCount: 100000)",
+            "value": 13137685.416666666,
+            "unit": "ns",
+            "range": "± 40033.662921132935"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 1000)",
+            "value": 32938.73986816406,
+            "unit": "ns",
+            "range": "± 67.18608860604341"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 1000)",
+            "value": 34539.02744547526,
+            "unit": "ns",
+            "range": "± 98.86466261776384"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_NoProgress(RecordCount: 100000)",
+            "value": 3270368.7037760415,
+            "unit": "ns",
+            "range": "± 7689.359621699343"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.ExtractorBenchmarks.Extract_WithProgress(RecordCount: 100000)",
+            "value": 3458789.693359375,
+            "unit": "ns",
+            "range": "± 3857.7221209910667"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 1000)",
+            "value": 28595.898091634113,
+            "unit": "ns",
+            "range": "± 25.051693162073924"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 1000)",
+            "value": 28335.07066853841,
+            "unit": "ns",
+            "range": "± 44.97351154513252"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 1000)",
+            "value": 72814.02360026042,
+            "unit": "ns",
+            "range": "± 157.34997096645048"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.FluentPipeline(RecordCount: 100000)",
+            "value": 2839137.912109375,
+            "unit": "ns",
+            "range": "± 5637.810228714962"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.ManualComposition(RecordCount: 100000)",
+            "value": 2817976.6516927085,
+            "unit": "ns",
+            "range": "± 3117.565424393584"
+          },
+          {
+            "name": "Wolfgang.Etl.Abstractions.Benchmarks.PipelineBenchmarks.BaseClassComposition(RecordCount: 100000)",
+            "value": 7255070.6015625,
+            "unit": "ns",
+            "range": "± 13027.827009692845"
           }
         ]
       }
