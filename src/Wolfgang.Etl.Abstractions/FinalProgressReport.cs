@@ -25,30 +25,18 @@ internal static class FinalProgressReport
         bool runFailed
     )
     {
-        if (runFailed)
-        {
-            TrySend(progress, createReport);
-            return;
-        }
-
-        progress.Report(createReport());
-    }
-
-
-
-    // Delivers the report and swallows any failure: on a failed run the exception already unwinding
-    // the run is the one the caller of the stage needs.
-    private static void TrySend<TProgress>(IProgress<TProgress> progress, Func<TProgress> createReport)
-    {
         try
         {
             progress.Report(createReport());
         }
+        // The filter limits the discard to a failed run: on a run that did not fail, the exception
+        // propagates. On a failed run the exception already unwinding the run is the one the caller
+        // of the stage needs, so the report's own failure is dropped.
 #pragma warning disable CA1031 // Do not catch general exception types — intentional: the run's own exception must reach the caller.
-        catch (Exception)
+        catch (Exception) when (runFailed)
 #pragma warning restore CA1031
         {
-            // Intentionally empty: see the comment above the method.
+            // Nothing to do: the filter above already decided to discard this exception.
         }
     }
 }
